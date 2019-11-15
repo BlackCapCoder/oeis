@@ -1,47 +1,65 @@
 {-# OPTIONS_GHC -freduction-depth=0 #-}
+{-# LANGUAGE UndecidableInstances #-}
 
+import Type
+import Instances
+import Implemented
 import OEIS
-import OEIS.Spec
+
 import Control.Monad
 import System.Timeout
+import Data.Proxy
 
-type Tests =
-  '[2,4,5,6,7,8,10,12,13,15,21,23,26,27,28,30,31,32,34,35,37,38,40,42,43,44,45,50,51,58,59,62,69,71,73,78,79,81,85,93,96,100,106,108,116,119,120,123,124,129,142,149,153,165,166,169,178,193,194,195,196,197,201,204,208,209,210,211,212,213,215,217,225,227,230,244,247,248,253,255,265,272,277,278,285,290,292,295,297,301,302,304,312,325,326,328,330,340,350,351,379,384,389,400,420,433,461,462,463,472,522,523,537,538,540,566,567,578,583,584,586,593,603,607,689,695,703,749,788,792,793,803,898,902,904,918,925,930,931,934,957,959,960,961,975,980,982,992,1008,1014,1018,1019,1021,1025,1030,1040,1042,1043,1044,1045,1047,1053,1056,1057,1064,1075,1078,1088,1093,1106,1108,1109,1110,1113,1140,1146,1147,1156,1157,1175,1176,1177,1179,1196,1221,1222,1223,1248,1274,1286,1299,1300,1316,1333,1353,1358,1399,1444,1462,1463,1477,1494,1497,1511,1515,1521,1541,1542,1550,1563,1595,1599,1600,1602,1608,1610,1611,1612,1616,1629,1634,1644,1651,1652,1653,1654,1696,1697,1704,1715,1720,1725,1730,1748,1749,1787,1788,1789,1817,1822,1834,1835,1836,1838,1844,1845,1855,1870,1906,1911,1923,1924,1945,1950,1951,1952,1969,1971,2024,2048,2049,2061,2062,2064,2081,2083,2088,2104,2109,2110,2131,2187,2193,2203,2260,2262,2264,2266,2275,2283,2311,2313,2315,2324,2326,2378,2379,2380,2387,2411,2450,2472,2476,2487,2491,2517,2522,2541,2605,2620,2627,2635,2796,2805,2814,2821,2822,2878,10052,20639,27750,123010,124010,182469,219092]
 
+class Reify a b where
+  reify :: b
+
+instance Reify '[] [a] where
+  reify = []
+
+instance (Reify x a, Reify xs [a]) => Reify (x ': xs) [a] where
+  reify = reify @x : reify @xs
+
+instance (KnownNat n, Integral i) => Reify (n :: Nat) i where
+  reify = fromIntegral . natVal $ Proxy @n
+
+instance (KnownNat n, Integral i) => Reify ('Pos n) i where
+  reify = reify @n
+
+instance (KnownNat n, Integral i) => Reify ('Neg n) i where
+  reify = negate $ reify @n
+
+
+type Testable (n :: Nat) i
+  = (KnownNat n, OEIS n, Integral i, Reify (SpecT n) [i])
 
 data Test where
-  Test :: forall (n :: Nat). (OEIS n, OEISSpec n, KnownNat n) => A n -> Test
+  Test :: (Testable n i) => A n -> [i] -> Test
 
 class MkTests (k :: [Nat]) where
   mkTests :: [Test]
 
-instance (OEIS x, OEISSpec x, KnownNat x, MkTests xs) => MkTests (x ': xs) where
-  mkTests = Test (mkA @x) : mkTests @xs
-
 instance MkTests '[] where
   mkTests = []
 
-tests :: [Test]
-tests = mkTests @Tests
+instance (Testable x i, MkTests xs) => MkTests (x ': xs) where
+  mkTests = Test (mkA @x) (reify @(SpecT x) @[i]) : mkTests @xs
 
-
-runTest :: Test -> IO ()
-runTest (Test x) = do
-  let Spec a = x
-  let A    b = x
-
-  -- print x
-
-  res <- timeout 100000 $ pure $! and $ zipWith (==) a $ take 10 b
+runTest :: Test -> IO Bool
+runTest (Test a@(A as) bs) = do
+  res <- timeout 100000 $ pure $! and $ zipWith (==) as $ take 10 bs
 
   case res of
-    Nothing    -> putStrLn $ show x ++ " timed out!"
-    Just False -> putStrLn $ show x ++ " not equal spec!"
-    Just True  -> pure ()
-
+    Nothing    -> do putStrLn $ show a ++ " timed out!"; pure True
+    Just False -> do putStrLn $ show a ++ " not equal spec!"; pure False
+    Just True  -> pure True
 
 main :: IO ()
 main = do
   putStrLn []
-  mapM_ runTest tests
+  res <- and <$> mapM runTest tests
+  unless res $ error ""
+
+tests :: [Test]
+tests = mkTests @Implemented
 

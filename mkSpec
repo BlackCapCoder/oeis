@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# printf 'data N = Pos Integer | Neg Integer deriving Show\nmain=interact$show . map (\\x -> if x < 0 then Neg x else Pos x) . map read . lines' > /tmp/tmp.hs
+
+(
+cat << EOF
+import Data.List
+
+data N = Pos Integer | Neg Integer deriving Show
+toN n | n > 0 = Pos n | let = Neg (negate n)
+
+outp (a, ns) = concat
+  [ "type instance SpecT ", show a
+  , "\n  = '", show (map toN ns)
+  , "\n" ]
+
+parse = read :: String -> (Int, [Integer])
+
+main = interact $ unlines . map outp . sortOn fst . map parse . lines
+
+EOF
+) > /tmp/tmp.hs
+
+(
+cat << EOF
+module Instances where
+
+import Type
+
+EOF
+
+
+jq '"(\(.results|.[]|.number),[\(.results|.[]|.data)])"' -r cache/* | runhaskell /tmp/tmp.hs
+
+) > test/Instances.hs
+
+(
+cat << EOF
+module Implemented where
+
+import Type
+EOF
+
+echo -n "type Implemented = '"
+./listImplemented
+echo
+
+) > test/Implemented.hs

@@ -1,0 +1,50 @@
+name: Testsuite
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-haskell@v1
+      with:
+        ghc-version: '8.6.5'
+        cabal-version: '3.0'
+
+
+    # Libraries
+    - name: Cabal directory
+      id:   cache-cabal
+      uses: actions/cache@v1
+      with:
+        path: ~/.cabal
+        key: ${{ runner.os }}-cabal-${{ hashFiles('oeis.cabal') }}
+        restore-keys: |
+          ${{ runner.os }}-cabal-
+
+    # Build files
+    - name: Cache distnew
+      id:   cache-distnew
+      uses: actions/cache@v1
+      with:
+        path: ./dist-newstyle
+        key: ${{ runner.os }}-dist-new-${{ hashFiles('**/*.hs') }}
+        restore-keys: |
+          ${{ runner.os }}-dist-new-
+
+    - name: Update
+      run: |
+        echo "allow-newer: all" > cabal.project.local
+        if [ ! -d ~/.cabal ]; then cabal update; fi
+
+    - name: Dependencies
+      if: steps.cache-distnew.outputs.cache-hit != 'true'
+      run: |
+        cabal new-build --dependencies-only
+
+    - name: Run tests
+      run: |
+        cabal --ignore-expiry new-test -v --offline --only

@@ -1,6 +1,6 @@
 #!/bin/bash
 
 
-printf 'r=read::String->Int;main = interact $ show . map r . lines' > /tmp/tmp.hs
+printf 'r=read::String->Int;main = interact $ show . map r . lines' > /tmp/tmp2.hs
 
-cat src/OEIS/Prime.hs | grep -Po '^instance OEIS \K\d*' | sort -n | runhaskell /tmp/tmp.hs
+cat src/OEIS/Prime.hs | grep -Po '^instance OEIS \K\d*' | sort -n | runhaskell /tmp/tmp2.hs

@@ -1,0 +1,30 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000611",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 611,
+			"data": "1,0,1,0,6,40,17760,2096640,29659631400",
+			"name": "Number of normalized Latin squares of order n containing no 2 X 2 Latin subsquare.",
+			"reference": [
+				"B. D. McKay and I. M. Wanless, Most Latin squares have many subsquares, J. Combin. Theory A 86 (1999), 323-347."
+			],
+			"link": [
+				"B. D. McKay and E. Rogoyski, \u003ca href=\"http://www.combinatorics.org/Volume_2/volume2.html#N3\"\u003eLatin squares of order ten\u003c/a\u003e, Electron. J. Combinatorics, 2 (1995) #N3.",
+				"\u003ca href=\"/index/La#Latin\"\u003eIndex entries for sequences related to Latin squares and rectangles\u003c/a\u003e"
+			],
+			"xref": [
+				"Cf. A097548, A097549."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,5",
+			"author": "_Brendan McKay_",
+			"references": 2,
+			"revision": 13,
+			"time": "2013-05-09T11:06:53-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,66 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002106",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2106,
+			"id": "M1316 N0504",
+			"data": "1,1,2,5,5,16,7,50,34,45,8,301,9,63,104,1954,10,983,8,1117,164,59,7,25000,211,96,2392,1854,8,5712,12,2801324,162,115,407,121279,11,76,306,315842,10,9491,10,2113,10923,56,6",
+			"name": "Number of transitive permutation groups of degree n.",
+			"comment": [
+				"It is conjectured that this is the number of Galois groups for irreducible polynomials of order n. (All such Galois groups are transitive.) - _Charles R Greathouse IV_, May 28 2014"
+			],
+			"reference": [
+				"G. Butler and J. McKay, personal communication.",
+				"C. C. Sims, Computational methods in the study of permutation groups, pp. 169-183 of J. Leech, editor, Computational Problems in Abstract Algebra. Pergamon, Oxford, 1970.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"G. Butler and J. McKay, \u003ca href=\"http://dx.doi.org/10.1080/00927878308822884\"\u003eThe transitive groups of degree up to eleven\u003c/a\u003e, Comm. Algebra, 11 (1983), 863-911.",
+				"G. Butler and J. McKay, \u003ca href=\"/A000637/a000637_1.pdf\"\u003eThe transitive groups of degree up to eleven\u003c/a\u003e, Comm. Algebra, 11 (1983), 863-911. [Annotated scanned copy]",
+				"John J. Cannon and Derek F. Hol, \u003ca href=\"http://www.warwick.ac.uk/~mareg/download/papers/trans32/trans32.pdf\"\u003eThe transitive permutation groups of degree 32\u003c/a\u003e",
+				"F. N. Cole, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9904-1893-00137-7\"\u003eNote on the substitution groups of six, seven, and eight letters\u003c/a\u003e, Bull. Amer. Math. Soc. 2 (1893), 184-190. Gives a(8)=48 instead of 50.",
+				"Computational Algebra Group, \u003ca href=\"https://magma.maths.usyd.edu.au/magma/releasenotes/2/21/#subsection_10_8\"\u003eSummary of New Features in Magma V2.21\u003c/a\u003e",
+				"J. Conway, A. Hulpke, and J. McKay, \u003ca href=\"http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.24.792\"\u003eOn Transitive Permutation Groups\u003c/a\u003e, LMS Journal of Computation and Mathematics 1 (1998), pp. 1-8. See especially Appendix A.",
+				"D. Holt, \u003ca href=\"/A000019/a000019_1.pdf\"\u003eEnumerating subgroups of the symmetric group\u003c/a\u003e, in Computational Group Theory and the Theory of Groups, II, edited by L.-C. Kappe, A. Magidin and R. Morse. AMS Contemporary Mathematics book series, vol. 511, pp. 33-37. [Annotated copy]",
+				"Derek Holt and Gordon Royle, \u003ca href=\"https://arxiv.org/abs/1811.09015\"\u003eA Census of Small Transitive Groups and Vertex-Transitive Graphs\u003c/a\u003e, arXiv:1811.09015 [math.CO], 2018.",
+				"A. Hulpke, \u003ca href=\"http://www.math.colostate.edu/~hulpke/smalldeg.html\"\u003eTransitive groups of small degree\u003c/a\u003e",
+				"A. Hulpke, \u003ca href=\"http://www.math.colostate.edu/~hulpke/paper/prom.ps.gz\"\u003eKonstruktion transitiver Permutationsgruppen\u003c/a\u003e, Dissertation, RWTH Aachen, 1996.",
+				"A. Hulpke, \u003ca href=\"http://dx.doi.org/10.1016/j.jsc.2004.08.002\"\u003eConstructing transitive permutation groups\u003c/a\u003e, J. Symbolic Comput. 39 (2005), 1-30.",
+				"E. G. Köhler, F. H. Lutz, \u003ca href=\"http://arXiv.org/abs/math.CO/0506520\"\u003eTriangulated manifolds with few vertices: Vertex-transitive triangulations\u003c/a\u003e, arXiv:math/0506520 [math.GT], 2005.",
+				"J. Labelle and Y. N. Yeh, \u003ca href=\"http://dx.doi.org/10.1016/0097-3165(89)90019-8\"\u003eThe relation between Burnside rings and combinatorial species\u003c/a\u003e, J. Combin. Theory, A 50 (1989), 269-284. See page 280.",
+				"G. A. Miller, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9904-1896-00327-X \"\u003eOn the lists of all the substitution groups that can be formed with a given number of elements\u003c/a\u003e, Bull. Amer. Math. Soc., 2 (1896), 138-145.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Inverse_Galois_problem\"\u003eInverse Galois problem\u003c/a\u003e",
+				"\u003ca href=\"/index/Gre#groups\"\u003eIndex entries for sequences related to groups\u003c/a\u003e",
+				"\u003ca href=\"/index/Cor#core\"\u003eIndex entries for \"core\" sequences\u003c/a\u003e"
+			],
+			"example": [
+				"a(3)=2: A_3 and S_3."
+			],
+			"program": [
+				"(GAP) a:=function(n)",
+				"return Length(AllTransitiveGroups(NrMovedPoints,n));",
+				"end; # _Charles R Greathouse IV_, May 28 2014"
+			],
+			"xref": [
+				"Cf. A000001, A000019, A177244, A186277."
+			],
+			"keyword": "nonn,core,hard,more,nice",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Corrected and extended to degree 31 by Alexander Hulpke (Alexander.Hulpke(AT)Math.RWTH-Aachen.DE), Aug 15 1996",
+				"Further corrections from Alexander Hulpke, Feb 19 2002",
+				"Degree 32 extended by _Artur Jasinski_, Feb 17 2011",
+				"Extended to degree 47 by _Gabriel Verret_, May 07 2016"
+			],
+			"references": 16,
+			"revision": 87,
+			"time": "2018-11-26T08:41:04-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

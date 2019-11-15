@@ -1,0 +1,34 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002079",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2079,
+			"id": "M0122 N0049",
+			"data": "2,1,2,9,96,2690,226360,64646855,68339572672",
+			"name": "N-equivalence classes of threshold gates of exactly n variables.",
+			"reference": [
+				"S. Muroga, Threshold Logic and Its Applications. Wiley, NY, 1971, p. 38, Table 2.3.2. - Row 8.",
+				"S. Muroga, T. Tsuboi and C. R. Baugh, Enumeration of threshold functions of eight variables, IEEE Trans. Computers, 19 (1970), 818-825.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Muroga, Saburo, Iwao Toda, and Satoru Takasu, \u003ca href=\"/A002079/a002079.pdf\"\u003eTheory of majority decision elements\u003c/a\u003e, Journal of the Franklin Institute 271.5 (1961): 376-418. [Annotated scans of pages 413 and 414 only]",
+				"S. Muroga, T. Tsuboi and C. R. Baugh, \u003ca href=\"/A002077/a002077.pdf\"\u003eEnumeration of threshold functions of eight variables\u003c/a\u003e, IEEE Trans. Computers, 19 (1970), 818-825. [Annotated scanned copy]"
+			],
+			"xref": [
+				"Cf. A002078."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 6,
+			"revision": 17,
+			"time": "2015-07-28T11:29:43-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

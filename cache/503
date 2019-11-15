@@ -1,0 +1,48 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000503",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 503,
+			"data": "0,1,-3,-1,1,-4,-1,0,-7,-1,0,-226,-1,0,7,-1,0,3,-2,0,2,-2,0,1,-3,-1,1,-4,-1,0,-7,-1,0,-76,-1,0,7,-1,0,3,-2,0,2,-2,0,1,-3,-1,1,-4,-1,0,-7,-1,0,-46,-1,0,8,-1,0,3,-2,0,2,-2,0,1,-3,-1,1,-4,-1,0,-6,-1,0,-33,-1,0,9,-1,0,3,-2,0,2,-2,0,1,-2,-1,1,-3,-1,0,-6,-1,0,-26",
+			"name": "a(n) = floor(tan(n)).",
+			"comment": [
+				"Every integer appears infinitely often. - _Charles R Greathouse IV_, Aug 06 2012",
+				"Does not satisfy Benford's law [Whyman et al., 2016] - _N. J. A. Sloane_, Feb 12 2017"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000503/b000503.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"David P. Bellamy, Jeffrey C. Lagarias, Felix Lazebnik, \u003ca href=\"http://math.udel.edu/~lazebnik/papers/tan_n.pdf\"\u003eProposed Problem: Large Values of Tan n\u003c/a\u003e",
+				"David P. Bellamy, Jeffrey C. Lagarias, Felix Lazebnik and Stephen M. Gagola, Jr., \u003ca href=\"http://www.jstor.org/stable/2589040\"\u003eLarge Values of Tangent: 10656\u003c/a\u003e, The American Mathematical Monthly, Vol. 106, No. 8 (Oct., 1999), pp. 782-784.",
+				"Daniel Forgues and Jon E. Schoenfield, \u003ca href=\"/A000503/a000503_1.txt\"\u003eDiscussion of A000503\u003c/a\u003e",
+				"G. Whyman, N. Ohtori, E. Shulzinger, Ed. Bormashenko, \u003ca href=\"https://doi.org/10.1016/j.physa.2016.06.054\"\u003eRevisiting the Benford law: When the Benford-like distribution of leading digits in sets of numerical data is expectable?\u003c/a\u003e, Physica A: Statistical Mechanics and its Applications, 461 (2016), 595-601.",
+				"\u003ca href=\"/index/Be#Benford\"\u003eIndex entries for sequences related to Benford's law\u003c/a\u003e"
+			],
+			"maple": [
+				"f := n-\u003efloor(evalf(tan(n)));"
+			],
+			"mathematica": [
+				"Table[Floor[Tan[n]], {n, 0, 100}] (* _Stefan Steinerberger_, Apr 09 2006 *)"
+			],
+			"program": [
+				"(PARI) a(n)=tan(n)\\1 \\\\ _Charles R Greathouse IV_, Sep 04 2014",
+				"(MAGMA) [Floor(Tan(n)): n in [0..80]]; // _Vincenzo Librandi_, Jun 13 2015"
+			],
+			"xref": [
+				"Cf. A005657, A000493, A000480, A000494, A000484, A088306, A195911, A195910, A037448, A258024."
+			],
+			"keyword": "sign,easy,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Stefan Steinerberger_, Apr 09 2006"
+			],
+			"references": 17,
+			"revision": 97,
+			"time": "2019-10-05T18:24:45-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

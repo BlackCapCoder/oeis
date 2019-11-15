@@ -1,0 +1,46 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001467",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1467,
+			"id": "M4464 N1893",
+			"data": "1,1,1,7,-791,-3748629,151648960887729,-1323497544567561138595307148089,41444465282455711991644958522615049159671653083333293470875123",
+			"name": "Denominators of an expansion for Pi.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Mohammad K. Azarian, \u003ca href=\"http://www.jstor.org/stable/27646572\"\u003eAn Expression for Pi, Problem #870\u003c/a\u003e, College Mathematics Journal, Vol. 39, No. 1, January 2008, p. 66. \u003ca href=\"http://www.jstor.org/stable/27646723\"\u003eSolution\u003c/a\u003e appeared in Vol. 40, No. 1, January 2009, pp. 62-64.",
+				"H. E. Salzer, \u003ca href=\"http://www.jstor.org/stable/2305906\"\u003eThe approximation of numbers as sums of reciprocals\u003c/a\u003e, Amer. Math. Monthly, 54 (1947), 135-142.",
+				"J. W. Wrench, Jr., \u003ca href=\"/A001466/a001466.png\"\u003eLetter to N. J. A. Sloane, Mar 27 1974\u003c/a\u003e",
+				"\u003ca href=\"/index/Ph#Pi314\"\u003eIndex entries for sequences related to the number Pi\u003c/a\u003e"
+			],
+			"formula": [
+				"Numerators are 1."
+			],
+			"example": [
+				"a(4) = -791 since Pi - (1/1) - (1/1) - (1/1) - (1/7) = -0.001264489... is closer to 1/(-791) = -0.001264222... than to 1/(-790) = -0.0012658228..."
+			],
+			"program": [
+				"(PARI) x=Pi; for(k=0,8,if(x\u003c1,d=round(1/x),d=1); x=x-1/d; print(d,\", \")) \\\\ _Jaume Oliver Lafont_, Feb 21 2009"
+			],
+			"xref": [
+				"Cf. A001466, A014013, A073422."
+			],
+			"keyword": "sign,frac",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Edited by _Henry Bottomley_, Jul 30 2002"
+			],
+			"references": 2,
+			"revision": 27,
+			"time": "2015-03-07T11:55:54-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

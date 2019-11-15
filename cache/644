@@ -1,0 +1,33 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000644",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 644,
+			"data": "1,1,3,7,31,138,808,4956,33047,227328,1614793",
+			"name": "Loops of length 4n on square grid that turn at each step and return to start in original direction.",
+			"comment": [
+				"Loops cannot overlap and rotations and reflections of a given loop are not counted. - _Sean A. Irvine_, Oct 18 2015"
+			],
+			"reference": [
+				"D. E. Knuth, The Texbook, p. 390.",
+				"D. E. Knuth, personal communication."
+			],
+			"link": [
+				"Douglas A. Torrance, \u003ca href=\"https://arxiv.org/abs/1906.01541\"\u003eEnumeration of planar Tangles\u003c/a\u003e, arXiv:1906.01541 [math.CO], 2019."
+			],
+			"keyword": "nonn,more,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"a(10) from _Sean A. Irvine_, Oct 18 2015"
+			],
+			"references": 0,
+			"revision": 14,
+			"time": "2019-06-05T04:32:02-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

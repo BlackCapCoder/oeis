@@ -1,0 +1,52 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000383",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 383,
+			"id": "M4088 N1697",
+			"data": "1,1,1,1,1,1,6,11,21,41,81,161,321,636,1261,2501,4961,9841,19521,38721,76806,152351,302201,599441,1189041,2358561,4678401,9279996,18407641,36513081,72426721,143664401,284970241,565262081,1121244166,2224080691,4411648301",
+			"name": "Hexanacci numbers with a(0)=...=a(5)=1.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Indranil Ghosh, \u003ca href=\"/A000383/b000383.txt\"\u003eTable of n, a(n) for n = 0..3358\u003c/a\u003e (terms 0..200 from T. D. Noe)",
+				"Joerg Arndt, \u003ca href=\"http://www.jjj.de/fxt/#fxtbook\"\u003eMatters Computational (The Fxtbook)\u003c/a\u003e",
+				"B. G. Baumgart, Letter to the editor \u003ca href=\"http://www.fq.math.ca/Scanned/2-4/baumgart-a.pdf\"\u003ePart 1\u003c/a\u003e \u003ca href=\"http://www.fq.math.ca/Scanned/2-4/baumgart-b.pdf\"\u003ePart 2\u003c/a\u003e \u003ca href=\"http://www.fq.math.ca/Scanned/2-4/baumgart-c.pdf\"\u003ePart 3\u003c/a\u003e, Fib. Quart. 2 (1964), 260, 302.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"\u003ca href=\"/index/Rec#order_06\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,1,1,1,1,1)."
+			],
+			"formula": [
+				"G.f. ( -1+x^2+2*x^3+3*x^4+4*x^5 ) / ( -1+x+x^2+x^3+x^4+x^5+x^6 ). - _R. J. Mathar_, Oct 11 2011"
+			],
+			"maple": [
+				"A000383:=(-1+z**2+2*z**3+3*z**4+4*z**5)/(-1+z**2+z**3+z**4+z**5+z+z**6); [_Simon Plouffe_ in his 1992 dissertation.]",
+				"a:= n-\u003e (Matrix([[1$6]]). Matrix(6, (i,j)-\u003e if (i=j-1) or j=1 then 1 else 0 fi)^n)[1,6]: seq(a(n), n=0..28); # _Alois P. Heinz_, Aug 26 2008"
+			],
+			"mathematica": [
+				"LinearRecurrence[{1,1,1,1,1,1},{1,1,1,1,1,1},50] (* _Harvey P. Dale_, Oct 30 2013 *)"
+			],
+			"program": [
+				"(PARI) a(n)=([0,1,0,0,0,0; 0,0,1,0,0,0; 0,0,0,1,0,0; 0,0,0,0,1,0; 0,0,0,0,0,1; 1,1,1,1,1,1]^n*[1;1;1;1;1;1])[1,1] \\\\ _Charles R Greathouse IV_, Sep 24 2015"
+			],
+			"xref": [
+				"Cf. A060455.",
+				"Cf. A001592 Hexanacci numbers with a(0)=...=a(4)=0, a(5)=1.",
+				"Cf. A247192 Indices of primes in this sequence.",
+				"Cf. A249413 Primes in this sequence."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,7",
+			"author": "_N. J. A. Sloane_.",
+			"references": 41,
+			"revision": 49,
+			"time": "2017-02-09T08:00:19-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

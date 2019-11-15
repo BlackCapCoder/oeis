@@ -1,0 +1,46 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000722",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 722,
+			"id": "M2144 N0853",
+			"data": "1,2,24,40320,20922789888000,263130836933693530167218012160000000,126886932185884164103433389335161480802865516174545192198801894375214704230400000000000000",
+			"name": "Number of invertible Boolean functions of n variables: a(n) = (2^n)!.",
+			"comment": [
+				"These are invertible maps from {0,1}^n to {0,1}^n, or in other words permutations of the 2^n binary vectors of length n.",
+				"2^n-th order derivative of n-th Mandelbrot iterate. Example: a(2) = 24, after one iterate in the Mandelbrot(z(n+1) = z(n)^2 + c) we have the function z(2) = z^4 + 2*c*z^2 + c^2 + c, for which the 4th-order derivative is 24. - Bert van den Bosch (zeusooooo(AT)hotmail.com), Sep 07 2003"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"M. A. Harrison, \u003ca href=\"/A000653/a000653.pdf\"\u003eThe number of classes of invertible Boolean functions\u003c/a\u003e, J. ACM 10 (1963), 25-28. [Annotated scan of page 27 only]",
+				"C. S. Lorens, \u003ca href=\"http://dx.doi.org/10.1109/PGEC.1964.263724\"\u003eInvertible Boolean functions\u003c/a\u003e, IEEE Trans. Electron. Computers, EC-13 (1964), 529-541.",
+				"C. S. Lorens, \u003ca href=\"/A000722/a000722.pdf\"\u003eInvertible Boolean functions\u003c/a\u003e, IEEE Trans. Electron. Computers, EC-13 (1964), 529-541. [Annotated scan of page 530 only]",
+				"I. Strazdins, \u003ca href=\"http://dx.doi.org/10.1023/A:1005769927571\"\u003eUniversal affine classification of Boolean functions\u003c/a\u003e, Acta Applic. Math. 46 (1997), 147-167.",
+				"\u003ca href=\"/index/Bo#Boolean\"\u003eIndex entries for sequences related to Boolean functions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (2^n)!.",
+				"Sum of reciprocals = 0.54169146825401604874... - _Cino Hilliard_, Feb 08 2003"
+			],
+			"program": [
+				"(PARI) atonfact(a,n) = {sr=0; for(x=1,n, y =(a^x)!; sr+=1.0/y; print1(y\" \"); ); print(); print(sr) }"
+			],
+			"xref": [
+				"Cf. A000652, A000653, A000654, A001038, A001537, A046856, A046857."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 21,
+			"revision": 38,
+			"time": "2015-08-17T11:27:25-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

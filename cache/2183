@@ -1,0 +1,61 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002183",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2183,
+			"id": "M0546 N0196",
+			"data": "1,2,3,4,6,8,9,10,12,16,18,20,24,30,32,36,40,48,60,64,72,80,84,90,96,100,108,120,128,144,160,168,180,192,200,216,224,240,256,288,320,336,360,384,400,432,448,480,504,512,576,600,640,672,720,768,800,864,896",
+			"name": "Number of divisors of n-th highly composite number.",
+			"comment": [
+				"Record values of tau(n).",
+				"RECORDS transform of A000005.",
+				"All powers of 2 are present through 2^17. No power of 2 above that is present at least through 2^51. - Comment from _Robert G. Wilson v_, modified by _Ray Chandler_, Nov 10 2005",
+				"No power of 2 above 2^17 is contained in this sequence - see McRae link for proof. - _Graeme McRae_, Apr 27 2006"
+			],
+			"reference": [
+				"S. Ramanujan, Collected Papers, Ed. G. H. Hardy et al., Cambridge 1927; Chelsea, NY, 1962, p. 87.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Ray Chandler, \u003ca href=\"/A002183/b002183.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from T. D. Noe)",
+				"A. Flammenkamp, \u003ca href=\"http://wwwhomes.uni-bielefeld.de/achim/highly.txt\"\u003eFirst 1200 highly composite numbers\u003c/a\u003e.",
+				"Graeme McRae, \u003ca href=\"https://web.archive.org/web/20190223125015/http://2000clicks.com/mathhelp/NumberFactorsHighlyComposite.aspx\"\u003eHighly Composite Numbers\u003c/a\u003e.",
+				"S. Ramanujan, \u003ca href=\"http://www.imsc.res.in/~rao/ramanujan/CamUnivCpapers/Cpaper15/page10.htm\"\u003eTable of First 103 Highly Composite Numbers\u003c/a\u003e.",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/HighlyCompositeNumber.html\"\u003eHighly Composite Number\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = A000005(A002182(n)).",
+				"Also record values of differences A006218(p)-A006218(p-1). These record values occur for any p = A002182(q) where q\u003e=2. - Philippe LALLOUET (philip.lallouet(AT)wanadoo.fr), Jun 23 2007",
+				"a(A261100(n)) = A070319(n). - _Antti Karttunen_, Jun 06 2017"
+			],
+			"mathematica": [
+				"Reap[ For[ record = 0; n = 1, n \u003c= 10^9, n = If[n \u003c 60, n+1, n+60], tau = DivisorSigma[0, n]; If[tau \u003e record, record = tau; Print[tau]; Sow[tau]]]][[2, 1]] (* _Jean-François Alcover_, Aug 13 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (nub)",
+				"a002183 n = a002183_list !! (n-1)",
+				"a002183_list = nub $ map (a000005 . a061799) [1..]",
+				"-- _Reinhard Zumkeller_, Apr 01 2011"
+			],
+			"xref": [
+				"Cf. A000005, A002182, A002201, A006218, A061799, A070319, A243220, A261100."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Robert G. Wilson v_, Jul 24 2002"
+			],
+			"references": 59,
+			"revision": 58,
+			"time": "2019-09-27T03:22:58-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

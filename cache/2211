@@ -1,0 +1,51 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002211",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2211,
+			"id": "M0118 N0047",
+			"data": "2,1,2,5,1,1,2,1,1,3,10,2,1,3,2,24,1,3,2,3,1,1,1,90,2,1,12,1,1,1,1,5,2,6,1,6,3,1,1,2,5,2,1,2,1,1,4,1,2,2,3,2,1,1,4,1,1,2,5,2,1,1,3,29,8,3,1,4,3,1,10,50,1,2,2,7,6,2,2,16,4,4,2,2,3,1,1,7,1,5,1,2,1,5,3,1",
+			"name": "Continued fraction for Khintchine's constant.",
+			"comment": [
+				"Incrementally larger terms in the continued fraction for Khintchine's constant: 1, 2, 5, 10, 24, 90, 770, 941, 11759, 54097, 231973, ..., and they occur at 1, 2, 3, 10, 15, 23, 104, 1701, 2445, 18995, 60037, ... - _Robert G. Wilson v_, Dec 09 2013"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A002211/b002211.txt\"\u003eTable of n, a(n) for n = 0..999\u003c/a\u003e",
+				"H. Havermann, \u003ca href=\"http://chesswanks.com/pxp/cfk.html\"\u003eSimple Continued Fraction Expansion of Khinchin's Constant\u003c/a\u003e",
+				"D. Shanks and J. W. Wrench, Jr., \u003ca href=\"http://www.jstor.org/stable/2309633\"\u003eKhintchine's constant\u003c/a\u003e, Amer. Math. Monthly, 66 (1959), 276-279.",
+				"J. W. Wrench, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-1960-0170455-1\"\u003eFurther evaluation of Khintchine's constant\u003c/a\u003e, Math. Comp., 14 (1960), 370-371.",
+				"J. W. Wrench, Jr. and D. Shanks, \u003ca href=\"http://www.jstor.org/stable/2003606\"\u003eQuestions concerning Khintchine's constant and the efficient computation of regular continued fractions\u003c/a\u003e, Math. Comp., 20 (1966), 444-448.",
+				"G. Xiao, \u003ca href=\"http://wims.unice.fr/~wims/en_tool~number~contfrac.en.html\"\u003eContfrac\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/KhinchinsConstantContinuedFraction.html\"\u003eKhinchin's Constant Continued Fraction\u003c/a\u003e",
+				"\u003ca href=\"/index/Con#confC\"\u003eIndex entries for continued fractions for constants\u003c/a\u003e"
+			],
+			"example": [
+				"2.685452001065306445309714835... = 2 + 1/(1 + 1/(2 + 1/(5 + 1/(1 + ...))))",
+				"[a_0; a_1, a_2, ...] = [2, 1, 2, ...]"
+			],
+			"mathematica": [
+				"ContinuedFraction[Khinchin, 100]"
+			],
+			"xref": [
+				"Cf. A002210."
+			],
+			"keyword": "cofr,nonn,nice,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Robert G. Wilson v_, Oct 31 2001"
+			],
+			"references": 14,
+			"revision": 45,
+			"time": "2016-01-24T16:14:58-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

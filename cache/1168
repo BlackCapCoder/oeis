@@ -1,0 +1,83 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001168",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1168,
+			"id": "M1639 N0641",
+			"data": "1,2,6,19,63,216,760,2725,9910,36446,135268,505861,1903890,7204874,27394666,104592937,400795844,1540820542,5940738676,22964779660,88983512783,345532572678,1344372335524,5239988770268,20457802016011,79992676367108,313224032098244,1228088671826973",
+			"name": "Number of fixed polyominoes with n cells.",
+			"comment": [
+				"Number of rookwise connected patterns of n square cells.",
+				"N. Madras proved in 1999 the existence of lim_{n-\u003eoo} a(n+1)/a(n), which is the real limit growth rate of the number of polyominoes; and hence, this limit is equal to lim_{n-\u003eoo} a(n)^{1/n}, the well-known Klarner's constant. The currently best-known lower and upper bounds on this constant are 3.9801 (Barequet et al., 2006) and 4.6496 (Klarner and Rivest, 1973), respectively. But see also Knuth (2014)."
+			],
+			"reference": [
+				"Steven R. Finch, Mathematical Constants, Cambridge, 2003, pp. 378-382.",
+				"J. E. Goodman and J. O'Rourke, editors, Handbook of Discrete and Computational Geometry, CRC Press, 1997, p. 229.",
+				"A. J. Guttmann, ed., Polygons, Polyominoes and Polycubes, Springer, 2009, p. 478. (Table 16.10 has 56 terms of this sequence.)",
+				"I. Jensen. Counting polyominoes: a parallel implementation for cluster computing. LNCS 2659 (2003) 203-212, ICCS 2003",
+				"W. F. Lunnon, Counting polyominoes, pp. 347-372 of A. O. L. Atkin and B. J. Birch, editors, Computers in Number Theory. Academic Press, NY, 1971.",
+				"W. F. Lunnon, Counting hexagonal and triangular polyominoes, pp. 87-100 of R. C. Read, editor, Graph Theory and Computing. Academic Press, NY, 1972.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"I. Jensen, \u003ca href=\"/A001168/b001168.txt\"\u003eTable of n, a(n) for n = 1..56\u003c/a\u003e",
+				"G. Barequet, R. Barequet, \u003ca href=\"https://doi.org/10.1016/j.endm.2015.06.025\"\u003eAn Improved Upper Bound on the Growth Constant of Polyominoes\u003c/a\u003e, Electronic Notes in Discrete Math., 2015.",
+				"G. Barequet, M. Moffie, A. Ribo, and G. Rote, \u003ca href=\"http://www.emis.de/journals/INTEGERS/papers/g22/g22.Abstract.html\"\u003eCounting polyominoes on twisted cylinders\u003c/a\u003e, Integers 6 (2006), A22, 37 pp. (electronic).",
+				"Gill Barequet, M. Shalah, \u003ca href=\"http://www.eurocg2016.usi.ch/sites/default/files/paper_19.pdf\"\u003eImproved Bounds on the Growth Constant of Polyiamonds\u003c/a\u003e, 32nd European Workshop on Computational Geometry, 2016.",
+				"Gill Barequet, Solomon W. Golomb, and David A. Klarner, Polyominoes. (This is a revision, by G. Barequet, of the chapter of the same title originally written by the late D. A. Klarner for the first edition, and revised by the late S. W. Golomb for the second edition.) \u003ca href=\"http://www.csun.edu/~ctoth/Handbook/chap14.pdf\"\u003ePreprint\u003c/a\u003e, 2016.",
+				"Stirling Chow and Frank Ruskey, \u003ca href=\"https://doi.org/10.1016/j.disc.2007.11.038\"\u003eGray codes for column-convex polyominoes and a new class of distributive lattices\u003c/a\u003e, Discrete Mathematics, 309 (2009), 5284-5297.",
+				"A. R. Conway and A. J. Guttmann, \u003ca href=\"http://dx.doi.org/10.1088/0305-4470/28/4/015\"\u003eOn two-dimensional percolation\u003c/a\u003e, J. Phys. A: Math. Gen. 28(1995) 891-904.",
+				"Steven R. Finch, \u003ca href=\"http://www.people.fas.harvard.edu/~sfinch/constant/rndprc/anml.html\"\u003eKlarner's Lattice Animal Constant\u003c/a\u003e [Broken link]",
+				"Steven R. Finch, \u003ca href=\"http://web.archive.org/web/20010603070928/http://www.mathsoft.com/asolve/constant/rndprc/anml.html\"\u003eKlarner's Lattice Animal Constant\u003c/a\u003e [From the Wayback machine]",
+				"J. Fortier, A. Goupil, J. Lortie and J. Tremblay, \u003ca href=\"http://dx.doi.org/10.1016/j.tcs.2012.02.032\"\u003eExhaustive generation of gominoes\u003c/a\u003e, Theoretical Computer Science, 2012. - _N. J. A. Sloane_, Sep 20 2012",
+				"I. Jensen, \u003ca href=\"http://arxiv.org/abs/cond-mat/0007239\"\u003eEnumerations of lattice animals and trees\u003c/a\u003e, arXiv:cond-mat/0007239.",
+				"I. Jensen, \u003ca href=\"https://doi.org/10.1023/A:1004855020556\"\u003eEnumerations of lattice animals and trees\u003c/a\u003e, J. Stat. Phys. 103 (3-4) (2001) 865-881, Table II.",
+				"I. Jensen, \u003ca href=\"https://web.archive.org/web/20160101130205/http://www.ms.unimelb.edu.au/~iwan/\"\u003eHome page\u003c/a\u003e",
+				"I. Jensen, \u003ca href=\"https://web.archive.org/web/20151222163324/http://www.ms.unimelb.edu.au/~iwan/saw/SAW_ser.html\"\u003eMore terms\u003c/a\u003e [Go to series, animals, number of animals]",
+				"I. Jensen, \u003ca href=\"/A001168/a001168.pdf\"\u003eMore terms\u003c/a\u003e [pdf file of lost web link]",
+				"I. Jensen and A. J. Guttmann, \u003ca href=\"http://dx.doi.org/10.1088/0305-4470/33/29/102\"\u003eStatistics of lattice animals (polyominoes) and polygons\u003c/a\u003e, J. Phys. A 33, L257-L263 (2000).",
+				"D. A. Klarner and R. L. Rivest, \u003ca href=\"http://dx.doi.org/10.4153/CJM-1973-060-4\"\u003eA procedure for improving the upper bound for the number of n-ominoes\u003c/a\u003e, Canadian J. of Mathematics, 25 (1973), 585-602.",
+				"D. E. Knuth, \u003ca href=\"http://www-cs-faculty.stanford.edu/~knuth/programs.html#polyominoes\"\u003eProgram\u003c/a\u003e",
+				"D. E. Knuth, \u003ca href=\"/A001168/a001168.txt\"\u003eFirst 47 terms\u003c/a\u003e",
+				"D. E. Knuth, \u003ca href=\"https://www-cs-faculty.stanford.edu/~knuth/papers/flaj2014.pdf\"\u003eProblems That Philippe Would Have Loved\u003c/a\u003e, Paris 2014.",
+				"C. Lesieur, L. Vuillon, \u003ca href=\"http://dx.doi.org/10.5772/58577\"\u003eFrom Tilings to Fibers - Bio-mathematical Aspects of Fold Plasticity\u003c/a\u003e, Chapter 13 (pages 395-422) of \"Oligomerization of Chemical and Biological Compounds\", book edited by Claire Lesieur, ISBN 978-953-51-1617-2, 2014.",
+				"N. Madras, \u003ca href=\"http://arxiv.org/abs/math/9902161\"\u003eA pattern theorem for lattice clusters\u003c/a\u003e, arXiv:math/9902161 [math.PR], 1999; Annals of Combinatorics, 3 (1999), 357-384.",
+				"Tomás Oliveira e Silva, \u003ca href=\"http://sweet.ua.pt/tos/animals.html\"\u003eEnumeration of polyominoes\u003c/a\u003e",
+				"Jaime Rangel-Mondragón, \u003ca href=\"http://www.mathematica-journal.com/issue/v9i3/polyominoes.html\"\u003ePolyominoes and Related Families\u003c/a\u003e, The Mathematica Journal, Volume 9, Issue 3.",
+				"D. H. Redelmeier, \u003ca href=\"http://dx.doi.org/10.1016/0012-365X(81)90237-5\"\u003eCounting polyominoes: yet another attack\u003c/a\u003e, Discrete Math., 36 (1981), 191-203.",
+				"M. F. Sykes, M. Glen, \u003ca href=\"https://iopscience.iop.org/article/10.1088/0305-4470/9/1/014/pdf\"\u003ePercolation processes in two dimensions. I. Low-density series expansions\u003c/a\u003e, J. Phys. A 9 (1) (1987) 87.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Polyomino.html\"\u003ePolyomino\u003c/a\u003e"
+			],
+			"formula": [
+				"For asymptotics, see Knuth (2014).",
+				"a(n) = 8*A006749(n) + 4*A006746(n) + 4*A006748(n) + 4*A006747(n) + 2*A056877(n) + 2*A056878(n) + 2*A144553(n) + A142886(n); the number of fixed polyominoes is calculatable according to multiples of the numbers of the various symmetries of the polyomino. - _John Mason_, Sep 06 2017"
+			],
+			"mathematica": [
+				"See Jaime Rangel-Mondragón's article."
+			],
+			"xref": [
+				"Cf. A000105, A006746, A056877, A006748, A056878, A006747, A006749, A006884, A006885, A006877, A006878, A033492, row sums of A308359.",
+				"A006762 is another version."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Extended to n=28 by Tomás Oliveira e Silva",
+				"Extended to n=46 by Iwan Jensen",
+				"Verified (and one more term found) by _Don Knuth_, Jan 09 2001",
+				"Richard C. Schroeppel communicated Jensen's calculation of the first 56 terms, Feb 21 2005",
+				"Gill Barequet commented on Madras's proof from 1999 of the limit growth rate of this sequence, and provided references to the currently best-known bounds on it, May 24 2011",
+				"Incorrect Mathematica program removed by _Jean-François Alcover_, Mar 24 2015"
+			],
+			"references": 38,
+			"revision": 114,
+			"time": "2019-05-22T06:26:19-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

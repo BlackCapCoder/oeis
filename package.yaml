@@ -1,0 +1,128 @@
+name:                oeis
+version:             0.1.0.0
+github:              "githubuser/oeis"
+license:             BSD3
+author:              "Author name here"
+maintainer:          "example@example.com"
+copyright:           "2019 Author name here"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/oeis#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- containers
+- primes
+- arithmoi
+
+library:
+  source-dirs: src
+
+executables:
+  oeis-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - oeis
+
+tests:
+  oeis-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - oeis
+
+default-extensions:
+- AllowAmbiguousTypes
+- BangPatterns
+- BinaryLiterals
+- BlockArguments
+- ConstraintKinds
+- DataKinds
+- DefaultSignatures
+- DeriveDataTypeable
+- DeriveFoldable
+- DeriveFunctor
+- DeriveGeneric
+- DeriveLift
+- DeriveTraversable
+- DerivingVia
+- GeneralizedNewtypeDeriving
+- DisambiguateRecordFields
+- DuplicateRecordFields
+- EmptyCase
+- EmptyDataDecls
+- ExplicitForAll
+- ExplicitNamespaces
+- ExtendedDefaultRules # GHCI's extended default rules
+- FlexibleContexts
+- FlexibleInstances
+- ForeignFunctionInterface
+- FunctionalDependencies
+- GADTs
+- HexFloatLiterals
+- ImplicitParams
+- ImpredicativeTypes
+- InstanceSigs
+- LambdaCase
+- LiberalTypeSynonyms
+- MonadComprehensions
+- MonadFailDesugaring
+- NoMonomorphismRestriction
+- MultiParamTypeClasses
+- MultiWayIf
+- NamedFieldPuns
+- NamedWildCards
+- NegativeLiterals
+- NumDecimals
+- NumericUnderscores
+- OverloadedLabels
+# - OverloadedLists
+- OverloadedStrings
+- PackageImports
+- ParallelListComp
+- PartialTypeSignatures
+- PatternSynonyms
+- PolyKinds
+- PostfixOperators
+- QuantifiedConstraints
+- QuasiQuotes
+- RankNTypes
+- RecordWildCards
+- RecursiveDo
+- RoleAnnotations
+- ScopedTypeVariables
+- StandaloneDeriving
+- TemplateHaskell
+- TemplateHaskellQuotes
+- TransformListComp
+- TupleSections
+- TypeApplications
+- TypeFamilies
+- TypeFamilyDependencies
+- TypeOperators
+- TypeSynonymInstances
+- UnboxedSums
+- UnboxedTuples
+- MagicHash
+- UndecidableSuperClasses
+- ViewPatterns
+# - NoImplicitPrelude

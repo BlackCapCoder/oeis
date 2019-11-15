@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+for i in $(seq $@ $(echo $@ + 100 | bc)); do
+  if [ ! -f cache/$i ]; then
+    data=$(curl -s $(printf "https://oeis.org/search?fmt=json&q=id:A%06d" $i))
+    echo "$data" > "cache/$i"
+  else
+    data=$(cat "cache/$i")
+  fi
+
+  if echo "$data" | grep --quiet Haskell; then
+    echo "instance OEIS $i where"
+    echo "$data" | jq '.results|.[0]|.program|.[]' -r \
+      | sed '/^(Haskell)/,/^(/!d' \
+      | sed 's/^([a-zA-Z]*)\s*//' \
+      | sed 's/-- .*$//' \
+      | sed '/^$/d' \
+      | sed 's/^/  /'
+    echo
+  fi
+done

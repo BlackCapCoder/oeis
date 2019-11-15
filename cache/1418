@@ -1,0 +1,36 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001418",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1418,
+			"id": "M4587 N1956",
+			"data": "1,8,1368,300608,186086600,123912532224,129950723279272",
+			"name": "Number of ways of folding an n X n sheet of stamps.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"W. F. Lunnon, \u003ca href=\"http://dx.doi.org/10.1093/comjnl/14.1.75\"\u003eMulti-dimensional map-folding\u003c/a\u003e, Computer Journal 14 1971 75-80.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/MapFolding.html\"\u003eMap Folding\u003c/a\u003e",
+				"\u003ca href=\"/index/Fo#fold\"\u003eIndex entries for sequences obtained by enumerating foldings\u003c/a\u003e"
+			],
+			"xref": [
+				"Cf. A000136, A000560, A001417, A195646."
+			],
+			"keyword": "nonn,hard,more",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"a(6)-a(7) from _Sean A. Irvine_, Jan 11 2018"
+			],
+			"references": 1,
+			"revision": 27,
+			"time": "2018-01-11T15:08:42-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

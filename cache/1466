@@ -1,0 +1,51 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001466",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1466,
+			"id": "M4553 N1935",
+			"data": "8,61,5020,128541455,162924332716605980,28783052231699298507846309644849796,871295615653899563300996782209332544845605756266650946342214549769447",
+			"name": "Denominators of Egyptian fraction expansion of Pi - 3.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Simon Plouffe, \u003ca href=\"/A001466/b001466.txt\"\u003eTable of n, a(n) for n = 1..10\u003c/a\u003e (There is a limit of about 1000 digits on the size of numbers in b-files)",
+				"Mohammad K. Azarian, \u003ca href=\"http://www.jstor.org/stable/27646572\"\u003eAn Expression for Pi, Problem #870\u003c/a\u003e, College Mathematics Journal, Vol. 39, No. 1, January 2008, p. 66. \u003ca href=\"http://www.jstor.org/stable/27646723\"\u003eSolution\u003c/a\u003e appeared in Vol. 40, No. 1, January 2009, pp. 62-64.",
+				"K. R. R. Gandhi, \u003ca href=\"http://www.ijma.info/index.php/ijma/article/view/1587\"\u003eEdifice of the real numbers by alternating series\u003c/a\u003e, International Journal of Mathematical Archive-3(9), 2012, 3277-3280. - From _N. J. A. Sloane_, Jan 02 2013",
+				"Simon Plouffe, \u003ca href=\"/A001466/a001466.txt\"\u003eTable of n, a(n) for n = 1..14\u003c/a\u003e",
+				"H. P. Robinson, \u003ca href=\"/A001466/a001466.pdf\"\u003eLetter to N. J. A. Sloane, Sep 1975\u003c/a\u003e",
+				"H. E. Salzer, \u003ca href=\"http://www.jstor.org/stable/2305906\"\u003eThe approximation of numbers as sums of reciprocals\u003c/a\u003e, Amer. Math. Monthly, 54 (1947), 135-142.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/EgyptianFraction.html\"\u003eEgyptian Fraction\u003c/a\u003e",
+				"J. W. Wrench, Jr., \u003ca href=\"/A001466/a001466.png\"\u003eLetter to N. J. A. Sloane, Mar 27 1974\u003c/a\u003e",
+				"\u003ca href=\"/index/Ph#Pi314\"\u003eIndex entries for sequences related to the number Pi\u003c/a\u003e"
+			],
+			"example": [
+				"Pi - 3 = 1/8 + 1/61 + 1/5020 + 1/128541455 + ... ."
+			],
+			"mathematica": [
+				"lst={};k=N[(Pi-3),1000];Do[s=Ceiling[1/k];AppendTo[lst,s];k=k-1/s,{n,12}];lst (* _Vladimir Joseph Stephan Orlovsky_, Nov 02 2009 *)"
+			],
+			"program": [
+				"(PARI) x = Pi - 3;",
+				"f(x, k) = if(k\u003c1, x, f(x, k - 1) - 1/n(x, k));",
+				"n(x, k) = ceil(1/f(x, k - 1));",
+				"for(k = 1, 7, print1(n(x, k), \", \")) \\\\ _Indranil Ghosh_, Mar 27 2017"
+			],
+			"xref": [
+				"See A182257, A224230 for other versions of this sequence."
+			],
+			"keyword": "nonn,frac",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 38,
+			"revision": 58,
+			"time": "2017-08-12T11:02:03-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

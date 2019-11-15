@@ -1,0 +1,27 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002272",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2272,
+			"data": "1,0,0,261120,18947520,535818240,8320327680,83347937280,622558664640,3614759362560,17694184734720,73337844372480,272615629589760,898646461378560,2752654757806080,7687895624386560",
+			"name": "Theta series of 32-dimensional Quebbemann lattice Q_32.",
+			"link": [
+				"N. Heninger, E. M. Rains and N. J. A. Sloane, \u003ca href=\"http://arXiv.org/abs/math.NT/0509316\"\u003eOn the Integrality of n-th Roots of Generating Functions\u003c/a\u003e, arXiv:math/0509316 [math.NT], 2005-2006.",
+				"N. Heninger, E. M. Rains and N. J. A. Sloane, \u003ca href=\"http://dx.doi.org/10.1016/j.jcta.2006.03.018\"\u003eOn the Integrality of n-th Roots of Generating Functions\u003c/a\u003e, J. Combinatorial Theory, Series A, 113 (2006), 1732-1745.",
+				"H.-G. Quebbemann, \u003ca href=\"http://dx.doi.org/10.1016/0021-8693(87)90208-0\"\u003eLattices with theta-functions for G(sqrt(2)) and linear codes\u003c/a\u003e, J. Algebra, 105 (1987), 443-450.",
+				"H.-G. Quebbemann, \u003ca href=\"http://dx.doi.org/10.1006/jnth.1995.1111\"\u003eModular lattices in Euclidean spaces\u003c/a\u003e, J. Number Theory, 54 (1995), 190-202.",
+				"G. Nebe and N. J. A. Sloane, \u003ca href=\"http://www.math.rwth-aachen.de/~Gabriele.Nebe/LATTICES/Q32.html\"\u003eHome page for this lattice\u003c/a\u003e"
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_.",
+			"references": 1,
+			"revision": 14,
+			"time": "2015-11-23T09:21:31-05:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		}
+	]
+}

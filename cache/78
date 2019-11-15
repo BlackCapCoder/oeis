@@ -1,0 +1,132 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000078",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 78,
+			"id": "M1108 N0423",
+			"data": "0,0,0,1,1,2,4,8,15,29,56,108,208,401,773,1490,2872,5536,10671,20569,39648,76424,147312,283953,547337,1055026,2033628,3919944,7555935,14564533,28074040,54114452,104308960,201061985,387559437,747044834,1439975216,2775641472",
+			"name": "Tetranacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) with a(0)=a(1)=a(2)=0, a(3)=1.",
+			"comment": [
+				"a(n) is the number of compositions of n-3 with no part greater than 4. Example: a(7)=8 because we have 1+1+1+1 = 2+1+1 = 1+2+1 = 3+1 = 1+1+2 = 2+2 = 1+3 = 4. - _Emeric Deutsch_, Mar 10 2004",
+				"In other words, a(n) is the number of ways of putting stamps in one row on an envelope using stamps of denominations 1, 2, 3 and 4 cents so as to total n-3 cents [Polya-Szego]. - _N. J. A. Sloane_, Jul 28 2012",
+				"a(n+4) is the number of 0-1 sequences of length n that avoid 1111. - _David Callan_, Jul 19 2004",
+				"a(n) is the number of matchings in the graph obtained by a zig-zag triangulation of a convex (n-3)-gon. Example: a(8)=15 because in the triangulation of the convex pentagon ABCDEA with diagonals AD and AC we have 15 matchings: the empty set, seven singletons and {AB,CD}, {AB,DE}, {BC,AD}, {BC,DE}, {BC,EA}, {CD,EA} and {DE,AC}. - _Emeric Deutsch_, Dec 25 2004",
+				"Number of permutations satisfying -k \u003c= p(i)-i \u003c= r, i=1..n-3, with k=1, r=3. - _Vladimir Baltic_, Jan 17 2005",
+				"For n \u003e= 0, a(n+4) is the number of palindromic compositions of 2*n+1 into an odd number of parts that are not multiples of 4. In addition, a(n+4) is also the number of Sommerville symmetric cyclic compositions (= bilaterally symmetric cyclic compositions) of 2*n+1 into an odd number of parts that are not multiples of 4. - _Petros Hadjicostas_, Mar 10 2018",
+				"a(n) is the number of ways to tile a hexagonal double-strip (two rows of adjacent hexagons) containing (n-4) cells with hexagons and double-hexagons (two adjacent hexagons). - _Ziqian Jin_, Jul 28 2019"
+			],
+			"reference": [
+				"Silvia Heubach and Toufik Mansour, Combinatorics of Compositions and Words, CRC Press, 2010.",
+				"G. Pólya and G. Szegő, Problems and Theorems in Analysis, Springer-Verlag, NY, 2 vols., 1972, Vol. 1, p. 1, Problems 3 and 4.",
+				"J. Riordan, An Introduction to Combinatorial Analysis, Princeton University Press, Princeton, NJ, 1978.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Indranil Ghosh, \u003ca href=\"/A000078/b000078.txt\"\u003eTable of n, a(n) for n = 0..3505\u003c/a\u003e (terms 0..200 from T. D. Noe)",
+				"Joerg Arndt, \u003ca href=\"http://www.jjj.de/fxt/#fxtbook\"\u003eMatters Computational (The Fxtbook)\u003c/a\u003e, pp. 307-309.",
+				"Vladimir Baltic, \u003ca href=\"http://pefmath.etf.rs/vol4num1/AADM-Vol4-No1-119-135.pdf\"\u003eOn the number of certain types of strongly restricted permutations\u003c/a\u003e, Applicable Analysis and Discrete Mathematics 4(1) (2010), 119-135.",
+				"Elena Barcucci, Antonio Bernini, Stefano Bilotta, and Renzo Pinzani, \u003ca href=\"http://arxiv.org/abs/1601.07723\"\u003eNon-overlapping matrices\u003c/a\u003e, arXiv:1601.07723 [cs.DM], 2016.",
+				"Martin Burtscher, Igor Szczyrba, and Rafał Szczyrba, \u003ca href=\"http://www.emis.de/journals/JIS/VOL18/Szczyrba/sz3.html\"\u003eAnalytic Representations of the n-anacci Constants and Generalizations Thereof\u003c/a\u003e, J. Integer Seq. 18 (2015), Article 15.4.5.",
+				"P. J. Cameron, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL3/groups.html\"\u003eSequences realized by oligomorphic permutation groups\u003c/a\u003e, J. Integer Seq. 3 (2000), Article 00.1.5.",
+				"S. A. Corey and Otto Dunkel, \u003ca href=\"http://www.jstor.org/stable/2299550\"\u003eProblem 2803\u003c/a\u003e, Amer. Math. Monthly 33 (1926), 229-232.",
+				"F. Michel Dekking, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL19/Dekking/dekk4.html\"\u003eMorphisms, Symbolic Sequences, and Their Standard Forms\u003c/a\u003e, J. Integer Seq. 19 (2016), Article 16.1.1.",
+				"E. Deutsch, \u003ca href=\"http://www.jstor.org/stable/3219192\"\u003eProblem 1613: A recursion in four parts\u003c/a\u003e, Math. Mag. 75(1) (2002), 64-65.",
+				"G. P. B. Dresden, Z. Du, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL17/Dresden/dresden6.html\"\u003eA Simplified Binet Formula for k-Generalized Fibonacci Numbers\u003c/a\u003e, J. Integer Seq. 17 (2014), Article 14.4.7.",
+				"M. Feinberg, \u003ca href=\"http://www.fq.math.ca/Scanned/1-3/feinberg.pdf\"\u003eFibonacci-Tribonacci\u003c/a\u003e, Fib. Quart. 1(3) (1963), 71-74.",
+				"Petros Hadjicostas, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL19/Hadjicostas/hadji2.html\"\u003eCyclic compositions of a positive integer with parts avoiding an arithmetic sequence\u003c/a\u003e, J. Integer Seq. 19 (2016), Article 16.8.2.",
+				"P. Hadjicostas and L. Zhang, \u003ca href=\"https://www.fq.math.ca/Abstracts/55-1/hadjicostas.pdf\"\u003eSommerville's symmetrical cyclic compositions of a positive integer with parts avoiding multiples of an integer\u003c/a\u003e, Fibonacci Quarterly 55 (2017), 54-73.",
+				"F. T. Howard and Curtis Cooper, \u003ca href=\"https://www.fq.math.ca/Papers1/49-3/HowardCooper.pdf\"\u003eSome identities for r-Fibonacci numbers\u003c/a\u003e, Fibonacci Quarterly 49 (2011), 231-242.",
+				"INRIA Algorithms Project, \u003ca href=\"http://ecs.inria.fr/services/structure?nbr=11\"\u003eEncyclopedia of Combinatorial Structures 11\u003c/a\u003e",
+				"Ziqian Jin, \u003ca href=\"https://arxiv.org/abs/1907.09935\"\u003eTetrancci Identities With Squares, Dominoes, And Hexagonal Double Strips\u003c/a\u003e, arXiv:1907.09935 [math.GM], 2019.",
+				"W. C. Lynch, \u003ca href=\"http://www.fq.math.ca/Scanned/8-1/lynch.pdf\"\u003eThe t-Fibonacci numbers and polyphase sorting\u003c/a\u003e, Fib. Quart., 8 (1970), 6-22.",
+				"T. Mansour and M. Shattuck, \u003ca href=\"http://arxiv.org/abs/1410.6943\"\u003eA monotonicity property for generalized Fibonacci sequences\u003c/a\u003e, arXiv:1410.6943 [math.CO], 2014.",
+				"Tony D. Noe and Jonathan Vos Post, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL8/Noe/noe5.html\"\u003ePrimes in Fibonacci n-step and Lucas n-step Sequences,\u003c/a\u003e J. Integer Seq. 8 (2005), Article 05.4.4.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"H. Prodinger, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL17/Prodinger2/prod31.html\"\u003eCounting Palindromes According to r-Runs of Ones Using Generating Functions\u003c/a\u003e, J. Integer Seq. 17 (2014), Article 14.6.2; odd length middle 0, r=3.",
+				"Helmut Prodinger and Sarah J. Selkirk, \u003ca href=\"https://arxiv.org/abs/1906.08336\"\u003eSums of squares of Tetranacci numbers: A generating function approach\u003c/a\u003e, arXiv:1906.08336 [math.NT], 2019.",
+				"J. L. Ramírez and V. F. Sirvent, \u003ca href=\"http://www.combinatorics.org/ojs/index.php/eljc/article/view/v22i1p38\"\u003eA Generalization of the k-Bonacci Sequence from Riordan Arrays\u003c/a\u003e, Electron. J. Combin. 22(1) (2015), #P1.38.",
+				"Yüksel Soykan, \u003ca href=\"https://arxiv.org/abs/1902.03936\"\u003eGaussian Generalized Tetranacci Numbers\u003c/a\u003e, arXiv:1902.03936 [math.NT], 2019.",
+				"Yüksel Soykan, \u003ca href=\"https://arxiv.org/abs/1902.05868\"\u003eTetranacci and Tetranacci-Lucas Quaternions\u003c/a\u003e, arXiv:1902.05868 [math.RA], 2019.",
+				"Yüksel Soykan, \u003ca href=\"https://doi.org/10.20944/preprints201907.0205.v1\"\u003eMatrix Sequences of Tetranacci and Tetranacci-Lucas Numbers\u003c/a\u003e, Zonguldak Bülent Ecevit University (Zonguldak, Turkey), Preprints (2019), 2019070205.",
+				"O. Turek, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL18/Turek/turek3.html\"\u003eAbelian Complexity Function of the Tribonacci Word\u003c/a\u003e, J. Integer Seq. 18 (2015), Article 15.3.4.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Fibonaccin-StepNumber.html\"\u003eFibonacci n-Step Number\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/TetranacciNumber.html\"\u003eTetranacci Number\u003c/a\u003e.",
+				"L. Zhang and P. Hadjicostas, \u003ca href=\"http://www.appliedprobability.org/data/files/TMS%20articles/40_2_3.pdf\"\u003eOn sequences of independent Bernoulli trials avoiding the pattern '11..1'\u003c/a\u003e, Math. Scientist, 40 (2015), 89-96.",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,1,1,1)."
+			],
+			"formula": [
+				"a(n) = A001630(n) - a(n-1). - _Henry Bottomley_",
+				"G.f.: x^3/(1 - x - x^2 - x^3 - x^4).",
+				"G.f.: x^3 / (1 - x / (1 - x / (1 + x^3 / (1 + x / (1 - x / (1 + x)))))). - _Michael Somos_, May 12 2012",
+				"G.f.: Sum_{n \u003e= 0} x^(n+3) * (Product_{k = 1..n} (k + k*x + k*x^2 + x^3)/(1 + k*x + k*x^2 + k*x^3)). - _Peter Bala_, Jan 04 2015",
+				"a(n) = term (1,4) in the 4 X 4 matrix [1,1,0,0; 1,0,1,0; 1,0,0,1; 1,0,0,0]^n. - _Alois P. Heinz_, Jun 12 2008",
+				"Another form of the g.f.: f(z) = (z^3-z^4)/(1-2*z+z^5), then a(n) = Sum_{i=0..floor((n-3)/5)} (-1)^i*binomial(n-3-4*i,i)*2^(n-3-5*i) - Sum_{i=0..floor((n-4)/5)} (-1)^i*binomial(n-4-4*i,i)*2^(n-4-5*i) with natural convention Sum_{i=m..n} alpha(i) = 0 for m \u003e n. - _Richard Choulet_, Feb 22 2010",
+				"a(n) = sum(k=1..n, sum(i=k..n mod(5*k-i,4)=0 binomial(k,(5*k-i)/4)*(-1)^((i-k)/4)*binomial(n-i+k-1,k-1))), n\u003e0. - _Vladimir Kruchinin_, Aug 18 2010",
+				"Sum_{k=0..3*n} a(k+b) * A008287(n,k) = a(4*n+b), b \u003e= 0 (\"quadrinomial transform\"). - _N. J. A. Sloane_, Nov 10 2010",
+				"G.f.: x^3*(1 + x*(G(0)-1)/(x+1)) where G(k) = 1 + (1+x+x^2+x^3)/(1-x/(x+1/G(k+1) )); (recursively defined continued fraction). - _Sergei N. Gladkovskii_, Jan 26 2013",
+				"Starting (1, 2, 4, 8, ...) = the INVERT transform of (1, 1, 1, 1, 0, 0, 0, ...). - _Gary W. Adamson_, May 13 2013",
+				"a(n) ~ c*r^n, where c=0.079077767399388561146007, and r=1.92756197548292530426195 (One of the roots of the g.f. denominator polynomial is 1/r). - _Fung Lam_, Apr 29 2014",
+				"a(n) = 2*a(n-1) - a(n-5), n \u003e= 5. - _Bob Selcoe_, Jul 06 2014",
+				"From _Ziqian Jin_, Jul 28 2019: (Start)",
+				"a(2n+4) = a(n+4)^2 + a(n+3)^2 + a(n+2)^2 + 2*a(n+3)*(a(n+2) + a(n+1)).",
+				"a(n) - 1 = a(n-2) + 2*a(n-3) + 3*(a(n-4) + a(n-5) + ... + a(2) + a(1)), n \u003e= 4. (End)",
+				"a(n) = (Sum_{i=0..n-1} a(i)*A073817(n-i))/(n-3) for n \u003e 3. - _Greg Dresden_ and _Advika Srivastava_, Sep 28 2019"
+			],
+			"example": [
+				"From _Petros Hadjicostas_, Mar 10 2018: (Start)",
+				"For n=3, we get a(3+4) = a(7) = 8 palindromic compositions of 2*n+1 = 7 into an odd number of parts that are not a multiple of 4. They are the following: 7 = 1+5+1 = 3+1+3 = 2+3+2 = 1+2+1+2+1 = 2+1+1+1+2 = 1+1+3+1+1 = 1+1+1+1+1+1+1. If we put these compositions on a circle, they become bilaterally symmetric cyclic compositions of 2*n+1 = 7.",
+				"For n=4, we get a(4+4) = a(8) = 15 palindromic compositions of 2*n+1 = 9 into an odd number of parts that are not a multiple of 4. They are the following: 9 = 3+3+3 = 2+5+2 = 1+7+1 = 1+1+5+1+1 = 2+1+3+1+2 = 1+2+3+2+1 = 1+3+1+3+1 = 3+1+1+1+3 = 2+2+1+2+2 = 2+1+1+1+1+1+2 = 1+2+1+1+1+2+1 = 1+1+2+1+2+1+1 = 1+1+1+3+1+1+1 = 1+1+1+1+1+1+1+1+1.",
+				"As D. Callan points out in the comments above, for n\u003e=1, a(n+4) is also the number of 0-1 sequences of length n that avoid 1111. For example, for n=5, a(5+4) = a(9) = 29 is the number of binary strings of length n that avoid 1111. Out of the 2^5 = 32 binary strings of length n=5, the following do not avoid 1111: 11111, 01111, and 11110.",
+				"(End)"
+			],
+			"maple": [
+				"A000078:=-1/(-1+z+z**2+z**3+z**4); # _Simon Plouffe_ in his 1992 dissertation",
+				"a:= n-\u003e (\u003c\u003c1|1|0|0\u003e, \u003c1|0|1|0\u003e, \u003c1|0|0|1\u003e, \u003c1|0|0|0\u003e\u003e^n)[1, 4]: seq(a(n), n=0..50); # _Alois P. Heinz_, Jun 12 2008"
+			],
+			"mathematica": [
+				"CoefficientList[Series[x^3/(1 - x - x^2 - x^3 - x^4), {x, 0, 50}], x]",
+				"LinearRecurrence[{1, 1, 1, 1}, {0, 0, 0, 1}, 50]  (* _Vladimir Joseph Stephan Orlovsky_, May 25 2011 *)",
+				"Table[RootSum[-1 - # - #^2 - #^3 + #^4 \u0026, 10 #^n + 157 #^(n + 1) - 103 #^(n + 2) + 16 #^(n + 3) \u0026]/563, {n, 0, 20}] (* _Eric W. Weisstein_, Nov 09 2017 *)",
+				"Table[RootSum[#^4 - #^3 - #^2 - # - 1 \u0026, #^(n - 2)/(-#^3 + 6 # - 1) \u0026], {n, 0, 20}] (* _Eric W. Weisstein_, Nov 09 2017 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c0, 0, polcoeff( x^3 / (1 - x - x^2 - x^3 - x^4) + x * O(x^n), n))}",
+				"(Maxima) a(n):=sum(sum(if mod(5*k-i,4)\u003e0 then 0 else binomial(k,(5*k-i)/4)*(-1)^((i-k)/4)*binomial(n-i+k-1,k-1),i,k,n),k,1,n); \\\\ _Vladimir Kruchinin_, Aug 18 2010",
+				"(Haskell)",
+				"import Data.List (tails, transpose)",
+				"a000078 n = a000078_list !! n",
+				"a000078_list = 0 : 0 : 0 : f [0,0,0,1] where",
+				"   f xs = y : f (y:xs) where",
+				"     y = sum $ head $ transpose $ take 4 $ tails xs",
+				"-- _Reinhard Zumkeller_, Jul 06 2014, Apr 28 2011",
+				"(Python)",
+				"A000078 = [0,0,0,1]",
+				"for n in range(4,100):",
+				"....A000078.append(A000078[n-1]+A000078[n-2]+A000078[n-3]+A000078[n-4])",
+				"# _Chai Wah Wu_, Aug 20 2014",
+				"(MAGMA) [n le 4 select Floor(n/4) else Self(n-1)+Self(n-2)+Self(n-3)+Self(n-4): n in [1..50]]; // _Vincenzo Librandi_, Jan 29 2016",
+				"(GAP) a:=[0,0,0,1];; for n in [5..40] do a[n]:=a[n-1]+a[n-2]+a[n-3]+a[n-4]; od; a; # _Muniru A Asiru_, Mar 11 2018"
+			],
+			"xref": [
+				"Row 4 of arrays A048887 and A092921 (k-generalized Fibonacci numbers).",
+				"First differences are in A001631.",
+				"Cf. A008287 (quadrinomial coefficients) and A073817 (tetranacci with different initial conditions)."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,6",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Definition augmented (with 4 initial terms) by _Daniel Forgues_, Dec 02 2009"
+			],
+			"references": 79,
+			"revision": 273,
+			"time": "2019-10-03T21:01:17-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

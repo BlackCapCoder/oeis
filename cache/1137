@@ -1,0 +1,43 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001137",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1137,
+			"data": "1,2,2,4,8,16,33,56,90,164,330,688,1440,3008,6291,13168,27604,57896,120730,248312,501464,995664,1954582,3821328,7495996,14848472,29815976,60741680,125363472,261452256,549461078,1160693056,2459679936,5221717888",
+			"name": "Number of black-rooted red-black trees with n internal nodes.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A001137/b001137.txt\"\u003eTable of n, a(n) for n = 1..900\u003c/a\u003e",
+				"F. Ruskey, \u003ca href=\"https://webhome.cs.uvic.ca/~cos/inf/tree/RedBlackTree.html\"\u003eInformation on Red-Black Trees\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Red-BlackTree.html\"\u003eRed-Black Tree.\u003c/a\u003e",
+				"\u003ca href=\"/index/Ro#rooted\"\u003eIndex entries for sequences related to rooted trees\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f. satisfies: A(x) = x*(1+x)^2*(1 + A((x+x^2)^2)). - _Paul D. Hanna_, Jun 14 2012"
+			],
+			"mathematica": [
+				"m = 35; A[_] = 0;",
+				"Do[A[x_] = x*(1 + x)^2*(1 + A[(x + x^2)^2]) + O[x]^m // Normal, {m}];",
+				"CoefficientList[A[x]/x, x] (* _Jean-François Alcover_, Oct 19 2019 *)"
+			],
+			"program": [
+				"(PARI) {a(n)=local(A=x);for(i=1,n,A=x*(1+x)^2*(1 + subst(A,x,(x+x^2)^2+x*O(x^n))));polcoeff(A,n)} \\\\ _Paul D. Hanna_, Jun 14 2012"
+			],
+			"xref": [
+				"Cf. A001131."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Frank Ruskey_",
+			"ext": [
+				"More terms from _Sean A. Irvine_, Mar 08 2012"
+			],
+			"references": 2,
+			"revision": 33,
+			"time": "2019-10-20T02:10:06-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

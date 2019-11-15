@@ -1,0 +1,114 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000593",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 593,
+			"id": "M3197 N1292",
+			"data": "1,1,4,1,6,4,8,1,13,6,12,4,14,8,24,1,18,13,20,6,32,12,24,4,31,14,40,8,30,24,32,1,48,18,48,13,38,20,56,6,42,32,44,12,78,24,48,4,57,31,72,14,54,40,72,8,80,30,60,24,62,32,104,1,84,48,68,18,96,48,72,13,74,38,124",
+			"name": "Sum of odd divisors of n.",
+			"comment": [
+				"Denoted by Delta(n) or Delta_1(n) in Glaisher 1907. - _Michael Somos_, May 17 2013",
+				"A069289(n) \u003c= a(n). - _Reinhard Zumkeller_, Apr 05 2015",
+				"A000203, A001227 and this sequence have the same parity: A053866. - _Omar E. Pol_, May 14 2016",
+				"For the g.f.s given below by Somos Oct 29 2005, Jovovic, Oct 11 2002 and Arndt, Nov 09 2010, see the Hardy-Wright reference, proof of Theorem 382, p. 312, with x^2 replaced by x. - _Wolfdieter Lang_, Dec 11 2016",
+				"a(n) is also the total number of parts in all partitions of n into an odd number of equal parts. - _Omar E. Pol_, Jun 04 2017",
+				"It seems that a(n) divides A000203(n) for every n. - _Ivan N. Ianakiev_, Nov 25 2017",
+				"Also, alternating row sums of A126988. - _Omar E. Pol_, Feb 11 2018"
+			],
+			"reference": [
+				"J. A. Ewell, On the sum-of-divisors function, Fib. Q., 45 (2007), 205-207.",
+				"G. H. Hardy and E. M. Wright, An Introduction to the Theory of Numbers, Fifth Edition, Clarendon Press, Oxford, 2003, p. 312.",
+				"F. Hirzebruch et al., Manifolds and Modular Forms, Vieweg 1994 p 133.",
+				"J. Riordan, Combinatorial Identities, Wiley, 1968, p. 187.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000593/b000593.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Francesca Aicardi, \u003ca href=\"http://arxiv.org/abs/0806.1273\"\u003eMatricial formulas for partitions\u003c/a\u003e, arXiv:0806.1273 [math.NT], 2008.",
+				"M. Baake and R. V. Moody, \u003ca href=\"http://arXiv.org/abs/math.MG/9904028\"\u003eSimilarity submodules and root systems in four dimensions\u003c/a\u003e, Canad. J. Math. 51 (1999), 1258-1276.",
+				"J. W. L. Glaisher, \u003ca href=\"https://books.google.com/books?id=bLs9AQAAMAAJ\u0026amp;pg=RA1-PA1\"\u003eOn the representations of a number as the sum of two, four, six, eight, ten, and twelve squares\u003c/a\u003e, Quart. J. Math. 38 (1907), 1-62 (see p. 4 and p. 8).",
+				"Heekyoung Hahn, \u003ca href=\"http://arxiv.org/abs/1507.04426\"\u003eConvolution sums of some functions on divisors\u003c/a\u003e, arXiv:1507.04426 [math.NT], 2015.",
+				"Mircea Merca, \u003ca href=\"http://dx.doi.org/10.1007/s11139-016-9856-3\"\u003eThe Lambert series factorization theorem\u003c/a\u003e, The Ramanujan Journal, January 2017, also \u003ca href=\"https://www.researchgate.net/publication/312324402\"\u003ehere\u003c/a\u003e",
+				"H. Movasati, Y. Nikdelan, \u003ca href=\"http://arxiv.org/abs/1603.09411\"\u003eGauss-Manin Connection in Disguise: Dwork Family\u003c/a\u003e, arXiv:1603.09411 [math.AG], 2016.",
+				"Y. Puri and T. Ward, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL4/WARD/short.html\"\u003eArithmetic and growth of periodic orbits\u003c/a\u003e, J. Integer Seqs., Vol. 4 (2001), #01.2.1.",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"H. J. Stephen Smith, \u003ca href=\"https://archive.org/stream/reportofbritisha66brit#page/322/\"\u003eReport on the Theory of Numbers. — Part VI.\u003c/a\u003e, Report of the 35 Meeting of the British Association for the Advancement of Science (1866). See p. 336.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/OddDivisorFunction.html\"\u003eOdd Divisor Function\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PartitionFunctionQ.html\"\u003ePartition Function Q\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/q-PochhammerSymbol.html\"\u003eq-Pochhammer Symbol\u003c/a\u003e",
+				"\u003ca href=\"/index/Cor#core\"\u003eIndex entries for \"core\" sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Ge#Glaisher\"\u003eIndex entries for sequences mentioned by Glaisher\u003c/a\u003e"
+			],
+			"formula": [
+				"Inverse Moebius Transform of [0, 1, 0, 3, 0, 5, ...]",
+				"Dirichlet g.f.: zeta(s)*zeta(s-1)*(1-2^(1-s)).",
+				"a(2*n) = A000203(2*n)-2*A000203(n), a(2*n+1) = A000203(2*n+1). - _Henry Bottomley_, May 16 2000",
+				"a(2*n) = A054785(2*n) - A000203(2*n). - _Reinhard Zumkeller_, Apr 23 2008",
+				"Multiplicative with a(p^e) = 1 if p = 2, (p^(e+1)-1)/(p-1) if p \u003e 2. - _David W. Wilson_, Aug 01 2001",
+				"a(n) = Sum_{d divides n} (-1)^(d+1)*n/d. - _Vladeta Jovovic_, Sep 06 2002",
+				"Sum_{k=1..n} a(k) is asymptotic to c*n^2 where c=Pi^2/24. - _Benoit Cloitre_, Dec 29 2002",
+				"G.f.: Sum_{n\u003e0} n*x^n/(1+x^n). - _Vladeta Jovovic_, Oct 11 2002",
+				"G.f.: (theta_3(q)^4 + theta_2(q)^4 -1)/24.",
+				"G.f.: Sum_{k\u003e0} -(-x)^k / (1 - x^k)^2. - _Michael Somos_, Oct 29 2005",
+				"a(n) = A050449(n)+A050452(n); a(A000079(n))=1; a(A005408(n))=A000203(A005408(n)). - _Reinhard Zumkeller_, Apr 18 2006",
+				"G.f.: Sum_(n\u003e=1} (2*n-1) * q^(2*n-1) / (1-q^(2*n-1)). G.f.: deriv(log(P))=deriv(P)/P where P=prod(n\u003e=1, 1+q^n). - _Joerg Arndt_, Nov 09 2010",
+				"Dirichlet convolution of A000203 with [1,-2,0,0,0,...]. Dirichlet convolution of A062157 with A000027. - _R. J. Mathar_, Jun 28 2011",
+				"a(n) = Sum_{k = 1..A001227(n)} A182469(n,k). - _Reinhard Zumkeller_, May 01 2012",
+				"G.f.: -1/Q(0), where Q(k)= (x-1)*(1-x^(2*k+1)) + x*(-1 +x^(k+1))^4/Q(k+1); (continued fraction). - _Sergei N. Gladkovskii_, Apr 30 2013",
+				"a(n) = Sum_{k=1..n} k*A000009(k)*A081362(n-k). - _Mircea Merca_, Feb 26 2014",
+				"a(n) = A000203(n) - A146076(n). - _Omar E. Pol_, Apr 05 2016",
+				"a(2*n) = a(n). - _Giuseppe Coppoletta_, Nov 02 2016",
+				"a(n) = n * [x^n] log((-1; x)_inf), where (a; q)_inf is the q-Pochhammer symbol. - _Vladimir Reshetnikov_, Nov 21 2016",
+				"From _Wolfdieter Lang_, Dec 11 2016 : (Start)",
+				"G.f.: Sum_{n\u003e=1} x^n*(1+x^(2*n))/(1-x^(2*n))^2, from the second to last equation of the proof to Theorem 382 (with x^2 -\u003e x) of the Hardy-Wright reference, p. 312.",
+				"a(n) = Sum_{d|n} (-d)*(-1)^(n/d), from the g.f. given above by Jovovic, Oct 11 2002. See also the a(n) version given by Jovovic, Sep 06 2002.",
+				"(End)",
+				"a(n) = A000203(n)/A038712(n). - _Omar E. Pol_, Dec 14 2017",
+				"a(n) = A000203(n)/(2^(1 + (A183063(n)/A001227(n))) - 1). - _Omar E. Pol_, Nov 06 2018",
+				"a(n) = A000203(2n) - 2*A000203(n). - _Ridouane Oudra_, Aug 28 2019"
+			],
+			"example": [
+				"G.f. = x + x^2 + 4*x^3 + x^4 + 6*x^5 + 4*x^6 + 8*x^7 + x^8 + 13*x^9 + 6*x^10 + 12*x^11 + ..."
+			],
+			"maple": [
+				"A000593 := proc(n) local d,s; s := 0; for d from 1 by 2 to n do if n mod d = 0 then s := s+d; fi; od; RETURN(s); end;"
+			],
+			"mathematica": [
+				"Table[a := Select[Divisors[n], OddQ[ # ]\u0026]; Sum[a[[i]], {i, 1, Length[a]}], {n, 1, 60}] (* _Stefan Steinerberger_, Apr 01 2006 *)",
+				"f[n_] := Plus @@ Select[ Divisors@ n, OddQ]; Array[f, 75] (* _Robert G. Wilson v_, Jun 19 2011 *)",
+				"a[ n_] := If[ n \u003c 1, 0, Sum[ -(-1)^d n / d, {d, Divisors[ n]}]]; (* _Michael Somos_, May 17 2013 *)",
+				"a[ n_] := If[ n \u003c 1, 0, DivisorSum[ n, -(-1)^# n / # \u0026]]; (* _Michael Somos_, May 17 2013 *)",
+				"a[ n_] := If[ n \u003c 1, 0, Sum[ Mod[ d, 2] d, {d, Divisors[ n]}]]; (* _Michael Somos_, May 17 2013 *)",
+				"a[ n_] := If[ n \u003c 1, 0, Times @@ (If[ # \u003c 3, 1, (#^(#2 + 1) - 1) / (# - 1)] \u0026 @@@ FactorInteger @ n)]; (* _Michael Somos_, Aug 15 2015 *)",
+				"Array[Total[Divisors@ # /. d_ /; EvenQ@ d -\u003e Nothing] \u0026, {75}] (* _Michael De Vlieger_, Apr 07 2016 *)",
+				"Table[SeriesCoefficient[n Log[QPochhammer[-1, x]], {x, 0, n}], {n, 1, 75}] (* _Vladimir Reshetnikov_, Nov 21 2016 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c1, 0, sumdiv( n, d, (-1)^(d+1) * n/d))}; /* _Michael Somos_, May 29 2005 */",
+				"(PARI) x='x+O('x^66); Vec( serconvol( log(prod(j=1,N,1+x^j)), Ser(sum(j=1,N,j*x^j)) ))  /* _Joerg Arndt_, May 03 2008, edited by _M. F. Hasler_, Jun 19 2011 */",
+				"(PARI) s=vector(100);for(n=1,100,s[n]=sumdiv(n,d,d*(d%2)));s /* _Zak Seidov_, Sep 24 2011*/",
+				"(PARI) a(n)=sigma(n\u003e\u003evaluation(n,2)) \\\\ _Charles R Greathouse IV_, Sep 09 2014",
+				"(Haskell)",
+				"a000593 = sum . a182469_row  -- _Reinhard Zumkeller_, May 01 2012, Jul 25 2011",
+				"(Sage) [sum(k for k in divisors(n) if k%2==1) for n in (1..75)] # _Giuseppe Coppoletta_, Nov 02 2016",
+				"(MAGMA) m:=50; R\u003cx\u003e:=PowerSeriesRing(Integers(), m); Coefficients(R!( (\u0026+[j*x^j/(1+x^j): j in [1..2*m]])  )); // _G. C. Greubel_, Nov 07 2018",
+				"(MAGMA) [\u0026+[d:d in Divisors(n)|IsOdd(d)]:n in [1..75]]; // _Marius A. Burtea_, Aug 12 2019"
+			],
+			"xref": [
+				"Cf. A000005, A000203, A001227, A006128, A050999, A051000, A051001, A051002, A078471, A069289, A247837 (subset of the primes).",
+				"Cf. A301799, A301800."
+			],
+			"keyword": "nonn,core,easy,nice,mult",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 195,
+			"revision": 198,
+			"time": "2019-08-28T14:57:07-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

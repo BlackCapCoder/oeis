@@ -1,0 +1,36 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001545",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1545,
+			"data": "4,54,154,304,504,754,1054,1404,1804,2254,2754,3304,3904,4554,5254,6004,6804,7654,8554,9504,10504,11554,12654,13804,15004,16254,17554,18904,20304,21754,23254,24804,26404,28054,29754,31504,33304,35154,37054,39004,41004",
+			"name": "(5n+1)(5n+4).",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A001545/b001545.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-3,1)."
+			],
+			"formula": [
+				"a(n) = 50*n + a(n-1) with a(0)=4. - _Vincenzo Librandi_, Jan 20 2011"
+			],
+			"mathematica": [
+				"Table[(5n+1)(5n+4),{n,0,60}] (* or *) LinearRecurrence[{3,-3,1},{4,54,154},60] (* _Harvey P. Dale_, Mar 17 2019 *)"
+			],
+			"program": [
+				"(PARI) a(n)=(5*n+1)*(5*n+4) \\\\ _Charles R Greathouse IV_, Jun 17 2017"
+			],
+			"xref": [
+				"Equals 50 * A000217(n) + 4."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 1,
+			"revision": 26,
+			"time": "2019-03-17T14:03:30-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,65 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001022",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1022,
+			"id": "M4914 N2107",
+			"data": "1,13,169,2197,28561,371293,4826809,62748517,815730721,10604499373,137858491849,1792160394037,23298085122481,302875106592253,3937376385699289,51185893014090757,665416609183179841,8650415919381337933,112455406951957393129,1461920290375446110677,19004963774880799438801",
+			"name": "Powers of 13.",
+			"comment": [
+				"The compositions of n in which each natural number is colored by one of p different colors are called p-colored compositions of n. For n\u003e=1, a(n) equals the number of 13-colored compositions of n such that no adjacent parts have the same color. - _Milan Janjic_, Nov 17 2011",
+				"Numbers n such that sigma(13*n) = 13*n+sigma(n). - _Jahangeer Kholdi_, Nov 23 2013"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A001022/b001022.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e",
+				"P. J. Cameron, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL3/groups.html\"\u003eSequences realized by oligomorphic permutation groups\u003c/a\u003e, J. Integ. Seqs. Vol. 3 (2000), #00.1.5.",
+				"INRIA Algorithms Project, \u003ca href=\"http://ecs.inria.fr/services/structure?nbr=277\"\u003eEncyclopedia of Combinatorial Structures 277\u003c/a\u003e",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de Séries Génératrices et Quelques Conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"Y. Puri and T. Ward, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL4/WARD/short.html\"\u003eArithmetic and growth of periodic orbits\u003c/a\u003e, J. Integer Seqs., Vol. 4 (2001), #01.2.1.",
+				"\u003ca href=\"/index/Rec#order_01\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (13)."
+			],
+			"formula": [
+				"G.f.: 1/(1-13*x).",
+				"E.g.f.: exp(13*x).",
+				"a(n) = 13^n. - _Vincenzo Librandi_, Nov 21 2010",
+				"a(n) = 13*a(n-1) n \u003e 0, a(0)=1. - _Vincenzo Librandi_, Nov 21 2010",
+				"a(n) = Sum_{k=0..n} A001021(k)*binomial(n,k). It is well known that Sum_{k=0..n} (h-1)^k*binomial(n,k) = h^n. - _Bruno Berselli_, Aug 06 2013"
+			],
+			"example": [
+				"For the fifth formula: a(7) = 1*1 + 12*7 + 144*21 + 1728*35 + 20736*35 + 248832*21 + 2985984*7 + 35831808*1 = 62748517. - _Bruno Berselli_, Aug 06 2013"
+			],
+			"maple": [
+				"A001022:=-1/(-1+13*z); # _Simon Plouffe_ in his 1992 dissertation"
+			],
+			"mathematica": [
+				"Table[13^n, {n, 0, 40}] (* _Vladimir Joseph Stephan Orlovsky_, Feb 15 2011 *)"
+			],
+			"program": [
+				"(MAGMA) [13^n: n in [0..100]]; // _Vincenzo Librandi_, Nov 21 2010",
+				"(Maxima) A001022(n):=13^n$ makelist(A001022(n),n,0,30); /* _Martin Ettl_, Nov 05 2012 */"
+			],
+			"xref": [
+				"Cf. A001021."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _James A. Sellers_, Sep 19 2000"
+			],
+			"references": 57,
+			"revision": 68,
+			"time": "2018-07-14T15:33:43-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

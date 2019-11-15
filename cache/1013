@@ -1,0 +1,81 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001013",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1013,
+			"id": "M0993 N0372",
+			"data": "1,2,4,6,8,12,16,24,32,36,48,64,72,96,120,128,144,192,216,240,256,288,384,432,480,512,576,720,768,864,960,1024,1152,1296,1440,1536,1728,1920,2048,2304,2592,2880,3072,3456,3840,4096,4320,4608,5040,5184,5760",
+			"name": "Jordan-Polya numbers: products of factorial numbers A000142.",
+			"comment": [
+				"Also, numbers of the form 1^d_1*2^d_2*3^d_3*...*k^d_k where k, d_1, ..., d_k are natural numbers satisfying d_1 \u003e= d_2 \u003e= d_3 \u003e= ... \u003e= d_k \u003e= 1. - _N. J. A. Sloane_, Jun 14 2015",
+				"Possible orders of automorphism groups of trees.",
+				"Except for the numbers 2, 9 and 10 this sequence is conjectured to be the same as A034878.",
+				"Equivalently, (a(n)/6)*(6x^2-6x+(6x-3)a(n)+2a(n)^2+1) = N^2 has an integer solution. - _Ralf Stephan_, Dec 04 2004"
+			],
+			"reference": [
+				"R. K. Guy, Unsolved Problems in Number Theory, B23.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe and R. Zumkeller, \u003ca href=\"/A001013/b001013.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e, first 987 terms from T. D. Noe",
+				"Robert A. Melter, \u003ca href=\"http://dx.doi.org/10.1016/S0021-9800(68)80025-0\"\u003eAutometrized unary algebras\u003c/a\u003e, J. Combinatorial Theory 5 1968 21-29.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/FactorialProducts.html\"\u003eFactorial Products\u003c/a\u003e",
+				"\u003ca href=\"/index/Fa#factorial\"\u003eIndex entries for sequences related to factorial numbers\u003c/a\u003e",
+				"\u003ca href=\"/index/Tra#trees\"\u003eIndex entries for sequences related to trees\u003c/a\u003e"
+			],
+			"example": [
+				"864 = (3!)^2*4!."
+			],
+			"maple": [
+				"N:= 10000: # get all terms \u003c= N",
+				"S:= {1}:",
+				"for k from 2 do",
+				"  kf:= k!;",
+				"  if kf \u003e N then break fi;",
+				"  S := S union {seq(seq(kf^j * s, j = 1 .. floor(log[kf](N/s))),s=S)};",
+				"od:",
+				"S;   # if using Maple 11 or earlier, uncomment the next line:",
+				"# sort(convert(S,list));",
+				"# _Robert Israel_, Sep 09 2014"
+			],
+			"mathematica": [
+				"For[p=0; a=f=Table[n!, {n, 1, 8}], p=!=a, p=a; a=Select[Union@@Outer[Times, f, a], #\u003c=8!\u0026]]; a"
+			],
+			"program": [
+				"(Sage)",
+				"# For the function 'prod_hull' see A246663.",
+				"prod_hull(factorial, 5760) # _Peter Luschny_, Sep 09 2014",
+				"(Haskell)",
+				"import Data.Set (empty, fromList, deleteFindMin, union)",
+				"import qualified Data.Set as Set (null)",
+				"a001013 n = a001013_list !! (n-1)",
+				"a001013_list = 1 : h 0 empty [1] (drop 2 a000142_list) where",
+				"   h z s mcs xs'@(x:xs)",
+				"    | Set.null s || x \u003c m = h z (union s (fromList $ map (* x) mcs)) mcs xs",
+				"    | m == z = h m s' mcs xs'",
+				"    | otherwise = m : h m (union s' (fromList (map (* m) $ init (m:mcs)))) (m:mcs) xs'",
+				"    where (m, s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Nov 13 2014",
+				"(PARI) list(lim,mx=lim)=if(lim\u003c2, return([1])); my(v=[1],t=1); for(n=2,mx, t*=n; if(t\u003elim, break); v=concat(v,t*list(lim\\t, t))); Set(v) \\\\ _Charles R Greathouse IV_, May 18 2015"
+			],
+			"xref": [
+				"Cf. A034878, A093373 (complement)."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms, formula from _Christian G. Bower_, Dec 15 1999",
+				"Edited by _Dean Hickerson_, Sep 17 2002"
+			],
+			"references": 31,
+			"revision": 47,
+			"time": "2018-01-08T02:11:45-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

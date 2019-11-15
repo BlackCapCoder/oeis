@@ -1,0 +1,122 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001175",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1175,
+			"id": "M2710 N1087",
+			"data": "1,3,8,6,20,24,16,12,24,60,10,24,28,48,40,24,36,24,18,60,16,30,48,24,100,84,72,48,14,120,30,48,40,36,80,24,76,18,56,60,40,48,88,30,120,48,32,24,112,300,72,84,108,72,20,48,72,42,58,120,60,30,48,96,140,120,136",
+			"name": "Pisano periods (or Pisano numbers): period of Fibonacci numbers mod n.",
+			"comment": [
+				"These numbers might also have been called Fibonacci periods.",
+				"Also, number of perfect multi-Skolem type sequences of order n.",
+				"Index the Fibonacci numbers so that 3 is the fourth number. If the modulo base is a Fibonacci number (\u003e=3) with an even index, the period is twice the index. If the base is a Fibonacci number (\u003e=5) with an odd index, the period is 4 times the index. - _Kerry Mitchell_, Dec 11 2005",
+				"Each row of the image represents a different modulo base n, from 1 at the bottom to 24 at the top.  The columns represent the Fibonacci numbers mod n, from 0 mod n at the left to 59 mod n on the right.  In each cell, the brightness indicates the value of the residual, from dark for 0 to near-white for n-1.  Blue squares on the left represent the first period; the number of blue squares is the Pisano number. - _Kerry Mitchell_, Feb 02 2013",
+				"a(n) = least positive integer k such that F(k) == 0 (mod n) and F(k+1) == 1 (mod n), where F = A000045 is the Fibonacci sequence. a(n) exists for all n by Dirichlet's box principle and the fact that the positive integers are well-ordered. Cf. Saha and Karthik (2011). - _L. Edson Jeffery_, Feb 12 2014"
+			],
+			"reference": [
+				"B. H. Hannon and W. L. Morris, Tables of Arithmetical Functions Related to the Fibonacci Numbers. Report ORNL-4261, Oak Ridge National Laboratory, Oak Ridge, Tennessee, Jun 1968.",
+				"J. Roberts, Lure of the Integers, Math. Assoc. America, 1992, p. 162.",
+				"J. H. Silverman, A Friendly Introduction to Number Theory, 3rd ed., Pearson Education, Inc, 2006, pp. 304 - 309.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"S. Vajda, Fibonacci and Lucas numbers and the Golden Section, Ellis Horwood Ltd., Chichester, 1989. See p. 89. - _N. J. A. Sloane_, Feb 20 2013"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A001175/b001175.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"B. Avila and T. Khovanova, \u003ca href=\"http://arxiv.org/abs/1403.4614\"\u003eFree Fibonacci Sequences\u003c/a\u003e, arXiv preprint arXiv:1403.4614 [math.NT], 2014 and \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL17/Avila/avila4.html\"\u003eJournal of Integer Sequences 17 (2014), #14.8.5\u003c/a\u003e.",
+				"Michael Baake, Natascha Neumarker, and John A. G. Roberts, \u003ca href=\"http://arxiv.org/abs/1205.1003\"\u003eOrbit structure and (reversing) symmetries of toral endomorphisms on rational lattices\u003c/a\u003e, arXiv:1205.1003 [math.DS], 2012.",
+				"K. S. Brown, \u003ca href=\"http://www.mathpages.com/home/kmath078/kmath078.htm\"\u003ePeriods of Fibonacci Sequences mod m\u003c/a\u003e.",
+				"K. S. Brown, \u003ca href=\"/A001175/a001175_1.pdf\"\u003ePeriods of Fibonacci Sequences mod m\u003c/a\u003e. [Cached copy in pdf format]",
+				"Francis N. Castro and Luis A. Medina, \u003ca href=\"http://arxiv.org/abs/1603.00534\"\u003eModular periodicity of exponential sums of symmetric Boolean functions and some of its consequences\u003c/a\u003e, arXiv:1603.00534 [math.NT], 2016.",
+				"D. A. Coleman, C. J. Dugan, R. A. McEwen, C. A. Reiter, and T. T. Tang, \u003ca href=\"http://www.fq.math.ca/Papers1/44-1/quartreiter01_2006.pdf\"\u003ePeriods of (q,r)-Fibonacci sequences and Elliptic Curves\u003c/a\u003e, Fibonacci Quart. 44 (1) (2006), 59-70.",
+				"Joseph Louis de Lagrange, \u003ca href=\"http://gallica.bnf.fr/ark:/12148/bpt6k2299428/f145.image\"\u003eAdditions aux éléments d'algèbre d'Euler. Analyse indéterminée.\u003c/a\u003e (1774), pp. 143ff.",
+				"H. T. Engstrom, \u003ca href=\"https://doi.org/10.1090/S0002-9947-1931-1501585-5\"\u003eOn sequences defined by linear recurrence relations\u003c/a\u003e, Trans. Am. Math. Soc. 33 (1) (1931), 210-218.",
+				"J. D. Fulton and W. L. Morris, \u003ca href=\"http://matwbn.icm.edu.pl/ksiazki/aa/aa16/aa1621.pdf\"\u003eOn arithmetical functions related to the Fibonacci numbers\u003c/a\u003e, Acta Arithmetica 16 (1969), 105-110.",
+				"José María Grau and Antonio M. Oller-Marcén, \u003ca href=\"http://arxiv.org/abs/1203.4066\"\u003eOn the last digit and the last non-zero digit of n^n in base b\u003c/a\u003e, arXiv preprint arXiv:1203.4066 [math.NT], 2012.",
+				"James Grime and Brady Haran, \u003ca href=\"https://www.youtube.com/watch?v=Nu-lW-Ifyec\"\u003eFibonacci Mystery\u003c/a\u003e, Numberphile video, 2013.",
+				"B. H. Hannon and W. L. Morris, \u003ca href=\"/A001175/a001175.pdf\"\u003eTables of Arithmetical Functions Related to the Fibonacci Numbers\u003c/a\u003e. [Annotated and scanned copy]",
+				"Naoki Sato, Cyrus Hsia, Richard Hoshino, Wai Ling Yee, and Adrian Chan, editors, \u003ca href=\"http://math.ca/crux/v23/n4/\"\u003eFibonacci residues\u003c/a\u003e, Crux Mathematicorum 23:4 (1997), pp. 224-226.",
+				"Dan Ismailescu and Peter C. Shim, \u003ca href=\"http://www.emis.de/journals/INTEGERS/papers/o65/o65.Abstract.html\"\u003eOn numbers that cannot be expressed as a plus-minus weighted sum of a Fibonacci number and a prime\u003c/a\u003e, INTEGERS 14 (2014), #A65.",
+				"Kerry Mitchell, \u003ca href=\"/A001175/a001175.jpg\"\u003eIllustration of Pisano Numbers as Periods of Fibonacci Numbers Mod n\u003c/a\u003e",
+				"G. Nordh, \u003ca href=\"http://arXiv.org/abs/math.NT/0506155\"\u003ePerfect Skolem sequences\u003c/a\u003e, arXiv:math/0506155 [math.CO], 2005.",
+				"N. Patson, \u003ca href=\"http://www.austms.org.au/Gazette/2007/Mar07/39PatsonPisano.pdf\"\u003ePisano period and permutations of n X n matrices\u003c/a\u003e, Australian Math. Soc. Gazette, 2007.",
+				"Noel Patson, \u003ca href=\"http://demonstrations.wolfram.com/SquareMatrixPermutations/\"\u003eSquare Matrix Permutations\u003c/a\u003e.",
+				"M. Renault, \u003ca href=\"http://webspace.ship.edu/msrenault/fibonacci/fib.htm\"\u003ePeriods of Fibonacci Sequence Modulo m\u003c/a\u003e.",
+				"Arpan Saha and C. S. Karthik, \u003ca href=\"http://arxiv.org/abs/1102.1636\"\u003eA few equivalences of [the] Wall-Sun-Sun prime conjecture\u003c/a\u003e, p. 2, arXiv:1102.1636 [math.NT], 2011.",
+				"Minjia Shi, Zhongyi Zhang, and Patrick Solé, \u003ca href=\"https://arxiv.org/abs/1709.04582\"\u003ePisano period codes\u003c/a\u003e, arXiv:1709.04582 [cs.IT], 2017.",
+				"D. D. Wall, \u003ca href=\"http://www.jstor.org/stable/2309169\"\u003eFibonacci series modulo m\u003c/a\u003e, Amer. Math. Monthly, 67 (1960), 525-532.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PisanoPeriod.html\"\u003ePisano Number\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Pisano_period\"\u003ePisano period\u003c/a\u003e.",
+				"J. W. W. [J. W. Wrench], \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-69-99644-6\"\u003eReview of B. H. Hannon and W. L. Morris tables\u003c/a\u003e, Math. Comp., 23 (1969), 459-460."
+			],
+			"formula": [
+				"Let the prime factorization of n be p1^e1...pk^ek. Then a(n) = lcm(a(p1^e1), ..., a(pk^ek)). - _T. D. Noe_, May 02 2005",
+				"a(n) = n-1 if n is a prime \u003e 5 included in A003147 ( n = 11, 19, 31, 41, 59, 61, 71, 79, 109...). - _Benoit Cloitre_, Jun 04 2002",
+				"K. S. Brown shows that a(n)/n \u003c= 6 for all n and a(n)=6n if and only if n has the form 2*5^k.",
+				"a(n) = A001177(n)*A001176(n) for n \u003e= 1. - _Henry Bottomley_, Dec 19 2001",
+				"a(n) \u003c= 2*n+2 if n is a prime \u003e 5, by Wall's Theorems 6 and 7; see A060305, A222413, A296240. - _Jonathan Sondow_, Dec 10 2017"
+			],
+			"example": [
+				"For n=4, take the Fibonacci sequence (A000045), 1, 1, 2, 3, 5, 8, 13, 21, ... (mod 4), which gives 1, 1, 2, 3, 1, 0, 1, 1, .... This repeats a pattern of length 6, so a(4) = 6. - _Michael B. Porter_, Jul 19 2016"
+			],
+			"maple": [
+				"a:= proc(n) local f, k, l; l:= ifactors(n)[2];",
+				"      if nops(l)\u003c\u003e1 then ilcm(seq(a(i[1]^i[2]), i=l))",
+				"    else f:= [0, 1];",
+				"         for k do f:=[f[2], f[1]+f[2] mod n];",
+				"                  if f=[0, 1] then break fi",
+				"         od; k",
+				"      fi",
+				"    end:",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Sep 18 2013"
+			],
+			"mathematica": [
+				"Table[a={1, 0}; a0=a; k=0; While[k++; s=Mod[Plus@@a, n]; a=RotateLeft[a]; a[[2]]=s; a!=a0]; k, {n, 2, 100}] (* _T. D. Noe_, Jul 19 2005 *)",
+				"a[1] = 1; a[n_] := For[k = 1, True, k++, If[Mod[Fibonacci[k], n] == 0 \u0026\u0026 Mod[ Fibonacci[k+1], n] == 1, Return[k]]]; Table[a[n], {n, 1, 100}] (* _Jean-François Alcover_, Feb 11 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a001175 1 = 1",
+				"a001175 n = f 1 ps 0 where",
+				"   f 0 (1 : xs) pi = pi",
+				"   f _ (x : xs) pi = f x xs (pi + 1)",
+				"   ps = 1 : 1 : zipWith (\\u v -\u003e (u + v) `mod` n) (tail ps) ps",
+				"-- _Reinhard Zumkeller_, Jan 15 2014",
+				"(Sage) def a(n): return BinaryRecurrenceSequence(1,1).period(n) # _Ralf Stephan_, Jan 23 2014",
+				"(PARI) fibmod(n,m)=((Mod([1,1;1,0],m))^n)[1,2]",
+				"entryp(p)=my(k=p+[0, -1, 1, 1, -1][p%5+1], f=factor(k)); for(i=1, #f[, 1], for(j=1, f[i, 2], if((Mod([1, 1; 1, 0], p)^(k/f[i, 1]))[1, 2], break); k/=f[i, 1])); k",
+				"entry(n)=if(n==1,return(1)); my(f=factor(n), v); v=vector(#f~, i, if(f[i,1]\u003e1e14,entryp(f[i,1]^f[i,2]), entryp(f[i,1])*f[i,1]^(f[i,2] - 1))); if(f[1,1]==2\u0026\u0026f[1,2]\u003e1, v[1]=3\u003c\u003cmax(f[1,2]-2,1)); lcm(v)",
+				"a(n)=if(n==1, return(1)); my(k=entry(n)); forstep(i=k,n^2,k,if(fibmod(i-1,n)==1,return(i))) \\\\ _Charles R Greathouse IV_, Feb 13 2014; updated Dec 14 2016",
+				"(Python)",
+				"from functools import reduce",
+				"from sympy import factorint, lcm",
+				"def A001175(n):",
+				"    if n == 1:",
+				"        return 1",
+				"    f = factorint(n)",
+				"    if len(f) \u003e 1:",
+				"        return reduce(lcm, (A001175(a**f[a]) for a in f))",
+				"    else:",
+				"        k,x = 1, [1,1]",
+				"        while x != [0,1]:",
+				"            k += 1",
+				"            x = [x[1], (x[0]+x[1]) % n]",
+				"        return k # _Chai Wah Wu_, Jul 17 2019"
+			],
+			"xref": [
+				"Cf. A060305 (Fibonacci period mod prime(n)), A003893.",
+				"Cf. A001178 (Fibonacci frequency), A001179 (Leonardo logarithm), A235702 (fixed points), A066853 (number of elements in the set of residua), A222413, A296240 (Pisano quotients for primes}."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 144,
+			"revision": 189,
+			"time": "2019-07-18T06:19:46-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

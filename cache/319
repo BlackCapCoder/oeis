@@ -1,0 +1,32 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000319",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 319,
+			"data": "1,1,74,-1,-2,-3,0,1,30,-2,-2,29,1,4,-6,0,1,2,-1,-1,-1,-1,-2,-9,0,0,1,2,-2,-35,-1,-1,-1,-1,-1,-1,-1,-2,-3,0,0,1,5,-2,-2,3,1,1,-4,-1,-1,-1,-1,-1,-1,-1,-1,-2,-3,1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-2,-3,0,1,2,-1,-2,-21,-7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+			"name": "a(n) = floor(b(n)), where b(n)=tan(b(n-1)), b(0)=1.",
+			"comment": [
+				"Using 3000-digit precision, interval arithmetic provides an efficient method of computing over 2000000 terms of this sequence. The iteration is stopped when an interval contains an integer. So far, no term equals 319. - T. D. Noe, Mar 07 2008"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000319/b000319.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"Tan[Tan[Tan[1]]]=-0.8635... ==\u003e a(3)=-1 Tan[Tan[1]]=74.68.. ==\u003e a(2)=74 - _José María Grau Ribas_, Apr 13 2010"
+			],
+			"mathematica": [
+				"Floor[Table[Nest[Tan, 1, n], {n, 1, 200}]] - _José María Grau Ribas_, Apr 13 2010"
+			],
+			"keyword": "sign",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_.",
+			"references": 4,
+			"revision": 12,
+			"time": "2016-08-28T18:18:32-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

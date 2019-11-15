@@ -1,0 +1,39 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001051",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1051,
+			"data": "1,3,1,5,1,5,1,7,1,5,1,8,1,5,1,7,1,5,1,7,1,5,1,10,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,8,1,5,1,7,1,5,1,7,1,5,1,8,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,7,1,5,1,8",
+			"name": "Number of subgroups of order n in orthogonal group O(3).",
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A001051/b001051.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/OrthogonalGroup.html\"\u003eOrthogonal Group.\u003c/a\u003e"
+			],
+			"formula": [
+				"Has period 1 5 1 7 except that a(2) = 3, a(4) = 5, a(12) = 8, a(24) = 10, a(48) = a(60) = a(120) = 8."
+			],
+			"mathematica": [
+				"a[2] = 3; a[4] = 5; a[12] = 8; a[24] = 10; a[48] = a[60] = a[120] = 8; a[n_] := Switch[Mod[n, 4], 0, 7, 1, 1, 2, 5, 3, 1]; Table[a[n], {n, 1, 96}] (* _Jean-François Alcover_, Oct 15 2013 *)"
+			],
+			"program": [
+				"(PARI) A001051(n) = if((12==n)||(48==n)||(60==n)||(120==n),8,if(24==n,10,if((4==n)||(2==n),1+n,[1,5,1,7][1+((n-1)%4)]))); \\\\ _Antti Karttunen_, Jan 15 2019"
+			],
+			"xref": [
+				"The main sequences concerned with group theory are A000001, A000679, A001034, A001051, A001228, A005180, A000019, A000637, A000638, A002106, A005432, A051881."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_J. H. Conway_",
+			"ext": [
+				"Data section extended up to a(120) by _Antti Karttunen_, Jan 15 2019"
+			],
+			"references": 2,
+			"revision": 19,
+			"time": "2019-01-15T18:42:12-05:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

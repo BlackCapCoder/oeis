@@ -1,0 +1,53 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000004",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 4,
+			"id": "M0000",
+			"data": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+			"name": "The zero sequence.",
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A000004/b000004.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e [Useful when plotting one sequence against another. See Swayne link.]",
+				"Luis Manuel Rivera, \u003ca href=\"http://arxiv.org/abs/1406.3081\"\u003eInteger sequences and k-commuting permutations\u003c/a\u003e, arXiv preprint arXiv:1406.3081 [math.CO], 2014-2015.",
+				"D. F. Swayne, \u003ca href=\"/plot2.html\"\u003ePlot pairs of sequences in the OEIS\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e",
+				"\u003ca href=\"/index/Cor#core\"\u003eIndex entries for \"core\" sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_01\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1).",
+				"\u003ca href=\"/index/Fi#FIXEDPOINTS\"\u003eIndex entries for sequences that are fixed points of mappings\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 0 for all integer n."
+			],
+			"maple": [
+				"A000004 := n-\u003e0;"
+			],
+			"mathematica": [
+				"a[ n_] := 0;",
+				"Table[0, {n, 100}] (* _Matthew House_, Jul 14 2015 *)",
+				"LinearRecurrence[{1},{0},102] (* _Ray Chandler_, Jul 15 2015 *)"
+			],
+			"program": [
+				"(MAGMA) [ 0 : n in [0..100]];",
+				"(PARI) vector(100,n,0)",
+				"(R) rep(0,100)",
+				"(Haskell)",
+				"a000004 = const 0",
+				"a000004_list = repeat 0  -- _Reinhard Zumkeller_, May 07 2012"
+			],
+			"xref": [
+				"Cf. A000012 (all 1's), A007395 (all 2's), A010701 (all 3's).",
+				"Cf. A000007(n) = 0^n: characteristic function of {0}."
+			],
+			"keyword": "core,easy,nonn,mult",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 258,
+			"revision": 105,
+			"time": "2019-09-19T06:33:30-04:00",
+			"created": "1994-05-16T03:00:00-04:00"
+		}
+	]
+}

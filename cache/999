@@ -1,0 +1,35 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000999",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 999,
+			"data": "0,0,0,1,1,0,0,0,1,1,0,0,0,2,2,1,1,1,2,2,1,1,1,2,2,0,0,0,1,1,0,0,0,1,1,0,0,0,2,2,1,1,1,2,2,1,1,1,2,2,0,0,0,1,1,0,0,0,1,1,0,0,0,3,3,2,2,2,3,3,2,2,2,3,3,1,1,1,2,2,1,1,1,2,2,1,1",
+			"name": "5^a(n) divides C(2n,n).",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000999/b000999.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[IntegerExponent[Binomial[2*n, n], 5], {n, 0, 100}] (* _T. D. Noe_, Jun 21 2012 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c0,0,valuation(binomial(2*n,n),5))"
+			],
+			"xref": [
+				"Cf. A000984."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,14",
+			"author": "_N. J. A. Sloane_, _R. K. Guy_",
+			"ext": [
+				"More terms from _Michael Somos_, Jun 27, 2002"
+			],
+			"references": 1,
+			"revision": 13,
+			"time": "2014-04-30T01:35:31-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,62 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000660",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 660,
+			"data": "1,2,5,14,41,136,523,2330,11857,67912,432291,3027166,23125673,191389108,1705788659,16289080922,165919213089,1795666675824,20576824369027,248892651678198,3168999664907705,42366404751871660",
+			"name": "Boustrophedon transform of 1,1,2,3,4,5,...",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000660/b000660.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon on transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{k=0..n} A109449(n,k)*A028310(k). - _Reinhard Zumkeller_, Nov 04 2013",
+				"E.g.f.:  (x*exp(x) + 1)*(sec(x) + tan(x)). - _Sergei N. Gladkovskii_, Oct 28 2014",
+				"a(n) = A231179(n) + A000111(n). - _Sergei N. Gladkovskii_, Oct 28 2014",
+				"a(n) ~ n! * (2 + Pi*exp(Pi/2)) * (2/Pi)^(n+1). - _Vaclav Kotesovec_, Jun 12 2015"
+			],
+			"maple": [
+				"seq(coeff(series(factorial(n)*(x*exp(x)+1)*(sec(x)+tan(x)), x,n+1),x,n),n=0..25); # _Muniru A Asiru_, Jul 30 2018"
+			],
+			"mathematica": [
+				"a[n_] := n! SeriesCoefficient[(1+x Exp[x])(1+Sin[x])/Cos[x], {x, 0, n}];",
+				"Table[a[n], {n, 0, 21}] (* _Jean-François Alcover_, Jul 30 2018, after _Sergei N. Gladkovskii_ *)"
+			],
+			"program": [
+				"(Sage) # Algorithm of L. Seidel (1877)",
+				"def A000660_list(n) :",
+				"    R = []; A = {-1:0, 0:1}",
+				"    k = 0; e = 1",
+				"    for i in range(n) :",
+				"        Am = i",
+				"        A[k + e] = 0",
+				"        e = -e",
+				"        for j in (0..i) :",
+				"            Am += A[k]",
+				"            A[k] = Am",
+				"            k += e",
+				"        print [A[z] for z in (-i//2..i//2)]",
+				"        R.append(A[e*i//2])",
+				"    return R",
+				"A000660_list(10) # _Peter Luschny_, Jun 02 2012",
+				"(Haskell)",
+				"a000660 n = sum $ zipWith (*) (a109449_row n) (1 : [1..])",
+				"-- _Reinhard Zumkeller_, Nov 04 2013"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, _Simon Plouffe_",
+			"references": 3,
+			"revision": 36,
+			"time": "2019-10-13T02:22:06-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

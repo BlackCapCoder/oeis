@@ -1,0 +1,70 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001883",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1883,
+			"id": "M3630 N1475",
+			"data": "1,0,0,0,1,4,29,206,1708,15702,159737,1780696,21599745,283294740,3995630216,60312696452,970234088153,16571597074140,299518677455165,5711583170669554,114601867572247060,2413623459384988298,53238503492701261201,1227382998752177970288,29520591675204638641249",
+			"name": "Number of permutations s of {1,2,...,n} such that |s(i)-i|\u003e1 for each i=1,2,...,n.",
+			"comment": [
+				"Permanent of the (0,1)-matrix having (i,j)-th entry equal to 0 iff this is on the first lower-diagonal, diagonal or the first upper-diagonal. - _Simone Severini_, Oct 14 2004"
+			],
+			"reference": [
+				"J. Riordan, \"The enumeration of permutations with three-ply staircase restrictions,\" unpublished memorandum, Bell Telephone Laboratories, Murray Hill, NJ, Oct 1963.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Eric M. Schmidt, \u003ca href=\"/A001883/b001883.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e",
+				"Dmitry Efimov, \u003ca href=\"https://arxiv.org/abs/1702.05655\"\u003eDeterminants of generalized binary band matrices\u003c/a\u003e, arXiv:1702.05655 [math.RA], 2017.",
+				"J. Riordan, \u003ca href=\"/A001861/a001861_1.pdf\"\u003eLetter, Oct 31 1977\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/A001883/a001883_21.pdf\"\u003eAnnotated copy of Riordan's Three-Ply Staircase paper\u003c/a\u003e",
+				"Donovan Young, \u003ca href=\"https://www.emis.de/journals/JIS/VOL21/Young/young2.html\"\u003eThe Number of Domino Matchings in the Game of Memory\u003c/a\u003e, J. Int. Seq., Vol. 21 (2018), Article 18.8.1.",
+				"D. Zeilberger, \u003ca href=\"http://arxiv.org/abs/1401.1089\"\u003eAutomatic Enumeration of Generalized Menage Numbers\u003c/a\u003e, arXiv preprint arXiv:1401.1089 [math.CO], 2014."
+			],
+			"formula": [
+				"a(n) = (n+1)*a(n-1) - (n-3)*a(n-2) - (n-4)*a(n-3) + (n-4)*a(n-4) + a(n-5) + (-1)^n * Lucas(n-3), n \u003e 4. [Riordan] (Note: There is a slight mistake in Riordan's paper. On p. 3 it should say that a_5 = 3.) - _Eric M. Schmidt_, Oct 09 2017",
+				"From _Vaclav Kotesovec_, Oct 10 2017: (Start)",
+				"a(n) = n*a(n-1) + 4*a(n-2) - 3*(n-3)*a(n-3) + (n-4)*a(n-4) + 2*(n-5)*a(n-5) - (n-7)*a(n-6) - a(n-7).",
+				"a(n) ~ exp(-3) * n!.",
+				"(End)"
+			],
+			"maple": [
+				"b:= proc(n, s) option remember; `if`(n=0, 1, add(",
+				"      `if`(abs(n-i)\u003c=1, 0, b(n-1, s minus {i})), i=s))",
+				"    end:",
+				"a:= n-\u003e b(n, {$1..n}):",
+				"seq(a(n), n=0..15);  # _Alois P. Heinz_, Jul 04 2015"
+			],
+			"mathematica": [
+				"b[n_, s_List] := b[n, s] = If[n == 0, 1, Sum[If[Abs[n-i] \u003c= 1, 0, b[n-1, s ~Complement~ {i}]], {i, s}]]; a[n_] := b[n, Range[n]]; Table[Print[a[n]]; a[n], {n, 4, 24}] (* _Jean-François Alcover_, Nov 10 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(PARI) permRWNb(a)=n=matsize(a)[1]; if(n==1,return(a[1,1])); sg=1; in=vectorv(n); x=in; x=a[,n]-sum(j=1,n,a[,j])/2; p=prod(i=1,n,x[i]); for(k=1,2^(n-1)-1,sg=-sg; j=valuation(k,2)+1; z=1-2*in[j]; in[j]+=z; x+=z*a[,j]; p+=prod(i=1,n,x[i],sg)); return(2*(2*(n%2)-1)*p)",
+				"for(n=1,23,a=matrix(n,n,i,j,abs(i-j)\u003e1);print1(permRWNb(a)\",\")) \\\\ Herman Jamke (hermanjamke(AT)fastmail.fm), May 16 2007"
+			],
+			"xref": [
+				"Cf. A001884-A001891, A075851, A075852.",
+				"Also a diagonal of A080018.",
+				"Column k=0 of A323671."
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms and better description from Reiner Martin (reinermartin(AT)hotmail.com), Oct 14 2002",
+				"More terms from _Vladimir Baltic_, _Vladeta Jovovic_, Jan 04 2003",
+				"More terms from Herman Jamke (hermanjamke(AT)fastmail.fm), May 16 2007",
+				"a(22)-a(24) from _Alois P. Heinz_, Jul 04 2015",
+				"a(0)-a(3) from _Eric M. Schmidt_, Oct 09 2017"
+			],
+			"references": 24,
+			"revision": 97,
+			"time": "2019-01-23T17:07:56-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,67 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001080",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1080,
+			"id": "M3155 N1278",
+			"data": "0,3,48,765,12192,194307,3096720,49353213,786554688,12535521795,199781794032,3183973182717,50743789129440,808716652888323,12888722657083728,205410845860451325,3273684811110137472,52173546131901748227,831503053299317834160",
+			"name": "a(n) = 16*a(n-1) - a(n-2) with a(0) = 0, a(1) = 3.",
+			"comment": [
+				"Also 7*x^2 + 1 is a square; n=7 in PARI script below. - _Cino Hilliard_, Mar 08 2003",
+				"That is, the terms are solutions y of the Pell-Fermat equation x^2 - 7 * y^2 = 1. The correspondant values of x are in A001081. (x,y) = (1,0), (8,3), (127,48),... - _Bernard Schott_, Feb 23 2019"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"V. Thébault, Les Récréations Mathématiques. Gauthier-Villars, Paris, 1952, p. 281."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A001080/b001080.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e",
+				"H. Brocard, \u003ca href=\"http://resolver.sub.uni-goettingen.de/purl?PPN598948236_0004/DMDLOG_0053\"\u003eNotes élémentaires sur le problème de Peel [sic]\u003c/a\u003e, Nouvelle Correspondance Mathématique, 4 (1878), 337-343.",
+				"M. Davis, \u003ca href=\"http://www.rand.org/pubs/research_memoranda/RM5494.html\"\u003eOne equation to rule them all\u003c/a\u003e, Trans. New York Acad. Sci. Ser. II, 30 (1968), 766-773.",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (16,-1)"
+			],
+			"formula": [
+				"G.f.: 3*x/(1-16*x+x^2).",
+				"From Mohamed Bouhamida (bhmd95(AT)yahoo.fr), Sep 20 2006: (Start)",
+				"a(n) = 15*(a(n-1) + a(n-2)) - a(n-3).",
+				"a(n) = 17*(a(n-1) - a(n-2)) + a(n-3). (End)",
+				"a(n) = (sqrt(7)/14)*( (8+3*sqrt(7))^n - (8-3*sqrt(7))^n ), with n\u003e=0. - _Paolo P. Lava_, Oct 02 2008",
+				"a(n) = 16*a(n-1) - a(n-2) with a(1)=0 and a(2)=3. - _Sture Sjöstedt_, Nov 18 2011",
+				"E.g.f.: exp(8*x)*sinh(3*sqrt(7)*x)/sqrt(7). - _G. C. Greubel_, Feb 23 2019"
+			],
+			"maple": [
+				"A001080:=3*z/(1-16*z+z**2); # [Conjectured (correctly) by _Simon Plouffe_ in his 1992 dissertation.]"
+			],
+			"mathematica": [
+				"LinearRecurrence[{16,-1},{0,3},30] (* _Harvey P. Dale_, Nov 01 2011 *)",
+				"CoefficientList[Series[3*x/(1-16*x+x^2), {x, 0, 30}], x] (* _G. C. Greubel_, Dec 20 2017 *)"
+			],
+			"program": [
+				"(PARI) nxsqp1(m,n) = { for(x=1,m, y = n*x*x+1; if(issquare(y),print1(x\" \")) ) }",
+				"(PARI) x='x+O('x^30); concat([0], Vec(3*x/(1-16*x+x^2))) \\\\ _G. C. Greubel_, Dec 20 2017",
+				"(MAGMA) I:=[0,3]; [n le 2 select I[n] else 16*Self(n-1) - Self(n-2): n in [1..30]]; (* _G. C. Greubel_, Dec 20 2017 *)",
+				"(Sage) (3*x/(1-16*x+x^2)).series(x, 30).coefficients(x, sparse=False) # _G. C. Greubel_, Feb 23 2019",
+				"(GAP) a:=[0,3];; for n in [3..30] do a[n]:=16*a[n-1]-a[n-2]; od; a; # _G. C. Greubel_, Feb 23 2019"
+			],
+			"xref": [
+				"Equals 3 * A077412. Bisection of A084069.",
+				"Cf. A048907.",
+				"Cf. A001081, A010727. [_Vincenzo Librandi_, Feb 16 2009]"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 9,
+			"revision": 67,
+			"time": "2019-02-23T07:25:18-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

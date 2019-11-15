@@ -1,0 +1,84 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001372",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1372,
+			"id": "M2671 N1069",
+			"data": "1,1,3,7,19,47,130,343,951,2615,7318,20491,57903,163898,466199,1328993,3799624,10884049,31241170,89814958,258604642,745568756,2152118306,6218869389,17988233052,52078309200,150899223268,437571896993,1269755237948,3687025544605,10712682919341,31143566495273,90587953109272,263627037547365",
+			"name": "Number of mappings (or mapping patterns) from n points to themselves; number of endofunctions.",
+			"reference": [
+				"F. Bergeron, G. Labelle and P. Leroux, Combinatorial Species and Tree-Like Structures, Cambridge, 1998, pp. 41, 209.",
+				"S. R. Finch, Mathematical Constants, Cambridge, 2003, Section 5.6.6.",
+				"R. A. Fisher, Contributions to Mathematical Statistics, Wiley, 1950, 41.401.",
+				"F. Harary and E. M. Palmer, Graphical Enumeration, Academic Press, NY, 1973, p. 70, Table 3.4.1.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A001372/b001372.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (first 501 terms from Christian G. Bower)",
+				"N. G. de Bruijn, \u003ca href=\"http://dx.doi.org/10.1016/0097-3165(72)90081-7\"\u003eEnumeration of mapping patterns\u003c/a\u003e, J. Combin. Theory, 12 (1972), 14-20.",
+				"N. G. de Bruijn, D. A. Klarner, \u003ca href=\"http://dx.doi.org/10.1137/0603037\"\u003eMultisets of aperiodic cycles\u003c/a\u003e, SIAM J. Algebraic Discrete Methods 3 (1982), no. 3, 359--368. MR0666861(84i:05008).",
+				"R. L. Davis, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9939-1953-0055294-2\"\u003eThe number of structures of finite relations\u003c/a\u003e, Proc. Amer. Math. Soc. 4 (1953), 486-495.",
+				"P. Flajolet and R. Sedgewick, \u003ca href=\"http://algo.inria.fr/flajolet/Publications/books.html\"\u003eAnalytic Combinatorics\u003c/a\u003e, 2009; see page 480",
+				"F. Hivert, J.-C. Novelli and J.-Y. Thibon, \u003ca href=\"https://arxiv.org/abs/math/0605262\"\u003eCommutative combinatorial Hopf algebras\u003c/a\u003e, arXiv:math/0605262 [math.CO], 2006.",
+				"INRIA Algorithms Project, \u003ca href=\"http://ecs.inria.fr/services/structure?nbr=144\"\u003eEncyclopedia of Combinatorial Structures 144\u003c/a\u003e",
+				"Ronald C. Read, \u003ca href=\"http://dx.doi.org/10.1007/BF01342974\"\u003eNote on number of functional digraphs\u003c/a\u003e, Math. Ann., vol. 143 (1961), pp. 109-111.",
+				"Marko Riedel, stackexchange.com, \u003ca href=\"https://math.stackexchange.com/questions/416811/\"\u003eEnumeration of functions by Simultaneous Power Group Enumeration (SPGE)\u003c/a\u003e",
+				"Marko Riedel, \u003ca href=\"/A001372/a001372.maple.txt\"\u003eMaple code for sequence using SPGE\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/A001372/a001372.gif\"\u003eIllustration of initial terms\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"P. R. Stein, \u003ca href=\"/A000048/a000048.pdf\"\u003eLetter to N. J. A. Sloane, Jun 02 1971\u003c/a\u003e"
+			],
+			"formula": [
+				"Euler transform of A002861.",
+				"a(n) ~ c * d^n / sqrt(n), where d = A051491 = 2.9557652856519949747148... (Otter's rooted tree constant), c = 0.442876769782206479836... (for a closed form see \"Mathematical Constants\", p.308). - _Vaclav Kotesovec_, Mar 17 2015"
+			],
+			"example": [
+				"The a(3) = 7 mappings are:",
+				"1-\u003e1, 2-\u003e2, 3-\u003e3",
+				"1-\u003e1, 2-\u003e2, 3-\u003e1 (equiv. to 1-\u003e1, 2-\u003e2, 3-\u003e2, or 1-\u003e1, 2-\u003e1, 3-\u003e3, etc.)",
+				"1-\u003e1, 2-\u003e3, 3-\u003e2",
+				"1-\u003e1, 2-\u003e1, 3-\u003e2",
+				"1-\u003e1, 2-\u003e1, 3-\u003e1",
+				"1-\u003e2, 2-\u003e3, 3-\u003e1",
+				"1-\u003e2, 2-\u003e1, 3-\u003e1"
+			],
+			"maple": [
+				"with(combstruct): M[ 2671 ] := [ F,{F=Set(K), K=Cycle(T), T=Prod(Z,Set(T))},unlabeled ]:",
+				"a:=seq(count(M[2671],size=n),n=0..27);"
+			],
+			"mathematica": [
+				"Needs[\"Combinatorica`\"];",
+				"nn=30;s[n_,k_]:=s[n,k]=a[n+1-k]+If[n\u003c2 k,0,s[n-k,k]];a[1]=1;a[n_]:=a[n]=Sum[a[i] s[n-1,i] i,{i,1,n-1}]/(n-1);rt=Table[a[i],{i,1,nn}];c=Drop[Apply[Plus,Table[Take[CoefficientList[CycleIndex[CyclicGroup[n],s]/.Table[s[j]-\u003eTable[Sum[rt[[i]] x^(k*i),{i,1,nn}],{k,1,nn}][[j]],{j,1,nn}],x],nn],{n,1,30}]],1];CoefficientList[Series[Product[1/(1-x^i)^c[[i]],{i,1,nn-1}],{x,0,nn}],x]  (* after code given by _Robert A. Russell_ in A000081 *) (* _Geoffrey Critzer_, Oct 12 2012 *)",
+				"max = 40; A[n_] := A[n] = If[n \u003c= 1, n, Sum[DivisorSum[j, #*A[#]\u0026]*A[n-j], {j, 1, n-1}]/(n-1)]; H[t_] := Sum[A[n]*t^n, {n, 0, max}]; F = 1 / Product[1 - H[x^n], {n, 1, max}] + O[x]^max; CoefficientList[F, x] (* _Jean-François Alcover_, Dec 01 2015, after _Joerg Arndt_ *)"
+			],
+			"program": [
+				"(PARI) N=66;  A=vector(N+1, j, 1);",
+				"for (n=1, N, A[n+1] = 1/n * sum(k=1, n, sumdiv(k, d, d * A[d]) * A[n-k+1] ) );",
+				"A000081=concat([0], A);",
+				"H(t)=subst(Ser(A000081, 't), 't, t);",
+				"x='x+O('x^N);",
+				"F=1/prod(n=1,N, 1 - H(x^n));",
+				"Vec(F)",
+				"\\\\ _Joerg Arndt_, Jul 10 2014"
+			],
+			"xref": [
+				"Cf. A000312, A002861, A006961, A001373, A054050, A054745."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms etc. from _Paul Zimmermann_, Mar 15 1996",
+				"Line added to the Maple code to show how to obtain the output by _W. Edwin Clark_, Nov 23 2010"
+			],
+			"references": 33,
+			"revision": 76,
+			"time": "2018-04-27T04:14:22-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

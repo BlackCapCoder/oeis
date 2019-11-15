@@ -1,0 +1,52 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000121",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 121,
+			"id": "M0249 N0088",
+			"data": "1,2,2,3,3,3,4,3,4,5,4,5,4,4,6,5,6,6,5,6,4,5,7,6,8,7,6,8,6,7,8,6,7,5,5,8,7,9,9,8,10,7,8,10,8,10,8,7,10,8,9,9,7,8,5,6,9,8,11,10,9,12,9,11,13,10,12,9,8,12,10,12,12,10,12,8,9,12,10,13,11,9,12,9,10,11,8,9,6,6,10,9",
+			"name": "Number of representations of n as a sum of Fibonacci numbers (1 is allowed twice as a part).",
+			"comment": [
+				"Number of partitions into distinct Fibonacci parts (1 counted as two distinct Fibonacci numbers).",
+				"Inverse Euler transform of sequence has generating function sum_{n\u003e0} x^F(n)-x^{2F(n)} where F() is Fibonacci."
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000121/b000121.txt\"\u003eTable of n, a(n) for n = 0..6765\u003c/a\u003e",
+				"D. A. Klarner, Representations of N as a sum of distinct elements from special sequences, \u003ca href=\"http://www.fq.math.ca/Scanned/4-4/klarner-a.pdf\"\u003epart 1\u003c/a\u003e, \u003ca href=\"http://www.fq.math.ca/Scanned/4-4/klarner-b.pdf\"\u003epart 2\u003c/a\u003e, Fib. Quart., 4 (1966), 289-306 and 322.",
+				"Scott V. Tezlaf, \u003ca href=\"https://arxiv.org/abs/1806.00331\"\u003eOn ordinal dynamics and the multiplicity of transfinite cardinality\u003c/a\u003e, arXiv:1806.00331 [math.NT], 2018. See p. 45."
+			],
+			"formula": [
+				"a(0) = 1; for n \u003e= 1, a(n) = A000119(n) + A000119(n-1). - _Peter Munn_, Jan 19 2018"
+			],
+			"maple": [
+				"with(combinat): p := product((1+x^fibonacci(i)), i=1..25): s := series(p,x,1000): for k from 0 to 250 do printf(`%d,`,coeff(s,x,k)) od:"
+			],
+			"mathematica": [
+				"imax = 20; p = Product[1+x^Fibonacci[i], {i, 1, imax}]; CoefficientList[p, x][[1 ;; Fibonacci[imax]+1]] (* _Jean-François Alcover_, Feb 04 2016, adapted from Maple *)"
+			],
+			"program": [
+				"(PARI) a(n)=local(A,m,f); if(n\u003c0,0,A=1+x*O(x^n); m=1; while((f=fibonacci(m))\u003c=n,A*=1+x^f; m++); polcoeff(A,n))"
+			],
+			"xref": [
+				"Cf. A000119. Least inverse is A083853."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _James A. Sellers_, Jun 18 2000"
+			],
+			"references": 32,
+			"revision": 32,
+			"time": "2018-06-05T03:16:20-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

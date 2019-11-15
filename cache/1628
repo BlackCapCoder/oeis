@@ -1,0 +1,88 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001628",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1628,
+			"id": "M2789 N1124",
+			"data": "1,3,9,22,51,111,233,474,942,1836,3522,6666,12473,23109,42447,77378,140109,252177,451441,804228,1426380,2519640,4434420,7777860,13599505,23709783,41225349,71501422,123723351,213619683,368080793,633011454,1086665562,1862264196",
+			"name": "Convolved Fibonacci numbers.",
+			"comment": [
+				"a(n-2) = (((-i)^(n-2))/2)*(d^2/dx^2)S(n,x)|_{x=i}, n\u003e=2. Second derivative of Chebyshev S-polynomials evaluated at x=i (imaginary unit) multiplied by ((-i)^(n-2))/2. See A049310 for the S-polynomials. - _Wolfdieter Lang_, Apr 04 2007",
+				"a(n) = number of weak compositions of n in which exactly 2 parts are 0 and all other parts are either 1 or 2. - _Milan Janjic_, Jun 28 2010",
+				"Number of 4-cycles in the Fibonacci cube Gamma[n+3] (see the Klavzar reference, p. 511. - _Emeric Deutsch_, Apr 17 2014"
+			],
+			"reference": [
+				"T. Koshy, \"Fibonacci and Lucas Numbers with Applications\", John Wiley and Sons, 2001, p. 375.",
+				"J. Riordan, Combinatorial Identities, Wiley, 1968, p. 101.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"G. C. Greubel, \u003ca href=\"/A001628/b001628.txt\"\u003eTable of n, a(n) for n = 0..4500\u003c/a\u003e (terms 0..500 from T. D. Noe)",
+				"D. Birmajer, J. Gil and M. Weiner, \u003ca href=\"http://arxiv.org/abs/1405.7727\"\u003eLinear recurrence sequences and their convolutions via Bell polynomials\u003c/a\u003e, arXiv:1405.7727 [math.CO], 2014.",
+				"D. Birmajer, J. B. Gil, M. D. Weiner, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL18/Gil/gil3.html\"\u003eLinear Recurrence Sequences and Their Convolutions via Bell Polynomials\u003c/a\u003e, Journal of Integer Sequences, 18 (2015), #15.1.2.",
+				"P. J. Cameron, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL3/groups.html\"\u003eSequences realized by oligomorphic permutation groups\u003c/a\u003e, J. Integ. Seqs. Vol. 3 (2000), #00.1.5.",
+				"V. E. Hoggatt, Jr., \u003ca href=\"/A001628/a001628.pdf\"\u003eLetters to N. J. A. Sloane, 1974-1975\u003c/a\u003e",
+				"V. E. Hoggatt, Jr. and M. Bicknell-Johnson, \u003ca href=\"http://www.fq.math.ca/Scanned/15-2/hoggatt1.pdf\"\u003eFibonacci convolution sequences\u003c/a\u003e, Fib. Quart., 15 (1977), 117-122.",
+				"M. Janjic, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL13/Janjic/janjic33.html\"\u003eHessenberg Matrices and Integer Sequences \u003c/a\u003e, J. Int. Seq. 13 (2010) # 10.7.8, section 3.",
+				"S. Klavzar, \u003ca href=\"http://www.fmf.uni-lj.si/~klavzar/preprints/FibonacciCubesRevised.pdf\"\u003eStructure of Fibonacci cubes: a survey\u003c/a\u003e, preprint.",
+				"S. Klavzar, \u003ca href=\"http://dx.doi.org/10.1007/s10878-011-9433-z\"\u003eStructure of Fibonacci cubes: a survey\u003c/a\u003e, J. Comb. Optim., 25, 2013, 505-522",
+				"T. Mansour, \u003ca href=\"http://arXiv.org/abs/math.CO/0301157\"\u003eGeneralization of some identities involving the Fibonacci numbers\u003c/a\u003e, arXiv:math/0301157 [math.CO], 2003.",
+				"P. Moree, \u003ca href=\"http://arXiv.org/abs/math.CO/0311205\"\u003eConvoluted convolved Fibonacci numbers\u003c/a\u003e, arXiv:math/0311205 [math.CO], 2003.",
+				"Pieter Moree, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL7/Moree/moree12.htm\"\u003eConvoluted Convolved Fibonacci Numbers\u003c/a\u003e, Journal of Integer Sequences, Vol. 7 (2004), Article 04.2.2.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"Jeffrey B. Remmel, J. L. B. Tiefenbruck, \u003ca href=\"https://ajc.maths.uq.edu.au/pdf/64/ajc_v64_p166.pdf\"\u003eQ-analogues of convolutions of Fibonacci numbers\u003c/a\u003e, Australasian Journal of Combinatorics, Volume 64(1) (2016), Pages 166-193.",
+				"J. Riordan, \u003ca href=\"/A000262/a000262_1.pdf\"\u003eLetter to N. J. A. Sloane, Oct. 1970\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/GraphCycle.html\"\u003eGraph Cycle\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/FibonacciCubeGraph.html\"\u003eFibonacci Cube Graph\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_06\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,0,-5,0,3,1)."
+			],
+			"formula": [
+				"G.f.: 1 / (1 - x - x^2)^3.",
+				"a(n) = A037027(n+2,2) (Fibonacci convolution triangle).",
+				"a(n) = ((5*n+16)*(n+1)*F(n+2)+(5*n+17)*(n+2)*F(n+1))/50, F=A000045. -_Wolfdieter Lang_, Apr 12 2000 (This formula coincides with eq. (32.14) of the Koshy reference, p. 375, if there n -\u003e n+3. - _Wolfdieter Lang_, Aug 03 2012)",
+				"For n\u003e2, a(n-2) = sum(i+j+k=n, F(i)*F(j)*F(k)). - _Benoit Cloitre_, Nov 01 2002",
+				"a(n) = F''(n+2, 1)/2, i.e. 1/2 times the 2nd derivative of the (n+2)th Fibonacci polynomial evaluated at 1. - _T. D. Noe_, Jan 18 2006",
+				"a(n) = Sum_{k=0..n} C(k,n-k)*C(k+2,2). - _Paul Barry_, Apr 13 2008",
+				"0 = n*a(n) - (n+2)*a(n-1) - (n+4)*a(n-2), n\u003e1. - _Michael D. Weiner_, Nov 18 2014",
+				"a(n) = 3*a(n-1) - 5*a(n-3) + 3*a(n-5) + a(n-6). - _Eric W. Weisstein_, Sep 05 2017"
+			],
+			"example": [
+				"G.f. = 1 + 3*x + 9*x^2 + 22*x^3 + 51*x^4 + 111*x^5 + 233*x^6 + 474*x^7 + ..."
+			],
+			"maple": [
+				"A001628:=-1/(z**2+z-1)**3; [_Simon Plouffe_ in his 1992 dissertation.]",
+				"a:= n-\u003e (Matrix(6, (i, j)-\u003e `if` (i=j-1, 1, `if` (j=1, [3, 0, -5, 0, 3, 1][i], 0)))^n)[1,1]: seq (a(n), n=0..29); # _Alois P. Heinz_, Aug 01 2008"
+			],
+			"mathematica": [
+				"CoefficientList[Series[1/(-z^2 - z + 1)^3, {z, 0, 100}], z] (* _Vladimir Joseph Stephan Orlovsky_, Jul 01 2011 *)",
+				"(* Start _Eric W. Weisstein_, Sep 05 2017 *)",
+				"Table[Derivative[2][Fibonacci[n + 2, #] \u0026][1]/2, {n, 20}]",
+				"Derivative[2][Fibonacci[Range[20] + 2, #] \u0026][1]/2",
+				"LinearRecurrence[{3, 0, -5, 0, 3, 1}, {1, 3, 9, 22, 51, 111}, 20]",
+				"Table[-I^(n + 1) Derivative[2][ChebyshevU[n + 1, -#/2] \u0026][I]/2, {n, 20}]",
+				"(* End *)"
+			],
+			"program": [
+				"(PARI) Vec((1 - x - x^2 )^-3+O(x^99)) \\\\ _Charles R Greathouse IV_, Jul 01 2011",
+				"(MAGMA) [(\u0026+[Binomial(k,n-k)*Binomial(k+2,2): k in [0..n]]): n in [0..30]]; // _G. C. Greubel_, Jan 10 2018"
+			],
+			"xref": [
+				"a(n) = A037027(n+2,2) (Fibonacci convolution triangle).",
+				"Cf. A055243.",
+				"Cf. A291915 (6-cycles)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, _Simon Plouffe_",
+			"references": 33,
+			"revision": 128,
+			"time": "2018-01-11T03:09:13-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

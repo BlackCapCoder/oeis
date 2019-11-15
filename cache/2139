@@ -1,0 +1,41 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002139",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2139,
+			"id": "M0737 N0276",
+			"data": "2,3,5,12,14,11,13,20,72,19,42,132,84,114,29,30,110,156,37,156,420,210,156,552,462,72,53,420,342,59,61,42,156,67,506,1260,90,420,930,1560,990,83,72,812,132,156,110,1332,2352,930,101,2652,156",
+			"name": "Shuffling 2n cards.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A002139/b002139.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e",
+				"S. W. Golomb, \u003ca href=\"http://dx.doi.org/10.1137/1003059\"\u003ePermutations by cutting and shuffling\u003c/a\u003e, SIAM Rev., 3 (1961), 293-297."
+			],
+			"formula": [
+				"a(n) = (f(n)+1) * phi(p^(k-1)) if 2 is primitive mod 2n-1 in which case necessarily 2n-1=p^k, p prime; otherwise, a(n) = lcm(f(n), f(n)+1), where f(n) = A002326(n-1). - _Sean A. Irvine_, Jul 17 2013"
+			],
+			"mathematica": [
+				"f[n_] := MultiplicativeOrder[2, 2*n-1]; a[n_] := If[f[n] == EulerPhi[2*n-1], {p, k} = FactorInteger[2*n-1] // First; (f[n]+1)*EulerPhi[p^(k-1)], LCM[f[n], f[n]+1]]; Table[a[n], {n, 1, 100}] (* _Jean-François Alcover_, Mar 06 2014, after _Sean A. Irvine_ *)"
+			],
+			"xref": [
+				"Cf. A002326."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Sean A. Irvine_, Jul 17 2013"
+			],
+			"references": 1,
+			"revision": 23,
+			"time": "2017-06-18T08:49:54-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

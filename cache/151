@@ -1,0 +1,74 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000151",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 151,
+			"id": "M1770 N0701",
+			"data": "1,2,7,26,107,458,2058,9498,44947,216598,1059952,5251806,26297238,132856766,676398395,3466799104,17873508798,92630098886,482292684506,2521610175006,13233573019372,69687684810980,368114512431638,1950037285256658,10357028326495097,55140508518522726,294219119815868952,1573132563600386854,8427354035116949486,45226421721391554194",
+			"name": "Number of oriented rooted trees with n nodes. Also rooted trees with n nodes and 2-colored non-root nodes.",
+			"reference": [
+				"F. Bergeron, G. Labelle and P. Leroux, Combinatorial Species and Tree-Like Structures, Camb. 1998, p. 286.",
+				"S. R. Finch, Mathematical Constants, Cambridge, 2003, p. 307 and 564.",
+				"F. Harary and E. M. Palmer, Graphical Enumeration, Academic Press, NY, 1973, p. 60, R(x).",
+				"J. Riordan, An Introduction to Combinatorial Analysis, Wiley, 1958, p. 138.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A000151/b000151.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e",
+				"L. Foissy, \u003ca href=\"https://arxiv.org/abs/1811.07572\"\u003eAlgebraic structures on typed decorated rooted trees\u003c/a\u003e, arXiv:1811.07572 [math.RA], 2018.",
+				"Vsevolod Gubarev, \u003ca href=\"https://arxiv.org/abs/1811.08219\"\u003eRota-Baxter operators on a sum of fields\u003c/a\u003e, arXiv:1811.08219 [math.RA], 2018.",
+				"INRIA Algorithms Project, \u003ca href=\"http://ecs.inria.fr/services/structure?nbr=387\"\u003eEncyclopedia of Combinatorial Structures 387\u003c/a\u003e",
+				"P. Leroux and B. Miloudi, \u003ca href=\"http://www.labmath.uqam.ca/~annales/english/volumes/16-1.html\"\u003eGeneralisations de la formule d'Otter\u003c/a\u003e, Ann. Sci. Math. Quebec 16 (1992), no 1, 53-80.",
+				"P. Leroux and B. Miloudi, \u003ca href=\"/A000081/a000081_2.pdf\"\u003eGénéralisations de la formule d'Otter\u003c/a\u003e, Ann. Sci. Math. Québec, Vol. 16, No. 1, pp. 53-80, 1992. (Annotated scanned copy)",
+				"R. J. Mathar, \u003ca href=\"http://arxiv.org/abs/1603.00077\"\u003eTopologically Distinct Sets of Non-intersecting Circles in the Plane\u003c/a\u003e, arXiv:1603.00077 [math.CO], 2016.",
+				"R. Simon, \u003ca href=\"https://doi.org/10.1016/0012-365X(91)90061-6\"\u003eTrees with 1-factors and oriented trees\u003c/a\u003e, Discrete Math., 88 (1981), 97.",
+				"R. Simon, \u003ca href=\"/A005750/a005750.pdf\"\u003eTrees with 1-factors and oriented trees\u003c/a\u003e, Discrete Math., 88 (1981), 97. (Annotated scanned copy)",
+				"S. G. Wagner, \u003ca href=\"http://finanz.math.tu-graz.ac.at/~wagner/identity.pdf\"\u003eAn identity for the cycle indices of rooted tree automorphism groups\u003c/a\u003e, Elec. J. Combinat., 13 (2006), #R00.",
+				"\u003ca href=\"/index/Ro#rooted\"\u003eIndex entries for sequences related to rooted trees\u003c/a\u003e",
+				"\u003ca href=\"/index/Tra#trees\"\u003eIndex entries for sequences related to trees\u003c/a\u003e"
+			],
+			"formula": [
+				"Generating function A(x) = x+2*x^2+7*x^3+26*x^4+... satisfies A(x)=x*exp( 2*sum_{k\u003e=1}(A(x^k)/k) ) [Harary]. - Pab Ter (pabrlos2(AT)yahoo.com), Oct 12 2005",
+				"G.f.: x*Product_{n\u003e=1} 1/(1 - x^n)^(2*a(n)) = Sum_{n\u003e=1} a(n)*x^n.",
+				"a(n) ~ c * d^n / n^(3/2), where d = A245870 = 5.64654261623294971289271351621..., c = 0.207861597422917421321653492... . - _Vaclav Kotesovec_, Aug 20 2014"
+			],
+			"maple": [
+				"R:=series(x+2*x^2+7*x^3+26*x^4,x,5); M:=500;",
+				"for n from 5 to M do",
+				"series(add( subs(x=x^k,R)/k, k=1..n-1),x,n);",
+				"t4:=coeff(series(x*exp(%)^2,x,n+1),x,n);",
+				"R:=series(R+t4*x^n,x,n+1); od:",
+				"for n from 1 to M do lprint(n,coeff(R,x,n)); od: # _N. J. A. Sloane_, Mar 10 2007",
+				"with(combstruct):norootree:=[S, {B = Set(S), S = Prod(Z,B,B)}, unlabeled] :seq(count(norootree,size=i),i=1..30); # with Algolib (Pab Ter)"
+			],
+			"mathematica": [
+				"terms = 30; A[_] = 0; Do[A[x_] = x*Exp[2*Sum[A[x^k]/k, {k, 1, terms}]] + O[x]^(terms+1) // Normal, terms+1]; CoefficientList[A[x], x] // Rest",
+				"(* _Jean-François Alcover_, Jun 08 2011, updated Jan 11 2018 *)"
+			],
+			"program": [
+				"(PARI) seq(N) = {my(A=vector(N, j, 1)); for (n=1, N-1, A[n+1] = 2/n * sum(i=1, n, sumdiv(i, d, d*A[d]) * A[n-i+1] ) ); A} \\\\ _Andrew Howroyd_, May 13 2018"
+			],
+			"xref": [
+				"Cf. A000238, A038055.",
+				"Also the self-convolution of A005750. - _Paul D. Hanna_, Aug 17 2002",
+				"Column k=2 of A242249.",
+				"Cf. A005751, A245870."
+			],
+			"keyword": "nonn,eigen,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Extended with alternate description by _Christian G. Bower_, Apr 15 1998",
+				"More terms from Pab Ter (pabrlos2(AT)yahoo.com), Oct 12 2005"
+			],
+			"references": 12,
+			"revision": 80,
+			"time": "2019-01-21T12:51:44-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

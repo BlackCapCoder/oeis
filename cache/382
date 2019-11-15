@@ -1,0 +1,50 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000382",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 382,
+			"id": "M4087 N1696",
+			"data": "6,11,20,36,65,119,218,400,735,1351,2484,4568,8401,15451,28418,52268,96135,176819,325220,598172,1100209,2023599,3721978,6845784,12591359,23159119,42596260,78346736,144102113,265045107,487493954",
+			"name": "Restricted permutations.",
+			"comment": [
+				"The fourth column of A008305, divided by 4."
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A000382/b000382.txt\"\u003eTable of n, a(n) for n = 4..1000\u003c/a\u003e",
+				"N. S. Mendelsohn, \u003ca href=\"http://dx.doi.org/10.4153/CMB-1961-005-4\"\u003ePermutations with confined displacement\u003c/a\u003e, Canad. Math. Bull., 4 (1961), 29-38.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992."
+			],
+			"formula": [
+				"a(n) = a(n-1)+a(n-2)+a(n-3)-2 (conjectured)."
+			],
+			"maple": [
+				"A000382:=-(-6+z+2*z**2+4*z**3+z**4)/(z-1)/(z**3+z**2+z-1); [Conjectured by _Simon Plouffe_ in his 1992 dissertation.]",
+				"a:= n-\u003e if n\u003c4 then 0 elif n=4 then 6 else (Matrix([[11,7,4,2]]). Matrix(4, (i,j)-\u003e if (i=j-1) then 1 elif j=1 then [2,0,0,-1][i] else 0 fi)^(n-2))[1,4] fi: seq(a(n), n=4..30); # _Alois P. Heinz_, Aug 26 2008"
+			],
+			"mathematica": [
+				"a[n_] := Which[n\u003c4, 0, n == 4, 6, True, {11, 7, 4, 2}.MatrixPower[Table[Which[i == j-1, 1, j == 1, {2, 0, 0, -1}[[i]], True, 0], {i, 1, 4}, {j, 1, 4}], n-2] // Last]; Table[a[n], {n, 4, 27}] (* _Jean-François Alcover_, Mar 12 2014, after _Alois P. Heinz_ *)"
+			],
+			"xref": [
+				"Cf. A008305, A000496 divided by 4, A020992."
+			],
+			"keyword": "nonn,easy",
+			"offset": "4,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Vincenzo Librandi_, Mar 14 2014"
+			],
+			"references": 3,
+			"revision": 37,
+			"time": "2017-07-08T01:34:12-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

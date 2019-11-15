@@ -1,0 +1,29 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000936",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 936,
+			"data": "0,0,1,1,2,4,4,12,10,29,27,88,76,247,217,722,638,2134,1901,6413",
+			"name": "Number of free planar polyenoids with n nodes and symmetry point group C_{2v}.",
+			"reference": [
+				"S. J. Cyvin, J. Brunvoll, E. Brendsdal, B. N. Cyvin and E. K. Lloyd, Enumeration of polyene hydrocarbons: a complete mathematical solution, J. Chem. Inf. Comput. Sci., 35 (1995) 743-751."
+			],
+			"link": [
+				"S. J. Cyvin, J. Brunvoll, E. Brendsdal, B. N. Cyvin and E. K. Lloyd, \u003ca href=\"/A002057/a002057.pdf\"\u003eEnumeration of polyene hydrocarbons: a complete mathematical solution\u003c/a\u003e, J. Chem. Inf. Comput. Sci., 35 (1995) 743-751. [Annotated scanned copy]"
+			],
+			"keyword": "nonn,more",
+			"offset": "1,5",
+			"author": "E. K. Lloyd (E.K.Lloyd(AT)soton.ac.uk)",
+			"ext": [
+				"a(16)-a(20) and title improved by _Sean A. Irvine_, Oct 14 2015"
+			],
+			"references": 2,
+			"revision": 13,
+			"time": "2015-10-14T14:53:32-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

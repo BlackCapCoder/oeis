@@ -1,0 +1,41 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000438",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 438,
+			"data": "1,1,6,6240,1225566720,252282619805368320,98758655816833727741338583040",
+			"name": "Number of 1-factorizations of complete graph K_{2n}.",
+			"reference": [
+				"CRC Handbook of Combinatorial Designs (see pages 655, 720-723).",
+				"N. T. Gridgeman, Latin Squares Under Restriction and a Jumboization, J. Rec. Math., 5 (1972), 198-202.",
+				"W. D. Wallis, 1-Factorizations of complete graphs, pp. 593-631 in J. H. Dinitz and D R. Stinson, Contemporary Design Theory, Wiley, 1992.",
+				"D. V. Zinoviev, On the number of 1-factorizations of a complete graph [in Russian], Problemy Peredachi Informatsii, 50 (No. 4), 2014, 71-78."
+			],
+			"link": [
+				"Jeffrey H. Dinitz, David K. Garnick, and Brendan D. McKay, \u003ca href=\"http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.52.4085\"\u003eThere are 526,915,620 nonisomorphic one-factorizations of K_{12}\u003c/a\u003e, J. Combin. Des. 2 (1994), no. 4, 273-285.",
+				"Alan Hartman, and Alexander Rosa, \u003ca href=\"https://doi.org/10.1016/S0195-6698(85)80020-2\"\u003eCyclic one-factorization of the complete graph\u003c/a\u003e, European J. Combin. 6 (1985), no. 1, 45-48.",
+				"Dieter Jungnickel, Vladimir D. Tonchev, \u003ca href=\"https://arxiv.org/abs/1709.06044\"\u003eCounting Steiner triple systems with classical parameters and prescribed rank\u003c/a\u003e, arXiv:1709.06044 [math.CO], 2017.",
+				"Petteri Kaski, Patric R. J. Östergård, \u003ca href=\"https://doi.org/10.1002/jcd.20188\"\u003eThere are 1,132,835,421,602,062,347 nonisomorphic one-factorizations of K14\u003c/a\u003e, Journal of Combinatorial Designs 17 (2009) 147-159.",
+				"Mario Krenn, Xuemei Gu, Anton Zeilinger, \u003ca href=\"http://arxiv.org/abs/1705.06646\"\u003eQuantum Experiments and Graphs: Multiparty States as coherent superpositions of Perfect Matchings\u003c/a\u003e, arXiv:1705.06646 [quant-ph], 2017 and \u003ca href=\"https://doi.org/10.1103/PhysRevLett.119.240403\"\u003ePhys. Rev. Lett. 119, 240403\u003c/a\u003e, 2017. [Mario Krenn said in an email, \"We would not have discovered this connection between quantum mechanical experiments and graph theory, thus the physical interpretations and all the generalisations we are developing right now, without you and A000438.\"]",
+				"\u003ca href=\"/index/To#tournament\"\u003eIndex entries for sequences related to tournaments\u003c/a\u003e"
+			],
+			"xref": [
+				"Cf. A000474, A003191, A035481, A035483. Equals A036981 / (2n+1)!."
+			],
+			"keyword": "nonn,hard,more,nice,changed",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"For K_16 the answer is approximately 1.48 * 10^44 and for K_18 1.52 * 10^63. - Dinitz et al.",
+				"a(7) found by Patric Ostergard and Petteri Kaski (petteri.kaski(AT)cs.helsinki.fi), Sep 19 2007"
+			],
+			"references": 9,
+			"revision": 43,
+			"time": "2019-11-06T04:22:37-05:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		}
+	]
+}

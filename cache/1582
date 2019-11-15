@@ -1,0 +1,60 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001582",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1582,
+			"id": "M1966 N0779",
+			"data": "1,2,10,36,145,560,2197,8568,33490,130790,510949,1995840,7796413,30454814,118965250,464711184,1815292333,7091038640,27699580729,108202305420,422668460890,1651061182538,6449506621417,25193576136960",
+			"name": "Product of Fibonacci and Pell numbers.",
+			"comment": [
+				"Also number of perfect matchings (or domino tilings) in the graph W_4 X P_n."
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A001582/b001582.txt\"\u003eTable of n, a(n) for n=0..200\u003c/a\u003e",
+				"J. L. Diaz-Barrero and J. J. Egozcue, \u003ca href=\"http://www.fq.math.ca/Problems/advanced43-1.pdf\"\u003eProblem H-605\u003c/a\u003e, Fib. Q., 43 (No. 1, 2005), 92.",
+				"F. Faase, \u003ca href=\"http://www.iwriteiam.nl/counting.html\"\u003eCounting Hamiltonian cycles in product graphs\u003c/a\u003e",
+				"F. Faase, \u003ca href=\"http://www.iwriteiam.nl/Cresults.html\"\u003eResults from the counting program\u003c/a\u003e",
+				"D. C. Mead, \u003ca href=\"http://www.fq.math.ca/Scanned/3-3/mead.pdf\"\u003eAn elementary method of summation\u003c/a\u003e, Fib. Quart. 3 (1965), 209-213.",
+				"I. Mezo, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL12/Mezo/mezo5.html\"\u003eSeveral Generating Functions for Second-Order Recurrence Sequences \u003c/a\u003e, JIS 12 (2009) 09.3.7",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"James A. Sellers, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL5/Sellers/sellers4.html\"\u003eDomino Tilings and Products of Fibonacci and Pell Numbers\u003c/a\u003e, Journal of Integer Sequences, Vol. 5 (2002), Article 02.1.2.",
+				"Yifan Zhang, George Grossman, \u003ca href=\"https://www.emis.de/journals/JIS/VOL21/Zhang/zhang44.html\"\u003eA Combinatorial Proof for the Generating Function of Powers of a Second-Order Recurrence Sequence\u003c/a\u003e, J. Int. Seq. 21 (2018), #18.3.3.",
+				"\u003ca href=\"/index/Do#domino\"\u003eIndex entries for sequences related to dominoes\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2, 7, 2, -1)."
+			],
+			"formula": [
+				"G.f.: (1-x^2)/(1-2*x-7*x^2-2*x^3+x^4).",
+				"a(n)=11a(n-2)+16a(n-3)+3a(n-4)-2a(n-5). a(n)=2a(n-1)+7a(n-2)+2a(n-3)-a(n-4). - _Kieren MacMillan_, Sep 29 2008",
+				"a(n)=((10+5*sqrt(2)+2*sqrt(5)+sqrt(10))*((1+sqrt(2)+sqrt(5)+sqrt(10))/2)^n+(10-5*sqrt(2)-2*sqrt(5)+sqrt(10))*((1-sqrt(2)-sqrt(5)+sqrt(10))/2)^n+(10+5*sqrt(2)-2*sqrt(5)-sqrt(10))*((1+sqrt(2)-sqrt(5)-sqrt(10))/2)^n+(10-5*sqrt(2)+2*sqrt(5)-sqrt(10))*((1-sqrt(2)+sqrt(5)-sqrt(10))/2)^n)/40. - _Tim Monahan_, Aug 03 2011",
+				"a(n) = A166989(n)-A166989(n-2). - _R. J. Mathar_, Jul 14 2016"
+			],
+			"maple": [
+				"A001582:=-(z-1)*(1+z)/(1-2*z-7*z**2-2*z**3+z**4); [Conjectured (correctly) by _Simon Plouffe_ in his 1992 dissertation.]"
+			],
+			"mathematica": [
+				"CoefficientList[Series[(1-x^2)/(1-2x-7x^2-2x^3+x^4),{x,0,30}],x] (* or *) LinearRecurrence[{2,7,2,-1},{1,2,10,36},30] (* _Harvey P. Dale_, May 01 2011 *)"
+			],
+			"xref": [
+				"Cf. A000045, A000129."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _James A. Sellers_, May 01 2000"
+			],
+			"references": 3,
+			"revision": 54,
+			"time": "2019-01-01T06:31:05-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

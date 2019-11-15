@@ -1,0 +1,38 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001049",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1049,
+			"data": "8,14,23,28,33,42,51,59,68,77,86,96,103,110,116,125",
+			"name": "Numbered stops in Manhattan on the Lexington Avenue subway.",
+			"comment": [
+				"These are the numbered stops for the #6 train."
+			],
+			"reference": [
+				"An Adventurer's Guide to Number Theory by R. Friedberg, 1968, McGraw-Hill, p. 30 (corrected).",
+				"NYC Transit, NYC Subway Map, 2005."
+			],
+			"link": [
+				"R. K. Guy, \u003ca href=\"/A002186/a002186.pdf\"\u003eLetters to N. J. A. Sloane, June-August 1968\u003c/a\u003e",
+				"\u003ca href=\"http://www.mta.nyc.ny.us/nyct/service/fourline.htm\"\u003eMap, schedule, etc.\u003c/a\u003e",
+				"\u003ca href=\"http://www.mta.info\"\u003eNYC Transit\u003c/a\u003e"
+			],
+			"xref": [
+				"Cf. A000053 A000054 A007826."
+			],
+			"keyword": "nonn,fini,full",
+			"offset": "1,1",
+			"author": "_Howard Givner_",
+			"ext": [
+				"Additional comments from Nyck Byrd (nyc10024(AT)lycos.com), Dec 25 2005"
+			],
+			"references": 8,
+			"revision": 12,
+			"time": "2015-08-22T10:09:48-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

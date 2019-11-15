@@ -1,0 +1,40 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001782",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1782,
+			"id": "M5286 N2301",
+			"data": "1,-44,-4940800,-564083990621761115783168,-265595429519150677725101890892978815884074732203939261150723571712",
+			"name": "Discriminants of Shapiro polynomials.",
+			"reference": [
+				"Mohammad K. Azarian, On the Hyperfactorial Function, Hypertriangular Function, and the Discriminants of Certain Polynomials, International Journal of Pure and Applied Mathematics, Vol. 36, No. 2, 2007, pp. 251-257.  Mathematical Reviews, MR2312537.  Zentralblatt MATH, Zbl 1133.11012.",
+				"J. Brillhart and L. Carlitz, Note on the Shapiro polynomials, Pacific J. Math., 25 (1970), 114-118.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Sean A. Irvine, \u003ca href=\"/A001782/b001782.txt\"\u003eTable of n, a(n) for n = 1..8\u003c/a\u003e",
+				"J. Brillhart and L. Carlitz, \u003ca href=\"/A001782/a001782.pdf\"\u003eNote on the Shapiro polynomials\u003c/a\u003e [Annotated scanned copy]"
+			],
+			"formula": [
+				"Let P_0(x) = Q_0(x) = 1. For n \u003e 0, P_{n + 1}(x) = P_n(x) + x^(2^n)*Q_n(x) and Q_{n + 1}(x) = P_n(x) - x^(2^n)*Q_n(x). Then, a(n) = discrim(P_n(x)). Note also that discrim(P_n(x)) = discrim(Q_n(x)). - _Sean A. Irvine_, Nov 25 2012"
+			],
+			"xref": [
+				"See A020985 for the Shapiro polynomials."
+			],
+			"keyword": "sign,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Extended by _Sean A. Irvine_, Nov 25 2012"
+			],
+			"references": 4,
+			"revision": 23,
+			"time": "2016-08-12T15:54:10-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

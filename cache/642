@@ -1,0 +1,54 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000642",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 642,
+			"id": "M0839 N0318",
+			"data": "0,1,1,2,3,7,14,32,72,171,405,989,2426,6045,15167,38422,97925,251275,648061,1679869,4372872,11428365,29972078,78859809,208094977,550603722,1460457242,3882682803,10344102122,27612603765,73844151259,197818389539",
+			"name": "a(1)=0; for n\u003e1, a(n) = number of isomeric hydrocarbons of the acetylene series with carbon content n.",
+			"comment": [
+				"The former definition was \"Number of alkyl derivatives of acetylene X^{II} C_n H_{2n+2} with n carbon atoms\" with offset 0."
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000642/b000642.txt\"\u003eTable of n, a(n) for n = 1..201\u003c/a\u003e (offset adapted by _Georg Fischer_, Jan 31 2019)",
+				"D. D. Coffman, C. M. Blair and H. R. Henze, \u003ca href=\"https://doi.org/10.1021/ja01328a029\"\u003eThe number of structurally isomeric hydrocarbons of the acetylene series\u003c/a\u003e, J. Amer. Chem. Soc., 55 (1933), 252-253.",
+				"D. D. Coffman, C. M. Blair and H. R. Henze, \u003ca href=\"/A000642/a000642.pdf\"\u003eThe number of structurally isomeric hydrocarbons of the acetylene series\u003c/a\u003e, J. Amer. Chem. Soc., 55 (1933), 252-253. (Annotated scanned copy)",
+				"Jean-Loup Faulon, Donald P. Visco Jr., Diana Roe, \u003ca href=\"https://onlinelibrary.wiley.com/doi/abs/10.1002/0471720895.ch3\"\u003eEnumerating Molecules\u003c/a\u003e, In: Reviews in Computational Chemistry Vol. 21, Ed. K. Lipkowitz, Wiley-VCH, 2005.",
+				"G. Polya, \u003ca href=\"http://dx.doi.org/10.1524/zkri.1936.93.1.415\"\u003eAlgebraische Berechnung der Anzahl der Isomeren einiger organischer Verbindungen\u003c/a\u003e, Zeit. f. Kristall., 93 (1936), 415-443; line 8 of Table I, \"R\" of Table IV.",
+				"G. Polya, \u003ca href=\"/A000598/a000598_3.pdf\"\u003eAlgebraische Berechnung der Anzahl der Isomeren einiger organischer Verbindungen\u003c/a\u003e,  Zeit. f. Kristall., 93 (1936), 415-443; line 8 of Table I, \"R\" of Table IV. (Annotated scanned copy)",
+				"R. C. Read, \u003ca href=\"http://dx.doi.org/10.1007/BFb0067377\"\u003eSome recent results in chemical enumeration\u003c/a\u003e, Lect. Notes Math. 303 (1972), 243-259.",
+				"R. C. Read, \u003ca href=\"/A000598/a000598.pdf\"\u003eThe Enumeration of Acyclic Chemical Compounds\u003c/a\u003e, pp. 25-61 of A. T. Balaban, ed., Chemical Applications of Graph Theory, Ac. Press, 1976. [Annotated scanned copy] See p. 28.",
+				"N. Trinajstich, Z. Jerievi, J. V. Knop, W. R. Muller and K. Szymanski, \u003ca href=\"https://doi.org/10.1351/pac198855020379\"\u003eComputer Generation of Isomeric Structures\u003c/a\u003e, Pure \u0026 Appl. Chem., Vol. 55, No. 2, pp. 379-390, 1983."
+			],
+			"formula": [
+				"G.f.: A(x)=(1/2)*x*(B(x^2)+B(x)^2), where B(x) = g.f. for A000598.",
+				"a(n) ~ c * d^n / n^(3/2), where d = 1/A261340 = 2.815460033176... and c = 0.13833565403175156418512996853... - _Vaclav Kotesovec_, Feb 11 2019"
+			],
+			"mathematica": [
+				"terms = 32; B[_] = 0; Do[B[x_] = 1 + (1/6)*x*(B[x]^3 + 3*B[x]*B[x^2] + 2*B[x^3]) + O[x]^terms // Normal, terms];",
+				"A[x_] = (1/2)*x*(B[x^2] + B[x]^2) + O[x]^terms;",
+				"CoefficientList[A[x], x] (* _Jean-François Alcover_, Jun 28 2012, updated Jan 10 2018 *)"
+			],
+			"xref": [
+				"Cf. A002094."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,4",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"I changed the definition and offset so as to agree with Coffman et al. (1933). - _N. J. A. Sloane_, Jan 13 2019"
+			],
+			"references": 12,
+			"revision": 59,
+			"time": "2019-07-05T15:37:30-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

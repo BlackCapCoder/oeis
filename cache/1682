@@ -1,0 +1,50 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001682",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1682,
+			"id": "M5109 N2213",
+			"data": "0,21,42,65,86,109,130,151,174,195,218,239,262,283,304,327,348,371,392,415,436,457,480,501,524,545,568,589,610,633,654,677,698,721,742,763,786,807,830,851,874,895,916,939,960,983,1004,1027,1048",
+			"name": "Numbers n such that 3^n, 3^(n+1) and 3^(n+2) have same number of digits.",
+			"comment": [
+				"Equivalently the fractional part of n*log(3) lies between 0 and 1-2log(3), about .04576; 1-2log(3) is also the density of the sequence. - Kevin Costello, Aug 08 2002"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A001682/b001682.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Murray Klamkin and Joe Lipman, \u003ca href=\"https://www.jstor.org/stable/2309610\"\u003eProblem E1238\u003c/a\u003e, Amer. Math. Monthly, 64 (1957), 367."
+			],
+			"mathematica": [
+				"Select[Range[0, 2000], IntegerLength[3^#] == IntegerLength[3^(#+1)] == IntegerLength[3^(#+2)]\u0026] (* _Jean-François Alcover_, Nov 24 2011 *)",
+				"Flatten[Position[Partition[IntegerLength[3^Range[0,1100]],3,1],_?( Length[ Union[#]]==1\u0026),{1},Heads-\u003eFalse]]-1 (* _Harvey P. Dale_, Jan 31 2015 *)",
+				"SequencePosition[IntegerLength[3^Range[0,1200]],{x_,x_,x_}][[All,1]]-1 (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Dec 12 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a001682 n = a001682_list !! (n-1)",
+				"a001682_list = [k | k \u003c- [0..], let m = 3^k, a055642 m == a055642 (9*m)]",
+				"-- _Reinhard Zumkeller_, Oct 10 2011"
+			],
+			"xref": [
+				"First differences give A151910.",
+				"Cf. A055642, A000244."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _R. K. Guy_ and _Emeric Deutsch_, Mar 09 2005"
+			],
+			"references": 3,
+			"revision": 33,
+			"time": "2018-12-12T11:41:52-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,32 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001293",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1293,
+			"data": "759,506,253,330,176,77,210,120,56,21,130,80,40,16,5,78,52,28,12,4,1,46,32,20,8,4,0,1,30,16,16,4,4,0,0,1,30,0,16,0,4,0,0,0,1",
+			"name": "Leech triangle: k-th number (0\u003c=k\u003c=n) in n-th row (0\u003c=n) is number of octads in S(5,8,24) containing k given points and missing n-k given points.",
+			"reference": [
+				"F. J. MacWilliams and N. J. A. Sloane, The Theory of Error-Correcting Codes, Elsevier-North Holland, 1978, p. 68.",
+				"J. H. Conway and N. J. A. Sloane, \"Sphere Packings, Lattices and Groups\", Springer-Verlag, p. 278.",
+				"Handbook of Combinatorics, North-Holland '95, p. 720.",
+				"CRC Handbook of Combinatorial Designs, 1996, p. 69."
+			],
+			"link": [
+				"\u003ca href=\"/index/St#Steiner\"\u003eIndex entries for sequences related to Steiner systems\u003c/a\u003e"
+			],
+			"example": [
+				"759; 506,253; 330,176,77; 210,120,56,21; 130,80,40,16,5; ..."
+			],
+			"keyword": "nonn,tabl,fini,full,nice",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 0,
+			"revision": 10,
+			"time": "2017-06-11T19:29:39-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

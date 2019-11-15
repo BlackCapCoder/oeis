@@ -1,0 +1,41 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001626",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1626,
+			"id": "M2158 N0860",
+			"data": "0,0,2,36,840,29680,1429920,90318144,7237943552,717442928640,86171602072320,12331048749268480,2072725870491859968,404352831489304049664,90605920564322676531200,23110943021722435879157760,6657484407493222296916131840",
+			"name": "Number of 3-line Latin rectangles.",
+			"reference": [
+				"S. M. Jacob, The enumeration of the Latin rectangle of depth three..., Proc. London Math. Soc., 31 (1928), 329-336.",
+				"S. M. Kerawala, The enumeration of the Latin rectangle of depth three by means of a difference equation, Bull. Calcutta Math. Soc., 33 (1941), 119-127.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"S. M. Jacob, \u003ca href=\"http://dx.doi.org/10.1112/plms/s2-31.1.329\"\u003eThe enumeration of the Latin rectangle of depth three...\u003c/a\u003e, Proc. London Math. Soc., 31 (1928), 329-336.",
+				"S. M. Kerawala, \u003ca href=\"/A001623/a001623.pdf\"\u003eThe enumeration of the Latin rectangle of depth three by means of a difference equation\u003c/a\u003e, Bull. Calcutta Math. Soc., 33 (1941), 119-127. [Annotated scanned copy]",
+				"\u003ca href=\"/index/La#Latin\"\u003eIndex entries for sequences related to Latin squares and rectangles\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1) = 0, a(n) = A000186(n) + 2*(n-1)*a(n-1), n \u003e 1. - _Sean A. Irvine_, Sep 25 2015"
+			],
+			"xref": [
+				"Cf. A000186."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _Sean A. Irvine_, Sep 25 2015"
+			],
+			"references": 3,
+			"revision": 21,
+			"time": "2015-09-25T08:42:27-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

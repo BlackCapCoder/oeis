@@ -1,0 +1,40 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000190",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 190,
+			"data": "1,1,1,2,1,1,1,4,3,1,1,2,1,1,1,8,1,3,1,2,1,1,1,4,5,1,9,2,1,1,1,8,1,1,1,6,1,1,1,4,1,1,1,2,3,1,1,8,7,5,1,2,1,9,1,4,1,1,1,2,1,1,3,16,1,1,1,2,1,1,1,12,1,1,5,2,1,1,1,8,27,1,1,2,1,1,1,4,1,3",
+			"name": "Number of solutions to x^4 == 0 (mod n).",
+			"comment": [
+				"Shadow transform of fourth powers A000583. - _Michel Marcus_, Jun 06 2013"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000190/b000190.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"H. Bottomley, \u003ca href=\"http://fs.gallup.unm.edu/Bottomley-Sm-Mult-Functions.htm\"\u003eSome Smarandache-type multiplicative sequences\u003c/a\u003e.",
+				"Lorenz Halbeisen, \u003ca href=\"http://www.iam.fmph.uniba.sk/amuc/_vol-74/_no_2/_halbeisen/halbeisen.html\"\u003eA number-theoretic conjecture and its implication for set theory\u003c/a\u003e, Acta Math. Univ. Comenianae 74(2) (2005), 243-254.",
+				"Lorenz Halbeisen and Norbert Hungerbuehler, \u003ca href=\"http://math.berkeley.edu/~halbeis/publications/pdf/seq.pdf\"\u003eNumber theoretic aspects of a combinatorial function\u003c/a\u003e, Notes on Number Theory and Discrete Mathematics 5 (1999), 138-150.",
+				"OEIS Wiki, \u003ca href=\"https://oeis.org/wiki/Shadow_transform\"\u003eShadow transform\u003c/a\u003e.",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e."
+			],
+			"formula": [
+				"Multiplicative with a(p^e) = p^[3e/4]. - _David W. Wilson_, Aug 01 2001"
+			],
+			"mathematica": [
+				"Array[ Function[ n, Count[ Array[ PowerMod[ #, 4, n ]\u0026, n, 0 ], 0 ] ], 100 ]"
+			],
+			"program": [
+				"(PARI) a(n)=my(f=factor(n));prod(i=1,#f[,1],f[i,1]^(3*f[i,2]\\4)) \\\\ _Charles R Greathouse IV_, Jun 07 2013"
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,4",
+			"author": "_N. J. A. Sloane_",
+			"references": 15,
+			"revision": 29,
+			"time": "2019-09-17T14:55:31-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

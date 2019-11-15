@@ -1,0 +1,28 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001138",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1138,
+			"data": "1,0,1,4,6,4,2,8,32,96,256,608,1268,2392,4177,6720,9976,14064,19882,30952,59080,138096,355734,929040,2380268,5940408,14466720,34499984,80786736,186018208,421400951,939336288,2060601888,4450171328,9468023540",
+			"name": "Red rooted red-black trees with n internal nodes.",
+			"link": [
+				"F. Ruskey, \u003ca href=\"http://www.theory.cs.uvic.ca/~cos/inf/tree/RedBlackTree.html\"\u003eInformation on Red-Black Trees\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Red-BlackTree.html\"\u003eRed-Black Tree.\u003c/a\u003e",
+				"\u003ca href=\"/index/Ro#rooted\"\u003eIndex entries for sequences related to rooted trees\u003c/a\u003e"
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Frank Ruskey_",
+			"ext": [
+				"More terms from _Sean A. Irvine_, Mar 08 2012"
+			],
+			"references": 0,
+			"revision": 18,
+			"time": "2013-01-11T16:34:33-05:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

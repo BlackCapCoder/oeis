@@ -1,0 +1,56 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A001848",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 1848,
+			"id": "M4904 N2102",
+			"data": "1,13,85,377,1289,3653,8989,19825,40081,75517,134245,227305,369305,579125,880685,1303777,1884961,2668525,3707509,5064793,6814249,9041957,11847485,15345233,19665841,24957661,31388293,39146185,48442297,59511829,72616013,88043969",
+			"name": "Crystal ball sequence for 6-dimensional cubic lattice.",
+			"comment": [
+				"Number of nodes of degree 12 in virtual, optimal chordal graphs of diameter d(G)=n - S. Bujnowski \u0026 B. Dubalski (slawb(AT)atr.bydgoszcz.pl), Nov 25 2002",
+				"Equals binomial transform of [1, 12, 60, 160, 240, 192, 64, 0, 0, 0,...] where (1, 12, 60, 160, 240, 192, 64) = row 6 of the Chebyshev triangle A013609. - _Gary W. Adamson_, Jul 19 2008"
+			],
+			"reference": [
+				"L. Comtet, Advanced Combinatorics, Reidel, 1974, p. 81.",
+				"E. Deza and M. M. Deza, Figurate numbers, World Scientific Publishing (2012), page 231.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A001848/b001848.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"D. Bump, K. Choi, P. Kurlberg, and J. Vaaler, \u003ca href=\"http://www.cecm.sfu.ca/~choi/paper/lrh.pdf\"\u003eA local Riemann hypothesis, I\u003c/a\u003e pages 16 and 17",
+				"J. H. Conway and N. J. A. Sloane, Low-Dimensional Lattices VII: Coordination Sequences, Proc. Royal Soc. London, A453 (1997), 2369-2389 (\u003ca href=\"http://neilsloane.com/doc/Me220.pdf\"\u003epdf\u003c/a\u003e).",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"R. G. Stanton and D. D. Cowan, \u003ca href=\"http://dx.doi.org/10.1137/1012049\"\u003eNote on a \"square\" functional equation\u003c/a\u003e, SIAM Rev., 12 (1970), 277-279.",
+				"\u003ca href=\"/index/Cor#crystal_ball\"\u003eIndex entries for crystal ball sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: (1+x)^6 /(1-x)^7.",
+				"a(n) = 4/45*n^6+4/15*n^5+14/9*n^4+8/3*n^3+196/45*n^2+46/15*n+1. - S. Bujnowski \u0026 B. Dubalski (slawb(AT)atr.bydgoszcz.pl), Nov 25 2002",
+				"a(n)= sum(k=0..min(6,n), 2^k * binomial(6,k)* binomial(n,k) ). See Bump et al. - _Tom Copeland_, Sep 05 2014"
+			],
+			"maple": [
+				"for n from 1 to k do eval(4/45*n^6+4/15*n^5+14/9*n^4+8/3*n^3+196/45*n^2+46/15*n+1); od;",
+				"A001848:=-(z+1)**6/(z-1)**7; # [Conjectured (correctly) by _Simon Plouffe_ in his 1992 dissertation.]"
+			],
+			"mathematica": [
+				"CoefficientList[Series[-(z + 1)^6/(z - 1)^7, {z, 0, 200}], z] (* _Vladimir Joseph Stephan Orlovsky_, Jun 19 2011 *)"
+			],
+			"xref": [
+				"Cf. A001847, A013609.",
+				"Cf. A240876."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"references": 7,
+			"revision": 42,
+			"time": "2016-10-09T09:34:15-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

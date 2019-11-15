@@ -1,0 +1,43 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000236",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 236,
+			"id": "M2737 N1099",
+			"data": "3,8,20,44,80,343,288,608,1023,2848,4095,40959,16383,32768,11375,655360,262143,3670016,1048575,2097151",
+			"name": "Maximum m such that there are no two adjacent elements belonging to the same n-th power residue class modulo some prime p in the sequence 1,2,...,m (equivalently, there is no n-th power residue modulo p in the sequence 1/2,2/3,...,(m-1)/m).",
+			"comment": [
+				"Rabung and Jordan (1970) incorrectly computed a(8) as 399: their placement of residues supporting a(8)=399 fails since 80 and 81 fall into the same 8th-power residue class. - _Max Alekseyev_, Aug 10 2005",
+				"_Don Reble_ pointed out that for even n, the n-th residue class placement of prime factors q of n must obey the quadratic reciprocity law: q must be in an even class whenever n*(q-1) is a multiple of 8. - _Max Alekseyev_, Sep 04 2017"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"J. H. Jordan, \u003ca href=\"http://dx.doi.org/10.4153/CJM-1964-030-6\"\u003ePairs of consecutive power residues or nonresidues\u003c/a\u003e, Canad. J. Math., 16 (1964), 310-314.",
+				"J. R. Rabung and J. H. Jordan, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-1970-0277469-8\"\u003eConsecutive power residues or nonresidues\u003c/a\u003e, Math. Comp., 24 (1970), 737-740."
+			],
+			"formula": [
+				"If 8|n, a(n) \u003e= 2^(n/2) - 1; otherwise a(n) \u003e= 2^n - 1. - _Max Alekseyev_, Aug 10 2005; corrected Sep 04, 2017."
+			],
+			"xref": [
+				"Cf. A000445, A111931."
+			],
+			"keyword": "nonn,more",
+			"offset": "2,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"a(8) corrected and a(9)-a(16) added by _Max Alekseyev_, Aug 10 2005",
+				"a(8), a(10), a(16) corrected, and a(17)-a(21) added by _Don Reble_, communicated by _Max Alekseyev_, Sep 04 2017"
+			],
+			"references": 4,
+			"revision": 37,
+			"time": "2017-10-19T10:48:40-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

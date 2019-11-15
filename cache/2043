@@ -1,0 +1,34 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002043",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2043,
+			"id": "M2204 N1710",
+			"data": "3,0,6,18,40,81,201,414,916,1899,3973,8059,16402,32561,64520,125986,244448,469195,895077,1692143,3179406,5929721,10993373,20250589,37096872",
+			"name": "Solid partitions.",
+			"reference": [
+				"R. Chandra, Tables of solid partitions, Proceedings of the Indian National Science Academy, 26 (1960), 134-139.",
+				"V. S. Nanda, Tables of solid partitions, Proceedings of the Indian National Science Academy, 19 (1953), 313-314.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"R. Chandra, \u003ca href=\"/A000294/a000294_1.pdf\"\u003eTables of solid partitions\u003c/a\u003e, Proceedings of the Indian National Science Academy, 26 (1960), 134-139. [Annotated scanned copy]",
+				"V. S. Nanda, \u003ca href=\"/A000294/a000294.pdf\"\u003eTables of solid partitions\u003c/a\u003e, Proceedings of the Indian National Science Academy, 19 (1953), 313-314. [Annotated scanned copy]"
+			],
+			"xref": [
+				"Cf. A000294."
+			],
+			"keyword": "nonn,more",
+			"offset": "2,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 0,
+			"revision": 14,
+			"time": "2015-06-30T19:11:35-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

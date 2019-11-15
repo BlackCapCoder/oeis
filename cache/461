@@ -1,0 +1,63 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A000461",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 461,
+			"data": "1,22,333,4444,55555,666666,7777777,88888888,999999999,10101010101010101010,1111111111111111111111,121212121212121212121212,13131313131313131313131313,1414141414141414141414141414,151515151515151515151515151515,16161616161616161616161616161616",
+			"name": "Concatenate n n times.",
+			"reference": [
+				"F. Smarandache, \"Properties of the numbers\", Univ. of Craiova Archives, 1975; Arizona State University Special Collections, Tempe, AZ."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000461/b000461.txt\"\u003eTable of n, a(n) for n = 1..333\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/SmarandacheSequences.html\"\u003eSmarandache Sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n*(10^(n*L(n))-1)/(10^L(n)-1) where L(n) = A004216(n)+1 = floor(log_10(10n)). - _Henry Bottomley_, Jun 01 2000",
+				"A055642(a(n)) = n * A055642(n). - _Reinhard Zumkeller_, Apr 26 2011",
+				"a(n) = Sum_{i=0..n-1} (n*10^(i*(floor(log(10, n)) + 1))). - _José de Jesús Camacho Medina_, Dec 10 2014"
+			],
+			"example": [
+				"From _Bruno Berselli_, Oct 05 2018: (Start)",
+				".         1 * 9 = 09",
+				".        22 * 9 = 198",
+				".       333 * 9 = 2997",
+				".      4444 * 9 = 39996",
+				".     55555 * 9 = 499995",
+				".    666666 * 9 = 5999994",
+				".   7777777 * 9 = 69999993",
+				".  88888888 * 9 = 799999992",
+				". 999999999 * 9 = 8999999991",
+				"(End)"
+			],
+			"maple": [
+				"a:= n-\u003e parse(cat(n$n)):",
+				"seq(a(n), n=1..20);  # _Alois P. Heinz_, Apr 26 2011"
+			],
+			"mathematica": [
+				"Table[Sum[(n)*10^(i*(Floor[Log[10, n]] + 1)), {i, 0, n - 1}], {n, 1, 30}] (* _José de Jesús Camacho Medina_, Dec 10 2014 *)",
+				"Table[FromDigits[Flatten[IntegerDigits/@Table[n,{n}]]],{n,15}] (* _Harvey P. Dale_, Mar 01 2015 *)",
+				"Table[FromDigits[PadRight[{},n IntegerLength[n],IntegerDigits[n]]],{n,15}] (* _Harvey P. Dale_, Jun 19 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000461 n = (read $ concat $ replicate n $ show n) :: Integer",
+				"-- _Reinhard Zumkeller_, Apr 26 2011",
+				"(PARI) a(n) = concat(apply(x-\u003eStr(x), vector(n, k, n))); \\\\ _Michel Marcus_, Oct 05 2018"
+			],
+			"xref": [
+				"Cf. A048376, A053422."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "John Radu (Suttones(AT)aol.com)",
+			"references": 25,
+			"revision": 44,
+			"time": "2018-10-06T04:29:07-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

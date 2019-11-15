@@ -1,0 +1,45 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002857",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2857,
+			"id": "M3078 N1249",
+			"data": "1,3,20,996,9333312,6406603084568576,16879085743296493582043922521915392,717956902513121252476003434439730211917452457474409186632352788205535232",
+			"name": "Number of Post functions of n variables.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"Wheeler, Roger F.; Complete propositional connectives. Z. Math. Logik Grundlagen Math. 7 1961 185-198."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A002857/b002857.txt\"\u003eTable of n, a(n) for n = 1..12\u003c/a\u003e",
+				"R. F. Wheeler, \u003ca href=\"/A002543/a002543.pdf\"\u003eComplete propositional connectives\u003c/a\u003e, Z. Math. Logik Grundlagen Math. 7 1961 185-198. [Annotated scanned copy]",
+				"R. F. Wheeler, \u003ca href=\"/A002543/a002543_2.pdf\"\u003eAn asymptotic formula for the number of complete propositional connectives\u003c/a\u003e, Z. Math. Logik Grundlagen Math. 8 (1962), 1-4. [Annotated scanned copy]"
+			],
+			"maple": [
+				"b:= proc(n, i, l) `if`(n=0, 2^(w-\u003e add(mul(2^igcd(t, l[h]),",
+				"      h=1..nops(l)), t=1..w)/w)(ilcm(l[])), `if`(i\u003c1, 0,",
+				"      add(b(n-i*j, i-1, [l[], i$j])/j!/i^j, j=0..n/i)))",
+				"    end:",
+				"a:= n-\u003e b(n$2, [])/4:",
+				"seq(a(n), n=1..8);  # _Alois P. Heinz_, Aug 14 2019"
+			],
+			"xref": [
+				"Equals A000612/2 and A003180/4."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _Vladeta Jovovic_, Feb 23 2000"
+			],
+			"references": 5,
+			"revision": 24,
+			"time": "2019-08-14T19:11:25-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

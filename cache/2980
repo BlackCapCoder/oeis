@@ -1,0 +1,29 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002980",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2980,
+			"data": "1,1,0,-1,24,121,-480,-4201,48384,478801,-4968960,-62871601,885586944,12996863881,-203910819840,-3476839930201,63397697224704,1221998040867361,-24917358603141120,-537278342731116001",
+			"name": "E.g.f: 1/(1-sin(x)+sin(x)^2-sin(x)^3).",
+			"example": [
+				"1/(1-sin(x)+sin(x)^2-sin(x)^3) = 1+x-(1/6)*x^3+x^4+(121/120)*x^5-(2/3)*x^6-(4201/5040)*x^7+(6/5)*x^8+(478801/362880)*x^9-(1294/945)*x^10-..."
+			],
+			"mathematica": [
+				"With[{nn=20},CoefficientList[Series[1/(1-Sin[x]+Sin[x]^2-Sin[x]^3),{x,0,nn}],x] Range[0,nn]!] (* _Harvey P. Dale_, Nov 28 2014 *)"
+			],
+			"keyword": "sign",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Corrected by _N. J. A. Sloane_, Nov 28 2014 at the suggestion of _Harvey P. Dale_."
+			],
+			"references": 0,
+			"revision": 11,
+			"time": "2014-11-28T10:27:26-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

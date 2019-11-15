@@ -1,0 +1,50 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002715",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2715,
+			"id": "M2683 N1073",
+			"data": "3,7,23,47,1103,2207,2435423,4870847,11862575248703,23725150497407,281441383062305809756861823,562882766124611619513723647,158418504200047111075388369241884118003210485743490303",
+			"name": "An infinite coprime sequence defined by recursion.",
+			"comment": [
+				"Every term is relatively prime to all others."
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A002715/b002715.txt\"\u003eTable of n, a(n) for n = 0..21\u003c/a\u003e",
+				"A. W. F. Edwards, \u003ca href=\"https://www.jstor.org/stable/3611702\"\u003eInfinite coprime sequences\u003c/a\u003e, Math. Gaz., 48 (1964), 416-422.",
+				"A. W. F. Edwards, \u003ca href=\"/A002715/a002715.pdf\"\u003eInfinite coprime sequences\u003c/a\u003e, Math. Gaz., 48 (1964), 416-422. [Annotated scanned copy]",
+				"R. Mestrovic, \u003ca href=\"http://arxiv.org/abs/1202.3670\"\u003eEuclid's theorem on the infinitude of primes: a historical survey of its proofs (300 BC--2012) and another new proof\u003c/a\u003e, arXiv preprint arXiv:1202.3670 [math.HO], 2012-2018."
+			],
+			"formula": [
+				"a(2n+1) = 2*a(2n)+1, a(2n) = (a(2n-1)^2-3)/2, with a(0)=3."
+			],
+			"mathematica": [
+				"a[n_?OddQ] := a[n] = 2*a[n-1] + 1; a[n_?EvenQ] := a[n] = (a[n-1]^2 - 3)/2; a[0] = 3; Table[a[n], {n, 0, 12}] (* _Jean-François Alcover_, Jan 25 2013 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c1,3*(n==0),if(n%2,2*a(n-1)+1,(a(n-1)^2-3)/2))"
+			],
+			"xref": [
+				"Cf. A001685, A003686, A064526."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _Jeffrey Shallit_.",
+				"Edited by _Michael Somos_, Feb 01 2004"
+			],
+			"references": 5,
+			"revision": 33,
+			"time": "2019-01-23T20:00:42-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

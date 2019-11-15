@@ -1,0 +1,78 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002432",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2432,
+			"id": "M4283 N1790",
+			"data": "6,90,945,9450,93555,638512875,18243225,325641566250,38979295480125,1531329465290625,13447856940643125,201919571963756521875,11094481976030578125,564653660170076273671875,5660878804669082674070015625,62490220571022341207266406250",
+			"name": "Denominators of zeta(2n)/Pi^(2n).",
+			"comment": [
+				"Also denominators in expansion of Psi(x).",
+				"zeta(2n)/(2i * ( log(1-i)-log(1+i) ))^(2n) = zeta(2n)/(-i*log(-1))^(2n). - _Eric Desbiaux_, Dec 12 2008",
+				"a(0)=2. - _Artur Jasinski_, Mar 11 2010",
+				"a(n) is always divisible by 3 (by the von Staudt-Clausen theorem, see A002445).",
+				"A comment due to G. Campbell: The original approach taken by Euler was to derive the infinite product for sin(Pi*x)/(Pi*x) equal to (1 - x^2/1^2) (1 - x^2/2^2)(1 - x^2/3^2) ... treating sin(Pi*x)/(Pi*x) as if it were a polynomial. Differentiating the logarithm of both sides and equating coefficients gives all of the zeta function values for 2, 4, 6, 8, .... - _M. F. Hasler_, Mar 29 2015",
+				"An approximation to Zeta(s)=(Pi^s)/k for all positive integers s is k = floor((2^s - 1) * Pi^s / 2^s)-1. Values for s=2,3,4,5,6,7,8,9,10, ... are k=6,26,90,295,945,2995,9450,29749,93555, ... - _Pedro Caceres_, Jan 22 2018"
+			],
+			"reference": [
+				"L. Comtet, Advanced Combinatorics, Reidel, 1974, p. 88.",
+				"A. Fletcher, J. C. P. Miller, L. Rosenhead and L. J. Comrie, An Index of Mathematical Tables. Vols. 1 and 2, 2nd ed., Blackwell, Oxford and Addison-Wesley, Reading, MA, 1962, Vol. 1, p. 84.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe and J.P. Martin-Flatin, \u003ca href=\"/A002432/b002432.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e (first 100 terms were computed by T. D. Noe)",
+				"G. Campbell, \u003ca href=\"https://www.linkedin.com/groups/Some-series-like-ζ-3-4510047.S.5985755984868421632\"\u003eSome series like ζ(3), ζ(5), ζ(7).\u003c/a\u003e Number Theory group on LinkedIn.com, March 2015.",
+				"N. D. Elkies, \u003ca href=\"http://arXiv.org/abs/math.CA/0101168\"\u003eOn the sums Sum((4k+1)^(-n),k,-inf,+inf)\u003c/a\u003e, arXiv:math/0101168 [math.CA], 2001-2003.",
+				"N. D. Elkies, \u003ca href=\"http://www.jstor.org/stable/3647742\"\u003eOn the sums Sum_{k = -infinity .. infinity} (4k+1)^(-n)\u003c/a\u003e, Amer. Math. Monthly, 110 (No. 7, 2003), 561-573.",
+				"J. Sondow and E. W. Weisstein, \u003ca href=\"http://mathworld.wolfram.com/RiemannZetaFunction.html\"\u003eMathWorld: Riemann Zeta Function\u003c/a\u003e",
+				"I. Song, \u003ca href=\"http://dx.doi.org/10.1016/0377-0427(88)90274-9\"\u003eA recursive formula for even order harmonic series\u003c/a\u003e, J. Computational and Appl. Math., 21 (1988), 251-256.",
+				"I. Song, \u003ca href=\"/A002432/a002432.pdf\"\u003e A recursive formula for even order harmonic series\u003c/a\u003e, J. Computational and Appl. Math., 21 (1988), 251-256. [Annotated scanned copy]",
+				"\u003ca href=\"/index/Z#zeta_function\"\u003eIndex entries for zeta function\u003c/a\u003e."
+			],
+			"formula": [
+				"Sum_{n\u003e=1} 2/(n^2 + 1) = Pi*coth(Pi)-1. 2*Sum_{k\u003e=1} (-1)^(k + 1)/n^(2*k) = 2/(n^2+1). - Shmuel Spiegel (shmualm(AT)hotmail.com), Aug 13 2001",
+				"zeta(2n) = Sum_{k \u003e= 1} k^(-2n) = (-1)^(n-1)*B_{2n}*2^(2n-1)*Pi^(2n)/(2n)!.",
+				"a(n) = -A046988(n)*A010050(n)*A002445(n)/(A009117(n)*A000367(n))",
+				"a(n) = sqrt(denominator(Sum_{i\u003e=1} A000005(i)/i^2n)). - _Enrique Pérez Herrero_, Jan 19 2012",
+				"Sum_{k \u003e= 1} zeta(2k)*x^(2k) = (1-Pi*x*cot(Pi*x))/2. - _Chris Boyd_, Dec 21 2015"
+			],
+			"example": [
+				"(zeta(2n)/Pi^(2n), n = 1, 2, 3, ...) = (1/6, 1/90, 1/945, 1/9450, 1/93555, 691/638512875, 2/18243225, 3617/325641566250, ...), i.e.:",
+				"zeta(2) = Pi^2/6, zeta(4) = Pi^4/90, zeta(6) = Pi^6/945, zeta(8) = Pi^8/9450, zeta(10) = Pi^10/93555, zeta(12) = Pi^12*691/638512875, ...",
+				"In Maple, series(Psi(x),x,20) gives -1*x^(-1) + (-gamma) + 1/6*Pi^2*x + (-Zeta(3))*x^2 + 1/90*Pi^4*x^3 + (-Zeta(5))*x^4 + 1/945*Pi^6*x^5 + (-Zeta(7))*x^6 + 1/9450*Pi^8*x^7 + (-Zeta(9))*x^8 + 1/93555*Pi^10*x^9 + ..."
+			],
+			"maple": [
+				"seq(denom(Zeta(2*n)/Pi^(2*n)),n=1..24); # _Martin Renner_, Sep 07 2016"
+			],
+			"mathematica": [
+				"Table[Denominator[Zeta[2 n]/Pi^(2 n)], {n, 1, 30}] (* _Artur Jasinski_, Mar 11 2010 *)",
+				"Denominator[Zeta[2*Range[20]]] (* _Harvey P. Dale_, Sep 05 2013 *)",
+				"Denominator[Table[(2^[2*n - 1]*BernoulliB[2*n])/((2*n)!),{n,1,30}] (* _Terry D. Grant_, May 29 2017 *)"
+			],
+			"program": [
+				"(PARI) a(n)=numerator(bestappr(Pi^(2*n)/zeta(2*n))) \\\\ Requires sufficient realprecision. The standard value of 38 digits yields erroneous values for n\u003e9. \\p99 is more than enough to get the 3 lines of displayed data. - _M. F. Hasler_, Mar 29 2015",
+				"(PARI) a002432(n) = denominator(polcoeff((1-x*cotan(x))/2,n*2))",
+				"default(seriesprecision, 33); for(i=1,16,print1(a002432(i),\",\")) \\\\ _Chris Boyd_, Dec 21 2015"
+			],
+			"xref": [
+				"Cf. A046988 (numerators), A006003."
+			],
+			"keyword": "nonn,nice,easy,frac",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Formula and link from _Henry Bottomley_, Mar 10 2000",
+				"Formula corrected by Bjoern Boettcher, May 15 2003",
+				"Corrected and edited by _M. F. Hasler_, Mar 29 2015"
+			],
+			"references": 18,
+			"revision": 115,
+			"time": "2019-01-28T23:45:10-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

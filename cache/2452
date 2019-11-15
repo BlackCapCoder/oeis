@@ -1,0 +1,94 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002452",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2452,
+			"id": "M4733 N2025",
+			"data": "0,1,10,91,820,7381,66430,597871,5380840,48427561,435848050,3922632451,35303692060,317733228541,2859599056870,25736391511831,231627523606480,2084647712458321,18761829412124890,168856464709124011,1519708182382116100,13677373641439044901,123096362772951404110",
+			"name": "a(n) = (9^n - 1)/8.",
+			"comment": [
+				"From _David W. Wilson_: Numbers triangular, differences square.",
+				"To be precise, the differences are the squares of the powers of three with positive indices. Hence a(n+1) - a(n) = (A000244(n+1))^2 = A001019(n+1). [Added by _Ant King_, Jan 05 2011]",
+				"Partial sums of A001019. This is m-th triangular number, where m is partial sums of A000244. a(n) = A000217(A003462(n)). - _Lekraj Beedassy_, May 25 2004",
+				"With offset 0, binomial transform of A003951. - _Philippe Deléham_, Jul 22 2005",
+				"Numbers in base 9: 1, 11, 111, 1111, 11111, 111111, 1111111, etc. - _Zerinvary Lajos_, Apr 26 2009",
+				"Let A be the Hessenberg matrix of order n, defined by: A[1,j]=1, A[i,i]:=9, (i\u003e1), A[i,i-1]=-1, and A[i,j]=0 otherwise. Then, for n\u003e=1, a(n)=det(A). - _Milan Janjic_, Feb 21 2010",
+				"Let A be the Hessenberg matrix of order n, defined by: A[1,j]=1, A[i,i]:=10, (i\u003e1), A[i,i-1]=-1, and A[i,j]=0 otherwise. Then, for n \u003e= 2, a(n-1) = (-1)^n*charpoly(A,1). - _Milan Janjic_, Feb 21 2010",
+				"From _Hieronymus Fischer_, Jan 30 2013: (Start)",
+				"Least index k such that A052382(k) \u003e= 10^(n-1), for n \u003e 0.",
+				"Also index k such that A052382(k) = (10^n-1)/9, n \u003e 0.",
+				"A052382(a(n)) is the least zerofree number with n digits, for n \u003e 0.",
+				"For n \u003e 1: A052382(a(n)-1) is the greatest zerofree number with n-1 digits. (End)",
+				"For n \u003e 0, 4*a(n) is the total number of holes in a certain triangle fractal (start with 9 triangles, 4 holes) after n iterations. See illustration in links. - _Kival Ngaokrajang_, Feb 21 2015",
+				"For n \u003e 0, a(n) is the sum of the numerators and denominators of the reduced fractions 0 \u003c (b/3^(n-1)) \u003c 1 plus 1. Example for n=3 gives fractions 1/9, 2/9, 1/3, 4/9, 5/9, 2/3, 7/9, and 8/9 plus 1 has sum of numerators and denominators +1 = a(3) = 91. - _J. M. Bergot_, Jul 11 2015",
+				"Except for 0 and 1, all terms are Brazilian repunits numbers in base 9, so belong to A125134. All these terms are composite because a(n) is the ((3^n - 1)/2)-th triangular number. - _Bernard Schott_, Apr 23 2017",
+				"These are also the second steps after the junctions of the Collatz trajectories of 2^(2k-1)-1 and 2^2k-1. - _David Rabahy_, Nov 01 2017"
+			],
+			"reference": [
+				"A. Fletcher, J. C. P. Miller, L. Rosenhead and L. J. Comrie, An Index of Mathematical Tables. Vols. 1 and 2, 2nd ed., Blackwell, Oxford and Addison-Wesley, Reading, MA, 1962, Vol. 1, p. 112.",
+				"J. Riordan, Combinatorial Identities, Wiley, 1968, p. 217.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"T. N. Thiele, Interpolationsrechnung. Teubner, Leipzig, 1909, p. 36."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A002452/b002452.txt\"\u003eTable of n, a(n) for n = 0..300\u003c/a\u003e",
+				"Kival Ngaokrajang, \u003ca href=\"/A002452/a002452.pdf\"\u003eIllustration of initial terms\u003c/a\u003e",
+				"Vladimir Pletser, \u003ca href=\"http://arxiv.org/abs/1409.7969\"\u003eCongruence conditions on the number of terms in sums of consecutive squared integers equal to squared integers\u003c/a\u003e, arXiv:1409.7969 [math.NT], 2014.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"A. G. Shannon, \u003ca href=\"/A003462/a003462_1.pdf\"\u003eLetter to N. J. A. Sloane, Dec 06 1974\u003c/a\u003e",
+				"M. Ward, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9904-1936-06435-9\"\u003eNote on divisibility sequences\u003c/a\u003e, Bull. Amer. Math. Soc., 42 (1936), 843-845.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Repunit.html\"\u003eRepunit\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (10,-9)."
+			],
+			"formula": [
+				"From _Philippe Deléham_, Mar 13 2004: (Start)",
+				"a(n) = 9*a(n-1) + 1; a(1) = 1.",
+				"G.f.: x / ((1-x)*(1-9*x)). (End)",
+				"a(n) = 10*a(n-1) - 9*a(n-2). - _Ant King_, Jan 05 2011",
+				"a(n) = floor(A000217(3^n)/4) - A033113(n-1). - _Arkadiusz Wesolowski_, Feb 14 2012",
+				"E.g.f.: 1/6*sin(x)^3 = Sum_{n\u003e0} a(n)*(-1)^(n+1)*x^(2*n+1)/(2*n+1)!. - _Vladimir Kruchinin_, Sep 30 2012",
+				"a(n) = A011540(A217094(n-1)) - A217094(n-1) + 2, n \u003e 0. - _Hieronymus Fischer_, Jan 30 2013",
+				"a(n) = 10^(n-1) + 2 - A217094(n-1). - _Hieronymus Fischer_, Jan 30 2013",
+				"a(n) = det(|v(i+2,j+1)|, 1 \u003c= i,j \u003c= n-1), where v(n,k) are central factorial numbers of the first kind with odd indices (A008956) and n \u003e 0. - _Mircea Merca_, Apr 06 2013",
+				"a(n) = Sum_{k=0..n-1} 9^k. - _Doug Bell_, May 26 2017"
+			],
+			"example": [
+				"a(4) = (9^4 - 1)/8 = 820 = 1111_9 = (1/2) * 40 * 41 is the ((3^4 - 1)/2)-th = 40th triangular number. - _Bernard Schott_, Apr 23 2017"
+			],
+			"maple": [
+				"A002452 := 1/(9*z-1)/(z-1); # _Simon Plouffe_ in his 1992 dissertation"
+			],
+			"mathematica": [
+				"(9^# \u0026 /@ Range[0, 18] // Accumulate) (* _Ant King_, Jan 06 2011 *)",
+				"LinearRecurrence[{10,-9},{0,1},30] (* _Harvey P. Dale_, Sep 23 2018 *)"
+			],
+			"program": [
+				"(MAGMA) [(9^n - 1)/8 : n in [0..25]]; // _Vincenzo Librandi_, Jun 01 2011",
+				"(PARI) a(n)=9^n\u003e\u003e3 \\\\ _Charles R Greathouse IV_, Jul 25 2011",
+				"(Maxima) A002452(n):=floor((9^n-1)/8)$",
+				"makelist(A002452(n),n,0,30); /* _Martin Ettl_, Nov 05 2012 */"
+			],
+			"xref": [
+				"Right-hand column 1 in triangle A008958.",
+				"Cf. A217094, A011540, A052382, A125857.",
+				"Cf. A125134, A000217."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Pab Ter (pabrlos(AT)yahoo.com), May 08 2004",
+				"Offset changed from 1 to 0 and added 0 by _Vincenzo Librandi_, Jun 01 2011"
+			],
+			"references": 75,
+			"revision": 149,
+			"time": "2018-09-23T13:57:58-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

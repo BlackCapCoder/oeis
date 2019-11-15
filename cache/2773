@@ -1,0 +1,49 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002773",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2773,
+			"id": "M1197 N0462",
+			"data": "1,1,1,2,4,9,26,101,950,376467",
+			"name": "Number of nonisomorphic simple matroids (or geometries) with n points.",
+			"reference": [
+				"Miklos Bona, editor, Handbook of Enumerative Combinatorics, CRC Press, 2015, p. 138.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"N. Bansal, R. Pendavingh, and J. G. van der Pol, \u003ca href=\"http://arxiv.org/abs/1206.6270\"\u003eOn the number of matroids\u003c/a\u003e, arXiv:1206.6270v1 [math.CO], 2012.",
+				"Nikhil Bansal, Rudi A. Pendavingh, and Jorn G. van der Pol, \u003ca href=\"https://doi.org/10.1007/s00493-014-3029-z\"\u003eOn the number of matroids\u003c/a\u003e, Proceedings of the Twenty-Fourth Annual ACM-SIAM Symposium on Discrete Algorithms. SIAM, 2013; full version in Combinatorica, 35:3 (2015), 253-277.",
+				"J. E. Blackburn, H. H. Crapo, and D. A. Higgs, \u003ca href=\"https://doi.org/10.1090/S0025-5718-1973-0419270-0\"\u003eA catalogue of combinatorial geometries\u003c/a\u003e, Math. Comp 27 (1973), 155-166.",
+				"Henry H. Crapo and Gian-Carlo Rota, \u003ca href=\"https://doi.org/10.1002/sapm1970492109\"\u003eOn the foundations of combinatorial theory. II. Combinatorial geometries\u003c/a\u003e, Studies in Appl. Math. 49 (1970), 109-133.",
+				"Henry H. Crapo and Gian-Carlo Rota, \u003ca href=\"/A002773/a002773.pdf\"\u003eOn the foundations of combinatorial theory. II. Combinatorial geometries\u003c/a\u003e, Studies in Appl. Math. 49 (1970), 109-133. [Annotated scanned copy of pages 126 and 127 only]",
+				"W. M. B. Dukes, \u003ca href=\"http://www.stp.dias.ie/~dukes/matroid.html\"\u003eTables of matroids\u003c/a\u003e.",
+				"W. M. B. Dukes, \u003ca href=\"https://web.archive.org/web/20030208144026/http://www.stp.dias.ie/~dukes/phd.html\"\u003eCounting and Probability in Matroid Theory\u003c/a\u003e, Ph.D. Thesis, Trinity College, Dublin, 2000.",
+				"W. M. B. Dukes, \u003ca href=\"https://arxiv.org/abs/math/0411557\"\u003eThe number of matroids on a finite set\u003c/a\u003e, arXiv:math/0411557 [math.CO], 2004.",
+				"W. M. B. Dukes, \u003ca href=\"http://emis.impa.br/EMIS/journals/SLC/wpapers/s51dukes.html\"\u003eOn the number of matroids on a finite set\u003c/a\u003e, Séminaire Lotharingien de Combinatoire 51 (2004), Article B51g.",
+				"Dillon Mayhew and Gordon F. Royle, \u003ca href=\"https://arxiv.org/abs/math/0702316\"\u003eMatroids with nine elements\u003c/a\u003e, arXiv:math/0702316 [math.CO], 2007.",
+				"Dillon Mayhew and Gordon F. Royle, \u003ca href=\"https://doi.org/10.1016/j.jctb.2007.07.005\"\u003eMatroids with nine elements\u003c/a\u003e, J. Combin. Theory Ser. B 98(2) (2008), 415-431.",
+				"Gordon Royle and Dillon Mayhew, \u003ca href=\"https://web.archive.org/web/20080828102733/http://people.csse.uwa.edu.au/gordon/matroid-integer-sequences.html\"\u003e9-element matroids\u003c/a\u003e.",
+				"N. J. A. Sloane, \u003ca href=\"/A002773/a002773.gif\"\u003eInitial terms (* denotes 5 points in general position in 4-space)\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Matroid.html\"\u003eMatroid\u003c/a\u003e.",
+				"\u003ca href=\"/index/Mat#matroid\"\u003eIndex entries for sequences related to matroids\u003c/a\u003e"
+			],
+			"xref": [
+				"Cf. A055545, A056642. Row sums of A058730."
+			],
+			"keyword": "nonn,nice,more",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"a(9) from Gordon Royle, Dec 23 2006"
+			],
+			"references": 7,
+			"revision": 71,
+			"time": "2019-10-09T03:09:25-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

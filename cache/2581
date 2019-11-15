@@ -1,0 +1,50 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002581",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2581,
+			"id": "M3220 N1304",
+			"data": "1,4,4,2,2,4,9,5,7,0,3,0,7,4,0,8,3,8,2,3,2,1,6,3,8,3,1,0,7,8,0,1,0,9,5,8,8,3,9,1,8,6,9,2,5,3,4,9,9,3,5,0,5,7,7,5,4,6,4,1,6,1,9,4,5,4,1,6,8,7,5,9,6,8,2,9,9,9,7,3,3,9,8,5,4,7,5,5,4,7,9,7,0,5,6,4,5,2,5,6,6,8,6,8,3,5,0,8",
+			"name": "Decimal expansion of cube root of 3.",
+			"comment": [
+				"The largest k^(1/k), for any natural number k, occurs when k = 3 = A000227(1). - _Stanislav Sykora_, Jun 04 2014",
+				"3^(1/3) is also the Kolmogorov constant C(3,2) in the case supremum norm on the real line. - _Jean-François Alcover_, Jul 17 2014",
+				"(1/3)*log(3) = -Lim_{n-\u003e Infinity} (n-th derivative zeta(n+1)) / (n-1)-th derivative zeta(n)) = 0.3662040962227... Convergence is to 25 digits by n = ~1000. zeta is the Riemann zeta function. - _Richard R. Forberg_, Feb 24 2015"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"Horace S. Uhler, Many-figure approximations for cube root of 2, cube root of 3, cube root of 4 and cube root of 9 with chi_2 data, Scripta Math. 18, (1952), 173-176."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A002581/b002581.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.worldwideschool.org/library/books/sci/math/MiscellaneousMathematicalConstants/chap15.html\"\u003eThe cube root of 3 to 2000 places\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.plouffe.fr/simon/constants/cuberoot3.txt\"\u003eThe cube root of 3 to 2000 places\u003c/a\u003e",
+				"H. S. Uhler, \u003ca href=\"/A002580/a002580.pdf\"\u003eMany-figure approximations for cubed root of 2, cubed root of 3, cubed root of 4, and cubed root of 9 with chi2 data\u003c/a\u003e, Scripta Math. 18, (1952). 173-176. [Annotated scanned copies of pages 175 and 176 only]",
+				"Eric Weisstein's MathWorld, \u003ca href=\"http://mathworld.wolfram.com/Landau-KolmogorovConstants.html\"\u003eLandau-Kolmogorov Constants\u003c/a\u003e"
+			],
+			"example": [
+				"1.442249570307408382321638310780109588391869253499350577546416..."
+			],
+			"mathematica": [
+				"RealDigits[N[3^(1/3), 200]] (* _Vladimir Joseph Stephan Orlovsky_, May 27 2010 *)"
+			],
+			"program": [
+				"(PARI) { default(realprecision, 20080); x=3^(1/3); for (n=1, 20000, d=floor(x); x=(x-d)*10; write(\"b002581.txt\", n, \" \", d)); } \\\\ _Harry J. Smith_, May 07 2009"
+			],
+			"xref": [
+				"Cf. A002946 = Continued fraction. - _Harry J. Smith_, May 07 2009"
+			],
+			"keyword": "nonn,cons",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 22,
+			"revision": 50,
+			"time": "2018-01-11T01:09:03-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

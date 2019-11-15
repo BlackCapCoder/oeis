@@ -1,0 +1,39 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002608",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2608,
+			"id": "M5242 N2281",
+			"data": "33,524,-2322,81912,214181,1182276,3736614,9972264,24622002,51265020,106396576,202547304,357914103,613924280,1011319830,1625884896,2508545328,3777689232,5589515982,8076649672,11456490906,15968552484,22005025446",
+			"name": "Glaisher's function T(2n+1).",
+			"reference": [
+				"J. W. L. Glaisher, On the representation of a number as sum of 18 squares, Quart. J. Math. 38 (1907), 289-351 (see p. 305). [The whole 1907 volume of The Quarterly Journal of Pure and Applied Mathematics, volume 38, is freely available from Google Books]",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"\u003ca href=\"/index/Ge#Glaisher\"\u003eIndex entries for sequences mentioned by Glaisher\u003c/a\u003e"
+			],
+			"formula": [
+				"See equation (i) of Section 38 of Glaisher (1907), which defines this in terms of A002607."
+			],
+			"xref": [
+				"Cf. A002607."
+			],
+			"keyword": "sign",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Entry revised (signs added) by _N. J. A. Sloane_, Nov 26 2018",
+				"More terms from _Sean A. Irvine_, Mar 03 2019"
+			],
+			"references": 0,
+			"revision": 25,
+			"time": "2019-03-04T01:54:17-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

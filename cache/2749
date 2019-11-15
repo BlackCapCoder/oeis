@@ -1,0 +1,42 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002749",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2749,
+			"id": "M4767 N2037",
+			"data": "1,1,1,11,-7,389,-1031,19039,-24431,1023497,-4044079,225738611,-1711460279,29974303501,4656373513,3798866053319,-34131041040991,2131052083901969,-23678368533941471,832900320313739227,-4752766287768240359,148482851420849206421",
+			"name": "Sum of logarithmic numbers.",
+			"reference": [
+				"J. M. Gandhi, On logarithmic numbers, Math. Student, 31 (1963), 73-83.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"J. M. Gandhi, \u003ca href=\"/A002741/a002741.pdf\"\u003eOn logarithmic numbers\u003c/a\u003e, Math. Student, 31 (1963), 73-83. [Annotated scanned copy]",
+				"\u003ca href=\"/index/Lo#logarithmic\"\u003eIndex entries for sequences related to logarithmic numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"E.g.f.: F(x)/exp(x)/x where F(x) is o.g.f. for A000005(). - _Vladeta Jovovic_, Feb 09 2003"
+			],
+			"maple": [
+				"A002749 := proc(r)",
+				"    add(A260324(n,r),n=1..r+1) ;",
+				"end proc:",
+				"seq(A002749(r),r=0..25) ; # _R. J. Mathar_, Jul 24 2015"
+			],
+			"keyword": "sign",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Corrected and extended by _Jeffrey Shallit_."
+			],
+			"references": 2,
+			"revision": 22,
+			"time": "2015-07-24T14:06:32-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,25 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002800",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2800,
+			"id": "M3800 N1552",
+			"data": "1,5,10,21,26,53,50,85,91,130,122,210,170,250,260,341,290,455",
+			"name": "Erroneous version of A001157.",
+			"reference": [
+				"P. A. MacMahon, The connexion between the sum of the squares of the divisors and the number of partitions of a given number, Messenger Math., 54 (1924), 113-116. See Table I. The entry 53 should be 50.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"keyword": "dead",
+			"offset": "1,2",
+			"references": 0,
+			"revision": 13,
+			"time": "2014-05-21T18:02:12-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

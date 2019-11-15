@@ -1,0 +1,50 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002853",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2853,
+			"id": "M2514 N0994",
+			"data": "1,3,6,6,10,16,28,28,28,28,28,28,28",
+			"name": "Maximal size of a set of equiangular lines in n dimensions.",
+			"comment": [
+				"The sequence continues: 28 \u003c= a(14) \u003c= 29, a(15) = 36, 40 \u003c= a(16) \u003c= 41, 48 \u003c= a(17) \u003c= 49, 54 \u003c= a(18) \u003c= 60, 72 \u003c= a(19) \u003c= 75, 90 \u003c= a(20) \u003c= 95, a(21) = 126, a(22) = 176, a(23) = ... = a(41) = 276, 276 \u003c= a(42) \u003c= 288, a(43) = 344.",
+				"Seidel claims, without proof, that a(14) = 28. This is NOT known. See Greaves, Koolen, Munemasa, and Szollosi, to appear in JCTA (2015). - _Ferenc Szollosi_, Aug 31 2015"
+			],
+			"reference": [
+				"W. W. R. Ball and H. S. M. Coxeter, \"Mathematical Recreations and Essays,\" 13th Ed. Dover, p. 307.",
+				"F. Buekenhout, ed., Handbook of Incidence Geometry, 1995, p. 884.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"I. Ballar, F. Draxler, P. Keevash, B. Sudakov, \u003ca href=\"https://arxiv.org/abs/1606.06620\"\u003eEquiangular Lines and Spherical Codes in Euclidean Space\u003c/a\u003e, arxiv preprint arxiv:1606.06620 [math.HO], 2016.",
+				"A. Barg, W.-H. Yu, \u003ca href=\"http://arxiv.org/abs/1311.3219\"\u003eNew bounds for equiangular lines\u003c/a\u003e, arXiv:1311.3219 [math.MG], 2014.",
+				"A. Barg, W.-H. Yu, \u003ca href=\"http://www.ams.org/books/conm/625/\"\u003eNew bounds for equiangular lines\u003c/a\u003e, Contemporary Math. vol. 625, 2014, pp. 111--121.",
+				"David de Laat, Fabrício Caluza Machado, Fernando Mário de Oliveira Filho, Frank Vallentin, \u003ca href=\"https://arxiv.org/abs/1812.06045\"\u003ek-point semidefinite programming bounds for equiangular lines\u003c/a\u003e, arXiv:1812.06045 [math.OC], 2018.",
+				"G. Greaves, \u003ca href=\"https://doi.org/10.1016/j.laa.2017.09.008\"\u003eEquiangular line systems and switching classes containing regular graphs\u003c/a\u003e, Linear Algebra Appl. 536, pp. 31--51 (2018).",
+				"G. Greaves, J. H. Koolen, A. Munemasa, and F. Szollosi, \u003ca href=\"https://doi.org/10.1016/j.jcta.2015.09.008\"\u003eEquiangular lines in Euclidean spaces\u003c/a\u003e, J. Combin. Theory Ser. A 138, pp. 208--235 (2016).",
+				"G. Greaves and P. Yatsyna, \u003ca href=\"https://doi.org/10.1090/mcom/3433\"\u003eOn equiangular lines in 17 dimensions and the characteristic polynomial of a Seidel matrix\u003c/a\u003e, Math. Comp. 88 (2019), pp. 3041--3061.",
+				"K. Hartnett, \u003ca href=\"https://www.quantamagazine.org/20170411-equiangular-lines-proof/\"\u003eA New Path To Equal Angle Lines\u003c/a\u003e, Quanta Magazine, Apr 11, 2017.",
+				"P. W. H. Lemmens and J. J. Seidel, \u003ca href=\"http://dx.doi.org/10.1016/0021-8693(73)90123-3\"\u003eEquiangular lines\u003c/a\u003e, J. Algebra, 24 (1973), 494-512.",
+				"G. McConnell, \u003ca href=\"http://arxiv.org/abs/1402.7330\"\u003eSome non-standard ways to generate SIC-POVMs in dimensions 2 and 3\u003c/a\u003e, arXiv preprint arXiv:1402.7330 [quant-ph], 2014. See Abstract. - _N. J. A. Sloane_, Apr 09 2014",
+				"Blake C. Stacey, \u003ca href=\"https://arxiv.org/abs/1609.03075\"\u003eGeometric and Information-Theoretic Properties of the Hoggar Lines\u003c/a\u003e, arXiv preprint arXiv:1609.03075 [quant-ph], 2016.",
+				"Blake C. Stacey, \u003ca href=\"https://arxiv.org/abs/1907.02432\"\u003eQuantum Theory as Symmetry Broken by Vitality\u003c/a\u003e, arXiv:1907.02432 [quant-ph], 2019.",
+				"J. J. Seidel, \u003ca href=\"https://doi.org/10.1016/B978-044488355-1/50017-7\"\u003eDiscrete non-Euclidean geometry\u003c/a\u003e, in Buekenhout (ed.), Handbook of Incidence Geometry, Elsevier, Amsterdam, The Nederlands (1995).",
+				"F. Szollosi, \u003ca href=\"https://doi.org/10.1007/s00454-017-9933-4\"\u003eA Remark on a Construction of D.S. Asche\u003c/a\u003e, Discrete Comput. Geom. (2017)"
+			],
+			"keyword": "hard,nonn,nice,more,changed",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Terms above a(14) removed by _Ferenc Szollosi_, Aug 31 2015"
+			],
+			"references": 0,
+			"revision": 68,
+			"time": "2019-11-07T07:08:05-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

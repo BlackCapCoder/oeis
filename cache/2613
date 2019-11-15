@@ -1,0 +1,43 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002613",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2613,
+			"id": "M5284 N2300",
+			"data": "1,44,432,-1136,610,-5568,6048,11456,-3423,26840,-79920,768,-5470,-77952,263520,61696,73090,-150612,-84240,-692960,-139776,1030080,-1025568,1410048,-18525,-240680,1355616,10752,-128222,-3396480,-293760",
+			"name": "Glaisher's function J(n) (18 squares version).",
+			"comment": [
+				"It would be nice to have a q-series that generates this sequence. Glaisher gives many formulas but they are difficult to follow."
+			],
+			"reference": [
+				"J. W. L. Glaisher, On the representation of a number as sum of 18 squares, Quart. J. Math. 38 (1907), 289-351 (see p. 329). [The whole 1907 volume of The Quarterly Journal of Pure and Applied Mathematics, volume 38, is freely available from Google Books]",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Sean A. Irvine, \u003ca href=\"/A002613/b002613.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e",
+				"\u003ca href=\"/index/Ge#Glaisher\"\u003eIndex entries for sequences mentioned by Glaisher\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = -(1/4) * (A002609(2*n) + 16 * A002609(n)). - _Sean A. Irvine_, Mar 04 2019"
+			],
+			"xref": [
+				"Cf. A002609."
+			],
+			"keyword": "sign",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Edited and signs added by _N. J. A. Sloane_, Nov 26 2018",
+				"More terms from _Sean A. Irvine_, Mar 04 2019"
+			],
+			"references": 1,
+			"revision": 22,
+			"time": "2019-03-04T17:08:40-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

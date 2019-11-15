@@ -1,0 +1,54 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002951",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2951,
+			"id": "M0059",
+			"data": "1,2,1,1,1,2,1,2,8,1,25,1,5,1,22,1,8,1,1,9,1,1,4,1,2,1,2,1,2,2,1,1,1,1,2,1,6,2,46,1,12,1,32,1,2,3,2,3,55,1,12,3,8,1,1,11,1,4,1,1,1,2,1,1,7,1,1,4,3,3,3218,1,3,1,2,2,3,1,1,2,11,1,7,57,2,2,2,2,1,1,67,1,2,3,1,1,13,3",
+			"name": "Continued fraction for fifth root of 5.",
+			"comment": [
+				"Fifth root of 5 = 5^(1/5). - _Harry J. Smith_, May 10 2009"
+			],
+			"reference": [
+				"H. P. Robinson, Letter to N. J. A. Sloane, Nov 13 1973.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A002951/b002951.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e",
+				"Herman P. Robinson, \u003ca href=\"/A003116/a003116.pdf\"\u003eLetter to N. J. A. Sloane, Nov 13 1973\u003c/a\u003e.",
+				"J. Shallit \u0026 N. J. A. Sloane, \u003ca href=\"/A002949/a002949.pdf\"\u003eCorrespondence 1974-1975\u003c/a\u003e",
+				"G. Xiao, \u003ca href=\"http://wims.unice.fr/~wims/en_tool~number~contfrac.en.html\"\u003eContfrac\u003c/a\u003e",
+				"\u003ca href=\"/index/Con#confC\"\u003eIndex entries for continued fractions for constants\u003c/a\u003e"
+			],
+			"example": [
+				"1.379729661461214832390063464... = 1 + 1/(2 + 1/(1 + 1/(1 + 1/(1 + ...)))). - _Harry J. Smith_, May 10 2009"
+			],
+			"maple": [
+				"with(numtheory): cfrac(5^(1/5),100,'quotients'); # _Muniru A Asiru_, Nov 02 2018"
+			],
+			"mathematica": [
+				"ContinuedFraction[5^(1/5), 100] (* _G. C. Greubel_, Nov 02 2018 *)"
+			],
+			"program": [
+				"(PARI) { allocatemem(932245000); default(realprecision, 21000); x=contfrac(5^(1/5)); for (n=1, 20000, write(\"b002951.txt\", n, \" \", x[n])); } \\\\ _Harry J. Smith_, May 10 2009",
+				"(MAGMA) SetDefaultRealField(RealField(100)); ContinuedFraction(5^(1/5)); // _G. C. Greubel_, Nov 02 2018"
+			],
+			"xref": [
+				"Cf. A005534 = Decimal expansion. - _Harry J. Smith_, May 10 2009"
+			],
+			"keyword": "nonn,cofr",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms copied from Smith's b-file by _Hagen von Eitzen_, Jul 20 2009"
+			],
+			"references": 2,
+			"revision": 42,
+			"time": "2018-11-03T15:48:45-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

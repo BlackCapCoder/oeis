@@ -1,0 +1,43 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002614",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2614,
+			"id": "M4459 N1890",
+			"data": "0,-7,128,-975,4608,-16340,48384,-124303,281600,-583746,1146240,-2125108,3691008,-6151880,10055424,-15914895,24136704,-35748899,52583040,-75877938,105994240,-145580124,200279808,-272040500,359036928,-468767690,615599360",
+			"name": "Glaisher's function theta(n) (18 squares version).",
+			"comment": [
+				"It would be nice to have a q-series that generates this sequence. Glaisher gives many formulas but they are difficult to follow."
+			],
+			"reference": [
+				"J. W. L. Glaisher, On the representation of a number as sum of 18 squares, Quart. J. Math. 38 (1907), 289-351 (see p. 349). [The whole 1907 volume of The Quarterly Journal of Pure and Applied Mathematics, volume 38, is freely available from Google Books]",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Sean A. Irvine, \u003ca href=\"/A002614/b002614.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e",
+				"\u003ca href=\"/index/Ge#Glaisher\"\u003eIndex entries for sequences mentioned by Glaisher\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (A321546(n) - A002288(n)) / 17. - _Sean A. Irvine_, Mar 04 2019"
+			],
+			"xref": [
+				"Cf. A002288, A321546."
+			],
+			"keyword": "sign",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Edited and signs added by _N. J. A. Sloane_, Nov 26 2018",
+				"More terms from _Sean A. Irvine_, Mar 04 2019"
+			],
+			"references": 2,
+			"revision": 21,
+			"time": "2019-03-04T17:12:50-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

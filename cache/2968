@@ -1,0 +1,41 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002968",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2968,
+			"id": "M4494",
+			"data": "1,1,0,1,8,22,51,342,2609,16896,99114,876579,8551800,79595269,764804085,8905825760",
+			"name": "Number of pairings {(b[1],c[1]),(b[2],c[2]),...,(b[n],c[n])} of the first 2n positive integers satisfying b[i] \u003c c[i] and such that the 2n numbers c[i]+b[i] and c[i]-b[i] are all distinct.",
+			"comment": [
+				"Huff paper has a typographical error, a(8)=2669. - _Sean A. Irvine_, Dec 14 2014"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"R. Spira, Noncomplete residue systems, Problem 71-4, SIAM Rev., 14 (1972), 173ff."
+			],
+			"link": [
+				"R. K. Guy, \u003ca href=\"/A002968/a002968_1.pdf\"\u003eLetter to G. B. Huff \u0026 N. J. A. Sloane, Aug 1974\u003c/a\u003e",
+				"G. B. Huff, \u003ca href=\"http://matwbn.icm.edu.pl/ksiazki/aa/aa23/aa2322.pdf\"\u003eOn pairings of the first 2n natural numbers\u003c/a\u003e, Acta Arithmetica, 23 (1973), 117-126.",
+				"D. A. Klarner, \u003ca href=\"/A002968/a002968.pdf\"\u003eLetter to N. J. A. Sloane, Mar 1974\u003c/a\u003e",
+				"R. Spira, \u003ca href=\"/A002968/a002968_2.pdf\"\u003eNoncomplete residue system Problem 71-4\u003c/a\u003e, SIAM Rev., 14 (1972), 173-174. (Annotated scanned copy)"
+			],
+			"xref": [
+				"Cf. A007631."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Better definition and values of a(11)-a(15) from _Sean A. Irvine_, Dec 14 2014",
+				"a(0)=1 prepended by _Alois P. Heinz_, Oct 05 2018"
+			],
+			"references": 6,
+			"revision": 36,
+			"time": "2018-10-05T14:34:42-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

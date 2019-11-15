@@ -1,0 +1,50 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002687",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2687,
+			"id": "M4457 N1887",
+			"data": "1,-1,1,-7,107,-199,6031,-5741,1129981,-435569,35661419,-1523489833,45183033541,-12597680311,19055094997949,-9331210633373,104148936040729,-2250170748719203,734854328394419537,-826511503463860961",
+			"name": "Numerators of coefficients for repeated integration.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Michael De Vlieger, \u003ca href=\"/A002687/b002687.txt\"\u003eTable of n, a(n) for n = 1..446\u003c/a\u003e",
+				"Caroline Moosmüller, Tomas Sauer, \u003ca href=\"https://arxiv.org/abs/1904.10835\"\u003ePolynomial overreproduction by Hermite subdivision operators, and p-Cauchy numbers\u003c/a\u003e, arXiv:1904.10835 [math.NA], 2019.",
+				"H. E. Salzer, \u003ca href=\"http://dx.doi.org/10.1080/14786444708521604\"\u003eTable of coefficients for repeated integration with differences\u003c/a\u003e, Phil. Mag., 38 (1947), 331-336.",
+				"H. E. Salzer, \u003ca href=\"/A002206/a002206_1.pdf\"\u003eTable of coefficients for repeated integration with differences\u003c/a\u003e, Phil. Mag., 38 (1947), 331-336. [Annotated scanned copy]"
+			],
+			"formula": [
+				"a(n) = numerator(1/n!*(Sum_{k=1..n}((stirling1(n,k))/((k+1)*(k+2))))). - _Vladimir Kruchinin_, Apr 06 2016"
+			],
+			"maple": [
+				"seq(numer(int(int(mul(p-i,i=0..(n-1)),p=0..p),p=0..1)/n!),n=1..30);"
+			],
+			"mathematica": [
+				"Table[Numerator@ (Sum[StirlingS1[n, k]/((k + 1) (k + 2)), {k, n}]/n!), {n, 20}] (* _Michael De Vlieger_, Apr 06 2016 *)"
+			],
+			"program": [
+				"(Maxima)",
+				"a(n):=num(1/n!*(sum((stirling1(n,k))/((k+1)*(k+2)),k,1,n))); /* _Vladimir Kruchinin_, Apr 06 2016 */"
+			],
+			"xref": [
+				"Cf. A002688."
+			],
+			"keyword": "sign,frac",
+			"offset": "1,4",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Corrected and edited by Herman Jamke (hermanjamke(AT)fastmail.fm), Aug 01 2010"
+			],
+			"references": 2,
+			"revision": 26,
+			"time": "2019-06-06T20:21:59-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

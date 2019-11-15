@@ -1,0 +1,39 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002702",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2702,
+			"id": "M3709 N1515",
+			"data": "1,4,120,3024,151200,79200,1513512000,1513512000,51459408000,74662922880,18068427336960,133196739984000,1215553449093984000,173650492727712000,3357242859402432000,101013513093196704000,2043503369875369321920000",
+			"name": "Coefficients for numerical differentiation.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"H. E. Salzer, \u003ca href=\"https://doi.org/10.1002/sapm1943221115\"\u003eCoefficients for numerical differentiation with central differences\u003c/a\u003e, J. Math. Phys., 22 (1943), 115-135.",
+				"H. E. Salzer, \u003ca href=\"/A002457/a002457_2.pdf\"\u003eCoefficients for numerical differentiation with central differences\u003c/a\u003e, J. Math. Phys., 22 (1943), 115-135. [Annotated scanned copy]",
+				"T. R. Van Oppolzer, \u003ca href=\"http://www.archive.org/stream/lehrbuchzurbahnb02oppo#page/21/mode/1up\"\u003eLehrbuch zur Bahnbestimmung der Kometen und Planeten\u003c/a\u003e, Vol. 2, Engelmann, Leipzig, 1880, p. 21 (see denominators of numbers named N(3,2k+1))."
+			],
+			"formula": [
+				"a(n) = den(6 * A002455(n) / 2^(2*n) * (2*n + 3)!). - _Sean A. Irvine_, Jun 10 2014"
+			],
+			"xref": [
+				"Cf. A002455 (central factorial numbers), A002701 (numerators)."
+			],
+			"keyword": "nonn,frac",
+			"offset": "2,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Sean A. Irvine_, Jun 10 2014"
+			],
+			"references": 1,
+			"revision": 27,
+			"time": "2019-02-28T09:44:02-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

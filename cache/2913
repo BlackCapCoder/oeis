@@ -1,0 +1,45 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002913",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2913,
+			"id": "M4201 N1753",
+			"data": "1,6,30,150,726,3510,16710,79494,375174,1769686,8306862,38975286,182265822,852063558,3973784886,18527532310,86228667894,401225368086,1864308847838,8660961643254,40190947325670,186475398518726,864404776466406,4006394107568934,18554916271112254,85923704942057238",
+			"name": "High temperature series for spin-1/2 Ising magnetic susceptibility on 3-dimensional simple cubic lattice.",
+			"reference": [
+				"C. Domb, Ising model, in Phase Transitions and Critical Phenomena, vol. 3, ed. C. Domb and M. S. Green, Academic Press, 1974; p. 381.",
+				"S. R. Finch, Mathematical Constants, Cambridge, 2003, pp. 391-406.",
+				"D. S. Gaunt, High temperature series ..., a review of some recent work, in Phase Transitions - Cargese 1980, ed. M. Levy et al., Plenum Press, 1982; pp. 217-246.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Per H. Lundow, \u003ca href=\"/A002913/b002913.txt\"\u003eTable of n, a(n) for n = 0..25\u003c/a\u003e [a(24), a(25) taken from the Campostrini et al. 2002 article]",
+				"P. Butera and M. Comi, \u003ca href=\"https://arxiv.org/abs/hep-lat/9703018\"\u003eN-vector spin models ...\u003c/a\u003e, Phys. Rev. B 56 (1997) 8212-8240.",
+				"P. Butera and M. Comi, \u003ca href=\"https://arxiv.org/abs/hep-lat/0006009\"\u003eExtension to order b23 of the high-temperature expansions for the spin-1/2 Ising model on the simple-cubic and the body-centered-cubic lattices\u003c/a\u003e, BICOCCA/FT-00-09 (June 2000). Phys.Rev. B62 (2000) 14837-14843.",
+				"M. Campostrini, \u003ca href=\"https://arxiv.org/abs/cond-mat/0005130\"\u003eLinked-Cluster Expansion of the Ising Model\u003c/a\u003e, Journal of Statistical Physics, 103 (2001), 369-394.",
+				"M. Campostrini, A. Pelissetto, P. Rossi, and E. Vicari, \u003ca href=\"https://doi.org/10.1103/PhysRevE.65.066127\"\u003e25th-order high-temperature expansion results for three-dimensional Ising-like systems on the simple-cubic lattice\u003c/a\u003e, Phys. Rev. E, 65 (2002), 66-127, doi = {10.1103/PhysRevE.65.066127}.",
+				"C. Domb, \u003ca href=\"/A007239/a007239.pdf\"\u003eIsing model\u003c/a\u003e, Phase Transitions and Critical Phenomena 3 (1974), 257, 380-381, 384-387, 390-391, 412-423. (Annotated scanned copy)",
+				"Steven R. Finch, \u003ca href=\"http://www.people.fas.harvard.edu/~sfinch/constant/ising/ising.html\"\u003eLenz-Ising Constants\u003c/a\u003e [broken link]",
+				"Steven R. Finch, \u003ca href=\"http://web.archive.org/web/20010207201511/http://www.mathsoft.com:80/asolve/constant/ising/ising.html\"\u003eLenz-Ising Constants\u003c/a\u003e [From the Wayback Machine]",
+				"M. E. Fisher and R. J. Burford, \u003ca href=\"https://doi.org/10.1103/PhysRev.156.583\"\u003eTheory of critical point scattering and correlations I: the Ising model\u003c/a\u003e, Phys. Rev. 156 (1967), 583-621.",
+				"M. F. Sykes, D. G. Gaunt, P. D. Roberts and J. A. Wyles, \u003ca href=\"https://doi.org/10.1088/0305-4470/5/5/005\"\u003eHigh temperature series for the susceptibility of the Ising model, II. Three dimensional lattices\u003c/a\u003e, J. Phys. A 5 (1972) 640-652."
+			],
+			"keyword": "nonn,nice",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Corrections and updates from _Steven Finch_",
+				"More terms from Herman Jamke (hermanjamke(AT)fastmail.fm), Mar 01 2008",
+				"Several errors in the sequence were corrected by Per H. Lundow, Jan 17 2011"
+			],
+			"references": 1,
+			"revision": 48,
+			"time": "2019-04-14T14:33:33-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

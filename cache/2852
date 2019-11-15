@@ -1,0 +1,69 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002852",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2852,
+			"id": "M0097 N0034",
+			"data": "0,1,1,2,1,2,1,4,3,13,5,1,1,8,1,2,4,1,1,40,1,11,3,7,1,7,1,1,5,1,49,4,1,65,1,4,7,11,1,399,2,1,3,2,1,2,1,5,3,2,1,10,1,1,1,1,2,1,1,3,1,4,1,1,2,5,1,3,6,2,1,2,1,1,1,2,1,3,16,8,1,1,2,16,6,1,2,2,1,7,2,1,1,1,3,1,2,1,2",
+			"name": "Continued fraction for Euler's constant (or Euler-Mascheroni constant) gamma.",
+			"comment": [
+				"The first 970258158 terms were computed by Eric Weisstein on Sep 21 2011 using a developmental version of Mathematica.",
+				"The first 4851382841 terms were computed by Eric Weisstein on Jul 22 2013 using a developmental version of Mathematica."
+			],
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 3.",
+				"R. S. Lehman, A Study of Regular Continued Fractions. Report 1066, Ballistic Research Laboratories, Aberdeen Proving Ground, Maryland, Feb 1959.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A002852/b002852.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy].",
+				"K. Y. Choong, D. E. Daykin and C. R. Rathbone, \u003ca href=\"https://doi.org/10.1090/S0025-5718-1971-0300981-0 \"\u003eRational approximations to pi\u003c/a\u003e, Math. Comp., 25 (1971), 387-392.",
+				"K. Y. Choong, D. E. Daykin and C. R. Rathbone, \u003ca href=\"https://doi.org/10.1090/S0025-5718-71-99719-5\"\u003eRegular continued fractions for pi and gamma\u003c/a\u003e, Math. Comp., 25 (1971), 403.",
+				"D. E. Knuth, \u003ca href=\"https://doi.org/10.1090/S0025-5718-1962-0148255-X \"\u003eEuler's constant to 1271 places\u003c/a\u003e, Math. Comp. 16 1962 275-281.",
+				"Jeffrey C. Lagarias, \u003ca href=\"http://arxiv.org/abs/1303.1856\"\u003eEuler's constant: Euler's work and modern developments\u003c/a\u003e, Bull. Amer. Math. Soc., 50 (2013), 527-628.",
+				"J. Sondow, \u003ca href=\"http://home.earthlink.net/~jsondow/id8.html\"\u003eAn antisymmetric formula for Euler's constant\u003c/a\u003e, Math. Mag. 71 (1998), 219-220.",
+				"J. Sondow, \u003ca href=\"http://www.ams.org/journals/proc/2003-131-11/S0002-9939-03-07081-3/S0002-9939-03-07081-3.pdf\"\u003eCriteria for irrationality of Euler's constant\u003c/a\u003e, Proc. Amer. Math. Soc. 131 (2003), 3335-3344.",
+				"J. Sondow, \u003ca href=\"http://arXiv.org/abs/math.CA/0211148\"\u003eDouble integrals for Euler's constant and ln(4/Pi) and an analog of Hadjicostas's formula\u003c/a\u003e, Amer. Math. Monthly 112 (2005), 61-65.",
+				"J. Sondow, \u003ca href=\"http://arXiv.org/abs/math.CA/0306008\"\u003eAn infinite product for e^gamma via hypergeometric formulas for Euler's constant, gamma\u003c/a\u003e",
+				"J. Sondow, \u003ca href=\"http://arXiv.org/abs/math.NT/0211075\"\u003eA hypergeometric approach, via linear forms involving logarithms, to irrationality criteria for Euler's constant. With an Appendix by Sergey Zlobin\u003c/a\u003e, Math. Slovaca 59 (2009), 1-8.",
+				"J. Sondow and W. Zudilin, \u003ca href=\"http://arXiv.org/abs/math.NT/0304021\"\u003eEuler's constant, q-logarithms and formulas of Ramanujan and Gosper\u003c/a\u003e, Ramanujan J. 12 (2006), 225-244.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Euler-MascheroniConstant.html\"\u003eEuler-Mascheroni Constant\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Euler-MascheroniConstantContinuedFraction.html\"\u003eEuler-Mascheroni Constant Continued Fraction\u003c/a\u003e",
+				"G. Xiao, \u003ca href=\"http://wims.unice.fr/~wims/en_tool~number~contfrac.en.html\"\u003eContfrac\u003c/a\u003e",
+				"\u003ca href=\"/index/Con#confC\"\u003eIndex entries for continued fractions for constants\u003c/a\u003e"
+			],
+			"example": [
+				"0.577215664901532860606512090082402431042...",
+				"0 + 1/(1 + 1/(1 + 1/(2 + 1/(1 + 1/(2 + 1/(1 + 1/(4 + 1/(3 + 1/(13 + ..."
+			],
+			"mathematica": [
+				"ContinuedFraction[EulerGamma, 100]"
+			],
+			"program": [
+				"(PARI) default(realprecision, 11000); x=contfrac(Euler); for (n=0, 10000, write(\"b002852.txt\", n, \" \", x[n+1])) \\\\ _Harry J. Smith_, Apr 14 2009",
+				"(MAGMA) ContinuedFraction(EulerGamma(100)); // _Vincenzo Librandi_, Oct 19 2017"
+			],
+			"xref": [
+				"Cf. A001620, the decimal expansion, which has many more references.",
+				"See also A073004 (exp(gamma)) and A094640 (\"alternating Euler constant\").",
+				"Cf. A033091 (incrementally largest terms), A033092 (positions of incrementally largest terms).",
+				"Cf. A033149 (positions of first occurrence of n in the c.f.)."
+			],
+			"keyword": "nonn,cofr,nice",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _Robert G. Wilson v_, Dec 08 2000"
+			],
+			"references": 19,
+			"revision": 59,
+			"time": "2018-05-08T15:11:53-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

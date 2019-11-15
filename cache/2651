@@ -1,0 +1,26 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002651",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2651,
+			"data": "16,1,17,4,20,5,21,7,23,8,24,10,26,11,27,12,28,14,30,15,1,17,2,18,3,19,7,23,8,24,10,26,11,27,13,29,14,30,15,1,17,2,18,4,20,5,21,6,22,10,26,11,27,13,29,14,30,16,1,17,2,18,4,20,5,21,7,23,8,24,9,25,13,29,14,30,16,1,17,3,19,4,20,5",
+			"name": "Dates at 16-day intervals starting at the beginning of a leap year.",
+			"mathematica": [
+				"Table[DateValue[DayPlus[{2015,12,31},16n],\"Day\"],{n,100}](* The program uses the DateValue function from Mathematica version 10 *) (* _Harvey P. Dale_, May 14 2016 *)"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "John Daly (john.daly(AT)cc2smtp.NRCan.gc.ca)",
+			"ext": [
+				"More terms from _David W. Wilson_."
+			],
+			"references": 0,
+			"revision": 12,
+			"time": "2016-05-14T14:20:57-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		}
+	]
+}

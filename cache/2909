@@ -1,0 +1,41 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002909",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2909,
+			"id": "M0035 N0009",
+			"data": "2,0,-8,-24,-72,-240,-896,-3640,-15688,-70512,-326968,-1553288,-7523520,-37026704,-184677536,-931655064,-4746324296,-24387839056,-126257024696,-658011767016,-3449826712952,-18183760406080,-96309365029424,-512340286827272",
+			"name": "Low temperature energy function for square lattice.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"M. F. Sykes and M. E. Fisher, Antiferromagnetic susceptibility of the plane square and honeycomb Ising lattices, Physica, 28 (1962), 919-938."
+			],
+			"link": [
+				"Robert Israel, \u003ca href=\"/A002909/b002909.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: (1+x)/(1-x) + ((1-6*x+x^2)/(1-x^2))*Sum_{k\u003e=0} (2*k)!^2 * (x*(1-x)^2/(1+x)^4)^k/k!^4. - _Robert Israel_, Nov 27 2017",
+				"a(n) ~ -2 * (1 + sqrt(2))^(2*n) / (Pi*n^2). - _Vaclav Kotesovec_, Nov 28 2017"
+			],
+			"maple": [
+				"u:=v-\u003e((1+v^2)*(1-(2/Pi)*(1-6*v^2+v^4)*EllipticK(4*v*(1-v^2)/(1+v^2)^2)/(1+v^2)^2)/2*v):",
+				"S:= series(u((1-v)/(1+v))/((1-v)/(1+v))^2,v,101):",
+				"seq(coeff(S,v,j),j=0..100,2); # _Sean A. Irvine_, Nov 27 2017"
+			],
+			"keyword": "sign",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Sean A. Irvine_, Nov 27 2017"
+			],
+			"references": 3,
+			"revision": 23,
+			"time": "2017-11-28T04:39:05-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

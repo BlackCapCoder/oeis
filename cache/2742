@@ -1,0 +1,55 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002742",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2742,
+			"id": "M1672 N0658",
+			"data": "2,-6,24,-80,450,-2142,17696,-112464,1232370,-9761510,132951192,-1258797696,20476388114,-225380451870,4261074439680,-53438049741152,1151146814425506,-16199301256675974,391615698778725080,-6109914386833902960",
+			"name": "Logarithmic numbers.",
+			"reference": [
+				"J. M. Gandhi, On logarithmic numbers, Math. Student, 31 (1963), 73-83.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A002742/b002742.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"J. M. Gandhi, \u003ca href=\"/A002741/a002741.pdf\"\u003eOn logarithmic numbers\u003c/a\u003e, Math. Student, 31 (1963), 73-83. [Annotated scanned copy]",
+				"\u003ca href=\"/index/Lo#logarithmic\"\u003eIndex entries for sequences related to logarithmic numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"E.g.f.: (2*x/(1-x^2)+log(1-x^2))*exp(-x). - _Sean A. Irvine_, Aug 11 2014",
+				"a(n) = 2*A002747(n) - a(n-1). - _R. J. Mathar_, Jul 24 2015",
+				"From _Emanuele Munarini_, Dec 16 2017: (Start)",
+				"a(n) = (-1)^(n-1)*Sum_{k=0..n} binomial(n+1,2*k+1)*((n-2*k)/(k+1))*(2*k+1)!.",
+				"a(n+3)+a(n+2)-(n+2)*(n+3)*a(n+1)-(n+2)*(n+3)*a(n) = 2*(-1)^n*(n+3).",
+				"(n+3)*a(n+4)+(2*n+7)*a(n+3)-(n+2)*(n+4)^2*a(n+2)-(n+3)*(n+4)*(2*n+5)*a(n+1)-(n+2)*(n+3)*(n+4)*a(n) = 0.",
+				"E.g.f.: A(x) = - D(exp(-x)*log(1-x^2)), where D is the derivative with respect to x. (End)",
+				"a(n) ~ n! * (exp(-1) - (-1)^n * exp(1)). - _Vaclav Kotesovec_, Dec 16 2017"
+			],
+			"mathematica": [
+				"Table[(-1)^(n-1)Sum[Binomial[n+1,2k+1](n-2k)/(k+1)(2k+1)!,{k,0,n}],{n,0,100}] (* _Emanuele Munarini_, Dec 16 2017 *)"
+			],
+			"program": [
+				"(Maxima) makelist((-1)^(n-1)*sum(binomial(n+1,2*k+1)*(n-2*k)/(k+1)*(2*k+1)!,k,0,n),n,0,12); /* _Emanuele Munarini_, Dec 16 2017 */",
+				"(PARI) first(n) = x='x+O('x^(n+1)); Vec(serlaplace((2*x/(1-x^2)+log(1-x^2))*exp(-x))) \\\\ _Iain Fox_, Dec 16 2017"
+			],
+			"xref": [
+				"Cf. A002741."
+			],
+			"keyword": "sign",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Jeffrey Shallit_",
+				"More terms from _Sean A. Irvine_, Aug 11 2014"
+			],
+			"references": 3,
+			"revision": 45,
+			"time": "2017-12-18T05:36:22-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

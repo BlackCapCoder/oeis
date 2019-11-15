@@ -1,0 +1,32 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002404",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2404,
+			"id": "M3022 N1224",
+			"data": "3,-16,111,-2548,14385,-672360,10351845,-270594968,2631486186,-310710613080",
+			"name": "Coefficients for step-by-step integration.",
+			"reference": [
+				"W. F. Pickard, Tables for the step-by-step integration of ordinary differential equations of the first order, J. ACM 11 (1964), 229-233.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"W. F. Pickard, \u003ca href=\"/A002397/a002397.pdf\"\u003eTables for the step-by-step integration of ordinary differential equations of the first order\u003c/a\u003e, J. ACM 11 (1964), 229-233. [Annotated scanned copy]"
+			],
+			"xref": [
+				"A diagonal of A260780."
+			],
+			"keyword": "sign,more",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 1,
+			"revision": 12,
+			"time": "2015-08-02T21:59:50-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,26 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002606",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2606,
+			"data": "1,0,0,0,546,1456,3549,5280,3549,1456,546,0,0,0,1",
+			"name": "Weight distribution of Karlin's [28,14,8] double circulant code.",
+			"reference": [
+				"F. J. MacWilliams and N. J. A. Sloane, The Theory of Error-Correcting Codes, Elsevier-North Holland, 1978, p. 509, col 2, code #1."
+			],
+			"link": [
+				"C. J. Tjhai and Martin Tomlinson, \u003ca href=\"http://www.tech.plym.ac.uk/Research/fixed_and_mobile_communications/links/weightdistributions.htm\"\u003e Weight Distributions of Quadratic Residue and Quadratic Double Circulant Codes over GF(2)\u003c/a\u003e"
+			],
+			"keyword": "nonn,fini,full",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_.",
+			"references": 0,
+			"revision": 7,
+			"time": "2015-10-10T14:17:06-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		}
+	]
+}

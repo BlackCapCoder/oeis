@@ -1,0 +1,44 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002566",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2566,
+			"id": "M4130 N1713",
+			"data": "0,6,20,12,70,960,22,352,10,216,4814",
+			"name": "Number of ways to attack all squares on an n X n chessboard using the smallest possible number of queens with each queen attacking at least one other.",
+			"comment": [
+				"Differs from A002564 and A002568 in that each queen is attacking at least one other queen.",
+				"M. A. Sainte-Laguë paper has \"a(6)=900?\".",
+				"In other words, the number of minimum total dominating sets in the n X n queen graph. - _Eric W. Weisstein_, Apr 19 2018"
+			],
+			"reference": [
+				"W. Ahrens, Mathematische Unterhaltungen und Spiele, second edition (1910), Vol. 1, p. 301.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"M. A. Sainte-Laguë, \u003ca href=\"https://eudml.org/doc/192551\"\u003eLes Réseaux (ou Graphes)\u003c/a\u003e, Mémorial des Sciences Mathématiques, Fasc. 18, Gauthier-Villars, Paris, 1923, 64 pages. See p. 49.",
+				"M. A. Sainte-Laguë, \u003ca href=\"/A002560/a002560.pdf\"\u003eLes Réseaux (ou Graphes)\u003c/a\u003e, Mémorial des Sciences Mathématiques, Fasc. 18, Gauthier-Villars, Paris, 1923, 64 pages. See p. 49. [Incomplete annotated scan of title page and pages 18-51]",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/QueenGraph.html\"\u003eQueen Graph\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/TotalDominatingSet.html\"\u003eTotal Dominating Set\u003c/a\u003e"
+			],
+			"xref": [
+				"Cf. A002565 (number of ways up to isomorphism)."
+			],
+			"keyword": "nonn,hard,more",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"a(6) corrected and a(9)-a(11) by _Sean A. Irvine_, Apr 05 2014",
+				"Better name from _Sean A. Irvine_, Apr 05 2014"
+			],
+			"references": 1,
+			"revision": 31,
+			"time": "2018-04-20T10:02:39-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,132 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002326",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2326,
+			"id": "M0936 N0350",
+			"data": "1,2,4,3,6,10,12,4,8,18,6,11,20,18,28,5,10,12,36,12,20,14,12,23,21,8,52,20,18,58,60,6,12,66,22,35,9,20,30,39,54,82,8,28,11,12,10,36,48,30,100,51,12,106,36,36,28,44,12,24,110,20,100,7,14,130,18,36,68,138,46,60,28",
+			"name": "Multiplicative order of 2 mod 2n+1.",
+			"comment": [
+				"In other words, least m \u003e 0 such that 2n+1 divides 2^m-1.",
+				"Number of riffle shuffles of 2n+2 cards required to return a deck to initial state. A riffle shuffle replaces a list s(1), s(2), ..., s(m) with s(1), s((i/2)+1), s(2), s((i/2)+2), ... a(1) = 2 because a riffle shuffle of [1, 2, 3, 4] requires 2 iterations [1, 2, 3, 4] -\u003e [1, 3, 2, 4] -\u003e [1, 2, 3, 4] to restore the original order.",
+				"Concerning the complexity of computing this sequence, see for example Bach and Shallit, p. 115, exercise 8.",
+				"It is not difficult to prove that if 2n+1 is a prime then 2n is a multiple of a(n). But the converse is not true. Indeed, one can prove that a(2^(2t-1))=4t. Thus if n=2^(2t-1), where, for any m \u003e 0, t=2^(m-1) then 2n is a multiple of a(n) while 2n+1 is a Fermat number which, as is well known, is not always a prime. It is an interesting problem to describe all composite numbers for which 2n is divisible by a(n). - _Vladimir Shevelev_, May 09 2008",
+				"For an algorithm of calculation of a(n) see author's comment in A179680. - _Vladimir Shevelev_, Jul 21 2010",
+				"From _V. Raman_, Sep 18 2012, Dec 10 2012: (Start)",
+				"If 2n+1 is prime, then the polynomial (x^(2n+1)+1)/(x+1) factors into 2n/a(n) polynomials of the same degree a(n) over GF(2).",
+				"If (x^(2n+1)+1)/(x+1) is irreducible over GF(2), then 2n+1 is prime, and 2 is a primitive root (mod 2n+1) (cf. A001122).",
+				"For all n \u003e 0, a(n) is the degree of the largest irreducible polynomial factor for the polynomial (x^(2n+1)+1)/(x+1) over GF(2). (End)",
+				"a(n) is a factor of phi(2n+1) (A000010(2n+1)). - _Douglas Boffey_, Oct 21 2013",
+				"Conjecture: if p is an odd prime then a((p^3-1)/2) = p * a((p^2-1)/2). Because otherwise a((p^3-1)/2) \u003c p * a((p^2-1)/2) iff a((p^3-1)/2) = a((p-1)/2) for a prime p. Equivalently p^3 divides 2^(p-1)-1, but no such prime p is known. - _Thomas Ordowski_, Feb 10 2014"
+			],
+			"reference": [
+				"E. Bach and Jeffrey Shallit, Algorithmic Number Theory, I.",
+				"T. Folger, \"Shuffling Into Hyperspace,\" Discover, 1991 (vol 12, no 1), pages 66-67.",
+				"M. Gardner, \"Card Shuffles,\" Mathematical Carnival chapter 10, pages 123-138. New York: Vintage Books, 1977.",
+				"V. I. Levenshtein, Conflict-avoiding codes and cyclic triple systems [in Russian], Problemy Peredachi Informatsii, 43 (No. 3, 2007), 39-53.",
+				"L. Lunelli and M. Lunelli, Tavola di congruenza a^n == 1 mod K per a=2,5,10, Atti Sem. Mat. Fis. Univ. Modena 10 (1960/61), 219-236 (1961).",
+				"J. H. Silverman, A Friendly Introduction to Number Theory, 3rd ed., Pearson Education, Inc, 2006, p. 146, Exer. 21.3",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A002326/b002326.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"M. Baake, U. Grimm, J. Nilsson, \u003ca href=\"https://arxiv.org/abs/1311.4371\"\u003eScaling of the Thue-Morse diffraction measure\u003c/a\u003e, arXiv preprint arXiv:1311.4371 [math-ph], 2013.",
+				"D. Bayer, P. Diaconis, \u003ca href=\"http://dx.oi.org/10.1214/aoap/1177005705\"\u003eTrailing the dovetail shuffle to its lair\u003c/a\u003e, Ann. Appl. Prob. 2 (2) (1992) 294-313.",
+				"Matthew Brand, \u003ca href=\"https://arxiv.org/abs/1808.07994\"\u003eChoosing 1 of N with and without lucky numbers\u003c/a\u003e, arXiv:1808.07994 [math.NT], 2018.",
+				"Brillhart, John; Lomont, J. S.; Morton, Patrick. \u003ca href=\"http://resolver.sub.uni-goettingen.de/purl?GDZPPN002192802\"\u003eCyclotomic properties of the Rudin-Shapiro polynomials\u003c/a\u003e, J. Reine Angew. Math.288 (1976), 37--65. See Table 2. MR0498479 (58 #16589).",
+				"Steve Butler, Persi Diaconis and R. L. Graham, \u003ca href=\"https://arxiv.org/abs/1412.8533\"\u003eThe mathematics of the flip and horseshoe shuffles\u003c/a\u003e, arXiv:1412.8533 [math.CO], 2014.",
+				"Steve Butler, Persi Diaconis and R. L. Graham, \u003ca href=\"http://www.jstor.org/stable/10.4169/amer.math.monthly.123.6.542\"\u003eThe mathematics of the flip and horseshoe shuffles\u003c/a\u003e, The American Mathematical Monthly 123.6 (2016): 542-556.",
+				"A. J. C. Cunningham, \u003ca href=\"http://www.jstor.org/stable/3602595\"\u003eOn Binal Fractions\u003c/a\u003e, Math. Gaz., 4 (71) (1908), circa p. 266.",
+				"P. Diaconis, R. L. Graham, W. M. Kantor, \u003ca href=\"http://dx.doi.org/10.1016/0196-8858(83)90009-X\"\u003eThe mathematics of perfect shuffles\u003c/a\u003e, Adv. Appl. Math. 4 (2) (1983) 175-196",
+				"M. J. Gardner and C. A. McMahan, \u003ca href=\"http://www.jstor.org/stable/2689753\"\u003eRiffling casino checks\u003c/a\u003e, Math. Mag., 50 (1) (1977), 38-41.",
+				"S. W. Golomb, \u003ca href=\"http://dx.doi.org/10.1137/1003059\"\u003ePermutations by cutting and shuffling\u003c/a\u003e, SIAM Rev., 3 (1961), 293-297.",
+				"Jonas Kaiser, \u003ca href=\"https://arxiv.org/abs/1608.00862\"\u003eOn the relationship between the Collatz conjecture and Mersenne prime numbers\u003c/a\u003e, arXiv preprint arXiv:1608.00862 [math.GM], 2016.",
+				"V. I. Levenshtein, \u003ca href=\"http://dx.doi.org/10.1134/S0032946007030039\"\u003eConflict-avoiding codes and cyclic triple systems\u003c/a\u003e, Problems of Information Transmission, September 2007, Volume 43, Issue 3, pp 199-212 (translated from Russian)",
+				"Vladimir Shevelev, Gilberto Garcia-Pulgarin, Juan Miguel Velasquez-Soto and John H. Castillo, \u003ca href=\"https://arxiv.org/abs/1206.0606\"\u003eOverpseudoprimes, and Mersenne and Fermat numbers as primover numbers\u003c/a\u003e, arXiv preprint arXiv:1206:0606 [math.NT], 2012.",
+				"V. Shevelev, G. Garcia-Pulgarin, J. M. Velasquez and J. H. Castillo, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL15/Shevelev/shevelev19.html\"\u003eOverpseudoprimes, and Mersenne and Fermat Numbers as Primover Numbers\u003c/a\u003e, J. Integer Seq. 15 (2012) Article 12.7.7",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RiffleShuffle.html\"\u003eRiffle Shuffle\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/In-Shuffle.html\"\u003eIn-Shuffle\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Out-Shuffle.html\"\u003eOut-Shuffle\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/MultiplicativeOrder.html\"\u003eMultiplicative Order\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Riffle_shuffle#Riffle\"\u003eRiffle Shuffle\u003c/a\u003e"
+			],
+			"formula": [
+				"a((3^n-1)/2) = A025192(n). - _Vladimir Shevelev_, May 09 2008",
+				"Bisection of A007733: a(n) = A007733(2n+1). - _Max Alekseyev_, Jun 11 2009",
+				"a((b(n)-1)/2) = n for odd n and even n such that b(n/2) != b(n), where b(n) = A005420(n). - _Thomas Ordowski_, Jan 11 2014",
+				"Note that a(2^n-1) = n+1 and a(2^n) = 2(n+1). - _Thomas Ordowski_, Jan 16 2014",
+				"a(n) = A056239(A292239(n)) = A048675(A292265(n)). - _Antti Karttunen_, Oct 04 2017"
+			],
+			"example": [
+				"From _Vladimir Shevelev_, Oct 03 2017: (Start)",
+				"Our algorithm for the calculation of a(n) in the author's comment in A179680 (see also the Sage program below) could be represented in the form of a \"finite continued fraction\". For example let n = 8, 2*n+1 = 17. We have",
+				"    1 + 17",
+				"    ------- + 17",
+				"       2",
+				"    ------------- + 17",
+				"           2",
+				"    ------------------- + 17",
+				"              2",
+				"    -------------------------- = 1",
+				"                 32",
+				"Here the denominators are the A006519 of the numerators: A006519(1+17) = 2, A006519(9+17) = 2, A006519(13+17) = 2, A006519(15+17) = 32. Summing the exponents of these powers of 2, we obtain the required result: a(8) = 1 + 1 + 1 + 5 = 8. Indeed, we have (((1*32 - 17)*2 - 17)*2 - 17)*2 - 17 = 1. So 32*2*2*2 - 1 == 0 (mod 17), 2^8 - 1 == 0 (mod 17). In the general case, note that all \"partial fractions\" (which indeed are integers) are odd residues modulo 2*n+1 in the interval [1, 2*n-1]. It is easy to prove that the first 1 appears not later than in the n-th step. (End)"
+			],
+			"maple": [
+				"a := n -\u003e `if`(n=0, 1, numtheory:-order(2, 2*n+1)):",
+				"seq(a(n), n=0..72);"
+			],
+			"mathematica": [
+				"Table[MultiplicativeOrder[2, 2*n + 1], {n, 0, 100}] (* _Robert G. Wilson v_, Apr 05 2011 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c0,0,znorder(Mod(2,2*n+1))) /* _Michael Somos_, Mar 31 2005 */",
+				"(MAGMA) [ 1 ] cat [ Modorder(2, 2*n+1): n in [1..72] ]; // _Klaus Brockhaus_, Dec 03 2008",
+				"(Haskell)",
+				"import Data.List (findIndex)",
+				"import Data.Maybe (fromJust)",
+				"a002326 n = (+ 1) $ fromJust $",
+				"            findIndex ((== 0) . (`mod` (2 * n + 1))) $ tail a000225_list",
+				"-- _Reinhard Zumkeller_, Apr 22 2013",
+				"(Sage)",
+				"# From _Peter Luschny_, Oct 06 2017: (Start)",
+				"[Mod(2,n).multiplicative_order() for n in (0..145) if gcd(n,2) == 1]",
+				"# Algorithm from _Vladimir Shevelev_ as described in A179680 and presented in Example.",
+				"def A002326VS(n):",
+				"    s, m, N = 0, 1, 2*n + 1",
+				"    while True:",
+				"        k = N + m",
+				"        v = valuation(k, 2)",
+				"        s += v",
+				"        m = k \u003e\u003e v",
+				"        if m == 1: break",
+				"    return s",
+				"[A002326VS(n) for n in (0..72)] # (End)",
+				"(GAP) List([0..100],n-\u003eOrderMod(2,2*n+1)); # _Muniru A Asiru_, Feb 01 2019"
+			],
+			"xref": [
+				"Cf. A003571, A003573, A217469, A070667-A070683, A053447, A053451, A292239, A292265.",
+				"Cf. A024222, A006694 (number of cyclotomic cosets).",
+				"Cf. A014664 (order of 2 mod n-th prime).",
+				"Cf. A001122 (primes for which 2 is a primitive root).",
+				"Cf. A216838 (primes for which 2 is not a primitive root).",
+				"Cf. A000225.",
+				"Bisections give A274298, A274299."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _David W. Wilson_, Jan 13 2000",
+				"More terms from _Benoit Cloitre_, Apr 11 2003"
+			],
+			"references": 167,
+			"revision": 227,
+			"time": "2019-02-01T04:38:25-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

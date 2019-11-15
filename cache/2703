@@ -1,0 +1,47 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002703",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2703,
+			"id": "M1598 N0624",
+			"data": "0,0,0,2,6,14,24,46,88,162,300,562,1056,1982,3742,7082,13438,25574,48768,93198,178480,342392,657918,1266202,2440318,4709374,9099504,17602322,34087010,66076414,128207976,248983550,483939976,941362694,1832519262,3569842946,6958934352",
+			"name": "Sets with a congruence property.",
+			"comment": [
+				"a(n) is the sequence k(n) in Table 3 of the first 1965 paper. - _N. J. A. Sloane_, Oct 20 2015",
+				"See English summary at the end of the first 1965 paper, which is repeated in the Zentralblatt review. - _Jonathan Sondow_, Nov 02 2013"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Rosa, Alexander; Znam, Stefan, \u003ca href=\"http://dml.cz/dmlcz/126392\"\u003eA combinatorial problem in the theory of congruences (Russian with English summary)\u003c/a\u003e, Mat.-Fys. Casopis Sloven. Akad. Vied 15 (1965) 49-59. [\u003ca href=\"/A002703/a002703.pdf\"\u003eAnnotated scanned copy\u003c/a\u003e.] This is the sequence k(n) in Table 3. Tables 1 and 2 are A053632 and A178666 respectively.",
+				"Rosa, Alexander; Znam, Stefan, \u003ca href=\"http://dml.cz/dmlcz/126444\"\u003eA remark on a combinatorial problem (Russian with English summary)\u003c/a\u003e, Mat.-Fyz. Casopis Sloven. Akad. Vied 15 (1965) 313-316. [\u003ca href=\"/A002703/a002703_1.pdf\"\u003eAnnotated scanned copy\u003c/a\u003e]",
+				"Zentralblatt, \u003ca href=\"http://zbmath.org/scans/128/268@2x.gif\"\u003eReview of Rosa and Znám, A combinatorial problem in the theory of congruences\u003c/a\u003e"
+			],
+			"maple": [
+				"A002703 := proc(n)",
+				"    A262568(n)-2 ;",
+				"end proc: # _R. J. Mathar_, Oct 21 2015"
+			],
+			"xref": [
+				"Cf. A002704, A002705.",
+				"See A262567, A262568, A262569 for other versions.",
+				"Tables 1 and 2 of the first Rosa-Znam 1965 paper are A053632 and A178666 respectively."
+			],
+			"keyword": "nonn",
+			"offset": "3,4",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _R. J. Mathar_, Oct 21 2015"
+			],
+			"references": 14,
+			"revision": 51,
+			"time": "2015-10-21T13:25:32-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

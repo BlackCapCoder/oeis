@@ -1,0 +1,38 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002305",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2305,
+			"id": "M5106 N2211",
+			"data": "1,20,1120,3200,3942400,66560000,10035200000,136478720000,268461670400000,56518246400000,23658537943040000000,51431604224000000,70718455808000000,102541760921600000,23292891381760000000,8879987916800000,144993552704000000,1072952290009600000",
+			"name": "Denominators of coefficients in asymptotic expansion of (2/Pi)*Integral_{0..inf} (sin x / x)^n dx.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"David H. Bailey and Jonathan M. Borwein, \u003ca href=\"https://www.carma.newcastle.edu.au/jon/oscillatory.pdf\"\u003eExperimental computation with oscillatory integrals\u003c/a\u003e, Gems in experimental mathematics, 25-40, Contemp. Math., 517, Amer. Math. Soc., Providence, RI, 2010. [Added by _N. J. A. Sloane_, Nov 02 2009]",
+				"R. G. Medhurst and J. H. Roberts, \u003ca href=\"https://doi.org/10.1090/S0025-5718-1965-0172446-8\"\u003eEvaluation of the integral I_n(b) = (2/pi)*Integral_{0..inf} (sin x / x)^n cos (bx) dx\u003c/a\u003e, Math. Comp., 19 (1965), 113-117."
+			],
+			"mathematica": [
+				"nmax = 20; Denominator[CoefficientList[Simplify[Sum[3^k*(2*k)!/(k!*2^k*n^k) * SeriesCoefficient[Exp[n*(x^2/6 + Sum[(-1)^m*BernoulliB[2*m]* 2^(2*m - 1)*(x^(2*m)/(m*(2*m)!)), {m, 1, k}])], {x, 0, 2*k}], {k, 0, nmax}]], 1/n]] (* _Vaclav Kotesovec_, Aug 10 2019 *)"
+			],
+			"xref": [
+				"Cf. A002304, A002297, A002298."
+			],
+			"keyword": "nonn,frac",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _Vaclav Kotesovec_, Aug 10 2019"
+			],
+			"references": 5,
+			"revision": 29,
+			"time": "2019-08-10T19:31:18-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

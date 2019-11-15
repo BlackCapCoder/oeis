@@ -1,0 +1,81 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002854",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2854,
+			"id": "M0846 N0321",
+			"data": "1,1,2,3,7,16,54,243,2038,33120,1182004,87723296,12886193064,3633057074584,1944000150734320,1967881448329407496,3768516017219786199856,13670271807937483065795200,94109042015724412679233018144,1232069666043220685614640133362240",
+			"name": "Number of unlabeled Euler graphs with n nodes; number of unlabeled two-graphs with n nodes; number of unlabeled switching classes of graphs with n nodes; number of switching classes of unlabeled signed complete graphs on n nodes; number of Seidel matrices of order n.",
+			"comment": [
+				"Also called Eulerian graphs of strength 1.",
+				"\"Switching\" a graph at a node complements all the edges incident with that node. The illustration (see link) shows the 3 switching classes on 4 nodes. Switching at any node is the equivalence relation.",
+				"\"Switching\" a signed simple graph at a node negates the signs of all edges incident with that node.",
+				"A graph is an Euler graph iff every node has even degree. It need not be connected. (Note that some graph theorists require an Euler graph to be connected so it has an Euler circuit, and call these graphs \"even\" graphs.)",
+				"The objects being counted in this sequence are unlabeled."
+			],
+			"reference": [
+				"F. Buekenhout, ed., Handbook of Incidence Geometry, 1995, p. 881.",
+				"F. C. Bussemaker, R. A. Mathon and J. J. Seidel, Tables of two-graphs, T.H.-Report 79-WSK-05, Technological University Eindhoven, Dept. Mathematics, 1979; also pp. 71-112 of \"Combinatorics and Graph Theory (Calcutta, 1980)\", Lect. Notes Math. 885, 1981.",
+				"CRC Handbook of Combinatorial Designs, 1996, p. 687.",
+				"F. Harary and E. M. Palmer, Graphical Enumeration, Academic Press, NY, 1973, p. 114, (4.7.1).",
+				"R. W. Robinson, Enumeration of Euler graphs, pp. 147-153 of F. Harary, editor, Proof Techniques in Graph Theory. Academic Press, NY, 1969.",
+				"R. W. Robinson, Numerical implementation of graph counting algorithms, AGRC Grant, Math. Dept., Univ. Newcastle, Australia, 1979.",
+				"J. J. Seidel, A survey of two-graphs, pp. 481-511 of Colloquio Internazionale sulle Teorie Combinatorie (Roma, 1973), Vol. I, Accademia Nazionale dei Lincei, Rome, 1976; also pp. 146-176 in Geometry and Combinatorics:  Selected Works of J.J. Seidel, ed. D.G. Corneil and R. Mathon, Academic Press, Boston, 1991..",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Max Alekseyev, \u003ca href=\"/A002854/b002854.txt\"\u003eTable of n, a(n) for n = 1..60\u003c/a\u003e (a(1..26) from R. W. Robinson).",
+				"P. J. Cameron, \u003ca href=\"https://doi.org/10.1007/BF01215145\"\u003eCohomological aspects of two-graphs\u003c/a\u003e, Math. Zeit., 157 (1977), 101-119.",
+				"P. J. Cameron, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL3/groups.html\"\u003eSequences realized by oligomorphic permutation groups\u003c/a\u003e, J. Integ. Seqs. Vol. 3 (2000), #00.1.5.",
+				"P. J. Cameron and C. R. Johnson, \u003ca href=\"http://dx.doi.org/10.1016/j.disc.2004.10.029\"\u003eThe number of equivalence patterns of symmetric sign patterns\u003c/a\u003e, Discr. Math., 306 (2006), 3074-3077.",
+				"G. Greaves, J. H. Koolen, A. Munemasa, F. Szöllősi, \u003ca href=\"http://arxiv.org/abs/1403.2155\"\u003eEquiangular lines in Euclidean spaces\u003c/a\u003e, arXiv:1403.2155 [math.CO], 2014.",
+				"T. R. Hoffman, J. P. Solazzo, \u003ca href=\"http://arxiv.org/abs/1408.0334\"\u003eComplex Two-Graphs via Equiangular Tight Frames\u003c/a\u003e, arXiv preprint arXiv:1408.0334 [math.CO], 2014.",
+				"Michael Hofmeister, \u003ca href=\"https://dx.doi.org/10.1002/jgt.3190120316\"\u003eCounting double covers of graphs\u003c/a\u003e, Journal of graph theory 12.3 (1988): 437-444. (Beware of a typo!)",
+				"V. A. Liskovec, \u003ca href=\"/A002854/a002854.pdf\"\u003eEnumeration of Euler Graphs\u003c/a\u003e, (in Russian), Akademiia Navuk BSSR, Minsk., 6 (1970), 38-46. (annotated scanned copy)",
+				"C. L. Mallows and N. J. A. Sloane, \u003ca href=\"http://www.jstor.org/stable/2100368\"\u003eTwo-graphs, switching classes and Euler graphs are equal in number\u003c/a\u003e, SIAM J. Appl. Math., 28 (1975), 876-880. (\u003ca href=\"http://neilsloane.com/doc/MallowsSloane.pdf\"\u003ecopy\u003c/a\u003e at N. J. A. Sloane's home page)",
+				"B. D. McKay, \u003ca href=\"http://users.cecs.anu.edu.au/~bdm/data/graphs.html\"\u003eEulerian graphs\u003c/a\u003e",
+				"R. E. Peile, \u003ca href=\"/A005273/a005273.pdf\"\u003eLetter to N. J. A. Sloane, Feb 1989\u003c/a\u003e",
+				"R. C. Read, \u003ca href=\"/A002854/a002854_1.pdf\"\u003eLetter to N. J. A. Sloane, Nov. 1976\u003c/a\u003e",
+				"R. W. Robinson, \u003ca href=\"/A003049/a003049.pdf\"\u003eEnumeration of Euler graphs\u003c/a\u003e, pp. 147-153 of F. Harary, editor, Proof Techniques in Graph Theory. Academic Press, NY, 1969. (Annotated scanned copy)",
+				"N. J. A. Sloane, \u003ca href=\"/A002854/a002854.gif\"\u003eSwitching classes of graphs with 4 nodes\u003c/a\u003e.",
+				"F. Szöllosi, P. R. J. Östergård, \u003ca href=\"https://arxiv.org/abs/1703.02943\"\u003eEnumeration of Seidel matrices\u003c/a\u003e, arXiv:1703.02943 [math.CO], 2017.",
+				"E. Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/EulerianGraph.html\"\u003eEulerian Graph\u003c/a\u003e.",
+				"T. Zaslavsky, \u003ca href=\"https://doi.org/10.1016/0166-218X(82)90033-6\"\u003eSigned graphs\u003c/a\u003e, Discrete Appl. Math. 4 (1982), 47-74."
+			],
+			"formula": [
+				"a(n) = sum_{s} 2^M(s)/product_{i} i^s(i)*s(i)!, where the sum is over n-tuples s in [0..n]^n such that n=sum i*s(i), M(s) = sum_{i\u003cj} s(i)*s(j)*gcd(i,j) + sum_{i} (s(i)*(floor[i/2]-1)+i*binomial(s(i),2)) + sign(sum_{k} s(2k+1)). [Robinson's formula, from Mallows \u0026 Sloane, simplified.] - _M. F. Hasler_, Apr 15 2012; corrected by _Sean A. Irvine_, Nov 05 2014"
+			],
+			"example": [
+				"From _Joerg Arndt_, Feb 05 2010: (Start)",
+				"The a(4) = 3 Euler graphs on four nodes are:",
+				"   1)  o o     2)  o-o     3)  o-o",
+				"       o o         |/          | |",
+				"                   o o         o-o",
+				"(End)"
+			],
+			"program": [
+				"(PARI) A002854(n)={ /* Robinson's formula, simplified */ local(s=vector(n)); my( S=0, M()=sum( j=2,n, s[j]*sum( i=1,j-1, s[i]*gcd(i,j))) + sum( i=1,n, i*binomial(s[i],2)+(i\\2-1)*s[i]) + !!vecextract(s,4^round(n/2)\\3), inc()=!forstep(i=n,1,-1,s[i]\u003cn\\i \u0026\u0026 s[i]++ \u0026\u0026 return; s[i]=0), t); until(inc(), t=0; for( i=1,n, if( n \u003c t+=i*s[i], until(i++\u003en, s[i]=n); next(2))); t==n \u0026\u0026 S+=2^M()/prod(i=1,n,i^s[i]*s[i]!)); S} \\\\ - _M. F. Hasler_, Apr 09 2012, adapted for current PARI version on Apr 12, 2018"
+			],
+			"xref": [
+				"Cf. A003049, A085618, A085619, A085620, A007127, A133736.",
+				"Bisections: A182012, A182055."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Terms up to a(18) confirmed by _Vladeta Jovovic_, Apr 18 2000",
+				"Name edited (changed \"2-graph\" to \"two-graph\" to avoid confusion with other 2-graphs) and comments on Eulerian graphs by _Thomas Zaslavsky_, Nov 21 2013",
+				"Name clarified by _Thomas Zaslavsky_, Apr 18 2019"
+			],
+			"references": 17,
+			"revision": 127,
+			"time": "2019-04-19T10:06:26-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

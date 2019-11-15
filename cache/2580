@@ -1,0 +1,66 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "id:A002580",
+	"count": 1,
+	"start": 0,
+	"results": [
+		{
+			"number": 2580,
+			"id": "M1354 N0521",
+			"data": "1,2,5,9,9,2,1,0,4,9,8,9,4,8,7,3,1,6,4,7,6,7,2,1,0,6,0,7,2,7,8,2,2,8,3,5,0,5,7,0,2,5,1,4,6,4,7,0,1,5,0,7,9,8,0,0,8,1,9,7,5,1,1,2,1,5,5,2,9,9,6,7,6,5,1,3,9,5,9,4,8,3,7,2,9,3,9,6,5,6,2,4,3,6,2,5,5,0,9,4,1,5,4,3,1,0,2,5",
+			"name": "Decimal expansion of cube root of 2.",
+			"comment": [
+				"2^(1/3) is Hermite's constant gamma_3. - _Jean-François Alcover_, Sep 02 2014, after Steven Finch.",
+				"For doubling the cube using origami and a standard geometric construction employing two right angles see the W. Lang link, Application 2, p. 14, and the references given there. See also the L. Newton link. - _Wolfdieter Lang_, Sep 02 2014",
+				"Length of an edge of a cube with volume 2. - _Jared Kish_, Oct 16 2014",
+				"For any positive real c, the mappings R(x)=(c*x)^(1/4) and S(x)=sqrt(c/x) have the same unique attractor c^(1/3), to which their iterated applications converge from any complex plane point. The present case is obtained setting c=2. It is noteworthy that in this way one can evaluate cube roots using only square roots. The CROSSREFS list some other cases of cube roots to which this comment might apply. - _Stanislav Sykora_, Nov 11 2015"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"Horace S. Uhler, Many-figure approximations for cubed root of 2, cubed root of 3, cubed root of 4, and cubed root of 9 with chi2 data. Scripta Math. 18, (1952). 173-176."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A002580/b002580.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e",
+				"Steven R. Finch, \u003ca href=\"http://www.people.fas.harvard.edu/~sfinch/csolve/erradd.pdf\"\u003eErrata and Addenda to Mathematical Constants\u003c/a\u003e, p. 62.",
+				"Steven R. Finch, \u003ca href=\"/A002193/a002193.pdf\"\u003eErrata and Addenda to Mathematical Constants\u003c/a\u003e, January 22, 2016. [Cached copy, with permission of the author]",
+				"Wolfdieter Lang, \u003ca href=\"http://arxiv.org/abs/1409.4799\"\u003eNotes on Some Geometric and Algebraic Problems solved by Origami\u003c/a\u003e, arXiv:1409.4799 [math.MG], 2014.",
+				"Liz Newton, \u003ca href=\"http://plus.maths.org/content/os/issue53/features/newton/index\"\u003eThe power of origami\u003c/a\u003e.",
+				"Simon Plouffe, Plouffe's Inverter, \u003ca href=\"http://www.plouffe.fr/simon/constants/cuberoot2.txt\"\u003eThe cube root of 2 to 20000 digits\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.worldwideschool.org/library/books/sci/math/MiscellaneousMathematicalConstants/chap16.html\"\u003e2**(1/3) to 2000 places\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.plouffe.fr/simon/gendev/125992.html\"\u003eGeneralized expansion of real constants\u003c/a\u003e",
+				"H. S. Uhler, \u003ca href=\"/A002580/a002580.pdf\"\u003eMany-figure approximations for cubed root of 2, cubed root of 3, cubed root of 4, and cubed root of 9 with chi2 data\u003c/a\u003e, Scripta Math. 18, (1952). 173-176. [Annotated scanned copies of pages 175 and 176 only]",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/DelianConstant.html\"\u003eDelian Constant\u003c/a\u003e"
+			],
+			"formula": [
+				"(-2^(1/3) - 2^(1/3) * sqrt(-3))^3 = (-2^(1/3) + 2^(1/3) * sqrt(-3))^3 = 16. - _Alonso del Arte_, Jan 04 2015",
+				"Set c=2 in the identities c^(1/3) = sqrt(c/sqrt(c/sqrt(c/...))) = sqrt(sqrt(c*sqrt(sqrt(c*sqrt(sqrt(...)))))). - _Stanislav Sykora_, Nov 11 2015"
+			],
+			"example": [
+				"1.2599210498948731647672106072782283505702514..."
+			],
+			"maple": [
+				"Digits:=100: evalf(2^(1/3)); # _Wesley Ivan Hurt_, Nov 12 2015"
+			],
+			"mathematica": [
+				"RealDigits[N[2^(1/3), 5!]] (* _Vladimir Joseph Stephan Orlovsky_, Sep 04 2008 *)"
+			],
+			"program": [
+				"(PARI) { default(realprecision, 20080); x=2^(1/3); for (n=1, 20000, d=floor(x); x=(x-d)*10; write(\"b002580.txt\", n, \" \", d)); } \\\\ _Harry J. Smith_, May 07 2009",
+				"(PARI) { default(realprecision, 100); x= 2^(1/3); for(n=1, 100, d=floor(x); x=(x-d)*10; print1(d, \", \")) } \\\\ _Altug Alkan_, Nov 14 2015"
+			],
+			"xref": [
+				"Cf. A002945 (continued fraction), A253583.",
+				"Cf. A246644. - _Wolfdieter Lang_, Sep 02 2014",
+				"Cf. A002581, A005480, A005481, A005482, A005486, A010581, A010582, A092039, A092041, A139340. - _Stanislav Sykora_, Nov 11 2015"
+			],
+			"keyword": "nonn,easy,cons",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 26,
+			"revision": 64,
+			"time": "2019-04-13T14:18:49-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

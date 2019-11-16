@@ -47,6 +47,7 @@ jobs:
 
     - name: Run tests
       run: |
-        gunzip data/all.gz
+        # gunzip data/all.gz
         scripts/mkSpec
-        cabal --ignore-expiry new-test -v --offline --only
+        # cabal --ignore-expiry new-test -v --offline --only
+        cabal --ignore-expiry new-test --offline --only

@@ -1,0 +1,321 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7580,
+	"results": [
+		{
+			"number": 227289,
+			"data": "1,2,4,10,6,177,8,514,500,349,14,4791,16,5949,1623,863,20,2629,22,5113,2043,3211,28,7347,4593,11911,1647,12819,34,27325,36,15755,34527,29319,5459,2797,42,24535,20145,15511,46,26523,48,64895,13335,40769,54,43835,184041",
+			"name": "Smallest m such that gcd(A227113(m+1), A227113(m)) = n.",
+			"comment": [
+				"A227288(a(n)) = n and A227288(m) \u003c\u003e n for m \u003c a(n)."
+			],
+			"example": [
+				".   n |   a(n) | A227288(a(n)) = gcd(A227113(a(n)),A227113(a(n)+1))",
+				".  ---+--------+--------------- -----------------------------------",
+				".   1 |     1  |            1  =  gcd(1,2)",
+				".   2 |     2  |            2  =  gcd(2,4)",
+				".   3 |     4  |            3  =  gcd(3,6)",
+				".   4 |    10  |            4  =  gcd(8,12)",
+				".   5 |     6  |            5  =  gcd(5,10)",
+				".   6 |   177  |            6  =  gcd(168,162)",
+				".   7 |     8  |            7  =  gcd(7,14)",
+				".   8 |   514  |            8  =  gcd(472,480)",
+				".   9 |   500  |            9  =  gcd(459,468)",
+				".  10 |   349  |           10  =  gcd(330,320)",
+				".  11 |    14  |           11  =  gcd(11,22)",
+				".  12 |  4791  |           12  =  gcd(4524,4512)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a227289 = (+ 1) . fromJust . (`elemIndex` a227288_list)"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 05 2013",
+			"references": 2,
+			"revision": 6,
+			"time": "2019-08-01T00:11:02-04:00",
+			"created": "2013-07-05T08:01:23-04:00"
+		},
+		{
+			"number": 227325,
+			"data": "1,2,18,320,8750,326592,15529668,899678208,61556811030,4862000000000,435644983598396,43678490079264768,4846281282497517772,589650705050503577600,78074729079345703125000,11177395284330167371038720,1720546364146510165684599270",
+			"name": "A000272(n+1) * A000984(n).",
+			"comment": [
+				"Central terms of triangle A088956."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227325/b227325.txt\"\u003eTable of n, a(n) for n = 0..250\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A088956(2*n, n) = (n+1)^(n-1) * C(2*n, n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a227325 n = a000272 (n + 1) * a000984 n"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jul 07 2013",
+			"ext": [
+				"Typo in formula fixed by _Zak Seidov_, Jul 08 2013"
+			],
+			"references": 2,
+			"revision": 11,
+			"time": "2013-07-08T14:01:54-04:00",
+			"created": "2013-07-07T16:59:08-04:00"
+		},
+		{
+			"number": 227378,
+			"data": "0,1,2,3,4,5,6,7,8,9,19,29,39,49,59,69,79,89,189,289,389,489,589,689,789,1789,2789,3789,4789,5789,6789,16789,26789,36789,46789,56789,156789,256789,356789,456789,1456789,2456789,3456789,13456789,23456789,123456789",
+			"name": "Smallest number with n = sum of distinct digits in decimal representation, cf. A217928.",
+			"comment": [
+				"A217928(a(n)) = A007953(a(n)) = n and A217928(m) \u003c n for m \u003c a(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a227378 = fromJust . (`elemIndex` a217928_list)"
+			],
+			"keyword": "nonn,base,fini,full",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 09 2013",
+			"references": 2,
+			"revision": 3,
+			"time": "2013-07-09T15:04:50-04:00",
+			"created": "2013-07-09T15:04:50-04:00"
+		},
+		{
+			"number": 227426,
+			"data": "1,1,1,2,2,3,3,5,6,7,9,11,13,16,20,23,28,33,39,46,55,63,75,87,101,117,136,156,180,207,238,272,311,355,404,460,522,592,670,758,855,965,1087,1223,1373,1543,1728,1936,2166,2421,2702,3016,3359,3741,4162,4626,5136,5702,6320,7002,7753,8576,9479,10473",
+			"name": "Number of partitions into distinct parts without three consecutive parts.",
+			"comment": [
+				"Number of partitions into distinct parts with maximal perimeter.",
+				"For n\u003e=1, diagonal of A227344."
+			],
+			"link": [
+				"Joerg Arndt and Alois P. Heinz, \u003ca href=\"/A227426/b227426.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = c * exp(r*sqrt(n)) / n^(3/4), where r = 1.75931899568... and c = 0.2080626386... - _Vaclav Kotesovec_, May 24 2018"
+			],
+			"maple": [
+				"b:= proc(n, i, t) option remember; `if`(n=0, 1, `if`(i\u003c1, 0,",
+				"       b(n, i-1, 0)+`if`(i\u003en or t=2, 0, b(n-i, i-1, t+1))))",
+				"    end:",
+				"a:= n-\u003e b(n, n, 0):",
+				"seq(a(n), n=0..80);  # _Alois P. Heinz_, Jul 15 2013"
+			],
+			"mathematica": [
+				"b[n_, i_, t_] := b[n, i, t] = If[n==0, 1, If[i\u003c1, 0, b[n, i-1, 0] + If[i\u003en || t==2, 0, b[n-i, i-1, t+1]]]]; a[n_] := b[n, n, 0]; Table[a[n], {n, 0, 80}] (* _Jean-François Alcover_, Jul 02 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a227426 = p 1 1 where",
+				"  p _ _ 0 = 1",
+				"  p k i m = if m \u003c k then 0 else p (k + i) (3 - i) (m - k) + p (k + 1) 1 m",
+				"-- _Reinhard Zumkeller_, Jul 14 2013"
+			],
+			"xref": [
+				"Cf. A000009."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_Joerg Arndt_, Jul 11 2013",
+			"references": 2,
+			"revision": 20,
+			"time": "2018-05-24T02:41:34-04:00",
+			"created": "2013-07-13T02:29:15-04:00"
+		},
+		{
+			"number": 227838,
+			"data": "0,0,1,1,0,0,2,2,0,0,1,1,0,0,3,3,0,0,1,1,0,0,1,1,0,0,4,2,0,0,1,1,0,0,1,1,0,0,1,1,0,0,4,2,0,0,1,1,0,0,2,5,0,0,1,1,0,0,3,2,0,0,1,1,0,0,5,2,0,0,1,1,0,0,2,3,0,0,1,1,0,0,3,2,0,0,1,1,0,0,2,5,0,0,1,1,0,0,6,2,0,0,3,4,0,0,1,1,0",
+			"name": "2^a(n) is the highest power of 2 dividing A005132(n).",
+			"comment": [
+				"The 2-adic valuation of Recamán's sequence A005132."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227838/b227838.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rea#Recaman\"\u003eIndex entries for sequences related to Recamán's sequence\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a227838 = a007814 . a005132  -- _Reinhard Zumkeller_, Aug 05 2013"
+			],
+			"xref": [
+				"Cf. A005132, A227839, A007814."
+			],
+			"keyword": "nonn",
+			"offset": "1,7",
+			"author": "_N. J. A. Sloane_, Aug 04 2013",
+			"references": 2,
+			"revision": 11,
+			"time": "2014-04-10T00:20:29-04:00",
+			"created": "2013-08-04T23:46:47-04:00"
+		},
+		{
+			"number": 227839,
+			"data": "0,1,1,0,0,0,0,1,1,0,0,0,0,2,1,0,0,0,0,1,2,0,2,1,0,0,0,0,1,2,0,0,0,0,1,1,0,1,1,0,0,0,0,2,4,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,3,2,0,0,0,0,1,2,0,0,0,0,2,1,0,1,2,0,0,0,0,2,1,0,0,0,0,1,1,0,0,0,0,1,4,0,0,0,0,0,0,1,0,0,2,0,0,2",
+			"name": "3^a(n) is the highest power of 3 dividing A005132(n).",
+			"comment": [
+				"The 3-adic valuation of Recamán's sequence A005132."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227839/b227839.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rea#Recaman\"\u003eIndex entries for sequences related to Recamán's sequence\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a227839 = a007949 . a005132  -- _Reinhard Zumkeller_, Aug 05 2013"
+			],
+			"xref": [
+				"Cf. A005132, A227838, A007949."
+			],
+			"keyword": "nonn",
+			"offset": "1,14",
+			"author": "_N. J. A. Sloane_, Aug 04 2013",
+			"references": 2,
+			"revision": 12,
+			"time": "2014-04-10T00:20:45-04:00",
+			"created": "2013-08-04T23:55:59-04:00"
+		},
+		{
+			"number": 227878,
+			"data": "3,19,41,43,71,83,101,109,151,167,199,227,229,257,281,283,311,313,349,383,401,443,461,463,487,503,571,601,617,641,643,677,727,757,829,857,859,881,883,911,937,941,971,1033,1063,1091,1093,1123,1187,1217,1231",
+			"name": "Primes occurring twice in A051701.",
+			"comment": [
+				"Consider five consecutive primes p1..p5: (p3 is a term of this sequence) iff (p2-p1 \u003e p3-p2 and p5-p4 \u003e p4-p3)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227878/b227878.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a227878 n = a227878_list !! (n-1)",
+				"a227878_list = f a051701_list where",
+				"   f (p:ps@(_:p':_)) = if p == p' then p : f ps else f ps"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 25 2013",
+			"references": 2,
+			"revision": 10,
+			"time": "2013-10-27T05:01:15-04:00",
+			"created": "2013-10-25T15:57:23-04:00"
+		},
+		{
+			"number": 228078,
+			"data": "0,0,2,5,12,26,55,114,234,477,968,1958,3951,7958,16006,32157,64548,129474,259559,520106,1041810,2086205,4176592,8359950,16730847,33479406,66987470,134021309,268117644,536356682,1072909783,2146137378,4292788986,8586410013",
+			"name": "a(n) = 2^n - Fibonacci(n) - 1.",
+			"comment": [
+				"a(n+1) = sum of n-th row of the triangle in A228074."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A228078/b228078.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4,-4,-1,2)."
+			],
+			"formula": [
+				"a(n) = A000079(n) - A000045(n) - 1 = A000225(n) - A000045(n) = A000079(n) - A001611(n) = A099036(n) - 1.",
+				"a(n) = 4*a(n-1)-4*a(n-2)-a(n-3)+2*a(n-4) for n\u003e3. - _Colin Barker_, Mar 20 2015",
+				"G.f.: x^2*(3*x-2) / ((x-1)*(2*x-1)*(x^2+x-1)). - _Colin Barker_, Mar 20 2015",
+				"a(n) = (-1+2^n+(((1-sqrt(5))/2)^n-((1+sqrt(5))/2)^n)/sqrt(5)). - _Colin Barker_, Nov 02 2016"
+			],
+			"mathematica": [
+				"Table[(2^n - Fibonacci[n] - 1), {n, 0, 40}] (* _Vincenzo Librandi_, Aug 16 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a228078 = subtract 1 . a099036",
+				"(MAGMA)",
+				"[2^n - Fibonacci(n) - 1: n in [0..40]]; // _Vincenzo Librandi_, Aug 16 2013",
+				"(PARI) concat([0,0], Vec(x^2*(3*x-2)/((x-1)*(2*x-1)*(x^2+x-1)) + O(x^100))) \\\\ _Colin Barker_, Mar 20 2015"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Aug 15 2013",
+			"references": 2,
+			"revision": 18,
+			"time": "2016-11-02T11:58:29-04:00",
+			"created": "2013-08-15T16:52:16-04:00"
+		},
+		{
+			"number": 228340,
+			"data": "1,0,1,1,1,1,3,4,2,1,13,17,9,3,1,68,89,47,16,4,1,421,551,291,99,25,5,1,3015,3946,2084,709,179,36,6,1,24541,32119,16963,5771,1457,293,49,7,1,223884,293017,154751,52648,13292,2673,447,64,8,1",
+			"name": "Triangle read by rows: T(n,k) = (n-1)*T(n-1,k) + T(n-2,k), with T(n,n-1)=1, T(n,n-2)=n-2, for n \u003e= 1, 0 \u003c= k \u003c= n-1.",
+			"reference": [
+				"C. Cannings, \"The Stationary Distributions of a Class of Markov Chains,\" Applied Mathematics, Vol. 4 No. 5, 2013, pp. 769-773. doi: 10.4236/am.2013.45105."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A228340/b228340.txt\"\u003eRows n = 1..120 of table, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"Triangle begins:",
+				"1,",
+				"0,1,",
+				"1,1,1,",
+				"3,4,2,1,",
+				"13,17,9,3,1,",
+				"68,89,47,16,4,1,",
+				"421,551,291,99,25,5,1,",
+				"3015,3946,2084,709,179,36,6,1,",
+				"..."
+			],
+			"program": [
+				"(Haskell)",
+				"a228340 n k = a228340_tabl !! (n-1) !! k",
+				"a228340_row n = a228340_tabl !! (n-1)",
+				"a228340_tabl = map (reverse . fst) $ iterate f ([1], [1,0]) where",
+				"   f (us, vs'@(_ : vs@(v : _))) = (vs', ws) where",
+				"     ws = 1 : (v + 1) : zipWith (+) us (map (* (v + 2)) vs)",
+				"-- _Reinhard Zumkeller_, Aug 31 2013"
+			],
+			"xref": [
+				"Diagonals give A058307, A058279, A228341. Row sums give A001040."
+			],
+			"keyword": "nonn,tabl,easy",
+			"offset": "1,7",
+			"author": "_N. J. A. Sloane_, Aug 29 2013",
+			"references": 2,
+			"revision": 11,
+			"time": "2013-08-31T20:04:53-04:00",
+			"created": "2013-08-29T23:39:29-04:00"
+		},
+		{
+			"number": 229762,
+			"data": "0,0,1,0,2,2,1,0,4,4,5,4,2,2,1,0,8,8,9,8,10,10,9,8,4,4,5,4,2,2,1,0,16,16,17,16,18,18,17,16,20,20,21,20,18,18,17,16,8,8,9,8,10,10,9,8,4,4,5,4,2,2,1,0,32,32,33,32,34,34,33,32,36,36,37,36,34,34,33",
+			"name": "a(n) = (n XOR floor(n/2)) AND floor(n/2), where AND and XOR are bitwise logical operators.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A229762/b229762.txt\"\u003eTable of n, a(n) for n = 0..8191\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (n XOR floor(n/2)) AND floor(n/2) = (n AND floor(n/2)) XOR floor(n/2)."
+			],
+			"program": [
+				"(Python)",
+				"for n in range(333): print (n ^ (n\u003e\u003e1)) \u0026 (n\u003e\u003e1),",
+				"(Haskell)",
+				"import Data.Bits ((.\u0026.), xor, shiftR)",
+				"a229762 n = (n `xor` shiftR n 1) .\u0026. shiftR n 1 :: Int",
+				"-- _Reinhard Zumkeller_, Oct 10 2013"
+			],
+			"xref": [
+				"Cf. A003188 (n XOR floor(n/2)).",
+				"Cf. A048724 (n XOR (n*2)).",
+				"Cf. A048735 (n AND floor(n/2)).",
+				"Cf. A213370 (n AND (n*2)).",
+				"Cf. A213064 (n XOR (n*2) AND (n*2)).",
+				"Cf. A229763 ((2*n) XOR n AND n)."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "0,5",
+			"author": "_Alex Ratushnyak_, Sep 28 2013",
+			"references": 2,
+			"revision": 16,
+			"time": "2013-10-10T08:21:08-04:00",
+			"created": "2013-09-30T13:27:15-04:00"
+		}
+	]
+}

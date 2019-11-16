@@ -1,0 +1,355 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6960,
+	"results": [
+		{
+			"number": 257999,
+			"data": "2,3,8,12,18,27,32,48,72,108,128,162,192,243,288,432,512,648,768,972,1152,1458,1728,2048,2187,2592,3072,3888,4608,5832,6912,8192,8748,10368,12288,13122,15552,18432,19683,23328,27648,32768,34992,41472,49152,52488",
+			"name": "2^i*3^j, i+j odd.",
+			"comment": [
+				"A069352(a(n)) mod 2 = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257999/b257999.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257999 n = a257999_list !! (n-1)",
+				"a257999_list = filter (odd . flip mod 2 . a001222) a003586_list"
+			],
+			"xref": [
+				"Complement of A036667 with respect to A003586; intersection of A005408 and A003586; A069352, A022328, A022329."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 16 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-05-16T16:47:55-04:00",
+			"created": "2015-05-16T16:47:55-04:00"
+		},
+		{
+			"number": 258057,
+			"data": "0,1,0,3,-3,4,-4,11,-6,1,-6,15,-15,8,-1,24,-31,20,-20,23,-14,3,-12,43,-34,5,12,5,-31,30,-30,79,-66,5,-7,48,-59,20,-5,52,-67,40,-40,47,-9,-14,-24,111,-98,31,-25,36,-55,80,-65,76,-70,9,-30,91,-91,32,18",
+			"name": "First differences of the arithmetic derivative sequence A003415.",
+			"comment": [
+				"|a(A258765(n))| = n and |a(m)| != n for m \u003c A258765(n). - _Reinhard Zumkeller_, Jun 10 2015"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A258057/b258057.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A003415(n+1) - A003415(n)."
+			],
+			"maple": [
+				"d:= n-\u003e n*add(i[2]/i[1], i=ifactors(n)[2]):",
+				"a:= n-\u003e d(n+1)-d(n):",
+				"seq(a(n), n=0..105);"
+			],
+			"program": [
+				"(Haskell)",
+				"a258057 n = a258057_list !! n",
+				"a258057_list = zipWith (-) (tail a003415_list) a003415_list",
+				"-- _Reinhard Zumkeller_, Jun 10 2015"
+			],
+			"xref": [
+				"Cf. A003415.",
+				" Cf. A258765."
+			],
+			"keyword": "sign,look",
+			"offset": "0,4",
+			"author": "_Alois P. Heinz_, Jun 08 2015",
+			"references": 3,
+			"revision": 20,
+			"time": "2015-06-10T06:44:31-04:00",
+			"created": "2015-06-08T15:13:26-04:00"
+		},
+		{
+			"number": 258062,
+			"data": "1,1,1,2,3,5,7,1,1,9,1,2,2,1,10,1,4,2,2,1,1,5,1,7,1,7,2,4,1,2,2,1,4,2,2,1,7,2,10,1,1,1,6,1,4,2,2,1,1,4,3,1,1,1,2,2,1,7,3,1,1,5,1,7,1,2,1,6,1,3,1,6,1,1,1,3,1,2,1,1,4,5,1,2,1,3",
+			"name": "Run lengths of zeros and ones in A188967.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258062/b258062.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a258062 n = a258062_list !! (n-1)",
+				"a258062_list = map length $ group a188967_list"
+			],
+			"xref": [
+				" Cf. A188967."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, May 18 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-05-18T03:29:19-04:00",
+			"created": "2015-05-18T03:29:19-04:00"
+		},
+		{
+			"number": 258143,
+			"data": "1,2,6,10,25,41,98,162,381,637,1485,2509,5811,9907,22818,39202,89845,155381,354521,616665,1401291,2449867,5546381,9740685,21977515,38754731,87167163,154276027,345994215,614429671,1374282018,2448023842",
+			"name": "Row sums of A257241, Stifel's version of the arithmetical triangle.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258143/b258143.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{m = 1 .. ceiling(n/2)} binomial(n, m), n \u003e= 1.",
+				"a(2*k+1) = 2^(2*k+1) - (1 + A008549(k)), k \u003e= 0.",
+				"a(2*k) = 2^(2*k) - (1 + A000346(k-1)), k \u003e= 1.",
+				"O.g.f. for a(2*k+1), k \u003e= 0: (2+x - (1-x)*c(x))/ ((1-4*x)*(1-x)), with the o.g.f. c(x) of A000108 (Catalan).",
+				"O.g.f. for a(2*(k+1)), k \u003e= 0: (3 - (1-x)*c(x))/ ((1-4*x)*(1-x)).",
+				"O.g.f. for a(n), n \u003e= 1: x*(2+3*x+x^2 - (1-x^2)*(1+x)*c(x^2))/((1-(2*x)^2)*(1-x^2)."
+			],
+			"example": [
+				"n=3: a(3) = 2^3 - (1 + A008549(1)) = 8 - (1 + 1) = 6.",
+				"n=4: a(4) = 2^4 - (1 + A000346(1)) = 16 - (1 +  5) = 10."
+			],
+			"program": [
+				"(Haskell)",
+				"a258143 = sum . a257241_row  -- _Reinhard Zumkeller_, May 22 2015"
+			],
+			"xref": [
+				"Cf. A257241, A000346, A008549, A000108, A258144."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Wolfdieter Lang_, May 22 2015",
+			"references": 3,
+			"revision": 14,
+			"time": "2015-05-22T16:58:41-04:00",
+			"created": "2015-05-22T15:03:45-04:00"
+		},
+		{
+			"number": 258144,
+			"data": "1,2,0,-2,5,11,-14,-34,57,127,-209,-461,793,1717,-3002,-6434,11441,24311,-43757,-92377,167961,352717,-646645,-1352077,2496145,5200301,-9657699,-20058299,37442161,77558761,-145422674,-300540194,565722721",
+			"name": "Alternating row sums of A257241, Stifel's version of the arithmetical triangle.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258144/b258144.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{m = 1 .. ceiling(n/2)} (-1)^(m+1)* binomial(n, m), n \u003e= 1.",
+				"a(2*k+1) = (1 - (-1)^(k+1)*A001791(k)), k \u003e= 0.",
+				"a(2*k) =  (1 - (-1)^k*A001700(k-1)), k \u003e= 1.",
+				"O.g.f. for a(2*k+1), k \u003e= 0: (2+3*x - (1-x)*(1+2*x)*c(-x))/((1+4*x)*(1-x)), with the o.g.f. c(x) of A000108 (Catalan).",
+				"O.g.f. for a(2*(k+1)), k \u003e= 0:",
+				"  (3+2*x - (1-x)*c(-x))/((1+4*x)*(1-x)).",
+				"O.g.f. for a(n), n \u003e= 1:",
+				"x*((1+x)*(2+x+2*x^2) - (1+x+2*x^2)*(1-x^2)*c(-x^2))/((1+4*x^2)*(1-x^2))."
+			],
+			"example": [
+				"n = 3: a(3) = (1 - A001791(1)) = 1 - 1 = 0.",
+				"n = 4: a(4) = (1 - A001700(1)) = 1 - 3 = -2."
+			],
+			"program": [
+				"(Haskell)",
+				"a258144 = sum . zipWith (*) (cycle [1, -1]) . a257241_row",
+				"-- _Reinhard Zumkeller_, May 22 2015"
+			],
+			"xref": [
+				"Cf. A257241, A001700, A001791, A258143, A000108.",
+				"Cf. A033999."
+			],
+			"keyword": "sign,easy",
+			"offset": "1,2",
+			"author": "_Wolfdieter Lang_, May 22 2015",
+			"references": 3,
+			"revision": 15,
+			"time": "2015-05-23T12:00:02-04:00",
+			"created": "2015-05-22T15:04:38-04:00"
+		},
+		{
+			"number": 258193,
+			"data": "0,0,0,0,3,3,11,0,5,3,3,17,7,23,53,29,13,5,5,3,11,3,3,823,13,7,7,457,109,109,233,2267,17,59,151,5,19,5,5,3,113,11,11,3,23,3,3,71,43,13,13,7,179,7,7,193,29,2137,863,443,31,5498157739,977,163",
+			"name": "Define a\u003c+\u003eb = odd part(odd part(a) + odd part(b)), where odd part(n) = A000265(n); a(n) is the smallest prime of the form \u003c+\u003e_{0\u003c=i\u003c=k} binomial (n,i), or a(n)=0 if there is no such a prime (see comment).",
+			"comment": [
+				"f(n)=\u003c+\u003e_{0\u003c=i\u003c=n} c(i) is defined as the following: f(0)=c(0), f(n)=f(n-1)\u003c+\u003ec(n).",
+				"a(n)=0 for 1,2,3,4,8,82,107,...(cf. A258194)"
+			],
+			"link": [
+				"Peter J. C. Moses, \u003ca href=\"/A258193/b258193.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"vSum[a_,b_]:=#[#[a]+#[b]]\u0026[#/2^IntegerExponent[#,2]\u0026];",
+				"Table[",
+				"First[Select[FoldList[vSum,First[#],Rest[#]]\u0026[Map[Binomial[n,#]\u0026,Range[0,n]]],PrimeQ]/.{}-\u003e{0}],{n,100}] (*_Peter J. C. Moses_, May 23 2015*)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Function (on)",
+				"a258193 n = head $ (filter ((== 1) . a010051'') $",
+				"                    scanl1 (\u003c+\u003e) (a034868_row n)) ++ [0]",
+				"            where (\u003c+\u003e) = (a000265 .) . on (+) a000265",
+				"-- _Reinhard Zumkeller_, Jun 20 2015"
+			],
+			"xref": [
+				"Cf. A000265, A007318, A258126, A258127, A258194.",
+				"Cf. A034868, A010051."
+			],
+			"keyword": "nonn",
+			"offset": "1,5",
+			"author": "_Vladimir Shevelev_, May 23 2015",
+			"ext": [
+				"More terms from _Peter J. C. Moses_, May 23 2015"
+			],
+			"references": 3,
+			"revision": 16,
+			"time": "2015-06-20T20:13:06-04:00",
+			"created": "2015-06-20T15:44:28-04:00"
+		},
+		{
+			"number": 258290,
+			"data": "0,1,5,24,59,456,1448,6868,19749,69364,236356,1526956,3717440,22858340,122553540,474051984,954720543,5726109024,19329586520,92051285020,319059863484,1271796704788,4829219746964,29791326914640,74372011398840,340296661452300",
+			"name": "Arithmetic derivative of central binomial coefficients, cf. A000984.",
+			"comment": [
+				" a(n) = A003415(A000984(n));",
+				"central terms in triangle A258197: a(n) = A258197(2*n,n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258290/b258290.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a258290 = a003415 . a000984"
+			],
+			"xref": [
+				" Cf. A000984, A003415, A258197."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, May 26 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-05-26T07:32:12-04:00",
+			"created": "2015-05-26T07:32:12-04:00"
+		},
+		{
+			"number": 258318,
+			"data": "1,1,2,2,4,5,7,9,12,16,20,24,29,34,41,44,50,57,66,74,83,91,102,112,124,135,148,161,174,187,201,214,230,246,263,279,296,313,331,349,369,388,408,428,450,471,494,516,540,563,588,612,637,662,689,715,741,769",
+			"name": "Number of distinct numbers in rows 0 through n of triangle A258197.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258318/b258318.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, insert, size)",
+				"a258318 n = a258318_list !! n",
+				"a258318_list = f 2 a258197_tabl $ singleton 0 where",
+				"   f k (xs:xss) zs = g (take (div k 2) xs) zs where",
+				"     g []     ys = size ys : f (k + 1) xss ys",
+				"     g (x:xs) ys = g xs (insert x ys)"
+			],
+			"xref": [
+				" Cf. A253197, A126256."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, May 26 2015",
+			"references": 3,
+			"revision": 3,
+			"time": "2015-05-26T07:32:46-04:00",
+			"created": "2015-05-26T07:32:46-04:00"
+		},
+		{
+			"number": 258337,
+			"data": "11,2,3,41,5,61,7,83,97,101,113,127,13,149,151,163,17,181,19,2003,211,223,23,241,251,263,271,281,29,307,31,3203,331,347,353,367,37,383,397,401,419,421,43,443,457,461,47,487,491,503,5101,521,53,541,557,563,571,587,59,601,613,6203,631,641,653,661,67,683,691,701",
+			"name": "Smallest prime starting with n that does not appear earlier.",
+			"comment": [
+				"According to a comment in A018800, every term exists. So the sequence is a permutation of the primes. Indeed, every prime p appears in the sequence either as the p-th term or earlier."
+			],
+			"link": [
+				"Peter J. C. Moses, \u003ca href=\"/A258337/b258337.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e"
+			],
+			"formula": [
+				"For n\u003e=2, a(n) \u003e= prime(n-1). The equality holds iff prime(n-1) did not already appear as a(k), k\u003cn."
+			],
+			"maple": [
+				"N:= 100: # to get a(1) to a(N)",
+				"for n from 1 to N do",
+				"  p:= n;",
+				"  if n \u003c 10 then",
+				"    p1:= 0",
+				"  else",
+				"    p1:= A[floor(n/10)];",
+				"  fi;",
+				"  if isprime(p) and p \u003e p1 then",
+				"     A[n]:= p",
+				"  else",
+				"    for d from 1 while not assigned(A[n]) do",
+				"      for i from 1 to 10^d-1 do",
+				"        p:= 10^d*n+i;",
+				"        if p \u003e p1 and isprime(p) then",
+				"           A[n]:= p;",
+				"           break",
+				"        fi;",
+				"      od",
+				"    od",
+				"  fi",
+				"od:",
+				"seq(A[i],i=1..N); # _Robert Israel_, Jun 29 2015"
+			],
+			"program": [
+				"(PARI) sw(m,n)=d1=digits(n);d2=digits(m);for(i=1,min(#d1,#d2),if(d1[i]!=d2[i],return(0)));1",
+				"v=[];n=1;while(n\u003c70,k=1;while(k\u003c10^3,p=prime(k);if(sw(p,n)\u0026\u0026!vecsearch(vecsort(v),p),v=concat(v,p);k=0;n++);k++));v \\\\ _Derek Orr_, Jun 13 2015",
+				"(Haskell)",
+				"import Data.List (isPrefixOf, delete)",
+				"a258337 n = a258337_list !! (n-1)",
+				"a258337_list = f 1 $ map show a000040_list where",
+				"   f x pss = g pss where",
+				"     g (qs:qss) = if show x `isPrefixOf` qs",
+				"                     then (read qs :: Int) : f (x + 1) (delete qs pss)",
+				"                     else g qss",
+				"-- _Reinhard Zumkeller_, Jul 01 2015"
+			],
+			"xref": [
+				"Cf. A000040, A018800, A030665, A062584, A258190, A258339."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Vladimir Shevelev_, May 27 2015",
+			"references": 3,
+			"revision": 30,
+			"time": "2015-07-01T13:56:18-04:00",
+			"created": "2015-07-01T08:26:37-04:00"
+		},
+		{
+			"number": 258613,
+			"data": "1,2,3,5,7,10,11,13,14,17,19,21,23,26,27,28,29,31,32,33,34,37,41,43,47,50,51,52,53,54,55,57,58,59,60,61,62,65,67,69,71,73,75,77,79,82,83,85,86,88,89,91,92,94,95,97,98,101,103,107,109,111,113,117",
+			"name": "Numbers m that are coprime to the largest square \u003c= m, cf. A048760.",
+			"comment": [
+				"A074695(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258613/b258613.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(8) = 13: GCD(13,A048760(13)) = GCD(13,9) = 1;",
+				"a(9) = 14: GCD(14,A048760(14)) = GCD(14,9) = 1;",
+				"but GCD(15,A048760(15)) = GCD(15,9) = 3 \u003e 1, therefore 15 isn't a term."
+			],
+			"mathematica": [
+				"Select[Range[200],CoprimeQ[#,Floor[Sqrt[#]]^2]\u0026] (* _Harvey P. Dale_, Jun 25 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a258613 n = a258613_list !! (n-1)",
+				"a258613_list = filter ((== 1) . a074695) [1..]",
+				"(PARI) isok(n) = gcd(n, sqrtint(n)^2) == 1; \\\\ _Michel Marcus_, Jun 06 2015"
+			],
+			"xref": [
+				"Cf. A074695, A048760, A258614 (complement)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 05 2015",
+			"references": 3,
+			"revision": 13,
+			"time": "2017-06-25T12:36:47-04:00",
+			"created": "2015-06-05T15:50:11-04:00"
+		}
+	]
+}

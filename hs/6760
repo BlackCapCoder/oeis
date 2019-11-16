@@ -1,0 +1,309 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6760,
+	"results": [
+		{
+			"number": 238862,
+			"data": "1,2,3,4,6,7,5,9,11,8,10,12,14,15,13,18,20,16,24,19,17,21,23,25,22,27,29,26,28,30,32,33,31,35,37,38,36,41,43,39,47,51,34,40,42,44,46,48,45,50,52,49,53,55,57,54,58,60,61,56,65,63,66,59,64,69,72",
+			"name": "Inverse permutation to A239965.",
+			"comment": [
+				"a(A239965(n)) = A239965(a(n)) = n;",
+				"A018252(a(n)) = A240024(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A238862/b238862.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a238862 = (+ 1) . fromJust . (`elemIndex` a239965_list)"
+			],
+			"xref": [
+				"Cf. A239943 (fixed points)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 30 2014",
+			"references": 3,
+			"revision": 21,
+			"time": "2014-07-05T11:12:02-04:00",
+			"created": "2014-07-05T11:12:02-04:00"
+		},
+		{
+			"number": 239122,
+			"data": "1,-1,-4,0,-5,1,-6,-14,-5,5,-6,-18,-31,-17,-2,14,-3,-21,-40,-60,-39,-17,-40,-16,9,35,8,-20,-49,-79,-110,-142,-109,-75,-40,-4,-41,-3,36,76,35,-7,-50,-94,-139,-93,-140,-188,-139,-189,-138,-190,-243,-189,-134",
+			"name": "Partial sums of A061019.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239122/b239122.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Accumulate[Table[n*(-1)^PrimeOmega[n],{n,70}]] (* _Harvey P. Dale_, Apr 02 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a239122 n = a239122_list !! (n-1)",
+				"a239122_list = scanl1 (+) a061019_list"
+			],
+			"xref": [
+				"Cf. A002819."
+			],
+			"keyword": "sign",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Mar 10 2014",
+			"references": 3,
+			"revision": 6,
+			"time": "2015-04-02T10:37:28-04:00",
+			"created": "2014-03-10T16:37:43-04:00"
+		},
+		{
+			"number": 239433,
+			"data": "4,5,6,7,8,9,10,12,13,14,15,16,18,19,20,21,22,24,25,26,27,28,30,31,32,33,34,36,38,39,40,41,42,43,44,45,46,48,49,50,51,52,54,55,56,58,59,60,61,62,63,64,66,68,69,70,71,72,73,74,75,76,77,78,80,81",
+			"name": "Numbers m with at least one integer solution for x' = m, where x' is the arithmetic derivative of x (cf. A003415).",
+			"comment": [
+				"A099302(a(n)) \u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239433/b239433.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a239433 n = a239433_list !! (n-1)",
+				"a239433_list = filter",
+				"   (\\z -\u003e any (== z) $ map a003415 $ takeWhile (\u003c= a002620 z) a013929_list) [2..]"
+			],
+			"xref": [
+				"Cf. A098700 (complement), A002620."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 18 2014",
+			"references": 3,
+			"revision": 4,
+			"time": "2014-03-18T17:56:34-04:00",
+			"created": "2014-03-18T17:56:34-04:00"
+		},
+		{
+			"number": 239449,
+			"data": "1,3,19,49,93,151,223,309,409,523,651,793,949,1119,1303,1501,1713,1939,2179,2433,2701,2983,3279,3589,3913,4251,4603,4969,5349,5743,6151,6573,7009,7459,7923,8401,8893,9399,9919,10453,11001,11563,12139,12729,13333",
+			"name": "7*n^2 - 5*n + 1.",
+			"comment": [
+				"a(n) = A239426(n) / A003215(n-1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239449/b239449.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-3,1)."
+			],
+			"formula": [
+				"G.f.: ( -1-13*x^2 ) / (x-1)^3 . - _R. J. Mathar_, Mar 31 2014"
+			],
+			"mathematica": [
+				"CoefficientList[Series[(1 + 13 x^2)/(1 - x)^3, {x, 0, 50}], x] (* _Vincenzo Librandi_, Apr 02 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a239449 n = (7 * n - 5) * n + 1",
+				"(MAGMA) [7*n^2-5*n+1: n in [0..50]]; // _Vincenzo Librandi_, Apr 02 2014",
+				"(PARI) a(n)=7*n^2-5*n+1 \\\\ _Charles R Greathouse IV_, Jun 17 2017"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Mar 19 2014",
+			"references": 3,
+			"revision": 15,
+			"time": "2017-06-17T02:23:20-04:00",
+			"created": "2014-03-19T12:03:33-04:00"
+		},
+		{
+			"number": 239585,
+			"data": "2,2,3,2,2,3,3,5,5,7,11,11,13,11,11,13,13,11,17,13,11,17,11,19,13,17,13,11,19,11,11,13,17,11,17,23,13,19,13,11,19,13,17,11,23,11,13,17,19,23,17,11,13,19,11,13,17,11,19,29,23,11,13,19,29,17,11",
+			"name": "Prime factor \u003c= other prime factor of n-th brilliant number, cf. A078972.",
+			"comment": [
+				"a(n) = A020639(A078972(n)) = A078972(n) / A239586(n);",
+				"A055642(a(n)) = A055642(A239586(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239585/b239585.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e",
+				"Dario Alpern, \u003ca href=\"http://www.alpertron.com.ar/BRILLIANT.HTM\"\u003eBrilliant Numbers\u003c/a\u003e"
+			],
+			"example": [
+				".       n  | A239585(n) | A239586(n) | A078972(n)   Lengths of factors",
+				".  --------+------------+------------+-----------   ------------------",
+				".       1  |        2   |        2   |        4          1",
+				".       5  |        2   |        7   |       14",
+				".      10  |        7   |        7   |       49",
+				".          |.........................|              ..................",
+				".      11  |       11   |       11   |      121          2",
+				".      78  |       11   |       97   |     1067",
+				".     100  |       37   |       37   |     1369",
+				".     241  |       97   |       97   |     9409",
+				".          |.........................|              ..................",
+				".     242  |      101   |      101   |    10201          3",
+				".    1000  |      193   |      263   |    50759",
+				".    2530  |      101   |      997   |   100697",
+				".   10000  |      743   |      937   |   696191",
+				".   10537  |      997   |      997   |   994009",
+				".          |.........................|              ..................",
+				".   10538  |     1009   |     1009   |  1018081          4            ."
+			],
+			"program": [
+				"(Haskell)",
+				"a239585 = a020639 . a078972"
+			],
+			"xref": [
+				"Subsequence of A084126."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 22 2014",
+			"references": 3,
+			"revision": 5,
+			"time": "2014-03-22T11:25:29-04:00",
+			"created": "2014-03-22T11:25:29-04:00"
+		},
+		{
+			"number": 239586,
+			"data": "2,3,3,5,7,5,7,5,7,7,11,13,13,17,19,17,19,23,17,23,29,19,31,19,29,23,31,37,23,41,43,37,29,47,31,23,41,29,43,53,31,47,37,59,29,61,53,41,37,31,43,67,59,41,71,61,47,73,43,29,37,79,67,47,31,53,83",
+			"name": "Prime factor \u003e= other prime factor of n-th brilliant number, cf. A078972.",
+			"comment": [
+				"a(n) = A006530(A078972(n)) = A078972(n) / A239585(n);",
+				"A055642(a(n)) = A055642(A239585(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239586/b239586.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e",
+				"Dario Alpern, \u003ca href=\"http://www.alpertron.com.ar/BRILLIANT.HTM\"\u003eBrilliant Numbers\u003c/a\u003e"
+			],
+			"example": [
+				"see A239585."
+			],
+			"program": [
+				"(Haskell)",
+				"a239586 n = a078972 n `div` a239585 n"
+			],
+			"xref": [
+				"Subsequence of A084127."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 22 2014",
+			"references": 3,
+			"revision": 4,
+			"time": "2014-03-22T11:25:42-04:00",
+			"created": "2014-03-22T11:25:42-04:00"
+		},
+		{
+			"number": 239634,
+			"data": "4,6,9,1,1,1,2,2,2,2,3,3,3,3,3,4,4,5,5,5,5,6,6,6,7,7,8,8,8,8,9,9,9,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2",
+			"name": "Initial digits of semiprimes in decimal representation.",
+			"comment": [
+				"a(n) = A000030(A001358(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239634/b239634.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"First[IntegerDigits[#]]\u0026/@Select[Range[300],PrimeOmega[#]==2\u0026] (* _Harvey P. Dale_, Jul 24 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a239634 = a000030 . a001358"
+			],
+			"xref": [
+				"Cf. A239639 (run lengths), A106146 (last digits)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 23 2014",
+			"references": 3,
+			"revision": 6,
+			"time": "2017-07-24T17:29:56-04:00",
+			"created": "2014-03-23T10:39:32-04:00"
+		},
+		{
+			"number": 239943,
+			"data": "1,2,3,4,12,23,30,48,50,53,68,79,80,81,92,104,105,110,112,122,131,138,149,153,160,180,185,191,201,208,216,223,242,265,279,292,308,310,317,332,337,344,348,351,362,374,381,401,410,416,431,436,446,451,454",
+			"name": "Fixed points of the permutations A239965 and A238862.",
+			"comment": [
+				"a(n) = A239965(a(n)) = A238862(a(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239943/b239943.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a239943 n = a239943_list !! (n-1)",
+				"a239943_list = [x | x \u003c- [1..], a239965 x == x]"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 30 2014",
+			"references": 3,
+			"revision": 30,
+			"time": "2014-07-05T11:13:34-04:00",
+			"created": "2014-07-05T11:13:34-04:00"
+		},
+		{
+			"number": 240052,
+			"data": "1,12,16,21,44,31,60,41,56,92,72,71,124,123,140,240,244,448,121,384,236,297,176,161,249,284,247,540,191,608,221,272,380,912,520,380,1024,371,428,912,852,508,1472,433,696,297,293,705,860,493,716,1456,668,512,924,636,1188,552,669,764,2112,1340,521,1504,951,1836,672,1176,1300,1107,1076,737,908,1520,641,776,661,821,1647,1416,1828",
+			"name": "2nd arithmetic derivative of products of 2 successive prime numbers (A006094).",
+			"comment": [
+				"The first arithmetic derivative of products of 2 successive prime numbers (A006094) is the sum of 2 successive prime numbers (A001043). A001043 = (A006094)’. The second arithmetic derivative is a(n)=( A001043)’ = (A006094)’’."
+			],
+			"link": [
+				"Freimut Marschner, \u003ca href=\"/A240052/b240052.txt\"\u003eTable of n, a(n) for n = 1..429\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Arithmetic_derivative\"\u003eArithmetic derivative\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/P-derivation\"\u003ep-derivation\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (A006094(n))''.",
+				"a(n) = A068346(A006094(n))= A003415(A003415(A006094(n)))."
+			],
+			"example": [
+				"(2*3)’ = 1*3+2*1 = 5; (5)’ = 1; (2^2)’ = 2*2^1 = 2*2 = 4."
+			],
+			"maple": [
+				"with(numtheory); P:=proc(q) local a,b,c,p,n;",
+				"for n from 1 to q do a:=ithprime(n)*ithprime(n+1);",
+				"b:=a*add(op(2,p)/op(1,p),p=ifactors(a)[2]);",
+				"c:=b*add(op(2,p)/op(1,p),p=ifactors(b)[2]);",
+				"print(c); od; end: P(10^3); # _Paolo P. Lava_, Apr 01 2014"
+			],
+			"program": [
+				"(Haskell)",
+				"a240052 = a068346 . a006094  -- _Reinhard Zumkeller_, Apr 15 2014"
+			],
+			"xref": [
+				"Cf. A006094, A001043.",
+				"Cf. A003415 (1st derivative), A068346(2nd derivative)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Freimut Marschner_, Mar 31 2014",
+			"references": 3,
+			"revision": 25,
+			"time": "2014-04-16T05:52:32-04:00",
+			"created": "2014-04-16T05:52:32-04:00"
+		},
+		{
+			"number": 240508,
+			"data": "1,1,2,2,4,5,7,9,13,17,20,23,29,38,52,73,106,157,239,369,579,916,1460,2338,3757,6051,9761,15762,25470,41176,66587,107701,174223,281856,456008,737790,1193721,1931431,3125070,5056416",
+			"name": "Row lengths of table A174382.",
+			"program": [
+				"(Haskell)",
+				"a240508 = length . a174382_row"
+			],
+			"xref": [
+				"Cf. A126027."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Apr 06 2014",
+			"references": 3,
+			"revision": 3,
+			"time": "2014-04-06T18:31:47-04:00",
+			"created": "2014-04-06T18:31:47-04:00"
+		}
+	]
+}

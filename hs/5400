@@ -1,0 +1,381 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5400,
+	"results": [
+		{
+			"number": 74583,
+			"data": "1,2,3,4,5,7,9,11,13,17,19,23,25,27,29,31,37,41,43,47,49,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,121,125,127,131,137,139,149,151,157,163,167,169,173,179,181,191,193,197,199,211,223,227,229,233,239",
+			"name": "Numbers n such that sopfr(n) = S(n), where sopfr(n) = A001414 and S(n) = A002034.",
+			"comment": [
+				"These are the prime powers p^e with e\u003c=p. - _Reinhard Zumkeller_, Dec 15 2003",
+				"Complement to A192135 with respect to A000961;",
+				"a(n) = A000961(A192188(n)); A095874(a(n) =  A192188(n). [_Reinhard Zumkeller_, Jun 26 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A074583/b074583.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"sopfr[n_] := Total[Times @@@ FactorInteger[n]];",
+				"S[n_] := Module[{m = 1}, While[!IntegerQ[m!/n], m++]; m];",
+				"Select[Range[1000], sopfr[#] == S[#]\u0026] (* _Jean-François Alcover_, Nov 09 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a074583 n = a074583_list !! (n-1)",
+				"a074583_list = 1 : f (singleton 2) a000040_list where",
+				"  f s ps'@(p:p':ps)",
+				"    | m == p      = p : f (insert (p*p) $ insert p' s') (p':ps)",
+				"    | m \u003c spf^spf = m : f (insert (m*spf) s') ps'",
+				"    | otherwise   = m : f s' ps'",
+				"      where spf = a020639 m  -- smallest prime factor of m, cf. A020639",
+				"            (m, s') = deleteFindMin s",
+				"-- Simpler version:",
+				"a074583_list = map a000961 a192188_list",
+				"-- _Reinhard Zumkeller_, Jun 05 2011, Jun 26 2011"
+			],
+			"xref": [
+				"Subsequence of A000961; A000040, A000430, and A051674 are subsequences."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Jason Earls_, Aug 24 2002",
+			"references": 4,
+			"revision": 17,
+			"time": "2017-12-15T17:36:02-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 74721,
+			"data": "2,3,5,7,11,13,17,19,2,3,2,93137414347535961677173798389971011031071091131,2,7,13,11,3,7,13,91491511,5,7,163,167,17,3,17,9181,19,11,9319,7,19,9211223227229233239241251257,2,6326927,127,7,2,81283,2,93307,3,11,3,13,3,17,3,3,13,3,7,3,47,3,493533593673733",
+			"name": "Concatenate the primes as 2357111317192329313..., then insert commas from left to right so that between each pair of successive commas is a prime, always making the new prime as small as possible.",
+			"comment": [
+				"Note that leading zeros are dropped. Example: When the primes 691, 701, 709, and 719 get concatenated and digitized, they become {..., 6, 9, 1, 7, 0, 1, 7, 0, 9, 7, 1, 9, ...}. These will end up in A074721 as: a(98)=691, a(99)=7, a(100)=17, a(101)=97, a(102)=19, ..., . Terms a(100) \u0026 a(101) have associated with them unstated leading zeros. - _Hans Havermann_, Jun 26 2009",
+				"Large terms in the links are probable primes only. For example, a(1290) has 24744 digits and a(4050), 32676 digits. If of course any probable primes were not actual primes, the indexing of subsequent terms would be altered. - _Hans Havermann_, Dec 28 2010",
+				"What is the next term after {2, 3, 5, 7, 11, 13, 17, 19}, if any, giving a(k)=A000040(k)?"
+			],
+			"link": [
+				"Robert G. Wilson v, \u003ca href=\"/A074721/b074721.txt\"\u003eTable of n, a(n) for n = 1..329\u003c/a\u003e [a(330) is too large to be included in a b-file: see the a-file)",
+				"Hans Havermann, \u003ca href=\"http://chesswanks.com/seq/a074721.html\"\u003eTwo-color listing of 5359 terms\u003c/a\u003e",
+				"Robert G. Wilson v, \u003ca href=\"/A074721/a074721.txt\"\u003eTable of n, a(n) for n = 1..1289\u003c/a\u003e"
+			],
+			"mathematica": [
+				"id = IntegerDigits@ Array[ Prime, 3000] // Flatten; lst = {}; Do[ k = 1; While[ p = FromDigits@ Take[ id, k]; !PrimeQ@p || p == 1, k++ ]; AppendTo[lst, p]; id = Drop[id, k], {n, 1289}]"
+			],
+			"program": [
+				"(PARI)",
+				"a=0;",
+				"tryd(d) = { a=a*10+d; if(isprime(a),print(a);a=0); }",
+				"try(p) = { if(p\u003e=10,try(p\\10)); tryd(p%10); }",
+				"forprime(p=2,1000,try(p)); \\\\ _Jack Brennen_, Jun 25 2009",
+				"(Haskell)",
+				"a074721 n = a074721_list !! (n-1)",
+				"a074721_list = f 0 $ map toInteger a033308_list where",
+				"   f c ds'@(d:ds) | a010051'' c == 1 = c : f 0 ds'",
+				"                  | otherwise = f (10 * c + d) ds",
+				"-- _Reinhard Zumkeller_, Mar 11 2014"
+			],
+			"xref": [
+				"Cf. A073034, A047777, A053648, A069090.",
+				"Cf. A033308."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 04 2002",
+			"ext": [
+				"Edited by _Robert G. Wilson v_, Jun 26 2009",
+				"Further edited by _N. J. A. Sloane_, Jun 27 2009, incorporating comments from _Leroy Quet_, _Hans Havermann_, _Jack Brennen_ and _Franklin T. Adams-Watters_"
+			],
+			"references": 4,
+			"revision": 35,
+			"time": "2018-06-14T03:17:03-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 74847,
+			"data": "1,3,4,7,6,12,8,15,13,18,12,28,14,24,24,17,18,39,20,42,32,36,24,60,31,42,40,56,30,72,32,51,48,54,48,91,38,60,56,90,42,96,44,84,78,72,48,68,57,93,72,98,54,120,72,120,80,90,60,168,62,96,104,119,84,144,68,126,96",
+			"name": "Sum of 4-infinitary divisors of n: if n=Product p(i)^r(i) and d=Product p(i)^s(i), each s(i) has a digit a\u003c=b in its 4-ary expansion everywhere that the corresponding r(i) has a digit b, then d is a 4-infinitary-divisor of n.",
+			"comment": [
+				"If we group the exponents e in the Bower-Harris formula into the sets with d_k=0, 1, 2 and 3, we see that every n has a unique representation of the form n=prod q_i *prod (r_j)^2 *prod (s_k)^3, where each of q_i, r_j, s_k is a prime power of the form p^(k^4), p prime, k\u003e=0. Using this representation, a(n)=prod (q_i+1)prod ((r_j)^2+r_j+1)prod ((s_k)^3+(s_k)^2+s_k+1) by simple expansion of the quotient on the right hand side of the Bower-Harris formula. - _Vladimir Shevelev_, May 08 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A074847/b074847.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative. If e = sum_{k \u003e= 0} d_k 4^k (base 4 representation), then a(p^e) = prod_{k \u003e= 0} (p^(4^k*{d_k+1}) - 1)/(p^(4^k) - 1). - _Christian G. Bower_ and _Mitch Harris_, May 20 2005"
+			],
+			"example": [
+				"2^4*3 is a 4-infinitary-divisor of 2^5*3^2 because 2^4*3 = 2^10*3^1 and 2^5*3^2 = 2^11*3^2 in 4-ary expanded power. All corresponding digits satisfy the condition. 1\u003c=1, 0\u003c=1, 1\u003c=2."
+			],
+			"maple": [
+				"A074847 := proc(n) option remember; ifa := ifactors(n)[2] ; a := 1 ; if nops(ifa) = 1 then p := op(1,op(1,ifa)) ; e := op(2,op(1,ifa)) ; d := convert(e,base,4) ; for k from 0 to nops(d)-1 do a := a*(p^((1+op(k+1,d))*4^k)-1)/(p^(4^k)-1) ; end do: else for d in ifa do a := a*procname( op(1,d)^op(2,d)) ; end do: return a; end if; end proc:",
+				"seq(A074847(n),n=1..100) ; # _R. J. Mathar_, Oct 06 2010"
+			],
+			"program": [
+				"(Haskell)  following Bower and Harris, cf. A049418:",
+				"a074847 1 = 1",
+				"a074847 n = product $ zipWith f (a027748_row n) (a124010_row n) where",
+				"   f p e = product $ zipWith div",
+				"           (map (subtract 1 . (p ^)) $",
+				"                zipWith (*) a000302_list $ map (+ 1) $ a030386_row e)",
+				"           (map (subtract 1 . (p ^)) a000302_list)",
+				"-- _Reinhard Zumkeller_, Sep 18 2015"
+			],
+			"xref": [
+				"Cf. A049417 (2-infinitary), A049418 (3-infinitary), A097863 (5-infinitary).",
+				"Cf. A000302, A030386, A027748, A124010."
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,2",
+			"author": "_Yasutoshi Kohmoto_, Sep 10 2002",
+			"ext": [
+				"More terms from _R. J. Mathar_, Oct 06 2010"
+			],
+			"references": 4,
+			"revision": 28,
+			"time": "2016-04-19T01:07:33-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 74911,
+			"data": "1,2,2,6,4,6,24,10,10,24,120,34,20,34,120,720,154,54,54,154,720,5040,874,208,108,208,874,5040,40320,5914,1082,316,316,1082,5914,40320,362880,46234,6996,1398,632,1398,6996,46234,362880",
+			"name": "Triangle generated by Pascal's rule, except begin and end the n-th row with n!.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A074911/b074911.txt\"\u003eRows n = 1..100 of table, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"Triangle begins:",
+				"1;",
+				"2, 2;",
+				"6, 4, 6;",
+				"24, 10, 10, 24;",
+				"120, 34, 20, 34, 120;",
+				"720, 154, 54, 54, 154, 720;",
+				"5040, 874, 208, 108, 208, 874, 5040;"
+			],
+			"program": [
+				"(PARI) t(n, k) = {if (k\u003c1 || k\u003en, return (0)); if (k==1 || k==n, return (n!)); return (t(n-1, k-1) + t(n-1, k));}",
+				"tabl(nn) = {for (n=1, nn, for (k=1, n, print1(t(n, k), \", \");); print(););} \\\\ _Michel Marcus_, May 19 2013",
+				"(Haskell)",
+				"a074911 n k = a074911_tabl !! (n-1) !! (k-1)",
+				"a074911_row n = a074911_tabl !! (n-1)",
+				"a074911_tabl = map fst $ iterate",
+				"   (\\(vs, w:ws) -\u003e (zipWith (+) ([w] ++ vs) (vs ++ [w]), ws))",
+				"   ([1], tail a001563_list)",
+				"-- _Reinhard Zumkeller_, Aug 05 2013"
+			],
+			"xref": [
+				"Cf. A227550, A225621 (central terms)."
+			],
+			"keyword": "easy,nonn,tabl",
+			"offset": "1,2",
+			"author": "_Joseph L. Pe_, Oct 01 2002",
+			"ext": [
+				"More terms from _Michel Marcus_, May 19 2013"
+			],
+			"references": 4,
+			"revision": 8,
+			"time": "2014-02-11T19:05:30-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 74964,
+			"data": "1,2,3,4,6,8,12,18,24,60",
+			"name": "Numbers k such that Max ( sigma(x*y) : 1 \u003c= x \u003c= k, 1 \u003c= y \u003c= k ) = sigma(k^2).",
+			"comment": [
+				"Sequence is probably finite.",
+				"The next term in the sequence, if it exists, is larger than 40000. - _Stewart Gordon_, Sep 27 2011",
+				"Conjecture: subsequence of A066522, implying finiteness. - _Reinhard Zumkeller_, Nov 14 2011"
+			],
+			"formula": [
+				"A074963(a(n)) = A065764(a(n)). - _Reinhard Zumkeller_, Nov 14 2011"
+			],
+			"maple": [
+				"with(numtheory): s := proc(n) option remember: return sigma(n): end: a:= proc(n) option remember: if(n=0)then return 0: fi: return max(a(n-1),seq(s(x*n),x=1..n)): end: for n from 1 to 100 do if(a(n)=s(n^2))then printf(\"%d, \", n): end: od: # _Nathaniel Johnston_, Sep 26 2011"
+			],
+			"program": [
+				"(Haskell)",
+				"a074964 n = a074964_list !! (n-1)",
+				"a074964_list = filter (\\x -\u003e a074963 x == a065764 x) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 14 2011"
+			],
+			"xref": [
+				"Cf. A000203."
+			],
+			"keyword": "more,nonn",
+			"offset": "1,2",
+			"author": "_Benoit Cloitre_, Oct 05 2002",
+			"references": 4,
+			"revision": 19,
+			"time": "2017-08-14T02:42:07-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 74976,
+			"data": "3,2,2,1,3,2,4,2,2,5,2,3,6,3,2,2,8,3,4,8,3,4,3,2,5,10,5,10,5,2,6,4,12,2,12,4,4,6,4,4,13,3,14,7,14,2,2,7,15,8,5,15,3,5,5,5,16,6,8,17,3,2,9,18,9,3,6,4,19,9,6,5,6,6,10,7,5,10,5,4,20,4,21,7,10,7,5,11,21,11,4,5,11,6,11",
+			"name": "a(n) = round(1/(sqrt(prime(n+1)) - sqrt(prime(n))).",
+			"comment": [
+				"If Andrica's conjecture is true, each term in the sequence is \u003e=1.",
+				"Since Andrica's conjecture is bounded below only by zero, a(n) is not bounded above."
+			],
+			"reference": [
+				"C. A. Pickover, The Math Book, Sterling, NY, 2009; see p. 482."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A074976/b074976.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/AndricasConjecture.html\"\u003eAndrica's conjecture\u003c/a\u003e"
+			],
+			"formula": [
+				"Conjecture: for n\u003e=4, a(n)\u003e=2. More generally, for any m \u003e=1, the set of k such that a(k)=m is finite. I.e., if n\u003e=217, a(n)\u003e=3; if n\u003e=263, a(n)\u003e=4; if n\u003e=590, a(n)\u003e=5; if n\u003e=3385, a(n)\u003e=6; ..."
+			],
+			"example": [
+				"a(1) = round(1/(sqrt(3) - sqrt(2))) = round(1/(1.7320.. - 1.4142..)) = round(1/0.3178..) = round(3.1462..) = 3."
+			],
+			"program": [
+				"(PARI) a(n) = round(1/(sqrt(prime(n+1))-sqrt(prime(n)))) \\\\ _Michel Marcus_, May 22 2013",
+				"(Haskell)",
+				"a074976 n = a074976_list !! (n-1)",
+				"a074976_list = map (round . recip) $ zipWith (-) (tail rs) rs",
+				"               where rs = map (sqrt . fromIntegral) a000040_list",
+				"-- _Reinhard Zumkeller_, Jan 04 2015"
+			],
+			"xref": [
+				"Cf. A000040, A252477."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Werner D. Sand_ and _Benoit Cloitre_, Oct 06 2002",
+			"references": 4,
+			"revision": 16,
+			"time": "2015-02-17T20:44:01-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75105,
+			"data": "2,3,2,5,3,7,8,3,10,11,4,13,14,5,4,17,9,19,5,21,11,23,6,25,13,27,7,29,15,31,32,33,34,7,36,37,38,39,8,41,42,43,44,9,46,47,48,49,10,51,52,53,54,11,56,57,58,59,12,61,62,63,32,65,11,67,34,23,35,71,12,73,37,25,38",
+			"name": "Numerator of n/floor(log_2(n)); denominator is A075106(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075105/b075105.txt\"\u003eTable of n, a(n) for n = 2..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n/A075104(n)."
+			],
+			"mathematica": [
+				"Table[n/Floor[Log[2,n]],{n,2,80}]//Numerator (* _Harvey P. Dale_, Feb 25 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator)",
+				"a075105 n = numerator $ n % a000523 n",
+				"-- _Reinhard Zumkeller_, Jul 08 2014"
+			],
+			"xref": [
+				"Cf. A000523, A075104, A075106."
+			],
+			"keyword": "nonn,frac",
+			"offset": "2,1",
+			"author": "_Reinhard Zumkeller_, Sep 02 2002",
+			"references": 4,
+			"revision": 10,
+			"time": "2018-10-27T22:43:34-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75106,
+			"data": "1,1,1,2,1,2,3,1,3,3,1,3,3,1,1,4,2,4,1,4,2,4,1,4,2,4,1,4,2,4,5,5,5,1,5,5,5,5,1,5,5,5,5,1,5,5,5,5,1,5,5,5,5,1,5,5,5,5,1,5,5,5,3,6,1,6,3,2,3,6,1,6,3,2,3,6,1,6,3,2,3,6,1,6,3,2,3,6,1,6,3,2,3,6,1,6,3,2,3,6,1,6,3,2,3",
+			"name": "Denominator of n/floor(log_2(n)); numerator is A075105(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075106/b075106.txt\"\u003eTable of n, a(n) for n = 2..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000523(n)/A075104(n)."
+			],
+			"mathematica": [
+				"Table[n/Floor[Log[2,n]],{n,2,110}]//Denominator (* _Harvey P. Dale_, Feb 25 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), denominator)",
+				"a075106 n = denominator $ n % a000523 n",
+				"-- _Reinhard Zumkeller_, Jul 08 2014"
+			],
+			"xref": [
+				"Cf. A000523, A075104, A075105."
+			],
+			"keyword": "nonn,frac",
+			"offset": "2,4",
+			"author": "_Reinhard Zumkeller_, Sep 02 2002",
+			"references": 4,
+			"revision": 10,
+			"time": "2018-10-27T22:43:52-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75119,
+			"data": "1,1,1,1,2,1,2,1,1,3,3,1,3,3,1,1,4,2,4,1,4,2,4,1,1,5,5,5,5,1,5,5,5,5,1,1,6,3,2,3,6,1,6,3,2,3,6,1,1,7,7,7,7,7,7,1,7,7,7,7,7,7,1,1,8,4,8,2,8,4,8,1,8,4,8,2,8,4,8,1,1,9,9,3,9,9,3,9,9,1,9,9,3,9,9,3,9,9,1,1,10,5,10,5",
+			"name": "Denominator of n/floor(sqrt(n)); numerator is A073890(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075119/b075119.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000196(n)/A067815(n)."
+			],
+			"maple": [
+				"A075119:=n-\u003edenom(n/floor(sqrt(n))): seq(A075119(n), n=1..100); # _Wesley Ivan Hurt_, Jul 07 2014"
+			],
+			"mathematica": [
+				"Table[Denominator[n/Floor[Sqrt[n]]], {n, 100}] (* _Wesley Ivan Hurt_, Jul 07 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), denominator)",
+				"a075119 n = denominator $ n % a000196 n",
+				"-- _Reinhard Zumkeller_, Jul 08 2014"
+			],
+			"xref": [
+				"Cf. A000196, A067815."
+			],
+			"keyword": "nonn,frac",
+			"offset": "1,5",
+			"author": "_Reinhard Zumkeller_, Sep 03 2002",
+			"ext": [
+				"Numerator reference corrected by _Reinhard Zumkeller_, Jul 08 2014"
+			],
+			"references": 4,
+			"revision": 10,
+			"time": "2014-07-08T11:16:47-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75345,
+			"data": "2,5,17,31,67,109,179,257,373,503,673,877,1093,1381,1693,2063,2459,2927,3449,4001,4637,5347,6089,6947,7817,8783,9857,10987,12211,13513,14923,16411,17971,19661,21467,23333,25343,27457,29683,32027,34469,37087",
+			"name": "Group the natural numbers such that the n-th group contains n terms and the group sum is the smallest possible prime: (2), (1, 4), (3, 5, 9), (6, 7, 8, 10), (11, 12, 13, 14, 17), (15, 16, 18, 19, 20, 21), ... Sequence gives group sums.",
+			"comment": [
+				"See A075348 for the groups. In case of several possibilities to write the given prime, e.g. a(3) = 3+5+9 = 3+6+8, the lexicographically smallest is to be chosen, here (3,5,9) rather than (3,6,8). - _M. F. Hasler_, Sep 26 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075345/b075345.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a075345 = sum . a075348_row  -- _Reinhard Zumkeller_, Sep 26 2015"
+			],
+			"xref": [
+				"Cf. A075346, A075347.",
+				"Cf. A075348."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, Sep 19 2002",
+			"ext": [
+				"More terms from _David Wasserman_, Jan 16 2005"
+			],
+			"references": 4,
+			"revision": 11,
+			"time": "2015-09-26T15:33:55-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

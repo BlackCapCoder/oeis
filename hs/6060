@@ -1,0 +1,463 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6060,
+	"results": [
+		{
+			"number": 3619,
+			"id": "M2300",
+			"data": "1,3,4,5,6,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53",
+			"name": "Not of form [ e^m ], m \u003e= 1.",
+			"comment": [
+				"If 1 is excluded (of form [e^0]) then complement of A000149. - _Michel Marcus_, Jun 16 2013"
+			],
+			"reference": [
+				"J. Roberts, Lure of the Integers, Math. Assoc. America, 1992, p. 11.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A003619/b003619.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"J. Lambek and L. Moser, \u003ca href=\"http://www.jstor.org/stable/2308078\"\u003eInverse and complementary sequences of natural numbers\u003c/a\u003e, Amer. Math. Monthly, 61 (1954), 454-458."
+			],
+			"formula": [
+				"a(n) = n + [ log (n + 1 + [ log (n + 1) ]) ]."
+			],
+			"mathematica": [
+				"Table[n + Floor@ Log[n + 1 + Floor@ Log[n + 1]], {n, 50}] (* _Michael De Vlieger_, Oct 06 2017 *)"
+			],
+			"program": [
+				"(PARI) a(n) = n + floor( log (n + 1 + floor( log (n + 1) )) ) \\\\ _Michel Marcus_, Jun 16 2013",
+				"(Haskell)",
+				"a003619 n = n + floor (log (x + fromIntegral (floor $ log x)))",
+				"            where x = fromIntegral n + 1",
+				"-- _Reinhard Zumkeller_, Mar 17 2015"
+			],
+			"xref": [
+				"Cf. A000195."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, _Mira Bernstein_",
+			"references": 3,
+			"revision": 23,
+			"time": "2017-10-06T20:15:18-04:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 4278,
+			"data": "1,2,3,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,96,98,100,102,104",
+			"name": "1, 3 and the positive even numbers.",
+			"comment": [
+				"a(n) is the maximum number of turns that player A needs to identify with certainty the location of the coin that player B has hidden in one box in a row of n + 1 boxes. Player A starts by opening one of the boxes to see if the coin is in that box. After that, B secretly relocates the coin from its current box to one of the neighboring boxes, except when n = 1. In that case the game ends before B can relocate the coin. On each turn player A opens one box and when player A can tell in which box the coin is located, the game ends. Can be proved. - _Bob Andriesse_, Dec 22 2017"
+			],
+			"link": [
+				"Iain Fox, \u003ca href=\"/A004278/b004278.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-1)"
+			],
+			"formula": [
+				"From _Iain Fox_, Dec 21 2017: (Start)",
+				"G.f.: (x + x^5)/(1 - x)^2.",
+				"a(n) = 2*a(n-1) - a(n-2), n \u003e 2 and n is not 5.",
+				"a(n) = 2*n - 2 + floor((4/Pi)*arctan(2 - n)).",
+				"(End)",
+				"E.g.f.: 2*e^x*(x - 1) + 3 + 2*x + x^2/2. - _Iain Fox_, Dec 22 2017",
+				"a(n) = (abs(4 - n) + 3*n - 4)/2. - _Iain Fox_, Dec 23 2017"
+			],
+			"mathematica": [
+				"Sort[Join[{1,3},2*Range[60]]] (* _Harvey P. Dale_, Feb 04 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a004278 n = if n \u003c= 3 then n else 2 * (n - 2)",
+				"a004278_list = [1, 2, 3] ++ [4, 6 ..]",
+				"-- _Reinhard Zumkeller_, Nov 10 2012",
+				"(PARI) first(n) = Vec((x + x^5)/(x - 1)^2 + O(x^(n+1))) \\\\ _Iain Fox_, Dec 21 2017"
+			],
+			"xref": [
+				"Cf. A005843."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, Nov 10 2012"
+			],
+			"references": 3,
+			"revision": 46,
+			"time": "2017-12-27T01:47:05-05:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 4776,
+			"data": "0,1,2,3,4,6,7,8,9,10,11,12,14,15,16,17,18,19,20,22,23,24,25,26,27,28,30,31,32,33,34,35,36,38,39,40,41,42,43,44,46,47,48,49,50,51,52,54,55,56,57,58,59,60,62,63,64,65,66,67,68,70,71,72,73,74,75,76,78",
+			"name": "Numbers n not congruent to 5 (mod 8).",
+			"comment": [
+				"Also, numbers n whose binary expansion does not end 101.",
+				"Numbers that are congruent to {0, 1, 2, 3, 4, 6, 7} mod 8. - _Wesley Ivan Hurt_, Jul 22 2016"
+			],
+			"link": [
+				"\u003ca href=\"/index/Rec#order_08\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,0,0,0,0,0,1,-1)."
+			],
+			"formula": [
+				"Numbers that are congruent to {0, 1, 2, 3, 4, 6, 7} mod 8.",
+				"G.f.: x^2*(1+x+x^2+x^3+2*x^4+x^5+x^6) / ((x^6+x^5+x^4+x^3+x^2+x+1)*(x-1)^2). - _R. J. Mathar_, Oct 25 2011",
+				"a(n) = n + floor((n-6)/7). - _M. F. Hasler_, Nov 02 2013",
+				"From _Wesley Ivan Hurt_, Jul 22 2016: (Start)",
+				"a(n) = a(n-1) + a(n-7) - a(n-8) for n\u003e8; a(n) = a(n-7) + 8 for n\u003e7.",
+				"a(n) = (56*n - 63 + (n mod 7) - 6*((n+1) mod 7) + ((n+2) mod 7) + ((n+3) mod 7) + ((n+4) mod 7) + ((n+5) mod 7) + ((n+6) mod 7))/49.",
+				"a(7k) = 8k-1, a(7k-1) = 8k-2, a(7k-2) = 8k-4, a(7k-3) = 8k-5, a(7k-4) = 8k-6, a(7k-5) = 8k-7, a(7k-6) = 8k-8. (End)"
+			],
+			"maple": [
+				"A004776:=n-\u003e8*floor(n/7)+[0, 1, 2, 3, 4, 6, 7][(n mod 7)+1]: seq(A004776(n), n=0..100); # _Wesley Ivan Hurt_, Jul 22 2016"
+			],
+			"mathematica": [
+				"DeleteCases[Range[0,80],_?(Mod[#,8]==5\u0026)] (* _Harvey P. Dale_, Apr 28 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a004776 n = a004776_list !! (n-1)",
+				"a004776_list = filter ((/= 5) . (`mod` 8)) [0..]",
+				"-- _Reinhard Zumkeller_, Aug 17 2012",
+				"(PARI) is(n)=n%8!=5 \\\\ _Charles R Greathouse IV_, Mar 07 2013",
+				"(PARI) A004776(n)=n+(n-6)\\7  \\\\ _M. F. Hasler_, Nov 02 2013",
+				"(MAGMA) [n : n in [0..100] | n mod 8 in [0, 1, 2, 3, 4, 6, 7]]; // _Wesley Ivan Hurt_, Jul 22 2016"
+			],
+			"xref": [
+				"Cf. A004770 (complement), A045323 (primes)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Edited by _M. F. Hasler_, Nov 02 2013"
+			],
+			"references": 3,
+			"revision": 33,
+			"time": "2016-07-22T22:01:24-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 5002,
+			"id": "M3465",
+			"data": "1,4,13,41,134,471,1819,7778,36703,189381,1057332,6328261,40300959,271501240,1925961025,14332064197,111528998198,905134802555,7643011810167,67010181855706,608890179868163,5724496098183649",
+			"name": "Number of rhyme schemes (see reference for precise definition).",
+			"reference": [
+				"J. Riordan, A budget of rhyme scheme counts, pp. 455 - 465 of Second International Conference on Combinatorial Mathematics, New York, April 4-7, 1978. Edited by Allan Gewirtz and Louis V. Quintas. Annals New York Academy of Sciences, 319, 1979.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A005002/b005002.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"J. Riordan, \u003ca href=\"/A005000/a005000.pdf\"\u003eCached copy of paper\u003c/a\u003e"
+			],
+			"formula": [
+				"a(k)=1. a(n) = k*a(n-1) + A000110(n-1) - A102661(n-1,k-2), k=2. - _R. J. Mathar_, Jul 15 2008"
+			],
+			"maple": [
+				"A000110 := proc(n) combinat[bell](n) ; end:",
+				"A005001:=n-\u003eif n = 0 then 0; else add(combinat[bell](k),k=0..n); fi;",
+				"A102661 := proc(n,k) add(combinat[stirling2](n,i),i=1..k) ; end:",
+				"beta := proc(n,k) if k= 1 then A005001(n) ; elif k= n then 1 ; else k*beta(n-1,k)+A000110(n-1)-A102661(n-1,k-2) ; fi ; end:",
+				"A005002 := proc(n) beta(n,2) ; end:",
+				"seq(A005002(n),n=2..30) ; # _R. J. Mathar_, Jul 15 2008"
+			],
+			"mathematica": [
+				"a[1]=1; a[n_] := a[n] = 2a[n-1] + BellB[n]; a /@ Range[22]",
+				"(* _Jean-François Alcover_, May 19 2011, after _R. J. Mathar_ *)",
+				"nxt[{n_,a_}]:={n+1,2a+BellB[n+1]}; Transpose[NestList[nxt,{1,1},30]] [[2]] (* _Harvey P. Dale_, Apr 20 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a005002 n = a005002_list !! (n-1)",
+				"a005002_list = 1 : zipWith (+) (map (* 2) a005002_list)",
+				"                               (drop 2 a000110_list)",
+				"-- _Reinhard Zumkeller_, Jun 19 2015"
+			],
+			"xref": [
+				"Cf. A005000, A005003, A127021.",
+				"Cf. A000110."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _R. J. Mathar_, Jul 15 2008"
+			],
+			"references": 3,
+			"revision": 31,
+			"time": "2017-10-03T01:31:10-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 5041,
+			"id": "M0258",
+			"data": "1,1,2,2,3,3,4,4,4,5,5,5,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,10,11,11,11,11,11,12,12,12,12,12,13,13,13,13,13,13,14,14,14,14,14,14,15,15,15,15,15,15,16,16,16,16,16,16,16,17,17,17,17,17,17,17,18,18,18,18",
+			"name": "A self-generating sequence.",
+			"comment": [
+				"See A008620 for run lengths: each k occurs A008620(k+2) times. [_Reinhard Zumkeller_, Mar 16 2012]"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A005041/b005041.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"James Propp, \u003ca href=\"http://www.jstor.org/stable/2689427\"\u003eProblem 1047\u003c/a\u003e, Math. Mag., 52 (1979), 265.",
+				"J. Shallit, \u003ca href=\"/A005041/a005041.pdf\"\u003eLetter to N. J. A. Sloane\u003c/a\u003e, Nov 10 1979.  Attached: James Propp, Problem 1047, Math. Mag., 52 (1979), 265. [Annotated scanned copy]",
+				"Aaron Snook, \u003ca href=\"http://www.cs.cmu.edu/afs/cs/user/mjs/ftp/thesis-program/2012/theses/snook.pdf\"\u003eAugmented Integer Linear Recurrences\u003c/a\u003e, Thesis, 2012. - From _N. J. A. Sloane_, Dec 19 2012"
+			],
+			"formula": [
+				"For any k in {0, 1, 2, ...} and r in {0, 1, 2), we have: if n=6*k+(3/2)*(k)*(k-1)+r*(k+2), then a(n)=3*k+r+1. E.g. for k=3 and r=1, we have n=6*3+(3/2)*(3)*(3-1)+1*(3+2)=32 and so a(32)=3*3+1+1=11. - Francois Jooste (phukraut(AT)hotmail.com), Mar 12 2002"
+			],
+			"mathematica": [
+				"Table[n+1, {n, 0, 20}, {Ceiling[(n+1)/3]+1}] // Flatten (* _Jean-François Alcover_, Dec 10 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a005041 n = a005041_list !! n",
+				"a005041_list = 1 : f 1 1 (tail ts) where",
+				"   f y i gs'@((j,a):gs) | i \u003c j  = y : f y (i+1) gs'",
+				"                        | i == j = a : f a (i+1) gs",
+				"   ts = [(6*k + 3*k*(k-1) `div` 2 + r*(k+2), 3*k+r+1) |",
+				"         k \u003c- [0..], r \u003c- [0,1,2]]",
+				"-- _Reinhard Zumkeller_, Mar 16 2012"
+			],
+			"xref": [
+				"Cf. A005038, A005039, A005040, A005043, A005044, A055086, A001462, A082462, A024417, A084500."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, _Jeffrey Shallit_",
+			"ext": [
+				"More terms from Samuel Hilliard (sam_spade1977(AT)hotmail.com), Apr 11 2004"
+			],
+			"references": 3,
+			"revision": 35,
+			"time": "2017-06-19T18:23:36-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 5055,
+			"data": "7,35,175,875,4375,21875,109375,546875,2734375,13671875,68359375,341796875,1708984375,8544921875,42724609375,213623046875,1068115234375,5340576171875,26702880859375,133514404296875,667572021484375,3337860107421875,16689300537109375",
+			"name": "7*5^n.",
+			"comment": [
+				"a(n) = sum of row n+1 of triangle A249307. - _Reinhard Zumkeller_, Nov 14 2014"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A005055/b005055.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_01\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (5)."
+			],
+			"formula": [
+				"a(n)=5*a(n-1), n\u003e0; a(0)=7. G.f.: 7/(1-5*x). - _Philippe Deléham_, Nov 23 2008",
+				"E.g.f.: 7*e^(5*x). - _Mohammad K. Azarian_, Jan 15 2009"
+			],
+			"mathematica": [
+				"7*5^Range[0, 100] (* _Vladimir Joseph Stephan Orlovsky_, Jun 09 2011 *)",
+				"NestList[5#\u0026,7,30] (* _Harvey P. Dale_, Sep 28 2015 *)"
+			],
+			"program": [
+				"(MAGMA) [7*5^n: n in [0..20]]; // _Vincenzo Librandi_, Sep 15 2011",
+				"(Haskell)",
+				"a005055 = (* 7) . (5 ^)",
+				"a005055_list = iterate (* 5) 7  -- _Reinhard Zumkeller_, Nov 14 2014"
+			],
+			"xref": [
+				"Cf. A000351."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 3,
+			"revision": 34,
+			"time": "2015-09-28T15:33:10-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 5236,
+			"id": "M0501",
+			"data": "2,3,4,5,6,8,9,10,12,14,17,18,20,24,26,28,30,33,38,42,48,50,54,60,65,74,82,84,90,98,102,108,110,114,126,129,138,150,164,168,174,180,194,198,228,234,244,252,258,264,270,290,294,318,348,354,360,384,390,402",
+			"name": "Barriers for omega(n): numbers n such that, for all m \u003c n, m + omega(m) \u003c= n.",
+			"comment": [
+				"omega(m) is the number of distinct prime factors of m."
+			],
+			"reference": [
+				"R. K. Guy, Unsolved Problems in Number Theory, B8.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A005236/b005236.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Paul Erdos, \u003ca href=\"https://www.jstor.org/stable/2689842\"\u003eSome Unconventional Problems in Number Theory\u003c/a\u003e, Mathematics Magazine, Vol. 52, No. 2, Mar., 1979, pp. 67-70. See Problem 4. p. 68.",
+				"Paul Erdos, \u003ca href=\"https://users.renyi.hu/~p_erdos/1979-23.pdf\"\u003eSome unconventional problems in number theory\u003c/a\u003e, Acta Mathematica Hungarica, 33(1):71-80, 1979."
+			],
+			"example": [
+				"1 + omega(1) = 1, 2 + omega(2) = 3, 3 + omega(3) = 4, 4 + omega(4) = 5, 5 + omega(5) = 6.",
+				"Thus we have verified that m + omega(m) \u003c 6 for m \u003c 6, so 6 is in the sequence.",
+				"But since 6 + omega(6) = 8 \u003e 7, 7 is not in the sequence."
+			],
+			"mathematica": [
+				"omegaBarrierQ[n_] := (For[m = 1, m \u003c n, m++, If[m + PrimeNu[m] \u003e n, Return[False]]]; True); Select[Range[2, 500], omegaBarrierQ] (* _Jean-François Alcover_, Feb 03 2015 *)"
+			],
+			"program": [
+				"(PARI) is(n)=for(k=1,log(n)\\log(5),if(omega(n-k)\u003ek,return(0)));n\u003e1 \\\\ _Charles R Greathouse IV_, Sep 19 2012",
+				"(Haskell)",
+				"a005236 n = a005236_list !! (n-1)",
+				"a005236_list = filter (\\x -\u003e all (\u003c= x) $ map a229109 [1..x-1]) [2..]",
+				"-- _Reinhard Zumkeller_, Sep 13 2013"
+			],
+			"xref": [
+				"Cf. A001221, A229109."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _John W. Layman_"
+			],
+			"references": 3,
+			"revision": 38,
+			"time": "2018-12-01T06:45:27-05:00",
+			"created": "1991-05-20T03:00:00-04:00"
+		},
+		{
+			"number": 5242,
+			"id": "M0971",
+			"data": "1,2,4,5,8,10,12,14,15,16,19,20,21,24,25,27,28,32,33,34,37,38,40,42,43,44,46,47,48,51,53,54,56,57,58,59,61,62,63,64,66,68,69,72,73,74,77,79,81,83,84,86,88,89,91,92,94,96,97,98,100",
+			"name": "A self-generating sequence.",
+			"reference": [
+				"R. K. Guy, Unsolved Problems in Number Theory, E30.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A005242/b005242.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimeNumberofMeasurement.html\"\u003ePrime Number of Measurement.\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\))",
+				"a005242 n = a005242_list !! (n-1)",
+				"a005242_list = f [1..] 0 0 where",
+				"   f (x:xs) y z = x : f (xs \\\\ [x + y, x + y + z]) x y",
+				"-- _Reinhard Zumkeller_, May 23 2013"
+			],
+			"xref": [
+				"Cf. A002048, A033627."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _Jud McCranie_ Feb 15 1997"
+			],
+			"references": 3,
+			"revision": 21,
+			"time": "2013-05-23T16:34:59-04:00",
+			"created": "1991-05-20T03:00:00-04:00"
+		},
+		{
+			"number": 5254,
+			"id": "M2779 M2780",
+			"data": "1,3,9,21,51,117,271,607,1363,3013,6643,14491,31495,67965,146115,312483,666015,1413915,2992815,6315135,13292007,27906585,58464339,122229123,255072423,531369483,1105217223,2295383319,4760727375",
+			"name": "Number of weighted voting procedures.",
+			"reference": [
+				"M. Klamkin, ed., Problems in Applied Mathematics: Selections from SIAM Review, SIAM, 1990; see pp. 122-123.",
+				"T. V. Narayana, Recent progress and unsolved problems in dominance theory, pp. 68-78 of Combinatorial mathematics (Canberra 1977), Lect. Notes Math. Vol. 686, 1978.",
+				"T. V. Narayana, Lattice Path Combinatorics with Statistical Applications. Univ. Toronto Press, 1979, pp. 100-101.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"Solution to Board of Directors Problem, J. Rec. Math., 9 (No. 3, 1977), 240."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A005254/b005254.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"G. Kreweras, \u003ca href=\"http://www.numdam.org/item?id=MSH_1983__84__45_0\"\u003eSur quelques problèmes relatifs au vote pondéré\u003c/a\u003e, [Some problems of weighted voting], Math. Sci. Humaines No. 84 (1983), 45-63.",
+				"B. E. Wynne \u0026 N. J. A. Sloane, \u003ca href=\"/A002083/a002083_1.pdf\"\u003eCorrespondence, 1976-84\u003c/a\u003e",
+				"B. E. Wynne \u0026 T. V. Narayana, \u003ca href=\"/A002083/a002083_2.pdf\"\u003eTournament configuration, weighted voting, and partitioned catalans\u003c/a\u003e, Preprint.",
+				"Bayard Edmund Wynne, and T. V. Narayana, \u003ca href=\"http://www.numdam.org/item?id=BURO_1981__36__75_0\"\u003eTournament configuration and weighted voting\u003c/a\u003e, Cahiers du bureau universitaire de recherche opérationnelle, 36 (1981): 75-78.",
+				"\u003ca href=\"/A005254/a005254.pdf\"\u003eSolution to Board of Directors Problem\u003c/a\u003e, J. Rec. Math., 9 (No. 3, 1977), 240. (Annotated scanned copy)"
+			],
+			"mathematica": [
+				"a[1, 1] = 1; a[n_, 1] := a[n, 1] = a[n - 1, Floor[(n + 1)/2]]; a[n_, k_ /; k \u003e 1] := a[n, k] = a[n, 1] + a[n - 1, k - 1]; A005254 = Table[ Sum[ a[n, k], {k, 1, n}], {n, 1, 29}] (* _Jean-François Alcover_, Apr 03 2012, after recurrence of A037254 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a005254 = sum . a037254_row  -- _Reinhard Zumkeller_, Nov 18 2012"
+			],
+			"xref": [
+				"Row sums of A037254."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _James A. Sellers_, Feb 04 2000"
+			],
+			"references": 3,
+			"revision": 46,
+			"time": "2017-12-20T23:26:54-05:00",
+			"created": "1991-05-20T03:00:00-04:00"
+		},
+		{
+			"number": 5665,
+			"id": "M3857",
+			"data": "0,1,5,15,43,119,327,895,2447,6687,18271,49919,136383,372607,1017983,2781183,7598335,20759039,56714751,154947583,423324671,1156544511,3159738367,8632565759,23584608255,64434348031,176037912575,480944521215,1313964867583,3589818777599,9807567290367",
+			"name": "Tower of Hanoi with 3 pegs and cyclic moves only (clockwise).",
+			"comment": [
+				"This looks like sequence A(0,1;2,2;3) of the family of sequences [a,b:c,d:k] considered by _Gary Detlefs_, and treated as A(a,b;c,d;k) in the W. Lang link given below. - _Wolfdieter Lang_, Oct 18 2010",
+				"a(n) = 2*A005666(n-1) + 1. - _Michel Marcus_, Nov 02 2012"
+			],
+			"reference": [
+				"R. L. Graham, D. E. Knuth and O. Patashnik, Concrete Mathematics. Addison-Wesley, Reading, MA, 1990, p. 18.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A005665/b005665.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"S. Alejandre, \u003ca href=\"https://web.archive.org/web/20040314132214/http://www.rialto.k12.ca.us:80/frisbie/mathfair/hanoilegend.html\"\u003eLegend of Towers of Hanoi\u003c/a\u003e",
+				"J.-P. Allouche, \u003ca href=\"http://dx.doi.org/10.1016/0304-3975(94)90064-7\"\u003eNote on the cyclic towers of Hanoi\u003c/a\u003e, Theoret. Comput. Sci., 123 (1994), 3-7.",
+				"M. D. Atkinson, \u003ca href=\"http://www.cs.otago.ac.nz/staffpriv/mike/Papers/Hanoi/CyclicHanoi.pdf\"\u003eThe Cyclic Towers of Hanoi\u003c/a\u003e, Info. Proc. Letters, 13 (1981), 118-119.",
+				"R. K. Guy, \u003ca href=\"/A005665/a005665_1.pdf\"\u003eLetter to N. J. A. Sloane, 1976\u003c/a\u003e",
+				"A. M. Hinz, S. Klavžar, U. Milutinović, C. Petr, \u003ca href=\"http://dx.doi.org/10.1007/978-3-0348-0237-6\"\u003eThe Tower of Hanoi - Myths and Maths\u003c/a\u003e, Birkhäuser 2013. See page 249. \u003ca href=\"http://tohbook.info\"\u003eBook's website\u003c/a\u003e",
+				"Wolfdieter Lang, \u003ca href=\"/A005665/a005665.pdf\"\u003eNotes on certain inhomogeneous three term recurrences.\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"D. G. Poole, \u003ca href=\"http://www.jstor.org/stable/2690991\"\u003eThe towers and triangles of Professor Claus (or, Pascal knows Hanoi)\u003c/a\u003e, Math. Mag., 67 (1994), 323-344.",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,0,-2)."
+			],
+			"formula": [
+				"From _Paul Barry_, Sep 05 2006: (Start)",
+				"G.f.: x*(1+2*x)/(1-3*x+2*x^3);",
+				"a(n) = ((sqrt(3)+1)^(n+1) + (sqrt(3)-1)^(n+1)*(-1)^n)*sqrt(3)/6 - 1. (End)",
+				"a(n) = 2*a(n-1) + 2*a(n-2) + 3. - _John W. Layman_",
+				"a(n) = (1/(2*s3))*((1+s3)^(n+1) - (1-s3)^(n+1)) - 1 where s3 = sqrt(3).",
+				"a(n) = 3*a(n-1) - 2*a(n-3), a(0)=0, a(1)=1, a(2)=5 (from the given o.g.f.). Observed by _Gary Detlefs_. See the W. Lang link. - _Wolfdieter Lang_, Oct 18 2010"
+			],
+			"maple": [
+				"A005665:=z*(1+2*z)/(z-1)/(2*z**2+2*z-1); # conjectured (correctly) by _Simon Plouffe_ in his 1992 dissertation"
+			],
+			"mathematica": [
+				"a[n_] := Simplify[ ((1 + Sqrt[3])^(n+1) - (1 - Sqrt[3])^(n+1))*Sqrt[3]/6 - 1]; Table[a[n], {n, 0, 30}] (* _Jean-François Alcover_, Dec 14 2011, after _Paul Barry_ *)",
+				"LinearRecurrence[{3,0,-2},{0,1,5},40] (* _Harvey P. Dale_, Mar 30 2015 *)"
+			],
+			"program": [
+				"(MAGMA) [Floor(((Sqrt(3)+1)^(n+1)+(Sqrt(3)-1)^(n+1)*(-1)^n)*Sqrt(3)/6-1): n in [0..30] ]; // _Vincenzo Librandi_, Aug 19 2011",
+				"(Haskell)",
+				"a005665 n = a005665_list !! (n-1)",
+				"a005665_list = 0 : 1 : 5 : zipWith (-)",
+				"               (map (* 3) $ drop 2 a005665_list) (map (* 2) a005665_list)",
+				"-- _Reinhard Zumkeller_, May 01 2013",
+				"(PARI) a(n)=([0,1,0; 0,0,1; -2,0,3]^n*[0;1;5])[1,1] \\\\ _Charles R Greathouse IV_, Jun 15 2015"
+			],
+			"xref": [
+				"Cf. A005666, A007664, A007665."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Vincenzo Librandi_, Aug 19 2011",
+				"Name clarified by _Paul Zimmermann_, Feb 21 2018"
+			],
+			"references": 3,
+			"revision": 70,
+			"time": "2018-02-22T03:55:47-05:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		}
+	]
+}

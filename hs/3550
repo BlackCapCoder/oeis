@@ -1,0 +1,413 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3550,
+	"results": [
+		{
+			"number": 82796,
+			"data": "6,6,6,60,60,6,63,64,63,60,66,60,65,602,60,64,68,612,608,60,63,66,69,600,600,624,621,616,609,60,62,64,66,68,630,612,629,608,624,600,615,630,602,616,630,644,611,624,637,600,612,624,636,648,605",
+			"name": "Smallest multiple of n beginning with 6.",
+			"comment": [
+				"a(n) is in {n, 2n, 3n, 4n, 5n, 6n, 7n, 8n, 9n, 11n, 12n, 13n, 14n, 15n, 16n, 17n, 18n, 21n, 22n, 23n, 24n, 25n, 26n, 31n, 32n, 33n, 34n, 35n, 41n, 42n, 43n, 51n, 52n}. [_Charles R Greathouse IV_, Mar 06 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A082796/b082796.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"f[n_] := Block[{m = n}, While[ First@ IntegerDigits@ m != 6, m += n]; m]; Array[f, 55] (* _Robert G. Wilson v_ *)"
+			],
+			"program": [
+				"(PARI) a(n)=forstep(k=n, 52*n, n, if(Vec(Str(k))[1]==\"6\", return(k))) \\\\ _Charles R Greathouse IV_, Mar 06 2011",
+				"(Haskell)",
+				"a082796 n = until ((== 6) . a000030) (+ n) n",
+				"-- _Reinhard Zumkeller_, Mar 27 2012"
+			],
+			"xref": [
+				"Cf. A082794, A082795, A082797, A082798.",
+				"Cf. A000030."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, Apr 20 2003",
+			"ext": [
+				"More terms from _Sean A. Irvine_, Mar 06 2011"
+			],
+			"references": 8,
+			"revision": 18,
+			"time": "2013-12-05T19:56:13-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 84471,
+			"data": "1,4,3,16,9,12,7,64,33,36,19,48,25,28,15,256,129,132,67,144,73,76,39,192,97,100,51,112,57,60,31,1024,513,516,259,528,265,268,135,576,289,292,147,304,153,156,79,768,385,388,195,400,201,204,103,448,225",
+			"name": "Change 0 to 00 in binary representation of n.",
+			"comment": [
+				"a(n) = n iff n = 2^k - 1, k\u003e0.",
+				"A023416(a(n))=A023416(n)*2; A000120(a(n))=A000120(n);"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A084471/b084471.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=1, a(2*k+1)=2*a(k)+1, a(2*k)=4*a(k)."
+			],
+			"mathematica": [
+				"f[n_] := FromDigits[Flatten[IntegerDigits[n, 2] /. {0 -\u003e {0, 0}}], 2]; Array[f, 60] (* _Robert G. Wilson v_, Dec 10 2009 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a084471 1 = 1",
+				"a084471 x = 2 * (2 - d) * a084471 x' + d  where (x',d) = divMod x 2",
+				"-- _Reinhard Zumkeller_, Jul 16 2012"
+			],
+			"xref": [
+				"Cf. A084472(n)=A007088(a(n)), A084473, A038573.",
+				"Ordered terms are in A060142.",
+				"Cf. A088698, A175047. - _Robert G. Wilson v_, Dec 10 2009"
+			],
+			"keyword": "nonn,look,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 27 2003",
+			"references": 8,
+			"revision": 19,
+			"time": "2019-01-20T06:03:47-05:00",
+			"created": "2003-09-13T03:00:00-04:00"
+		},
+		{
+			"number": 85721,
+			"data": "4,6,9,25,35,49,121,143,169,289,323,361,391,437,493,527,529,551,589,667,713,841,899,961,1369,1517,1591,1681,1739,1763,1849,1927,1961,2021,2173,2183,2209,2257,2279,2419,2491,2501,2537,2623,2773,2809",
+			"name": "Semiprimes whose prime factors have an equal number of digits in binary representation.",
+			"comment": [
+				"A138510(A174956(a(n))) \u003c= 2. - _Reinhard Zumkeller_, Dec 19 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A085721/b085721.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Dario A. Alpern, \u003ca href=\"http://www.alpertron.com.ar/BRILLIANT.HTM\"\u003eBrilliant Numbers\u003c/a\u003e."
+			],
+			"example": [
+				"A078972(35) = 527 = 17*31 -\u003e 10001*11111, therefore 527 is a term;",
+				"A078972(37) = 533 = 13*41 -\u003e 1101*101001, therefore 533 is not a term;",
+				"A001358(1920) = 7169 = 67*107 -\u003e 1000011*1101011: therefore 7169 a term, but not of A078972."
+			],
+			"mathematica": [
+				"fQ[n_] := Block[{fi = FactorInteger@ n}, Plus @@ Last /@ fi == 2 \u0026\u0026 IntegerLength[ fi[[1, 1]], 2] == IntegerLength[ fi[[-1, 1]], 2]]; Select[ Range@ 2866, fQ] (* _Robert G. Wilson v_, Oct 29 2011 *)",
+				"Select[Range@ 3000, And[Length@ # == 2, IntegerLength[#1, 2] == IntegerLength[#2, 2] \u0026 @@ #] \u0026@ Flatten@ Map[ConstantArray[#1, #2] \u0026 @@ # \u0026, FactorInteger@ #] \u0026] (* _Michael De Vlieger_, Oct 08 2016 *)"
+			],
+			"program": [
+				"(PARI) is(n)=bigomega(n)==2\u0026\u0026#binary(factor(n)[1,1])==#binary(n/factor(n)[1,1]) \\\\ _Charles R Greathouse IV_, Nov 08 2011",
+				"(Haskell)",
+				"a085721 n = a085721_list !! (n-1)",
+				"a085721_list = [p*q | (p,q) \u003c- zip a084126_list a084127_list,",
+				"                      a070939 p == a070939 q]",
+				"-- _Reinhard Zumkeller_, Nov 10 2013"
+			],
+			"xref": [
+				"Cf. A078972, A007088, A070939, A055642.",
+				"Cf. A084126, A084127, A070939.",
+				"Cf. A138510, A174956.",
+				"Cf. A261073, A261074, A261075 (subsequences).",
+				"Intersection of A001358 and A266346."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 20 2003",
+			"ext": [
+				"Edited by _Charles R Greathouse IV_, Aug 02 2010"
+			],
+			"references": 8,
+			"revision": 29,
+			"time": "2016-10-08T16:59:58-04:00",
+			"created": "2003-09-13T03:00:00-04:00"
+		},
+		{
+			"number": 87057,
+			"data": "2,3,5,6,8,9,10,12,13,15,16,17,19,20,22,23,25,26,27,29,30,32,33,34,36,37,39,40,42,43,44,46,47,49,50,51,53,54,56,57,58,60,61,63,64,66,67,68,70,71,73,74,75,77,78,80,81,83,84,85,87,88,90,91,92,94,95,97,98,99,101",
+			"name": "Smallest number whose square is larger than 2*n^2.",
+			"comment": [
+				"Integer solutions to the equation x=ceiling(r*floor(x/r)) where r=sqrt(2). - _Benoit Cloitre_, Feb 14 2004"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A087057/b087057.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 1 + A001951(n) = 1 + floor(n*sqrt(2)) = sqrt(A087058(n)).",
+				"a(n) = ceiling(n*sqrt(2)). - _Vincenzo Librandi_, Oct 22 2011"
+			],
+			"example": [
+				"a(10) = 15 because the 15^2 = 225 is the smallest square number greater than 2*10^2 = 200.",
+				"Can be built by recursive removals:",
+				"start with 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, ...",
+				"get a(1) := 2 and remove the 2nd term (= 4):",
+				"[2] _ 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...",
+				"get a(2) := 3 and remove the 3rd term (= 7):",
+				"[2, 3] _ 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ...",
+				"get a(3) := 5 and remove the 5th term (= 11):",
+				"[2, 3, 5] _ 6, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, ...",
+				"get a(4) := 6 and remove the 6th term (= 14):",
+				"[2, 3, 5, 6] _ 8, 9, 10, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, ...",
+				"get a(5) := 8 and remove the 8th term (= 18):",
+				"[2, 3, 5, 6, 8] _ 9, 10, 12, 13, 15, 16, 17, 19, 20, 21, 22, 23, 24, ...",
+				"get a(6) = 9 and remove the 9th term (= 21), etc.",
+				"- _Reinhard Zumkeller_, Feb 04 2014"
+			],
+			"mathematica": [
+				"Ceiling[Range[110]Sqrt[2]] (* _Harvey P. Dale_, Oct 30 2013 *)"
+			],
+			"program": [
+				"(PARI) a(n)=ceil(n*sqrt(2)) \\\\ _Charles R Greathouse IV_, Oct 24 2011",
+				"(PARI) a(n)=sqrtint(2*n^2+sqrtint(8*n^2)+1) \\\\ _Charles R Greathouse IV_, Oct 24 2011",
+				"(Haskell)",
+				"a087057 n = a087057_list !! (n-1)",
+				"a087057_list = f [2..] where",
+				"   f (x:xs) = x : f (us ++ vs) where (us, _ : vs) = splitAt (x - 1) xs",
+				"-- _Reinhard Zumkeller_, Feb 04 2014"
+			],
+			"xref": [
+				"Cf. A001951, A087055, A087056, A087058, A087059, A087060."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Jens Voß_, Aug 07 2003",
+			"references": 8,
+			"revision": 23,
+			"time": "2018-11-23T02:17:34-05:00",
+			"created": "2003-09-13T03:00:00-04:00"
+		},
+		{
+			"number": 88381,
+			"data": "10,12,14,16,18,20,22,24,26,28,30,32,33,34,36,38,39,40,42,44,45,46,48,50,51,52,54,56,57,58,60,62,63,64,66,68,69,70,72,74,75,76,78,80,81,82,84,86,87,88,90,92,93,94,96,98,99,100,102,104,105,106,108,110,111,112",
+			"name": "Numbers greater than the cube of their smallest prime-factor.",
+			"comment": [
+				"a(n) \u003e A020639(a(n))^3 = A088378(a(n)); complement of A088380;",
+				"a(n) \u003e A088380(k) for n \u003c= 28, a(n) \u003c A088380(k) for n \u003e 28."
+			],
+			"program": [
+				"(Haskell)",
+				"a088381 n = a088381_list !! (n-1)",
+				"a088381_list = filter f [1..] where",
+				"                      f x = p ^ 2 \u003c div x p  where p = a020639 x",
+				"-- _Reinhard Zumkeller_, Jan 08 2015",
+				"(PARI) isok(n) = n \u003e factor(n)[1,1]^3; \\\\ _Michel Marcus_, Jan 08 2015"
+			],
+			"xref": [
+				"Cf. A080257, A088383.",
+				"Cf. A020639, A138511 (subsequence)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 28 2003",
+			"references": 8,
+			"revision": 12,
+			"time": "2015-01-08T14:58:55-05:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 88442,
+			"data": "1,3,1,3,9,11,9,11,1,3,1,3,9,11,9,11,33,35,33,35,41,43,41,43,33,35,33,35,41,43,41,43,1,3,1,3,9,11,9,11,1,3,1,3,9,11,9,11,33,35,33,35,41,43,41,43,33,35,33,35,41,43,41,43,129,131,129,131,137,139,137,139,129,131",
+			"name": "A linear version of the Josephus problem.",
+			"comment": [
+				"Or a(n) is in A145812 such that (2n+3-a(n))/2 is in A145812 as well. Note also that a(n)+2A090569(n+1)=2n+3. [_Vladimir Shevelev_, Oct 20 2008]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A088442/b088442.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"C. Groer, \u003ca href=\"https://www.jstor.org/stable/3647800\"\u003eThe Mathematics of Survival: From Antiquity to the Playground\u003c/a\u003e, Amer. Math. Monthly, 110 (No. 9, 2003), 812-825. (This is the sequence W(2n+1).)"
+			],
+			"formula": [
+				"To get a(n), write 2n+1 as Sum b_j 2^j, then a(n) = 1 + Sum_{j odd} b_j 2^j.",
+				"Also, a(n) = 2*ceiling(n/2)+1-2*a(ceiling(n/2)).",
+				"Equals A004514 + 1. - Chris Groer (cgroer(AT)math.uga.edu), Nov 10 2003"
+			],
+			"example": [
+				"If n=4, 2n+1 = 9 = 1 + 0*2 + 0*2^2 + 1*2^3, so a(4) = 1 + 0*2 + 1*2^3 = 9."
+			],
+			"maple": [
+				"a:=proc(n) local b: b:=convert(2*n+1,base,2): 1+sum(b[2*j]*2^(2*j-1),j=1..nops(b)/2) end: seq(a(n),n=0..100);"
+			],
+			"mathematica": [
+				"a[n_] := a[n]= 2*Ceiling[n/2]+1-2a[Ceiling[n/2]]"
+			],
+			"program": [
+				"(Haskell)",
+				"a088442 = (+ 1) . a004514  -- _Reinhard Zumkeller_, Sep 26 2015"
+			],
+			"xref": [
+				"Cf. A006257, A088443, A088452."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Nov 09 2003",
+			"ext": [
+				"More terms from _Emeric Deutsch_, May 27 2004"
+			],
+			"references": 8,
+			"revision": 14,
+			"time": "2019-06-02T11:26:59-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 89590,
+			"data": "0,1,2,3,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,45,46,47,48,49,50,51,52,53,55,56,57,58,59,60,61,62,63,65,66,67,68,69,70,71,72,73,75,76,77,78,79,80,81,82,83,85,86,87,88,89,90,91,92,93,95,96,97,98,99",
+			"name": "Uban numbers (the letter u is banned from the English name of the number).",
+			"comment": [
+				"The sequence of uban numbers first differs from A052406 (the numbers not containing the digit 4) at the term 40 (forty), which is a uban number but is not 4-less."
+			],
+			"link": [
+				"Daniel Arribas and Reinhard Zumkeller, \u003ca href=\"/A089590/b089590.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e (first 89 terms from Daniel Arribas)",
+				"Roel and Bas van Dijk, \u003ca href=\"http://hackage.haskell.org/package/numerals\"\u003eNumerals package\u003c/a\u003e, Hackage (Haskell packages)",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UbanNumber.html\"\u003eUban Number\u003c/a\u003e",
+				"\u003ca href=\"/index/Lc#letters\"\u003eIndex entries for sequences related to number of letters in n\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Maybe (fromJust)",
+				"import Data.Text (Text); import qualified Data.Text as T (all)",
+				"import Text.Numeral.Grammar.Reified (defaultInflection)",
+				"import qualified Text.Numeral.Language.EN as EN  -- see link",
+				"a089590 n = a089590_list !! (n-1)",
+				"a089590_list = filter (T.all (/= 'u') . numeral) [0..] where",
+				"   numeral :: Integer -\u003e Text",
+				"   numeral = fromJust . EN.gb_cardinal defaultInflection",
+				"-- _Reinhard Zumkeller_, Jan 23 2015"
+			],
+			"xref": [
+				"Cf. A052406.",
+				"Cf. A006933 (ban e), A089589 (ban i), A008521 (ban o), A008523 (ban t)."
+			],
+			"keyword": "nonn,easy,word",
+			"offset": "1,3",
+			"author": "_Eric W. Weisstein_, Nov 09 2003",
+			"ext": [
+				"a(1) = 0 prepended by _Reinhard Zumkeller_, Jan 23 2015"
+			],
+			"references": 8,
+			"revision": 17,
+			"time": "2018-01-16T02:40:12-05:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 90529,
+			"data": "1,1,2,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5",
+			"name": "a(n) is the smallest m such that n \u003c= m!.",
+			"comment": [
+				"Define f(n,k) = floor[n/k]. Let f(n,2)= n_2, f(n_2,3) = n_3, ..., f(n_r, r+1) = n_(r+1). a(n) = least value of r such that n_r = 0. E.g., a(10) = 4, 10 -\u003e 10/1 -\u003e 10 -\u003e 10/2 -\u003e 5 -\u003e 5/3 -\u003e 1 -\u003e 1/4 -\u003e 0 in four steps."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A090529/b090529.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e,",
+				"Yi Yuan and Zhang Wenpeng, \u003ca href=\"http://www.gallup.unm.edu/~smarandache/S-analogue-f.pdf\"\u003eOn the Mean Value of the Analogue of Smarandache Function\u003c/a\u003e.",
+				"\u003ca href=\"/index/Fa#factorial\"\u003eIndex entries for sequences related to factorial numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A084558(n) + 1. - _Reinhard Zumkeller_, Jan 05 2014"
+			],
+			"example": [
+				"a(4)=3 because 2! \u003c 4 \u003c= 3!;",
+				"a(24)=4 because 3! \u003c 24 \u003c= 4!."
+			],
+			"mathematica": [
+				"Array[Block[{m = 1}, While[# \u003e m!, m++]; m] \u0026, 105, 0] (* _Michael De Vlieger_, Nov 18 2017 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c0,0,p=1;while(p!\u003cn,p++);p)",
+				"(PARI) A090529(n)=for(m=1,n,m!\u003cn || return(m))  \\\\ _M. F. Hasler_, Jan 16 2013",
+				"(Haskell)",
+				"a090529 n = a090529_list !! n",
+				"a090529_list = f 1 1 0 where",
+				"  f w v u = if u \u003c= w then v : f w v (u+1) else v' : f (w*v') v' (u+1)",
+				"            where v' = v + 1",
+				"-- _Reinhard Zumkeller_, Jan 05 2014"
+			],
+			"xref": [
+				"Cf. A084558, A000142."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Amarnath Murthy_, Dec 07 2003",
+			"ext": [
+				"Better description and more terms from Zhang Wenpeng (wpzhang(AT)nwu.edu.cn), Mar 29 2004"
+			],
+			"references": 8,
+			"revision": 16,
+			"time": "2017-11-19T01:45:16-05:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 92539,
+			"data": "1,3,6,13,27,55,110,220,441,883,1766,3532,7064,14129,28258,56517,113035,226070,452140,904281,1808562,3617124,7234249,14468499,28936999,57873998,115747997,231495994,462991989,925983979,1851967959,3703935918",
+			"name": "Binary representation of a(n) equals first n+1 terms of A051023.",
+			"comment": [
+				"a(n+1) = 2*a(n) + d, where d = 0/1 with no obvious rule. The sequence is a digit representation of the central column of cellular automaton Rule 30, A051023. Primes in the sequence, A092540."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A092539/b092539.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Rule30.html\"\u003eRule 30\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n+1) = 2*a(n) + A051023(n+1). - _Reinhard Zumkeller_, Jun 08 2013"
+			],
+			"example": [
+				"a(6) = 55_10 = 110111_2"
+			],
+			"mathematica": [
+				"a(n_) := FromDigits[Take[A051023, n], 2]"
+			],
+			"program": [
+				" (Haskell)",
+				"a092539 n = a092539_list !! n",
+				"a092539_list = scanl1 (\\v d -\u003e 2 * v + d) $ map toInteger a051023_list",
+				"-- _Reinhard Zumkeller_, Jun 08 2013"
+			],
+			"xref": [
+				"Cf. A051023, A092540."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_Zak Seidov_, Feb 27 2004",
+			"ext": [
+				"Offset corrected and definition adjusted by _Reinhard Zumkeller_, Jun 08 2013"
+			],
+			"references": 8,
+			"revision": 10,
+			"time": "2013-06-09T01:07:14-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 92620,
+			"data": "2,3,5,7,12,13,15,17,20,21,24,26,28,29,30,31,34,36,38,39,42,43,45,47,50,51,54,56,58,59,62,63,65,67,70,71,74,76,78,79,82,83,85,87,92,93,95,97,102,103,105,107,112,113,115,117,120,121,124,126,128,129,130,131,134",
+			"name": "Numbers with exactly one prime digit.",
+			"comment": [
+				"A193238(a(n))=1; subsequence of A118950. [_Reinhard Zumkeller_, Jul 19 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A092620/b092620.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"12 has one prime digit, 2;",
+				"102 has one prime digit, 2."
+			],
+			"maple": [
+				"stev_sez:=proc(n) local i, tren, st, ans, anstren; ans:=[ ]: anstren:=[ ]: tren:=n: for i while (tren\u003e0) do st:=round( 10*frac(tren/10) ): ans:=[ op(ans), st ]: tren:=trunc(tren/10): end do; for i from nops(ans) to 1 by -1 do anstren:=[ op(anstren), op(i,ans) ]; od; RETURN(anstren); end: ts_stpf:=proc(n) local i, stpf, ans; ans:=stev_sez(n): stpf:=0: for i from 1 to nops(ans) do if (isprime(op(i,ans))='true') then stpf:=stpf+1; # number of prime digits fi od; RETURN(stpf) end: ts_pr_n:=proc(n) local i, stpf, ans, ans1, tren; ans:=[ ]: stpf:=0: tren:=1: for i from 1 to n do if ( isprime(i)='true' and ts_stpf(i) =0) then ans:=[ op(ans), i ]: tren:=tren+1; fi od; RETURN(ans) end: ts_pr_n(300);"
+			],
+			"mathematica": [
+				"Select[Range[150],Count[IntegerDigits[#],_?(PrimeQ)]==1\u0026] (* _Harvey P. Dale_, Mar 23 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a092620 n = a092620_list !! (n-1)",
+				"a092620_list = elemIndices 1 a193238_list",
+				"-- _Reinhard Zumkeller_, Jul 19 2011"
+			],
+			"xref": [
+				"Cf. A046034, A084984, A092624, A092625."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Jani Melik_, Apr 11 2004",
+			"references": 8,
+			"revision": 13,
+			"time": "2018-03-23T16:57:53-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		}
+	]
+}

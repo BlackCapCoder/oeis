@@ -1,0 +1,944 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 210,
+	"results": [
+		{
+			"number": 23416,
+			"data": "1,0,1,0,2,1,1,0,3,2,2,1,2,1,1,0,4,3,3,2,3,2,2,1,3,2,2,1,2,1,1,0,5,4,4,3,4,3,3,2,4,3,3,2,3,2,2,1,4,3,3,2,3,2,2,1,3,2,2,1,2,1,1,0,6,5,5,4,5,4,4,3,5,4,4,3,4,3,3,2,5,4,4,3,4,3,3,2,4,3,3,2,3,2,2,1,5,4,4,3,4,3,3,2,4",
+			"name": "Number of 0's in binary expansion of n.",
+			"comment": [
+				"Another version (A080791) has a(0) = 0."
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A023416/b023416.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"F. T. Adams-Waters, F. Ruskey, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL12/Ruskey2/ruskey14.html\"\u003eGenerating Functions for the Digital Sum and Other Digit Counting Sequences\u003c/a\u003e, JIS 12 (2009) 09.5.6",
+				"J.-P. Allouche, J. O. Shallit, \u003ca href=\"http://dx.doi.org/10.1112/jlms/s2-39.2.193\"\u003eInfinite products associated with counting blocks in binary strings\u003c/a\u003e, J. London Math. Soc.39 (1989) 193-204.",
+				"K. Hessami Pilehrood, T. Hessami Pilehrood, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL13/Pilehrood/pilehrood2.html\"\u003eVacca-Type Series for Values of the Generalized Euler Constant Function and its Derivative\u003c/a\u003e, J. Integer Sequences, 13 (2010), #10.7.3.",
+				"Vladimir Shevelev, \u003ca href=\"http://www.emis.de/journals/INTEGERS/papers/m1/m1.Abstract.html\"\u003eThe number of permutations with prescribed up-down structure as a function of two variables\u003c/a\u003e, INTEGERS, 12 (2012), #A1. - From _N. J. A. Sloane_, Feb 07 2013",
+				"Ralf Stephan, \u003ca href=\"/somedcgf.html\"\u003eSome divide-and-conquer sequences ...\u003c/a\u003e",
+				"Ralf Stephan, \u003ca href=\"/A079944/a079944.ps\"\u003eTable of generating functions\u003c/a\u003e",
+				"Ralf Stephan, \u003ca href=\"http://arXiv.org/abs/math.CO/0307027\"\u003eDivide-and-conquer generating functions. I. Elementary sequences\u003c/a\u003e, arXiv:math/0307027 [math.CO], 2003.",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 1, if n = 0; 0, if n = 1; a(n/2)+1 if n even; a((n-1)/2) if n odd.",
+				"a(n) = 1 - (n mod 2) + a(floor(n/2)). - _Marc LeBrun_, Jul 12 2001",
+				"G.f.: 1 + 1/(1-x) * Sum(k\u003e=0, x^(2^(k+1))/(1+x^2^k)). - _Ralf Stephan_, Apr 15 2002",
+				"a(n) = A070939(n) - A000120(n).",
+				"a(n) = A008687(n+1) - 1.",
+				"a(n) = A000120(A035327(n)).",
+				"From _Hieronymus Fischer_, Jun 12 2012: (Start)",
+				"a(n) = m + 1 + sum_{j=1..m+1} (floor(n/2^j) - floor(n/2^j + 1/2)), where m=floor(log_2(n)).",
+				"General formulas for the number of digits \u003c= d in the base p representation n, where 0 \u003c= d \u003c p.",
+				"a(n) = m + 1 + sum_{j=1..m+1} (floor(n/p^j) - floor(n/p^j + (p-d-1)/p)), where m=floor(log_p(n)).",
+				"G.f.: g(x) = 1 + (1/(1-x))*sum_{j\u003e=0} (1-x^(d*p^j))*x^p^j) + (1-x^p^j)*x^p^(j+1)/(1-x^p^(j+1)). (End)",
+				"Product_{n\u003e=1} ((2*n)/(2*n+1))^((-1)^a(n)) = sqrt(2)/2 (A010503) (see Allouche \u0026 Shallit link). - _Michel Marcus_, Aug 31 2014"
+			],
+			"maple": [
+				"A023416 := proc(n)",
+				"    if n = 0 then",
+				"        1;",
+				"    else",
+				"        add(1-e,e=convert(n,base,2)) ;",
+				"    end if;",
+				"end proc: # _R. J. Mathar_, Jul 21 2012"
+			],
+			"mathematica": [
+				"Table[ Count[ IntegerDigits[n, 2], 0], {n, 0, 100} ]",
+				"DigitCount[Range[0,110],2,0] (* _Harvey P. Dale_, Jan 10 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a023416 0 = 1",
+				"a023416 1 = 0",
+				"a023416 n = a023416 n' + 1 - m where (n', m) = divMod n 2",
+				"a023416_list = 1 : c [0] where c (z:zs) = z : c (zs ++ [z+1,z])",
+				"-- _Reinhard Zumkeller_, Feb 19 2012, Jun 16 2011, Mar 07 2011",
+				"(PARI) a(n)=n=binary(n); sum(i=1, #n, !n[i]) \\\\ _Charles R Greathouse IV_, Jun 10 2011",
+				"(PARI) a(n)=#binary(n)-hammingweight(n) \\\\ _Charles R Greathouse IV_, Nov 20 2012",
+				"(PARI) a(n) = if(n == 0, 1, 1+logint(n,2) - hammingweight(n))  \\\\ _Gheorghe Coserea_, Sep 01 2015"
+			],
+			"xref": [
+				"The basic sequences concerning the binary expansion of n are A000120, A000788, A000069, A001969, A023416, A059015, A070939, A083652. Partial sums see A059015.",
+				"With initial zero and shifted right, same as A080791.",
+				"Cf. A055641 (for base 10)."
+			],
+			"keyword": "nonn,nice,easy,base",
+			"offset": "0,5",
+			"author": "_David W. Wilson_",
+			"references": 192,
+			"revision": 82,
+			"time": "2016-07-21T14:14:09-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 57427,
+			"data": "0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1",
+			"name": "Sign(n) or signum(n) (with offset 0): a(n) = 1 if n\u003e0, = 0 if n=0, = -1 if n\u003c0; series expansion of x/(1-x).",
+			"comment": [
+				"Parity of (n+1)-st prime, A000040(n+1). - _Philippe Deléham_, Apr 04 2009",
+				"Decimal expansion of 1/90.",
+				"Partial sums of A063524 (characteristic function of 1). - _Jeremy Gardiner_, Sep 08 2002",
+				"Characteristic function of positive integers. - _Franklin T. Adams-Watters_, Aug 01 2011",
+				"Number of binary bracelets of n beads, 0 of them 0. Number of binary bracelets of n beads, 1 of them 0. Number of binary bracelets of n beads, 0 of them 0, with 00 prohibited. For n\u003e=2, a(n-1) is the number of binary bracelets of n beads, one of them 0, with 00 prohibited. - _Washington Bomfim_, Aug 27 2008",
+				"a(A000027(n)) = 1; a(A000004(n)) = 0. - _Reinhard Zumkeller_, Oct 11 2008",
+				"Central terms of the triangle in A152487. - _Reinhard Zumkeller_, Dec 06 2008",
+				"See sequence A261012 for a version that extends the sequence backwards to offset -1."
+			],
+			"reference": [
+				"T. M. MacRobert, Functions of a Complex Variable, 4th ed., Macmillan and Co., London, 1958, p. 90."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A057427/b057427.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_01\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1)."
+			],
+			"formula": [
+				"G.f.: x / (1 - x).",
+				"G.f.: Sum_{k\u003e=0} 2^k * x^(2^k) / (1 + x^(2^k)). - _Michael Somos_, Sep 11 2005",
+				"a(n) = A000007(0^n). - _Jaume Oliver Lafont_, Mar 19 2009",
+				"a(n) = - a(-n) for all n in Z. - _Michael Somos_, Aug 17 2015",
+				"Sum{k\u003c0} a(k) * x^k = 1 / (1 - x) if abs(x) \u003e 1. - _Michael Somos_, Aug 17 2015",
+				"Dirichlet g.f.: zeta(s). - _Álvar Ibeas_, Nov 29 2015",
+				"a(n) = A001065(n+1) - A048050(n+1). - _Omar E. Pol_, Apr 30 2018"
+			],
+			"example": [
+				"1/90 = .0111111111111111111...",
+				"G.f. = x + x^2 + x^3 + x^4 + x^5 + x^6 + x^7 + x^8 + x^9 + x^10 + x^11 + ..."
+			],
+			"maple": [
+				"with(numtheory); A057427:=n-\u003esignum(n); seq(A057427(k), k=0..50); # _Wesley Ivan Hurt_, Oct 22 2013"
+			],
+			"mathematica": [
+				"Table[Sign[n], {n, 0, 104}] (* _Arkadiusz Wesolowski_, Sep 16 2012 *)",
+				"CoefficientList[Series[x/((1 - x)), {x, 0, 25}], x]",
+				"LinearRecurrence[{1, 0}, {0, 1}, 105]",
+				"Array[Sign, 105, 0]",
+				"N[1/9, 111]"
+			],
+			"program": [
+				"(PARI) {a(n) = sign(n)};",
+				"(PARI) /* n\u003e=0 */ a(n)=!!n \\\\ _Jaume Oliver Lafont_, Mar 19 2009",
+				"(Haskell)",
+				"a057427 = signum",
+				"a057427_list = 0 : [1, 1 ..]  -- _Reinhard Zumkeller_, Nov 28 2012"
+			],
+			"xref": [
+				"Cf. A000004, A000007, A000012, A000027, A000040, A063524, A152487.",
+				"See also A261012."
+			],
+			"keyword": "nonn,easy,mult,nice,cons",
+			"offset": "0,1",
+			"author": "_Henry Bottomley_, Sep 05 2000",
+			"ext": [
+				"Entry edited at the suggestion of _Robert G. Wilson v_ by _N. J. A. Sloane_, Aug 16 2015"
+			],
+			"references": 192,
+			"revision": 147,
+			"time": "2018-05-08T07:25:34-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 1653,
+			"id": "M3955 N1630",
+			"data": "1,5,29,169,985,5741,33461,195025,1136689,6625109,38613965,225058681,1311738121,7645370045,44560482149,259717522849,1513744654945,8822750406821,51422757785981,299713796309065,1746860020068409,10181446324101389,59341817924539925",
+			"name": "Numbers k such that 2*k^2 - 1 is a square.",
+			"comment": [
+				"Consider all Pythagorean triples (X,X+1,Z) ordered by increasing Z; sequence gives Z values.",
+				"The defining equation is X^2 + (X+1)^2 = Z^2, which when doubled gives 2Z^2 = (2X+1)^2 + 1. So the sequence gives Z's such that 2Z^2 = odd square + 1.",
+				"(x,y) = (a(n), a(n+1)) are the solutions with x \u003c y of x/(yz) + y/(xz) + z/(xy)=3 with z=2. - _Floor van Lamoen_, Nov 29 2001",
+				"Consequently the sum n^2*(2n^2 - 1) of the first n odd cubes (A002593) is also a square. - _Lekraj Beedassy_, Jun 05 2002",
+				"These numbers are the odd-indexed Pell numbers from A000129. The even-indexed Pell numbers are A001542. - _Ira M. Gessel_, Sep 27 2002",
+				"Numbers n such that 2*n^2 = ceiling(sqrt(2)*n*floor(sqrt(2)*n)). - _Benoit Cloitre_, May 10 2003",
+				"Also, number of domino tilings in S_5 X P_2n. - _Ralf Stephan_, Mar 30 2004. Here S_5 is the star graph on 5 vertices with the edges {1,2}, {1,3}, {1,4}, {1,5}.",
+				"If x is in the sequence then so is x*(8*x^2-3). - _James R. Buddenhagen_, Jan 13 2005",
+				"In general, Sum_{k=0..n} binomial(2n-k,k)j^(n-k) = (-1)^n*U(2n,i*sqrt(j)/2), i=sqrt(-1). - _Paul Barry_, Mar 13 2005",
+				"a(n) = L(n,6), where L is defined as in A108299; see also A002315 for L(n,-6). - _Reinhard Zumkeller_, Jun 01 2005",
+				"Define a T-circle to be a first-quadrant circle with integral radius that is tangent to the x- and y-axes. Such a circle has coordinates equal to its radius. Let C(0) be the T-circle with radius 1. Then for n  \u003e0, define C(n) to be the largest T-circle that intersects C(n-1). C(n) has radius a(n) and the coordinates of its points of intersection with C(n-1) are A001108(n) and A055997(n). Cf. A001109. - _Charlie Marion_, Sep 14 2005",
+				"Number of 01-avoiding words of length n on alphabet {0,1,2,3,4,5} which do not end in 0. - _Tanya Khovanova_, Jan 10 2007",
+				"The lower principal convergents to 2^(1/2), beginning with 1/1, 7/5, 41/29, 239/169, comprise a strictly increasing sequence; numerators = A002315 and denominators = A001653. - _Clark Kimberling_, Aug 26 2008",
+				"Apparently Ljunggren shows that 169 is the last square term.",
+				"The remainder of the division of a(n) by 5 is: 0, 1 or 4. - Mohamed Bouhamida (bhmd95(AT)yahoo.fr), Aug 26 2009",
+				"Number of units of a(n) belongs to a periodic sequence: 1, 5, 9, 9, 5, 1. The remainder of the division of a(n) by 5 belongs to a periodic sequence: 1, 0, 4, 4, 0, 1. - Mohamed Bouhamida (bhmd95(AT)yahoo.fr), Sep 01 2009",
+				"If (p,q) is a solution of the Diophantine equation: X^2 + (X+1)^2 = Y^2 then (p+q) or (p+q+1) are perfect squares. If (p,q) is a solution of the Diophantine equation: X^2 + (X+1)^2 = Y^2 then (p+q) or (p+q)/8 are perfect squares. If (p,q) and (r,s) are two consecutive solutions of the Diophantine equation: X^2 + (X+1)^2 = Y^2 with p \u003c r then s-r = p+q+1. - Mohamed Bouhamida (bhmd95(AT)yahoo.fr), Aug 29 2009",
+				"If (p,q) and (r,s) are two consecutive solutions of the Diophantine equation: X^2 + (X + 1)^2 = Y^2 with p \u003c r then r = 3p+2q+1 and s = 4p+3q+2. - Mohamed Bouhamida (bhmd95(AT)yahoo.fr), Sep 02 2009",
+				"Equals INVERT transform of A005054: (1, 4, 20, 100, 500, 2500, ...) and INVERTi transform of A122074: (1, 6, 40, 268, 1796, ...). - _Gary W. Adamson_, Jul 22 2010",
+				"a(n) is the number of compositions of n when there are 5 types of 1 and 4 types of other natural numbers. - _Milan Janjic_, Aug 13 2010",
+				"The remainder after division of a(n) by a(k) appears to belong to a periodic sequence: 1, 5, ..., a(k-1), 0, a(k)-a(k-1), ..., a(k)-1, a(k)-1, ..., a(k)-a(k-1), 0, a(k-1), ..., 5, 1. See Bouhamida's Sep 01 2009 comment. - _Charlie Marion_, May 02 2011",
+				"Apart from initial 1: subsequence of A198389, see also A198385. - _Reinhard Zumkeller_, Oct 25 2011",
+				"(a(n+1), 2*b(n+1)) and (a(n+2), 2*b(n+1)), n \u003e= 0, with b(n):= A001109(n), give the (u(2*n), v(2*n)) and (u(2*n+1), v(2*n+1)) sequences, respectively, for Pythagorean triples (x,y,z), where x=|u^2-v^2|, y=2*u*v and z=u^2+v^2, with u odd and v even, which are generated from (u(0)=1, v(0)=2) by the substitution rule (u,v) -\u003e (2*v+u,v) if u \u003c v and (u,v) -\u003e (u,2*u+v) if u \u003e v. This leads to primitive triples because gcd(u,v) = 1 is respected. This corresponds to (primitive) Pythagorean triangles with |x-y|=1 (the catheti differ by one length unit). This (u,v) sequence starts with (1,2), (5,2), (5,12), (29,12), (29,70) ... - _Wolfdieter Lang_, 06 Mar 2012",
+				"Area of the Fibonacci snowflake of order n. - _José Luis Ramírez Ramírez_, Dec 13 2012",
+				"Area of the 3-generalized Fibonacci snowflake of order n, n \u003e= 3. - _José Luis Ramírez Ramírez_, Dec 13 2012",
+				"For the o.g.f. given by _Johannes W. Meijer_, Aug 01 2010, in the formula section see a comment under A077445. - _Wolfdieter Lang_, Jan 18 2013",
+				"Positive values of x (or y) satisfying x^2 - 6xy + y^2 + 4 = 0. - _Colin Barker_, Feb 04 2014",
+				"Length of period of the continued fraction expansion of a(n)*sqrt(2) is 1, the corresponding repeating value is A077444(n). - _Ralf Stephan_, Feb 20 2014",
+				"Positive values of x (or y) satisfying x^2 - 34xy + y^2 + 144 = 0. - _Colin Barker_, Mar 04 2014",
+				"The value of the hypotenuse in each triple of the Tree of primitive Pythagorean triples (cf. Wikipedia link) starting with root (3,4,5) and recursively selecting the central branch at each triple node of the tree. - _Stuart E Anderson_, Feb 05 2015",
+				"The aerated sequence (b(n)) n \u003e= 1 = [1, 0, 5, 0, 29, 0, 169, 0, ...] is a fourth-order linear divisibility sequence; that is, if n | m then b(n) | b(m). It is the case P1 = 0, P2 = -8, Q = 1 of the 3-parameter family of divisibility sequences found by Williams and Guy. See A100047 for the connection with Chebyshev polynomials. - _Peter Bala_, Mar 25 2015",
+				"A002315(n-1)/a(n) is the closest rational approximation of sqrt(2) with a denominator not larger than a(n). These rational approximations together with those obtained from the sequences A001541 and A001542 give a complete set of closest rational approximations of sqrt(2) with restricted numerator or denominator. A002315(n-1)/a(n) \u003c sqrt(2). - _A.H.M. Smeets_, May 28 2017",
+				"Equivalently, numbers x such that (x-1)*x/2 + x*(x+1)/2 = y^2 + (y+1)^2. y-values are listed in A001652. Example: for x=29 and y=20, 28*29/2 + 29*30/2 = 20^2 + 21^2. - _Bruno Berselli_, Mar 19 2018",
+				"From _Wolfdieter Lang_, Jun 13 2018: (Start)",
+				"(a(n), a(n+1)), with a(0):= 1, give all proper positive solutions m1 = m1(n) and m2 = m2(n), with m1 \u003c m2 and n \u003e= 0, of the Markoff triple (m, m1, m2) (see A002559) for m = 2, i.e., m1^2 - 6*m1*m2 + m2^2 = -4. Hence the unique Markoff triple with largest value m = 2 is (1, 1, 2) (for general m from A002559 this is the famous uniqueness conjecture).",
+				"For X = m2 - m1 and Y = m2 this becomes the reduced indefinite quadratic form representation X^2 + 4*X*Y - 4*Y^2 = -4, with discriminant 32, and the only proper fundamental solution (X(0), Y(0)) = (0, 1). For all nonnegative proper (X(n), Y(n)) solutions see (A005319(n) = a(n+1) - a(n), a(n+1)), for n \u003e= 0. (End)",
+				"Each Pell(2*k+1) = a(k+1) number with k \u003e= 3 appears as largest number of an ordered Markoff (Markov) triple [x, y, m] with smallest value x = 2 as [2, Pell(2*k-1), Pell(2*k+1)]. This known result follows also from all positive proper solutions of the Pell equation q^2 - 2*m^2 = -1 which are q = q(k) = A002315(k)  and m = m(k) = Pell(2*k+1), for k \u003e= 0. y = y(k) = m(k) - 2*q(k) = Pell(2*k-1), with Pell(-1) = 1. The k = 0 and 1 cases do not satisfy x=2 \u003c= y(k) \u003c= m(k). The numbers 1 and 5 appear also as largest Markoff triple members because they are also Fibonacci numbers, and for these triples x=1. - _Wolfdieter Lang_, Jul 11 2018"
+			],
+			"reference": [
+				"A. H. Beiler, Recreations in the Theory of Numbers. New York: Dover, pp. 122-125, 1964.",
+				"Fink, Alex, Richard Guy, and Mark Krusemeyer. \"Partitions with parts occurring at most thrice.\" Contributions to Discrete Mathematics 3.2 (2008), 76-114. See Section 13.",
+				"W. Ljunggren, \"Zur Theorie der Gleichung x^2+1=Dy^4\", Avh. Norske Vid. Akad. Oslo I. 5, 27pp.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"David Wells, The Penguin Dictionary of Curious and Interesting Numbers (Rev. ed. 1997), p. 91."
+			],
+			"link": [
+				"T. D. Noe and Eric Chen, \u003ca href=\"/A001653/b001653.txt\"\u003eTable of n, a(n) for n = 1..1000 (terms 1..201 from T. D. Noe)\u003c/a\u003e",
+				"I. Adler, \u003ca href=\"http://www.fq.math.ca/Scanned/7-2/adler.pdf\"\u003eThree Diophantine equations - Part II\u003c/a\u003e, Fib. Quart., 7 (1969), pp. 181-193.",
+				"S. Barbero, U. Cerruti, N. Murru, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL13/Barbero2/barbero7.html\"\u003eA Generalization of the Binomial Interpolated Operator and its Action on Linear Recurrent Sequences \u003c/a\u003e, J. Int. Seq. 13 (2010) # 10.9.7, proposition 16.",
+				"A. Blondin-Massé, S. Brlek, S. Labbé, and M. Mendès France, \u003ca href=\"http://www.labmath.uqam.ca/~annales/volumes/35-2/141.pdf\"\u003eFibonacci snowflakes\u003c/a\u003e, Special Issue dedicated to Paulo Ribenboim, Annales des Sciences Mathématiques du Québec 35, No 2 (2011).",
+				"J.-P. Ehrmann et al., \u003ca href=\"http://forumgeom.fau.edu/POLYA/ProblemCenter/POLYA003.html\"\u003ePOLYA003: Integers of the form a/(bc) + b/(ca) + c/(ab)\u003c/a\u003e.",
+				"S. Falcon, \u003ca href=\"http://dx.doi.org/10.4236/am.2014.515216\"\u003eRelationships between Some k-Fibonacci Sequences\u003c/a\u003e, Applied Mathematics, 2014, 5, 2226-2234.",
+				"Daniel C. Fielder, \u003ca href=\"http://www.fq.math.ca/Scanned/6-3/fielder.pdf\"\u003eSpecial integer sequences controlled by three parameters\u003c/a\u003e, Fibonacci Quarterly 6, 1968, 64-70.",
+				"Daniel C. Fielder, \u003ca href=\"http://www.fq.math.ca/Scanned/6-3/errata.pdf\"\u003eErrata:Special integer sequences controlled by three parameters\u003c/a\u003e, Fibonacci Quarterly 6, 1968, 64-70.",
+				"T. W. Forget and T. A. Larkin, \u003ca href=\"http://www.fq.math.ca/Scanned/6-3/forget.pdf\"\u003ePythagorean triads of the form X, X+1, Z described by recurrence sequences\u003c/a\u003e, Fib. Quart., 6 (No. 3, 1968), 94-104.",
+				"L. J. Gerstein, \u003ca href=\"http://www.jstor.org/stable/30044157\"\u003ePythagorean triples and inner products\u003c/a\u003e, Math. Mag., 78 (2005), 205-213.",
+				"M. A. Gruber, Artemas Martin, A. H. Bell, J. H. Drummond, A. H. Holmes and H. C. Wilkes, \u003ca href=\"http://www.jstor.org/stable/2968551\"\u003eProblem 47\u003c/a\u003e, Amer. Math. Monthly, 4 (1897), 25-28.",
+				"R. J. Hetherington, \u003ca href=\"/A000129/a000129.pdf\"\u003eLetter to N. J. A. Sloane, Oct 26 1974\u003c/a\u003e",
+				"H. J. Hindin, \u003ca href=\"/A006062/a006062.pdf\"\u003eStars, hexes, triangular numbers and Pythagorean triples\u003c/a\u003e, J. Rec. Math., 16 (1983/1984), 191-193. (Annotated scanned copy)",
+				"INRIA Algorithms Project, \u003ca href=\"http://ecs.inria.fr/services/structure?nbr=403\"\u003eEncyclopedia of Combinatorial Structures 403\u003c/a\u003e",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"Ron Knott, \u003ca href=\"http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Pythag/pythag.html\"\u003ePythagorean Triples and Online Calculators\u003c/a\u003e",
+				"Giuseppe Lancia, Paolo Serafini, \u003ca href=\"https://pdfs.semanticscholar.org/91a3/5543a09ee02c713a2a204057cdef88b00d2c.pdf\"\u003ePolyhedra\u003c/a\u003e. Chapter 2 of Compact Extended Linear Programming Models (2018). EURO Advanced Tutorials on Operational Research. Springer, Cham., 11.",
+				"Giovanni Lucca, \u003ca href=\"http://forumgeom.fau.edu/FG2019volume19/FG201902index.html\"\u003eInteger Sequences and Circle Chains Inside a Hyperbola\u003c/a\u003e, Forum Geometricorum (2019) Vol. 19, 11-16.",
+				"A. Martin, \u003ca href=\"http://www.mathunion.org/ICM/ICM1912.2/Main/icm1912.2.0040.0058.ocr.pdf\"\u003eTable of prime rational right-angled triangles\u003c/a\u003e, The Mathematical Magazine, 2 (1910), 297-324.",
+				"A. Martin, \u003ca href=\"/A001652/a001652.pdf\"\u003eTable of prime rational right-angled triangles\u003c/a\u003e (annotated scans of a few pages)",
+				"J.-C. Novelli, J.-Y. Thibon, \u003ca href=\"http://arxiv.org/abs/1403.5962\"\u003eHopf Algebras of m-permutations,(m+1)-ary trees, and m-parking functions\u003c/a\u003e, arXiv preprint arXiv:1403.5962 [math.CO], 2014.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"B. Polster, M. Ross, \u003ca href=\"http://arxiv.org/abs/1503.04658\"\u003eMarching in squares\u003c/a\u003e, arXiv preprint arXiv:1503.04658 [math.HO], 2015.",
+				"José L. Ramírez, Gustavo N. Rubiano, and Rodrigo de Castro, \u003ca href=\"http://arxiv.org/abs/1212.1368\"\u003eA Generalization of the Fibonacci Word Fractal and the Fibonacci Snowflake\u003c/a\u003e, arXiv preprint arXiv:1212.1368 [cs.DM], 2012-2014.",
+				"Dan Romik, \u003ca href=\"https://doi.org/10.1090/S0002-9947-08-04467-X\"\u003eThe dynamics of Pythagorean Triples\u003c/a\u003e, Trans. Amer. Math. Soc. 360 (2008), 6045-6064.",
+				"Michael Z. Spivey and Laura L. Steil, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL9/Spivey/spivey7.html\"\u003eThe k-Binomial Transforms and the Hankel Transform\u003c/a\u003e, Journal of Integer Sequences, Vol. 9 (2006), Article 06.1.1.",
+				"Michel Waldschmidt, \u003ca href=\"http://webusers.imj-prg.fr/~michel.waldschmidt/articles/pdf/ContinuedFractionsOujda2015.pdf\"\u003eContinued fractions\u003c/a\u003e, Ecole de recherche CIMPA-Oujda, Théorie des Nombres et ses Applications, 18 - 29 mai 2015:  Oujda (Maroc).",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/NSWNumber.html\"\u003eNSW Number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Tree_of_primitive_Pythagorean_triples\"\u003eTree of primitive Pythagorean triples\u003c/a\u003e.",
+				"H. C. Williams and R. K. Guy, \u003ca href=\"http://dx.doi.org/10.1142/S1793042111004587\"\u003eSome fourth-order linear divisibility sequences\u003c/a\u003e, Intl. J. Number Theory 7 (5) (2011) 1255-1277.",
+				"H. C. Williams and R. K. Guy, \u003ca href=\"http://www.emis.de/journals/INTEGERS/papers/a17self/a17self.Abstract.html \"\u003eSome Monoapparitic Fourth Order Linear Divisibility Sequences\u003c/a\u003e, Integers, Volume 12A (2012) The John Selfridge Memorial Volume.",
+				"\u003ca href=\"/index/Tu#2wis\"\u003eIndex entries for two-way infinite sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#Cheby\"\u003eIndex entries for sequences related to Chebyshev polynomials.\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (6,-1)."
+			],
+			"formula": [
+				"G.f.: x*(1-x)/(1-6*x+x^2).",
+				"a(n) = 6*a(n-1) - a(n-2) with a(1)=1, a(2)=5.",
+				"4*a(n) = A077445(n).",
+				"Can be extended backwards by a(-n+1) = a(n).",
+				"a(n) = sqrt((A002315(n)^2 + 1)/2). [Inserted by _N. J. A. Sloane_, May 08 2000]",
+				"a(n+1) = S(n, 6)-S(n-1, 6), n\u003e=0, with S(n, 6) = A001109(n+1), S(-2, 6) := -1. S(n, x)=U(n, x/2) are Chebyshev's polynomials of the second kind. Cf. triangle A049310. a(n+1) = T(2*n+1, sqrt(2))/sqrt(2), n\u003e=0, with T(n, x) Chebyshev's polynomials of the first kind. [Offset corrected by _Wolfdieter Lang_, Mar 06 2012]",
+				"a(n) ~ (1/4)*sqrt(2)*(sqrt(2) + 1)^(2*n+1). - Joe Keane (jgk(AT)jgk.org), May 15 2002",
+				"a(n) = (((3 + 2*sqrt(2))^(n+1) - (3 - 2*sqrt(2))^(n+1)) - ((3 + 2*sqrt(2))^n - (3 - 2*sqrt(2))^n)) / (4*sqrt(2)). Lim_{n-\u003einf} a(n)/a(n-1) = 3 + 2*sqrt(2). - _Gregory V. Richardson_, Oct 12 2002",
+				"Let q(n, x) = Sum_{i=0..n} x^(n-i)*binomial(2*n-i, i); then q(n, 4) = a(n). - _Benoit Cloitre_, Nov 10 2002",
+				"For n and j \u003e= 1, Sum_{k=0..j} a(k)*a(n) - Sum_{k=0..j-1} a(k)*a(n-1) = A001109(j+1)*a(n) - A001109(j)*a(n-1) = a(n+j); e.g., (1+5+29)*5 - (1+5)*1=169. - _Charlie Marion_, Jul 07 2003",
+				"From _Charlie Marion_, Jul 16 2003: (Start)",
+				"For n \u003e= k \u003e= 0, a(n)^2 = a(n+k)*a(n-k) - A084703(k)^2; e.g., 169^2 = 5741*5 - 144.",
+				"For n \u003e 0, a(n) ^2 - a(n-1)^2 = 4*Sum_{k=0..2*n-1} a(k) = 4*A001109(2n); e.g., 985^2 - 169^2 = 4*(1 + 5 + 29 + ... + 195025) = 4*235416.",
+				"Sum_{k=0..n} ((-1)^(n-k)*a(k)) = A079291(n+1); e.g., -1 + 5 - 29 + 169 = 144.",
+				"A001652(n) + A046090(n) - a(n) = A001542(n); e.g., 119 + 120 - 169 = 70.",
+				"(End)",
+				"Sum_{k=0...n} ((2k+1)*a(n-k)) = A001333(n+1)^2 - (1 + (-1)^(n+1))/2; e.g., 1*169 + 3*29 + 5*5 + 7*1 = 288 = 17^2 - 1; 1*29 + 3*5 + 5*1 = 49 = 7^2. - _Charlie Marion_, Jul 18 2003",
+				"Sum_{k=0...n} a(k)*a(n) = Sum_{k=0..n} a(2k) and Sum_{k=0..n} a(k)*a(n+1) = Sum_{k=0..n} a(2k+1); e.g., (1+5+29)*29 = 1+29+985 and (1+5+29)*169 = 5+169+5741. - _Charlie Marion_, Sep 22 2003",
+				"For n \u003e= 3, a_{n} = 7(a_{n-1} - a_{n-2}) + a_{n-3}, with a_1 = 1, a_2 = 5 and a_3 = 29. a(n) = ((-1+2^(1/2))/2^(3/2))*(3 - 2^(3/2))^n + ((1+2^(1/2))/2^(3/2))*(3 + 2^(3/2))^n. - _Antonio Alberto Olivares_, Oct 13 2003",
+				"Let a(n) = A001652(n), b(n) = A046090(n) and c(n) = this sequence. Then for k \u003e j, c(i)*(c(k) - c(j)) = a(k+i) + ... + a(i+j+1) + a(k-i-1) + ... + a(j-i) + k - j. For n \u003c 0, a(n) = -b(-n-1). Also a(n)*a(n+2k+1) + b(n)*b(n+2k+1) + c(n)*c(n+2k+1) = (a(n+k+1) - a(n+k))^2; a(n)*a(n+2k) + b(n)*b(n+2k) + c(n)*c(n+2k) = 2*c(n+k)^2. - _Charlie Marion_, Jul 01 2003",
+				"Let a(n) = A001652(n), b(n) = A046090(n) and c(n) = this sequence. Then for n \u003e 0, a(n)*b(n)*c(n)/(a(n)+b(n)+c(n)) = Sum_{k=0..n} c(2*k+1); e.g., 20*21*29/(20+21+29) = 5+169 = 174; a(n)*b(n)*c(n)/(a(n-1)+b(n-1)+c(n-1)) = Sum_{k=0..n}c(2*k); e.g., 119*120*169/(20+21+29) = 1+29+985+33461 = 34476. - _Charlie Marion_, Dec 01 2003",
+				"Also solutions x \u003e 0 of the equation floor(x*r*floor(x/r))==floor(x/r*floor(x*r)) where r=1+sqrt(2). - _Benoit Cloitre_, Feb 15 2004",
+				"a(n)*a(n+3) = 24 + a(n+1)*a(n+2). - _Ralf Stephan_, May 29 2004",
+				"For n \u003e= k, a(n)*a(n+2*k+1) - a(n+k)*a(n+k+1) = a(k)^2-1; e.g., 29*195025-985*5741 = 840 = 29^2-1; 1*169-5*29 = 24 = 5^2-1; a(n)*a(n+2*k)-a(n+k)^2 = A001542(k)^2; e.g., 169*195025-5741^2 = 144 = 12^2; 1*29-5^2 = 4 = 2^2. - _Charlie Marion_ Jun 02 2004",
+				"For all k, a(n) is a factor of a((2n+1)*k+n). a((2*n+1)*k+n) = a(n)*(Sum_{j=0..k-1} (-1)^j*(a((2*n+1)*(k-j)) + a((2*n+1)*(k-j)-1))+(-1)^k); e.g., 195025 = 5*(33461+5741-169-29+1); 7645370045 = 169*(6625109+1136689-1).- _Charlie Marion_, Jun 04 2004",
+				"a(n) = Sum_{k=0..n} binomial(n+k, 2*k)4^k. - _Paul Barry_, Aug 30 2004",
+				"a(n) = Sum_{k=0..n} binomial(2*n+1, 2*k+1)2^k. - _Paul Barry_, Sep 30 2004",
+				"For n \u003c k, a(n)*A001541(k) = A011900(n+k)+A053141(k-n-1); e.g., 5*99 = 495 = 493+2. For n \u003e= k, a(n)*A001541(k) = A011900(n+k)+A053141(n-k); e.g., 29*3 = 87 = 85+2. - _Charlie Marion_, Oct 18 2004",
+				"a(n) = (-1)^n*U(2*n, i*sqrt(4)/2) = (-1)^n*U(2*n, I), U(n, x) Chebyshev polynomial of second kind, i=sqrt(-1). - _Paul Barry_, Mar 13 2005",
+				"a(n) = Pell(2*n+1) = Pell(n)^2 + Pell(n+1)^2. - _Paul Barry_, Jul 18 2005",
+				"a(n)*a(n+k) = A000129(k)^2 + A000129(2n+k+1)^2; e.g., 29*5741 = 12^2+169^2. - _Charlie Marion_, Aug 02 2005",
+				"Let a(n)*a(n+k) = x. Then 2x^2-A001541(k)*x+A001109(k)^2 = A001109(2n+k+1)^2; e.g., let x=29*985; then 2x^2-17x+6^2 = 40391^2; cf. A076218. - _Charlie Marion_, Aug 02 2005",
+				"With a=3+2*sqrt(2), b=3-2*sqrt(2): a(n) = (a^((2n+1)/2)+b^((2n+1)/2))/(2*sqrt(2)). a(n) = A001109(n+1)-A001109(n). - Mario Catalani (mario.catalani(AT)unito.it), Mar 31 2003",
+				"If k is in the sequence, then the next term is floor(k*(3+2*sqrt(2))). - _Lekraj Beedassy_, Jul 19 2005",
+				"a(n) = Jacobi_P(n,-1/2,1/2,3)/Jacobi_P(n,-1/2,1/2,1). - _Paul Barry_, Feb 03 2006",
+				"a(n) = Sum_{k=0..n} Sum_{j=0..n-k} C(n,j)*C(n-j,k)*Pell(n-j+1), where Pell = A000129. - _Paul Barry_, May 19 2006",
+				"a(n) = round(sqrt(A002315(n)^2/2)). - _Lekraj Beedassy_, Jul 15 2006",
+				"a(n) = A079291(n) + A079291(n+1). - _Lekraj Beedassy_, Aug 14 2006",
+				"a(n+1) = 3*a(n) + sqrt(8*a(n)^2-4), a(1)=1. - _Richard Choulet_, Sep 18 2007",
+				"6*a(n)*a(n+1) = a(n)^2+a(n+1)^2+4; e.g., 6*5*29 = 29^2+5^2+4; 6*169*985 = 169^2+985^2+4. - _Charlie Marion_, Oct 07 2007",
+				"2*A001541(k)*a(n)*a(n+k) = a(n)^2+a(n+k)^2+A001542(k)^2; e.g., 2*3*5*29 = 5^2+29^2+2^2; 2*99*29*5741 = 2*99*29*5741=29^2+5741^2+70^2. - _Charlie Marion_, Oct 12 2007",
+				"[a(n), A001109(n)] = [1,4; 1,5]^n * [1,0]. - _Gary W. Adamson_, Mar 21 2008",
+				"From _Charlie Marion_, Apr 10 2009: (Start)",
+				"In general, for n \u003e= k, a(n+k)= 2*A001541(k)*a(n)-a(n-k);",
+				"e.g., a(n+0) = 2*1*a(n)-a(n); a(n+1) = 6*a(n)-a(n-1); a(6+0) = 33461 = 2*33461-33461; a(5+1) = 33461 = 6*5741-985; a(4+2) = 33461 = 34*985-29; a(3+3) = 33461 = 198*169-1.",
+				"(End)",
+				"G.f.: sqrt(x)*tan(4*arctan(sqrt(x)))/4. - _Johannes W. Meijer_, Aug 01 2010",
+				"Given k = (sqrt(2)+1)^2 = 3+2*sqrt(2) and a(0)=1, then a(n) = a(n-1)*k-((k-1)/(k^n)). - _Charles L. Hohn_, Mar 06 2011",
+				"Given k = (sqrt(2)+1)^2 = 3+2*sqrt(2) and a(0)=1, then a(n) = (k^n)+(k^(-n))-a(n-1) = A003499(n) - a(n-1)). - _Charles L. Hohn_, Apr 04 2011",
+				"Let T(n) be the n-th triangular number; then, for n \u003e 0, T(a(n)) + A001109(n-1) = A046090(n)^2.  See also A046090. - _Charlie Marion_, Apr 25 2011",
+				"For k \u003e 0, a(n+2*k-1) - a(n) = 4*A001109(n+k-1)*A002315(k-1); a(n+2*k) - a(n) = 4*A001109(k)*A002315(n+k-1). - _Charlie Marion_, Jan 06 2012",
+				"a(k+j+1) = (A001541(k)*A001541(j) + A002315(k)*A002315(j))/2. - _Charlie Marion_, Jun 25 2012",
+				"a(n)^2 = 2*A182435(n)*(A182435(n)-1)+1. - _Bruno Berselli_, Oct 23 2012",
+				"a(n) = A143608(n-1)*A143608(n) + 1. - _Charlie Marion_, Dec 11 2012",
+				"G.f.: G(0)*(1-x)/(2-6*x), where G(k)= 1 + 1/(1 - x*(8*k-9)/( x*(8*k-1) - 3/G(k+1) )); (continued fraction). - _Sergei N. Gladkovskii_, Aug 12 2013",
+				"a(n+1) = 4*A001652(n) + 3*a(n) + 2 [Mohamed Bouhamida's 2009 (p,q)(r,s) comment above rewritten]. - _Hermann Stamm-Wilbrandt_, Jul 27 2014",
+				"a(n)^2 = A001652(n-1)^2 + (A001652(n-1)+1)^2. - _Hermann Stamm-Wilbrandt_, Aug 31 2014",
+				"Sum_{n \u003e= 2} 1/( a(n) - 1/a(n) ) = 1/4. - _Peter Bala_, Mar 25 2015",
+				"a(n) = Sum{k=0..n} binomial(n,k) * 3^(n-k) * 2^k * 2^floor(k/2). - _David Pasino_, Jul 09 2016",
+				"E.g.f.: (sqrt(2)*sinh(2*sqrt(2)*x) + 2*cosh(2*sqrt(2)*x))*exp(3*x)/2. - _Ilya Gutkovskiy_, Jul 09 2016",
+				"a(n+2) = (a(n+1)^2 + 4)/a(n). - _Vladimir M. Zarubin_, Sep 06 2016",
+				"a(n) = 2*A053141(n)+1. - _R. J. Mathar_, Aug 16 2019",
+				"For n\u003e1, a(n) is the numerator of the continued fraction [1,4,1,4,...,1,4] with (n-1) repetitions of 1,4. For the denominators see A005319. - _Greg Dresden_, Sep 10 2019"
+			],
+			"example": [
+				"From _Muniru A Asiru_, Mar 19 2018: (Start)",
+				"For k=1, 2*1^2 - 1 = 2 - 1 = 1 = 1^2.",
+				"For k=5, 2*5^2 - 1 = 50 - 1 =  49 = 7^2.",
+				"For k=29, 2*29^2 - 1 = 1682 - 1 =  1681 = 41^2.",
+				"... (End)"
+			],
+			"maple": [
+				"a[0]:=1: a[1]:=5: for n from 2 to 26 do a[n]:=6*a[n-1]-a[n-2] od: seq(a[n], n=0..20); # _Zerinvary Lajos_, Jul 26 2006",
+				"A001653:=-(-1+5*z)/(z**2-6*z+1); # Conjectured (correctly) by _Simon Plouffe_ in his 1992 dissertation; gives sequence except for one of the leading 1's"
+			],
+			"mathematica": [
+				"a[n_] := (MatrixPower[{{1, 2, 2}, {2, 1, 2}, {2, 2, 3}}, n].{{1}, {0}, {1}})[[3, 1]]; Table[ a[n], {n, 0, 20}] (* _Robert G. Wilson v_, Jan 08 2005 *)",
+				"LinearRecurrence[{6,-1}, {1,5}, 40] (* _Harvey P. Dale_, Jul 12 2011 *)",
+				"a[ n_] := -(-1)^n ChebyshevU[2 n - 2, I]; (* _Michael Somos_, Jul 22 2018 *)",
+				"Numerator[{1} ~Join~",
+				"Table[FromContinuedFraction[Flatten[Table[{1, 4}, n]]], {n, 1, 40}]]; (* _Greg Dresden_, Sep 10 2019 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = subst(poltchebi(n-1) + poltchebi(n), x, 3)/4}; /* _Michael Somos_, Nov 02 2002 */",
+				"(PARI) a(n)=([5,2;2,1]^(n-1))[1,1] \\\\ Lambert Klasen (lambert.klasen(AT)gmx.de), corrected by _Eric Chen_, Jun 14 2018",
+				"(Haskell)",
+				"a001653 n = a001653_list !! n",
+				"a001653_list = 1 : 5 : zipWith (-) (map (* 6) $ tail a001653_list) a001653_list",
+				"-- _Reinhard Zumkeller_, May 07 2013",
+				"(MAGMA) I:=[1,5]; [n le 2 select I[n] else 6*Self(n-1)-Self(n-2): n in [1..30]]; // _Vincenzo Librandi_, Feb 22 2014",
+				"(GAP) a:=[1,5];; for n in [3..25] do a[n]:=6*a[n-1]-a[n-2]; od; a; # _Muniru A Asiru_, Mar 19 2018"
+			],
+			"xref": [
+				"Other two sides are A001652, A046090.",
+				"Cf. A001519, A001109, A005054, A122074, A056220, A056869 (subset of primes).",
+				"Cf. A000217, A000290,A002315, A002559, A005319.",
+				"Row 6 of array A094954.",
+				"Row 1 of array A188647.",
+				"Cf. similar sequences listed in A238379."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Additional comments from _Wolfdieter Lang_, Feb 10 2000",
+				"Better description from _Harvey P. Dale_, Jan 15 2002",
+				"Edited by _N. J. A. Sloane_, Nov 02 2002"
+			],
+			"references": 191,
+			"revision": 340,
+			"time": "2019-09-11T10:57:12-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 5349,
+			"id": "M0481",
+			"data": "1,2,3,4,5,6,7,8,9,10,12,18,20,21,24,27,30,36,40,42,45,48,50,54,60,63,70,72,80,81,84,90,100,102,108,110,111,112,114,117,120,126,132,133,135,140,144,150,152,153,156,162,171,180,190,192,195,198,200,201,204",
+			"name": "Niven (or Harshad) numbers: numbers that are divisible by the sum of their digits.",
+			"comment": [
+				"z-Niven numbers are numbers n which are divisible by (A*s(n) + B) where A, B are integers and s(n) is sum of digits of n. Niven numbers have A = 1, B = 0. - _Ctibor O. Zizka_, Feb 23 2008",
+				"A070635(a(n)) = 0. A038186 is a subsequence. - _Reinhard Zumkeller_, Mar 10 2008",
+				"A049445 is a subsequence of this sequence. - _Ctibor O. Zizka_, Sep 06 2010",
+				"Complement of A065877; A188641(a(n)) = 1;  A070635(a(n)) = 0. - _Reinhard Zumkeller_, Apr 07 2011",
+				"A001101, the Moran numbers, are a subsequence. - _Reinhard Zumkeller_, Jun 16 2011",
+				"A140866 gives the number of terms \u003c= 10^k. - _Robert G. Wilson v_, Oct 16 2012"
+			],
+			"reference": [
+				"Paul Dahlenberg and T. Edgar, Consecutive factorial base Niven numbers, Fib. Q., 56:2 (2018), 163-166.",
+				"R. E. Kennedy and C. N. Cooper, On the natural density of the Niven numbers, Abstract 816-11-219, Abstracts Amer. Math. Soc., 6 (1985), 17.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"D. Wells, The Penguin Dictionary of Curious and Interesting Numbers. Penguin Books, NY, 1986, 171."
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A005349/b005349.txt\"\u003eTable of n, a(n) for n = 1..11872\u003c/a\u003e (all a(n) \u003c= 100000)",
+				"C. N. Cooper, R. E. Kennedy, \u003ca href=\"http://www.jstor.org/stable/2323194\"\u003eChebyshev's inequality and natural density\u003c/a\u003e, Amer. Math. Monthly 96 (1989), no. 2, 118-124.",
+				"Paul Dalenberg, Tom Edgar, \u003ca href=\"https://www.fq.math.ca/56-2.html\"\u003eConsecutive factorial base Niven numbers\u003c/a\u003e, Fibonacci Quart. (2018) Vol. 56, No. 2, 163-166.",
+				"Jean-Marie De Koninck and Nicolas Doyon, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL6/Doyon/doyon.html\"\u003eLarge and Small Gaps Between Consecutive Niven Numbers\u003c/a\u003e, J. Integer Seqs., Vol. 6, 2003, Article 03.2.5.",
+				"R. K. Guy, \u003ca href=\"http://www.jstor.org/stable/2691503\"\u003eThe Second Strong Law of Small Numbers\u003c/a\u003e, Math. Mag, 63 (1990), no. 1, 3-20.",
+				"R. K. Guy, \u003ca href=\"/A005347/a005347.pdf\"\u003eThe Second Strong Law of Small Numbers\u003c/a\u003e, Math. Mag, 63 (1990), no. 1, 3-20. [Annotated scanned copy]",
+				"R. E. Kennedy, \u003ca href=\"http://www.trottermath.net/numthry/nivennos.html\"\u003eNiven Numbers for Fun and Profit\u003c/a\u003e [Warning: As of March 2018 this site appears to have been hacked. Proceed with great caution. The original content should be retrieved from the Wayback machine and added here. - _N. J. A. Sloane_, Mar 29 2018]",
+				"R. E. Kennedy and C. N. Cooper, \u003ca href=\"http://www.jstor.org/stable/2686395\"\u003eOn the natural density of the Niven numbers\u003c/a\u003e, The College Mathematics Journal, Vol. 15, No. 4 (Sep., 1984), pp. 309-312.",
+				"Project Euler, \u003ca href=\"http://projecteuler.net/problem=387\"\u003eHarshard Numbers: Problem 387\u003c/a\u003e",
+				"Gérard Villemin, \u003ca href=\"http://villemin.gerard.free.fr/Wwwgvmm/Decompos/Harshad.htm\"\u003eNombres de Harshad\u003c/a\u003e (French)",
+				"Elaine E. Visitacion, Renalyn T. Boado, Mary Ann V. Doria, Eduard M. Albay, \u003ca href=\"http://www.dmmmsu-sluc.com/wp-content/uploads/2018/03/CAS-Monitor-2016-2017-1.pdf\"\u003eOn Harshad Number\u003c/a\u003e, DMMMSU-CAS Science Monitor (2016-2017) Vol. 15 No. 2, 134-138.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Digit.html\"\u003eDigit\u003c/a\u003e and \u003ca href=\"http://mathworld.wolfram.com/HarshadNumber.html\"\u003eHarshad Numbers\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Harshad_number\"\u003eHarshad number\u003c/a\u003e"
+			],
+			"example": [
+				"195 is a term of the sequence because it is divisible by 15 (= 1 + 9 + 5)."
+			],
+			"maple": [
+				"s:=proc(n) local N:N:=convert(n,base,10):sum(N[j],j=1..nops(N)) end:p:=proc(n) if floor(n/s(n))=n/s(n) then n else fi end: seq(p(n),n=1..210); # _Emeric Deutsch_"
+			],
+			"mathematica": [
+				"harshadQ[n_] := Mod[n, Plus @@ IntegerDigits@ n] == 0; Select[ Range[1000], harshadQ] (* _Alonso del Arte_, Aug 04 2004 and modified by _Robert G. Wilson v_, Oct 16 2012 *)",
+				"Select[Range[300],Divisible[#,Total[IntegerDigits[#]]]\u0026] (* _Harvey P. Dale_, Sep 07 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a005349 n = a005349_list !! (n-1)",
+				"a005349_list = filter ((== 0) . a070635) [1..]",
+				"-- _Reinhard Zumkeller_, Aug 17 2011, Apr 07 2011",
+				"(MAGMA) [n: n in [1..250] | n mod \u0026+Intseq(n) eq 0];  // _Bruno Berselli_, May 28 2011",
+				"(MAGMA) [n: n in [1..250] | IsIntegral(n/\u0026+Intseq(n))];  // _Bruno Berselli_, Feb 09 2016",
+				"(PARI) is(n)=n%sumdigits(n)==0 \\\\ _Charles R Greathouse IV_, Oct 16 2012",
+				"(Python)",
+				"A005349 = [n for n in range(1,10**6) if not n % sum([int(d) for d in str(n)])] # _Chai Wah Wu_, Aug 22 2014",
+				"(Sage)",
+				"[n for n in (1..10^4) if sum(n.digits(base=10)).divides(n)] # _Freddy Barrera_, Jul 27 2018",
+				"(GAP) Filtered([1..230],n-\u003e n mod List(List([1..n],ListOfDigits),Sum)[n]=0); # _Muniru A Asiru_"
+			],
+			"xref": [
+				"Cf. A001101, A007602, A007953, A028834, A038186, A049445, A052018, A052019, A052020, A052021, A052022, A065877, A070635, A113315, A188641.",
+				"Cf. A001102 (a subsequence).",
+				"Cf. A118363 (for factorial-base analog)."
+			],
+			"keyword": "nonn,base,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, _Robert G. Wilson v_",
+			"references": 189,
+			"revision": 139,
+			"time": "2018-12-12T14:22:26-05:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 1615,
+			"id": "M2315 N0915",
+			"data": "1,3,4,6,6,12,8,12,12,18,12,24,14,24,24,24,18,36,20,36,32,36,24,48,30,42,36,48,30,72,32,48,48,54,48,72,38,60,56,72,42,96,44,72,72,72,48,96,56,90,72,84,54,108,72,96,80,90,60,144,62,96,96,96,84,144,68,108,96",
+			"name": "Dedekind psi function: n * Product_{p|n, p prime} (1 + 1/p).",
+			"comment": [
+				"Number of primitive sublattices of index n in generic 2-dimensional lattice; also index of Gamma_0(n) in SL_2(Z).",
+				"A generic 2-dimensional lattice L = \u003cV,W\u003e consists of all vectors of the form mV + nW, (m,n integers). A sublattice S = \u003caV+bW, cV+dW\u003e has index |ad-bc| and is primitive if gcd(a,b,c,d) = 1. The generic lattice L has precisely a(2) = 3 sublattices of index 2, namely \u003c2V,W\u003e, \u003cV,2W\u003e and \u003cV+W,2V\u003e (which = \u003cV+W,2W\u003e) and so on for other indices.",
+				"The sublattices of index n are in 1-to-1 correspondence with matrices [a b; 0 d] with a\u003e0, ad=n, b in [0..d-1]. The number of these is Sum_{d|n} = sigma(n), which is A000203. A sublattice is primitive if gcd(a,b,d) = 1; the number of these is n * product_{p|n} (1+1/p), which is the present sequence.",
+				"SL_2(Z) = Gamma is the group of all 2 X 2 matrices [a b; c d] where a,b,c,d are integers with ad-bc = 1 and Gamma_0(N) is usually defined as the subgroup of this for which N|c. But conceptually Gamma is best thought of as the group of (positive) automorphisms of a lattice \u003cV,W\u003e, its typical element taking V -\u003e aV + bW, W -\u003e cV + dW and then Gamma_0(N) can be defined as the subgroup consisting of the automorphisms that fix the sublattice \u003cNV,W\u003e of index N. - _J. H. Conway_, May 05 2001",
+				"Dedekind proved that if n = k_i*j_i for i in I represents all the ways to write n as a product, and e_i=gcd(k_i,j_i), then a(n)= sum(k_i / (e_i * phi(e_i)), i in I ) [cf. Dickson, History of the Theory of Numbers, Vol. 1, p. 123].",
+				"Also a(n)= number of cyclic subgroups of order n in an Abelian group of order n^2 and type (1,1) (Fricke). - _Len Smiley_, Dec 04 2001",
+				"The polynomial degree of the classical modular equation of degree n relating j(z) and j(nz) is denoted by psi(n) by Fricke. - _Michael Somos_, Nov 10 2006",
+				"The Mobius transform of this sequence is A063659. - _Gary W. Adamson_, May 23 2008",
+				"The inverse Mobius transform of this sequence is A060648. - _Vladeta Jovovic_, Apr 05 2009",
+				"The Dirichlet inverse of this sequence is A008836(n) * A048250(n). - _Álvar Ibeas_, Mar 18 2015",
+				"The Riemann Hypothesis is true if and only if a(n)/n - e^gamma*log(log(n)) \u003c 0 for any n \u003e 30. - _Enrique Pérez Herrero_, Jul 12 2011",
+				"The Riemann Hypothesis is also equivalent to another inequality, see the Sole and Planat link. - _Thomas Ordowski_, May 28 2017",
+				"An infinitary analog of this sequence is the sum of the infinitary divisors of n (see A049417). - _Vladimir Shevelev_, Apr 01 2014",
+				"Problem: are there composite numbers n such that n+1 divides psi(n)? - _Thomas Ordowski_, May 21 2017",
+				"The sum of divisors d of n such that n/d is squarefree. - _Amiram Eldar_, Jan 11 2019"
+			],
+			"reference": [
+				"Tom Apostol, Intro. to Analyt. Number Theory, page 71, Problem 11, where this is called phi_1(n).",
+				"David A. Cox, \"Primes of the Form x^2 + n y^2\", Wiley, 1989, p. 228.",
+				"R. Fricke, Die elliptischen Funktionen und ihre Anwendungen, Teubner, 1922, Vol. 2, see p. 220.",
+				"Richard K. Guy, Unsolved Problems in Number Theory, 3rd Edition, Springer, 2004. See Section B41, p. 147.",
+				"B. Schoeneberg, Elliptic Modular Functions, Springer-Verlag, NY, 1974, p. 79.",
+				"G. Shimura, Introduction to the Arithmetic Theory of Automorphic Functions, Princeton, 1971, see p. 25, Eq. (1).",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe and N. J. A. Sloane, \u003ca href=\"/A001615/b001615.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"O. Bordelles, B. Cloitre, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL16/Bordelles/bord14.html\"\u003eAn Alternating Sum Involving the Reciprocal of Certain Multiplicative Functions\u003c/a\u003e, J. Int. Seq. 16 (2013) #13.6.3",
+				"Harriet Fell, Morris Newman, Edward Ordman, \u003ca href=\"http://dx.doi.org/10.6028/jres.067B.006\"\u003eTables of genera of groups of linear fractional transformations\u003c/a\u003e, J. Res. Nat. Bur. Standards Sect. B 67B 1963 61-68.",
+				"M. Hampejs, N. Holighaus, L. Toth and C. Wiesmeyr, \u003ca href=\"http://arxiv.org/abs/1211.1797\"\u003eRepresenting and counting the subgroups of the group Z_m X Z_n\u003c/a\u003e, arXiv:1211.1797 [math.GR], 2012.",
+				"W. Hürlimann, \u003ca href=\"http://dx.doi.org/10.18642/jantaa_7100121599\"\u003eDedekind's arithmetic function and primitive four squares counting functions\u003c/a\u003e, Journal of Algebra, Number Theory: Advances and Applications 14:2 (2015), 73-88.",
+				"F. A. Lewis et al., \u003ca href=\"http://www.jstor.org/stable/2303350\"\u003eProblem 4002\u003c/a\u003e, Amer. Math. Monthly, Vol. 49, No. 9, Nov. 1942, pp. 618-619.",
+				"E. Pérez Herrero, \u003ca href=\"http://psychedelic-geometry.blogspot.com.es/2012/06/recycling-hardy-wright.html\"\u003eRecycling Hardy \u0026 Wright\u003c/a\u003e, Average Order of Dedekind Psi Function, Psychedelic Geometry Blogspot.",
+				"Michel Planat, \u003ca href=\"http://arxiv.org/abs/1010.3239\"\u003eRiemann hypothesis from the Dedekind psi function\u003c/a\u003e, arXiv:1010.3239 [math.GM], 2010.",
+				"Patrick Sole and Michel Planat, \u003ca href=\"http://arxiv.org/abs/1011.1825\"\u003eExtreme values of the Dedekind Psi function\u003c/a\u003e, to appear in Journal of Combinatorics and Number Theory, arXiv:1011.1825 [math.NT], 2010-2011.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/DedekindFunction.html\"\u003eDedekind Function\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Dedekind_psi_function\"\u003eDedekind psi function\u003c/a\u003e",
+				"\u003ca href=\"/index/Cor#core\"\u003eIndex entries for \"core\" sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Su#sublatts\"\u003eIndex entries for sequences related to sublattices\u003c/a\u003e"
+			],
+			"formula": [
+				"Dirichlet g.f.: zeta(s) * zeta(s-1) / zeta(2*s). - _Michael Somos_, May 19 2000",
+				"Multiplicative with a(p^e) = (p+1)*p^(e-1). - _David W. Wilson_, Aug 01 2001",
+				"a(n) = A003557(n)*A048250(n) = n*A000203(A007947(n))/A007947(n). - _Labos Elemer_, Dec 04 2001",
+				"a(n) = n*sum(d|n, mu(d)^2/d), Dirichlet convolution of A008966 and A000027. - _Benoit Cloitre_, Apr 07 2002",
+				"a(n) = sum(d|n, mu(n/d)^2 * d). - _Joerg Arndt_, Jul 06 2011",
+				"From _Enrique Pérez Herrero_, Aug 22 2010: (Start)",
+				"a(n) = J_2(n)/J_1(n) = J_2(n)/phi(n) = A007434(n)/A000010(n), where J_k is the k-th Jordan Totient Function.",
+				"a(n) = sum(d|n,mu(n/d)*d^(b-1)/phi(n)), for b=3. (End)",
+				"a(n) = n / sum(d|n, mu(d)/a(d)). - _Enrique Pérez Herrero_, Jun 06 2012",
+				"a(n^k)= n^(k-1) * a(n). - _Enrique Pérez Herrero_, Jan 05 2013",
+				"If n is squarefree, then a(n) = A049417(n) = A000203(n). - _Vladimir Shevelev_, Apr 01 2014",
+				"a(n) = Sum_{d^2 | n} mu(d) * A000203(n/d^2). - _Álvar Ibeas_, Dec 20 2014",
+				"The average order of a(n) is 15*n/Pi^2. - _Enrique Pérez Herrero_, Jan 14 2012. See Apostol. - _N. J. A. Sloane_, Sep 04 2017",
+				"G.f.: Sum_{k\u003e=1} mu(k)^2*x^k/(1 - x^k)^2. - _Ilya Gutkovskiy_, Oct 25 2018",
+				"a(n) = Sum_{d|n} 2^omega(d) * phi(n/d), Dirichlet convolution of A034444 and A000010. - _Daniel Suteu_, Mar 09 2019"
+			],
+			"example": [
+				"Let L = \u003cV,W\u003e be a 2-dimensional lattice. The 6 primitive sublattices of index 4 are generated by \u003c4V,W\u003e, \u003cV,4W\u003e, \u003c4V,W+-V\u003e, \u003c2V+W,2W\u003e, \u003c2V,2W+V\u003e. Compare A000203.",
+				"G.f. = x + 3*x^2 + 4*x^3 + 6*x^4 + 6*x^5 + 12*x^6 + 8*x^7 + 12*x^8 + 12*x^9 + ..."
+			],
+			"maple": [
+				"A001615 := proc(n) n*mul((1+1/i[1]),i=ifactors(n)[2]) end; # _Mark van Hoeij_, Apr 18 2012"
+			],
+			"mathematica": [
+				"Join[{1}, Table[n Times@@(1+1/Transpose[FactorInteger[n]][[1]]), {n,2,100}]] (* _T. D. Noe_, Jun 11 2006 *)",
+				"Table[DirichletConvolve[j, MoebiusMu[j]^2, j, n], {n, 100}] (* _Jan Mangaldan_, Aug 22 2013 *)",
+				"a[ n_] := If[ n \u003c 1, 0, n Sum[ MoebiusMu[ d]^2 / d, {d, Divisors @ n}]]; (* _Michael Somos_, Jan 10 2015 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c1, 0, direuler( p=2, n, (1 + X) / (1 - p*X)) [n])};",
+				"(PARI) {a(n) = if( n\u003c1, 0, n * sumdiv( n, d, moebius(d)^2 / d))}; /* _Michael Somos_, Nov 10 2006 */",
+				"(PARI) a(n)=my(f=factor(n)); prod(i=1,#f~, f[i,1]^f[i,2] + f[i,1]^(f[i,2]-1)) \\\\ _Charles R Greathouse IV_, Aug 22 2013",
+				"(PARI) a(n) = n * sumdivmult(n, d, issquarefree(d)/d) \\\\ _Charles R Greathouse IV_, Sep 09 2014",
+				"(Haskell)",
+				"import Data.Ratio (numerator)",
+				"a001615 n = numerator (fromIntegral n * (product $",
+				"            map ((+ 1) . recip . fromIntegral) $ a027748_row n))",
+				"-- _Reinhard Zumkeller_, Jun 03 2013, Apr 12 2012",
+				"(Sage) def A001615(n) : return n*mul(1+1/p for p in prime_divisors(n))",
+				"[A001615(n) for n in (1..69)] # _Peter Luschny_, Jun 10 2012",
+				"(MAGMA) m:=75; R\u003cx\u003e:=PowerSeriesRing(Integers(), m); Coefficients(R!( (\u0026+[MoebiusMu(k)^2*x^k/(1-x^k)^2: k in [1..2*m]]) )); // _G. C. Greubel_, Nov 23 2018"
+			],
+			"xref": [
+				"Cf. A003051, A003050, A054345, A000082, A033196, A000203, A063659, A160889, A160891, A173290, A082020, A027748, A124010, A019269, A175836.",
+				"Cf. A156303, A301594.",
+				"See also A291784."
+			],
+			"keyword": "nonn,easy,core,nice,mult",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Olivier Gérard_, Aug 15 1997"
+			],
+			"references": 186,
+			"revision": 224,
+			"time": "2019-03-14T20:09:04-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 6218,
+			"id": "M2432",
+			"data": "0,1,3,5,8,10,14,16,20,23,27,29,35,37,41,45,50,52,58,60,66,70,74,76,84,87,91,95,101,103,111,113,119,123,127,131,140,142,146,150,158,160,168,170,176,182,186,188,198,201,207,211,217,219,227,231,239,243,247,249",
+			"name": "a(n) = Sum_{k=1..n} floor(n/k); also Sum_{k=1..n} d(k), where d = number of divisors (A000005); also number of solutions to x*y = z with 1 \u003c= x,y,z \u003c= n.",
+			"comment": [
+				"The \"Dirichlet divisor problem\" is to find a precise asymptotic estimate for this sequence - see formula lines below.",
+				"Number of increasing arithmetic progressions where n + 1 is the second or later term. - Mambetov Timur, Takenov Nurdin, Haritonova Oksana (timus(AT)post.kg; oksanka-61(AT)mail.ru), Jun 13 2002. E.g., a(3) = 5 because there are 5 such arithmetic progressions: (1, 2, 3, 4); (2, 3, 4); (1, 4); (2, 4); (3, 4).",
+				"Binomial transform of A001659.",
+				"Area covered by overlapped partitions of n, i.e., sum of maximum values of the k-th part of a partition of n into k parts. - _Jon Perry_, Sep 08 2005",
+				"Equals inverse Mobius transform of A116477. - _Gary W. Adamson_, Aug 07 2008",
+				"The subsequence of prime partial sums of A000005 begins: a(2) = 3, a(3) = 5, a(9) = 23, a(11) = 29, a(13) = 37, a(14) = 41, a(28) = 101, a(29) = 103, a(31) = 113, a(34) = 127, a(35) = 131, a(51) = 211, a(54) = 227, a(56) = 239. - _Jonathan Vos Post_, Feb 10 2010",
+				"The Polymath project (see the Tao-Croot-Helfgott link) sketches an algorithm for computing a(n) in essentially cube root time, see section 2.1. - _Charles R Greathouse IV_, Oct 10 2010 [Sladkey gives another. - _Charles R Greathouse IV_, Oct 02 2017]",
+				"The Dirichlet inverse starts (offset 1) 1, -3, -5, 1, -10, 16, -16, 1, 2, 33, -29, -6, -37, 55, 55, -1, -52, -5, -60, ... - _R. J. Mathar_, Oct 17 2012",
+				"The inverse Mobius transforms yields A143356. - _R. J. Mathar_, Oct 17 2012",
+				"An improved approximation vs. Dirichlet is: a(n) = log(Gamma(n+1)) + 2n*gamma. Using sample ranges of {n = k^2-k to k^2 + (k-1)} the means of the new error term are \u003c +- 0.5 up to k=150, except on two values of k. These ranges appear to give means closest to zero for such small sample sizes. It is not clear sample means remain \u003c +- 0.5 at larger k. The standard deviations are ~(n*log(n))^(1/4)/2, with n near sample range center. - _Richard R. Forberg_, Jan 06 2015",
+				"The values of n for which a(n) is even are given by 4*m^2 \u003c= n \u003c= 4*m(m+1) for m \u003e= 0. Example: for m=1 the values of n are 4 \u003c= n \u003c= 8 for which a(4) to a(8) are even. - _G. C. Greubel_, Sep 30 2015",
+				"For n \u003e 0, a(n) = count(x|y), 1 \u003c= y \u003c= x \u003c= n, that is, the number of pairs in the ordered list of x and y, where y divides x, up to and including n. - _Torlach Rush_, Jan 31 2017",
+				"a(n) is also the total number of partitions of all positive integers \u003c= n into equal parts. - _Omar E. Pol_, May 29 2017",
+				"a(n) is the rank of the join of the set of elements of rank n in Young's lattice, the lattice of all integer partitions ordered by inclusion of their Ferrers diagrams. - _Geoffrey Critzer_, Jul 11 2018"
+			],
+			"reference": [
+				"K. Chandrasekharan, Introduction to Analytic Number Theory. Springer-Verlag, 1968, Chap. VI.",
+				"K. Chandrasekharan, Arithmetical Functions. Springer-Verlag, 1970, Chapter VIII, pp. 194-228. Springer-Verlag, Berlin.",
+				"P. G. L. Dirichlet, Werke, Vol. ii, pp. 49-66.",
+				"M. N. Huxley, The Distribution of Prime Numbers, Oxford Univ. Press, 1972, p. 7.",
+				"M. N. Huxley, Area, Lattice Points and Exponential Sums, Oxford, 1996; p. 239.",
+				"H. L. Montgomery, Ten Lectures on the Interface Between Analytic Number Theory and Harmonic Analysis, Amer. Math. Soc., 1996, p. 56.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"Takenov Nurdin N. and Haritonova Oksana, Representation of positive integers by a special set of digits and sequences, in Dolmatov, S. L. et al. editors, Materials of Science, Practical seminar \"Modern Mathematics.\""
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A006218/b006218.txt\"\u003eTable of n, a(n) for n = 0..20000\u003c/a\u003e [First 1000 terms from T. D. Noe]",
+				"Dorin Andrica, Ovidiu Bagdasar, \u003ca href=\"http://hdl.handle.net/10545/623501\"\u003eOn some results concerning the polygonal polynomials\u003c/a\u003e, Carpathian Journal of Mathematics (2019) Vol. 35, No. 1, 1-11.",
+				"D. Andrica and E. J. Ionascu, \u003ca href=\"http://www.anstuocmath.ro/mathematics/vol22-1/Andrica_D__Ionascu_E.J._nou-1__final_.pdf\"\u003eOn the number of polynomials with coefficients in [n]\u003c/a\u003e, An. St. Univ. Ovidius Constanta, 2013, to appear.",
+				"R. Bellman and H. N. Shapiro, \u003ca href=\"http://www.jstor.org/stable/1969281\"\u003eOn a problem in additive number theory\u003c/a\u003e, Annals Math., 49 (1948), 333-340. See Eq. 1.5.",
+				"D. Berkane, O. Bordellès and O. Ramaré, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-2011-02535-4\"\u003eExplicit upper bounds for the remainder term in the divisor problem\u003c/a\u003e, Math. Comp. 81:278 (2012), pp. 1025-1051.",
+				"Xiaoxi Duan and M. W. Wong, \u003ca href=\"http://dx.doi.org/10.1016/j.jmaa.2013.08.017\"\u003eThe Dirichlet divisor problem, traces and determinants for complex powers of the twisted bi-Laplacian\u003c/a\u003e, J. of Math. Analysis and Applications, Volume 410, Issue 1, Feb 01 2014, Pages 151-157",
+				"L. Hoehn and J. Ridenhour, \u003ca href=\"http://www.jstor.org/stable/2689932\"\u003eSummations involving computer-related functions\u003c/a\u003e, Math. Mag., 62 (1989), 191-196.",
+				"M. N. Huxley, \u003ca href=\"http://dx.doi.org/10.1112/S0024611503014485\"\u003eExponential Sums and Lattice Points III\u003c/a\u003e, Proc. London Math. Soc., 87 (2003), p. 591-609.",
+				"Vaclav Kotesovec, \u003ca href=\"/A006218/a006218_1.jpg\"\u003eGraph - The asymptotic ratio (1000000 terms)\u003c/a\u003e",
+				"Richard Sladkey, \u003ca href=\"http://arxiv.org/abs/1206.3369\"\u003eA successive approximation algorithm for computing the divisor summatory function\u003c/a\u003e, arXiv:1206.3369 [math.NT], 2012.",
+				"Terence Tao, Ernest Croot III, and Harald Helfgott, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-2011-02542-1\"\u003eDeterministic methods to find primes\u003c/a\u003e, Math. Comp. 81 (2012), 1233-1246; also at \u003ca href=\"http://arxiv.org/abs/1009.3956\"\u003earXiv:1009.3956 [math.NT]\u003c/a\u003e, 2010-2012."
+			],
+			"formula": [
+				"a(n) = n * ( log(n) + 2*gamma - 1 ) + O(sqrt(n)), where gamma is the Euler-Mascheroni number ~ 0.57721... (see A001620), Dirichlet, 1849. Again, a(n) = n * ( log(n) + 2*gamma - 1 ) + O(log(n)*n^(1/3)). The determination of the precise size of the error term is an unsolved problem (the so-called Dirichlet divisor problem) - see references, especially Huxley (2003).",
+				"The bounds from Chandrasekharan lead to the explicit bounds n log(n) + (2 gamma - 1) n - 4 sqrt(n) - 1 \u003c= a(n) \u003c= n log(n) + (2 gamma - 1) n + 4 sqrt(n). - _David Applegate_, Oct 14 2008",
+				"a(n) = 2*(Sum_{i=1..floor(sqrt(n))} floor(n/i)) - floor(sqrt(n))^2. - _Benoit Cloitre_, May 12 2002",
+				"G.f.: (1/(1-x))*Sum_{k \u003e= 1} x^k/(1-x^k). - _Benoit Cloitre_, Apr 23 2003",
+				"For n \u003e 0: A027750(a(n-1) + k) = k-divisor of n, = k \u003c= A000005(n). - _Reinhard Zumkeller_, May 10 2006",
+				"a(n) = A161886(n) - n + 1 = A161886(n-1) - A049820(n) + 2 = A161886(n-1) + A000005(n) - n + 2 = A006590(n) + A000005(n) - n = A006590(n+1) - n - 1 = A006590(n) + A000005(n) - n for n \u003e= 2. a(n) = a(n-1) + A000005(n) for n \u003e= 1. - _Jaroslav Krizek_, Nov 14 2009",
+				"D(n) = Sum_{m \u003e= 2, r \u003e= 1} (r/m^(r+1)) * Sum_{j = 1..m - 1} * Sum_{k = 0 .. m^(r+1) - 1} exp{ 2*k*pi i(p^n + (m - j)m^r) / m^(r+1) } where p is some fixed prime number. - _A. Neves_, Oct 04 2010",
+				"Let E(n) = a(n) - n(log n + 2 gamma - 1). Then Berkane-Bordellès-Ramaré show that |E(n)| \u003c= 0.961 sqrt(n), |E(n)| \u003c= 0.397 sqrt(n) for n \u003e 5559, and |E(n)| \u003c= 0.764 n^(1/3) log n for x \u003e 9994. - _Charles R Greathouse IV_, Jul 02 2012",
+				"a(n) = Sum_{k = 1..floor(sqrt(n))} A005408(floor((n/k) - (k-1))). - _Gregory R. Bryant_, Apr 20 2013",
+				"From _Mats Granvik_, May 28 2017: (Start)",
+				"Sum_{k=1..n} A255315(n, k) = n.",
+				"a(n) = (n^2 - (2*(Sum_{k=1..n} A255315(n, k)*(n - k + 1)) - n)) + 2*n - round(1 + (1/2)*(-3 + sqrt(n) + sqrt(1 + n))).",
+				"a(n) = -((n^2 - (2*(Sum_{k=1..n} A255315(n, n - k + 1)*(n - k + 1)) - n)) - 2*n + round(1 + (1/2)*(-3 + sqrt(n) + sqrt(1 + n)))). (End)",
+				"Dirichlet g.f. for s \u003e 2: Sum_{n\u003e=1} a(n)/n^s = Sum_{k\u003e=1} (Zeta(s-1) - Sum_{n=1..k-1} (HurwitzZeta(s,n/k)*n/k^s))/k. - _Mats Granvik_, Sep 24 2017"
+			],
+			"example": [
+				"a(3) = 5 because 3 + floor(3/2) + 1 = 3 + 1 + 1 = 5. Or tau(1) + tau(2) + tau(3) = 1 + 2 + 2 = 5.",
+				"a(4) = 8 because 4 + floor(4/2) + floor(4/3) + 1 = 4 + 2 + 1 + 1 = 8. Or",
+				"tau(1) + tau(2) + tau(3) + tau(4) = 1 + 2 + 2 + 3 = 8.",
+				"a(5) = 10 because 5 + floor(5/2) + floor(5/3) + floor (5/4) + 1 = 5 + 2 + 1 + 1 + 1 = 10. Or tau(1) + tau(2) + tau(3) + tau(4) + tau(5) = 1 + 2 + 2 + 3 + 2 = 10."
+			],
+			"maple": [
+				"with(numtheory): A006218 := n-\u003eadd(sigma[0](i), i=1..n);"
+			],
+			"mathematica": [
+				"Table[Sum[DivisorSigma[0, k], {k, n}], {n, 70}]",
+				"FoldList[Plus, 0, Table[DivisorSigma[0, x], {x, 61}]] //Rest (* much faster *)",
+				"Join[{0},Accumulate[DivisorSigma[0,Range[60]]]] (* _Harvey P. Dale_, Jan 06 2016 *)"
+			],
+			"program": [
+				"(PARI) a(n)=sum(k=1,n,n\\k)",
+				"(PARI) a(n)=sum(k=1,sqrtint(n),n\\k)*2-sqrtint(n)^2 \\\\ _Charles R Greathouse IV_, Oct 10 2010",
+				"(Haskell)",
+				"a006218 n = sum $ map (div n) [1..n]",
+				"-- _Reinhard Zumkeller_, Jan 29 2011",
+				"(MAGMA) [0] cat [\u0026+[Floor(n/k):k in [1..n]]:n in [1..60]]; // _Marius A. Burtea_, Aug 25 2019"
+			],
+			"xref": [
+				"Right edge of A056535. Cf. A000005, A001659, A052511, A143236.",
+				"Row sums of triangle A003988, A010766 and A143724.",
+				"A061017 is an inverse.",
+				"It appears that the partial sums give A078567. - _N. J. A. Sloane_, Nov 24 2008",
+				"Cf. A116477, A051731, A161700, A004125, A212120."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 186,
+			"revision": 202,
+			"time": "2019-09-03T22:03:11-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 6577,
+			"id": "M4323",
+			"data": "0,1,7,2,5,8,16,3,19,6,14,9,9,17,17,4,12,20,20,7,7,15,15,10,23,10,111,18,18,18,106,5,26,13,13,21,21,21,34,8,109,8,29,16,16,16,104,11,24,24,24,11,11,112,112,19,32,19,32,19,19,107,107,6,27,27,27,14,14,14,102,22",
+			"name": "Number of halving and tripling steps to reach 1 in '3x+1' problem, or -1 if 1 is never reached.",
+			"comment": [
+				"The 3x+1 or Collatz problem is as follows: start with any number n. If n is even, divide it by 2, otherwise multiply it by 3 and add 1. Do we always reach 1? This is a famous unsolved problem. It is conjectured that the answer is yes.",
+				"It seems that about half of the terms satisfy a(i) = a(i+1). For example, up to 10000000, 4964705 terms satisfy this condition.",
+				"n is an element of row a(n) in triangle A127824. - _Reinhard Zumkeller_, Oct 03 2012",
+				"The number of terms that satisfy a(i) = a(i+1) for i being a power of ten from 10^1 through 10^10 are: 0, 31, 365, 4161, 45022, 477245, 4964705, 51242281, 526051204, 5378743993. - _John Mason_, Mar 02 2018"
+			],
+			"reference": [
+				"R. K. Guy, Unsolved Problems in Number Theory, E16.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A006577/b006577.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"David Eisenbud and Brady Haran, \u003ca href=\"https://www.youtube.com/watch?v=5mFpVDpKX70\"\u003eUNCRACKABLE? The Collatz Conjecture\u003c/a\u003e, Numberphile video, 2016.",
+				"Geometry.net, \u003ca href=\"http://www.geometry.net/theorems_and_conjectures/collatz_problem.html\"\u003eLinks on Collatz Problem\u003c/a\u003e",
+				"Jason Holt, \u003ca href=\"/A006577/a006577_1Blog.png\"\u003eLog-log plot of first billion terms\u003c/a\u003e",
+				"Jason Holt, \u003ca href=\"/A006577/a006577_1B.png\"\u003ePlot of 1 billion values of the number of steps to drop below n\u003c/a\u003e (A060445), log scale on x axis",
+				"Jason Holt, \u003ca href=\"/A006577/a006577_10B.png\"\u003ePlot of 10 billion values of the number of steps to drop below n\u003c/a\u003e (A060445), log scale on x axis",
+				"A. Krowne, PlanetMath.org, \u003ca href=\"http://planetmath.org/encyclopedia/CollatzProblem.html\"\u003eCollatz problem\u003c/a\u003e",
+				"J. C. Lagarias, \u003ca href=\"http://www.cecm.sfu.ca/organics/papers/lagarias/paper/html/paper.html\"\u003eThe 3x+1 problem and its generalizations\u003c/a\u003e, Amer. Math. Monthly, 92 (1985), 3-23.",
+				"J. C. Lagarias, \u003ca href=\"http://www.cfrd.cl/~moises/DVD/05Bibliografia%20-%20Geometria%20Sagrada/Matematica%20Recreativa/Martin%20Gardner/Martin%20Gardner%20-%20The%20Mathemagician%20and%20Pied%20Puzzler%20-%20A%20Collection%20in%20Tribute%20to%20Martin%20Gardner.pdf\"\u003eHow random are 3x+1 function iterates?\u003c/a\u003e, in The Mathemagician and the Pied Puzzler - A Collection in Tribute to Martin Gardner, Ed. E. R. Berlekamp and T. Rogers, A. K. Peters, 1999, pp. 253-266.",
+				"J. C. Lagarias, \u003ca href=\"http://arxiv.org/abs/math/0608208\"\u003eThe 3x+1 Problem: an annotated bibliography, II (2000-2009)\u003c/a\u003e, arXiv:0608208 [math.NT], 2006-2012.",
+				"J. C. Lagarias, ed., \u003ca href=\"http://www.ams.org/bookstore-getitem/item=mbk-78\"\u003eThe Ultimate Challenge: The 3x+1 Problem\u003c/a\u003e, Amer. Math. Soc., 2010.",
+				"M. Le Brun, \u003ca href=\"/A006577/a006577.pdf\"\u003eEmail to N. J. A. Sloane, Jul 1991\u003c/a\u003e",
+				"Mathematical BBS, \u003ca href=\"http://felix.unife.it/Root/d-Mathematics/d-Number-theory/b-3x+1\"\u003eBiblography on Collatz Sequence\u003c/a\u003e",
+				"P. Picart, \u003ca href=\"http://trucsmaths.free.fr/js_syracuse.htm\"\u003eAlgorithme de Collatz et conjecture de Syracuse\u003c/a\u003e",
+				"E. Roosendaal, \u003ca href=\"http://www.ericr.nl/wondrous/index.html\"\u003eOn the 3x+1 problem\u003c/a\u003e",
+				"J. L. Simons, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-04-01728-4\"\u003eOn the nonexistence of 2-cycles for the 3x+1 problem\u003c/a\u003e, Math. Comp. 75 (2005), 1565-1572.",
+				"G. Villemin's Almanach of Numbers, \u003ca href=\"http://translate.google.com/translate?hl=en\u0026amp;sl=fr\u0026amp;u=http://villemin.gerard.free.fr/Wwwgvmm/Iteration/Syracuse.htm#top\"\u003eCycle of Syracuse\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/CollatzProblem.html\"\u003eCollatz Problem\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Collatz_conjecture\"\u003eCollatz Conjecture\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A006666(n) + A006667(n).",
+				"a(n) = A112695(n) + 2 for n \u003e 2. - _Reinhard Zumkeller_, Apr 18 2008",
+				"a(n) = A008908(n) - 1. - _L. Edson Jeffery_, Jul 21 2014"
+			],
+			"example": [
+				"a(5)=5 because the trajectory of 5 is (5,16,8,4,2,1)."
+			],
+			"maple": [
+				"A006577 := proc(n)",
+				"        local a,traj ;",
+				"        a := 0 ;",
+				"        traj := n ;",
+				"        while traj \u003e 1 do",
+				"                if type(traj,'even') then",
+				"                        traj := traj/2 ;",
+				"                else",
+				"                        traj := 3*traj+1 ;",
+				"                end if;",
+				"                a := a+1 ;",
+				"        end do:",
+				"        return a;",
+				"end proc: # _R. J. Mathar_, Jul 08 2012"
+			],
+			"mathematica": [
+				"f[n_] := Module[{a=n,k=0}, While[a!=1, k++; If[EvenQ[a], a=a/2, a=a*3+1]]; k]; Table[f[n],{n,4!}] (* _Vladimir Joseph Stephan Orlovsky_, Jan 08 2011 *)",
+				"Table[Length[NestWhileList[If[EvenQ[#],#/2,3#+1]\u0026,n,#!=1\u0026]]-1,{n,80}] (* _Harvey P. Dale_, May 21 2012 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c0,0,s=n; c=0; while(s\u003e1,s=if(s%2,3*s+1,s/2); c++); c)",
+				"(PARI) step(n)=if(n%2,3*n+1,n/2);",
+				"A006577(n)=if(n==1,0,A006577(step(n))+1); \\\\ _Michael B. Porter_, Jun 05 2010",
+				"(Haskell)",
+				"import Data.List (findIndex)",
+				"import Data.Maybe (fromJust)",
+				"a006577 n = fromJust $ findIndex (n `elem`) a127824_tabf",
+				"-- _Reinhard Zumkeller_, Oct 04 2012, Aug 30 2012",
+				"(Python)",
+				"def a(n):",
+				"    if n==1: return 0",
+				"    x=0",
+				"    while True:",
+				"        if n%2==0: n/=2",
+				"        else: n = 3*n + 1",
+				"        x+=1",
+				"        if n\u003c2: break",
+				"    return x",
+				"print [a(n) for n in xrange(1, 101)] # _Indranil Ghosh_, Jun 05 2017"
+			],
+			"xref": [
+				"See A070165 for triangle giving trajectories of n = 1, 2, 3, ....",
+				"Cf. A006370, A125731, A127885, A127886, A008908, A112695.",
+				"See also A008884, A161021, A161022, A161023."
+			],
+			"keyword": "nonn,nice,easy,hear,look",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, _Bill Gosper_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Apr 27 2001",
+				"\"Escape clause\" added to definition by _N. J. A. Sloane_, Jun 06 2017"
+			],
+			"references": 186,
+			"revision": 143,
+			"time": "2019-09-19T06:33:07-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 181819,
+			"data": "1,2,2,3,2,4,2,5,3,4,2,6,2,4,4,7,2,6,2,6,4,4,2,10,3,4,5,6,2,8,2,11,4,4,4,9,2,4,4,10,2,8,2,6,6,4,2,14,3,6,4,6,2,10,4,10,4,4,2,12,2,4,6,13,4,8,2,6,4,8,2,15,2,4,6,6,4,8,2,14,7,4,2,12,4,4,4,10,2,12,4,6,4,4,4,22,2,6,6,9,2,8,2,10,8",
+			"name": "a(1) = 1; for n\u003e1, if n = Product prime(i)^e(i), then a(n) = Product prime(e(i)).",
+			"comment": [
+				"a(n) depends only on prime signature of n (cf. A025487). a(m) = a(n) iff m and n have the same prime signature."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A181819/b181819.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"https://oeis.org/wiki/Index_to_OEIS:_Section_Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"formula": [
+				"From _Antti Karttunen_, Feb 05 \u0026 07 2016: (Start)",
+				"a(1) = 1; for n \u003e 1, a(n) = A000040(A067029(n)) * a(A028234(n)).",
+				"a(1) = 1; for n \u003e 1, a(n) = A008578(A001511(n)) * a(A064989(n)).",
+				"Other identities. For all n \u003e= 1:",
+				"a(A124859(n)) = A122111(a(n)) = A238745(n). - from _Matthew Vandermast_'s formulas for the latter sequence.",
+				"(End)",
+				"a(n) = A246029(A156552(n)). - _Antti Karttunen_, Oct 15 2016"
+			],
+			"example": [
+				"20 = 2^2*5 has the exponents (2,1) in its prime factorization. Accordingly, a(20) = prime(2)*prime(1) (i.e., A000040(1)*A000040(1)), which equals 3*2 = 6."
+			],
+			"maple": [
+				"A181819 := proc(n)",
+				"    local a;",
+				"    a := 1;",
+				"    for pf in ifactors(n)[2] do",
+				"        a := a*ithprime(pf[2]) ;",
+				"    end do:",
+				"    a ;",
+				"end proc:",
+				"seq(A181819(n),n=1..80) ; # _R. J. Mathar_, Jan 09 2019"
+			],
+			"mathematica": [
+				"{1}~Join~Table[Times @@ Prime@ Map[Last, FactorInteger@ n], {n, 2, 120}] (* _Michael De Vlieger_, Feb 07 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a181819 = product . map a000040 . a124010_row",
+				"-- _Reinhard Zumkeller_, Mar 26 2012",
+				"(PARI) a(n) = {my(f=factor(n)); prod(k=1, #f~, prime(f[k,2]));} \\\\ _Michel Marcus_, Nov 16 2015",
+				"(Scheme, with memoization-macro definec, two variants)",
+				"(definec (A181819 n) (cond ((= 1 n) 1) (else (* (A000040 (A067029 n)) (A181819 (A028234 n))))))",
+				"(definec (A181819 n) (cond ((= 1 n) 1) ((even? n) (* (A000040 (A007814 n)) (A181819 (A000265 n)))) (else (A181819 (A064989 n)))))",
+				";; _Antti Karttunen_, Feb 05 \u0026 07 2016"
+			],
+			"xref": [
+				"Cf. A000040, A000265, A001511, A007814, A008578, A028234, A064989, A067029, A122111, A124010, A124859, A156552, A181820, A181821, A182850, A115621, A101296, A238690, A238745, A238748, A246029."
+			],
+			"keyword": "nonn,easy,mult",
+			"offset": "1,2",
+			"author": "_Matthew Vandermast_, Dec 07 2010",
+			"references": 184,
+			"revision": 52,
+			"time": "2019-01-09T05:54:58-05:00",
+			"created": "2010-11-13T14:07:27-05:00"
+		},
+		{
+			"number": 7913,
+			"data": "1,2,3,1,5,6,7,2,1,10,11,3,13,14,15,1,17,2,19,5,21,22,23,6,1,26,3,7,29,30,31,2,33,34,35,1,37,38,39,10,41,42,43,11,5,46,47,3,1,2,51,13,53,6,55,14,57,58,59,15,61,62,7,1,65,66,67,17,69,70,71,2,73,74,3,19,77",
+			"name": "Squarefree part of n: a(n) = smallest positive number m such that n/m is a square.",
+			"comment": [
+				"Also called core(n). [Not to be confused with the squarefree kernel of n, A007947.]",
+				"Sequence read mod 4 gives A065882. - _Philippe Deléham_, Mar 28 2004",
+				"This is an arithmetic function and is undefined if n \u003c= 0.",
+				"A note on square roots of numbers: we can write sqrt(n) = b*sqrt(c) where c is squarefree. Then b = A000188(n) is the \"inner square root\" of n, c = A007913(n), lcm(A007947(b),c) = A007947(n) = \"squarefree kernel\" of n and bc = A019554(n) = \"outer square root\" of n. [Corrected by _M. F. Hasler_, Mar 01 2018]",
+				"If n \u003e 1, the quantity f(n) = log(n/core(n))/log(n) satisfies 0 \u003c= f(n) \u003c= 1; f(n) = 0 when n is squarefree and f(n) = 1 when n is a perfect square. One can define n as being \"epsilon-almost squarefree\" if f(n) \u003c epsilon. - Kurt Foster (drsardonicus(AT)earthlink.net), Jun 28 2008",
+				"a(n) = the smallest natural numbers m such that product of geometric mean of the divisors of n and geometric mean of the divisors of m are integers. Geometric mean of the divisors of number n is real number b(n) = Sqrt(n). a(n) = 1 for infinitely many n. a(n) = 1 for numbers from A000290: a(A000290(n)) = 1. For n = 8; b(8) = sqrt(8), a(n) = 2 because b(2) = sqrt(2); sqrt(8) * sqrt(2) = 4 (integer). - _Jaroslav Krizek_, Apr 26 2010",
+				"Dirichlet convolution of A010052 with the sequence of absolute values of A055615. - _R. J. Mathar_, Feb 11 2011",
+				"Booker, Hiary, \u0026 Keating outline a method for bounding (on the GRH) a(n) for large n using L-functions. - _Charles R Greathouse IV_, Feb 01 2013",
+				"According to the formula a(n) = n/A000188(n)^2, the scatterplot exhibits the straight lines y=x, y=x/4, y=x/9, ..., i.e., y=x/k^2 for all k=1,2,3,... - _M. F. Hasler_, May 08 2014",
+				"The Dirichlet inverse of this sequence is A008836(n) * A063659(n). - _Álvar Ibeas_, Mar 19 2015",
+				"a(n) = 1 if n is a square, a(n) = n if n is a product of distinct primes. - _Zak Seidov_, Jan 30 2016",
+				"All solutions of the Diophantine equation n*x=y^2 or, equivalently, G(n,x)=y, with G being the geometric mean, are of the form x=k^2*a(n), y=k*sqrt(n*a(n)), where k is a positive integer. - _Stanislav Sykora_, Feb 03 2016"
+			],
+			"reference": [
+				"K. Atanassov, On the 22nd, 23rd, and the 24th Smarandache Problems, Notes on Number Theory and Discrete Mathematics, Sophia, Bulgaria, Vol. 5 (1999), No. 2, 80-82."
+			],
+			"link": [
+				"T. D. Noe and Daniel Forgues, \u003ca href=\"/A007913/b007913.txt\"\u003eTable of n, a(n) for n = 1..100000\u003c/a\u003e (first 1000 terms from T. D. Noe)",
+				"K. Atanassov, \u003ca href=\"http://www.gallup.unm.edu/~smarandache/Atanassov-SomeProblems.pdf\"\u003eOn Some of Smarandache's Problems\u003c/a\u003e",
+				"Andrew Booker, Ghaith Hiary, and Jon Keating, \u003ca href=\"http://www.cs.uleth.ca/~cnta2012/slides-cnta12/Andrew-Booker.pdf\"\u003eDetecting squarefree numbers\u003c/a\u003e, CNTA XII (2012).",
+				"H. Bottomley, \u003ca href=\"http://fs.gallup.unm.edu/Bottomley-Sm-Mult-Functions.htm\"\u003eSome Smarandache-type multiplicative sequences\u003c/a\u003e",
+				"John M. Campbell, \u003ca href=\"http://arxiv.org/abs/1105.3399\"\u003eAn Integral Representation of Kekulé Numbers, and Double Integrals Related to Smarandache Sequences\u003c/a\u003e, arXiv preprint arXiv:1105.3399 [math.GM], 2011.",
+				"F. Smarandache, \u003ca href=\"http://www.gallup.unm.edu/~smarandache/OPNS.pdf\"\u003eOnly Problems, Not Solutions!\u003c/a\u003e, Xiquan Publ., Phoenix-Chicago, 1993.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/SquarefreePart.html\"\u003eSquarefree Part\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative with a(p^k) = p^(k mod 2). - _David W. Wilson_, Aug 01 2001",
+				"a(n) modulo 2 = A035263(n); a(A036554(n)) is even; a(A003159(n)) is odd. - _Philippe Deléham_, Mar 28 2004",
+				"Dirichlet g.f.: zeta(2s)*zeta(s-1)/zeta(2s-2). - _R. J. Mathar_, Feb 11 2011",
+				"a(n) = n/( Sum_{k=1..n} floor(k^2/n)-floor((k^2 -1)/n) )^2. - _Anthony Browne_, Jun 06 2016",
+				"a(n) = rad(n)/a(n/rad(n)), where rad = A007947. This recurrence relation together with a(1) = 1 generate the sequence. - _Velin Yanev_, Sep 19 2017"
+			],
+			"maple": [
+				"A007913 := proc(n) local f,a,d; f := ifactors(n)[2] ; a := 1 ; for d in f do if type(op(2,d),'odd') then a := a*op(1,d) ; end if; end do: a; end proc: # _R. J. Mathar_, Mar 18 2011",
+				"# second Maple program:",
+				"a:= n-\u003e mul(i[1]^irem(i[2], 2), i=ifactors(n)[2]):",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Jul 20 2015"
+			],
+			"mathematica": [
+				"data = Table[Sqrt[n], {n, 1, 100}]; sp = data /. Sqrt[_] -\u003e 1; sfp = data/sp /. Sqrt[x_] -\u003e x (* _Artur Jasinski_, Nov 03 2008 *)",
+				"Table[Times@@Power@@@({#[[1]],Mod[ #[[2]],2]}\u0026/@FactorInteger[n]),{n,100}] (* _Zak Seidov_, Apr 08 2009 *)",
+				"Table[{p, e} = Transpose[FactorInteger[n]]; Times @@ (p^Mod[e, 2]), {n, 100}] (* _T. D. Noe_, May 20 2013 *)",
+				"√#/.(c_:1)*a_^(b_:0)-\u003e(c*a^b)^2\u0026/@Range@100 (* _Bill Gosper_, Jul 18 2015 *)"
+			],
+			"program": [
+				"(MAGMA) [ Squarefree(n) : n in [1..256] ]; // _N. J. A. Sloane_, Dec 23 2006",
+				"(PARI) a(n)=core(n)",
+				"(Haskell)",
+				"a007913 n = product $",
+				"            zipWith (^) (a027748_row n) (map (`mod` 2) $ a124010_row n)",
+				"-- _Reinhard Zumkeller_, Jul 06 2012",
+				"(Python)",
+				"from operator import mul",
+				"from functools import reduce",
+				"from sympy import factorint",
+				"def A007913(n):",
+				"....return reduce(mul,[1]+[p for p,e in factorint(n).items() if e % 2])",
+				"# _Chai Wah Wu_, Feb 03 2015",
+				"(Sage)",
+				"[squarefree_part(n) for n in (1..77)] # _Peter Luschny_, Feb 04 2015"
+			],
+			"xref": [
+				"Cf. A000188, A002734, A117811, A007947, A019554, A027748, A124010."
+			],
+			"keyword": "nonn,easy,mult,nice",
+			"offset": "1,2",
+			"author": "R. Muller, Mar 15 1996",
+			"ext": [
+				"More terms from _Michael Somos_, Nov 24 2001",
+				"Definition reformulated by _Daniel Forgues_, Mar 24 2009"
+			],
+			"references": 183,
+			"revision": 123,
+			"time": "2018-04-02T03:48:23-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 2476,
+			"id": "M4344 N1819",
+			"data": "7,13,19,31,37,43,61,67,73,79,97,103,109,127,139,151,157,163,181,193,199,211,223,229,241,271,277,283,307,313,331,337,349,367,373,379,397,409,421,433,439,457,463,487,499,523,541,547,571,577,601,607,613,619",
+			"name": "Primes of the form 6m + 1.",
+			"comment": [
+				"Equivalently, primes of the form 3m + 1.",
+				"Rational primes that decompose in the field Q(sqrt(-3)). - _N. J. A. Sloane_, Dec 25 2017",
+				"Primes p dividing Sum_{k=0..p} binomial(2k, k) - 3 = A006134(p) - 3. - _Benoit Cloitre_, Feb 08 2003",
+				"Primes p such that tau(p) == 2 (mod 3) where tau(x) is the Ramanujan tau function (cf. A000594). - _Benoit Cloitre_, May 04 2003",
+				"Primes of the form x^2 + xy - 2y^2 = (x+2y)(x-y). - _N. J. A. Sloane_, May 31 2014",
+				"Primes of the form x^2 - xy + 7y^2 with x and y nonnegative. - _T. D. Noe_, May 07 2005",
+				"Primes p such that p^2 divides Sum_{m=1..2(p-1)} Sum_{k=1..m} (2k)!/(k!)^2. - _Alexander Adamchuk_, Jul 04 2006",
+				"A039701(A049084(a(n))) = A134323(A049084(a(n))) = 1. - _Reinhard Zumkeller_, Oct 21 2007",
+				"The set of primes of the form 3n + 1 is a superset of the set of greater of twin primes larger than five (A006512). - _Paul Muljadi_, Jun 05 2008",
+				"Also primes p such that the arithmetic mean of divisors of p^2 is an integer: sigma_1(p^2)/sigma_0(p^2) = C. (A000203(p^2)/A000005(p^2) = C). - _Ctibor O. Zizka_, Sep 15 2008",
+				"Fermat knew that these numbers can also be expressed as x^2 + 3y^2 and are therefore not prime in Z[omega], where omega is a complex cubic root of unity. - _Alonso del Arte_, Dec 07 2012",
+				"Primes of the form x^2 + xy + y^2 with x \u003c y and nonnegative. Also see A007645 which also applies when x=y, adding an initial 3. - _Richard R. Forberg_, Apr 11 2016",
+				"For any term p in this sequence, let k = (p^2 - 1)/6; then A016921(k) = p^2. - _Sergey Pavlov_, Dec 16 2016; corrected Dec 18 2016"
+			],
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 870.",
+				"David A. Cox, Primes of the Form x^2 + ny^2. New York: Wiley (1989): 8.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A002476/b002476.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy].",
+				"C. Banderier, \u003ca href=\"http://algo.inria.fr/banderier/Recipro/node18.html\"\u003eCalcul de (-3/p)\u003c/a\u003e",
+				"F. S. Carey, \u003ca href=\"https://archive.org/stream/proceedingslond00unkngoog#page/n315/mode/2up\"\u003eOn some cases of the Solutions of the Congruence z^p^(n-1)=1, mod p\u003c/a\u003e, Proceedings of the London Mathematical Society, Volume s1-33, Issue 1, November 1900, Pages 294-312.",
+				"A. Granville and G. Martin, \u003ca href=\"https://arxiv.org/abs/math/0408319\"\u003ePrime number races\u003c/a\u003e, arXiv:math/0408319 [math.NT], 2004.",
+				"K. G. Reuschle, \u003ca href=\"https://gdz.sub.uni-goettingen.de/id/PPN576716448?tify={%22pages%22:[9]}\"\u003eTafeln complexer Primzahlen\u003c/a\u003e, Königl. Akademie der Wissenschaften, Berlin, 1875, p. 1.",
+				"Neville Robbins, \u003ca href=\"http://www.fq.math.ca/Papers1/43-1/paper43-1-4.pdf\"\u003eOn the Infinitude of Primes of the Form 3k+1\u003c/a\u003e, Fib. Q., 43,1 (2005), 29-30.",
+				"N. J. A. Sloane et al., \u003ca href=\"https://oeis.org/wiki/Binary_Quadratic_Forms_and_OEIS\"\u003eBinary Quadratic Forms and OEIS\u003c/a\u003e (Index to related sequences, programs, references)",
+				"\u003ca href=\"https://oeis.org/wiki/Index_to_OEIS:_Section_Pri#primes_decomp_of\"\u003eIndex to sequences related to decomposition of primes in quadratic fields\u003c/a\u003e"
+			],
+			"formula": [
+				"From _R. J. Mathar_, Apr 03 2011: (Start)",
+				"Sum_{n \u003e= 1} 1/a(n)^2 = A175644.",
+				"Sum_{n \u003e= 1} 1/a(n)^3 = A175645. (End)",
+				"a(n) = 6*A024899(n) + 1. - _Zak Seidov_, Aug 31 2016"
+			],
+			"example": [
+				"Since 6 * 1 + 1 = 7 and 7 is prime, 7 is in the sequence. (Also 7 = 2^2 + 3 * 1^2 = (2 + sqrt(-3))(2 - sqrt(-3)).)",
+				"Since 6 * 2 + 1 = 13 and 13 is prime, 13 is in the sequence.",
+				"17 is prime but it is of the form 6m - 1 rather than 6m + 1, and is therefore not in the sequence."
+			],
+			"maple": [
+				"a := [ ]: for n from 1 to 400 do if isprime(6*n+1) then a := [ op(a), n ]; fi; od: A002476 := n-\u003ea[n];"
+			],
+			"mathematica": [
+				"Select[6*Range[100] + 1, PrimeQ[ # ] \u0026] (* _Stefan Steinerberger_, Apr 06 2006 *)"
+			],
+			"program": [
+				"(MAGMA) [n: n in [1..700 by 6] | IsPrime(n)]; // _Vincenzo Librandi_, Apr 05 2011",
+				"(PARI) select(p-\u003ep%3==1,primes(100)) \\\\ _Charles R Greathouse IV_, Oct 31 2012",
+				"(Haskell)",
+				"a002476 n = a002476_list !! (n-1)",
+				"a002476_list = filter ((== 1) . (`mod` 6)) a000040_list",
+				"-- _Reinhard Zumkeller_, Jan 15 2013",
+				"(J) (#~ 1\u0026p:) \u003e: 6 * i.1000 NB. _Stephen Makdisi_, May 01 2018",
+				"(GAP) Filtered(List([0..110],k-\u003e6*k+1),n-\u003e IsPrime(n)); # _Muniru A Asiru_, Mar 11 2019"
+			],
+			"xref": [
+				"Cf. A045331, A242660.",
+				"For values of m see A024899. Primes of form 3n - 1 give A003627.",
+				"These are the primes arising in A024892, A024899, A034936.",
+				"A091178 gives prime index.",
+				"Cf. A006512.",
+				"Subsequence of A016921.",
+				"Cf. A004611 (multiplicative closure)."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 181,
+			"revision": 220,
+			"time": "2019-08-27T05:41:46-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

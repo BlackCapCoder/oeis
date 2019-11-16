@@ -1,0 +1,389 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5950,
+	"results": [
+		{
+			"number": 253415,
+			"data": "2,4,5,5,5,5,5,5,7,7,7,7,7,7,7,7,7,7,7,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,19,19,19,19,19,19,19,19,19,19,19,19,22,22,22,22,22,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31",
+			"name": "Smallest missing number within the first n terms in A095258.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A253415/b253415.txt\"\u003eTable of n, a(n) for n = 2..797\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a253415 n = a253415_list !! (n-2)",
+				"a253415_list = f [2..] 1 where",
+				"   f xs z = g xs where",
+				"     g (y:ys) = if mod z' y \u003e 0 then g ys else x : f xs' (z + y)",
+				"                where xs'@(x:_) = delete y xs",
+				"     z' = z + 2",
+				"-- _Reinhard Zumkeller_, Dec 31 2014"
+			],
+			"xref": [
+				"Cf. A095258, A095259, A253425 (run lengths)."
+			],
+			"keyword": "nonn",
+			"offset": "2,1",
+			"author": "_Reinhard Zumkeller_, Dec 31 2014",
+			"references": 4,
+			"revision": 4,
+			"time": "2014-12-31T17:42:37-05:00",
+			"created": "2014-12-31T17:42:37-05:00"
+		},
+		{
+			"number": 253443,
+			"data": "4,4,5,5,5,5,7,7,7,7,7,7,7,7,7,7,7,7,7,7,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,34,37,37,37,37,37",
+			"name": "Smallest missing number within the first n terms in A109890.",
+			"comment": [
+				"A253584(n) occurs exactly A253444(n) times."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A253443/b253443.txt\"\u003eTable of n, a(n) for n = 4..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (insert)",
+				"a253443 n = a253443_list !! (n-4)",
+				"a253443_list = f (4, []) 6 where",
+				"   f (m,ys) z = g $ dropWhile (\u003c m) $ a027750_row' z where",
+				"     g (d:ds) | elem d ys = g ds",
+				"              | otherwise = m : f (ins [m, m+1 ..] (insert d ys)) (z + d)",
+				"     ins (u:us) vs'@(v:vs) = if u \u003c v then (u, vs') else ins us vs",
+				"-- _Reinhard Zumkeller_, Jan 03 2015"
+			],
+			"xref": [
+				"Cf. A095258, A095259, A253444 (run lengths), A253584 (range), A253415."
+			],
+			"keyword": "nonn",
+			"offset": "4,1",
+			"author": "_Reinhard Zumkeller_, Jan 01 2015",
+			"references": 4,
+			"revision": 12,
+			"time": "2015-01-05T07:13:27-05:00",
+			"created": "2015-01-05T07:10:53-05:00"
+		},
+		{
+			"number": 253444,
+			"data": "2,4,14,17,27,1,21,62,34,86,86,47,186,94,53,212,226,148,251,696,1484,630,1870,563,813,188,1222,154,960,6654,1980,8872",
+			"name": "Lengths of runs of identical terms in A253443.",
+			"comment": [
+				" A253584(n) occurs exactly a(n) times in A253443."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a253444 n = a253444_list !! (n-1)",
+				"a253444_list = map length $ group a253443_list"
+			],
+			"xref": [
+				" Cf. A253443, A253584, A109890."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jan 01 2015",
+			"references": 4,
+			"revision": 4,
+			"time": "2015-01-05T07:14:26-05:00",
+			"created": "2015-01-05T07:14:26-05:00"
+		},
+		{
+			"number": 253589,
+			"data": "0,1,1,2,2,1,2,2,2,2,2,2,1,3,2,2,3,1,3,2,3,2,1,3,2,4,2,2,2,3,3,2,3,3,2,3,3,2,3,3,2,4,1,3,3,3,3,3,3,3,3,4,2,4,3,2,4,3,2,4,3,3,3,3,3,3,3,3,4,2,4,3,3,4,1,5,2,4,2,4,3,3,4,3,3,4",
+			"name": "Binary weight of A252867(n).",
+			"comment": [
+				"a(n) = A000120(A252867(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A253589/b253589.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				".   n | A252867(n) |   binary |   a(n)",
+				". ----+------------+----------+--------",
+				".   0 |          0 |        0 |      0",
+				".   1 |          1 |        1 |      1",
+				".   2 |          2 |       10 |      1",
+				".   3 |          5 |      101 |      2",
+				".   4 |         10 |     1010 |      2",
+				".   5 |          4 |      100 |      1",
+				".   6 |          3 |       11 |      2",
+				".   7 |         12 |     1100 |      2",
+				".   8 |         17 |    10001 |      2",
+				".   9 |          6 |      110 |      2",
+				".  10 |          9 |     1001 |      2",
+				".  11 |         18 |    10010 |      2",
+				".  12 |          8 |     1000 |      1",
+				".  13 |          7 |      111 |      3",
+				".  14 |         24 |    11000 |      2",
+				".  15 |         33 |   100001 |      2",
+				".  16 |         14 |     1110 |      3",
+				".  17 |         32 |   100000 |      1",
+				".  18 |         11 |     1011 |      3",
+				".  19 |         36 |   100100 |      2",
+				".  20 |         19 |    10011 |      3",
+				".  21 |         40 |   101000 |      2",
+				".  22 |         16 |    10000 |      1",
+				".  23 |         13 |     1101 |      3",
+				".  24 |         48 |   110000 |      2",
+				".  25 |         15 |     1111 |      4",
+				".  26 |         80 |  1010000 |      2",
+				".  27 |         34 |   100010 |      2",
+				".  28 |         20 |    10100 |      2",
+				".  29 |         35 |   100011 |      3",
+				".  30 |         28 |    11100 |      3 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a253589 = a000120 . a252867"
+			],
+			"xref": [
+				"Cf. A252867, A000120, A007088."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Jan 12 2015",
+			"references": 4,
+			"revision": 5,
+			"time": "2015-01-13T07:32:34-05:00",
+			"created": "2015-01-13T07:32:34-05:00"
+		},
+		{
+			"number": 254323,
+			"data": "1,4,7,16,28,34,37,49,67,136,148,238,259,268,34,37,367,469,67,156,1258,136,1348,1369,1468,278,238,2359,2479,2569,268,34,37,367,367,489,469,67,1356,1458,12358,12469,12478,136,1348,13468,13579,1468,2378,2579",
+			"name": "Remove in decimal representation of A254143(n) all repeated digits.",
+			"comment": [
+				"a(n) \u003c= 123456789 for all n, and a(n) \u003c 123456789 for n \u003c 396;",
+				"a(396) = 123456789 = A050289(1);",
+				"a(n) = A137564(A254143(n)) = A004086(A227362(A254143(n)))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254323/b254323.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a254323 = a137564 . a254143"
+			],
+			"xref": [
+				"Cf. A254143, A137564, A227362, A004086, A050289.",
+				"Cf. A254338 (initial digits), A254339 (final digits)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jan 28 2015",
+			"references": 4,
+			"revision": 7,
+			"time": "2015-02-27T16:43:21-05:00",
+			"created": "2015-01-28T18:01:13-05:00"
+		},
+		{
+			"number": 254531,
+			"data": "1,1,2,3,3,4,4,5,5,6,6,7,7,7,8,8,9,9,10,10,10,11,11,11,12,12,12,13,13,13,14,14,14,15,15,15,15,16,16,16,16,17,17,17,17,18,18,18,18,19,19,19,19,19,20,20,20,20,21,21,21,21,21,22,22,22,22,22,22",
+			"name": "a(n) is the position of the piano key whose frequency is closest to n Hz, start with A0 = the 1st key.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254531/b254531.txt\"\u003eTable of n, a(n) for n = 27..4308\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Piano_key_frequencies\"\u003ePiano Key Frequencies\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Twelfth_root_of_two\"\u003eTwelfth root of two\u003c/a\u003e",
+				"\u003ca href=\"/index/Mu#music\"\u003eIndex entries for sequences based on music\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = round(12*log_2(n/440)) + 49, 27 \u003c= n \u003c= 4308.",
+				"a(A214832(k)) = k for k = 1..88."
+			],
+			"example": [
+				".     | Frequency [Hz] | Piano key | Pitch",
+				".   i | f = A079731(i) |      a(f) |",
+				".  ---+----------------+-----------+------",
+				".   0 |             28 |         1 |  A0",
+				".   1 |             55 |        13 |  A1",
+				".   2 |            110 |        25 |  A2",
+				".   3 |            220 |        37 |  A3",
+				".   4 |            440 |        49 |  A4    A440",
+				".   5 |            880 |        61 |  A5",
+				".   6 |           1760 |        73 |  A6",
+				".   7 |           3520 |        85 |  A7 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a254531 = (+ 49) . round . (* 12) . logBase 2 . (/ 440) . fromIntegral",
+				"(PARI) a(n) = round(12*log(n/440)/log(2))+49 \\\\ _Jianing Song_, Oct 14 2019"
+			],
+			"xref": [
+				"Cf. A214832, A079731, A010774."
+			],
+			"keyword": "nonn,fini,full",
+			"offset": "27,3",
+			"author": "_Reinhard Zumkeller_, Feb 01 2015",
+			"ext": [
+				"Corrected by _Jianing Song_, Oct 14 2019"
+			],
+			"references": 4,
+			"revision": 17,
+			"time": "2019-10-14T11:51:51-04:00",
+			"created": "2015-02-04T09:04:13-05:00"
+		},
+		{
+			"number": 254719,
+			"data": "4,9,16,25,27,32,64,81,125,128,169,243,256,441,512,625,729,1024,1156,2048,2187,2197,3025,3125,4096,6561,7921,8192,9261,15625,16384,19683,20736,28561,32768,39304,54289,59049,65536,78125,131072,142129,166375,177147",
+			"name": "Perfect powers of Fibonacci numbers: a(n) = F(m)^k for appropriate m \u003e 2 and k \u003e 1, with F = A000045.",
+			"comment": [
+				"Suggested by _R. J. Mathar_'s comment in A105317."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254719/b254719.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				". A254719 |       |4|   |9|  |16|  |25|27|32|     |64|81|  |125|128|   |169",
+				".         +-------+-+---+-+--+--+--+--+--+--+-----+--+--+--+---+---+---+---",
+				". A105317 |0|1|2|3|4|5|8|9|13|16|21|25|27|32|34|55|64|81|89|125|128|144|169",
+				".         +-+-+-+-+-+-+-+-+--+--+--+--------+--+--+-----+--+-------+---+---",
+				". A000045 |0|1|2|3| |5|8| |13|  |21|        |34|55|     |89|       |144|"
+			],
+			"program": [
+				"(Haskell)",
+				"a254719 n = a254719_list !! (n-1)",
+				"a254719_list = g (0 : drop 2 a000045_list) a105317_list where",
+				"   g fs'@(f:fs) (x:xs) = if x == f then g fs xs else x : g fs' xs"
+			],
+			"xref": [
+				"A105317 without A000045; cf. A001597."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Feb 06 2015",
+			"references": 4,
+			"revision": 7,
+			"time": "2019-08-20T07:24:13-04:00",
+			"created": "2015-02-06T16:37:32-05:00"
+		},
+		{
+			"number": 254732,
+			"data": "2,4,6,6,10,12,14,12,12,20,22,18,26,28,30,20,34,24,38,30,42,44,46,36,30,52,36,42,58,60,62,40,66,68,70,42,74,76,78,60,82,84,86,66,60,92,94,60,56,60,102,78,106,72,110,84,114,116,118,90,122,124,84,72",
+			"name": "a(n) is the least k \u003e n such that n divides k^2.",
+			"comment": [
+				"A073353(n) \u003c= a(n) \u003c= 2*n. Any prime that divides n must also divide a(n), and because n divides (2*n)^2."
+			],
+			"link": [
+				"Peter Kagey, \u003ca href=\"/A254732/b254732.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sqrt(n*A072905(n)).",
+				"a(n) = A019554(n)*(A000188(n)+1)."
+			],
+			"example": [
+				"a(12) = 18 because 12 divides 18^2, but 12 does not divide 13^2, 14^2, 15^2, 16^2, or 17^2."
+			],
+			"mathematica": [
+				"lk[n_]:=Module[{k=n+1},While[!Divisible[k^2,n],k++];k]; Array[lk,70] (* _Harvey P. Dale_, Nov 05 2017 *)"
+			],
+			"program": [
+				"(Ruby)",
+				"def a(n)",
+				"  (n+1..2*n).find { |k| k**2 % n == 0 }",
+				"end",
+				"(PARI)",
+				"a(n)=for(k=n+1,2*n,if(k^2%n==0,return(k)))",
+				"vector(100,n,a(n)) \\\\ _Derek Orr_, Feb 06 2015",
+				"(PARI) a(n)=my(t=factorback(factor(n)[,1])); forstep(k=n+t,2*n,t,if(k^2%n==0, return(k))) \\\\ _Charles R Greathouse IV_, Feb 07 2015",
+				"(Haskell)",
+				"a254732 n = head [k | k \u003c- [n + 1 ..], mod (k ^ 2) n == 0]",
+				"-- _Reinhard Zumkeller_, Feb 07 2015",
+				"(Python)",
+				"def A254732(n):",
+				"....k = n + 1",
+				"....while pow(k,2,n):",
+				"........k += 1",
+				"....return k # _Chai Wah Wu_, Feb 15 2015"
+			],
+			"xref": [
+				"Cf. A254733 (similar with k^3), A254734 (similar with k^4), A073353 (similar with limit m-\u003einfinity of k^m)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Peter Kagey_, Feb 06 2015",
+			"references": 4,
+			"revision": 27,
+			"time": "2017-11-05T09:35:34-05:00",
+			"created": "2015-02-07T01:42:32-05:00"
+		},
+		{
+			"number": 254788,
+			"data": "1,2,4,8,3,10,18,9,23,6,16,31,5,25,41,7,26,44,13,36,15,39,14,49,11,48,87,12,52,93,17,60,102,19,63,108,20,66,116,21,73,128,22,78,136,24,85,147,27,92,159,28,96,165,29,100,172,30,103,177,33,113,34",
+			"name": "Lexicographically earliest permutation of the natural numbers, such that both numbers a(n)+a(n+1) and abs(a(n)-a(n+1)) occur all in all not more than once.",
+			"comment": [
+				"We want the sequence S to be a permutation of the positive integers.",
+				"We want S to be the lexicographically earliest sequence with these properties:",
+				"If we take two adjacent integers of S, say p \u0026 q, then:",
+				"- no other pair of adjacent integers in S has the same absolute difference |p-q|,",
+				"- no other pair of adjacent integers in S has the same sum (p+q),",
+				"- no |p-q|=(p'+q') with p'and q' being two other adjacent integers in S.",
+				"So S is extended with the smallest integer n such that neither |a(n-1)-a(n)|nor [a(n-1)+a(n)] has occurred before as a sum or as a difference of two adjacent integers in S.",
+				"A254792(n) = abs(a(n)-a(n+1));",
+				"A254793(n) = a(n) + a(n+1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254788/b254788.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Éric Angelini, \u003ca href=\"http://list.seqfan.eu/pipermail/seqfan/2015-February/014392.html\"\u003eAbsolute diff and sums not to be shared\u003c/a\u003e, SeqFan list, Jan 15 2015.",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"example": [
+				"The sequence begins like this, together with their pairwise sums and absolute differences:",
+				". A254793(n):  3 6 12 11 13  28  27 32  29 22  47  36 30  66  48 33  70 ...",
+				".       a(n): 1 2 4  8  3  10  18  9  23  6  16  31  5  25  41  7  26 44 ...",
+				". A254792(n):  1 2  4  5  7   8   9 14  17 10  15  26 20  16  34 19  18 ..."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a254788 n = a254788_list !! (n-1)",
+				"a254788_list = 1 : f [2..] 1 [] where",
+				"   f xs y zs = g xs where",
+				"     g (w:ws) | s `elem` zs || d `elem` zs = g ws",
+				"              | otherwise = w : f (delete w xs) w (d : s : zs)",
+				"              where s = y + w; d = abs (y - w)"
+			],
+			"xref": [
+				"Cf. A254790 (inverse), A254792, A254793."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Eric Angelini_ and _Reinhard Zumkeller_, Feb 07 2015",
+			"references": 4,
+			"revision": 16,
+			"time": "2015-04-04T21:49:04-04:00",
+			"created": "2015-02-07T22:11:10-05:00"
+		},
+		{
+			"number": 255134,
+			"data": "12,11,9,28,36,44,52,20,40,68,76,84,92,100,53,55,116,124,132,140,148,156,128,36,172,180,188,196,204,212,209,11,228,11,225,244,252,260,268,276,284,292,300,56,252,316,324,332,340,348,356,364,372,380,45,343",
+			"name": "First differences of A097764.",
+			"comment": [
+				"a(n) = A097764(n+1) - A097764(n);",
+				"conjecture: a(n) \u003e 1; empirically: Min{a(n): 1 \u003c= n \u003c= 10^7} = 9;",
+				"a(A255137(n)) = A255136(n) and a(m) \u003c A255136(n) for m \u003c A255137(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A255134/b255134.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"nMax = 10000; n = 1; lst = Reap[While[p = Prime[n]; p^p \u003c= nMax, k = 1; While[(k*p)^p \u003c= nMax, Sow[(k*p)^p]; k++]; n++]][[2, 1]]; Union[lst] // Differences (* _Jean-François Alcover_, Oct 20 2016, after _T. D. Noe_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a255134 n = a255134_list !! (n-1)",
+				"a255134_list = zipWith (-) (tail a097764_list) a097764_list"
+			],
+			"xref": [
+				"Cf. A097764, record values and where they occur: A255136, A255137."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Feb 14 2015",
+			"references": 4,
+			"revision": 9,
+			"time": "2016-10-20T03:48:05-04:00",
+			"created": "2015-02-14T19:57:29-05:00"
+		}
+	]
+}

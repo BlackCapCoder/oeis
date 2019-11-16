@@ -1,0 +1,333 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6240,
+	"results": [
+		{
+			"number": 69288,
+			"data": "1,1,1,1,1,1,1,1,2,1,1,2,1,1,2,1,1,2,1,1,2,1,1,2,2,1,2,1,1,3,1,1,2,1,2,2,1,1,2,2,1,2,1,1,3,1,1,2,2,2,2,1,1,2,2,2,2,1,1,3,1,1,3,1,2,2,1,1,2,3,1,2,1,1,3,1,2,2,1,2,3,1,1,3,2,1,2,1,1,4",
+			"name": "Number of odd divisors of n \u003c= sqrt(n).",
+			"comment": [
+				"a(n) = #{d : d = A182469(n,k), d \u003c= A000196(n), k=1..A001227(n)}. - _Reinhard Zumkeller_, Apr 05 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A069288/b069288.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: sum(n\u003e=1, 1/(1-q^(2*n-1)) * q^((2*n-1)^2) ) [Joerg Arndt, Mar 04 2010]"
+			],
+			"mathematica": [
+				"odn[n_]:=Count[Divisors[n],_?(OddQ[#]\u0026\u0026#\u003c=Sqrt[n ]\u0026)]; Array[odn,100] (* _Harvey P. Dale_, Nov 04 2017 *)"
+			],
+			"program": [
+				"(PARI) a(n) = my(ir = sqrtint(n)); sumdiv(n, d, (d % 2) * (d \u003c= ir)); \\\\ _Michel Marcus_, Jan 14 2014",
+				"(Haskell)",
+				"a069288 n = length $ takeWhile (\u003c= a000196 n) $ a182469_row n",
+				"-- _Reinhard Zumkeller_, Apr 05 2015"
+			],
+			"xref": [
+				"Cf. A001227, A000005, A069289.",
+				"Cf. A000196, A182469, A001227."
+			],
+			"keyword": "nonn",
+			"offset": "1,9",
+			"author": "_Reinhard Zumkeller_, Mar 14 2002",
+			"references": 3,
+			"revision": 20,
+			"time": "2017-11-04T15:46:47-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 69289,
+			"data": "1,1,1,1,1,1,1,1,4,1,1,4,1,1,4,1,1,4,1,1,4,1,1,4,6,1,4,1,1,9,1,1,4,1,6,4,1,1,4,6,1,4,1,1,9,1,1,4,8,6,4,1,1,4,6,8,4,1,1,9,1,1,11,1,6,4,1,1,4,13,1,4,1,1,9,1,8,4,1,6,13,1,1,11,6,1,4,1",
+			"name": "Sum of odd divisors of n \u003c= sqrt(n).",
+			"comment": [
+				"a(n) = Sum{d : d = A182469(n,k), d \u003c= A000196(n), k=1..A001227(n)}. - _Reinhard Zumkeller_, Apr 05 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A069289/b069289.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[Total[Select[Divisors[n],OddQ[#]\u0026\u0026#\u003c=Sqrt[n]\u0026]],{n,120}] (* _Harvey P. Dale_, Jul 16 2017 *)"
+			],
+			"program": [
+				"(PARI) a(n) = my(ir = sqrtint(n)); sumdiv(n, d, (d % 2) * (d \u003c= ir) * d); \\\\ _Michel Marcus_, Jan 14 2014",
+				"(Haskell)",
+				"a069289 n = sum $ takeWhile (\u003c= a000196 n) $ a182469_row n",
+				"-- _Reinhard Zumkeller_, Apr 05 2015"
+			],
+			"xref": [
+				"Cf. A000593, A000203, A069288.",
+				"Cf. A000196, A182469, A001227."
+			],
+			"keyword": "nonn",
+			"offset": "1,9",
+			"author": "_Reinhard Zumkeller_, Mar 14 2002",
+			"references": 3,
+			"revision": 11,
+			"time": "2017-07-16T12:02:53-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 69492,
+			"data": "1,32,64,128,243,256,512,729,1024,2048,2187,3125,4096,6561,7776,8192,15552,15625,16384,16807,19683,23328,31104,32768,46656,59049,62208,65536,69984,78125,93312,100000,117649,124416,131072,139968,161051",
+			"name": "5-full numbers: if p divides n then so does p^5.",
+			"comment": [
+				"a(m) mod prime(n) \u003e 0 for m \u003c A258602(n); a(A258602(n)) = A050997(n) = prime(n)^5. - _Reinhard Zumkeller_, Jun 06 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A069492/b069492.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(PARI) for(n=1,250000,if(n*sumdiv(n,d,isprime(d)/d^5)==floor(n*sumdiv(n,d,isprime(d)/d^5)),print1(n,\",\")))",
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, fromList, union)",
+				"a069492 n = a069492_list !! (n-1)",
+				"a069492_list = 1 : f (singleton z) [1, z] zs where",
+				"   f s q5s p5s'@(p5:p5s)",
+				"     | m \u003c p5 = m : f (union (fromList $ map (* m) ps) s') q5s p5s'",
+				"     | otherwise = f (union (fromList $ map (* p5) q5s) s) (p5:q5s) p5s",
+				"     where ps = a027748_row m",
+				"           (m, s') = deleteFindMin s",
+				"   (z:zs) = a050997_list",
+				"-- _Reinhard Zumkeller_, Jun 03 2015"
+			],
+			"xref": [
+				"Cf. A036967, A036966, A001694.",
+				"Cf. A050997.",
+				" Cf. A258602."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Benoit Cloitre_, Apr 15 2002",
+			"references": 3,
+			"revision": 10,
+			"time": "2015-06-06T17:22:14-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 69626,
+			"data": "1,1,1,2,1,5,1,4,2,5,1,22,1,5,5,8,1,22,1,22,5,5,1,92,2,5,4,22,1,109,1,16,5,5,5,200,1,5,5,92,1,109,1,22,22,5,1,376,2,22,5,22,1,92,5,92,5,5,1,1874,1,5,22,32,5,109,1,22,5,109,1,1696,1,5,22,22,5,109,1,376,8,5,1,1874,5,5,5,92,1,1874,5,22",
+			"name": "Number of distinct sets of numbers whose least common multiple is n.",
+			"comment": [
+				"(1,n) counts as one such set and 1 may not occur in any other set.",
+				"a(p) = 1, a(p*q) = 5, a(p^2*q) = 13, a(p^3) = 4, a(p^4) = 8 etc. where p and q are primes. It can be shown that a(p^k) = 2^(k-1). Problem: find an expression for a(N) when N = p^a*q^b*r^c*..., p,q,r are primes."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A069626/b069626.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{ d divides n } mu(n/d)*2^(tau(d)-1). - _Vladeta Jovovic_, Jul 07 2003"
+			],
+			"example": [
+				"a(6) = 5 as the five distinct sets are (1, 6), (2, 6), (3, 6), (2, 3) and (2, 3, 6).",
+				"a(12) = 22 from (1,12), (4,3), (2,4,3), (4,6), (2,4,6), (4,3,6), (2,4,3,6), (2,12), (4,12), (2,4,12), (3,12), (2,3,12), (4,3,12), (2,4,3,12), (6,12), (2,6,12), (4,6,12), (2,4,6,12), (3,6,12), (2,3,6,12), (4,3,6,12), (2,4,3,6,12)."
+			],
+			"mathematica": [
+				"a[n_] := Sum[ MoebiusMu[n/d] * 2^(DivisorSigma[0, d] - 1), {d, Divisors[n]}]; Table[a[n], {n, 1, 92}](* _Jean-François Alcover_, Nov 30 2011, after _Vladeta Jovovic_ *)"
+			],
+			"program": [
+				"(Haskell)  -- following _Vladeta Jovovic_'s formula.",
+				"a069626 n = sum $",
+				"   map (\\d -\u003e (a008683 (n `div` d)) * 2 ^ (a000005 d - 1)) $ a027750_row n",
+				"-- _Reinhard Zumkeller_, Jun 12 2015, Feb 07 2011"
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,4",
+			"author": "_Amarnath Murthy_, Mar 27 2002",
+			"ext": [
+				"Corrected and extended by _Naohiro Nomoto_, Apr 25 2002"
+			],
+			"references": 3,
+			"revision": 24,
+			"time": "2017-10-08T22:18:01-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 69915,
+			"data": "1,3,4,3,6,12,8,7,4,18,12,12,14,24,24,11,18,12,20,18,32,36,24,28,6,42,13,24,30,72,32,31,48,54,48,12,38,60,56,42,42,96,44,36,24,72,48,44,8,18,72,42,54,39,72,56,80,90,60,72,62,96,32,35,84,144,68,54,96,144,72",
+			"name": "Sum of (1+phi)-divisors of n (cf. A061389).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A069915/b069915.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative with a(p^e) = 1+Sum_{k=1..e, gcd(k, e)=1} p^k."
+			],
+			"mathematica": [
+				"a[1] = 1; a[p_?PrimeQ] = p + 1; a[n_] := Times @@ (1 + Sum[If[GCD[k, Last[#]] == 1, First[#]^k, 0], {k, 1, Last[#]}] \u0026 ) /@ FactorInteger[n]; Table[a[n], {n, 1, 71}] (* _Jean-François Alcover_, May 04 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a069915 n = product $ zipWith sum_1phi (a027748_row n) (a124010_row n)",
+				"   where sum_1phi p e = 1 + sum [p ^ k | k \u003c- a038566_row e]",
+				"-- _Reinhard Zumkeller_, Mar 13 2012"
+			],
+			"xref": [
+				"Cf. A061389.",
+				"Cf. A027748, A124010, A038566, A051378."
+			],
+			"keyword": "mult,nonn",
+			"offset": "1,2",
+			"author": "_Vladeta Jovovic_, Apr 23 2002",
+			"references": 3,
+			"revision": 14,
+			"time": "2013-11-21T13:11:38-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 69928,
+			"data": "1,1,2,2,3,4,5,5,5,5,6,6,7,8,9,9,10,10,11,12,13,14,15,15,15,15,16,16,17,18,19,19,20,20,21,21,22,23,24,24,25,26,27,28,29,30,31,31,32,32,33,33,34,35,36,37,38,38,39,40,41,42,42,42,43,44,45,46,47,48,49,49,50,50",
+			"name": "Number of k, 1\u003c=k\u003c=n, such that tau(k) divides sigma(k) where tau(x) is the number of divisors of x and sigma(x) the sum of divisors of x.",
+			"comment": [
+				"Number of arithmetic numbers \u003c= n, cf. A003601; partial sums of A245656. - _Reinhard Zumkeller_, Jul 28 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A069928/b069928.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Arithmetic_number\"\u003eArithmetic number\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)=Card(k: 1\u003c=k\u003c=n : sigma(k) == 0 (mod tau(k) ) : lim n -\u003e infinity a(n)/n=C=0, 8..."
+			],
+			"program": [
+				"(PARI) for(n=1,150,print1(sum(i=1,n,if(sigma(i)%numdiv(i),0,1)),\",\"))",
+				"(Haskell)",
+				"a069928 n = a069928_list !! (n-1)",
+				"a069928_list = scanl1 (+) a245656_list",
+				"-- _Reinhard Zumkeller_, Jul 28 2014"
+			],
+			"xref": [
+				"Cf. A000005, A000203, A003601, A245656."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,3",
+			"author": "_Benoit Cloitre_, May 05 2002",
+			"references": 3,
+			"revision": 12,
+			"time": "2014-07-28T15:15:28-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71188,
+			"data": "1,2,2,3,2,2,2,2,3,2,2,3,2,2,2,5,2,3,2,3,2,2,2,2,3,2,2,3,2,2,2,3,2,2,2,3,2,2,2,2,2,2,2,3,3,2,2,5,3,3,2,3,2,2,2,2,2,2,2,3,2,2,3,7,2,2,2,3,2,2,2,3,2,2,3,3,2,2,2,5,5,2,2,3,2,2,2,2,2,3",
+			"name": "Largest prime factor of number of divisors of n.",
+			"comment": [
+				"a(n) = A006530(A000005(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A071188/b071188.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Max[Transpose[FactorInteger[#]][[1]]]\u0026/@DivisorSigma[0,Range[100]] (* _Harvey P. Dale_, Aug 28 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a071188 = a006530 . a000005  -- _Reinhard Zumkeller_, Sep 04 2013"
+			],
+			"xref": [
+				"Cf. A071187, A071190."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 15 2002",
+			"references": 3,
+			"revision": 8,
+			"time": "2013-09-04T01:38:50-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71703,
+			"data": "0,1,2,4,8,10,14,16,20,28,32,36,47,45,48,58,68,74,81,95,88,101,108,119,134,146,143,150,161,161,195,208,215,222,244,257,259,269,283,293,319,332,354,346,359,365,417,426,442,455,454,500,497,526",
+			"name": "Number of ways to represent the n-th prime as arithmetic mean of three odd primes.",
+			"example": [
+				"a(4)=4 as A000040(4)=7 and there are no more representations than 7 = (3+5+13)/3 = (3+7+11)/3 = (5+5+11)/3 = (7+7+7)/3."
+			],
+			"program": [
+				"(Haskell)",
+				"a071703 = z a065091_list 0 . (* 3) . a000040 where",
+				"   z _ 3 m = fromEnum (m == 0)",
+				"   z ps'@(p:ps) i m = if m \u003c p then 0 else z ps' (i+1) (m - p) + z ps i m",
+				"-- _Reinhard Zumkeller_, May 24 2015"
+			],
+			"xref": [
+				"Cf. A071681, A071704.",
+				"Cf. A010051, A000040, A065091."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Jun 03 2002",
+			"ext": [
+				"Definition, initial term and example corrected. Thanks to _Zak Seidov_, who found the mistake. - _Reinhard Zumkeller_, May 24 2015"
+			],
+			"references": 3,
+			"revision": 10,
+			"time": "2015-05-24T10:42:12-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71810,
+			"data": "1,3,5,7,12,20,35,65,122,237,448,846,1629,3157,6159,12052,23484,45731,89394,175742,346214,681850,1344838,2657654,5253640,10374991,20471626,40401929,79871387,158182899,313402605,620776215,1228390086,2430853648",
+			"name": "Number of subsets of the first n primes whose sum is a prime.",
+			"comment": [
+				"a(n+1) \u003c 2*a(n) fails for n = 1, 332 and other larger values of n. - _Don Reble_, Sep 07 2006",
+				"Here is one way to compute this sequence. Compute f_n(x) = product_{k=1..n} 1+x^Prime(k) = f_{n-1}(x) * (1+x^Prime(n)). Then sum the coefficients of x^p in f_n(x) for p prime. You only need to look at primes \u003c= the sum of the first n primes. - _Franklin T. Adams-Watters_, Sep 07 2006"
+			],
+			"link": [
+				"T. D. Noe and Alois P. Heinz, \u003ca href=\"/A071810/b071810.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e (first 100 terms from T. D. Noe)"
+			],
+			"example": [
+				"a(4) = 7 because, besides the original 4 primes, the other 3 subsets, {2,3}, {2,5} \u0026 {2,3,5,7} also sum to a prime."
+			],
+			"mathematica": [
+				"Do[ Print[ Count[ PrimeQ[Plus @@@ Subsets[ Table[ Prime[i], {i, 1, n}]]], True]], {n, 1, 22}]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (subsequences)",
+				"a071810 = sum . map a010051' . map sum .",
+				"          tail . subsequences . flip take a000040_list",
+				"-- _Reinhard Zumkeller_, Dec 16 2013"
+			],
+			"xref": [
+				"Cf. A000341, A108018.",
+				"Cf. A010051, A000040."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_Robert G. Wilson v_, Jun 06 2002",
+			"ext": [
+				"More terms from _Don Reble_, Sep 07 2006",
+				"Edited by _N. J. A. Sloane_, Sep 08 2006"
+			],
+			"references": 3,
+			"revision": 21,
+			"time": "2017-10-19T03:14:03-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71892,
+			"data": "2,6,6,12,10,30,14,40,45,70,22,84,26,42,105,176,34,126,38,220,210,286,46,312,150,390,270,420,58,330,62,544,429,646,210,684,74,798,546,840,82,966,86,1012,765,1334,94,816,490,550,969,1508,106,1026",
+			"name": "a(n) = lcm(A071888(n), n).",
+			"comment": [
+				"a(n) is squarefree iff n is squarefree."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A071892/b071892.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a071892 n = lcm n $ a071888 n  -- _Reinhard Zumkeller_, Jun 10 2012"
+			],
+			"xref": [
+				"a(n) = A071888(n)*n/A071889(n)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 10 2002",
+			"references": 3,
+			"revision": 12,
+			"time": "2018-03-18T04:05:36-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

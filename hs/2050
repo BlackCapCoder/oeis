@@ -1,0 +1,496 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2050,
+	"results": [
+		{
+			"number": 6,
+			"id": "M0259 N0092",
+			"data": "1,1,2,2,3,3,4,4,4,5,5,6,6,6,6,7,7,7,8,8,8,8,9,9,9,10,10,10,10,10,11,11,11,11,12,12,12,12,12,13,13,13,13,13,14,14,14,14,15,15,15,15,15,15,16,16,16,16,16,16,16,17,17,17,17,17,18,18,18,18,18",
+			"name": "Integer part of square root of n-th prime.",
+			"comment": [
+				"Conjecture: No two successive terms in the sequence differ by more than 1. Proof of this would prove the converse of the theorem that every prime is surrounded by two consecutive squares, namely |sqrt(p)|^2 and (|sqrt(p)|+1)^2. - _Cino Hilliard_, Jan 22 2003",
+				"Equals the number of squares less than prime(n). Cf. A014689. - _Zak Seidov_ Nov 04 2007",
+				"The above conjecture is Legendre's conjecture that for n \u003e 0 there is always a prime between n^2 and (n+1)^2. See A014085, number of primes between two consecutive squares, which is also the number of times n is repeated in the present sequence. - _Jean-Christophe Hervé_, Oct 25 2013"
+			],
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 2.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000006/b000006.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy].",
+				"Matthew Parker, \u003ca href=\"https://oeis.org/A000006/a000006_100M.7z\"\u003eThe first 100 million terms (7-Zip compressed file)\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000196(A000040(n)). - _Reinhard Zumkeller_, Mar 24 2012"
+			],
+			"mathematica": [
+				"a[n_] := IntegerPart[Sqrt[Prime[n]]]",
+				"IntegerPart[Sqrt[#]]\u0026/@Prime[Range[80]] (* _Harvey P. Dale_, Mar 06 2012 *)"
+			],
+			"program": [
+				"(PARI) (a(n)=sqrtint(prime(n))); vector(100,n,a(n)) \\\\ Edited by _M. F. Hasler_, Oct 19 2018",
+				"(PARI) apply(sqrtint,primes(100)) \\\\ _Charles R Greathouse IV_, Apr 26 2012",
+				"(PARI) apply( A000006=n-\u003esqrtint(prime(n)), [1..100]) \\\\ _M. F. Hasler_, Oct 19 2018",
+				"(Haskell) a000006 = a000196 . a000040  -- _Reinhard Zumkeller_, Mar 24 2012"
+			],
+			"xref": [
+				"Cf. A014085.",
+				"See also A263846 (floor of cube root of prime(n)), A000196 (floor of sqrt(n)), A048766 (floor of cube root of n)."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 16,
+			"revision": 46,
+			"time": "2018-10-19T13:22:57-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 977,
+			"data": "30,42,60,66,70,78,84,90,102,105,110,114,120,126,130,132,138,140,150,154,156,165,168,170,174,180,182,186,190,195,198,204,210,220,222,228,230,231,234,238,240,246,252,255,258,260,264,266,270,273",
+			"name": "Numbers that are divisible by at least three different primes.",
+			"comment": [
+				"a(n+1)-a(n) seems bounded and sequence appears to give n such that the number of integers of the form nk/(n+k) k\u003e=1 is not equal to Sum_{ d | n} omega(d) (i.e., n such that A062799(n) is not equal to A063647(n)). - _Benoit Cloitre_, Aug 27 2002",
+				"The first differences are bounded: clearly a(n+1) - a(n) \u003c= 30. - _Charles R Greathouse IV_, Dec 19 2011"
+			],
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 844."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A000977/b000977.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy]."
+			],
+			"formula": [
+				"a(n) = n + O(n log log n / log n). - _Charles R Greathouse IV_, Dec 19 2011 A001221(a(n)) \u003e 2. - _Reinhard Zumkeller_, May 03 2013",
+				"A033992 UNION A033993 UNION A051270 UNION A074969 UNION A176655 UNION ... - _R. J. Mathar_, Dec 05 2016"
+			],
+			"maple": [
+				"A000977 := proc(n)",
+				"if (nops(numtheory[factorset](n)) \u003e= 3) then",
+				"   RETURN(n)",
+				"fi: end:  seq(A000977(n), n=1..500); # _Jani Melik_, Feb 24 2011"
+			],
+			"mathematica": [
+				"DeleteCases[Table[If[Count[PrimeQ[Divisors[i]], True] \u003e= 3, i, 0], {i, 1, 274}], 0]"
+			],
+			"program": [
+				"(PARI) is(n)=omega(n)\u003e2 \\\\ _Charles R Greathouse IV_, Dec 19 2011",
+				"(Haskell)",
+				"a000977 n = a000977_list !! (n-1)",
+				"a000977_list = filter ((\u003e 2) . a001221) [1..]",
+				"-- _Reinhard Zumkeller_, May 03 2013"
+			],
+			"xref": [
+				"Cf. A000961, A007774, A033992, A033993, A051270."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Vit Planocka (planocka(AT)mistral.cz), Sep 17 2002"
+			],
+			"references": 16,
+			"revision": 36,
+			"time": "2018-05-08T15:11:53-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 1078,
+			"id": "M2122 N0839",
+			"data": "0,2,20,198,1960,19402,192060,1901198,18819920,186298002,1844160100,18255302998,180708869880,1788833395802,17707625088140,175287417485598,1735166549767840,17176378080192802,170028614252160180,1683109764441408998",
+			"name": "a(n) = 10*a(n-1) - a(n-2) with a(0) = 0, a(1) = 2.",
+			"comment": [
+				"Also 6*x^2+1 is a square. - _Cino Hilliard_, Mar 08 2003",
+				"This sequence has the following property: For each n, if A = a(n), B = 2*a(n+1), C = 3*a(n+1) then A*B+1, A*C+1, B*C+1 are perfect squares. - Deshpande M.N. (dpratap_ngp(AT)sancharnet.in), Sep 22 2004",
+				"n such that 6*n^2 = floor(sqrt(6)*n*ceiling(sqrt(6)*n)). - _Benoit Cloitre_, May 10 2003",
+				"Kekulé numbers for certain benzenoids. - _Emeric Deutsch_, Jun 19 2005",
+				"(sqrt(2) + sqrt(3))^(2*n) = A001079(n) + a(n)*sqrt(6); a(n) = A054320(n) + A138288(n). - _Reinhard Zumkeller_, Mar 12 2008",
+				"Numbers m such that A000217(m) plus A000326(m) equals an octagonal number (A000567). For a(3)=198, A000217(198)=19701, A000326(198)=58707, therefore 19701 + 58707 = 78408 = A000567(162). - _Bruno Berselli_, Apr 15 2013"
+			],
+			"reference": [
+				"O. Bottema: Verscheidenheden XXVI. Het vraagstuk van Malfatti, Euclides 25 (1949-50), pp. 144-149 [in Dutch].",
+				"S. J. Cyvin and I. Gutman, Kekulé structures in benzenoid hydrocarbons, Lecture Notes in Chemistry, No. 46, Springer, New York, 1988 (pp. 283, 302, P_{16}).",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"V. Thébault, Les Récréations Mathématiques. Gauthier-Villars, Paris, 1952, p. 281."
+			],
+			"link": [
+				"G. C. Greubel, \u003ca href=\"/A001078/b001078.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (terms 0..100 from T. D. Noe)",
+				"O. Bottema, \u003ca href=\"http://forumgeom.fau.edu/FG2001volume1/FG200107index.html\"\u003eThe Malfatti problem\u003c/a\u003e (translation of Het vraagstuk van Malfatti), Forum Geom. 1 (2001) 43-50.",
+				"O. Bottema, \u003ca href=\"/malfatti.html\"\u003eHet Vraagstuk Van Malfatti\u003c/a\u003e, from Euclides.",
+				"L. Euler, \u003ca href=\"http://math.dartmouth.edu/~euler/pages/E029.html\"\u003eDe solutione problematum diophanteorum per numeros integros\u003c/a\u003e, par. 18",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (10,-1)."
+			],
+			"formula": [
+				"From _Emeric Deutsch_, Jun 19 2005: (Start)",
+				"a(n) = ((5 + 2*sqrt(6))^n - (5 - 2*sqrt(6))^n)/(2*sqrt(6)).",
+				"G.f.: 2*z/(1 - 10*z + z^2). (End)",
+				"a(-n) = -a(n).",
+				"From Mohamed Bouhamida (bhmd95(AT)yahoo.fr), Sep 20 2006: (Start)",
+				"a(n) = 9*(a(n-1) + a(n-2)) - a(n-3).",
+				"a(n) = 11*(a(n-1) - a(n-2)) + a(n-3). (End)",
+				"a(n+1) = A054320(n) + A138288(n). - _Reinhard Zumkeller_, Mar 12 2008",
+				"a(n) = sinh(2n*arcsinh(sqrt(2)))/sqrt(6). - _Herbert Kociemba_, Apr 24 2008",
+				"a(n) = 2*A004189(n). - _R. J. Mathar_, Oct 26 2009"
+			],
+			"maple": [
+				"A001078 := proc(n) option remember; if n=0 then 0 elif n=1 then 2 else 10*A001078(n-1)-A001078(n-2); fi; end;",
+				"A001078:=2*z/(1-10*z+z**2); # conjectured by _Simon Plouffe_ in his 1992 dissertation"
+			],
+			"mathematica": [
+				"a[0]=0; a[1]=2; a[n_] := a[n] = 10*a[n-1] - a[n-2]; Table[a[n],{n,0,19}] (* _Jean-François Alcover_, Mar 18 2011 *)",
+				"LinearRecurrence[{10,-1},{0,2},20] (* _Harvey P. Dale_, Jun 23 2011 *)",
+				"CoefficientList[Series[2*x/(1 - 10*x + x^2), {x, 0, 50}], x] (* _G. C. Greubel_, Dec 19 2017 *)"
+			],
+			"program": [
+				"(PARI) nxsqp1(m,n) = { for(x=1,m, y = n*x*x+1; if(issquare(y),print1(x\" \")) ) }",
+				"(PARI) a(n)=imag((5+2*quadgen(24))^n) /* _Michael Somos_, Jul 05 2005 */",
+				"(PARI) a(n)=subst(poltchebi(n+1)-5*poltchebi(n),x,5)/12 /* _Michael Somos_, Jul 05 2005 */",
+				"(Haskell)",
+				"a001078 n = a001078_list !! n",
+				"a001078_list =",
+				"   0 : 2 : zipWith (-) (map (10*) $ tail a001078_list) a001078_list",
+				"-- _Reinhard Zumkeller_, Mar 18 2011",
+				"(PARI) x='x+O('x^30); concat([0], Vec(2*x/(1 - 10*x + x^2))) \\\\ _G. C. Greubel_, Dec 19 2017",
+				"(MAGMA) I:=[0, 2]; [n le 2 select I[n] else 10*Self(n-1) - Self(n-2): n in [1..30]]; (* _G. C. Greubel_, Dec 19 2017 *)"
+			],
+			"xref": [
+				"Cf. A053410.",
+				"Cf. A138281."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Thanks to Antreas P. Hatzipolakis (xpolakis(AT)otenet.gr) and _Floor van Lamoen_ for the Bottema references."
+			],
+			"references": 16,
+			"revision": 76,
+			"time": "2019-06-27T06:13:58-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 1751,
+			"data": "2,3,4,5,6,7,10,11,13,14,17,19,22,23,26,29,31,34,37,38,41,43,46,47,53,58,59,61,62,67,71,73,74,79,82,83,86,89,94,97,101,103,106,107,109,113,118,122,127,131,134,137,139,142,146,149,151,157,158,163,166",
+			"name": "Primes together with primes multiplied by 2.",
+			"comment": [
+				"For n \u003e 1, a(n) is position of primes in A026741.",
+				"For n \u003e 1, a(n) is the position of the ones in A046079. - _Ant King_, Jan 29 2011",
+				"A251561(a(n)) != a(n). - _Reinhard Zumkeller_, Dec 27 2014",
+				"Number of terms \u003c= n is pi(n) + pi(n/2). - _Robert G. Wilson v_, Aug 04 2017",
+				"Number of terms \u003c=10^k: 7, 40, 263, 1898, 14725, 120036, 1013092, 8762589, 77203401, 690006734, 6237709391, 56916048160, 523357198488, 4843865515369, ..., . - _Robert G. Wilson v_, Aug 04 2017"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A001751/b001751.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[163], Or[PrimeQ[#], PrimeQ[1/2 #]] \u0026] (* _Ant King_, Jan 29 2011 *)",
+				"upto=200;With[{pr=Prime[Range[PrimePi[upto]]]},Select[Sort[Join[pr,2pr]],# \u003c= upto\u0026]] (* _Harvey P. Dale_, Sep 23 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a001751 n = a001751_list !! (n-1)",
+				"a001751_list = 2 : filter (\\n -\u003e (a010051 $ div n $ gcd 2 n) == 1) [1..]",
+				"-- _Reinhard Zumkeller_, Jun 20 2011 (corrected, improved), Dec 17 2010",
+				"(PARI) isA001751(n)=isprime(n/gcd(n,2)) || n==2",
+				"(PARI) list(lim)=vecsort(concat(primes(primepi(lim)), 2* primes(primepi(lim\\2)))) \\\\ _Charles R Greathouse IV_, Oct 31 2012"
+			],
+			"xref": [
+				"Union of A001747 and A000040.",
+				"Subsequence of A039698 and of A033948.",
+				"Cf. A026741, A046079, A178156, A251561."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 16,
+			"revision": 33,
+			"time": "2017-08-09T22:15:09-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 2664,
+			"id": "M4395 N1851",
+			"data": "0,0,0,0,0,1,7,29,93,256,638,1486,3302,7099,14913,30827,63019,127858,258096,519252,1042380,2089605,4185195,8377705,16764265,33539156,67090962,134196874,268411298,536843071,1073709893",
+			"name": "a(n) = 2^n - C(n,0)- ... - C(n,4).",
+			"comment": [
+				"From _Gary W. Adamson_, Jul 24 2010: (Start)",
+				"Starting with \"1\" = eigensequence of a triangle with binomial C(n,5):",
+				"(1, 6, 21, 56, ...) as the left border and the rest 1's. (End)",
+				"The Kn26 sums, see A180662, of triangle A065941 equal the terms (doubled) of this sequence minus the five leading zeros. - _Johannes W. Meijer_, Aug 15 2011",
+				"Starting (0, 0, 0, 0, 1, 7, 29, ...), this is the binomial transform of (0, 0, 0, 0, 1, 2, 2, 2, ...). Starting (1, 7, 29, ...), this is the binomial transform of (1, 6, 16, 26, 31, 32, 32, 32, ...). - _Gary W. Adamson_, Jul 28 2015"
+			],
+			"reference": [
+				"J. H. Conway and R. K. Guy, The Book of Numbers, New York: Springer-Verlag, 1995, Chapter 3, pp. 76-79.",
+				"J. Eckhoff, Der Satz von Radon in konvexen Productstrukturen II, Monat. f. Math., 73 (1969), 7-30.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A002664/b002664.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"R. K. Guy, \u003ca href=\"/A000346/a000346.pdf\"\u003eLetter to N. J. A. Sloane\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"H. P. Robinson, \u003ca href=\"/A002664/a002664.pdf\"\u003eLetter to N. J. A. Sloane, Mar 21 1985\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_06\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (7, -20, 30, -25, 11, -2)."
+			],
+			"formula": [
+				"G.f.: x^5/((1-2*x)*(1-x)^5).",
+				"a(n) = Sum_{k=0..n} C(n, k+5) = Sum_{k=5..n} C(n, k); a(n) = 2a(n-1) + C(n-1, 4). - _Paul Barry_, Aug 23 2004",
+				"a(n) = 2^n - n^4/24 + n^3/12 - 11*n^2/24 - 7*n/12 - 1.  - _Bruno Berselli_, May 19 2011 [Robinson (1985) gives an alternative version of this formula, for a different offset. - _N. J. A. Sloane_, Oct 20 2015]"
+			],
+			"maple": [
+				"a:=n-\u003esum(binomial(n+1,2*j),j=3..n+1): seq(a(n), n=0..30); # _Zerinvary Lajos_, May 12 2007",
+				"A002664:=1/(2*z-1)/(z-1)**5; # conjectured by _Simon Plouffe_ in his 1992 dissertation"
+			],
+			"mathematica": [
+				"a=1;lst={};s1=s2=s3=s4=s5=0;Do[s1+=a;s2+=s1;s3+=s2;s4+=s3;s5+=s4;AppendTo[lst,s5];a=a*2,{n,5!}];lst (* _Vladimir Joseph Stephan Orlovsky_, Jan 10 2009 *)",
+				"Table[Sum[ Binomial[n, k + 5], {k, 0, n}], {n, 0, 30}] (* _Zerinvary Lajos_, Jul 08 2009 *)",
+				"Table[2^n-Total[Binomial[n,Range[0,4]]],{n,0,30}] (* or *) LinearRecurrence[ {7,-20,30,-25,11,-2},{0,0,0,0,0,1},40] (* _Harvey P. Dale_, Sep 03 2016 *)"
+			],
+			"program": [
+				"(MAGMA) [2^n-n^4/24+n^3/12-11*n^2/24-7*n/12-1: n in [0..35]]; // _Vincenzo Librandi_, May 20 2011",
+				"(Haskell)",
+				"a002664 n = a002664_list !! n",
+				"a002664_list = map (sum . drop 5) a007318_tabl",
+				"-- _Reinhard Zumkeller_, Jun 20 2015"
+			],
+			"xref": [
+				"a(n) = A055248(n, 5). Partial sums of A002663.",
+				"Cf. A000079, A000225, A000295, A002662, A002663, A035038-A035042.",
+				"Cf. A007318."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,7",
+			"author": "_N. J. A. Sloane_",
+			"references": 16,
+			"revision": 58,
+			"time": "2017-11-06T02:38:46-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 2963,
+			"data": "1,2,3,3,2,3,4,5,3,2,3,4,5,5,4,5,6,7,5,4,5,6,7,7,6,7,8,9,7,6,7,8,9,9,8,9,10,11,9,4,5,6,7,7,6,7,8,9,7,2,3,4,5,5,4,5,6,7,5,4,5,6,7,7,6,7,8,9,7,6,7,8,9,9,8,9,10,11,9,8,9,10,11,11,10,11,12,13,11,4,5,6,7,7,6,7,8,9,7,2,3,4",
+			"name": "Chisel strokes required for Roman numerals for n.",
+			"comment": [
+				"Chisel strokes for numerals: I,1; V,2; X,2; L,2; C ( = \u003c ),2; D,3; M,4.",
+				"For more about Roman numerals, see A006968.",
+				"a(A002964(n)) = n. - _Reinhard Zumkeller_, Apr 14 2013"
+			],
+			"link": [
+				"Nathaniel Johnston, \u003ca href=\"/A002963/b002963.txt\"\u003eTable of n, a(n) for n = 1..3999\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RomanNumerals.html\"\u003eRoman Numerals\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Roman_numerals\"\u003eRoman numerals\u003c/a\u003e"
+			],
+			"maple": [
+				"with(StringTools): A002963 := proc(n) local r: r:=convert(n, roman): return add(parse(SubstituteAll( SubstituteAll( SubstituteAll( SubstituteAll( SubstituteAll( SubstituteAll( SubstituteAll(r[j], \"I\", \"1\"), \"V\", \"2\"), \"X\", \"2\"), \"L\", \"2\"), \"C\", \"2\"), \"D\", \"3\"), \"M\", \"4\")), j=1..length(r)): end: seq(A002963(n), n=1..102); # _Nathaniel Johnston_, May 18 2011"
+			],
+			"mathematica": [
+				"a[n_] := Characters[ IntegerString[n, \"Roman\"]] /. {\"I\" -\u003e 1, \"V\" -\u003e 2, \"X\" -\u003e 2, \"L\" -\u003e 2, \"C\" -\u003e 2, \"D\" -\u003e 3, \"M\" -\u003e 4} // Total; Table[a[n], {n, 1, 102}] (* _Jean-François Alcover_, Sep 10 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a002963 = ch 0 . a061493 where",
+				"     ch s 0 = s",
+				"     ch s x = ch (s + [0,1,2,2,2,2,3,4] !! d') x'",
+				"              where  (x',d) = divMod x 10; d' = fromInteger d",
+				"-- _Reinhard Zumkeller_, Apr 14 2013",
+				"(PARI) {A002963(n, c=[1000, 4, 900, 6, 500, 3, 400, 5, 100, 2, 90, 4, 50, 2, 40, 4, 10, 2, 9, 3, 5, 2, 4, 3, 1, 1], s=0)= forstep(i=1, #c, 2, while(n\u003e=c[i], n-=c[i]; s+=c[i+1])); s} \\\\ _M. F. Hasler_, Jul 27 2016"
+			],
+			"xref": [
+				"Cf. A119310.",
+				"Cf. A061493, A093783."
+			],
+			"keyword": "base,easy,nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _David W. Wilson_.",
+				"Data double-checked by _M. F. Hasler_, Jul 27 2016"
+			],
+			"references": 16,
+			"revision": 31,
+			"time": "2016-07-27T22:24:16-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 3231,
+			"id": "M2618",
+			"data": "3,7,10,14,18,21,25,28,32,36,39,43,47,50,54,57,61,65,68,72,75,79,83,86,90,94,97,101,104,108,112,115,119,123,126,130,133,137,141,144,148,151,155,159,162,166,170,173,177,180,184,188,191,195,198,202,206,209",
+			"name": "a(n) = floor(n*(sqrt(5)+5)/2).",
+			"comment": [
+				"Let r = (5 - sqrt(5))/2 and s = (5 + sqrt(5))/2. Then 1/r + 1/s = 1, so that A249115 and A003231 are a pair of complementary Beatty sequences. Let tau = (1 + sqrt(5))/2, the golden ratio. Let R = {h*tau, h \u003e= 1} and S = {k*(tau - 1), k \u003e= 1}. Then A003231(n) is the position of n*tau in the ordered union of R and S. The position of n*(tau - 1) is A249115(n). - _Clark Kimberling_, Oct 21 2014",
+				"This is the function named c in the Carlitz-Scoville-Vaughan link. - _Eric M. Schmidt_, Aug 06 2015"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"L. Carlitz, R. Scoville and T. Vaughan, \u003ca href=\"http://www.fq.math.ca/Scanned/11-4/carlitz.pdf\"\u003eSome arithmetic functions related to Fibonacci numbers\u003c/a\u003e, Fib. Quart., 11 (1973), 337-386.",
+				"Scott V. Tezlaf, \u003ca href=\"https://arxiv.org/abs/1806.00331\"\u003eOn ordinal dynamics and the multiplicity of transfinite cardinality\u003c/a\u003e, arXiv:1806.00331 [math.NT], 2018. See p. 9.",
+				"\u003ca href=\"/index/Be#Beatty\"\u003eIndex entries for sequences related to Beatty sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 2*n + A000201(n). - _R. J. Mathar_, Aug 22 2014"
+			],
+			"maple": [
+				"A003231:=n-\u003efloor(n*(sqrt(5)+5)/2): seq(A003231(n), n=1..100); # _Wesley Ivan Hurt_, Aug 06 2015"
+			],
+			"mathematica": [
+				"With[{c=(Sqrt[5]+5)/2}, Floor[c*Range[60]]] (* _Harvey P. Dale_, Oct 01 2012 *)"
+			],
+			"program": [
+				"(PARI) a(n)=floor(n*(sqrt(5)+5)/2)",
+				"(Haskell)",
+				"a003231 = floor . (/ 2) . (* (sqrt 5 + 5)) . fromIntegral",
+				"-- _Reinhard Zumkeller_, Oct 03 2014",
+				"(MAGMA) [Floor(n*(Sqrt(5)+5)/2): n  in [1..100]]; // _Vincenzo Librandi_, Oct 23 2014"
+			],
+			"xref": [
+				"Cf. A000201, A003231, A003233, A003234, A249115."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Better description and more terms from _Michael Somos_, Jun 07 2000"
+			],
+			"references": 16,
+			"revision": 47,
+			"time": "2018-06-05T03:16:29-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 4214,
+			"id": "M0959",
+			"data": "1,2,4,5,7,8,10,13,15,16,20,23,25,28,31,32,37,39,40,47,52,55,58,60,63,64,71,79,80,85,87,92,95,100,103,111,112,119,124,127,128,130,135,143,148,151,156,159,160,167,175,183,188,191,199,207,208,215,220,223,231",
+			"name": "Positive numbers that are not the sum of three nonzero squares.",
+			"comment": [
+				"Not of the form x^2 + y^2 + z^2 with x, y, z \u003e=1.",
+				"Complement of A000408, but skipping the zero. - _R. J. Mathar_, Nov 23 2006",
+				"A025427(a(n)) = 0. - _Reinhard Zumkeller_, Feb 26 2015"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Ray Chandler, \u003ca href=\"/A004214/b004214.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"David S. Bettes, \u003ca href=\"/A004214/a004214.pdf\"\u003eLetter to N. J. A. Sloane, Nov 05 1976\u003c/a\u003e",
+				"\u003ca href=\"/index/Su#ssq\"\u003eIndex entries for sequences related to sums of squares\u003c/a\u003e"
+			],
+			"example": [
+				"The smallest numbers that are the sums of 3 nonzero squares are 3=1+1+1, 6=1+1+4, 9=1+4+4, etc."
+			],
+			"maple": [
+				"gf := sum(sum(sum(q^(x^2+y^2+z^2), x=1..25), y=1..25), z=1..25): s := series(gf, q, 500): for n from 1 to 500 do if coeff(s, q, n)=0 then printf(`%d,`,n) fi:od:"
+			],
+			"mathematica": [
+				"f[n_] := Flatten[Position[Take[Rest[CoefficientList[Sum[x^(i^2), {i, n}]^3, x]], n^2], 0]];f[16] (* _Ray Chandler_, Dec 06 2006 *)"
+			],
+			"program": [
+				"(PARI) isA000408(n)={ local(a,b) ; a=1; while(a^2+1\u003cn, b=1 ; while(b\u003c=a \u0026\u0026 a^2+b^2\u003cn, if(issquare(n-a^2-b^2), return(1) ) ; b++ ; ) ; a++ ; ) ; return(0) ; }",
+				"isA004214(n)={ return(! isA000408(n)) ; }",
+				"n=1 ; for(an=1,20000, if(isA004214(an), print(n,\" \",an); n++)) \\\\ _R. J. Mathar_, Nov 23 2006",
+				"(Haskell)",
+				"a004214 n = a004214_list !! (n-1)",
+				"a004214_list = filter ((== 0) . a025427) [1..]",
+				"-- _Reinhard Zumkeller_, Feb 26 2015"
+			],
+			"xref": [
+				"Cf. A000408, A025427."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _James A. Sellers_, Apr 20 2001",
+				"Name clarified. - _Wolfdieter Lang_, Apr 04 2013"
+			],
+			"references": 16,
+			"revision": 41,
+			"time": "2017-10-14T22:13:30-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 4614,
+			"data": "1,3,7,9,11,19,21,23,27,31,33,43,47,49,57,59,63,67,69,71,77,79,81,83,93,99,103,107,121,127,129,131,133,139,141,147,151,161,163,167,171,177,179,189,191,199,201,207,209,211,213,217,223,227,231,237,239,243,249,251",
+			"name": "Numbers that are divisible only by primes congruent to 3 mod 4.",
+			"comment": [
+				"Numbers whose factorization as Gaussian integers is the same as their factorization as integers. - _Franklin T. Adams-Watters_, Oct 14 2005"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A004614/b004614.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Product(A079261(A027748(a(n),k)): k=1..A001221(a(n))) = 1. - _Reinhard Zumkeller_, Jan 07 2013"
+			],
+			"mathematica": [
+				"ok[1] = True; ok[n_] := And @@ (Mod[#, 4] == 3 \u0026) /@ FactorInteger[n][[All, 1]]; Select[Range[251], ok] (* _Jean-François Alcover_, May 05 2011 *)"
+			],
+			"program": [
+				"(PARI) for(n=1,1000,if(sumdiv(n,d,isprime(d)*if((d-3)%4,1,0))==0, print1(n,\",\")))",
+				"(PARI) forstep(n=1,999,2,for(j=1,#t=factor(n)[,1],t[j]%4==1 \u0026\u0026 next(2)); print1(n\", \")) \\\\ _M. F. Hasler_, Feb 26 2008",
+				"(PARI) list(lim)=my(v=List([1]),cur,idx,newIdx); forprime(p=3,lim, if(p%4\u003e1, listput(v,p))); for(i=2,#v, cur=v[i]; idx=1; while(v[idx]*cur \u003c= lim, my(newidx=#v+1,t); for(j=idx, #v, t=cur*v[j]; if(t\u003c=lim, listput(v, t))); idx=newidx)); Set(v) \\\\ _Charles R Greathouse IV_, Feb 06 2018",
+				"(MAGMA) [n: n in [1..300] | forall{d: d in PrimeDivisors(n) | d mod 4 eq 3}]; // _Vincenzo Librandi_, Aug 21 2012",
+				"(Haskell)",
+				"a004614 n = a004614_list !! (n-1)",
+				"a004614_list = filter (all (== 1) . map a079261 . a027748_row) [1..]",
+				"-- _Reinhard Zumkeller_, Jan 07 2013"
+			],
+			"xref": [
+				"Cf. A004613."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"references": 16,
+			"revision": 28,
+			"time": "2018-02-06T00:18:37-05:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 4999,
+			"data": "0,1,2,8,9,16,27,28,35,54,64,65,72,91,125,126,128,133,152,189,216,217,224,243,250,280,341,343,344,351,370,407,432,468,512,513,520,539,559,576,637,686,728,729,730,737,756,793,854,855,945,1000,1001",
+			"name": "Sums of two nonnegative cubes.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A004999/b004999.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Kevin A. Broughan, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL6/Broughan/broughan25.html\"\u003eCharacterizing the sum of two cubes\u003c/a\u003e, J. Integer Seqs., Vol. 6, 2003.",
+				"\u003ca href=\"/index/Su#ssq\"\u003eIndex entries for sequences related to sums of cubes\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Union[(#[[1]]^3+#[[2]]^3)\u0026/@Tuples[Range[0,20],{2}]] (* _Harvey P. Dale_, Dec 04 2010 *)"
+			],
+			"program": [
+				"(PARI) is(n)=my(k1=ceil((n-1/2)^(1/3)), k2=floor((4*n+1/2)^(1/3)), L); fordiv(n,d,if(d\u003e=k1 \u0026\u0026 d\u003c=k2 \u0026\u0026 denominator(L=(d^2-n/d)/3)==1 \u0026\u0026 issquare(d^2-4*L), return(1))); 0",
+				"list(lim)=my(v=List());for(x=0,(lim+.5)^(1/3),for(y=0,min(x,(lim-x^3)^(1/3)),listput(v,x^3+y^3))); vecsort(Vec(v),,8) \\\\ _Charles R Greathouse IV_, Jun 12 2012",
+				"(PARI) is(n)=my(L=sqrtnint(n-1,3)+1,U=sqrtnint(4*n,3));fordiv(n,m,if(L\u003c=m\u0026m\u003c=U,my(ell=(m^2-n/m)/3);if(denominator(ell)==1\u0026\u0026issquare(m^2-4*ell),return(1))));0 \\\\ _Charles R Greathouse IV_, Apr 16 2013",
+				"(PARI) T=thueinit('z^3+1);",
+				"is(n)=n==0 || #select(v-\u003emin(v[1],v[2])\u003e=0, thue(T,n))\u003e0 \\\\ _Charles R Greathouse IV_, Nov 29 2014",
+				"(Haskell)",
+				"a004999 n = a004999_list !! (n-1)",
+				"a004999_list = filter c2 [1..] where",
+				"   c2 x = any (== 1) $ map (a010057 . fromInteger) $",
+				"                       takeWhile (\u003e= 0) $ map (x -) $ tail a000578_list",
+				"-- _Reinhard Zumkeller_, Dec 20 2013"
+			],
+			"xref": [
+				"Cf. A003325 (subsequence), subsequence of A045980.",
+				"Cf. A000578, A004825, A010057, A003325 (subsequence), subsequence of A045980."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, _Steven Finch_",
+			"references": 16,
+			"revision": 30,
+			"time": "2016-09-16T14:30:56-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		}
+	]
+}

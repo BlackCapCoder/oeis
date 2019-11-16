@@ -1,0 +1,553 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1660,
+	"results": [
+		{
+			"number": 58277,
+			"data": "2,3,4,4,5,2,6,6,4,5,2,10,2,2,7,8,9,4,3,2,11,2,2,3,2,9,8,2,2,17,2,10,2,6,6,3,17,4,2,3,2,9,2,6,3,17,2,9,2,7,2,2,3,21,2,2,7,12,4,3,2,12,2,8,2,10,4,2,21,2,2,8,3,4,2,3,19,5,2,8,2,2,6,2,31,2,9,10",
+			"name": "Number of values of k such that phi(k) = n, where n runs through the values (A002202) taken by phi.",
+			"comment": [
+				"Carmichael (1922) conjectured that the number 1 never appears in this sequence. Sierpiński conjectured and Ford (1998) proved that all integers greater than 1 occur in the sequence. Erdős (1958) proved that if s \u003e= 1 appears in the sequence then it appears infinitely often. - Nick Hobson, Nov 04 2006",
+				"A002202(n) occurs a(n) times in A007614. - _Reinhard Zumkeller_, Nov 22 2015"
+			],
+			"reference": [
+				"E. Lucas, Théorie des Nombres, Blanchard 1958."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A058277/b058277.txt\"\u003eTable of n, a(n) for n=1..10000\u003c/a\u003e",
+				"R. D. Carmichael, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9904-1922-03504-5\"\u003eNote on Euler's totient function\u003c/a\u003e, Bull. Amer. Math. Soc. 28 (1922), pp. 109-110.",
+				"P. Erdős, \u003ca href=\"http://matwbn.icm.edu.pl/ksiazki/aa/aa4/aa413.pdf\"\u003eSome remarks on Euler's totient function\u003c/a\u003e, Acta Arith. 4 (1958), pp. 10-19.",
+				"K. Ford, \u003ca href=\"http://dx.doi.org/10.1090/S1079-6762-98-00043-2\"\u003eThe distribution of totients\u003c/a\u003e, Electron. Res. Announc. Amer. Math. Soc. 4 (1998), 27-34.",
+				"N. Hobson, \u003ca href=\"http://www.qbyte.org/puzzles/puzzle16.html\"\u003eProblem 152, \"Totient valence\"\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/TotientValenceFunction.html\"\u003eTotient Valence Function\u003c/a\u003e"
+			],
+			"mathematica": [
+				"max = 300; inversePhi[_?OddQ] = {}; inversePhi[1] = {1, 2}; inversePhi[m_] := Module[{p, nmax, n, nn}, p = Select[Divisors[m] + 1, PrimeQ]; nmax = m * Times @@ (p/(p-1)); n = m; nn = Reap[While[n \u003c= nmax, If[EulerPhi[n] == m, Sow[n]]; n++]] // Last; If[nn == {}, {}, First[nn] ] ]; Reap[For[n = 1, n \u003c= max, n = If[n == 1, 2, n+2], nn = inversePhi[n] ; If[nn != {} , Sow[nn // Length] ] ] ] // Last // First (* _Jean-François Alcover_, Nov 21 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a058277 n = a058277_list !! (n-1)",
+				"a058277_list = map length $ group a007614_list",
+				"-- _Reinhard Zumkeller_, Nov 22 2015"
+			],
+			"xref": [
+				"The nonzero terms of A014197. Cf. A000010, A002202.",
+				"Cf. A007614."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "Claude Lenormand (claude.lenormand(AT)free.fr), Jan 05 2001",
+			"ext": [
+				"More terms from Nick Hobson, Nov 04 2006"
+			],
+			"references": 21,
+			"revision": 24,
+			"time": "2016-01-12T03:48:18-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59317,
+			"data": "1,1,1,1,1,2,4,2,1,1,3,8,9,8,3,1,1,4,13,22,29,22,13,4,1,1,5,19,42,72,82,72,42,19,5,1,1,6,26,70,146,218,255,218,146,70,26,6,1,1,7,34,107,261,476,691,773,691,476,261,107,34,7,1,1,8,43,154,428,914,1574,2158",
+			"name": "Pascal's \"rhombus\" (actually a triangle T(n,k), n \u003e= 0, 0\u003c=k\u003c=2n) read by rows: each entry is sum of 3 terms above it in previous row and one term above it two rows back.",
+			"comment": [
+				"The rows have lengths 1, 3, 5, 7, ...; cf. A005408.",
+				"T(n,k) is the number of paths in the right half-plane from (0,0) to (n,k-n), consisting of steps U=(1,1), D=(1,-1), h=(1,0) and H=(2,0). Example: T(3,4)=8 because we have hhU, HU, hUh, Uhh, UH, DUU, UDU and UUD. Row sums yield A006190. - _Emeric Deutsch_, Sep 03 2007",
+				"Let p(n,x) denote the Fibonacci polynomial, defined by p(1,x) = 1, p(2,x) = x, p(n,x) = x*p(n-1,x) + p(n-2,x). The coefficients of the numerator polynomial of the rational function p(n, x + 1 + 1/x) form row n of the triangle A059317; the first three numerator polynomials are 1, 1 + x + x^2, 1 + 2*x + 4*x^2 + 2*x^3 + x^4. - _Clark Kimberling_, Nov 04 2013"
+			],
+			"reference": [
+				"Sheng-Liang Yang et al., The Pascal rhombus and Riordan array, Fib. Q., 56:4 (2018), 337-347."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059317/b059317.txt\"\u003eRows n = 0..100 of triangle, flattened\u003c/a\u003e",
+				"S. R. Finch, P. Sebah and Z.-Q. Bai, \u003ca href=\"http://arXiv.org/abs/0802.2654\"\u003eOdd Entries in Pascal's Trinomial Triangle\u003c/a\u003e arXiv:0802.2654 [math.NT], 2008.",
+				"J. Goldwasser et al., \u003ca href=\"http://dx.doi.org/10.1016/S0012-365X(98)00373-2\"\u003eThe density of ones in Pascal's rhombus\u003c/a\u003e, Discrete Math., 204 (1999), 231-236.",
+				"W. F. Klostermeyer, M. E. Mays, L. Soltes and G. Trapp, \u003ca href=\"http://www.fq.math.ca/Scanned/35-4/klostermeyer.pdf\"\u003eA Pascal rhombus\u003c/a\u003e, Fibonacci Quarterly, 35 (1997), 318-328.",
+				"Y. Moshe, \u003ca href=\"http://dx.doi.org/10.1016/S0022-314X(03)00103-3\"\u003eThe density of 0's in recurrence double sequences\u003c/a\u003e, J. Number Theory, 103 (2003), 109-121.",
+				"José L. Ramírez, \u003ca href=\"http://arxiv.org/abs/1511.04577\"\u003eThe Pascal Rhombus and the Generalized Grand Motzkin Paths\u003c/a\u003e, arXiv:1511.04577 [math.CO], 2015.",
+				"Paul K. Stockmeyer, \u003ca href=\"http://arxiv.org/abs/1504.04404\"\u003eThe Pascal Rhombus and the Stealth Configuration\u003c/a\u003e, arXiv:1504.04404 [math.CO], 2015.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n+1, k) = T(n, k-1) + T(n, k) + T(n, k+1) + T(n-1, k).",
+				"Another definition: T(i, j) is defined for i \u003e= 0, -infinity \u003c= j \u003c= infinity; T(i, j) = T(i-1, j) + T(i-1, j-1) + T(i-1, j-2) + T(i-2, j-2) for i \u003e= 2, all j; T(0, 0) = T(1, 1) = T(1, 1) = T(1, 2) = 1; T(0, j) = 0 for j != 0; T(1, j) = 0 for j != 0, 1, 2.",
+				"G.f.: Sum_{n\u003e=0, k=0..2*n} T(n, k)*z^n*w^k = 1/(1-z-z*w-z*w^2-z^2*w^2).",
+				"There does not seem to be a simple expression for T(n, k). [That may have been true in 2001, but it is no longer true, as the following formulas show. - _N. J. A. Sloane_, Jan 22 2016]",
+				"If the rows of the sequence are displayed in the shape of an isosceles triangle, then, for k\u003e=0, columns k and -k have g.f. z^k*g^k/sqrt((1+z-z^2)(1-3z-z^2)), where g=1+zg+z^2*g+z^2*g^2=[1-z-z^2-sqrt((1+z-z^2)(1-3z--z^2))]/(2z^2). - _Emeric Deutsch_, Sep 03 2007",
+				"T(i,j) = Sum_{m=0..i} Sum_{l=0..i-j-2*m} binomial(2*m+j,m)*binomial(l+j+2*m,l)*binomial(l,i-j-2*m-l) (see Ramirez link). - _José Luis Ramírez Ramírez_, Nov 18 2015",
+				"The e.g.f of the j-th column of the Pascal rhombus is L_j(x)=(F(x)^(j+1)*C(F(x)^2)^j)/(x*(1-2*F(x)^2*C(F(x)^2))), where F(x) and C(x) are the generating function of the Fibonacci numbers and Catalan numbers. - _José Luis Ramírez Ramírez_, Nov 18 2015"
+			],
+			"example": [
+				"Triangle begins:",
+				"1;",
+				"1, 1, 1;",
+				"1, 2, 4, 2, 1;",
+				"1, 3, 8, 9, 8, 3, 1;",
+				"..."
+			],
+			"maple": [
+				"r:=proc(i,j) option remember; if i=0 then 0 elif i=1 and abs(j)\u003e0 then 0 elif i=1 and j=0 then 1 elif i\u003e=1 then r(i-1,j)+r(i-1,j-1)+r(i-1,j+1)+r(i-2,j) else 0 fi end: seq(seq(r(i,j),j=-i+1..i-1),i=0..9); # _Emeric Deutsch_, Jun 06 2004",
+				"g:=1/(1-z-z*w-z*w^2-z^2*w^2): gser:=simplify(series(g,z=0,10)): for n from 0 to 8 do P[n]:=sort(coeff(gser,z,n)) end do: for n from 0 to 8 do seq(coeff(P[n],w,k),k=0..2*n) end do; # yields sequence in triangular form; _Emeric Deutsch_, Sep 03 2007"
+			],
+			"mathematica": [
+				"t[0, 0] = t[1, 0] = t[1, 1] = t[1, 2] = 1; t[n_ /; n \u003e= 0, k_ /; k \u003e= 0] /; k \u003c= 2n := t[n, k] = t[n-1, k] + t[n-1, k-1] + t[n-1, k-2] + t[n-2, k-2]; t[n_, k_] /; n \u003c 0 || k \u003c 0 || k \u003e 2n = 0; Flatten[ Table[ t[n, k], {n, 0, 8}, {k, 0, 2n}]] (* _Jean-François Alcover_, Feb 01 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"-- import Data.List (zipWith4)",
+				"a059317 n k = a059317_tabf !! n !! k",
+				"a059317_row n = a059317_tabf !! n",
+				"a059317_tabf = [1] : [1,1,1] : f [1] [1,1,1] where",
+				"   f ws vs = vs' : f vs vs' where",
+				"     vs' = zipWith4 (\\r s t x -\u003e r + s + t + x)",
+				"           (vs ++ [0,0]) ([0] ++ vs ++ [0]) ([0,0] ++ vs)",
+				"           ([0,0] ++ ws ++ [0,0])",
+				"-- _Reinhard Zumkeller_, Jun 30 2012"
+			],
+			"xref": [
+				"Cf. A059318, A007318. Row sums give A006190. Central column is A059345.",
+				"Other columns: A106050, A106053, A034856, A106058, A106113, A106150, A106173, A267192.",
+				"Cf. also A006190, A140750."
+			],
+			"keyword": "tabf,easy,nice,nonn",
+			"offset": "0,6",
+			"author": "_N. J. A. Sloane_, Jan 26 2001",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Jan 30 2001"
+			],
+			"references": 21,
+			"revision": 62,
+			"time": "2019-01-21T06:10:18-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63725,
+			"data": "0,0,1,0,0,2,0,0,1,0,2,0,0,2,0,0,0,2,1,0,2,0,0,0,0,2,2,0,0,2,0,0,1,0,2,0,0,2,0,0,2,2,0,0,0,2,0,0,0,0,3,0,2,2,0,0,0,0,2,0,0,2,0,0,0,4,0,0,2,0,0,0,1,2,2,0,0,0,0,0,2,0,2,0,0,4,0,0,0,2,2,0,0",
+			"name": "Number of ordered pairs (x,y) of positive integers such that x^2 + y^2 = n.",
+			"comment": [
+				"a(A018825(n))=0; a(A000404(n))\u003e0; a(A081324(n))=1; a(A004431(n))\u003e1. - _Reinhard Zumkeller_, Aug 16 2011"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A063725/b063725.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Su#ssq\"\u003eIndex entries for sequences related to sums of squares\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: (Sum_{m=1..inf} x^(m^2))^2.",
+				"a(n) = ( A004018(n) - 2*A000122(n) + A000007(n) )/4. - _Max Alekseyev_, Sep 29 2012",
+				"G.f.: (theta_3(q) - 1)^2/4, where theta_3() is the Jacobi theta function. - _Ilya Gutkovskiy_, Aug 08 2018"
+			],
+			"example": [
+				"a(5) = 2 from the solutions (1,2) and (2,1)."
+			],
+			"mathematica": [
+				"nn = 100; t = Table[0, {nn}]; s = Sqrt[nn]; Do[n = x^2 + y^2; If[n \u003c= nn, t[[n]]++], {x, s}, {y, s}]; Join[{0}, t] (* _T. D. Noe_, Apr 03 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a063725 n =",
+				"   sum $ map (a010052 . (n -)) $ takeWhile (\u003c n) $ tail a000290_list",
+				"a063725_list = map a063725 [0..]",
+				"-- _Reinhard Zumkeller_, Aug 16 2011",
+				"(PARI) a(n)=if(n==0, return(0)); my(f=factor(n)); prod(i=1, #f~, if(f[i, 1]%4==1, f[i, 2]+1, f[i, 2]%2==0 || f[i, 1]==2)) - issquare(n) \\\\ _Charles R Greathouse IV_, May 18 2016"
+			],
+			"xref": [
+				"Cf. A000404 (the numbers n that can be represented in this form).",
+				"Cf. A000161, A063691, A063730, A025426, A000290, A010052."
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_N. J. A. Sloane_, Aug 23 2001",
+			"references": 21,
+			"revision": 27,
+			"time": "2018-08-08T15:17:10-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 67251,
+			"data": "1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,31,32,33,34,35,36,37,38,39,41,42,43,44,45,46,47,48,49,51,52,53,54,55,56,57,58,59,61,62,63,64,65,66,67,68,69,71,72,73,74,75,76,77,78,79,81,82,83,84,85,86,87,88,89,91,92,93,94,95,96,97,98,99,101,102,103,104",
+			"name": "Numbers with no trailing zeros in decimal representation.",
+			"comment": [
+				"Or, decimated numbers: every 10th number has been omitted from the natural numbers. - _Cino Hilliard_, Feb 21 2005. For example, The 10th number starting with 1 is 10 and is missing from the table because it was decimated.",
+				"The word \"decimated\" can be interpreted in several ways and should be used with caution. - _N. J. A. Sloane_, Feb 21 2005",
+				"a(n) mod 10 \u003e 0 for all n.",
+				"Not the same as A052382, as 101 is included.",
+				"A004086(A004086(a(n)) = a(n).",
+				"Numbers in here but not in A043095 are 81, 91, 92, 93, 94,... for example. - _R. J. Mathar_, Sep 30 2008",
+				"Complement of A008592; A168184(a(n)) = 1. - _Reinhard Zumkeller_, Nov 30 2009"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A067251/b067251.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_10\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,0,0,0,0,0,0,0,1,-1).",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = n + floor((n-1)/9).",
+				"From _Colin Barker_, Sep 28 2015: (Start)",
+				"a(n) = a(n-1) + a(n-9) - a(n-10) for n\u003e10.",
+				"G.f.: x*(x+1)*(x^4-x^3+x^2-x+1)*(x^4+x^3+x^2+x+1) / ((x-1)^2*(x^2+x+1)*(x^6+x^3+1)).",
+				"(End)"
+			],
+			"mathematica": [
+				"DeleteCases[Range[110],_?(Divisible[#,10]\u0026)] (* _Harvey P. Dale_, May 16 2016 *)"
+			],
+			"program": [
+				"(PARI) f(n) = for(x=1,n,if(x%10,print1(x\",\"))) - _Cino Hilliard_, Feb 21 2005",
+				"(PARI) Vec(x*(x+1)*(x^4-x^3+x^2-x+1)*(x^4+x^3+x^2+x+1)/((x-1)^2*(x^2+x+1)*(x^6+x^3+1)) + O(x^100)) \\\\ _Colin Barker_, Sep 28 2015",
+				"(Haskell)",
+				"a067251 n = a067251_list !! (n-1)",
+				"a067251_list = filter ((\u003e 0) . flip mod 10) [0..]",
+				"-- _Reinhard Zumkeller_, Jul 11 2015, Dec 29 2011"
+			],
+			"xref": [
+				"Cf. A076641 (reversed).",
+				"Cf. A004086, A008592, A043095, A052382, A168184."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Mar 10 2002",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Sep 06 2008 at the suggestion of _R. J. Mathar_",
+				"Typos corrected in a comment line by _Reinhard Zumkeller_, Apr 04 2010"
+			],
+			"references": 21,
+			"revision": 30,
+			"time": "2017-02-13T01:50:59-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 68106,
+			"data": "1,0,1,1,1,2,2,3,4,6,9,11,14,18,24,44,53,64,78,96,120,265,309,362,426,504,600,720,1854,2119,2428,2790,3216,3720,4320,5040,14833,16687,18806,21234,24024,27240,30960,35280,40320,133496,148329,165016,183822,205056,229080,256320,287280,322560,362880",
+			"name": "Euler's difference table: triangle read by rows, formed by starting with factorial numbers (A000142) and repeatedly taking differences. T(n,n) = n!, T(n,k) = T(n,k+1) - T(n-1,k).",
+			"comment": [
+				"Triangle T(n,k) (n \u003e= 1, 1 \u003c= k \u003c= n) giving number of ways of winning with (n-k+1)st card in the generalized \"Game of Thirteen\" with n cards.",
+				"From _Emeric Deutsch_, Apr 21 2009: (Start)",
+				"T(n-1,k-1) is the number of non-derangements of {1,2,...,n} having largest fixed point equal to k. Example: T(3,1)=3 because we have 1243, 4213, and 3241.",
+				"Mirror image of A047920.",
+				"(End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A068106/b068106.txt\"\u003eRows n = 0..150 of triangle, flattened\u003c/a\u003e",
+				"W. Y. C. Chen et al., \u003ca href=\"http://dx.doi.org/10.1016/j.disc.2011.06.006\"\u003eHigher-order log-concavity in Euler's difference table\u003c/a\u003e, Discrete Math., 311 (2011), 2128-2134.",
+				"P. R. de Montmort, \u003ca href=\"http://dx.doi.org/10.1007/978-1-4757-3500-0_4\"\u003eOn the Game of Thirteen (1713)\u003c/a\u003e, reprinted in Annotated Readings in the History of Statistics, ed. H. A. David and A. W. F. Edwards, Springer-Verlag, 2001, pp. 25-29.",
+				"E. Deutsch and S. Elizalde, \u003ca href=\"http://arxiv.org/abs/0904.2792\"\u003eThe largest and the smallest fixed points of permutations\u003c/a\u003e, arXiv:0904.2792 [math.CO], 2009.",
+				"D. Dumont, \u003ca href=\"http://www.mat.univie.ac.at/~slc/opapers/s05dumont.html\"\u003eMatrices d'Euler-Seidel\u003c/a\u003e, Sem. Loth. Comb. B05c (1981) 59-78.",
+				"Philip Feinsilver, John McSorley, \u003ca href=\"https://arxiv.org/abs/1710.00788\"\u003eZeons, Permanents, the Johnson scheme, and Generalized Derangements\u003c/a\u003e, arXiv:1710.00788 [math.CO], (2017); see page 29.",
+				"P. Feinsilver and J. McSorley, \u003ca href=\"https://doi.org/10.1155/2011/539030\"\u003eZeons, Permanents, the Johnson scheme, and Generalized Derangements\u003c/a\u003e, International Journal of Combinatorics, 2011 (2011).",
+				"Fanja Rakotondrajao, \u003ca href=\"http://www.emis.de/journals/INTEGERS/papers/h36/h36.Abstract.html\"\u003ek-Fixed-Points-Permutations\u003c/a\u003e, Integers: Electronic journal of combinatorial number theory 7 (2007) A36.",
+				"\u003ca href=\"/index/Fa#factorial\"\u003eIndex entries for sequences related to factorial numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n, k) = Sum_{j\u003e= 0} (-1)^j*binomial(n-k, j)*(n-j)!. - _Philippe Deléham_, May 29 2005",
+				"From _Emeric Deutsch_, Jul 18 2009: (Start)",
+				"T(n,k) = Sum_{j=0..k} d(n-j)*binomial(k, j), where d(i) = A000166(i) are the derangement numbers.",
+				"Sum_{k=0..n} (k+1)*T(n,k) = A000166(n+2) (the derangement numbers). (End)",
+				"T(n, k) = n!*hypergeom([k-n], [-n], -1). - _Peter Luschny_, Oct 05 2017"
+			],
+			"example": [
+				"Triangle begins:",
+				"[0]    1;",
+				"[1]    0,    1;",
+				"[2]    1,    1,    2;",
+				"[3]    2,    3,    4,    6;",
+				"[4]    9,   11,   14,   18,   24;",
+				"[5]   44,   53,   64,   78,   96,  120;",
+				"[6]  265,  309,  362,  426,  504,  600,  720;",
+				"[7] 1854, 2119, 2428, 2790, 3216, 3720, 4320, 5040."
+			],
+			"maple": [
+				"d[0] := 1: for n to 15 do d[n] := n*d[n-1]+(-1)^n end do: T := proc (n, k) if k \u003c= n then sum(binomial(k, j)*d[n-j], j = 0 .. k) else 0 end if end proc: for n from 0 to 9 do seq(T(n, k), k = 0 .. n) end do; # yields sequence in triangular form; _Emeric Deutsch_, Jul 18 2009"
+			],
+			"mathematica": [
+				"t[n_, k_] := Sum[(-1)^j*Binomial[n-k, j]*(n-j)!, {j, 0, n}]; Flatten[ Table[ t[n, k], {n, 0, 9}, {k, 0, n}]] (* _Jean-François Alcover_, Feb 21 2012, after _Philippe Deléham_ *)",
+				"T[n_, k_] := n! HypergeometricPFQ[{k-n}, {-n}, -1];",
+				"Table[T[n, k], {n,0,9}, {k,0,n}] // Flatten (* _Peter Luschny_, Oct 05 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a068106 n k = a068106_tabl !! n !! k",
+				"a068106_row n = a068106_tabl !! n",
+				"a068106_tabl = map reverse a047920_tabl",
+				"-- _Reinhard Zumkeller_, Mar 05 2012"
+			],
+			"xref": [
+				"Row sums give A002467. Diagonals include A000166, A000255, A055790, A000142.",
+				"See A047920 and A086764 for other versions.",
+				"When seen as an array, main diagonal is A033815."
+			],
+			"keyword": "nonn,easy,tabl,nice",
+			"offset": "0,6",
+			"author": "_N. J. A. Sloane_, Apr 12 2002",
+			"ext": [
+				"More terms from Antonio G. Astudillo (afg_astudillo(AT)lycos.com), Apr 01 2003",
+				"Edited by _N. J. A. Sloane_, Sep 24 2011"
+			],
+			"references": 21,
+			"revision": 60,
+			"time": "2017-10-06T08:35:08-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 70950,
+			"data": "1,1,1,1,1,1,0,0,1,1,1,0,1,1,1,1,1,1,0,0,1,0,0,0,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,0,1,0,0,0,0,1,0,0,1,1,1,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,1,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,1,1,1,1,0,1,1,0,0,1,0,0,0,1,1",
+			"name": "Triangle read by rows giving successive states of cellular automaton generated by \"Rule 30\".",
+			"comment": [
+				"If cell and right-hand neighbor are both 0 then new state of cell = state of left-hand neighbor; otherwise new state is complement of that of left-hand neighbor.",
+				"A simple rule which produces apparently random behavior. \"... probably the single most surprising discovery I have ever made\" - Stephen Wolfram.",
+				"Row n has length 2n+1.",
+				"A110240(n) = A245549(n) = value of row n, seen as binary number. - _Reinhard Zumkeller_, Jun 08 2013",
+				"A070952 gives number of ON cells. - _N. J. A. Sloane_, Jul 28 2014"
+			],
+			"reference": [
+				"S. Wolfram, A New Kind of Science, Wolfram Media, 2002; p. 27."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A070950/b070950.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/A070950/a070950.gif\"\u003eIllustration of initial terms\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Rule30.html\"\u003eRule 30\u003c/a\u003e",
+				"S. Wolfram, \u003ca href=\"http://wolframscience.com/\"\u003eA New Kind of Science\u003c/a\u003e",
+				"\u003ca href=\"https://oeis.org/wiki/Index_to_Elementary_Cellular_Automata\"\u003eIndex to Elementary Cellular Automata\u003c/a\u003e",
+				"\u003ca href=\"/index/Ce#cell\"\u003eIndex entries for sequences related to cellular automata\u003c/a\u003e"
+			],
+			"example": [
+				"1; 1,1,1; 1,1,0,0,1; 1,1,0,1,1,1,1; ..."
+			],
+			"mathematica": [
+				"ArrayPlot[CellularAutomaton[30,{{1},0}, 50]] (_N. J. A. Sloane_, Aug 11 2009)"
+			],
+			"program": [
+				"(Haskell)",
+				"a070950 n k = a070950_tabf !! n !! k",
+				"a070950_row n = a070950_tabf !! n",
+				"a070950_tabf = iterate rule30 [1] where",
+				"   rule30 row = f ([0,0] ++ row ++ [0,0]) where",
+				"       f [_,_]          = []",
+				"       f (u:ws@(0:0:_)) = u : f ws",
+				"       f (u:ws)         = (1 - u) : f ws",
+				"-- _Reinhard Zumkeller_, Feb 01 2013"
+			],
+			"xref": [
+				"Cf. A070951, A070952 (row sums), A051023 (central terms).",
+				"Cf. A071032 (mirror image, rule 86), A226463 (complemented, rule 135), A226464 (mirrored and complemented, rule 149).",
+				"Cf. also A245549, A110240."
+			],
+			"keyword": "nonn,tabf,nice,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, May 19 2002",
+			"ext": [
+				"More terms from _Hans Havermann_, May 24 2002"
+			],
+			"references": 21,
+			"revision": 27,
+			"time": "2016-01-30T17:25:06-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 72547,
+			"data": "1,0,2,6,22,80,296,1106,4166,15792,60172,230252,884236,3406104,13154948,50922986,197519942,767502944,2987013068,11641557716,45429853652,177490745984,694175171648,2717578296116,10648297329692,41757352712480",
+			"name": "Main diagonal of the array in which first column and row are filled alternatively with 1's or 0's and then T(i,j) = T(i-1,j) + T(i,j-1).",
+			"comment": [
+				"A Catalan transform of A078008 under the mapping g(x)-\u003eg(xc(x)). - _Paul Barry_, Nov 13 2004",
+				"a(n) = A108561(2*(n-1),n-1). - _Reinhard Zumkeller_, Jun 10 2005",
+				"Number of positive terms in expansion of (x_1 + x_2 + ... + x_{n-1} - x_n)^n. - _Sergio Falcon_, Feb 08 2007",
+				"Hankel transform is A088138(n+1). - _Paul Barry_, Feb 17 2009",
+				"Without the beginning \"1\", we obtain the first diagonal over the principal diagonal of the array notified by B. Cloitre in A026641 and used by R. Choulet in A172025, and from A172061 to A172066. - _Richard Choulet_, Jan 25 2010",
+				"Also central terms of triangles A108561 and A112465. - _Reinhard Zumkeller_, Jan 03 2014"
+			],
+			"reference": [
+				"L. W. Shapiro and C. J. Wang, Generating identities via 2 X 2 matrices, Congressus Numerantium, 205 (2010), 33-46."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A072547/b072547.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"David Anderson, E. S. Egge, M. Riehl, L. Ryan, R. Steinke, Y. Vaughan, \u003ca href=\"http://arxiv.org/abs/1605.06825\"\u003ePattern Avoiding Linear Extensions of Rectangular Posets\u003c/a\u003e, arXiv:1605.06825 [math.CO], 2016.",
+				"Roland Bacher, \u003ca href=\"http://arxiv.org/abs/1509.09054\"\u003eChebyshev polynomials, quadratic surds and a variation of Pascal's triangle\u003c/a\u003e, arXiv:1509.09054 [math.CO], 2015. [It is only a conjecture that this is the same sequence. It would be nice to have a proof.]",
+				"Paul Barry, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL8/Barry/barry84.html\"\u003eA Catalan Transform and Related Transformations on Integer Sequences\u003c/a\u003e, J. Integer Sequ., Vol. 8 (2005), Article 05.4.5.",
+				"Colin Defant, \u003ca href=\"https://arxiv.org/abs/1905.02309\"\u003eProofs of Conjectures about Pattern-Avoiding Linear Extensions\u003c/a\u003e, arXiv:1905.02309 [math.CO], 2019.",
+				"S. B. Ekhad, M. Yang, \u003ca href=\"http://sites.math.rutgers.edu/~zeilberg/tokhniot/oMathar1maple12.txt\"\u003e Proofs of Linear Recurrences of Coefficients of Certain Algebraic Formal Power Series Conjectured in the On-Line Encyclopedia Of Integer Sequences\u003c/a\u003e, (2017)"
+			],
+			"formula": [
+				"If offset is 0, a(n) = Sum_{k=0..n} (-1)^(n-k)*binomial(n+k-1, k). - _Vladeta Jovovic_, Feb 18 2003",
+				"G.f.: x*(1-x*C)/(1-2*x*C)/(1+x*C), where C = (1-sqrt(1-4*x))/(2*x) is g.f. for Catalan numbers (A000108). - _Vladeta Jovovic_, Feb 18 2003",
+				"a(n) = Sum_{j=0..floor((n-1)/2)} binomial(2*n-2*j-4, n-3). - _Emeric Deutsch_, Jan 28 2004",
+				"a(n) = (-1)^n*Sum_{k=0..n} binomial(-n,k) (offset 0). - _Paul Barry_, Feb 17 2009",
+				"Other form of the G.f: f(z) = (2/(3*sqrt(1-4*z) -1 +4*z))*((1 -sqrt(1-4*z))/(2*z))^(-1). - _Richard Choulet_, Jan 25 2010",
+				"Conjecture: 2*(-n+1)*a(n) +(9*n-17)*a(n-1) +(-3*n+19)*a(n-2) +2*(-2*n+7) *a(n-3) = 0. - _R. J. Mathar_, Nov 30 2012",
+				"From _Peter Bala_, Oct 01 2015: (Start)",
+				"a(n) = [x^n] ((1 - x)^2/(1 - 2*x))^n.",
+				"Exp( Sum_{n \u003e= 1} a(n+1)*x^n/n ) = 1 + x^2 + 2*x^3 + 6*x^4 + 18*x^5 + ... is the o.g.f for A000957. (End)"
+			],
+			"example": [
+				"The array begins:",
+				"1 0 1 0 1..",
+				"0 0 1 1 2..",
+				"1 1 2 3 5..",
+				"0 1 3 6 11.."
+			],
+			"maple": [
+				"taylor( (2/(3*sqrt(1-4*z)-1+4*z))*((1-sqrt(1-4*z))/(2*z))^(-1),z=0,42); for n from -1 to 40 do a(n):=sum('(-1)^(p)*binomial(2n-p+1,1+n-p)',p=0..n+1): od:seq(a(n),n=-1..40):od; # _Richard Choulet_, Jan 25 2010"
+			],
+			"mathematica": [
+				"CoefficientList[Series[(2/(3*Sqrt[1-4*x]-1+4*x))*((1-Sqrt[1-4*x]) /(2*x))^(-1), {x, 0, 20}], x] (* _Vaclav Kotesovec_, Feb 13 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a072547 n = a108561 (2 * (n - 1)) (n - 1)",
+				"-- _Reinhard Zumkeller_, Jan 03 2014",
+				"(PARI) a(n) = (-1)^n*sum(k=0, n, binomial(-n, k));",
+				"vector(100, n, a(n-1)) \\\\ _Altug Alkan_, Oct 02 2015",
+				"(MAGMA) R\u003cx\u003e:=PowerSeriesRing(Rationals(), 30); Coefficients(R!( x*(1 + Sqrt(1-4*x))/(Sqrt(1-4*x)*(3-Sqrt(1-4*x))) )); // _G. C. Greubel_, Feb 17 2019",
+				"(Sage) a=(x*(1+sqrt(1-4*x))/(sqrt(1-4*x)*(3-sqrt(1-4*x)))).series(x, 30).coefficients(x, sparse=False); a[1:] # _G. C. Greubel_, Feb 17 2019"
+			],
+			"xref": [
+				"Cf. A014300, A026641, A092785, A000957.",
+				"Cf. A026641, A172025, A172061, A172062, A172063, A172064, A172065, A172066. - _Richard Choulet_, Jan 25 2010"
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Benoit Cloitre_, Aug 05 2002",
+			"ext": [
+				"Corrected and extended by _Vladeta Jovovic_, Feb 17 2003"
+			],
+			"references": 21,
+			"revision": 61,
+			"time": "2019-05-08T04:36:54-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75157,
+			"data": "0,1,2,3,5,4,8,7,11,14,6,9,17,24,26,15,23,44,34,29,13,10,20,19,35,74,48,49,53,124,80,31,47,134,174,89,69,76,104,59,27,32,12,21,41,54,62,39,71,224,244,149,97,120,146,99,107,374,342,249,161,624,242,63,95,404",
+			"name": "Run lengths in the binary expansion of n gives the vector of exponents in prime factorization of a(n)+1, with the least significant run corresponding to the exponent of the least prime, 2; with one subtracted from each run length, except for the most significant run of 1's.",
+			"comment": [
+				"To make this a permutation of nonnegative integers, we subtract one from each run count except for the most significant run, e.g. a(11) = 9, as 11 = 1011 and 9+1 = 10 = 5^1 * 3^(1-1) * 2^(2-1)."
+			],
+			"link": [
+				"Paul Tek (terms 0..10000) \u0026 Antti Karttunen, \u003ca href=\"/A075157/b075157.txt\"\u003eTable of n, a(n) for n = 0..16384\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A075159(n+1) - 1.",
+				"a(0) = 0; for n \u003e= 1, a(n) = (A000040(A005811(n)) * A286468(n)) - 1.",
+				"Other identities. For all n \u003e= 1:",
+				"a(A000975(n)) = A006093(n) = A000040(n)-1."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a075157 0 = 0",
+				"a075157 n = product (zipWith (^) a000040_list rs') - 1 where",
+				"   rs' = reverse $ r : map (subtract 1) rs",
+				"   (r:rs) = reverse $ map length $ group $ a030308_row n",
+				"-- _Reinhard Zumkeller_, Aug 04 2014",
+				"(PARI)",
+				"A005811(n) = hammingweight(bitxor(n, n\u003e\u003e1));  \\\\ This function from _Gheorghe Coserea_, Sep 03 2015",
+				"A286468(n) = { my(p=((n+1)%2), i=0, m=1); while(n\u003e0, if(((n%2)==p), m *= prime(i), p = (n%2); i = i+1); n = n\\2); m };",
+				"A075157(n) = if(!n,n,(prime(A005811(n))*A286468(n))-1);",
+				"(Scheme)",
+				"(define (A075157 n) (if (zero? n) n (+ -1 (* (A000040 (A005811 n)) (fold-left (lambda (a r) (* (A003961 a) (A000079 (- r 1)))) 1 (binexp-\u003eruncount1list n))))))",
+				"(define (binexp-\u003eruncount1list n) (if (zero? n) (list) (let loop ((n n) (rc (list)) (count 0) (prev-bit (modulo n 2))) (if (zero? n) (cons count rc) (if (eq? (modulo n 2) prev-bit) (loop (floor-\u003eexact (/ n 2)) rc (1+ count) (modulo n 2)) (loop (floor-\u003eexact (/ n 2)) (cons count rc) 1 (modulo n 2)))))))",
+				";; Or, using the code of A286468:",
+				"(define (A075157 n) (if (zero? n) n (- (* (A000040 (A005811 n)) (A286468 n)) 1)))"
+			],
+			"xref": [
+				"Inverse of A075158.",
+				"Cf. A008578, A056539, A059900, A075162.",
+				"Cf. A000040, A000975, A006093, A030308, A007088, A075159, A278217, A286617."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Antti Karttunen_, Sep 13 2002",
+			"ext": [
+				"Entry revised, PARI-program added and the old incorrect Scheme-program replaced with a new one by _Antti Karttunen_, May 17 2017"
+			],
+			"references": 21,
+			"revision": 26,
+			"time": "2017-05-17T17:54:35-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 78241,
+			"data": "2,2,222,20,20,222,2002,200,222222222,20,22,2220,2002,2002,2220,2000,22202,222222222,22002,20,20202,22,220202,22200,200,2002,2202222222,20020,2202202,2220,222022,20000,222222,22202,20020,2222222220,222",
+			"name": "Smallest multiple of n using only digits 0 and 2.",
+			"comment": [
+				"a(n) = min{A169965(k): k \u003e 1 and A169965(k) mod n = 0}. - _Reinhard Zumkeller_, Jan 10 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller and Chai Wah Wu, \u003ca href=\"/A078241/b078241.txt\"\u003eTable of n, a(n) for n = 1..9998\u003c/a\u003e First 998 terms from Reinhard Zumkeller."
+			],
+			"formula": [
+				"a(n) \u003c 10^n / (0.45 n). - _Charles R Greathouse IV_, Jan 09 2012",
+				"a(n) \u003c= A216812(n) \u003c= 2(10^n - 1)/9. - _N. J. A. Sloane_, Sep 18 2012"
+			],
+			"mathematica": [
+				"Module[{m=Rest[FromDigits/@Tuples[{0,2},12]]},Table[Select[m,Divisible[ #,n]\u0026,1],{n,40}]]//Flatten (* _Harvey P. Dale_, Jul 31 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a078241 n = head [x | x \u003c- tail a169965_list, mod x n == 0]",
+				"-- _Reinhard Zumkeller_, Jan 10 2012",
+				"(Python)",
+				"def A078241(n):",
+				"....if n \u003e 0:",
+				"........for i in range(1,2**n):",
+				"............x = 2*int(bin(i)[2:])",
+				"............if not x % n:",
+				"................return x",
+				"....return 0 # _Chai Wah Wu_, Dec 30 2014"
+			],
+			"xref": [
+				"Cf. A004290, A078242-A078248, A079339, A096681-A096688, A181060, A181061, A216481, A216812."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, Nov 23 2002",
+			"ext": [
+				"More terms from _Ray Chandler_, Jul 12 2004"
+			],
+			"references": 21,
+			"revision": 31,
+			"time": "2017-07-31T12:12:42-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 78310,
+			"data": "2,5,10,9,26,37,50,17,28,101,122,73,170,197,226,33,290,109,362,201,442,485,530,145,126,677,82,393,842,901,962,65,1090,1157,1226,217,1370,1445,1522,401,1682,1765,1850,969,676,2117,2210,289,344,501,2602,1353",
+			"name": "a(n) = n*rad(n) + 1, where rad = A007947 (squarefree kernel).",
+			"comment": [
+				"a(n) = A064549(n)+1.",
+				"A112526(a(n) - 1) = 1, see also A224866. - _Reinhard Zumkeller_, Jul 23 2013",
+				"Increase each exponent in the prime factorization by one, then add 1 to the new product. - _M. F. Hasler_, Jan 22 2017"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A078310/b078310.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"a:= n-\u003e 1+n*mul(i[1], i=ifactors(n)[2]):",
+				"seq(a(n), n=1..60);  # _Alois P. Heinz_, Jan 22 2017"
+			],
+			"mathematica": [
+				"A078310[n_] := n*Times @@ FactorInteger[n][[All, 1]] + 1; Array[A078310, 50] (* _G. C. Greubel_, Apr 25 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a078310 n = n * a007947 n + 1",
+				"-- _Reinhard Zumkeller_, Jul 23 2013, Oct 19 2011",
+				"(PARI) rad(n)=my(f=factor(n)[,1]);prod(i=1,#f,f[i])",
+				"a(n)=n*rad(n)+1 \\\\ _Charles R Greathouse IV_, Jul 09 2013",
+				"(PARI) a(n)={n=factor(n);n[,2]+=vectorv(matsize(n)[1],i,1);factorback(n)+1} \\\\ _M. F. Hasler_, Jan 22 2017",
+				"(PARI) a(n)=prod(k=1,matsize(n=factor(n))[1],n[k,1]^(n[k,2]+1))+1 \\\\ _M. F. Hasler_, Jan 22 2017"
+			],
+			"xref": [
+				"Smallest, greatest factor: A078311, A078312, number of factors: A078313, A078314, min, max exponent: A078315, A078316, number, sum of divisors: A078317, A078318, sum of prime factors: A078319, A078320, Euler's totient: A078321, squarefree kernel: A078322, arithmetic derivative: A078323.",
+				"Cf. primes: A078324, squarefree: A078325, squareful: A078326."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Nov 23 2002",
+			"references": 21,
+			"revision": 27,
+			"time": "2017-04-26T02:48:20-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

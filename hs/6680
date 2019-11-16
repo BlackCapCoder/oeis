@@ -1,0 +1,319 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6680,
+	"results": [
+		{
+			"number": 220218,
+			"data": "1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,25,26,28,29,30,31,33,34,35,36,37,38,39,41,42,43,44,45,46,47,48,49,50,51,52,53,55,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,73,74,75,76,77,78,79,80",
+			"name": "Numbers where all exponents in its prime factorization are one less than a prime.",
+			"comment": [
+				"Sequence has positive density, between 0.83 and 0.89; probably about 0.87951."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A220218/b220218.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"P. Erdős and L. Mirsky, \u003ca href=\"http://www.renyi.hu/~p_erdos/1952-12.pdf\"\u003eThe distribution of values of the divisor function d(n)\u003c/a\u003e, Proc. London Math. Soc. 2 (1952), pp. 257-271."
+			],
+			"mathematica": [
+				"Select[Range[100],AllTrue[Transpose[FactorInteger[#]][[2]]+1,PrimeQ]\u0026] (* _Harvey P. Dale_, Sep 29 2014 *)"
+			],
+			"program": [
+				"(PARI) is(n)=vecmin(apply(n-\u003eisprime(n+1),factor(max(n,2))[,2])) \\\\ _Charles R Greathouse IV_, Dec 07 2012",
+				"(Haskell)",
+				"a220218 n = a220218_list !! (n-1)",
+				"a220218_list = 1 : filter",
+				"               (all (== 1) . map (a010051' . (+ 1)) . a124010_row) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 30 2015"
+			],
+			"xref": [
+				"Apart from the first term, a subsequence of A096432.",
+				"Cf. A010051, A124010."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Charles R Greathouse IV_, Dec 07 2012",
+			"references": 3,
+			"revision": 9,
+			"time": "2015-11-30T16:08:17-05:00",
+			"created": "2012-12-07T13:49:18-05:00"
+		},
+		{
+			"number": 220263,
+			"data": "1,2,8,9,17,20,10,18,21,21,8,11,24,112,19,27,22,22,35,9,30,17,12,25,113,113,33,20,108,28,15,23,116,15,36,36,23,10,31,18,18,13,119,26,26,39,114,114,70,34,34,21,21,47,109,47,122,29,29,42,16,16,24",
+			"name": "Lengths of Collatz trajectories starting with terms of A177729.",
+			"comment": [
+				"Row lengths in A192719."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A220263/b220263.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"coll[n_]:=NestWhileList[If[EvenQ[#],#/2,3#+1]\u0026,n,#\u003e1\u0026]; t={1}; Do[If[FreeQ[Union@@Table[coll[i],{i,n-1}],n],AppendTo[t,Length[coll[n]]]],{n,2,144}]; t (* _Jayanta Basu_, May 29 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a220263 = length . a192719_row"
+			],
+			"xref": [
+				"Cf. A006577."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jan 03 2013",
+			"references": 3,
+			"revision": 9,
+			"time": "2013-07-13T12:04:34-04:00",
+			"created": "2013-01-03T14:39:29-05:00"
+		},
+		{
+			"number": 220348,
+			"data": "1,2,3,3,4,4,4,5,5,4,5,6,6,5,5,6,7,7,6,6,5,7,8,8,7,7,6,5,8,9,9,8,8,7,6,6,9,10,10,9,9,8,7,7,6,10,11,11,10,10,9,8,8,7,5,11,12,12,11,11,10,9,9,8,6,6,12,13,13,12,12,11,10,10,9,7,7,7,13",
+			"name": "Number of row where n occurs in A183079.",
+			"comment": [
+				"A183079 seen as flattened sequence is a permutation of the natural numbers, therefore for each n there exists exactly 1 row in A183079 containing n.",
+				"In this sequence each n \u003e= 2 occurs a total of 2^(n-2) times. - _Antti Karttunen_, May 18 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller (first 250 terms) \u0026  Antti Karttunen, \u003ca href=\"/A220348/b220348.txt\"\u003eTable of n, a(n) for n = 1..10440\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 1 + A029837(A220347(n)) = A070941(A220347(n)-1). - _Antti Karttunen_, May 18 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndex)",
+				"import Data.Maybe (fromJust)",
+				"a220348 n = fromJust (findIndex (elem n) a183079_tabf) + 1",
+				"(Scheme, two variants)",
+				"(define (A220348 n) (+ 1 (A029837 (A220347 n))))",
+				"(define (A220348 n) (A070941 (+ -1 (A220347 n))))",
+				";; _Antti Karttunen_, May 18 2015"
+			],
+			"xref": [
+				"Cf. A029837, A070941, A183079, A220347."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 12 2012",
+			"references": 3,
+			"revision": 16,
+			"time": "2015-05-22T14:55:24-04:00",
+			"created": "2012-12-12T16:03:04-05:00"
+		},
+		{
+			"number": 220811,
+			"data": "1,37,10693,84699253,12357810823725973,36165967884042486031784215609813,10542455454648216809579521558960739092388747823498758873614315093",
+			"name": "Numerators of the Verhulst sequence x(n+1)=4*x(n)-3*x(n)^2, x(0)=1/10; see A220812 for denominators.",
+			"reference": [
+				"Peitgen, H.-O. and Richter, P. H., The Beauty of Fractals. Springer, 1986, p. 23f."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A220811/b220811.txt\"\u003eTable of n, a(n) for n = 0..9\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics,\u003ca href=\"http://mathworld.wolfram.com/LogisticEquation.html\"\u003eLogistic Equation\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Logistic_map\"\u003eLogistic map\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator)",
+				"a220811 n = a220811_list !! n",
+				"a220811_list = map numerator vs where",
+				"   vs = iterate (\\x -\u003e x * (4 - 3 * x)) (1 % 10)",
+				"-- _Reinhard Zumkeller_, Dec 22 2012"
+			],
+			"xref": [
+				"Cf. A051840."
+			],
+			"keyword": "nonn,frac",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Dec 22 2012",
+			"references": 3,
+			"revision": 7,
+			"time": "2013-07-13T12:04:35-04:00",
+			"created": "2012-12-22T17:46:24-05:00"
+		},
+		{
+			"number": 220968,
+			"data": "1,5,6,9,11,13,15,16,17,20,21,23,25,27,28,29,31,33,34,36,38,39,40,42,44,45,47,49,50,52,54,55,56,58,60,61,63,65,67,68,70,71,73,74,75,76,77,79,81,82,85,86,87,89,90,92,93,94,96,97,98,100,101,104,105",
+			"name": "Positions in A030229 where odd terms occur.",
+			"comment": [
+				"A030229(a(n)) mod 2 = 1; A020639(A030229(a(n))) \u003e 2."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A220968/b220968.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a220968 n = a220968_list !! (n-1)",
+				"a220968_list = map (+ 1) $ findIndices odd a030229_list"
+			],
+			"xref": [
+				"Cf. A220969 (complement)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 27 2012",
+			"references": 3,
+			"revision": 7,
+			"time": "2013-07-13T12:04:35-04:00",
+			"created": "2012-12-27T23:18:51-05:00"
+		},
+		{
+			"number": 220969,
+			"data": "2,3,4,7,8,10,12,14,18,19,22,24,26,30,32,35,37,41,43,46,48,51,53,57,59,62,64,66,69,72,78,80,83,84,88,91,95,99,102,103,107,109,110,115,116,117,120,122,129,133,137,138,139,140,144,146,152,154,156,160",
+			"name": "Positions in A030229 where even terms occur.",
+			"comment": [
+				"A030229(a(n)) mod 2 = 0; A020639(A030229(a(n))) = 2."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A220969/b220969.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a220969 n = a220969_list !! (n-1)",
+				"a220969_list = map (+ 1) $ findIndices even a030229_list"
+			],
+			"xref": [
+				"Cf. A220968 (complement)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 27 2012",
+			"references": 3,
+			"revision": 6,
+			"time": "2013-07-13T12:04:36-04:00",
+			"created": "2012-12-27T23:18:33-05:00"
+		},
+		{
+			"number": 221054,
+			"data": "30,60,70,90,120,140,150,180,240,270,280,286,300,350,360,450,480,490,540,560,572,600,646,700,720,750,810,900,960,980,1080,1120,1144,1200,1292,1350,1400,1440,1500,1620,1750,1798,1800,1920,1960,2160,2240,2250,2288,2310,2400,2430,2450,2584,2700,2800,2880,3000,3135",
+			"name": "Numbers whose distinct prime factors can be partitioned into two equal sums.",
+			"comment": [
+				"This sequence is nearly identical to A071140 and Lagneau's proposed definition of the same. The first divergence occurs at a(50)=2310, whose prime factors 2+5+7=3+11; however 2+3+5+7+11=28 is not divisible by 11 (def 1), nor is 11-2=3+5+7 (def 2).",
+				"Divergences become more common thereafter, including 102 of the first 500 terms.",
+				"As with the two sequences above, this is a superset of 2*product of twin primes (A037074)."
+			],
+			"link": [
+				"Christian N. K. Anderson, \u003ca href=\"/A221054/b221054.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Christian N. K. Anderson, \u003ca href=\"/A221054/a221054.txt\"\u003ePartitions of distinct prime factors\u003c/a\u003e of the first 1000 terms."
+			],
+			"program": [
+				"(Haskell)",
+				"a221054 n = a221054_list !! (n-1)",
+				"a221054_list = filter (z 0 0 . a027748_row) $ tail a005843_list where",
+				"   z u v []     = u == v",
+				"   z u v (p:ps) = z (u + p) v ps || z u (v + p) ps",
+				"-- _Reinhard Zumkeller_, Apr 18 2013"
+			],
+			"xref": [
+				"Cf. A175592 (multiplicity of prime factors allowed).",
+				"Cf. A071139-A071147, especially A071140.",
+				"Cf. A008472, A037074.",
+				"Cf. A027748, A005843, A083207."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Kevin L. Schwartz_ and _Christian N. K. Anderson_, Apr 15 2013",
+			"references": 3,
+			"revision": 17,
+			"time": "2013-04-23T11:13:55-04:00",
+			"created": "2013-04-18T11:18:05-04:00"
+		},
+		{
+			"number": 221309,
+			"data": "25,77,85,92,93,94,118,122,123,124,133,143,144,145,160,161,170,171,185,188,202,203,206,207,208,213,214,218,235,236,237,247,248,253,259,265,266,267,275,287,290,291,295,298,302,305,319,325,328,333,334,335,340",
+			"name": "Numbers m such that no subset of {m-1, m, m+1} sums up to a prime number.",
+			"comment": [
+				"A117499(a(n)) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221309/b221309.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 25: there are 7 nonempty subsets of {25-1, 25, 25+1}: {24}, {25}, {26}, {24,25}, {24,26}, {25,26} and {24,25,26} with sums and factorizations: 24=3*2^3, 25=5^2, 26=13*2, 49=7^2, 50=5^2*2, 51=17*3 and 75=5^2*3."
+			],
+			"program": [
+				"(Haskell)",
+				"a221309 n = a221309_list !! (n-1)",
+				"a221309_list = map (+ 1) $ elemIndices 0 a117499_list"
+			],
+			"xref": [
+				"Subsequence of A079364."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jan 10 2013",
+			"references": 3,
+			"revision": 7,
+			"time": "2013-07-13T12:04:36-04:00",
+			"created": "2013-01-10T14:02:18-05:00"
+		},
+		{
+			"number": 221310,
+			"data": "1,2,3,6,30,660,810,2130,2550,3330,3390,5850,6270,10530,33180,41610,44130,53550,55440,57330,63840,65100,70380,70980,72270,74100,74760,78780,80670,81930,87540,93240,102300,115470,124770,133980,136950,156420,161460,168450",
+			"name": "Numbers m such that exactly four subsets of {m-1, m, m+1} sum up to a prime number.",
+			"comment": [
+				"A117499(a(n)) = 4;",
+				"(a(n)-1,a(n)+1) are twin prime pairs for n \u003e= 4."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221310/b221310.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 1: the required 4 subsets of {1-1,1,1+1} are: {2}, {0,2}, {1,2} and {0,1,2}."
+			],
+			"mathematica": [
+				"Select[Range[170000],Count[Total/@Subsets[{#-1,#,#+1}],_?PrimeQ]==4\u0026] (* _Harvey P. Dale_, Jul 30 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a221310 n = a221310_list !! (n-1)",
+				"a221310_list = map (+ 1) $ elemIndices 4 a117499_list"
+			],
+			"xref": [
+				"Subsequence of A040040, apart from a(1)=1."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jan 10 2013",
+			"references": 3,
+			"revision": 12,
+			"time": "2019-07-30T19:50:06-04:00",
+			"created": "2013-01-10T14:02:31-05:00"
+		},
+		{
+			"number": 221490,
+			"data": "0,0,1,1,3,1,2,2,5,3,6,3,5,4,4,3,9,2,6,5,8,4,9,4,9,7,10,4,17,3,10,9,11,9,15,4,9,10,13,5,20,7,11,10,16,8,19,6,18,12,17,5,23,9,18,9,15,8,26,7,15,12,16,13,29,8,18,13,26,9,25,10,19,18,16",
+			"name": "Number of primes of the form k*n + k - n, 1 \u003c= k \u003c= n.",
+			"comment": [
+				"a(n) = sum(A010051(A209297(n,k)): k=1..n) = number of primes in n-th row of the triangle in A209297."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221490/b221490.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"Row 10 of A209297 = [1,12,23,34,45,56,67,78,89,100] containing three primes: [23,67,89], therefore a(10) = 3;",
+				"row 11 of A209297 = [1,13,25,37,49,61,73,85,97,109,121] containing six primes: [13,37,61,73,97,109], therefore a(11) = 6."
+			],
+			"mathematica": [
+				"Count[#,_?PrimeQ]\u0026/@Table[k*n+k-n,{n,75},{k,n}] (* _Harvey P. Dale_, Apr 03 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a221490 n = sum [a010051 (k*n + k - n) | k \u003c- [1..n]]"
+			],
+			"xref": [
+				"Cf. A221491."
+			],
+			"keyword": "nonn",
+			"offset": "1,5",
+			"author": "_Reinhard Zumkeller_, Jan 19 2013",
+			"references": 3,
+			"revision": 9,
+			"time": "2015-04-03T09:17:13-04:00",
+			"created": "2013-01-19T11:29:09-05:00"
+		}
+	]
+}

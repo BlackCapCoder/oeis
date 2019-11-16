@@ -1,0 +1,405 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3960,
+	"results": [
+		{
+			"number": 188172,
+			"data": "0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,1,0,1,1,0,0,0,1,0,0,0,1,0,0,1,0,0,1,1,1,0,1,0,0,0,0,0,1,1,0,0,0,1,0,1,2,0,0,0,0,0,1,1,1,0,0,0,1,0,1,1,1,0,0,0,0,1,0,0,1,0,0,1",
+			"name": "Number of divisors d of n of the form d == 7 (mod 8).",
+			"comment": [
+				"a(A188226(n))=n and a(m)\u003c\u003en for m\u003cA188226(n), n\u003e=0; a(A141164(n))=1. - _Reinhard Zumkeller_, Mar 26 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188172/b188172.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. D. Hirschhorn, \u003ca href=\"http://dx.doi.org/10.1016/j.disc.2004.08.045\"\u003eThe number of representations of a number by various forms\u003c/a\u003e, Discrete Mathematics 298 (2005), 205-211."
+			],
+			"formula": [
+				"A188170(n)+a(n) = A001842(n).",
+				"A188169(n)+A188170(n)-A188171(n)-a(n) = A002325(n).",
+				"G.f.: Sum_{k\u003e=1} x^(7*k)/(1 - x^(8*k)). - _Ilya Gutkovskiy_, Sep 11 2019"
+			],
+			"example": [
+				"a(A007522(i)) = 1, any i."
+			],
+			"maple": [
+				"sigmamr := proc(n,m,r) local a,d ; a := 0 ; for d in numtheory[divisors](n) do if modp(d,m) = r then a := a+1 ; end if; end do: a; end proc:",
+				"A188172 := proc(n) sigmamr(n,8,7) ; end proc:"
+			],
+			"mathematica": [
+				"Table[Count[Divisors[n],_?(Mod[#,8]==7\u0026)],{n,90}] (* _Harvey P. Dale_, Mar 08 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a188172 n = length $ filter ((== 0) . mod n) [7,15..n]",
+				"-- _Reinhard Zumkeller_, Mar 26 2011"
+			],
+			"xref": [
+				"Cf. A001842, A002325, A004771, A141164, A188169, A188170, A188171, A188226."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,63",
+			"author": "_R. J. Mathar_, Mar 23 2011",
+			"references": 7,
+			"revision": 17,
+			"time": "2019-09-11T11:12:15-04:00",
+			"created": "2011-03-23T13:03:55-04:00"
+		},
+		{
+			"number": 188386,
+			"data": "11,13,47,37,107,73,191,121,299,181,431,253,587,337,767,433,971,541,1199,661,1451,793,1727,937,2027,1093,2351,1261,2699,1441,3071,1633,3467,1837,3887,2053,4331,2281,4799,2521",
+			"name": "Numerator(h(n+2)-h(n-1)), where h(n) is the n-th harmonic number sum(1/k, k=1..n).",
+			"comment": [
+				"Denominator is listed in A033931. A027446 appears to be divisible by a(n).",
+				"The sequence lists also the largest odd divisors of 3*m^2-1 (A080663) for m\u003e1. In fact, for m even, the largest odd divisor is 3*m^2-1 itself; for m odd, the largest odd divisor is (3*m^2-1)/2. From this follows the second formula given in Formula field. [_Bruno Berselli_, Aug 27 2013]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188386/b188386.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,3,0,-3,0,1)"
+			],
+			"formula": [
+				"a(n) = numerator ((3*n^2+6*n+2)/(n*(n+1)*(n+2))).",
+				"a(n) = (3-(-1)^n)*(3*n^2+6*n+2)/4.",
+				"a(2n+1) = A158463(n+1), a(2n) = A003154(n+1).",
+				"G.f.: -x*(11+13*x+14*x^2-2*x^3-x^4+x^5) / ( (x-1)^3*(1+x)^3 ). - _R. J. Mathar_, Apr 09 2011",
+				"a(n) = numerator of coefficient of x^3 in the Maclaurin expansion of sin(x)*exp((n+1)*x). [_Francesco Daddi_, Aug 04 2011]",
+				"h(n+3) = 3/2+2*f(n)/((n+2)*(n+3)), where f(n)= sum((-1)^k*binomial(-3,k)/(n+1-k),k=0..n). [_Gary Detlefs_, Jul 17 2011]",
+				"a(n) = A213998(n+2,2). - _Reinhard Zumkeller_, Jul 03 2012"
+			],
+			"maple": [
+				"seq((3-(-1)^n)*(3*n^2+6*n+2)/4, n=1..100);"
+			],
+			"mathematica": [
+				"Table[(3 - (-1)^n)*(3*n^2 + 6*n + 2)/4, {n, 40}] (* _Wesley Ivan Hurt_, Jan 29 2017 *)",
+				"Numerator[#[[4]]-#[[1]]]\u0026/@Partition[HarmonicNumber[Range[0,50]],4,1] (* or *) LinearRecurrence[{0,3,0,-3,0,1},{11,13,47,37,107,73},50] (* _Harvey P. Dale_, Dec 31 2017 *)"
+			],
+			"program": [
+				"(MAGMA) [Numerator((3*n^2+6*n+2)/((n*(n+1)*(n+2)))): n in [1..50]]; // _Vincenzo Librandi_, Mar 30 2011",
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator)",
+				"a188386 n = a188386_list !! (n-1)",
+				"a188386_list = map numerator $ zipWith (-) (drop 3 hs) hs",
+				"   where hs = 0 : scanl1 (+) (map (1 %) [1..])",
+				"-- _Reinhard Zumkeller_, Jul 03 2012"
+			],
+			"xref": [
+				"Cf. A033931, A027446, A003154, A158436, A001711."
+			],
+			"keyword": "nonn,easy,look",
+			"offset": "1,1",
+			"author": "_Gary Detlefs_, Mar 29 2011",
+			"references": 7,
+			"revision": 45,
+			"time": "2017-12-31T16:59:46-05:00",
+			"created": "2011-04-01T14:10:08-04:00"
+		},
+		{
+			"number": 188654,
+			"data": "4,6,8,9,10,14,15,16,21,22,24,25,26,27,30,32,33,34,35,38,39,40,42,46,48,49,51,54,55,56,57,58,60,62,64,65,66,69,70,72,74,77,78,80,81,82,84,85,86,87,88,90,91,93,94,95,96,102,104,105,106,108,110,111",
+			"name": "Numbers such that in canonical prime factorization the maximal exponent does not equal the number of positive exponents.",
+			"comment": [
+				"A051903(n) \u003c\u003e A001221(n);",
+				"A225230(a(n)) \u003c\u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188654/b188654.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a188654 n = a188654_list !! (n-1)",
+				"a188654_list = map (+ 1) $ findIndices (/= 0) a225230_list"
+			],
+			"xref": [
+				"Cf. A212166 (complement), union of A212164 and A212168."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 03 2013",
+			"references": 7,
+			"revision": 11,
+			"time": "2013-05-03T16:53:21-04:00",
+			"created": "2013-05-03T16:53:21-04:00"
+		},
+		{
+			"number": 190126,
+			"data": "1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,8193,4097,8194,8195,2049,4098,8196,8197,4099,8198,8199,1025,2050,4100,8200,8201,4101,8202,8203,2051,4102,8204,8205,4103,8206,8207,513,1026,2052,4104,8208,8209,4105",
+			"name": "Numbers 1 through 10000 sorted lexicographically in binary representation.",
+			"comment": [
+				"A190127 = inverse permutation: a(A190127(n)) = A190127(a(n)) = n;",
+				"a(n) \u003c\u003e n for n \u003e 2."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A190126/b190126.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (full sequence)",
+				"Eric Weisstein, \u003ca href=\"http://mathworld.wolfram.com/LexicographicOrder.html\"\u003eLexicographicOrder\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Lexicographical_order\"\u003eLexicographical order\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"example": [
+				"a(13) = 4096 -\u003e 1000000000000  [bin];",
+				"a(14) = 8192 -\u003e 10000000000000 [bin];",
+				"a(15) = 8193 -\u003e 10000000000001 [bin];",
+				"a(16) = 4097 -\u003e 1000000000001  [bin];",
+				"a(17) = 8194 -\u003e 10000000000010 [bin];",
+				"a(18) = 8195 -\u003e 10000000000011 [bin];",
+				"a(19) = 2049 -\u003e 100000000001   [bin];",
+				"a(20) = 4098 -\u003e 1000000000010  [bin];",
+				"largest term a(3626) = 10000 -\u003e 10011100010000 [bin];",
+				"last term a(10000) = 8191 -\u003e 1111111111111 [bin], largest term lexicographically."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ord (comparing)",
+				"import Data.List (sortBy)",
+				"a190126 n = a190126_list !! (n-1)",
+				"a190126_list = sortBy (comparing (show . a007088)) [1..10000]"
+			],
+			"xref": [
+				"Cf. A007088; A190128 (base 3), A190130 (base 8), A190016 (base 10), A190132 (base 12), A190134 (base 16)."
+			],
+			"keyword": "nonn,base,fini,full",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 06 2011",
+			"references": 7,
+			"revision": 17,
+			"time": "2017-06-18T13:42:39-04:00",
+			"created": "2011-05-07T12:15:20-04:00"
+		},
+		{
+			"number": 190130,
+			"data": "1,8,64,512,4096,4097,4098,4099,4100,4101,4102,4103,513,4104,4105,4106,4107,4108,4109,4110,4111,514,4112,4113,4114,4115,4116,4117,4118,4119,515,4120,4121,4122,4123,4124,4125,4126,4127,516,4128,4129,4130,4131,4132",
+			"name": "Numbers 1 through 10000 sorted lexicographically in octal representation (base 8).",
+			"comment": [
+				"A190131 = inverse permutation: a(A190131(n)) = A190131(a(n)) = n;",
+				"a(n) \u003c\u003e n for n \u003e 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A190130/b190130.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (full sequence)",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LexicographicOrder.html\"\u003eLexicographic Order\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Octal.html\"\u003eOctal\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Lexicographical_order\"\u003eLexicographical order\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Octal\"\u003eOctal\u003c/a\u003e"
+			],
+			"example": [
+				"a(10) = 4101 -\u003e 10005 [oct];",
+				"a(11) = 4102 -\u003e 10006 [oct];",
+				"a(12) = 4103 -\u003e 10007 [oct];",
+				"a(13) =  513 -\u003e 1001  [oct];",
+				"a(14) = 4104 -\u003e 10010 [oct];",
+				"a(15) = 4105 -\u003e 10011 [oct];",
+				"a(16) = 4106 -\u003e 10012 [oct];",
+				"largest term a(67151) = 10000 -\u003e 23420 [oct];",
+				"last term a(10000) = 4095 -\u003e 7777 [oct], largest term lexicographically."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ord (comparing)",
+				"import Data.List (sortBy)",
+				"a190130 n = a190130_list !! (n-1)",
+				"a190130_list = sortBy (comparing (show . a007094)) [1..10000]"
+			],
+			"xref": [
+				"A007094; A190126 (base 2), A190128 (base 3), A190016 (base 10), A190132 (base 12), A190134 (base 16)."
+			],
+			"keyword": "nonn,base,fini,full",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 06 2011",
+			"references": 7,
+			"revision": 15,
+			"time": "2017-06-18T13:46:27-04:00",
+			"created": "2011-05-07T12:16:09-04:00"
+		},
+		{
+			"number": 190132,
+			"data": "1,12,144,1728,1729,1730,1731,1732,1733,1734,1735,1736,1737,1738,1739,145,1740,1741,1742,1743,1744,1745,1746,1747,1748,1749,1750,1751,146,1752,1753,1754,1755,1756,1757,1758,1759,1760,1761,1762,1763,147,1764,1765",
+			"name": "Numbers 1 through 10000 sorted lexicographically in duodecimal representation (base 12).",
+			"comment": [
+				"A190133 = inverse permutation: a(A190133(n)) = A190133(a(n)) = n;",
+				"a(n) \u003c\u003e n for n \u003e 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A190132/b190132.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (full sequence)",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LexicographicOrder.html\"\u003eLexicographic Order\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Duodecimal.html\"\u003eDuodecimal\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Lexicographical_order\"\u003eLexicographical order\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Duodecimal\"\u003eDuodecimal\u003c/a\u003e"
+			],
+			"example": [
+				"a(13) = 1737 -\u003e 1009 [doz];",
+				"a(14) = 1738 -\u003e 100A [doz];",
+				"a(15) = 1739 -\u003e 100B [doz];",
+				"a(16) =  145 -\u003e 101  [doz];",
+				"a(17) = 1740 -\u003e 1010 [doz];",
+				"a(18) = 1741 -\u003e 1011 [doz];",
+				"largest term a(9026) = 10000 -\u003e 5282 [doz];",
+				"last term a(10000) = 1727 -\u003e BBB [doz], largest term lexicographically."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ord (comparing)",
+				"import Data.List (sortBy)",
+				"import Numeric (showIntAtBase)",
+				"import Data.Char (intToDigit)",
+				"a190132 n = a190132_list !! (n-1)",
+				"a190132_list =",
+				"   sortBy (comparing (flip (showIntAtBase 12 intToDigit) \"\")) [1..10000]"
+			],
+			"xref": [
+				"Cf. A190126 (base 2), A190128 (base 3), A190130 (base 8), A190016 (base 10), A190134 (base 16)."
+			],
+			"keyword": "nonn,base,fini,full",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 06 2011",
+			"references": 7,
+			"revision": 18,
+			"time": "2017-06-18T13:47:12-04:00",
+			"created": "2011-05-07T12:16:30-04:00"
+		},
+		{
+			"number": 190134,
+			"data": "1,16,256,4096,4097,4098,4099,4100,4101,4102,4103,4104,4105,4106,4107,4108,4109,4110,4111,257,4112,4113,4114,4115,4116,4117,4118,4119,4120,4121,4122,4123,4124,4125,4126,4127,258,4128,4129,4130,4131,4132,4133,4134",
+			"name": "Numbers 1 through 10000 sorted lexicographically in hexadecimal representation (base 16).",
+			"comment": [
+				"A190135 = inverse permutation: a(A190135(n)) = A190135(a(n)) = n;",
+				"a(n) \u003c\u003e n for n \u003e 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A190134/b190134.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (full sequence)",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Lexicographical_order\"\u003eLexicographical order\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LexicographicOrder.html\"\u003eLexicographicOrder\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Hexadecimal\"\u003eHexadecimal\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Hexadecimal.html\"\u003eHexadecimal\u003c/a\u003e"
+			],
+			"example": [
+				"a(17) = 4109 -\u003e 100D [hex];",
+				"a(18) = 4110 -\u003e 100E [hex];",
+				"a(19) = 4111 -\u003e 100F [hex];",
+				"a(20) =  257 -\u003e 101  [hex];",
+				"a(21) = 4112 -\u003e 1010 [hex];",
+				"a(22) = 4113 -\u003e 1011 [hex];",
+				"largest term a(6301) = 10000 -\u003e 2710 [hex];",
+				"last term a(10000) = 4095 -\u003e FFF [hex], largest term lexicographically."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ord (comparing)",
+				"import Data.List (sortBy)",
+				"import Numeric (showHex)",
+				"a190134 n = a190134_list !! (n-1)",
+				"a190134_list = sortBy (comparing (flip showHex \"\")) [1..10000]"
+			],
+			"xref": [
+				"Cf. A190126 (base 2), A190128 (base 3), A190130 (base 8), A190016 (base 10), A190132 (base 12)."
+			],
+			"keyword": "nonn,base,fini,full",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 06 2011",
+			"references": 7,
+			"revision": 10,
+			"time": "2013-07-13T12:04:08-04:00",
+			"created": "2011-05-07T12:16:52-04:00"
+		},
+		{
+			"number": 191292,
+			"data": "11,36,43,51,140,148,155,164,171,179,196,203,211,227,540,556,564,571,588,596,603,612,619,627,652,660,667,676,683,691,708,715,723,739,780,788,795,804,811,819,836,843,851,867,900,907,915,931,963,2108,2140,2156,2164,2171",
+			"name": "Numbers k such that k-1 and k+1 are both digitally balanced.",
+			"comment": [
+				"Numbers k such that k-1 and k+1 are both in A031443."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191292/b191292.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a191292 n = a191292_list !! (n-1)",
+				"a191292_list = f a031443_list where",
+				"   f (x:x':xs) | x' == x+2 = (x+1) : f xs",
+				"               | otherwise = f (x':xs)",
+				"-- _Reinhard Zumkeller_, Jun 07 2011"
+			],
+			"xref": [
+				"Cf. A031443."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Juri-Stepan Gerasimov_, May 29 2011",
+			"ext": [
+				"Corrected by _R. J. Mathar_, May 30 2011"
+			],
+			"references": 7,
+			"revision": 13,
+			"time": "2019-01-27T21:26:21-05:00",
+			"created": "2011-06-03T21:11:13-04:00"
+		},
+		{
+			"number": 191854,
+			"data": "1,1,2,1,3,1,7,1,2,4,3,2,1,7,1,5,11,17,1,2,3,1,6,11,5,23,1,4,1,2,11,7,3,1,15,1,31,1,2,4,23,5,8,1,1,19,7,26,1,3,1,2,1,9,23,3,47,19,1,49,1,2,5,1,27,1,10,3,7,1,2,4,9,2,1,31,1,14,3,1",
+			"name": "First factor in happy factorization of n-th rectangular number.",
+			"comment": [
+				"a(n) = A007966(A007969(n)) = A007969(n) / A191855(n);",
+				"(a(n), A191855(n)) is a 1-happy couple;",
+				"notation: B in the Conway link."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191854/b191854.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/happy.html\"\u003eOn Happy Factorizations\u003c/a\u003e, J. Integer Sequences, Vol. 1, 1998, #1."
+			],
+			"mathematica": [
+				"r[b_, c_] := (red = Reduce[x\u003e0 \u0026\u0026 y\u003e0 \u0026\u0026 b*x^2 + 1 == c*y^2, {x, y}, Integers] /. C[1] -\u003e 1 // Simplify; If[Head[red] === Or, First[red], red]); f[128] = {}(* to speed up *); f[n_] := f[n] = If[IntegerQ[Sqrt[n]], {}, Do[c = n/b; If[(r0 = r[b, c]) =!= False, {x0, y0} = {x, y} /. ToRules[r0]; Return[{b, c, x0, y0}]], {b, Divisors[n] // Most}]]; A191854 = Reap[Table[Print[n, \" \", f[n]]; If[f[n] != {} \u0026\u0026 f[n] =!= Null, Sow[f[n][[1]]]], {n, 1, 130}]][[2, 1]] (* _Jean-François Alcover_, Sep 18 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a191854 = a007966 . a007969  -- _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"xref": [
+				"Cf. A007966, A007969, A191855."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Jun 18 2011",
+			"ext": [
+				"Wrong formula removed, thanks to Wolfdieter Lang, who pointed this out. _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"references": 7,
+			"revision": 18,
+			"time": "2016-02-15T12:18:09-05:00",
+			"created": "2011-06-20T16:45:06-04:00"
+		},
+		{
+			"number": 191855,
+			"data": "2,5,3,10,4,13,2,17,9,5,7,11,26,4,29,6,3,2,37,19,13,41,7,4,9,2,50,13,53,27,5,8,19,58,4,61,2,65,33,17,3,14,9,73,74,4,11,3,82,28,85,43,89,10,4,31,2,5,97,2,101,51,21,106,4,109,11,37,16,113,57",
+			"name": "Second factor in happy factorization of n-th rectangular number.",
+			"comment": [
+				"a(n) \u003e 1;",
+				"a(n) = A007967(A007969(n)) = A007969(n) / A191854(n);",
+				"(A191854(n), a(n)) is a 1-happy couple;",
+				"notation: C in the Conway link."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191855/b191855.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/happy.html\"\u003eOn Happy Factorizations\u003c/a\u003e, J. Integer Sequences, Vol. 1, 1998, #1."
+			],
+			"mathematica": [
+				"r[b_, c_] := (red = Reduce[x \u003e 0 \u0026\u0026 y \u003e 0 \u0026\u0026 b*x^2 + 1 == c*y^2, {x, y}, Integers] /. C[1] -\u003e 1 // Simplify; If[Head[red] === Or, First[red], red]); f[128] = {}(* to speed up *); f[n_] := f[n] = If[IntegerQ[Sqrt[n]], {}, Do[c = n/b; If[(r0 = r[b, c]) =!= False, {x0, y0} = {x, y} /. ToRules[r0]; Return[{b, c, x0, y0}]], {b, Divisors[n] // Most}]]; A191855 = Reap[Table[Print[n, \" \", f[n]];    If[f[n] != {} \u0026\u0026 f[n] =!= Null, Sow[f[n][[2]]]], {n, 1, 130}]][[2, 1]] (* _Jean-François Alcover_, Sep 18 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a191855 = a007967 . a007969  -- _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"xref": [
+				"Cf. A007967, A007969, A191854."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 18 2011",
+			"ext": [
+				"Wrong formula removed, thanks to Wolfdieter Lang, who pointed this out. _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"references": 7,
+			"revision": 14,
+			"time": "2016-02-15T12:18:18-05:00",
+			"created": "2011-06-20T16:45:31-04:00"
+		}
+	]
+}

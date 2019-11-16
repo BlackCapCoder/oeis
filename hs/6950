@@ -1,0 +1,339 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6950,
+	"results": [
+		{
+			"number": 257573,
+			"data": "2,3,4,3,5,6,4,7,5,8,9,6,10,11,7,5,12,8,13,6,14,9,15,10,16,7,17,11,18,8,19,12,7,20,13,9,21,22,14,8,23,10,15,24,25,9,16,11,26,17,27,12,28,10,18,29,30,19,13,11,31,20,32,14,33,21,12,34,15,22",
+			"name": "Exponents in A257278 = powers of primes p^m, p \u003c= m.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257573/b257573.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A001222(A257278(n));",
+				"A257278(n) = A257572(n) ^ a(n);",
+				"A257572(n) \u003c= a(n) by definition of A257278."
+			],
+			"program": [
+				"(Haskell)",
+				"a257573 = a001222 . a257278",
+				"(PARI) apply(bigomega,A257278) \\\\ (A257278 assumed to be defined as vector). - _M. F. Hasler_, May 02 2015"
+			],
+			"xref": [
+				"Cf. A257278, A001222, A025474, A257572."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 01 2015",
+			"ext": [
+				"Edited by _M. F. Hasler_, May 02 2015"
+			],
+			"references": 3,
+			"revision": 7,
+			"time": "2015-05-02T08:06:02-04:00",
+			"created": "2015-05-01T12:43:18-04:00"
+		},
+		{
+			"number": 257585,
+			"data": "1,0,1,0,0,0,1,0,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,0,1,1,0,1,0,0,0,0,1,0,0,1,0,1,1,0,1,0,1,1,1,0,0,1,0,0,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,0,1,1,1,0,0",
+			"name": "A254077(n) mod 2.",
+			"comment": [
+				"Much more unpredictable than (A098550 mod 2)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257585/b257585.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257585 = flip mod 2 . a254077  -- _Reinhard Zumkeller_, May 05 2015"
+			],
+			"xref": [
+				"Cf. A098550, A250299."
+			],
+			"keyword": "nonn",
+			"offset": "1",
+			"author": "_N. J. A. Sloane_, May 05 2015",
+			"references": 3,
+			"revision": 6,
+			"time": "2015-05-05T20:54:31-04:00",
+			"created": "2015-05-05T19:28:51-04:00"
+		},
+		{
+			"number": 257644,
+			"data": "1,3,8,14,24,32,48,58,77,93,115,129,163,179,207,235,271,291,336,358,406,442,482,508,576,610,656,700,762,794,874,908,977,1029,1087,1139,1239,1279,1343,1403,1501,1545,1649,1695,1785,1869,1945,1995,2129,2189",
+			"name": "First differences of A264100.",
+			"comment": [
+				"Cumulative sum of A007503, starting with 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257644/b257644.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(PARI) alist(n)=my(x);vector(n,k,if(k==1,x=1,x+=sigma(k-1)+numdiv(k-1)))",
+				"(Haskell)",
+				"a257644 n = a257644_list !! n",
+				"a257644_list = scanl (+) 1 a007503_list -- _Reinhard Zumkeller_, Nov 09 2015"
+			],
+			"xref": [
+				"Cf. A000005, A000203, A007503, A264100."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Franklin T. Adams-Watters_, Nov 05 2015",
+			"references": 3,
+			"revision": 11,
+			"time": "2015-11-09T13:43:50-05:00",
+			"created": "2015-11-09T11:58:27-05:00"
+		},
+		{
+			"number": 257646,
+			"data": "0,2,3,4,4,5,5,9,5,11,6,13,6,7,16,6,18,7,20,7,22,23,24,7,26,27,9,29,7,8,32,33,34,8,10,37,38,8,40,41,42,43,44,8,46,47,48,49,9,51,52,53,8,12,56,57,58,59,9,61,62,63,64,9,13,67,68,69,70,71,72",
+			"name": "Index of first row of triangle A103284 containing n.",
+			"comment": [
+				"a(n) \u003c= n + 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257646/b257646.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndex); import Data.Maybe (fromJust)",
+				"a257646 n = fromJust $ findIndex (elem n) a103284_tabl"
+			],
+			"xref": [
+				"Cf. A103284, A058084."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Nov 19 2015",
+			"references": 3,
+			"revision": 7,
+			"time": "2015-11-19T16:39:30-05:00",
+			"created": "2015-11-19T16:39:30-05:00"
+		},
+		{
+			"number": 257719,
+			"data": "12,18,20,36,40,48,56,70,72,80,88,100,104,108,112,144,156,160,162,192,196,200,208,220,228,260,272,288,300,304,320,324,336,350,352,368,372,392,400,416,432,448,450,460,464,468,490,500,516,544,550,572,576,608",
+			"name": "Up-down reversals: nondeficient n with deficient sum of proper divisors of n.",
+			"comment": [
+				"Lesser member of amicable pairs (A002025) belong to this sequence."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257719/b257719.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"P. Pollack and C. Pomerance, \u003ca href=\"https://math.dartmouth.edu/~carlp/reversal12.pdf\"\u003eSome problems of Erdos on the sum-of-divisors function\u003c/a\u003e, 2015."
+			],
+			"example": [
+				"220 is abundant (nondeficient) and its sum of proper divisors is 284 which in turn is deficient. Hence 220 is in the sequence."
+			],
+			"mathematica": [
+				"spd[n_]:=DivisorSigma[1,n]-n;Select[Range[608],spd[#]\u003e=#\u0026\u0026spd[spd[#]]\u003cspd[#]\u0026] (* _Ivan N. Ianakiev_, May 06 2015 *)"
+			],
+			"program": [
+				"(PARI) isok(n) = (sn = sigma(n)-n) \u0026\u0026 (sn \u003e= n) \u0026\u0026 (sigma(sn) \u003c 2*sn);",
+				"(Haskell)",
+				"a257719 n = a257719_list !! (n-1)",
+				"a257719_list = filter f [1..] where",
+				"   f x = sx \u003e= x \u0026\u0026 a001065 sx \u003c sx where sx = a001065 x",
+				"-- _Reinhard Zumkeller_, Oct 31 2015"
+			],
+			"xref": [
+				"Cf. A000396 (perfect), A005100 (deficient), A005101 (abundant).",
+				"Cf. A000203 (sum of divisors), A001065 (sum of proper divisors).",
+				"Cf. A257720 (down-up reversals).",
+				"Cf. A001065, A263838."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Michel Marcus_, May 05 2015",
+			"references": 3,
+			"revision": 12,
+			"time": "2015-10-31T13:15:45-04:00",
+			"created": "2015-05-06T05:01:21-04:00"
+		},
+		{
+			"number": 257720,
+			"data": "25,34,44,74,81,106,121,124,134,184,194,202,218,268,274,284,289,314,346,361,386,394,441,514,524,529,538,554,590,604,625,634,652,674,694,698,716,724,729,752,764,778,790,794,824,841,844,884,914,922,950,974,988",
+			"name": "Down-up reversals: if n is deficient and s(n) is nondeficient, where s(n) is the sum of proper divisors of n.",
+			"comment": [
+				"Larger member of amicable pairs (A002046) belong to this sequence."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257720/b257720.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"P. Pollack and C. Pomerance, \u003ca href=\"https://math.dartmouth.edu/~carlp/reversal12.pdf\"\u003eSome problems of Erdos on the sum-of-divisors function\u003c/a\u003e, 2015."
+			],
+			"example": [
+				"284 is deficient and its sum of proper divisors is 220 which in turn is nondeficient. Hence 284 is in the sequence."
+			],
+			"mathematica": [
+				"spd[n_]:=DivisorSigma[1,n]-n;Select[Range[988],spd[#]\u003c#\u0026\u0026spd[spd[#]]\u003e=spd[#]\u0026] (* _Ivan N. Ianakiev_, May 06 2015 *)"
+			],
+			"program": [
+				"(PARI) isok(n) = (sn = sigma(n)-n) \u0026\u0026 (sn \u003c n) \u0026\u0026 (sigma(sn) \u003e= 2*sn);",
+				"(Haskell)",
+				"a257720 n = a257720_list !! (n-1)",
+				"a257720_list = filter f [1..] where",
+				"   f x = sx \u003e 0 \u0026\u0026 sx \u003c x \u0026\u0026 a001065 sx \u003e= sx where sx = a001065 x",
+				"-- _Reinhard Zumkeller_, Oct 31 2015"
+			],
+			"xref": [
+				"Cf. A000396 (perfect), A005100 (deficient), A005101 (abundant).",
+				"Cf. A000203 (sum of divisors), A001065 (sum of proper divisors).",
+				"Cf. A257719 (up-down reversals).",
+				" Cf. A001065, A263838."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Michel Marcus_, May 05 2015",
+			"references": 3,
+			"revision": 13,
+			"time": "2015-10-31T13:16:13-04:00",
+			"created": "2015-05-06T05:01:08-04:00"
+		},
+		{
+			"number": 257782,
+			"data": "14,15,16,19,23,25,28,29,32,34,37,38,41,43,46,47,49,51,52,56,57,58,59,61,64,65,67,68,69,73,74,75,76,78,79,82,83,85,86,87,89,91,92,94,95,96,97,98,103,104,105,107,109,113,115,116,118,119,122,124,125",
+			"name": "Numbers that are not Belgian-0 numbers.",
+			"comment": [
+				"A257778(a(n)) = A257770(a(n),0) \u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257782/b257782.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257782 n = a257782_list !! (n-1)",
+				"a257782_list = filter ((\u003e 0) . a257778) [0..]"
+			],
+			"xref": [
+				"Cf. A257770, A257778, A106039 (complement)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 08 2015",
+			"references": 3,
+			"revision": 6,
+			"time": "2015-05-08T16:58:27-04:00",
+			"created": "2015-05-08T16:57:54-04:00"
+		},
+		{
+			"number": 257831,
+			"data": "0,1,10,11,100,101,110,111,1000,1001,10,11,110,111,1100,1101,1110,1111,11000,11001,100,101,1010,1011,10100,10101,10110,10111,101000,101001,110,111,1110,1111,11100,11101,11110,11111,111000,111001,1000,1001,10010,10011",
+			"name": "In decimal representation of n: replace each digit with its binary representation.",
+			"comment": [
+				"a(n) = n iff (largest digit of n) = 1: a(A007088(n)) = A007088(n);",
+				"a(n) = A007088(A080719(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257831/b257831.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				".    n |  dec    --\u003e  bin         |     a(n) |  A080719(n)",
+				". -----+--------------------------+----------+------------",
+				".  100 |  [1,0,0]  |  [1,0,0]     |     100  |          4",
+				".  101 |  [1,0,1]  |  [1,0,1]     |     101  |          5",
+				".  102 |  [1,0,2]  |  [1,0,10]    |    1010  |         10",
+				".  103 |  [1,0,3]  |  [1,0,11]    |    1011  |         11",
+				".  104 |  [1,0,4]  |  [1,0,100]   |   10100  |         20",
+				".  105 |  [1,0,5]  |  [1,0,101]   |   10101  |         21",
+				".  106 |  [1,0,6]  |  [1,0,110]   |   10110  |         22",
+				".  107 |  [1,0,7]  |  [1,0,111]   |   10111  |         23",
+				".  108 |  [1,0,8]  |  [1,0,1000]  |  101000  |         40",
+				".  109 |  [1,0,9]  |  [1,0,1001]  |  101001  |         41",
+				".  110 |  [1,1,0]  |  [1,1,0]     |     110  |          6",
+				".  111 |  [1,1,1]  |  [1,1,1]     |     111  |          7",
+				".  112 |  [1,1,2]  |  [1,1,10]    |    1110  |         14",
+				".  113 |  [1,1,3]  |  [1,1,11]    |    1111  |         15",
+				".  114 |  [1,1,4]  |  [1,1,100]   |   11100  |         28",
+				".  115 |  [1,1,5]  |  [1,1,101]   |   11101  |         29",
+				".  116 |  [1,1,6]  |  [1,1,110]   |   11110  |         30",
+				".  117 |  [1,1,7]  |  [1,1,111]   |   11111  |         31",
+				".  118 |  [1,1,8]  |  [1,1,1000]  |  111000  |         56",
+				".  119 |  [1,1,9]  |  [1,1,1001]  |  111001  |         57",
+				".  120 |  [1,2,0]  |  [1,10,0]    |    1100  |         12",
+				".  121 |  [1,2,1]  |  [1,10,1]    |    1101  |         13",
+				".  122 |  [1,2,2]  |  [1,10,10]   |   11010  |         26",
+				".  123 |  [1,2,3]  |  [1,10,11]   |   11011  |         27",
+				".  124 |  [1,2,4]  |  [1,10,100]  |  110100  |         52",
+				".  125 |  [1,2,5]  |  [1,10,101]  |  110101  |         53  ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Maybe (mapMaybe)",
+				"a257831 = foldr (\\b v -\u003e 10 * v + b) 0 .",
+				"           concat . mapMaybe (flip lookup bin) . a031298_row",
+				"            where bin = zip [0..9] a030308_tabf",
+				"(Python)",
+				"def A257831(n):",
+				"....return int(''.join((format(int(d),'b') for d in str(n))))",
+				"# _Chai Wah Wu_, May 10 2015"
+			],
+			"xref": [
+				"Cf. A007088, A030308, A031298, A080719."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, May 10 2015",
+			"references": 3,
+			"revision": 9,
+			"time": "2017-03-30T22:04:10-04:00",
+			"created": "2015-05-10T17:13:09-04:00"
+		},
+		{
+			"number": 257956,
+			"data": "1,6,24,74,220,626,1754,4860,13390,36762,100728,275666,753898,2060924,5632550,15391650,42056008,114907626,313947186,857741852,2343430222",
+			"name": "Row sums of A232642, when seen as a triangle read by rows.",
+			"comment": [
+				"a(n) \u003c= A166060(n)."
+			],
+			"formula": [
+				"Conjectures from _Colin Barker_, May 29 2015: (Start)",
+				"  a(n) = 3*a(n-1)+a(n-2)-4*a(n-3)-2*a(n-4) for n\u003e4.",
+				"  G.f.: x*(5*x^2+3*x+1) / ((x^2+x-1)*(2*x^2+2*x-1)).",
+				"(End)"
+			],
+			"program": [
+				"(Haskell)",
+				"a257956 = sum . a232642_row"
+			],
+			"xref": [
+				"Cf. A232642, A166060."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 14 2015",
+			"references": 3,
+			"revision": 7,
+			"time": "2015-05-30T03:07:54-04:00",
+			"created": "2015-05-14T20:07:45-04:00"
+		},
+		{
+			"number": 257971,
+			"data": "0,2,-1,5,-2,8,-5,21,-8,34,-21,81,-34,128,-81,337,-128,546,-337,1301,-546,2056,-1301,5381,-2056,8706,-5381,20737,-8706,32768,-20737,86273,-32768,139778,-86273,333061,-139778,526344,-333061,1377557,-526344,2228770",
+			"name": "First differences of A006921.",
+			"comment": [
+				"a(2*n) = - A168081(n), a(2*n+1) = A168081(n+2);",
+				"a(2*n+4) = - a(2*n+1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257971/b257971.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257971 n = a257971_list !! n",
+				"a257971_list = zipWith (-) (tail a006921_list) a006921_list"
+			],
+			"xref": [
+				" Cf. A006911, A168081."
+			],
+			"keyword": "sign",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jul 14 2015",
+			"references": 3,
+			"revision": 7,
+			"time": "2015-07-14T17:07:05-04:00",
+			"created": "2015-07-14T17:07:05-04:00"
+		}
+	]
+}

@@ -1,0 +1,497 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3800,
+	"results": [
+		{
+			"number": 55498,
+			"data": "0,1,2,3,5,11,17,29,47,79,127,211,347,563,911,1481,2393,3877,6271,10151,16427,26591,43019,69623,112643,182279,294923,477209,772139,1249361,2021501,3270863,5292367,8563237,13855607,22418849,36274471",
+			"name": "a(0)=0, a(1)=1, a(n) = smallest prime \u003e= a(n-1) + a(n-2).",
+			"link": [
+				"Zak Seidov and Robert G. Wilson v, \u003ca href=\"/A055498/b055498.txt\"\u003eTable of n, a(n) for n = 0..1001\u003c/a\u003e (first 101 terms from Zak Seidov)"
+			],
+			"formula": [
+				"a(n+1) = nextprime(a(n) + a(n-1)) where nextprime(n) is smallest prime \u003e= n.",
+				"a(n) is asymptotic to c*phi^n where phi = (1 + sqrt(5))/2 and c = 1.086541275044988562375... - _Benoit Cloitre_, May 02 2004",
+				"a(n)=A055499(n-1) for n\u003e3. - _Robert G. Wilson v_, Mar 13 2013",
+				"a(n) = A007918(a(n-1) + a(n-2)) for n \u003e 1. - _Reinhard Zumkeller_, Nov 13 2014"
+			],
+			"example": [
+				"After 3, 5, the next prime \u003e=8 is 11."
+			],
+			"mathematica": [
+				"a[0] = 0; a[1] = 1; a[n_] := a[n] = NextPrime[a[n - 1] + a[n - 2] -1]; Array[a, 37, 0] (* _Robert G. Wilson v_, Mar 13 2013 *)",
+				"RecurrenceTable[{a[0]==0,a[1]==1,a[n]==NextPrime[a[n-1]+a[n-2]-1]},a,{n,50}] (* _Harvey P. Dale_, May 08 2013 *)"
+			],
+			"program": [
+				"(PARI) a(n)=local(v);if(n\u003c2,n\u003e=0,n++;v=vector(n,i,1);for(i=3,n,v[i]=nextprime(v[i-1]+v[i-2]));v[n]) /* _Michael Somos_, Feb 01 2004 */",
+				"(Haskell)",
+				"a055498 n = a055498_list !! n",
+				"a055498_list = 0 : 1 : map a007918",
+				"    (zipWith (+) a055498_list $ tail a055498_list)",
+				"-- _Reinhard Zumkeller_, Nov 13 2014"
+			],
+			"xref": [
+				"Cf. A073021, A073022, A055499-A055502.",
+				"Cf. A007918."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Jul 08 2000",
+			"references": 7,
+			"revision": 30,
+			"time": "2015-03-15T07:05:44-04:00",
+			"created": "2000-07-22T03:00:00-04:00"
+		},
+		{
+			"number": 55500,
+			"data": "1,1,2,3,5,7,11,17,23,37,59,89,139,227,359,577,929,1499,2423,3919,6337,10253,16573,26821,43391,70207,113591,183797,297377,481171,778541,1259701,2038217,3297913,5336129,8633983,13970093,22604069",
+			"name": "a(0)=1, a(1)=1, a(n) = largest prime \u003c= a(n-1)+a(n-2).",
+			"comment": [
+				"Or might be called Ishikawa primes, as he proved that prime(n+2) \u003c prime(n) + prime(n+1) for n \u003e 1. This improves on Bertrand's Postulate (Chebyshev's theorem), which says prime(n+2) \u003c prime(n+1) + prime(n+1). - _Jonathan Sondow_, Sep 21 2013"
+			],
+			"link": [
+				"Zak Seidov and Michael De Vlieger, \u003ca href=\"/A055500/b055500.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (First 100 terms from Zak Seidov)",
+				"Heihachiro Ishikawa, \u003ca href=\"http://www.jstor.org/stable/43700113\"\u003eÜber die Verteilung der Primzahlen\u003c/a\u003e, Sci. Rep. Tokyo Bunrika Daigaku, Sect. A 2 (1934), 27-40."
+			],
+			"formula": [
+				"a(n) is asymptotic to C*phi^n where phi=(1+sqrt(5))/2 and C=0.25861637901860700965101922576495456677... - _Benoit Cloitre_, Apr 21 2003",
+				"a(n) = A007917(a(n-1) + a(n-2)) for n \u003e 1. - _Reinhard Zumkeller_, May 01 2013",
+				"a(n) \u003e= prime(n-1) for n \u003e 1, by Ishikawa's theorem. - _Jonathan Sondow_, Sep 21 2013"
+			],
+			"example": [
+				"a(9) = 23 because 23 is largest prime \u003c= a(7)+a(6) = 17+11 = 28"
+			],
+			"mathematica": [
+				"PrevPrim[n_] := Block[ {k = n}, While[ !PrimeQ[k], k-- ]; Return[k]]; a[1] = a[2] = 1; a[n_] := a[n] = PrevPrim[ a[n - 1] + a[n - 2]]; Table[ a[n], {n, 1, 42} ]",
+				"(* Or, if version \u003e= 6 : *)a[0] = a[1] = 1; a[n_] := a[n] = NextPrime[ a[n-1] + a[n-2] + 1, -1]; Table[a[n], {n, 0, 100}](* _Jean-François Alcover_, Jan 12 2012 *)",
+				"nxt[{a_,b_}]:={b,NextPrime[a+b+1,-1]}; Transpose[NestList[nxt,{1,1},40]] [[1]] (* _Harvey P. Dale_, Jul 15 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a055500 n = a055500_list !! n",
+				"a055500_list = 1 : 1 : map a007917",
+				"               (zipWith (+) a055500_list $ tail a055500_list)",
+				"-- _Reinhard Zumkeller_, May 01 2013"
+			],
+			"xref": [
+				"Cf. A007917, A055498, A055499, A055400, A055401, A055502, A065435."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Jul 08 2000",
+			"references": 7,
+			"revision": 33,
+			"time": "2016-10-08T17:04:06-04:00",
+			"created": "2000-07-22T03:00:00-04:00"
+		},
+		{
+			"number": 56041,
+			"data": "2,3,5,7,23,63,383,2047",
+			"name": "Value for which b(a(n))=0 when b(2)=n and b(k+1) is calculated by writing b(k) in base k, reading this as being written in base k+1 and then subtracting 1.",
+			"comment": [
+				"a(8)=3*2^(3*2^27+27)-1 which is more than 10^(10^8) and equal to the final base of the Goodstein sequence starting with g(2)=4; indeed, apart from the initial term, the sequence starting with b(2)=8 is identical to the Goodstein sequence starting with g(2)=4. The initial terms of a(n) [2, 3, 5 and 7] are equal to the initial terms of the equivalent final bases of Goodstein sequences starting at the same points. a(9)=2^(2^(2^70+70)+2^70+70)-1 which is more than 10^(10^(10^20)).",
+				"It appears that if n is even then a(n) is one less than three times a power of two, while if n is odd then a(n) is one less than a power of two.",
+				"Comment from _John Tromp_, Dec 02 2004: The sequence 2,3,5,7,3*2^402653211 - 1, ... gives the final base of the Goodstein sequence starting with n. This is an example of a very rapidly growing function that is total (i.e. defined on any input), although this fact is not provable in first-order Peano Arithmetic. See the links for definitions. This grows even faster than the Friedman sequence described in the Comments to A014221.",
+				"In fact there are two related sequences: (i) The Goodstein function l(n) = number of steps for the Goodstein sequence to reach 0 when started with initial term n \u003e= 0: 0, 1, 3, 5, 3*2^402653211 - 3, ...; and (ii) the same sequence + 2: 2, 3, 5, 7, 3*2^402653211 - 1, ..., which is the final base reached. Both grow too rapidly to have their own entries in the database.",
+				"Related to the hereditary base sequences - see cross-reference lines.",
+				"This sequence gives the final base of the weak Goodstein sequence starting with n; compare A266203, the length of the weak Goodstein sequence. a(n) = A266203(n) + 2."
+			],
+			"link": [
+				"R. L. Goodstein, \u003ca href=\"http://www.jstor.org/stable/2268019\"\u003eOn the Restricted Ordinal Theorem\u003c/a\u003e, J. Symb. Logic 9, 33-41, 1944.",
+				"L. Kirby, and J. Paris, \u003ca href=\"https://doi.org/10.1112/blms/14.4.285\"\u003eAccessible independence results for Peano arithmetic\u003c/a\u003e, Bull. London Mathematical Society, 14 (1982), 285-293.",
+				"J. Tromp, \u003ca href=\"https://tromp.github.io/pearls.html\"\u003eProgramming Pearls\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/GoodsteinSequence.html\"\u003eGoodstein Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Goodstein\u0026#39;s_theorem\"\u003eGoodstein's theorem\u003c/a\u003e"
+			],
+			"example": [
+				"a(3)=7 because starting with b(2)=3=11 base 2, we get b(3)=11-1 base 3=10 base 3=3, b(4)=10-1 base 4=3, b(5)=3-1 base 5=2, b(6)=2-1 base 6=1 and b(7)=1-1 base 7=0."
+			],
+			"program": [
+				"Concerning the sequence 2,3,5,7,3*2^402653211 - 1, ... mentioned above, John Tromp write: In Haskell, the sequence is the infinite list",
+				"main=mapM_(print.g 2)[0..] where",
+				"g b 0=b;g b n=g c(s 0 n-1)where s _ 0=0;s e n=mod n b*c^s 0 e+s(e+1)(div n b);c=b+1",
+				"In Ruby, f(n) is defined by",
+				"def s(b,e,n)n==0?0:n%b*(b+1)**s(b,0,e)+s(b,e+1,n/b)end",
+				"def g(b,n)n==0?b:g(b+1,s(b,0,n)-1)end",
+				"def f(n)g(2,n)end"
+			],
+			"xref": [
+				"Cf. A266202, A268687, A268689, A268688.",
+				"Equals A266203 + 2.",
+				"Weak Goodstein sequences: A267647, A267648, A271987, A271988, A271989, A271990, A271991, A137411, A271992, A265034.",
+				"Steps of strong Goodstein sequences: A056004, A057650, A059934, A059935, A059936, A271977.",
+				"Strong Goodstein sequences: A215409, A056193, A266204, A222117, A059933.",
+				"Woodall numbers: A003261."
+			],
+			"keyword": "base,nonn",
+			"offset": "0,1",
+			"author": "_Henry Bottomley_, Aug 04 2000",
+			"references": 7,
+			"revision": 25,
+			"time": "2019-10-12T13:18:23-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 56242,
+			"data": "1,1,2,1,5,4,1,9,16,8,1,14,41,44,16,1,20,85,146,112,32,1,27,155,377,456,272,64,1,35,259,833,1408,1312,640,128,1,44,406,1652,3649,4712,3568,1472,256,1,54,606,3024,8361,14002,14608,9312,3328,512,1,65,870,5202",
+			"name": "Triangle read by rows: T(n,k) = number of k-part order-consecutive partition of {1,2,...,n} (1 \u003c= k \u003c= n).",
+			"comment": [
+				"Generalized Riordan array (1/(1-x), x/(1-x) + x*dif(x/1-x),x)). - _Paul Barry_, Dec 26 2007",
+				"Reversal of A117317. - _Philippe Deléham_, Feb 11 2012",
+				"Essentially given by (1, 0, 1/2, 1/2, 0, 0, 0, 0, 0, 0, 0, ...) DELTA (0, 2, 0, 0, 0, 0, 0, 0, 0, ...) where DELTA is the operator defined in A084938. - _Philippe Deléham_, Feb 11 2012",
+				"This sequence is given in the Strehl presentation with the o.g.f. (1-z)/[1-2(1+t)z+(1+t)z^2], with offset 0, along with a recursion relation, a combinatorial interpretation, and relations to Hermite and Laguerre polynomials. Note that the o.g.f. is related to that of A049310. - _Tom Copeland_, Jan 08 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A056242/b056242.txt\"\u003eRows n = 1..125 of table, flattened\u003c/a\u003e",
+				"Tyler Clark and Tom Richmond, \u003ca href=\"http://people.wku.edu/tom.richmond/Papers/CountConvexTopsFTOsets.pdf\"\u003eThe Number of Convex Topologies on a Finite Totally Ordered Set\u003c/a\u003e, 2013, Involve, Vol. 8 (2015), No. 1, 25-32.",
+				"F. K. Hwang and C. L. Mallows, \u003ca href=\"http://dx.doi.org/10.1016/0097-3165(95)90097-7\"\u003eEnumerating nested and consecutive partitions\u003c/a\u003e, J. Combin. Theory Ser. A 70 (1995), no. 2, 323-333.",
+				"V. Strehl, \u003ca href=\"http://www.emis.de/journals/SLC/wpapers/s71vortrag/strehl.pdf\"\u003eCombinatoire rétrospective et créative\u003c/a\u003e, an on-line presentation, slide 36, SLC 71, Bertinoro,, September 18, 2013.",
+				"Volker Strehl, \u003ca href=\"http://www.mat.univie.ac.at/~slc/wpapers/s76strehl.html\"\u003eLacunary Laguerre Series from a Combinatorial Perspective\u003c/a\u003e, Séminaire Lotharingien de Combinatoire, B76c (2017)."
+			],
+			"formula": [
+				"The Hwang and Mallows reference gives explicit formulas.",
+				"T(n,k) = Sum_{j=0..k-1} (-1)^(k-1-j)*binomial(k-1, j)*binomial(n+2j-1, 2j) (1\u003c=k\u003c=n); this is formula (11) in the Huang and Mallows reference.",
+				"T(n,k) = 2*T(n-1,k) + 2*T(n-1,k-1) - T(n-2,k) - T(n-2,k-1), T(1,1) = 1, T(2,1) = 1, T(2,2) = 2. - _Philippe Deléham_, Feb 11 2012",
+				"G.f.: -(-1+x)*x*y/(1-2*x-2*x*y+x^2*y+x^2). - _R. J. Mathar_, Aug 11 2015"
+			],
+			"example": [
+				"Triangle begins:",
+				"  1;",
+				"  1,    2;",
+				"  1,    5,    4;",
+				"  1,    9,   16,    8;",
+				"  1,   14,   41,   44,   16;",
+				"  1,   20,   85,  146,  112,   32;",
+				"  1,   27,  155,  377,  456,  272,   64;",
+				"  1,   35,  259,  833, 1408, 1312,  640,  128;",
+				"  1,   44,  406, 1652, 3649, 4712, 3568, 1472,  256;",
+				"T(3,2)=5 because we have {1}{23}, {23}{1}, {12}{3}, {3]{12} and {2}{13}.",
+				"Triangle (1, 0, 1/2, 1/2, 0, 0, 0, ...) DELTA (0, 2, 0, 0, 0, ...) begins:",
+				"  1;",
+				"  1,   0;",
+				"  1,   2,   0;",
+				"  1,   5,   4,   0;",
+				"  1,   9,  16,   8,   0;",
+				"  1,  14,  41,  44,  16,   0;",
+				"  1,  20,  85, 146, 112,  32,   0;",
+				"  1,  27, 155, 377, 456, 272,  64,   0;"
+			],
+			"maple": [
+				"T:=proc(n,k) if k=1 then 1 elif k\u003c=n then sum((-1)^(k-1-j)*binomial(k-1,j)*binomial(n+2*j-1,2*j),j=0..k-1) else 0 fi end: seq(seq(T(n,k),k=1..n),n=1..12);"
+			],
+			"mathematica": [
+				"rows = 11; t[n_, k_] := (-1)^(k+1)*HypergeometricPFQ[{1-k, (n+1)/2, n/2}, {1/2, 1}, 1]; Flatten[ Table[ t[n, k], {n, 1, rows}, {k, 1, n}]](* _Jean-François Alcover_, Nov 17 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a056242 n k = a056242_tabl !! (n-1)!! (k-1)",
+				"a056242_row n = a056242_tabl !! (n-1)",
+				"a056242_tabl = [1] : [1,2] : f [1] [1,2] where",
+				"   f us vs = ws : f vs ws where",
+				"     ws = zipWith (-) (map (* 2) $ zipWith (+) ([0] ++ vs) (vs ++ [0]))",
+				"                      (zipWith (+) ([0] ++ us ++ [0]) (us ++ [0,0]))",
+				"-- _Reinhard Zumkeller_, May 08 2014"
+			],
+			"xref": [
+				"Second diagonal gives A053220.",
+				"Cf. A049310."
+			],
+			"keyword": "nonn,tabl,easy,nice",
+			"offset": "1,3",
+			"author": "_Colin Mallows_, Aug 23 2000",
+			"references": 7,
+			"revision": 53,
+			"time": "2017-10-21T20:56:54-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 56918,
+			"data": "2,9,79,702,6239,55449,492802,4379769,38925119,345946302,3074591599,27325378089,242853811202,2158358922729,19182376493359,170483029517502,1515164889164159,13466000972959929,119678843867475202",
+			"name": "a(n) = 9*a(n-1)-a(n-2); a(0)=2, a(1)=9.",
+			"comment": [
+				"All nonnegative integer solutions of Pell equation a(n)^2 - 77*b(n)^2 = +4 together with b(n)=A018913(n), n\u003e=0. - _Wolfdieter Lang_, Aug 31 2004",
+				"Except for the first term, positive values of x (or y) satisfying x^2 - 9xy + y^2 + 77 = 0. - _Colin Barker_, Feb 13 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A056918/b056918.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"P. Bala, \u003ca href=\"/A174500/a174500_2.pdf\"\u003eSome simple continued fraction expansions for an infinite product, Part 1\u003c/a\u003e",
+				"E. I. Emerson, \u003ca href=\"http://www.fq.math.ca/Scanned/7-3/emerson.pdf\"\u003eRecurrent Sequences in the Equation DQ^2=R^2+N\u003c/a\u003e, Fib. Quart., 7 (1969), pp. 231-242.",
+				"A. F. Horadam, \u003ca href=\"http://www.fq.math.ca/Scanned/5-5/horadam.pdf\"\u003eSpecial Properties of the Sequence W(n){a,b; p,q}\u003c/a\u003e, Fib. Quart., Vol. 5, No. 5 (1967), pp. 424-434.",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rea#recur1\"\u003eIndex entries for recurrences a(n) = k*a(n - 1) +/- a(n - 2)\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#Cheby\"\u003eIndex entries for sequences related to Chebyshev polynomials.\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (9,-1)."
+			],
+			"formula": [
+				"a(n) = 9*S(n-1, 9) - 2*S(n-2, 9) = S(n, 9) - S(n-2, 9) = 2*T(n, 9/2), with S(n, x) := U(n, x/2) (see A049310), S(-1, x) := 0, S(-2, x) := -1. S(n-1, 9)=A018913(n). U-, resp. T-, are Chebyshev's polynomials of the second, resp. first, kind.",
+				"a(n) = {9*[((9+sqrt(77))/2)^n - ((9-sqrt(77))/2)^n] - 2*[((9+sqrt(77))/2)^(n-1) - ((9-sqrt(77))/2)^(n-1)]}/sqrt(77).",
+				"G.f.: (2-9*x)/(1-9*x+x^2).",
+				"a(n) = ap^n + am^n, with ap := (9+sqrt(77))/2 and am := (9-sqrt(77))/2.",
+				"G.f.: (2-9*x)/(1-9*x+x^2). - _Philippe Deléham_, Nov 03 2008",
+				"From _Peter Bala_, Jan 06 2013: (Start)",
+				"Let F(x) = product {n = 0..inf} (1 + x^(4*n+1))/(1 + x^(4*n+3)). Let alpha = 1/2*(9 - sqrt(77)). This sequence gives the simple continued fraction expansion of 1 + F(alpha) = 2.11095 50589 89701 91909 ... = 2 + 1/(9 + 1/(79 + 1/(702 + ...))).",
+				"Also F(-alpha) = 0.88873 23915 40314 47623 ... has the continued fraction representation 1 - 1/(9 - 1/(79 - 1/(702 - ...))) and the simple continued fraction expansion 1/(1 + 1/((9-2) + 1/(1 + 1/((79-2) + 1/(1 + 1/((702-2) + 1/(1 + ...))))))). F(alpha)*F(-alpha) has the simple continued fraction expansion 1/(1 + 1/((9^2-4) + 1/(1 + 1/((79^2-4) + 1/(1 + 1/((702^2-4) + 1/(1 + ...))))))). Cf. A005248.",
+				"(End)"
+			],
+			"mathematica": [
+				"a[0] = 2; a[1] = 9; a[n_] := 9a[n - 1] - a[n - 2]; Table[ a[n], {n, 0, 17}] (* _Robert G. Wilson v_, Jan 30 2004 *)"
+			],
+			"program": [
+				"(Sage) [lucas_number2(n,9,1) for n in range(23)] # _Zerinvary Lajos_, Jun 25 2008",
+				"(Haskell)",
+				"a056918 n = a056918_list !! n",
+				"a056918_list = 2 : 9 :",
+				"   zipWith (-) (map (* 9) $ tail a056918_list) a056918_list",
+				"-- _Reinhard Zumkeller_, Jan 06 2013"
+			],
+			"xref": [
+				"Cf. A018913. a(n)=sqrt(77*A018913(n)^2 + 4). A005248."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,1",
+			"author": "_Barry E. Williams_, Aug 21 2000",
+			"ext": [
+				"More terms from _James A. Sellers_, Sep 07 2000",
+				"Chebyshev comments from _Wolfdieter Lang_, Oct 31 2002"
+			],
+			"references": 7,
+			"revision": 47,
+			"time": "2017-09-06T14:58:28-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 57143,
+			"data": "1,2,6,4,4,12,12,24,24,40,40,24,24,24,60,60,60,36,36,60,60,60,60,120,120,120,120,168,168,120,120,120,120,120,120,180,180,180,180,120,120,120,120,120,360,360,360,360,360,360,360,360,360,360,360,360,360,360",
+			"name": "Largest of the most frequently occurring numbers in 1-to-n multiplication table.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A057143/b057143.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"M(n) is the array in which m(x,y)= x*y for x = 1 to n and y = 1 to n. In m(10), the most frequently occurring numbers are 6, 8, 10, 12, 18, 20, 24, 30,40, each occurring 4 times. The largest of these numbers is 40, so a(10) = 40."
+			],
+			"program": [
+				" (Haskell)",
+				"import Data.List (group, sort, sortBy)",
+				"import Data.Function (on)",
+				"a057143 n = head $ head $ reverse $ sortBy (compare `on` length) $",
+				"            group $ sort [u * v | u \u003c- [1..n], v \u003c- [1..n]]",
+				"-- _Reinhard Zumkeller_, Jun 22 2013"
+			],
+			"xref": [
+				"Cf. A057142, A057144, A057338."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Arran Fernandez_, Aug 13 2000",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Apr 18 2001"
+			],
+			"references": 7,
+			"revision": 6,
+			"time": "2013-06-22T10:42:40-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 57212,
+			"data": "0,1,1,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1",
+			"name": "n-th run has length n.",
+			"comment": [
+				"T(n,k) = 1 - n mod 2, 1 \u003c= k \u003c= n. [_Reinhard Zumkeller_, Mar 18 2011]"
+			],
+			"reference": [
+				"K. H. Rosen, Discrete Mathematics and its Applications, 1999, fourth edition, page 79, exercise 10 (g)."
+			],
+			"formula": [
+				"a(n)=A003056(n) mod 2 so as a square array T(n, k)=n+k mod 2 - _Henry Bottomley_, Mar 22 2001",
+				"a(n) = (1+(-1)^A002024(n))/2, where A002024(n)=round(sqrt(2*n)). - Antonio G. Astudillo (afg_astudillo(AT)hotmail.com), Feb 23 2003",
+				"a(n)=A163334(n) mod 2 = A163336(n) mod 2 = A163357(n) mod 2 = A163359(n) mod 2, i.e. the array gives the parity of elements at the successive antidiagonals (alternating between 0 and 1) of square arrays constructed from ANY Hilbert curve starting from zero located at the top left corner of a square grid (and using only N,E,S,W steps of length one). - _Antti Karttunen_, Oct 22 2012"
+			],
+			"maple": [
+				"A002024 := n-\u003eround(sqrt(2*n)):A057212 := n-\u003e(1+(-1)^A002024(n))/2;"
+			],
+			"program": [
+				"(Haskell)",
+				"a057212 n = a057212_list !! (n-1)",
+				"a057212_list = concat $ zipWith ($) (map replicate [1..]) a000035_list",
+				"-- _Reinhard Zumkeller_, Mar 18 2011"
+			],
+			"xref": [
+				"Cf. A057211.",
+				"As a simple triangular or square array virtually the only sequences which appear are A000004, A000012 and A000035. Cf. A060510."
+			],
+			"keyword": "easy,nonn,tabl",
+			"offset": "1,1",
+			"author": "Ben Tyner (tyner(AT)phys.ufl.edu), Sep 27 2000",
+			"references": 7,
+			"revision": 18,
+			"time": "2016-09-20T13:26:38-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 57436,
+			"data": "1,2,3,4,5,6,11,12,13,14,15,16,21,22,23,24,25,26,31,32,33,34,35,36,41,42,43,44,45,46,51,52,53,54,55,56,61,62,63,64,65,66,111,112,113,114,115,116,121,122,123,124,125,126,131,132,133,134,135,136,141,142,143",
+			"name": "Contains digits 1 through 6 only.",
+			"comment": [
+				"Numbers whose digits can be generated by successively throwing a regular die with the numbers 1..6 and concatenating the results."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A057436/b057436.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n+1) = 1 + (if a(n) mod 10 \u003c 6 then a(n) else a(a(n)\\10)*10), a(0)=1. - _Reinhard Zumkeller_, Jul 13 2007"
+			],
+			"example": [
+				"The number 61 can be generated by throwing a die twice and combining the results, but 17 not."
+			],
+			"mathematica": [
+				"Select[Range[200],Max[IntegerDigits[#]]\u003c=6\u0026\u0026 DigitCount[#,10,0] ==0\u0026]  (* _Harvey P. Dale_, Apr 04 2011 *)",
+				"FromDigits/@Flatten[Table[Tuples[Range[6],n],{n,3}],1] (* _Harvey P. Dale_, Jul 26 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersect)",
+				"a057436 n = a057436_list !! (n-1)",
+				"a057436_list = filter (null . (intersect \"0789\") . show) [1..]",
+				"-- _Reinhard Zumkeller_, Mar 28 20012"
+			],
+			"xref": [
+				"Cf. A007092, A214676."
+			],
+			"keyword": "easy,nice,nonn,base",
+			"offset": "1,2",
+			"author": "Thomas Schulze (jazariel(AT)tiscalenet.it), Sep 08 2000",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, Aug 16 2011"
+			],
+			"references": 7,
+			"revision": 26,
+			"time": "2017-02-13T02:03:52-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 57562,
+			"data": "1,1,2,2,6,2,14,6,16,7,55,6,100,17,44,32,296,14,489,35,178,77,1254,30,1156,147,731,142,4564,25,6841,390,1668,474,4780,114,21636,810,4362,432,44582,103,63260,1357,4186,2200,124753,364,105604,1232,24482,3583",
+			"name": "Number of partitions of n into parts all relatively prime to n.",
+			"comment": [
+				"p is prime iff a(p) = A000041(p)-1. - _Lior Manor_ Feb 04 2005"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A057562/b057562.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"Coefficient of x^n in expansion of 1/Product_{d : gcd(d, n)=1} (1-x^d). - _Vladeta Jovovic_, Dec 23 2004"
+			],
+			"example": [
+				"The unrestricted partitions of 4 are 1+1+1+1, 1+1+2, 1+3, 2+2 and 4. Of these, only 1+1+1+1 and 1+3 contain parts which are all relatively prime to 4. So a(4) = 2."
+			],
+			"mathematica": [
+				"Table[Count[IntegerPartitions@ n, k_ /; AllTrue[k, CoprimeQ[#, n] \u0026]], {n, 52}] (* _Michael De Vlieger_, Aug 01 2017 *)"
+			],
+			"program": [
+				"(PARI) R(n, v)=if(#v\u003c2 || n\u003cv[2], n\u003e=0, sum(i=1, #v, R(n-v[i], v[1..i])))",
+				"a(n)=if(isprime(n), return(numbpart(n)-1)); R(n, select(k-\u003egcd(k, n)==1, vector(n, i, i))) \\\\ _Charles R Greathouse IV_, Sep 13 2012",
+				"(PARI) a(n)=polcoeff(1/prod(k=1,n,if(gcd(k,n)==1,1-x^k,1), O(x^(n+1))+1), n) \\\\ _Charles R Greathouse IV_, Sep 13 2012",
+				"(Haskell)",
+				"a057562 n = p (a038566_row n) n where",
+				"   p _          0 = 1",
+				"   p []         _ = 0",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Jul 05 2013"
+			],
+			"xref": [
+				"Cf. A036998, A038566, A100347, A227296.",
+				"See also A098743 (parts don't divide n)."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Leroy Quet_, Oct 03 2000",
+			"ext": [
+				"More terms from _Naohiro Nomoto_, Feb 28 2002",
+				"Corrected by _Vladeta Jovovic_, Dec 23 2004"
+			],
+			"references": 7,
+			"revision": 32,
+			"time": "2017-08-02T10:24:54-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 57728,
+			"data": "1,1,1,1,2,1,1,4,2,1,1,8,4,2,1,1,16,8,4,2,1,1,32,16,8,4,2,1,1,64,32,16,8,4,2,1,1,128,64,32,16,8,4,2,1,1,256,128,64,32,16,8,4,2,1,1,512,256,128,64,32,16,8,4,2,1,1,1024,512,256,128,64,32,16,8,4,2,1,1,2048,1024,512,256,128,64,32,16,8,4,2,1",
+			"name": "A triangular table of decreasing powers of two (with first column all ones).",
+			"comment": [
+				"First differences of sequence A023758.",
+				"A023758 is the sequence of partial sums of a(n) with row sums A000337.",
+				"2^A004736(n) is a sequence closely related to a(n).",
+				"T(n,k) is the number of length n binary words having an odd number of 0's with exactly k 1's following the last 0, n \u003e= 1, 0 \u003c= k \u003c= n - 1. - _Geoffrey Critzer_, Jan 28 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A057728/b057728.txt\"\u003eRows n = 1..100 of table, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: (x - x^2)/((1 - 2*x)*(1 - y*x)). - _Geoffrey Critzer_, Jan 28 2014 [This produces the triangle shown by _Mats Granvik_ in example section. - _Franck Maminirina Ramaharo_, Jan 09 2019]",
+				"From _Franck Maminirina Ramaharo_, Jan 09 2019: (Start)",
+				"G.f.: x*(1 - 2*x + y*x^2)/((1 - x)*(1 - 2*x)*(1 - x*y)).",
+				"E.g.f.: (exp(2*x)*y - 2*exp(x*y))/(4 - 2*y) + exp(x) - 1/2. (End)"
+			],
+			"example": [
+				"Triangle starts:",
+				"  1,",
+				"  1,    1,",
+				"  1,    2,    1,",
+				"  1,    4,    2,   1,",
+				"  1,    8,    4,   2,   1,",
+				"  1,   16,    8,   4,   2,   1,",
+				"  1,   32,   16,   8,   4,   2,  1,",
+				"  1,   64,   32,  16,   8,   4,  2,  1,",
+				"  1,  128,   64,  32,  16,   8,  4,  2,  1,",
+				"  1,  256,  128,  64,  32,  16,  8,  4,  2, 1,",
+				"  1,  512,  256, 128,  64,  32, 16,  8,  4, 2, 1,",
+				"  1, 1024,  512, 256, 128,  64, 32, 16,  8, 4, 2, 1,",
+				"  1, 2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1,",
+				"  ... - _Joerg Arndt_, May 04 2014",
+				"When viewed as a triangular array, row 8 of A023758 is 128 192 224 240 248 252 254 255 so row 8 of a(n) is 1 64 32 16 8 4 2 1",
+				"From _Mats Granvik_, Jan 19 2009: (Start)",
+				"Except for the first term the table can also be formatted as:",
+				"   1,",
+				"   1, 1,",
+				"   2, 1, 1,",
+				"   4, 2, 1, 1,",
+				"   8, 4, 2, 1, 1,",
+				"  16, 8, 4, 2, 1, 1,",
+				"  ...",
+				"(End)"
+			],
+			"mathematica": [
+				"nn=10;Map[Select[#,#\u003e0\u0026]\u0026,CoefficientList[Series[(x-x^2)/(1-2x)/(1-y x),{x,0,nn}],{x,y}]]//Grid (* _Geoffrey Critzer_, Jan 28 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a057728 n k = a057728_tabl !! (n-1) !! (k-1)",
+				"a057728_row n = a057728_tabl !! (n-1)",
+				"a057728_tabl = iterate",
+				"   (\\row -\u003e zipWith (+) (row ++ [0]) ([0] ++ tail row ++ [1])) [1]",
+				"-- _Reinhard Zumkeller_, Aug 08 2013",
+				"(Maxima)",
+				"T(n, k) := if k = 0 then 1 else  2^(n - k - 1)$",
+				"create_list(T(n, k), n, 0, 12, k, 0, n - 1); /* _Franck Maminirina Ramaharo_, Jan 09 2019 */"
+			],
+			"xref": [
+				"Cf. A000079, A004736, A023758 and A000337.",
+				"Cf. A155038 (essentially the same as this sequence). [_Mats Granvik_, Jan 19 2009]"
+			],
+			"keyword": "base,easy,nonn,tabl",
+			"offset": "1,5",
+			"author": "_Alford Arnold_, Oct 29 2000",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Oct 30 2000"
+			],
+			"references": 7,
+			"revision": 26,
+			"time": "2019-01-10T02:22:06-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

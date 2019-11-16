@@ -1,0 +1,436 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3330,
+	"results": [
+		{
+			"number": 208177,
+			"data": "257,641,769,1153,1409,2689,3329,3457,4481,4993,6529,7297,7681,7937,9473,9601,9857,10369,10753,11393,11777,12161,12289,13313,13441,13697,14081,14593,15233,15361,16001,17921,18049,18433,19073,19457,19841,20353,21121,21377",
+			"name": "Primes of the form 128*k + 1.",
+			"comment": [
+				"Odd primes p such that -1 is a 64th power mod p. - _Eric M. Schmidt_, Mar 27 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A208177/b208177.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[128 Range[167] + 1, PrimeQ]"
+			],
+			"program": [
+				"(PARI) for(n=1,167,r=128*n+1; if(isprime(r), print1(r\", \")));",
+				"(MAGMA) [ p: p in PrimesUpTo(22000) | p mod 128 eq 1 ];",
+				"(Haskell)",
+				"a208177 n = a208177_list !! (n-1)",
+				"a208177_list = filter ((== 1) . a010051) [1,129..]",
+				"-- _Reinhard Zumkeller_, Mar 06 2012"
+			],
+			"xref": [
+				"Cf. A065091, A002144, A007519, A094407, A133870, A142925, A208178, A076339."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Bruno Berselli_, Feb 25 2012",
+			"references": 9,
+			"revision": 23,
+			"time": "2016-11-30T11:48:37-05:00",
+			"created": "2012-02-27T02:21:57-05:00"
+		},
+		{
+			"number": 208178,
+			"data": "257,769,3329,7681,7937,9473,10753,11777,12289,13313,14081,14593,15361,17921,18433,19457,22273,23041,23297,25601,26113,26881,30977,31489,32257,36097,36353,37633,37889,39937,40193,40961,41729,43777,45569,46337,49409,49921",
+			"name": "Primes of the form 256*k + 1.",
+			"comment": [
+				"Odd primes p such that -1 is a 128th power mod p. - _Eric M. Schmidt_, Mar 27 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A208178/b208178.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[256 Range[195] + 1, PrimeQ]"
+			],
+			"program": [
+				"(PARI) for(n=1,195,r=256*n+1; if(isprime(r), print1(r\", \")));",
+				"(MAGMA) [ p: p in PrimesUpTo(50000) | p mod 256 eq 1 ];",
+				"(Haskell)",
+				"a208178 n = a208178_list !! (n-1)",
+				"a208178_list = filter ((== 1) . a010051) [1,257..]",
+				"-- _Reinhard Zumkeller_, Mar 06 2012"
+			],
+			"xref": [
+				"Cf. A065091, A002144, A007519, A094407, A133870, A142925, A208177, A076339."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Bruno Berselli_, Feb 25 2012",
+			"references": 9,
+			"revision": 22,
+			"time": "2016-11-30T11:49:09-05:00",
+			"created": "2012-02-27T02:21:46-05:00"
+		},
+		{
+			"number": 212133,
+			"data": "0,1,8,33,88,185,336,553,848,1233,1720,2321,3048,3913,4928,6105,7456,8993,10728,12673,14840,17241,19888,22793,25968,29425,33176,37233,41608,46313,51360,56761,62528,68673,75208,82145,89496,97273,105488,114153,123280",
+			"name": "Number of (w,x,y,z) with all terms in {1,...,n} and median=mean.",
+			"comment": [
+				"For a guide to related sequences, see A211795."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212133/b212133.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4,-6,4,-1)."
+			],
+			"formula": [
+				"a(n) = 4*a(n-1) - 6*a(n-2) + 4*a(n-3) - a(n-4).",
+				"a(n) = n * (2*n^2 - 3*n + 2). - _J. M. Bergot_, Jun 22 2012",
+				"a(n) = A000384(n) + n*A000384(n-1). - _Bruno Berselli_, Jun 07 2013",
+				"a(n) = (A005917(n) + 1) / 2 for n \u003e 0. - _Reinhard Zumkeller_, Nov 13 2014",
+				"G.f.: x*(1 + 4*x + 7*x^2) / (1 - x)^4. - _Colin Barker_, Dec 02 2017"
+			],
+			"example": [
+				"a(2) counts these 4-tuples:  (1,1,1,1), (1,1,2,2), (1,2,1,2), (2,1,1,2), (1,2,2,1), (2,1,2,1), (2,2,1,1), (2,2,2,2)."
+			],
+			"mathematica": [
+				"t = Compile[{{n, _Integer}},",
+				"Module[{s = 0}, (Do[If[Apply[Plus, Rest[Most[Sort[{w, x, y, z}]]]]/2 == (w + x + y + z)/4, s = s + 1], {w, 1, #}, {x, 1, #}, {y, 1, #}, {z, 1, #}] \u0026[n]; s)]];",
+				"Flatten[Map[{t[#]} \u0026, Range[0, 50]]] (* A212133 *)",
+				"(* _Peter J. C. Moses_, May 01 2012 *)"
+			],
+			"program": [
+				"(PARI) a(n)=2*n^3-3*n^2+2*n; \\\\ _Joerg Arndt_, Jun 22 2012",
+				"(PARI) concat(0, Vec(x*(1 + 4*x + 7*x^2) / (1 - x)^4 + O(x^40))) \\\\ _Colin Barker_, Dec 02 2017",
+				"(Haskell)",
+				"a212133 n = if n == 0 then 0 else (a005917 n + 1) `div` 2",
+				"-- _Reinhard Zumkeller_, Nov 13 2014"
+			],
+			"xref": [
+				"Cf. A211795.",
+				"Cf. A226449. - _Bruno Berselli_, Jun 09 2013",
+				"Cf. A005917."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Clark Kimberling_, May 04 2012",
+			"ext": [
+				"Closed form adapted to the offset by _Bruno Berselli_, Jun 07 2013"
+			],
+			"references": 9,
+			"revision": 33,
+			"time": "2017-12-02T06:12:51-05:00",
+			"created": "2012-05-22T11:54:42-04:00"
+		},
+		{
+			"number": 212164,
+			"data": "4,8,9,16,24,25,27,32,40,48,49,54,56,64,72,80,81,88,96,104,108,112,121,125,128,135,136,144,152,160,162,169,176,184,189,192,200,208,216,224,232,240,243,248,250,256,272,288,289,296,297,304,320,324,328,336",
+			"name": "Numbers n such that the maximal exponent in its prime factorization is greater than the number of positive exponents (A051903(n) \u003e A001221(n)).",
+			"comment": [
+				"A225230(a(n)) \u003c 0; A050326(a(n)) = 0. - _Reinhard Zumkeller_, May 03 2013"
+			],
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 844."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212164/b212164.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy].",
+				"Primefan, \u003ca href=\"http://primefan.tripod.com/500factored.html\"\u003eThe First 2500 Integers Factored\u003c/a\u003e (first of 5 pages)"
+			],
+			"example": [
+				"40 = 2^3*5^1 has 2 distinct prime factors, hence, 2 positive exponents in its prime factorization (namely, 3 and 1, although the 1 is often left implicit).   2 is less than the maximal exponent in 40's prime factorization, which is 3. Therefore, 40 belongs to the sequence."
+			],
+			"mathematica": [
+				"okQ[n_] := Module[{f = Transpose[FactorInteger[n]][[2]]}, Max[f] \u003e Length[f]]; Select[Range[1000], okQ] (* _T. D. Noe_, May 24 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a212164 n = a212164_list !! (n-1)",
+				"a212164_list = map (+ 1) $ findIndices (\u003c 0) a225230_list",
+				"-- _Reinhard Zumkeller_, May 03 2013"
+			],
+			"xref": [
+				"Complement of A212167. See also A212165, A212166, A212168.",
+				"Cf. Subsequence of A188654."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Matthew Vandermast_, May 22 2012",
+			"references": 9,
+			"revision": 11,
+			"time": "2018-05-08T15:11:56-04:00",
+			"created": "2012-05-24T11:13:33-04:00"
+		},
+		{
+			"number": 212166,
+			"data": "1,2,3,5,7,11,12,13,17,18,19,20,23,28,29,31,36,37,41,43,44,45,47,50,52,53,59,61,63,67,68,71,73,75,76,79,83,89,92,97,98,99,100,101,103,107,109,113,116,117,120,124,127,131,137,139,147,148,149,151,153",
+			"name": "Numbers n such that the maximal exponent in its prime factorization equals the number of positive exponents (A051903(n) = A001221(n)).",
+			"comment": [
+				"A225230(a(n)) = 0; A050326(a(n)) = 1. - _Reinhard Zumkeller_, May 03 2013"
+			],
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 844."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212166/b212166.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy].",
+				"Primefan, \u003ca href=\"http://primefan.tripod.com/500factored.html\"\u003eThe First 2500 Integers Factored\u003c/a\u003e (first of 5 pages)"
+			],
+			"example": [
+				"36 = 2^2*3^2 has 2 positive exponents in its prime factorization. The maximal exponent in its prime factorization is also 2. Therefore, 36 belongs to this sequence."
+			],
+			"mathematica": [
+				"okQ[n_] := Module[{f = Transpose[FactorInteger[n]][[2]]}, Max[f] == Length[f]]; Select[Range[424], okQ] (* _T. D. Noe_, May 24 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a212166 n = a212166_list !! (n-1)",
+				"a212166_list = map (+ 1) $ elemIndices 0 a225230_list",
+				"-- _Reinhard Zumkeller_, May 03 2013"
+			],
+			"xref": [
+				"Includes subsequences A000040, A006939, A138534, A181555, A181825. See also A212164-A212165, A212167-A212168.",
+				"Cf. A188654 (complement)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Matthew Vandermast_, May 22 2012",
+			"references": 9,
+			"revision": 11,
+			"time": "2018-05-08T15:11:56-04:00",
+			"created": "2012-05-24T11:19:47-04:00"
+		},
+		{
+			"number": 212210,
+			"data": "-1,-1,0,0,0,1,-1,0,0,0,0,0,1,1,2,-1,0,1,1,1,1,0,1,2,1,2,1,2,0,1,1,1,1,1,2,2,0,0,1,0,1,1,2,1,1,-1,0,0,0,1,1,1,1,0,0,0,0,1,1,2,1,2,1,1,1,2,-1,0,1,1,1,1,1,1,1,1,1,1,0,1,2,1,2,1,2,2,2,1,2,2,3,0,1,1,1,1,1,2,2,1,1,2,2,3,3",
+			"name": "Triangle read by rows: T(n,k) = pi(n) + pi(k) - pi(n+k), n \u003e= 1, 1 \u003c= k \u003c= n, where pi() = A000720().",
+			"comment": [
+				"It is conjectured that pi(x)+pi(y) \u003e= pi(x+y) for 1 \u003c y \u003c= x.",
+				"A006093 gives row numbers of rows containing at least one negative term. [_Reinhard Zumkeller_, May 05 2012]"
+			],
+			"reference": [
+				"D. S. Mitrinovic et al., Handbook of Number Theory, Kluwer, Section VII.5, p. 235."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212210/b212210.txt\"\u003eRows n = 1..150 of triangle, flattened\u003c/a\u003e",
+				"P. Erdos and J. L. Selfridge, \u003ca href=\"http://www.renyi.hu/~p_erdos/1971-03.pdf\"\u003eComplete prime subsets of consecutive integers\u003c/a\u003e. Proceedings of the Manitoba Conference on Numerical Mathematics (Univ. Manitoba, Winnipeg, Man., 1971), pp. 1--14. Dept. Comput. Sci., Univ. Manitoba, Winnipeg, Man., 1971. MR0337828 (49 #2597)."
+			],
+			"example": [
+				"Triangle begins:",
+				"  -1",
+				"  -1 0",
+				"   0 0 1",
+				"  -1 0 0 0",
+				"   0 0 1 1 2",
+				"  -1 0 1 1 1 1",
+				"   0 1 2 1 2 1 2",
+				"   0 1 1 1 1 1 2 2",
+				"   0 0 1 0 1 1 2 1 1",
+				"  -1 0 0 0 1 1 1 1 0 0",
+				"  ..."
+			],
+			"mathematica": [
+				"t[n_, k_] := PrimePi[n] + PrimePi[k] - PrimePi[n + k]; Table[t[n, k], {n, 1, 14}, {k, 1, n}] // Flatten (* _Jean-François Alcover_, Oct 17 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, tails)",
+				"a212210 n k = a212210_tabl !! (n-1) !! (k-1)",
+				"a212210_row n = a212210_tabl !! (n-1)",
+				"a212210_tabl = f $ tail $ zip (inits pis) (tails pis) where",
+				"   f ((xs,ys) : zss) = (zipWith (-) (map (+ last xs) (xs)) ys) : f zss",
+				"   pis = a000720_list",
+				"-- _Reinhard Zumkeller_, May 04 2012"
+			],
+			"xref": [
+				"Cf. A000720, A212211, A212212, A212213, A060208, A047885, A047886.",
+				"Left diagonal is -A010051."
+			],
+			"keyword": "sign,tabl,nice",
+			"offset": "1,15",
+			"author": "_N. J. A. Sloane_, May 04 2012",
+			"references": 9,
+			"revision": 34,
+			"time": "2019-04-27T01:48:35-04:00",
+			"created": "2012-05-04T13:47:53-04:00"
+		},
+		{
+			"number": 213676,
+			"data": "0,1,0,1,0,0,1,1,0,1,0,0,0,1,1,0,0,1,0,1,0,1,0,0,0,0,1,1,0,0,0,1,0,1,0,0,1,0,0,1,0,1,1,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,1,0,1,0,0,0,1,0,0,1,0,0,1,1,0,1,0,0,1,0,0,0,1,0,1,1,0,0",
+			"name": "Reversed Zeckendorf binary representation of natural numbers.",
+			"comment": [
+				"T(n,k) = A189920(n, A072649(n, k)-1) for k = 0..A072649(k)-1, n \u003e 0;",
+				"A000201 = row numbers starting with an even number of zeros;",
+				"for n \u003e 0: A035614(n-1) = number of leading zeros of n-th row."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A213676/b213676.txt\"\u003eRows n = 0..1000 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"The first rows:",
+				".   0:  [0]",
+				".   1:  [1]",
+				".   2:  [0,1]",
+				".   3:  [0,0,1]",
+				".   4:  [1,0,1]",
+				".   5:  [0,0,0,1]",
+				".   6:  [1,0,0,1]",
+				".   7:  [0,1,0,1]",
+				".   8:  [0,0,0,0,1]",
+				".   9:  [1,0,0,0,1]",
+				".  10:  [0,1,0,0,1]",
+				".  11:  [0,0,1,0,1]",
+				".  12:  [1,0,1,0,1]."
+			],
+			"program": [
+				"(Haskell)",
+				"a213676 n k = a213676_tabf !! n !! k",
+				"a213676_row n = a213676_tabf !! n",
+				"a213676_tabf = [0] : map reverse a189920_tabf"
+			],
+			"xref": [
+				"Cf. A072649 (row lengths, n\u003e0), A007895 (row sums)."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0",
+			"author": "_Reinhard Zumkeller_, Mar 10 2013",
+			"references": 9,
+			"revision": 10,
+			"time": "2013-03-10T16:39:27-04:00",
+			"created": "2013-03-10T16:28:12-04:00"
+		},
+		{
+			"number": 214282,
+			"data": "1,1,1,3,6,10,15,35,70,126,210,462,924,1716,3003,6435,12870,24310,43758,92378,184756,352716,646646,1352078,2704156,5200300,9657700,20058300,40116600,77558760,145422675",
+			"name": "Largest Euler characteristic of a downset on an n-dimensional cube.",
+			"comment": [
+				"An m-downset is a set of subsets of 1..m such that if S is in the set, so are all subsets of S.  The Euler characteristic of a downset is the number of sets in the downset with an even cardinality, minus the number with an odd cardinality.",
+				"a(n) = A214283(n) + A001405(n). - _Reinhard Zumkeller_, Jul 14 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214282/b214282.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Terry Tao, \u003ca href=\"http://mathoverflow.net/questions/101787/optimal-bounds-for-an-alternating-sum-on-a-downset\"\u003eOptimal bounds for an alternating sum on a downset\u003c/a\u003e, 2012."
+			],
+			"formula": [
+				"a(n) = binomial(n - 1, n/2) when n is even, a(n) = binomial(n - 1, (n + 1)/2) when n is 3 mod 4, and a(n) = binomial(n - 1, (n - 1)/2) when n is 1 mod 4.",
+				"a(2n) = A001700(n-1). a(4n+1) = A001448(n). a(4n+3) = A186231(n).",
+				"a(n) = A007318(n-1, A004524(n-1)). - _Reinhard Zumkeller_, Jul 14 2012",
+				"a(n+1) = A000108([n/2])*A215495(n). - _M. F. Hasler_, Aug 25 2012",
+				"A214282(n) - A214283(n) is A056040(n) if n is even and A056040(n)/((n+1)/2) otherwise. - _Peter Luschny_, Jul 08 2016"
+			],
+			"example": [
+				"G.f. = x + x^2 + x^3 + 3*x^4 + 6*x^5 + 10*x^6 + 15*x^7 + 35*x^8 + ..."
+			],
+			"mathematica": [
+				"Table[{Binomial[n - 1, n/2], Binomial[n, n/2], Binomial[n + 1, n/2 + 1], Binomial[n + 2, n/2 + 2]}, {n, 0, 28, 4}] (* _Alonso del Arte_, Jul 09 2012 *)"
+			],
+			"program": [
+				"(PARI) a(n)=binomial(n-1,if(n%2,(n+1)\\4*2,n/2)) \\\\ _Charles R Greathouse IV_, Jul 09 2012",
+				"(PARI) {a(n) = if( n\u003c1, 0, vecmax( Vec((1 - x)^(n-1))))}; /* _Michael Somos_, Apr 21 2014 */",
+				"(Haskell)",
+				"a214282 n = a007318 (n - 1) (a004524 (n - 1))",
+				"-- _Reinhard Zumkeller_, Jul 14 2012"
+			],
+			"xref": [
+				"Cf. A214283."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Terence Tao_, Jul 09 2012",
+			"references": 9,
+			"revision": 32,
+			"time": "2016-07-08T17:41:27-04:00",
+			"created": "2012-07-10T13:09:35-04:00"
+		},
+		{
+			"number": 214604,
+			"data": "1,5,9,11,17,25,19,27,37,49,29,39,51,65,81,41,53,67,83,101,121,55,69,85,103,123,145,169,71,87,105,125,147,171,197,225,89,107,127,149,173,199,227,257,289,109,129,151,175,201,229,259,291,325,361,131,153",
+			"name": "Odd numbers by transposing the right half of A176271, triangle read by rows: T(n,k) = A176271(n - 1 + k, n), 1 \u003c= k \u003c= n.",
+			"comment": [
+				"Sums of rows: A214659; central terms: A214660;",
+				"T(n,1) = A028387(n-1); T(n,n) = A016754(n-1);",
+				"T(n,k) = A214661(n,k) + 2*A025581(n,k) = 2*A000290(A094727(n,k)) - A214661(n,k)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214604/b214604.txt\"\u003eRows n = 1..150 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = (n+k)^2 - n - 3*k + 1."
+			],
+			"example": [
+				".     Take the first n elements of the n-th diagonal (northeast to",
+				".     southwest) of the triangle on the left side",
+				".     and write this as n-th row on the triangle of the right side.",
+				". 1:                1                    1",
+				". 2:              _   5                  5  9",
+				". 3:            _   9  11               11 17 25",
+				". 4:         __  __  17  19             19 27 37 49",
+				". 5:       __  __  25  27  29           29 39 51 65 ..",
+				". 6:     __  __  __  37  39  41         41 53 67 .. .. ..",
+				". 7:   __  __  __  49  51  53  55       55 69 .. .. .. .. ..",
+				". 8: __  __  __  __  65  67  69  71     71 .. .. .. .. .. .. .. ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a214604 n k = a214604_tabl !! (n-1) !! (k-1)",
+				"a214604_row n = a214604_tabl !! (n-1)",
+				"a214604_tabl = zipWith take [1..] $ transpose a176271_tabl"
+			],
+			"xref": [
+				"Cf. A214661."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 25 2012",
+			"references": 9,
+			"revision": 9,
+			"time": "2017-07-20T23:44:51-04:00",
+			"created": "2012-07-25T15:14:19-04:00"
+		},
+		{
+			"number": 214661,
+			"data": "1,3,9,7,15,25,13,23,35,49,21,33,47,63,81,31,45,61,79,99,121,43,59,77,97,119,143,169,57,75,95,117,141,167,195,225,73,93,115,139,165,193,223,255,289,91,113,137,163,191,221,253,287,323,361,111,135,161",
+			"name": "Odd numbers by transposing the left half of A176271, triangle read by rows: T(n,k) = A176271(n - 1 + k, k), 1 \u003c= k \u003c= n.",
+			"comment": [
+				"Sums of rows: A051673; central terms: A214675;",
+				"T(n,1) = A002061(n); T(n,n) = A016754(n-1);",
+				"T(n,k) = A214604(n,k) - 2*A025581(n,k) = 2*A000290(A094727(n,k)) - A214604(n,k)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214661/b214661.txt\"\u003eRows n = 1..150 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = (n+k)^2 - 3*n - k + 1."
+			],
+			"example": [
+				".     Take the first n elements of the n-th diagonal (northwest to",
+				".     southeast) of the triangle on the left side",
+				".     and write this as n-th row on the triangle of the right side.",
+				". 1:                1                    1",
+				". 2:              3   _                  3  9",
+				". 3:            7   9  __                7 15 25",
+				". 4:         13  15  __  __             13 23 35 49",
+				". 5:       21  23  25  __  __           21 33 47 63 ..",
+				". 6:     31  33  35  __  __  __         31 45 61 .. .. ..",
+				". 7:   43  45  47  49  __  __  __       43 59 .. .. .. .. ..",
+				". 8: 57  59  61  63  __  __  __  __     57 .. .. .. .. .. .. .. ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a214661 n k = a214661_tabl !! (n-1) !! (k-1)",
+				"a214661_row n = a214661_tabl !! (n-1)",
+				"a214661_tabl = zipWith take [1..] $ transpose $ map reverse a176271_tabl"
+			],
+			"xref": [
+				"Cf. A214604."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 25 2012",
+			"references": 9,
+			"revision": 9,
+			"time": "2017-07-20T23:36:52-04:00",
+			"created": "2012-07-25T15:16:20-04:00"
+		}
+	]
+}

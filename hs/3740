@@ -1,0 +1,426 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3740,
+	"results": [
+		{
+			"number": 26238,
+			"data": "1,2,1,3,2,4,3,4,5,5,6,6,7,8,9,7,10,8,11,12,13,9,14,15,16,17,18,10,19,11,20,21,22,23,24,12,25,26,27,13,28,14,29,30,31,15,32,33,34,35,36,16,37,38,39,40,41,17,42,18,43,44,45,46,47,19",
+			"name": "a(n) = j if n is the j-th prime, else a(n) = k if n is the k-th composite.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A026238/b026238.txt\"\u003eTable of n, a(n) for n = 2..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[If[PrimeQ[n],PrimePi[n],n-1-PrimePi[n]],{n,2,70}] (* _Harvey P. Dale_, Jun 06 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a026238 n = a049084 n + a066246 n  -- _Reinhard Zumkeller_, Jan 29 2014",
+				"(PARI) first(n)=my(c,p); vector(n-1,k, if(isprime(k+1),p++,c++)) \\\\ _Charles R Greathouse IV_, Sep 02 2015"
+			],
+			"xref": [
+				"a(n) = A049084(n) + A066246(n)."
+			],
+			"keyword": "nonn",
+			"offset": "2,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 11,
+			"time": "2017-06-06T15:05:08-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 26239,
+			"data": "1,4,6,2,8,3,9,5,7,11,10,13,12,17,19,23,14,29,15,31,37,41,16,43,47,53,59,61,18,67,20,71,73,79,83,89,21,97,101,103,22,107,24,109,113,127,25,131,137,139,149,151,26,157,163,167,173,179,27,181,28,191,193,197,199",
+			"name": "Beginning with the natural numbers, swap the k-th prime and k-th composite.",
+			"comment": [
+				"Involution (self-inverse permutation) of [positive] natural numbers."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A026239/b026239.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1) = 1 and a(n) = if n is prime then A002808(A049084(n)) else A000040(A066246(n)) for n\u003e1. - _Reinhard Zumkeller_, Dec 13 2001"
+			],
+			"mathematica": [
+				"Composite[n_Integer] := FixedPoint[n + PrimePi@# + 1 \u0026, n + PrimePi@n + 1]; f[1] = 1; f[n_] := If[ PrimeQ@n, Composite@ PrimePi@n, Prime[n - 1 - PrimePi@n]]; Array[f, 65] (* _Robert G. Wilson v_, Jun 08 2010 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a026239 1 = 1",
+				"a026239 n | a010051 n == 1 = a002808 $ a049084 n",
+				"          | otherwise      = a000040 $ a066246 n",
+				"-- _Reinhard Zumkeller_, Mar 30 2014"
+			],
+			"xref": [
+				"Cf. A236854."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"More terms from _Robert G. Wilson v_, Jun 08 2010"
+			],
+			"references": 7,
+			"revision": 23,
+			"time": "2015-03-05T10:56:22-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 26549,
+			"data": "1,2,6,12,36,72,216,432,1296,2592,7776,15552,46656,93312,279936,559872,1679616,3359232,10077696,20155392,60466176,120932352,362797056,725594112,2176782336,4353564672,13060694016,26121388032",
+			"name": "Ratios of successive terms are 2,3,2,3,2,3,2,3...",
+			"comment": [
+				"Appears to be the number of permutations p of {1,2,...,n} such that p(i)+p(i+1)\u003e=n for every i=1,2,...,n-1 (if offset is 1). - _Vladeta Jovovic_, Dec 15 2003",
+				"Equals eigensequence of a triangle with 1's in even columns and (1,3,3,3,...) in odd columns. a(5) = 72 = (1, 3, 1, 3, 1, 1) dot (1, 1, 2, 6, 12, 36) = (1 + 3 + 2 + 18 + 12 + 36), where (1, 3, 1, 3, 1, 1) = row 5 of the generating triangle. - _Gary W. Adamson_, Aug 02 2010",
+				"Partial products of A010693. [_Reinhard Zumkeller_, Mar 29 2012]",
+				"Satisfies Benford's law [Theodore P. Hill, Personal communication, Feb 06, 2017] - _N. J. A. Sloane_, Feb 08 2017"
+			],
+			"reference": [
+				"Arno Berger and Theodore P. Hill. An Introduction to Benford's Law. Princeton University Press, 2015."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A026549/b026549.txt\"\u003eTable of n, a(n) for n = 0..700\u003c/a\u003e",
+				"P. Barry, \u003ca href=\"http://arxiv.org/abs/1312.0583\"\u003eEmbedding structures associated with Riordan arrays and moment matrices\u003c/a\u003e, arXiv preprint arXiv:1312.0583 [math.CO], 2013",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,6)",
+				"\u003ca href=\"/index/Be#Benford\"\u003eIndex entries for sequences related to Benford's law\u003c/a\u003e"
+			],
+			"formula": [
+				"Equals T(n, 0) + T(n, 1) + ... + T(n, 2n), T given by A026536.",
+				"G.f.: (1+2x)/(1-6x^2) - _Paul Barry_, Aug 25 2003",
+				"a(n+3) = a(n+2)*a(n+1)/a(n). [_Reinhard Zumkeller_, Mar 04 2011]",
+				"a(n) = ((1/2)*(3-(-1)^n)*6^floor(n/2)), or a(n) = 6*a(n-2). [_Vincenzo Librandi_, Jun 08 2011]"
+			],
+			"mathematica": [
+				"LinearRecurrence[{0,6},{1,2},30] (* _Harvey P. Dale_, May 29 2016 *)"
+			],
+			"program": [
+				"(MAGMA) [((1/2)*(3-(-1)^n)*6^Floor(n/2))  : n in [0..30]]; // _Vincenzo Librandi_, Jun 08 2011",
+				"(Haskell)",
+				"a026549 n = a026549_list !! n",
+				"a026549_list = scanl (*) 1 $ a010693_list",
+				"-- _Reinhard Zumkeller_, Mar 29 2012"
+			],
+			"xref": [
+				"For n\u003e0, a(n) = 2*A026532(n). Cf. A026551, A026567.",
+				"Cf. A010693, A208131, A109827."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"New definition from _Ralf Stephan_, Dec 01 2004"
+			],
+			"references": 7,
+			"revision": 44,
+			"time": "2017-02-08T21:31:04-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30143,
+			"data": "0,2,4,6,8,10,12,14,16,18,30,32,34,36,38,50,52,54,56,58,70,72,74,76,78,90,92,94,96,98,210,212,214,216,218,230,232,234,236,238,250,252,254,256,258,270,272,274,276,278,290,292,294,296,298,410,412,414",
+			"name": "Even numbers in which parity of digits alternates.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A030143/b030143.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"formula": [
+				"(1 - a(n) mod 2) * A228710(a(n)) = 1. - _Reinhard Zumkeller_, Aug 31 2013"
+			],
+			"mathematica": [
+				"id[n_]:=IntegerDigits[n]; t={}; Do[If[Length[id[n]]==1, AppendTo[t,n],If[Union[Abs[Differences[Boole /@ EvenQ[id[n]]]]]=={1}, AppendTo[t,n]]], {n,0,414,2}]; t (* _Jayanta Basu_, May 07 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a030143 n = a030143_list !! (n-1)",
+				"a030143_list = filter even a030141_list",
+				"-- _Reinhard Zumkeller_, Aug 31 2013"
+			],
+			"xref": [
+				"Cf. A030142, A062285, intersection of A005843 and A030141."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_Patrick De Geest_",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, Aug 31 2013"
+			],
+			"references": 7,
+			"revision": 11,
+			"time": "2017-02-14T23:07:42-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30457,
+			"data": "2,6,8,12,36,42,50,56,62,68,78,80,90,92,96,102,108,120,126,138,150,156,180,186,188,192,200,216,242,246,252,270,276,278,300,308,312,318,330,338,342,350,362,368,378,390,402,410,416,420,426,428,432",
+			"name": "Numbers n such that n concatenated with n+1 is prime.",
+			"comment": [
+				"n is not 1 mod 2, 1 mod 3, or 4 mod 5. - _Charles R Greathouse IV_, Apr 16 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A030457/b030457.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"E.g. 1213 is prime, therefore 12 is a term."
+			],
+			"maple": [
+				"concat:=proc(a,b) local bb: bb:=nops(convert(b,base,10)): 10^bb*a+b end proc: a:=proc(n) if isprime(concat(n,n+1))=true then n else end if end proc: seq(a(n),n=0..500); # _Emeric Deutsch_, Nov 23 2007"
+			],
+			"mathematica": [
+				"Select[ Range[500], PrimeQ[ ToExpression[ StringJoin[ ToString[#], ToString[#+1]]]]\u0026] (* _Jean-François Alcover_, Nov 18 2011 *)",
+				"Select[Range[500],PrimeQ[FromDigits[Join[IntegerDigits[#], IntegerDigits[ #+1]]]]\u0026] (* _Harvey P. Dale_, Dec 23 2015 *)",
+				"Position[#[[1]]*10^IntegerLength[#[[2]]]+#[[2]]\u0026/@Partition[Range[ 500], 2,1],_?PrimeQ]//Flatten (* _Harvey P. Dale_, Jul 14 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a030457 n = a030457_list !! (n-1)",
+				"a030457_list = filter ((== 1) . a010051' . a001704) [1..]",
+				"-- _Reinhard Zumkeller_, Jun 27 2015, Apr 26 2011",
+				"(PARI) for(n=1,10^5,if(isprime(eval(concat(Str(n),n+1))),print1(n,\", \"))); /* _Joerg Arndt_, Apr 27 2011 */",
+				"(MAGMA) [n: n in [1..500] | IsPrime(Seqint(Intseq(n+1) cat Intseq(n)))]; // _Vincenzo Librandi_, Jul 23 2016"
+			],
+			"xref": [
+				"Cf. A030458, A054211, A052089, A052087, A052088.",
+				"Cf. A010051, A001704, A068700 (subsequence)."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_",
+			"references": 7,
+			"revision": 38,
+			"time": "2019-07-14T11:45:42-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 31448,
+			"data": "1,5,6,19,21,22,25,26,28,71,75,77,78,83,85,86,89,90,92,99,101,102,105,106,108,113,114,116,120,271,279,283,285,286,295,299,301,302,307,309,310,313,314,316,327,331,333,334,339,341,342",
+			"name": "Numbers n which in base 2 has one fewer 0's than 1's.",
+			"comment": [
+				"A037861(a(n)) = -1. - _Reinhard Zumkeller_, Mar 31 2015",
+				"The viabin numbers of the integer partitions in which the number of parts is equal to the largest part (for the definition of viabin number see comment in A290253). For example, 99 is in the sequence because it is the viabin number of the integer partition [4,2,2,2]. - _Emeric Deutsch_, Aug 29 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A031448/b031448.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"example": [
+				"99 is in the sequence because its binary form is 1100011. - _Emeric Deutsch_, Aug 29 2017"
+			],
+			"maple": [
+				"vitopart := proc (n) local L, i, j, N, p, t: N := 2*n; L := ListTools:-Reverse(convert(N, base, 2)): j := 0: for i to nops(L) do if L[i] = 0 then j := j+1: p[j] := numboccur(L[1 .. i], 1) end if end do: sort([seq(p[t], t = 1 .. j)], `\u003e=`) end proc: A := {}; for m to 500 do if nops(vitopart(m)) = max(vitopart(m)) then A := `union`(A, {m}) else  end if end do: A; # program is based on my comment; the command vitopart(n) yields the integer partition having viabin number n. - _Emeric Deutsch_, Aug 29 2017"
+			],
+			"mathematica": [
+				"Select[Range[400],DigitCount[#,2,1]==DigitCount[#,2,0]+1\u0026] (* _Harvey P. Dale_, May 24 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a031448 n = a031448_list !! (n-1)",
+				"a031448_list = filter ((== -1) . a037861) [1..]",
+				"-- _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"xref": [
+				"Cf. A023416, A000120, A031444, subsequence of A089648."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 13,
+			"time": "2019-05-24T12:20:38-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 32759,
+			"data": "2,3,5,7,1,11,31,71,92,32,93,13,74,14,34,75,35,96,16,77,17,37,98,38,99,71,11,31,71,91,131,271,311,371,391,491,511,571,631,671,731,791,811,911,931,971,992,112,232,272,292,332,392,412,512,572,632,692,712,772,812,832",
+			"name": "Take list of primes, move left digit of each term to end of previous term.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A032759/b032759.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"Primes 89,97,101,103,107 become _8,99,71,011,031 or ...,38,99,71,11,31,..."
+			],
+			"program": [
+				"(Haskell)",
+				"a032759 n = a032759_list !! (n-1)",
+				"a032759_list = 2 : map read (zipWith (++) vs (tail us)) :: [Integer]",
+				"   where (us,vs) = unzip $ map ((splitAt 1) . show) a000040_list",
+				"-- _Reinhard Zumkeller_, Oct 10 2013"
+			],
+			"xref": [
+				"Cf. A032760-A032764.",
+				"Cf. A000040."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_, May 15 1998",
+			"ext": [
+				"Offset changed by _Reinhard Zumkeller_, Oct 10 2013"
+			],
+			"references": 7,
+			"revision": 9,
+			"time": "2015-03-09T09:35:21-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 32925,
+			"data": "1,2,5,6,9,10,21,22,25,26,37,38,41,42,85,86,89,90,101,102,105,106,149,150,153,154,165,166,169,170,341,342,345,346,357,358,361,362,405,406,409,410,421,422,425,426,597,598,601,602,613",
+			"name": "Numbers whose set of base 4 digits is {1,2}.",
+			"comment": [
+				"Intersection of A023705 and A023717; A179888 is the intersection of this sequence and A053754. - _Reinhard Zumkeller_, Jul 31 2010"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A032925/b032925.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(2n) = 4a(n-1) + 2, a(2n+1) = 4a(n) + 1. - _Ralf Stephan_, Oct 07 2003, corrected _R. J. Mathar_, Sep 07 2016"
+			],
+			"maple": [
+				"A032925 := proc(n)",
+				"    option remember;",
+				"    if n \u003c= 2 then",
+				"        n;",
+				"    else",
+				"        if type(n,'even') then",
+				"            2+4*procname(n/2-1) ;",
+				"        else",
+				"            1+4*procname(floor(n/2)) ;",
+				"        end if;",
+				"    end if;",
+				"end proc:",
+				"seq(A032925(n),n=1..100) ;  # _R. J. Mathar_, Sep 07 2016"
+			],
+			"mathematica": [
+				"Flatten[Table[FromDigits[#,4]\u0026/@Tuples[{1,2},n],{n,5}]] (* _Vincenzo Librandi_, Jun 05 2012 *)"
+			],
+			"program": [
+				"(MAGMA) [n: n in [1..1000] | Set(IntegerToSequence(n, 4)) subset {1, 2}]; // _Vincenzo Librandi_, Jun 05 2012",
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a032925 n = a032925_list !! (n-1)",
+				"a032925_list = 1 : 2 : (concat $ transpose [map (+ 1) fs, map (+ 2) fs])",
+				"               where fs = map (* 4) a032925_list",
+				"-- _Reinhard Zumkeller_, Apr 18 2015"
+			],
+			"xref": [
+				"Cf. A023705, A023717, A179888, A053754."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 25,
+			"time": "2016-09-07T04:37:22-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33620,
+			"data": "1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,18,20,21,22,24,25,27,28,30,32,33,35,36,40,42,44,45,48,49,50,54,55,56,60,63,64,66,70,72,75,77,80,81,84,88,90,96,98,99,100,101,105,108,110,112,120,121,125,126,128,131",
+			"name": "Numbers all of whose prime factors are palindromes.",
+			"comment": [
+				"Multiplicative closure of A002385; A051038 and A046368 are subsequences. [_Reinhard Zumkeller_, Apr 11 2011]"
+			],
+			"link": [
+				"Ivan Neretin, \u003ca href=\"/A033620/b033620.txt\"\u003eTable of n, a(n) for n = 1..10550\u003c/a\u003e"
+			],
+			"maple": [
+				"N:= 5: # to get all terms of up to N digits",
+				"digrev:= proc(t) local L; L:= convert(t,base,10);",
+				"add(L[-i-1]*10^i,i=0..nops(L)-1);",
+				"end proc:",
+				"PPrimes:= [2,3,5,7,11]:",
+				"for d from 3 to N by 2 do",
+				"    m:= (d-1)/2;",
+				"    PPrimes:= PPrimes, select(isprime,[seq(seq(n*10^(m+1)+y*10^m+digrev(n), y=0..9), n=10^(m-1)..10^m-1)]);",
+				"od:",
+				"PPrimes:= map(op,[PPrimes]):",
+				"M:= 10^N:",
+				"B:= Vector(M);",
+				"B[1]:= 1:",
+				"for p in PPrimes do",
+				"  for k from 1 to floor(log[p](M)) do",
+				"     R:= [$1..floor(M/p^k)];",
+				"     B[p^k*R] := B[p^k*R] + B[R]",
+				"  od",
+				"od:",
+				"select(t -\u003e B[t] \u003e 0, [$1..M]); # _Robert Israel_, Jul 05 2015",
+				"# alternative",
+				"isA033620:= proc(n)",
+				"    for d in numtheory[factorset](n) do",
+				"        if not isA002113(op(1,d)) then",
+				"            return false;",
+				"        end if;",
+				"    end do;",
+				"    true ;",
+				"end proc:",
+				"for n from 1 to 300 do",
+				"    if isA033620(n) then",
+				"        printf(\"%d,\",n) ;",
+				"    end if;",
+				"end do: # _R. J. Mathar_, Sep 09 2015"
+			],
+			"mathematica": [
+				"palQ[n_]:=Reverse[x=IntegerDigits[n]]==x; Select[Range[131],And@@palQ/@First/@FactorInteger[#]\u0026] (* _Jayanta Basu_, Jun 05 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033620 n = a033620_list !! (n-1)",
+				"a033620_list = filter chi [1..] where",
+				"   chi n = a136522 spf == 1 \u0026\u0026 (n' == 1 || chi n') where",
+				"      n' = n `div` spf",
+				"      spf = a020639 n  -- cf. A020639",
+				"-- _Reinhard Zumkeller_, Apr 11 2011",
+				"(PARI) ispal(n)=n=digits(n);for(i=1,#n\\2,if(n[i]!=n[#n+1-i],return(0)));1",
+				"is(n)=if(n\u003c13,n\u003e0,vecmin(apply(ispal,factor(n)[,1]))) \\\\ _Charles R Greathouse IV_, Feb 06 2013"
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, May 17 1998",
+			"references": 7,
+			"revision": 21,
+			"time": "2015-09-09T10:48:08-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33649,
+			"data": "5,10,11,22,44,88,176,847,1595,7546,14003,44044,88088,176176,847847,1596595,7553546,14007103,44177144,88354288,176599676,853595347,1597190705,6668108656,13236127322,35608290553",
+			"name": "Trajectory of 5 under map x-\u003ex + (x-with-digits-reversed).",
+			"comment": [
+				"Trajectories of 15, 21, 24, 30, 39, 42, 48, 51, 57, 60, 69, 75, 78, 84, 87, 93, 96, ..., merge into this sequence. - _Robert G. Wilson v_, Dec 16 2005",
+				"A Reverse and Add! sequence.",
+				"Trajectories of 13, 17, 20, 26, 31, 35, 40, 53, 62, 71, 79, 80, 97, ..., merge into this sequence. - _Robert G. Wilson v_, Dec 16 2005"
+			],
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A033649/b033649.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (first 251 terms from Reinhard Zumkeller)",
+				"\u003ca href=\"/index/Res#RAA\"\u003eIndex entries for sequences related to Reverse and Add!\u003c/a\u003e"
+			],
+			"maple": [
+				"a:= proc(n) option remember; `if`(n=0, 5, (h-\u003e h+ (s-\u003e",
+				"      parse(cat(s[-i]$i=1..length(s))))(\"\"||h))(a(n-1)))",
+				"    end:",
+				"seq(a(n), n=0..40);  # _Alois P. Heinz_, Jun 18 2014"
+			],
+			"mathematica": [
+				"NestList[ # + FromDigits@Reverse@IntegerDigits@# \u0026, 5, 29] (* _Robert G. Wilson v_, Dec 16 2005 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033649 n = a033649_list !! n",
+				"a033649_list = iterate a056964 5 -- _Reinhard Zumkeller_, Sep 22 2011"
+			],
+			"xref": [
+				"Cf. A006960, A001127, A033648, A033650, A033651.",
+				"Cf. A056964, A004086.",
+				"Row n=5 of A243238."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 7,
+			"revision": 26,
+			"time": "2015-03-14T18:15:46-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

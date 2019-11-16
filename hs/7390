@@ -1,0 +1,359 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7390,
+	"results": [
+		{
+			"number": 175872,
+			"data": "1,2,2,2,3,2,3,2,3,4,2,1,2,2,4,2,3,2,2,2,5,2,2,2,2,2,3,2,2,2,5,2,3,2,3,4,2,3,3,2,2,6,2,1,3,2,2,2,3,1,1,3,2,4,3,1,3,2,3,2,2,2,6,2,3,2,3,4,2,4,2,4,5,2,2,2,2,4,3,2,2,3,2,2,7,2,2,2,2,3,2,2,3,2,2,2,3,2,3,2,2,2,2,3,2,2,3,2,2",
+			"name": "Write n in binary. Consider the 0's and 1 as a list. (*) If the new list consists entirely of 1's, then a(n) = the number of 1's, and end. Otherwise, construct a new list made up of the lengths, written in order, of the runs of similarly-valued terms from the previous list. Go to *.",
+			"comment": [
+				"n appears for the first time at A000975(n). - Sean A. Irvine and _N. J. A. Sloane_, Dec 02 2010",
+				"A217921(n) = number of steps needed to calculate a(n). - _Reinhard Zumkeller_, Mar 26 2013"
+			],
+			"link": [
+				"Sean A. Irvine, \u003ca href=\"/A175872/b175872.txt\"\u003eTable of n, a(n) for n = 1..100000\u003c/a\u003e"
+			],
+			"example": [
+				"100 (decimal) in binary is 1100100. The lengths of the runs are: 2,2,1,2. The lengths of the runs in the latest list are: 2,1,1. The lengths of the runs in the latest list are: 1,2. The lengths of the runs in the latest list are: 1,1. This last list consists entirely of 1's. There are two 1's, so a(100) = 2."
+			],
+			"mathematica": [
+				"f[n_Integer] := IntegerDigits[n, 2]; f[nn:{1..}] := nn; f[nn_List] := Length /@ Split[nn]; a[n_] := FixedPoint[f, n] // Length; Table[a[n], {n, 1, 100}] (* _Jean-François Alcover_, Nov 26 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group, genericLength)",
+				"a175872 = f . a030308_row where",
+				"   f xs | all (== 1) xs = length xs",
+				"        | otherwise     = f $ map genericLength $ group xs",
+				"-- _Reinhard Zumkeller_, Mar 26 2013"
+			],
+			"xref": [
+				"Cf. A101211, A000975.",
+				"Cf. A030308."
+			],
+			"keyword": "base,nonn,nice",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Oct 03 2010",
+			"ext": [
+				"a(3) corrected by _Leroy Quet_, Oct 06 2010",
+				"More terms from _Sean A. Irvine_, Dec 02 2010"
+			],
+			"references": 2,
+			"revision": 19,
+			"time": "2014-03-11T01:32:54-04:00",
+			"created": "2010-10-20T03:00:00-04:00"
+		},
+		{
+			"number": 175880,
+			"data": "1,2,3,0,5,0,7,8,9,0,11,12,13,0,15,0,17,0,19,20,21,0,23,0,25,0,27,28,29,0,31,32,33,0,35,36,37,0,39,0,41,0,43,44,45,0,47,48,49,0,51,52,53,0,55,0,57,0,59,60,61,0,63,0,65,0,67,68,69,0,71,0,73,0,75,76,77,0,79,80",
+			"name": "a(1)=1, a(2)=2. If n \u003e= 3: if n/2 is in the sequence, a(n)=0, otherwise a(n)=n.",
+			"comment": [
+				"If n \u003e 0 and n is in the sequence, then a(2*n) = 0. Example: 5 is in the sequence, so a(2*5) = a(10) = 0.",
+				"Is this a(n) = n*A039982(n-1), n \u003e 1? [_R. J. Mathar_, Dec 07 2010]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A175880/b175880.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n - (1 + (-1)^n) * a((2*n + 1 - (-1)^n)/4), n \u003e= 3.",
+				"a(n) = n - A010673(n+1)*a(A110654(n))."
+			],
+			"maple": [
+				"A110654 := proc(n) 2*n+1-(-1)^n ; %/4 ;end proc:",
+				"A175880 := proc(n) if n \u003c=2 then n; else if type(n,'even') then n-2*procname(A110654(n)) ; else n; end if; end if; end proc:",
+				"seq(A175880(n),n=1..40) ; # _R. J. Mathar_, Dec 07 2010"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a175880 n = a175880_list !! (n-1)",
+				"a175880_list = 1 : f [2..] [2..] where",
+				"   f (x:xs) (y:ys) | x == y    = x : (f xs $ delete (2*x) ys)",
+				"                   | otherwise = 0 : (f xs (y:ys))",
+				"for_bFile = take 10000 a175880_list",
+				"-- _Reinhard Zumkeller_, Feb 09 2011"
+			],
+			"xref": [
+				"Cf. A053661.",
+				"A000040, A001749, A002001, A002042, A002063, A002089, A003947, A004171 and A081294 are subsequences."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Adriano Caroli_, Dec 05 2010",
+			"references": 2,
+			"revision": 21,
+			"time": "2019-05-12T02:18:19-04:00",
+			"created": "2010-11-12T14:24:49-05:00"
+		},
+		{
+			"number": 177023,
+			"data": "1,1,1,4,1,1,4,1,1,4,1,16,13,1,1,4,9,1,4,1,1,31,1,15,4,1,49,4,1,1,4,16,1,4,1,1,34,9,1,40,1,16,4,1,64,4,54,1,58,1,1,46,1,1,4,1,39,22,30,56,4,91,1,4,1,64,94,1,1,4,114,16,25,1,1,103,109,1,4,156,1,16,1,40,85,1,134",
+			"name": "a(n) = 2^(2*n) mod (2*n+1).",
+			"comment": [
+				"It is known that a(n) equals 1 when 2*n+1 is prime as a result of Fermat's little theorem. If not then a(n) equals 1 when 2*n+1 is a pseudoprime to base 2."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A177023/b177023.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e (first 5000 terms from Muniru A Asiru)",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Fermat%27s_little_theorem\"\u003eFermat's little theorem\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 2^(2*n) mod (2*n+1) or a(n) = 4^n mod (2*n+1)"
+			],
+			"example": [
+				"a(3) = 2^(2 * 3) mod (2 * 3 + 1) = 64 mod 7 = 1.",
+				"a(4) = 2^(2 * 4) mod (2 * 4 + 1) = 256 mod 9 = 4.",
+				"a(5) = 2^(2 * 5) mod (2 * 5 + 1) = 1024 mod 11 = 1."
+			],
+			"maple": [
+				"seq(2\u0026^(2*n) mod (2*n + 1), n=1..10^2); # _Muniru A Asiru_, Jan 14 2018"
+			],
+			"mathematica": [
+				"Table[PowerMod[2, 2n, 2n + 1], {n, 90}] (* _Harvey P. Dale_, May 09 2012 *)"
+			],
+			"program": [
+				"(Literate Haskell) \u003e map (\\k -\u003e 2^(2*k) `mod` (2*k+1)) [1..100]",
+				"(GAP) A177023 := List([1..10^3], n -\u003e 2^(2*n) mod (2*n + 1)); # _Muniru A Asiru_, Jan 14 2018",
+				"(PARI) a(n) = lift(Mod(4, 2*n+1)^n); \\\\ _Michel Marcus_, Jan 15 2018"
+			],
+			"xref": [
+				"Cf. A000040, A001567."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,4",
+			"author": "Nikolay Ulyanov (ulyanick(AT)gmail.com), May 01 2010",
+			"references": 2,
+			"revision": 23,
+			"time": "2018-01-15T14:01:05-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 177062,
+			"data": "1,2,1,3,2,2,2,4,3,3,2,3,3,3,3,5,4,4,4,4,3,3,2,4,4,4,5,4,4,4,4,6,5,5,4,5,4,4,4,5,6,3,3,4,4,2,3,5,5,4,4,5,5,6,5,5,5,5,5,5,5,5,5,7,6,6,5,6,5,5,5,6,5,5,5,4,4,4,4",
+			"name": "Length of the longest common substring in binary representations of n and n^2.",
+			"link": [
+				"Robert Israel, \u003ca href=\"/A177062/b177062.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"f:= n -\u003e length(StringTools:-LongestCommonSubString(convert(convert(n,binary),string),convert(convert(n^2,binary),string))):",
+				"map(f, [$ 1..100]); # _Robert Israel_, Sep 13 2016"
+			],
+			"mathematica": [
+				"longestRun[pairs_] := Split[pairs, Equal @@ #1 \u0026\u0026 Equal @@ #2 \u0026] // Sort[#, Length[#1] \u003c Length[#2] \u0026] \u0026 // Last; a[n_] := (bits1 = IntegerDigits[n, 2]; bits2 = IntegerDigits[n^2, 2]; longestRun /@ ListConvolve[ Reverse[bits1], bits2, {1, -1}, -1, List, List] // Sort[#, Length[#1] \u003c Length[#2] \u0026] \u0026 // Last // Length); a /@ Range[79] (* _Jean-François Alcover_, Jun 05 2013 *)",
+				"Table[Length[LongestCommonSubsequence[IntegerDigits[n^2, 2], IntegerDigits[ n, 2]]], {n, 1, 100}] (* _Vladimir Reshetnikov_, Apr 26 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List",
+				"toBinary 0 = []",
+				"toBinary n = toBinary (n `div` 2) ++ [odd n]",
+				"lcstr xs ys = maximum . concat $ [f xs' ys | xs' \u003c- tails xs] ++ [f xs ys' | ys' \u003c- drop 1 $ tails ys] where f xs ys = scanl g 0 $ zip xs ys; g z (x, y) = if x == y then z + 1 else 0",
+				"a = [lcstr (toBinary $ n) (toBinary $ n^2) | n \u003c- [1..]]"
+			],
+			"xref": [
+				"Cf. A276692"
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,2",
+			"author": "_Vladimir Reshetnikov_, May 02 2010",
+			"references": 2,
+			"revision": 19,
+			"time": "2019-03-31T09:30:48-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 177853,
+			"data": "1,4,11,22,41,64,99,142,197,260,343,434,549,676,819,978,1169,1372,1611,1866,2145,2444,2787,3146,3545,3968,4427,4910,5449,6004,6619,7266,7953,8672,9439,10230,11093,11992,12939,13918,14977,16060,17227,18434,19689",
+			"name": "Partial sums of A018805.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A177853/b177853.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"s=0;lst={};Do[c={};Do[Do[AppendTo[c,b/a],{b,z}],{a,z}];AppendTo[lst,s+=Length[Union@c]],{z,66}];lst"
+			],
+			"program": [
+				"(Haskell)",
+				"a177853 n = a177853_list !! (n-1)",
+				"a177853_list = scanl1 (+) a018805_list",
+				"-- _Reinhard Zumkeller_, May 04 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Vladimir Joseph Stephan Orlovsky_, May 14 2010",
+			"references": 2,
+			"revision": 5,
+			"time": "2014-05-04T15:39:41-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 177869,
+			"data": "1,2,6,8,12,20,25,30,36,42,48,54,60,70,77,84,91,98,105,112,119,126,128,136,144,152,160,168,176,184,192,200,208,216,224,232,240,248,261,270,279,288,297,306,315,324,333,342,351,360,369,378,387,396,405",
+			"name": "Integers divisible by their number of digits in binary.",
+			"link": [
+				"Daniel Arribas, \u003ca href=\"/A177869/b177869.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"105 is 1101001 in base 2 (length of 7); 105 / 7 is 15."
+			],
+			"mathematica": [
+				"Select[Range[410], IntegerQ[#/Length[IntegerDigits[#, 2]]] \u0026] (* _Alonso del Arte_, Dec 13 2010 *)"
+			],
+			"program": [
+				"(Python) import math",
+				"for n in xrange(1, 1000):",
+				".if not n % int(math.log(n, 2) + 1): print n # Garcia",
+				"(Haskell)",
+				"base_weight b g n | n == 0 = 0 | otherwise = (base_weight b g (n `div` b)) + (g $ n `mod` b)",
+				"interesting b g = filter f [1..] where f n = n `mod` (base_weight b g n) == 0",
+				"bin_interesting g = interesting 2 g",
+				"weights l n | (n \u003e=0) \u0026\u0026 ((length l) \u003e fromInteger n) = l !! fromInteger n | otherwise = 0",
+				"cnst = weights [1, 1]",
+				"let sequence = bin_interesting cnst -- Victor S. Miller, Oct 17 2011",
+				"(PARI) for(d=1, 9, forstep(n=(2^(d-1)+d-1)\\d*d, 2^d-1, d, print1(n\", \"))) \\\\ _Charles R Greathouse IV_, Oct 17 2011"
+			],
+			"xref": [
+				"Base 10 equivalent is A098952."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Grant Garcia_, Dec 13 2010",
+			"references": 2,
+			"revision": 22,
+			"time": "2014-10-18T13:43:34-04:00",
+			"created": "2010-11-12T14:26:14-05:00"
+		},
+		{
+			"number": 178063,
+			"data": "1,2,4,7,11,17,23,34,44,62,78,98,122,148,168,213,253,291,325,387,433,487,537,621,671,773,851,955,1053,1143,1213,1402,1484,1614,1698,1818,1930,2060,2180,2412,2564,2798,2930,3060,3268,3550,3690,4152,4332,4542",
+			"name": "Partial sums of A007464.",
+			"comment": [
+				"Partial sums of shifts left under GCD-convolution with itself. The subsequence of primes in the partial sums begins: 2, 7, 11, 17, 23, 433, 487, 773, 1213, no more through a(52)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A178063/b178063.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{i=0..n} A007464(i)."
+			],
+			"example": [
+				"a(6) = 1 + 1 + 2 + 3 + 4 + 6 + 6 = 23 is prime."
+			],
+			"maple": [
+				"a007464:= proc(n) option remember;",
+				"  `if`(n=0, 1, add(igcd(procname(i), procname(n-1-i)), i=0..n-1))",
+				"end proc:",
+				"ListTools[PartialSums](map(a007464,[$0..100])); # _Robert Israel_, Mar 22 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a178063 n = a178063_list !! n",
+				"a178063_list = scanl1 (+) a007464_list",
+				"-- _Reinhard Zumkeller_, Jan 21 2014"
+			],
+			"xref": [
+				"Cf. A007464."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Jonathan Vos Post_, May 18 2010",
+			"ext": [
+				"a(45) fixed by _Reinhard Zumkeller_, Jan 21 2014"
+			],
+			"references": 2,
+			"revision": 11,
+			"time": "2015-03-24T06:08:08-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 178649,
+			"data": "1,1,1,4,1,1,1,32,9,1,1,48,1,1,1,512,1,162,1,80,1,1,1,9216,25,1,243,112,1,1,1,16384,1,1,1,279936,1,1,1,25600,1,1,1,176,405,1,1,7077888,49,1250,1,208",
+			"name": "a(n) = product of nonsquarefree divisors of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A178649/b178649.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A007955(n) / A078599(n) = A007955(n) / A007955(A007947(n)).",
+				"a(1) = 1, a(p) = 1, a(pq) = 1, a(pq...z) = 1, a(p^k) = p^(1/2*k*(k+1)-1), for p, q = primes, k = natural numbers, pq...z = product of k (k \u003e 2) distinct primes p, q, ..., z."
+			],
+			"example": [
+				"For n = 16, set of such divisors is {4, 8, 16}; a(16) = 4*8*16 = 512."
+			],
+			"program": [
+				"(Haskell)",
+				"a178649 n = div (a007955 n) (a078599 n)",
+				"-- _Reinhard Zumkeller_, Feb 06 2012"
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Jaroslav Krizek_, Dec 25 2010",
+			"references": 2,
+			"revision": 13,
+			"time": "2015-08-09T14:57:48-04:00",
+			"created": "2010-11-12T14:27:24-05:00"
+		},
+		{
+			"number": 178799,
+			"data": "1,2,2,2,4,4,8,6,2,4,12,12,4,8,24,24,8,16,36,12,18,6,24,16,32,72,24,36,12,48,32,64,144,48,72,24,36,60,64,56,72,108,36,144,96,144,48,72,120,128,112,144,6,210,72,288,192,288,96,144,240,256,224,288,12,420,144,216",
+			"name": "Difference between consecutive least integers of each prime signature.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A178799/b178799.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A025487(n+1) - A025487(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a178799 n = a178799_list !! (n-1)",
+				"a178799_list = zipWith (-) (tail a025487_list) a025487_list",
+				"-- _Reinhard Zumkeller_, Sep 17 2014"
+			],
+			"xref": [
+				"Cf. A025487"
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Will Nicholes_, Jun 15 2010",
+			"ext": [
+				"Minor edits by _Ray Chandler_, Jul 31 2010"
+			],
+			"references": 2,
+			"revision": 7,
+			"time": "2014-09-17T12:49:59-04:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 179910,
+			"data": "23,37,53,73,127,139,157,167,193,211,227,229,241,251,263,277,307,331,383,389,419,433,439,443,457,467,503,521,541,557,563,577,587,599,619,631,643,647,659,677,683,727,751,757,761,827,829,839,857,859,883,929",
+			"name": "Primes with two embedded primes.",
+			"comment": [
+				"It appears that p having n embedded primes means that the set of prime integers generated by contiguous proper substrings of p has size n.",
+				"A079066(a(n)) = 2."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A179910/b179910.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"f[n_] := Block[ {id = IntegerDigits@n}, len = Length@ id - 1; Count[ PrimeQ@ Union[ FromDigits@# \u0026 /@ Flatten[ Table[ Partition[ id, k, 1], {k, len}], 1]], True] + 1]; Select[ Prime@ Range@ 160, f@# == 3 \u0026]",
+				"Select[ Prime@ Range@ 160, Function[ n, Length@ Select[ Union[ FromDigits /@ (Flatten[ Table[ Partition[#, k, 1], {k, Length@ # - 1}], 1] \u0026)@ IntegerDigits@ n], PrimeQ]]@ # == 2 \u0026] (* _Michael Somos_, Jan 13 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a179910 n = a179910_list !! (n-1)",
+				"a179910_list = map (a000040 . (+ 1)) $ elemIndices 2 a079066_list",
+				"-- _Reinhard Zumkeller_, Jul 19 2011"
+			],
+			"xref": [
+				"Cf. A039996, A079397, A033274, A034844, A092621, A179909 - A179919, A033274."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Robert G. Wilson v_, Aug 01 2010",
+			"references": 2,
+			"revision": 19,
+			"time": "2014-04-23T01:32:07-04:00",
+			"created": "2010-08-27T03:00:00-04:00"
+		}
+	]
+}

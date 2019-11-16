@@ -1,0 +1,565 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3700,
+	"results": [
+		{
+			"number": 753,
+			"data": "1,2,5,16,59,243,1101,5461,29619,175641,1137741,8031838,61569345,510230087,4549650423,43452408496,442620720531,4790322653809,54893121512453,663974736739232,8453986695437957,113021461431438475",
+			"name": "Boustrophedon transform of Catalan numbers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000753/b000753.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon on transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{k=0..n} A109449(n,k)*A000108(k). - _Reinhard Zumkeller_, Nov 05 2013",
+				"E.g.f.: (sec(x) + tan(x))*exp(2*x)*(BesselI(0,2*x) - BesselI(1,2*x)). - _Sergei N. Gladkovskii_, Oct 30 2014",
+				"a(n) ~ n! * exp(Pi) * (BesselI(0, Pi) - BesselI(1, Pi)) * 2^(n+2) / Pi^(n+1). - _Vaclav Kotesovec_, Oct 30 2014"
+			],
+			"mathematica": [
+				"CoefficientList[Series[E^(2*x) * (BesselI[0,2*x] - BesselI[1,2*x]) * (Sec[x] + Tan[x]),{x,0,20}],x] * Range[0,20]! (* _Vaclav Kotesovec_, Oct 30 2014 after _Sergei N. Gladkovskii_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000753 n = sum $ zipWith (*) (a109449_row n) a000108_list",
+				"-- _Reinhard Zumkeller_, Nov 05 2013"
+			],
+			"xref": [
+				"Cf. A000736."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 7,
+			"revision": 26,
+			"time": "2017-10-02T02:13:29-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 904,
+			"id": "M2955 N1193",
+			"data": "0,3,13,83,592,4821,43979,444613,4934720,59661255,780531033,10987095719,165586966816,2660378564777,45392022568023,819716784789193,15620010933562688,313219935456042955,6593238655510464741",
+			"name": "a(n) = (n+1)*a(n-1) + (n+2)*a(n-2) + a(n-3); a(1)=0, a(2)=3, a(3)=13.",
+			"comment": [
+				"Numbers connected with the ménage problem (cf. A000179)."
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000904/b000904.txt\"\u003eTable of n, a(n) for n=1..100\u003c/a\u003e",
+				"E. Lucas, \u003ca href=\"http://gallica.bnf.fr/ark:/12148/bpt6k29021h\"\u003eThéorie des Nombres\u003c/a\u003e, Gauthier-Villars, Paris, 1891, Vol. 1, p. 495.",
+				"E. Lucas, \u003ca href=\"/A000904/a000904.pdf\"\u003eThéorie des Nombres\u003c/a\u003e, Gauthier-Villars, Paris, 1891, Vol. 1. [Annotated scan of pages 488-499 only]"
+			],
+			"formula": [
+				"G.f.: 1/(x+x^2)^2*Sum_{n\u003e=0} n!*(x/(1+x)^2)^n. - _Vladeta Jovovic_, Jun 29 2007",
+				"G.f.: (1/E(0)-1+x-x^2)/x^2 where E(k)= (1+x)^2 + k*x - (k+1)*x*(1+x)^2/E(k+1); (continued fraction, Euler's 1st kind, 1-step). - _Sergei N. Gladkovskii_, Sep 17 2012",
+				"From _Vladimir Shevelev_, Jun 29 - Jul 22 2015: (Start)",
+				"Using formulas in [Lucas], we have",
+				"(i) a(1)=0, a(2)=3, for n\u003e=3, a(n) = (n+2)*a(n-1) + a(n-2) + 2*(-1)^n",
+				"(Note that (i) yields a(3)=13 and, for n\u003e=4,",
+				"a(n-1) = (n+1)*a(n-2) + a(n-3) - 2*(-1)^n. Summing this with (i), we see that (i) defines A000904);",
+				"(ii) for n\u003e=1, a(n) = (A000179(n+3) + 2*(-1)^n)/(n+3);",
+				"(iii) for n\u003e=3, a(n) = a(n-2) + A000179(n+2);",
+				"(iii)*  if n is even, then a(n) = Sum_{i=0..(n+2)/2)}A000179(2*i);",
+				"(iii)** if n is odd, then a(n) = Sum_{i=2..(n+1)/2} A000179(2*i+1).",
+				"Also",
+				"(iv)  a(n+1) = A000271(n+3) - a(n);",
+				"(iv)*  a(n) = Sum_{i=0..n+2}(-1)^i*A000271(n-i+2);",
+				"(v) a(n-2) = Sum_{i=0..n}(-1)^i*binomial(2*n-i+1, i)*(n-i)!, n\u003e=3.",
+				"Note that Lucas considered this sequence with other initials. His formulas (i) - (iii), which he proved on pp. 491-495 of his book [Lucas], we wrote for the current initials.",
+				"The other 5 formulas, including the explicit formula 5), are new and we give their proofs:",
+				"(iii)*,(iii)**. Formulas (iii)* and (iii)** are obtained by the direct summation of (iii) over even and odd values respectively, taking into account the initials.",
+				"(iv). To obtain (iv), write (iii) in the form",
+				"a(j+1) - a(j) = -(a(j) - a(j-1)) +  A000179(j+3), j\u003e=2.",
+				"Summing Sum_{j=2..n}, we have",
+				"a(n+1) - a(2) = -a(n) + a(1) + Sum_{j=2..n}A000179(j+3). Since a(1)=0, a(2)=3, we find",
+				"a(n+1)-3 = -a(n) + Sum_{i=5..n+3}A000179(i). But A000179(3)=1, A000179(4)=2. Therefore, we have",
+				"a(n+1) = -a(n) + Sum_{i=3..n+3}A000179(i).",
+				"It is left to note that, by the definition,",
+				"A000271(n) = Sum{i=3..n}A000179(i). So",
+				"a(n+1) = A000271(n+3) - a(n).",
+				"(iv)*. In view of the first four initials 1,0,0,1 of A000271, we have",
+				"Sum_{i=0..n+2}(-1)^i*A000271(n-i+2) = Sum_{i=0..n-2}(-1)^i*A000271(n-i+2) and, by (iv), the last sum equals",
+				"Sum_{i=0..n-2}(-1)^i(a(n-i)+a(n-i-1)) = a(n) + (-1)^(n-2)*a(1) = a(n).",
+				"(v). We use induction for n\u003e=3. In case n=3 (v) gives 6-6*2+10-4=0 = a(1). Set n:=n+2.",
+				"Suppose for some (now n\u003e=1) we have",
+				"a(n) = Sum_{i=0..n+2}(-1)^i*binomial(2*n-i+5, i}*(n+2-i)! (*)",
+				"Further we use (iv). In A259212 we proved an explicit formula for A000271(n-1) such that we have",
+				"A000271(n+3) = Sum_{j=0..n+3}(-1)^j * binomial(2*n-j+6,j)*(n-j+3)!, n\u003e3.",
+				"Now, by (iv) and (*) with changing summing j=i+1, we have",
+				"a(n+1) = Sum_{j=0..n+3}(-1)^j * binomial(2*n-j+6,j)*(n-j+3)! + Sum_{j=1..n+3}(-1)^j* binomial(2*n-j+6, j-1}*(n+3-j)!",
+				"Since binomial(n,-1)=0, then in the second sum the summing could begin with j=0.",
+				"So, we have",
+				"a(n+1) = Sum_{j=0..n+3}}(-1)^j* binomial(2*n-j+7, j}*(n+3-j)! = Sum_{j=0..n+3}(-1)^j* binomial(2*(n+1)-j+5,j)*((n+1)+2-j)!",
+				"Thus this expression formally is obtained from (*) by replacing n with n+1.",
+				"QED (End)",
+				"a(n) ~ n! * n^2 / exp(2). - _Vaclav Kotesovec_, Jul 04 2015"
+			],
+			"example": [
+				"G.f. = 3 x^2 + 13 x^3 + 83 x^4 + 592 x^5 + 4821 x^6 + 43979 x^7 + 444613 x^8 + ..."
+			],
+			"maple": [
+				"P:=proc(q) local a,n,x; x:=[0,3,13]; for n from 4 to q do",
+				"x:=[op(x),(n+1)*x[nops(x)]+(n+2)*x[nops(x)-1]+x[nops(x)-2]];",
+				"od; op(x); end: P(20); # _Paolo P. Lava_, Nov 05 2018"
+			],
+			"mathematica": [
+				"max = 19; f[x_] = 1/(x+x^2)^2 * Sum[ n!*(x/(1+x)^2)^n, {n, 0, max+2}]; Series[ f[x]+1/x-1/x^2, {x, 0, max}] // CoefficientList[#, x]\u0026 // Rest (* _Jean-François Alcover_, May 16 2013, after _Vladeta Jovovic_ *)",
+				"RecurrenceTable[{a[1]==0,a[2]==3,a[3]==13,a[n]==(n+1)a[n-1]+(n+2)a[n-2]+a[n-3]},a,{n,20}] (* _Harvey P. Dale_, Aug 03 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000904_list = 0 : 3 : 13 : zipWith (+) a000904_list",
+				"   (zipWith (+) (zipWith (*) [6..] $ drop 1 a000904_list)",
+				"                (zipWith (*) [5..] $ drop 2 a000904_list))",
+				"-- _Reinhard Zumkeller_, Nov 22 2011"
+			],
+			"xref": [
+				"Cf. A000179, A000271."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Nov 27 2001"
+			],
+			"references": 7,
+			"revision": 95,
+			"time": "2018-11-05T05:17:23-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 2048,
+			"id": "M0972 N0363",
+			"data": "1,2,4,5,8,10,14,15,16,21,22,25,26,28,33,34,35,36,38,40,42,46,48,49,50,53,57,60,62,64,65,70,77,80,81,83,85,86,90,91,92,100,104,107,108,116,119,124,127,132,133,137,141,144,145,148,150,151,154,158,159,163,165",
+			"name": "Segmented numbers, or prime numbers of measurement.",
+			"comment": [
+				"The segmented numbers are the positive integers excluding those equal to the sum of two or more consecutive smaller terms. The prime numbers of measurement are their partial sums, cf. A002049. - _M. F. Hasler_, Jun 26 2019"
+			],
+			"reference": [
+				"R. K. Guy, Unsolved Problems in Number Theory, E30.",
+				"Š. Porubský, On MacMahon's segmented numbers and related sequences. Nieuw Arch. Wisk. (3) 25 (1977), no. 3, 403--408. MR0485763 (58 #5575)",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"R. J. Mathar, \u003ca href=\"/A002048/b002048.txt\"\u003eTable of n, a(n) for n = 1..7836\u003c/a\u003e",
+				"G. E. Andrews, \u003ca href=\"http://www.jstor.org/stable/2318498\"\u003eMacMahon's prime numbers of measurement\u003c/a\u003e, Amer. Math. Monthly, 82 (1975), 922-923.",
+				"R. L. Graham and C. B. A. Peck, \u003ca href=\"http://www.jstor.org/stable/2315138\"\u003eProblem E1910\u003c/a\u003e, Amer. Math. Monthly, 75 (1968), 80-81.",
+				"R. K. Guy, \u003ca href=\"/A002048/a002048.pdf\"\u003eLetter to G. E. Andrews, Apr 14 1975\u003c/a\u003e",
+				"P. A. MacMahon, \u003ca href=\"https://www.biodiversitylibrary.org/item/88477#page/679/mode/1up\"\u003eThe prime numbers of measurement on a scale\u003c/a\u003e, Proc. Camb. Phil. Soc. 21 (1923), 651-654; reprinted in Coll. Papers I, pp. 797-800.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimeNumberofMeasurement.html\"\u003ePrime Number of Measurement.\u003c/a\u003e"
+			],
+			"formula": [
+				"Andrews conjectures that lim_{n -\u003e oo} n log n / (a(n) loglog n) = 1. - _N. J. A. Sloane_, Dec 01 2013"
+			],
+			"maple": [
+				"A002048 := proc(anmax::integer,printlist::boolean)",
+				"local a, asum,su,i,piv,j;",
+				"a := [];",
+				"for i from 1 to anmax do",
+				"a := [op(a),i];",
+				"od:",
+				"if printlist then",
+				"printf(\"%d %d\\n\",1,a[1]);",
+				"printf(\"%d %d\\n\",2,a[2]);",
+				"fi;",
+				"asum := [a[1]+a[2],a[2]];",
+				"for i from 3 to anmax do",
+				"asum := [op(asum),0];",
+				"od:",
+				"piv := 3;",
+				"while piv \u003c= nops(a) do",
+				"for i from 1 to piv-2 do",
+				"a := remove(has,a, asum[i]);",
+				"od:",
+				"if printlist then",
+				"printf(\"%a %a\\n\",piv,a[piv]);",
+				"fi;",
+				"for i from 1 to piv do",
+				"asum := subsop(i=asum[i]+a[piv], asum);",
+				"od:",
+				"piv := piv+1;",
+				"od;",
+				"RETURN(a);",
+				"end:",
+				"A002048(40000,true);",
+				"# _R. J. Mathar_, Jun 04 2006"
+			],
+			"mathematica": [
+				"A002048[anmax_] := (a = {}; Do[ AppendTo[a, i], {i, 1, anmax}]; asum = {a[[1]] + a[[2]], a[[2]]}; Do[AppendTo[asum, 0], {i, 3, anmax}]; piv = 3; While[ piv \u003c= Length[a], Do[a = DeleteCases[a, asum[[i]]], {i, 1, piv-2}]; Do[ asum[[i]] += a[[piv]] , {i, 1, piv}]; piv = piv+1;]; a); A002048[63] (* _Jean-François Alcover_, Jul 28 2011, converted from _R. J. Mathar_'s Maple prog. *)"
+			],
+			"program": [
+				"(C++)",
+				"#include \u003ciostream\u003e",
+				"#include \u003cvector\u003e",
+				"#include \u003calgorithm\u003e",
+				"#define NMAX 400",
+				"using namespace std;",
+				"int main(int argc, char *argv[])",
+				"{ vector\u003cint\u003e a; for(int i=0; i\u003c NMAX; i++) a.push_back(i+1); for(int piv=2; piv \u003c a.size(); piv++) for(int i=0; i \u003c piv-1 \u0026\u0026 i \u003c a.size()-1; i++) { int su= a[i]+a[i+1]; remove(a.begin(),a.end(),su); for(int j=i+2; j \u003c piv \u0026\u0026 j \u003c a.size(); j++) { su += a[j]; remove(a.begin(),a.end(),su); if(su \u003e NMAX) break; } } for(int i=0; i \u003c a.size() \u0026\u0026 a[i] \u003c NMAX; i++) cout \u003c\u003c a[i] \u003c\u003c \",\"; return 0;",
+				"} /* _R. J. Mathar_, May 31 2006 */",
+				"(Haskell)",
+				"import Data.List ((\\\\))",
+				"a002048 n = a002048_list !! (n-1)",
+				"a002048_list = f [1..] [] where",
+				"   f (x:xs) ys = x : f (xs \\\\ scanl (+) x ys) (x : ys)",
+				"-- _Reinhard Zumkeller_, May 23 2013"
+			],
+			"xref": [
+				"Cf. A002049 (partial sums), A004978, A005242, A033627."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _R. J. Mathar_, May 31 2006"
+			],
+			"references": 7,
+			"revision": 51,
+			"time": "2019-07-04T04:30:38-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 2124,
+			"id": "M0154 N0062",
+			"data": "1,0,0,1,0,1,1,1,2,1,3,4,3,7,7,8,14,15,21,28,33,47,58,76,103,125,169,220,277,373,476,616,810,1037,1361,1763,2279,2984,3846,5006,6521,8428,10983,14249,18480,24048,31178,40520,52635,68281,88765,115211,149593,194381,252280,327696,425587,552527,717721",
+			"name": "Number of compositions of n into a sum of odd primes.",
+			"comment": [
+				"Arises in studying the Goldbach conjecture.",
+				"The g.f. -(z-1)*(z+1)*(z**2+z+1)*(z**2-z+1)/(1-z**6-z**3-z**5-z**7+z**9) conjectured by _Simon Plouffe_ in his 1992 dissertation is wrong."
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A002124/b002124.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"P. Flajolet and R. Sedgewick, \u003ca href=\"http://algo.inria.fr/flajolet/Publications/books.html\"\u003eAnalytic Combinatorics\u003c/a\u003e, 2009; see page 300",
+				"P. A. MacMahon, \u003ca href=\"https://doi.org/10.1112/plms/s2-23.1.290\"\u003eProperties of prime numbers deduced from the calculus of symmetric functions\u003c/a\u003e, Proc. London Math. Soc., 23 (1923), 290-316. [Coll. Papers, II, pp. 354-382] [The sequence i_n]",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"\u003ca href=\"/index/Go#Goldbach\"\u003eIndex entries for sequences related to Goldbach conjecture\u003c/a\u003e"
+			],
+			"formula": [
+				"a(0)=1, a(1)=a(2)=0; for n \u003e= 3, a(n) = Sum_{ primes p with 3 \u003c= p \u003c= n} a(n-p). [MacMahon]",
+				"G.f.: 1/( 1 - Sum_{k\u003e=2}  x^A000040(k) ). [_Joerg Arndt_, Sep 30 2012]"
+			],
+			"maple": [
+				"A002124 := proc(n) coeff(series(1/(1-add(z^numtheory[ithprime](j),j=2..n)),z=0,n+1),z,n) end;",
+				"M:=120; a:=array(0..M); a[0]:=1; a[1]:=0; a[2]:=0; for n from 3 to M do t1:=0; for k from 2 to n do p := ithprime(k); if p \u003c= n then t1 := t1 + a[n-p]; fi; od: a[n]:=t1; od: [seq(a[n],n=0..M)]; # _N. J. A. Sloane_, after MacMahon, Dec 03 2006; used in A002125"
+			],
+			"mathematica": [
+				"a[0] = 1; a[1] = a[2] = 0; a[n_] := a[n] = (s = 0; p = 3; While[p \u003c= n, s = s + a[n-p]; p = NextPrime[p]]; s); a /@ Range[0, 58] (* _Jean-François Alcover_, Jun 28 2011, after P. A. MacMahon *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a002124 n = genericIndex a002124_list n",
+				"a002124_list = 1 : f 1 [] a065091_list where",
+				"   f x qs ps'@(p:ps)",
+				"     | p \u003c= x    = f x (p:qs) ps",
+				"     | otherwise = sum (map (a002124 . (x -)) qs) : f (x + 1) qs ps'",
+				"-- _Reinhard Zumkeller_, Mar 21 2014"
+			],
+			"xref": [
+				"Cf. A002125, A023360, A024939, A077608.",
+				"Cf. A065091."
+			],
+			"keyword": "nonn",
+			"offset": "0,9",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Better description and more terms from _Philippe Flajolet_, Nov 11 2002",
+				"Edited by _N. J. A. Sloane_, Dec 03 2006"
+			],
+			"references": 7,
+			"revision": 43,
+			"time": "2017-10-03T01:31:57-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 2311,
+			"id": "M3498 N1419",
+			"data": "4,15,55,58,74,109,110,119,140,175,245,294,418,435,452,474,492,528,535,550,562,588,644,688,702,714,740,747,753,818,868,908,918,1098,1158,1220,1241,1428,1434,1444,1450,1645,1708,1738,1786,1868,2170,2183,2220,2256",
+			"name": "n-th tetrahedral number is the sum of 2 tetrahedral numbers.",
+			"comment": [
+				"Indices of A034404. [_Harvey P. Dale_, Jul 25 2011]"
+			],
+			"reference": [
+				"Aviezri S. Fraenkel, Diophantine equations involving generalized triangular and tetrahedral numbers, pp. 99-114 of A. O. L. Atkin and B. J. Birch, editors, Computers in Number Theory. Academic Press, NY, 1971.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A002311/b002311.txt\"\u003eTable of n, a(n) for n=1..463\u003c/a\u003e",
+				"H. Finner and K. Strassburger, \u003ca href=\"http://dx.doi.org/10.1007/s001840100117\"\u003eIncreasing sample sizes do not necessarily increase the power of UMPU-tests for 2 X 2-tables\u003c/a\u003e, Metrika, 54, 77-91, (2001).",
+				"M. Wunderlich, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-1962-0148608-X\"\u003eCertain properties of pyramidal and figurate numbers\u003c/a\u003e, Math. Comp., 16 (1962), 482-486."
+			],
+			"formula": [
+				"a(n) = A010330(n) - 2. - _Reinhard Zumkeller_, May 02 2014"
+			],
+			"mathematica": [
+				"With[{tetras=Binomial[Range[1100]+2,3]},Flatten[Position[tetras,#]\u0026/@ Union[Select[Total/@Tuples[tetras,2],MemberQ[tetras,#]\u0026]]]](* _Harvey P. Dale_, Jul 26 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersect)",
+				"a002311 n = a002311_list !! (n-1)",
+				"a002311_list = filter f [1..] where",
+				"   f x = not $ null $ intersect txs $ map (tx -) $ txs where",
+				"       txs = takeWhile (\u003c tx) a000292_list; tx = a000292 x",
+				"-- _Reinhard Zumkeller_, May 02 2014"
+			],
+			"xref": [
+				"Cf. A000292, A034404."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 7,
+			"revision": 36,
+			"time": "2016-08-03T12:21:13-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 2472,
+			"id": "M0411 N0157",
+			"data": "1,1,1,2,3,1,5,4,3,3,9,2,11,5,3,8,15,3,17,6,5,9,21,4,15,11,9,10,27,3,29,16,9,15,15,6,35,17,11,12,39,5,41,18,9,21,45,8,35,15,15,22,51,9,27,20,17,27,57,6,59,29,15,32,33,9,65,30,21,15,69,12,71,35,15,34,45,11,77,24,27",
+			"name": "Number of pairs x,y such that y-x=2, (x,n)=1, (y,n)=1 and 1 \u003c= x \u003c= n.",
+			"comment": [
+				"This is the function phi(n, 2) defined in Alder. - _Michel Marcus_, Nov 14 2017"
+			],
+			"reference": [
+				"V. A. Golubev, Nombres de Mersenne et caractères du nombre 2. Mathesis 67 1958 257-262.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A002472/b002472.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Henry L. Alder, \u003ca href=\"http://www.jstor.org/stable/2308710\"\u003eA Generalization of the Euler phi-Function\u003c/a\u003e, The American Mathematical Monthly, Vol. 65, No. 9 (Nov., 1958), pp. 690-692.",
+				"Alexei Kourbatov and Marek Wolf, \u003ca href=\"http://arxiv.org/abs/1901.03785\"\u003ePredicting maximal gaps in sets of primes\u003c/a\u003e, arXiv preprint arXiv:1901.03785 [math.NT], 2019."
+			],
+			"formula": [
+				"Multiplicative with a(p^e) = p^(e-1) if p = 2; (p-2)*p^(e-1) if p \u003e 2. - _David W. Wilson_, Aug 01 2001"
+			],
+			"mathematica": [
+				"a[n_] := If[ Head[ r=Reduce[ GCD[x, n] == 1 \u0026\u0026 GCD[x+2, n] == 1 \u0026\u0026 1 \u003c= x \u003c= n, x, Integers]] === Or, Length[r], 1]; Table[a[n], {n, 1, 81}] (* _Jean-François Alcover_, Nov 22 2011 *)",
+				"(* Second program (5 times faster): *)",
+				"a[n_] := Sum[Boole[GCD[n, x] == 1 \u0026\u0026 GCD[n, x+2] == 1], {x, 1, n}];",
+				"Array[a, 81] (* _Jean-François Alcover_, Jun 19 2018, after _Michel Marcus_ *)"
+			],
+			"program": [
+				"(PARI) a(n)=my(k=valuation(n,2),f=factor(n\u003e\u003ek));prod(i=1,#f[,1],(f[i,1]-2)*f[i,1]^(f[i,2]-1))\u003c\u003cmax(0,k-1) \\\\ _Charles R Greathouse IV_, Nov 22 2011",
+				"(PARI) a(n) = sum(x=1, n, (gcd(n,x) == 1) \u0026\u0026 (gcd(n, x+2) == 1)); \\\\ _Michel Marcus_, Nov 14 2017",
+				"(Haskell)",
+				"a002472 n = length [x | x \u003c- [1..n], gcd n x == 1, gcd n (x + 2) == 1]",
+				"-- _Reinhard Zumkeller_, Mar 23 2012"
+			],
+			"xref": [
+				"Cf. A000010 (phi(n,0)), A058026 (phi(n,1)); similar generalizations of Euler's totient for prime k-tuples: this sequence (k=2), A319534 (k=3), A319516 (k=4), A321029 (k=5), A321030 (k=6)."
+			],
+			"keyword": "nonn,nice,easy,mult",
+			"offset": "1,4",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _David W. Wilson_"
+			],
+			"references": 7,
+			"revision": 44,
+			"time": "2019-01-15T01:50:10-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 2503,
+			"id": "M3840 N1573",
+			"data": "5,14,27,41,44,65,76,90,109,125,139,152,155,169,186,189,203,208,209,219,227,230,237,265,275,298,307,311,314,321,324,329,344,377,413,419,428,434,439,441,449,458,459,467,475",
+			"name": "Numbers n such that binomial(2n,n) is divisible by (n+1)^2.",
+			"reference": [
+				"H. Balakran, On the values of n which make (2n)!/(n+1)!(n+1)! an integer, J. Indian Math. Soc., Vol. 18, 1929, 97-100.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A002503/b002503.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"P. Erdős, R. L. Graham, I. Z. Russa and E. G. Straus, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-1975-0369288-3\"\u003eOn the prime factors of C(2n,n)\u003c/a\u003e, Math. Comp. 29 (1975), 83-92.",
+				"C. Pomerance, \u003ca href=\"https://math.dartmouth.edu/~carlp/catalan5.pdf\"\u003eDivisors of the middle binomial coefficient\u003c/a\u003e, Amer. Math. Monthly, 112 (2015), 636-644."
+			],
+			"formula": [
+				"A065350(a(n)) = 0. - _Reinhard Zumkeller_, Sep 16 2014"
+			],
+			"mathematica": [
+				"Select[Range[500],Divisible[Binomial[2#,#],(#+1)^2]\u0026] (* _Harvey P. Dale_, May 21 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a002503 n = a002503_list !! (n-1)",
+				"a002503_list = map (+ 1) $ elemIndices 0 a065350_list",
+				"-- _Reinhard Zumkeller_, Sep 16 2014",
+				"(PARI) isok(n) = binomial(2*n, n) % (n+1)^2 == 0; \\\\ _Michel Marcus_, Jan 11 2016"
+			],
+			"xref": [
+				"Positions of zeros in A065350.",
+				"Cf. A000108, A065344-A065349.",
+				"Equals A067348(n+2)/2 - 1."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, _Mira Bernstein_",
+			"ext": [
+				"Balakran reference corrected by _T. D. Noe_, Jan 16 2007"
+			],
+			"references": 7,
+			"revision": 34,
+			"time": "2016-01-11T03:52:35-05:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 3156,
+			"id": "M3239",
+			"data": "1,4,5,6,9,12,15,16,17,20,21,22,25,26,27,30,33,36,37,38,41,44,47,48,49,52,55,58,59,60,63,64,65,68,69,70,73,76,79,80,81,84,85,86,89,90,91,94,97,100,101,102,105,106,107,110,111,112,115,118,121,122,123,126,129,132",
+			"name": "A self-generating sequence.",
+			"comment": [
+				"a(n) is the number of ones before the n-th zero in the Feigenbaum sequence A035263. - _Philippe Deléham_, Mar 27 2004",
+				"Number of odd numbers before the n-th even number in A007413, A007913, A001511, A029883, A033485, A035263, A036585, A065882, A065883, A088172, A092412. - _Philippe Deléham_, Apr 03 2004",
+				"Indices of a in the sequence closed under a -\u003e abc, b -\u003e a, c -\u003e a, starting with a(1) = a; see A092606 where a = 0, b = 2, c = 1. - _Philippe Deléham_, Apr 12 2004"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A003156/b003156.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"L. Carlitz, R. Scoville, and V. E. Hoggatt, Jr., \u003ca href=\"http://www.fq.math.ca/Scanned/10-5/carlitz3-a.pdf\"\u003eRepresentations for a special sequence\u003c/a\u003e, Fibonacci Quarterly 10.5 (1972), 499-518, 550."
+			],
+			"formula": [
+				"a(n) = A079523(n) - n + 1 = A003157(n) - 2n = A003158(n) - 2n + 1. - _Philippe Deléham_, Feb 28 2004",
+				"a(n) = A036554(n) - n = A072939(n) - n - 1 = 2*A003159(n) - n = A056196(n)/4 - n. - _Philippe Deléham_, Apr 10 2004",
+				"a(n) = sum_{k = 1..n} A080426(k). - _Philippe Deléham_, Apr 16 2004"
+			],
+			"maple": [
+				"a:= proc(n) global l; while nops(l)\u003cn do l:= map (d-\u003e [1, 3$d, 1][], l) od; `if` (n=1, 1, a(n-1) +l[n]) end: l:= [1]: seq (a(n), n=1..80); # _Alois P. Heinz_, Oct 31 2009"
+			],
+			"mathematica": [
+				"Position[Nest[Flatten[# /. {0 -\u003e {0, 2, 1}, 1 -\u003e {0}, 2 -\u003e {0}}]\u0026, {0}, 7], 0] // Flatten (* _Jean-François Alcover_, Mar 14 2014 *)"
+			],
+			"program": [
+				"(Haskell)  following Deléham",
+				"a003156 n = a003156_list !! (n-1)",
+				"a003156_list = scanl1 (+) a080426_list",
+				"-- _Reinhard Zumkeller_, Oct 27 2014"
+			],
+			"xref": [
+				"Cf. A001511, A003157, A003158, A003159, A007413, A007913, A029883, A033485, A035263, A036554, A036585, A056196, A065882, A065883, A072939, A079523, A072939, A080426, A088172, A092412, A092606."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Alois P. Heinz_, Oct 31 2009"
+			],
+			"references": 7,
+			"revision": 30,
+			"time": "2017-09-07T12:15:00-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 3666,
+			"id": "M3237",
+			"data": "1,4,5,6,7,8,10,16,18,19,21,31,32,33,42,46,56,57,66,70,79,82,91,96,104,105,107,116,129,130,131,141,158,165,168,179,180,182,191,204,205,206,216,217,218,219,229,230,244,256,266,267,268,281,290,315,316,317,318,328",
+			"name": "a(n) is smallest number which is uniquely a(j)+a(k), j\u003ck.",
+			"comment": [
+				"An Ulam-type sequence - see A002858 for many further references, comments, etc. - T. D. Noe, Jan 21 2008"
+			],
+			"reference": [
+				"R. K. Guy, ``s-Additive sequences,'' preprint, 1994.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A003666/b003666.txt\"\u003eTable of n, a(n) for n=1..10000\u003c/a\u003e",
+				"S. R. Finch, \u003ca href=\"http://www.emis.de/journals/EM/\"\u003ePatterns in 1-additive sequences\u003c/a\u003e, Experimental Mathematics 1 (1992), 57-63.",
+				"R. K. Guy, \u003ca href=\"/A007300/a007300.pdf\"\u003es-Additive sequences\u003c/a\u003e, Preprint, 1994. (Annotated scanned copy)",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UlamSequence.html\"\u003eUlam Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ulam_number\"\u003eUlam number\u003c/a\u003e",
+				"\u003ca href=\"/index/U#Ulam_num\"\u003eIndex entries for Ulam numbers\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Nest[Append[#, SelectFirst[Union@ Select[Tally@ Map[Total, Select[Permutations[#, {2}], #1 \u003c #2 \u0026 @@ # \u0026]], Last@ # == 1 \u0026][[All, 1]], Function[k, FreeQ[#, k]]]] \u0026, {1, 4}, 58] (* _Michael De Vlieger_, Nov 16 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a003666 n = a003666_list !! (n-1)",
+				"a003666_list = 1 : 4 : ulam 2 4 a003666_list",
+				"-- Function ulam as defined in A002858.",
+				"-- _Reinhard Zumkeller_, Nov 03 2011"
+			],
+			"xref": [
+				"Cf. A003662, A199120, A199121."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, _Mira Bernstein_",
+			"references": 7,
+			"revision": 21,
+			"time": "2017-11-17T00:54:32-05:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 4731,
+			"data": "1,1,1,2,3,8,15,16,35,128,315,256,693,1024,3003,2048,6435,32768,109395,65536,230945,262144,969969,524288,2028117,4194304,16900975,8388608,35102025,33554432,145422675,67108864",
+			"name": "Denominator of n!!/(n+1)!! (cf. A006882).",
+			"comment": [
+				"Also numerator of rational part of Haar measure on Grassmannian space G(n,1).",
+				"Also rational part of numerator of GAMMA(n/2+1)/GAMMA(n/2+1/2) (cf. A036039).",
+				"Let x(m) = x(m-2) + 1/x(m-1) for m \u003e= 3, with x(1)=x(2)=1. Then the numerator of",
+				" x(n+2) equals the denominator of n!!/(n+1)!! for n \u003e= 0, where the double factorials are given by A006882. - Joseph E. Cooper III (easonrevant(AT)gmail.com), Nov 07 2010, as corrected in Cooper (2015)."
+			],
+			"reference": [
+				"S. Janson, On the traveling fly problem, Graph Theory Notes of New York, Vol. XXXI, 17, 1996.",
+				"D. A. Klain and G.-C. Rota, Introduction to Geometric Probability, Cambridge, p. 67."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A004731/b004731.txt\"\u003eTable of n, a(n) for n=0..302\u003c/a\u003e",
+				"Joseph E. Cooper III, \u003ca href=\"http://arxiv.org/abs/1510.00399\"\u003eA recurrence for an expression involving double factorials\u003c/a\u003e, arXiv:1510.00399 [math.CO], 2015.",
+				"S. Janson, \u003ca href=\"http://www.osti.gov/eprints/topicpages/documents/record/029/3859183.html\"\u003eOn the traveling fly problem\u003c/a\u003e"
+			],
+			"example": [
+				"1, 1, (1/2)*Pi, 2, (3/4)*Pi, 8/3, (15/16)*Pi, 16/5, (35/32)*Pi, 128/35, (315/256)*Pi, ...",
+				"The sequence GAMMA(n/2+1)/GAMMA(n/2+1/2), n \u003e= 0, begins 1/Pi^(1/2), 1/2*Pi^(1/2), 2/Pi^(1/2), 3/4*Pi^(1/2), 8/3/Pi^(1/2), 15/16*Pi^(1/2), 16/5/Pi^(1/2), ..."
+			],
+			"maple": [
+				"if n mod 2 = 0 then k := n/2; 2*k*Pi*binomial(2*k-1,k)/4^k else k := (n-1)/2; 4^k/binomial(2*k,k); fi;",
+				"f:=n-\u003esimplify(GAMMA(n/2+1)/GAMMA(n/2+1/2));"
+			],
+			"mathematica": [
+				"Table[ Denominator[ (n-2)!! / (n-1)!! ], {n, 0, 31}] (* _Jean-François Alcover_, Jul 16 2012 *)",
+				"Denominator[#[[1]]/#[[2]]\u0026/@Partition[Range[-2,40]!!,2,1]] (* _Harvey P. Dale_, Nov 27 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator)",
+				"a004731 0 = 1",
+				"a004731 n = a004731_list !! n",
+				"a004731_list = map numerator ggs where",
+				"   ggs = 0 : 1 : zipWith (+) ggs (map (1 /) $ tail ggs) :: [Rational]",
+				"-- _Reinhard Zumkeller_, Dec 08 2011"
+			],
+			"xref": [
+				"Cf. A001803, A004730, A006882 (double factorials), A036069.",
+				"Cf. A036039, A046161, A001790, A001803, A101926."
+			],
+			"keyword": "nonn,easy,nice,frac",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_.",
+			"references": 7,
+			"revision": 32,
+			"time": "2016-05-27T23:51:11-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,467 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1200,
+	"results": [
+		{
+			"number": 235227,
+			"data": "79,88,97,169,178,187,196,259,268,277,286,295,349,358,367,376,385,394,439,448,457,466,475,484,493,529,538,547,556,565,574,583,592,619,628,637,646,655,664,673,682,691,709,718,727,736,745,754,763,772,781,790",
+			"name": "Numbers whose sum of digits is 16.",
+			"comment": [
+				"A007953(a(n)) = 16; number of repdigits = #{88,4444,22222222,1^16} = A242627(16) = 4. - _Reinhard Zumkeller_, Jul 17 2014"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A235227/b235227.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[1000], Total[IntegerDigits[#]]==16 \u0026]"
+			],
+			"program": [
+				"(MAGMA) [n: n in [1..1000] | \u0026+Intseq(n) eq 16];",
+				"(Haskell)",
+				"a235227 n = a235227_list !! (n-1)",
+				"a235227_list = filter ((== 16) . a007953) [0..]",
+				"-- _Reinhard Zumkeller_, Jul 17 2014"
+			],
+			"xref": [
+				"Cf. A052217 - A052224, A143164, A166311, A166370, A166459.",
+				"Cf. A011557 (1), A052216 (2), A052217 (3), A052218 (4), A052219 (5), A052220 (6), A052221 (7), A052222 (8), A052223 (9), A052224 (10), A166311 (11), A235151 (12), A143164 (13), A235225(14), A235226 (15), A166370 (17), A235228 (18), A166459 (19), A235229 (20).",
+				"Cf. A242614, A242627."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Vincenzo Librandi_, Jan 05 2014",
+			"references": 31,
+			"revision": 8,
+			"time": "2014-07-17T02:59:37-04:00",
+			"created": "2014-01-05T10:13:23-05:00"
+		},
+		{
+			"number": 235229,
+			"data": "299,389,398,479,488,497,569,578,587,596,659,668,677,686,695,749,758,767,776,785,794,839,848,857,866,875,884,893,929,938,947,956,965,974,983,992,1199,1289,1298,1379,1388,1397,1469,1478,1487,1496,1559,1568,1577,1586",
+			"name": "Numbers whose sum of digits is 20.",
+			"comment": [
+				"A007953(a(n)) = 20; number of repdigits = #{5555,44444,2222222222,1^20} = A242627(20) = 4. - _Reinhard Zumkeller_, Jul 17 2014"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A235229/b235229.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[2000], Total[IntegerDigits[#]]==20\u0026]"
+			],
+			"program": [
+				"(MAGMA) [n: n in [1..2000] | \u0026+Intseq(n) eq 20];",
+				"(Haskell)",
+				"a235229 n = a235229_list !! (n-1)",
+				"a235229_list = filter ((== 20) . a007953) [0..]",
+				"-- _Reinhard Zumkeller_, Jul 17 2014"
+			],
+			"xref": [
+				"Cf. A052217 - A052224, A143164, A166311, A166370, A166459.",
+				"Cf. A011557 (1), A052216 (2), A052217 (3), A052218 (4), A052219 (5), A052220 (6), A052221 (7), A052222 (8), A052223 (9), A052224 (10), A166311 (11), A235151 (12), A143164 (13), A235225(14), A235226 (15), A235227 (16), A166370 (17), A235228 (18), A166459 (19).",
+				"Cf. A242614, A242627."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Vincenzo Librandi_, Jan 05 2014",
+			"references": 31,
+			"revision": 8,
+			"time": "2014-07-17T03:02:40-04:00",
+			"created": "2014-01-05T10:14:17-05:00"
+		},
+		{
+			"number": 469,
+			"data": "1,6,10,14,15,21,22,26,30,33,34,35,38,39,42,46,51,55,57,58,62,65,66,69,70,74,77,78,82,85,86,87,91,93,94,95,102,105,106,110,111,114,115,118,119,122,123,129,130,133,134,138,141,142,143,145,146,154,155,158",
+			"name": "1 together with products of 2 or more distinct primes.",
+			"comment": [
+				"Nonprime squarefree numbers.",
+				"Except for 1, composite n such that the squarefree part of n is greater than phi(n). - _Benoit Cloitre_, Apr 06 2002"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000469/b000469.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"n such that A007913(n)\u003eA000010(n). - _Benoit Cloitre_, Apr 06 2002",
+				"N-floor(N/p1) - floor(N/(p2) - ... - floor(N/p(i) + floor(N/(c2) + floor(N/(c3)+ ... + floor(N/c(j)-1 where N is any number; p1,p2 are the primes with p(i) being the first prime \u003e square root of N and c2, c3 are the numbers other than 1 in this sequence with c(j) \u003c= N will yield the number of primes less than or equal to N other than p1, p2, ..., p(i). - _Ben Paul Thurston_, Aug 15 2007",
+				"A005171(a(n))*A008966(a(n)) = 1. - _Reinhard Zumkeller_, Nov 01 2009",
+				"Sum(n=1, Infinity, 1/a(n)^s) = Zeta(s)/Zeta(2s) - PrimeZeta(s). - _Enrique Pérez Herrero_, Mar 31 2012",
+				"n such that A001221(n) = A001222(n), n nonprime. - _Carlos Eduardo Olivieri_, Aug 06 2015"
+			],
+			"maple": [
+				"select(numtheory:-issqrfree and not isprime, [$1..1000]); # _Robert Israel_, Aug 06 2015"
+			],
+			"mathematica": [
+				"lst={}; Do[If[SquareFreeQ[n], If[ !PrimeQ[n], AppendTo[lst,n]]], {n,200}]; lst (* _Vladimir Joseph Stephan Orlovsky_, Jan 20 2009 *)",
+				"With[{upto=200},Complement[Select[Range[upto],SquareFreeQ],Prime[ Range[ PrimePi[ upto]]]]] (* _Harvey P. Dale_, Oct 01 2011 *)",
+				"Select[Range[200], !PrimeQ[#] \u0026\u0026 PrimeOmega[#] == PrimeNu[#] \u0026] (* _Carlos Eduardo Olivieri_, Aug 06 2015 *)"
+			],
+			"program": [
+				"(PARI) for(n=0,64, if(isprime(n), n+1, if(issquarefree(n),print(n))))",
+				"(PARI) for(n=1,160,if(core(n)*(1-isprime(n))\u003eeulerphi(n),print1(n,\",\")))",
+				"(Haskell)",
+				"a000469 n = a000469_list !! (n-1)",
+				"a000469_list = filter ((== 0) . a010051) a005117_list",
+				"-- _Reinhard Zumkeller_, Mar 21 2014"
+			],
+			"xref": [
+				"Cf. A005117, A007913, A000010, A010051, A239508, A239509, A120944 (composite squarefree numbers, same sequence apart from the first term)."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "Dan Bentley (dtb(AT)research.att.com)",
+			"references": 30,
+			"revision": 47,
+			"time": "2015-08-28T17:44:35-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 1748,
+			"data": "6,9,15,21,33,39,51,57,69,87,93,111,123,129,141,159,177,183,201,213,219,237,249,267,291,303,309,321,327,339,381,393,411,417,447,453,471,489,501,519,537,543,573,579,591,597,633,669,681,687,699,717,723,753",
+			"name": "3 * primes.",
+			"comment": [
+				"A164023(a(n)) = A164024(a(n)) = A000040(n). - _Reinhard Zumkeller_, Aug 09 2009",
+				"Semiprimes of the form m*k such that m/(k-2)=prime. - _Juri-Stepan Gerasimov_, May 25 2010",
+				"The sum of two distinct terms from sequence A179545. - _Odimar Fabeny_, Aug 18 2010",
+				"Solutions of the differential equation n'=1/3*(n+9), where n' is the arithmetic derivative of n. - _Paolo P. Lava_, Feb 02 2012",
+				"A253046(a(n)) \u003c a(n). - _Reinhard Zumkeller_, Dec 26 2014"
+			],
+			"link": [
+				"Paolo P. Lava, \u003ca href=\"/A001748/b001748.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Skeleton.html\"\u003eSkeleton\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 3*A000040(n). - _Omar E. Pol_, Jan 31 2012"
+			],
+			"mathematica": [
+				"Prime[Range[22]]*3 (* _Vladimir Joseph Stephan Orlovsky_, Apr 29 2008 *)"
+			],
+			"program": [
+				"(PARI) 3*primes(22) \\\\ _Charles R Greathouse IV_, May 19, 2011",
+				"(MAGMA) [3*p: p in PrimesUpTo(300)]; // _Vincenzo Librandi_, Mar 26 2014",
+				"(Haskell)",
+				"a001748 = (* 3) . a000040  -- _Reinhard Zumkeller_, Dec 26 2014"
+			],
+			"xref": [
+				"Subsequence of A001358.",
+				"Cf. A179545. - _Odimar Fabeny_, Aug 18 2010",
+				" Cf. A100484, A253046, A164023, A164024, A000040, A253046."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 30,
+			"revision": 37,
+			"time": "2014-12-26T17:35:07-05:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 3137,
+			"id": "M0040",
+			"data": "1,2,1,0,1,1,1,2,2,0,2,1,2,2,1,0,0,1,0,1,1,0,2,1,1,0,1,1,1,1,1,2,1,2,0,1,2,1,1,2,2,2,0,0,2,0,1,2,0,2,2,1,0,2,1,1,2,1,2,2,2,0,2,2,1,2,2,2,1,0,0,0,1,0,0,1,1,0,0,2,1,0,1,0,1,0,1,1,1,0,1,2,1,0,2,0,1,0,2,1,1,0,2,2,1",
+			"name": "Write n in base 3 and juxtapose.",
+			"comment": [
+				"An irregular table in which the n-th row lists the base 3 digits of n. - _Jason Kimberley_, Dec 07 2012",
+				"The base 3 Champernowne constant: it is normal in base 3. - _Jason Kimberley_, Dec 07 2012"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A003137/b003137.txt\"\u003eRows n = 1..1000 of triangle, flattened\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Ternary.html\"\u003eTernary.\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ternary_numeral_system\"\u003eTernary numeral system\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Flatten@ IntegerDigits[ Range@ 40, 3] (* or *)",
+				"almostNatural[n_, b_] := Block[{m = 0, d = n, i = 1, l, p}, While[m \u003c= d, l = m; m = (b - 1) i*b^(i - 1) + l; i++]; i--; p = Mod[d - l, i]; q = Floor[(d - l)/i] + b^(i - 1); If[p != 0, IntegerDigits[q, b][[p]], Mod[q - 1, b]]]; Array[ a[#, 3] \u0026, 105] (* _Robert G. Wilson v_, Jul 01 2014 *)"
+			],
+			"program": [
+				"(MAGMA) \u0026cat[Reverse(IntegerToSequence(n,3)):n in[1..31]]; // _Jason Kimberley_, Dec 07 2012",
+				"(Haskell)",
+				"a003137 n k = a003137_tabf !! (n-1) !! k",
+				"a003137_row n = a003137_tabf !! (n-1)",
+				"a003137_tabf = map reverse $ tail a030341_tabf",
+				"a003137_list = concat a003137_tabf",
+				"-- _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"xref": [
+				"Tables in which the n-th row lists the base b digits of n: A030190 and A030302 (b=2), this sequence and A054635 (b=3), A030373 (b=4), A031219 (b=5), A030548 (b=6), A030998 (b=7), A031035 and A054634 (b=8), A031076 (b=9), A007376 and A033307 (b=10). - _Jason Kimberley_, Dec 06 2012",
+				"Cf. A081604 (row lengths), A053735 (row sums), A030341, A007089, A030341."
+			],
+			"keyword": "nonn,base,cons,easy,tabf",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Sep 25 2000"
+			],
+			"references": 30,
+			"revision": 45,
+			"time": "2015-03-16T01:26:33-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 6038,
+			"id": "M5486",
+			"data": "945,1575,2205,3465,4095,5355,5775,5985,6435,6825,7245,7425,8085,8415,8925,9135,9555,9765,11655,12705,12915,13545,14805,15015,16695,18585,19215,19635,21105,21945,22365,22995,23205,24885,25935,26145,26565,28035,28215",
+			"name": "Odd primitive abundant numbers.",
+			"comment": [
+				"Dickson proves that there are only a finite number of odd primitive abundant numbers having n distinct prime factors. Sequence A188342 lists the smallest such numbers. - _T. D. Noe_, Mar 28 2011",
+				"Sequence A188439 sorts the numbers in this sequence by the number of distinct prime factors. Eight numbers have exactly three prime factors; 576 have exactly four prime factors. - _T. D. Noe_, Apr 04 2011",
+				"Any multiple of an abundant number (A005101) is again an abundant number. Primitive abundant numbers (A091191) are those not of this form, i.e., without an abundant proper divisor. We don't know any odd perfect number (A000396), so the (odd) terms here have only deficient proper divisors (A071395), and their prime factors p are less than sigma(n/p)/deficiency(n/p). See A005231 (odd abundant numbers) for an explanation why all terms have at least 3 distinct prime factors, and 5 prime factors when counted with multiplicity (A001222), whence a(1) = 3^3*5*7. All known terms are semiperfect (A005835, and thus in A006036): no odd weird number (A006037) is known, but if it exists, the smallest one is in this sequence. - _M. F. Hasler_, Jul 28 2016"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A006038/b006038.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"L. E. Dickson, \u003ca href=\"http://www.jstor.org/stable/2370405\"\u003eFiniteness of the odd perfect and primitive abundant numbers with n distinct prime factors\u003c/a\u003e, American Journal of Mathematics 35 (1913), pp. 413-422.",
+				"R. K. Guy, \u003ca href=\"/A001599/a001599_1.pdf\"\u003eLetter to N. J. A. Sloane with attachment, Jun. 1991\u003c/a\u003e",
+				"Jacob Liddy, \u003ca href=\"https://ideaexchange.uakron.edu/cgi/viewcontent.cgi?article=1719\u0026amp;context=honors_research_projects\"\u003eAn algorithm to determine all odd primitive abundant numbers with d prime divisors\u003c/a\u003e, Honors Research Projects (2018), 728.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimitiveAbundantNumber.html\"\u003ePrimitive Abundant Number\u003c/a\u003e"
+			],
+			"maple": [
+				"isA005101 := proc(n) is(numtheory[sigma](n) \u003e 2*n ); end proc:",
+				"isA005100 := proc(n) is(numtheory[sigma](n) \u003c 2*n ); end proc:",
+				"isA006038 := proc(n) local d; if type(n,'odd') and isA005101(n) then for d in numtheory[divisors](n) minus {1,n} do if not isA005100(d) then return false; end if; end do: return true;else false; end if; end proc:",
+				"n := 1 ; for a from 1 by 2 do if isA006038(a) then printf(\"%d %d\\n\",n,a) ; n := n+1 ; end if; end do: # _R. J. Mathar_, Mar 28 2011"
+			],
+			"mathematica": [
+				"t = {}; n = 1; While[Length[t] \u003c 50, n = n + 2; If[DivisorSigma[1, n] \u003e 2 n \u0026\u0026 Intersection[t, Divisors[n]] == {}, AppendTo[t, n]]]; t (* _T. D. Noe_, Mar 28 2011 *)"
+			],
+			"program": [
+				"(PARI) is(n)=n%2 \u0026\u0026 sumdiv(n,d,sigma(d,-1)\u003e2)==1 \\\\ _Charles R Greathouse IV_, Jun 10 2013",
+				"(PARI) is_A006038(n)=bittest(n,0) \u0026\u0026 sigma(n)\u003e2*n \u0026\u0026 !for(i=1,#f=factor(n)[,1],sigma(n\\f[i],-1)\u003e2\u0026\u0026return) \\\\ More than 5 times faster. - _M. F. Hasler_, Jul 28 2016",
+				"(Haskell)",
+				"a006038 n = a006038_list !! (n-1)",
+				"a006038_list = filter f [1, 3 ..] where",
+				"   f x = sum pdivs \u003e x \u0026\u0026 all (\u003c= 0) (map (\\d -\u003e a000203 d - 2 * d) pdivs)",
+				"         where pdivs = a027751_row x",
+				"-- _Reinhard Zumkeller_, Jan 31 2014"
+			],
+			"xref": [
+				"Cf. A005101, A005231. Subsequence of A091191.",
+				"Cf. A000203, A027751."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 30,
+			"revision": 60,
+			"time": "2018-10-18T10:23:14-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 7694,
+			"id": "M0992",
+			"data": "1,2,4,6,8,12,16,18,24,32,36,48,54,64,72,96,108,128,144,162,192,216,256,288,324,384,432,486,512,576,648,768,864,972,1024,1152,1296,1458,1536,1728,1944,2048,2304,2592,2916,3072,3456,3888,4096",
+			"name": "Numbers n such that phi(n) divides n.",
+			"comment": [
+				"a(n) divides p^a(n) - 1 for all primes p \u003e= 5. - _Benoit Cloitre_, Mar 22 2002",
+				"Also n such that sum( d divides n, mu(d)/d) has numerator of 1. - _Benoit Cloitre_, Apr 15 2002",
+				"n is here if and only if phi(n) divides also cototient(n). On the other hand, cototient(n) divides phi(n) if and only if n is a prime or power of a prime. - _Labos Elemer_, May 03 2002",
+				"It follows that n/phi(n) = 2 if n is a power of 2 and equal to 3 if n is of the form 6*A003586. - _Gary Detlefs_, Jun 28 2011",
+				"1 and even 3-smooth numbers, cf. A003586.",
+				"Numbers n such that n = (1+omega(n))*phi(n). - _Farideh Firoozbakht_, Oct 02 2014",
+				"These are the integers whose largest squarefree divisor is 1, 2 or 6. As such, this sequence is equal to the set V_infinite, defined as the intersection of the V_k for k \u003e= 1, where V_k(x) = {phi_k(n) \u003c= x} and phi_k is the k-th iterate of phi, the Euler function; for instance, V_1 is given by A002202 (see Theorem 7 in Pomerance and Luca). - _Michel Marcus_, Nov 09 2015",
+				"This sequence is contained in A068997. The terms of A068997 not in this sequence have largest squarefree divisor other than 1, 2, or 6, beginning with 10. - _Torlach Rush_, Dec 07 2017"
+			],
+			"reference": [
+				"J.-M. De Koninck \u0026 A. Mercier, 1001 Problemes en Theorie Classique Des Nombres, Problem 526 pp. 71; 256, Ellipses Paris 2004.",
+				"Sárközy A. and Suranyi J., Number Theory Problem Book (in Hungarian), Tankonyvkiado, Budapest, 1972.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A007694/b007694.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Michael W. Ecker and Scott J. Beslin, \u003ca href=\"http://www.jstor.org/stable/2322340\"\u003eProblem E3037\u003c/a\u003e, Amer. Math. Monthly 93 (1986), 656-657.",
+				"Florian Luca and Carl Pomerance, \u003ca href=\"http://www.westga.edu/~integers/j8proc/j8proc.pdf\"\u003eOn the range of the iterated Euler function\u003c/a\u003e, Article 8, Integers: Electronic Journal of Combinatorial Number Theory, Proceedings of the Integers Conference 2007, Volume 9 Supplement (2009).",
+				"Math Stack Exchange, \u003ca href=\"http://math.stackexchange.com/questions/1328909/is-there-phin-n-6\"\u003eIs there phi(n)/n = 6\u003c/a\u003e",
+				"W. Sierpiński, \u003ca href=\"http://matwbn.icm.edu.pl/kstresc.php?tom=42\u0026amp;wyd=10\"\u003eElementary Theory of Numbers\u003c/a\u003e, Warszawa 1964."
+			],
+			"formula": [
+				"n/phi(n) is an integer if and only if n = 1 or n = 2^w * 3^u for w \u003e 0 and u \u003e= 0.",
+				"n/phi(n) = 3 if and only if phi(n)|n and 3|n. - _Thomas Ordowski_, Nov 03 2014",
+				"a(n) is approximately exp(sqrt(2*log(2)*log(3)*n))/sqrt(3/2). - _Charles R Greathouse IV_, Nov 10 2015"
+			],
+			"example": [
+				"12 is in the sequence because 12/phi(12) = 12/4 = 3, which is an integer.",
+				"16 is in the sequence because 16/phi(16) = 16/8 = 2, which is an integer.",
+				"20 is not in the sequence because 20/phi(20) = 20/8 = 5/2 = 2.5, which is not an integer."
+			],
+			"maple": [
+				"select(n -\u003e n mod numtheory:-phi(n) = 0, [$1..5000]); # _Robert Israel_, Nov 03 2014"
+			],
+			"mathematica": [
+				"Select[ Range[5000], IntegerQ[ #/EulerPhi[ # ]] \u0026]"
+			],
+			"program": [
+				"(R) library(numbers); j=N=1",
+				"while(j\u003c200) if(isNatural((N=N+1)/eulersPhi(N))) dtot[(j=j+1)]=N # _Christian N. K. Anderson_, Apr 04 2013",
+				"(PARI) for(n=1,10^6, if (n%eulerphi(n)==0,print1(n,\", \"))); \\\\ _Joerg Arndt_, Apr 04 2013",
+				"(PARI) list(lim)=my(v=List([1]),t); for(i=1,logint(lim\\1,2), listput(v,t=2^i); for(j=1,logint(lim\\t,3), listput(v,t*=3))); Set(v) \\\\ _Charles R Greathouse IV_, Nov 10 2015",
+				"(Haskell)",
+				"a007694 n = a007694_list !! (n-1)",
+				"a007694_list = 1 : filter even a003586_list",
+				"-- _Reinhard Zumkeller_, Jan 06 2014",
+				"(Sage)",
+				"is_A007694 = lambda n: euler_phi(n).divides(n)",
+				"A007694_list = lambda len: filter(is_A007694, (1..len))",
+				"A007694_list(4100) # _Peter Luschny_, Oct 03 2014"
+			],
+			"xref": [
+				"Cf. A000010, A049237, A007694, A007947, A003557, A023200, A003586, A001221, A033950, A235353 (subsequence), A068997 (subsequence)."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, _Robert G. Wilson v_",
+			"references": 30,
+			"revision": 87,
+			"time": "2017-12-09T19:51:11-05:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 9445,
+			"data": "1,6,120,5040,362880,39916800,6227020800,1307674368000,355687428096000,121645100408832000,51090942171709440000,25852016738884976640000,15511210043330985984000000,10888869450418352160768000000,8841761993739701954543616000000,8222838654177922817725562880000000",
+			"name": "a(n) = (2*n+1)!.",
+			"comment": [
+				"Denominators in the expansion of sin(x):",
+				"  sin(x) = x - x^3/3! + x^5/5! - x^7/7! + x^9/9! - ...",
+				"Denominators in the expansion of sinc(x) = sin(x)/x:",
+				"  sinc x = sin(x)/x = 1 - x^2/3! + x^4/5! - x^6/7! + x^8/9! - ... - _Daniel Forgues_, Oct 20 2011",
+				"The terms of this sequence are the denominators of sinh(x) = (e^x-e^(-x))/2 = x + x^3/3! + x^5/5! + x^7/7! + .... - _Mohammad K. Azarian_, Jan 19 2012"
+			],
+			"reference": [
+				"H. B. Dwight, Tables of Integrals and Other Mathematical Data, Macmillan, NY, 1968, p. 88.",
+				"I. Newton, De analysi, 1669; reprinted in D. Whiteside, ed., The Mathematical Works of Isaac Newton, vol. 1, Johnson Reprint Co., 1964; see p. 20."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A009445/b009445.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e",
+				"I. Dolinka, J. East, A. Evangelou, D. FitzGerald, N. Ham, et al., \u003ca href=\"http://arxiv.org/abs/1408.2021\"\u003eEnumeration of idempotents in diagram semigroups and algebras\u003c/a\u003e, arXiv preprint arXiv:1408.2021 [math.GR], 2014.",
+				"W. Dunham, \u003ca href=\"http://www.jstor.org/stable/30037380\"\u003eTouring the calculus gallery\u003c/a\u003e, Amer. Math. Monthly, 112 (2005), 1-19.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/HyperbolicSine.html\"\u003eHyperbolic Sine\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A014481(n) * A001147(n). - _Reinhard Zumkeller_, Dec 03 2011"
+			],
+			"example": [
+				"G.f. = 1 + 6*x + 120*x^2 + 5040*x^3 + 362880*x^4 + 39916800*x^5 + ..."
+			],
+			"mathematica": [
+				"Array[(2 # + 1)! \u0026, 15] (* _Robert G. Wilson v_, Aug 08 2018 *)"
+			],
+			"program": [
+				"(Sage) [stirling_number1(2*i,1) for i in xrange(1,22)] # _Zerinvary Lajos_, Jun 27 2008",
+				"(PARI) a(n)=(n+n+1)! \\\\ _Charles R Greathouse IV_, Oct 20 2011",
+				"(MAGMA) [Factorial(2*n+1): n in [0..20]]; // _Vincenzo Librandi_, Oct 21 2011",
+				"(Haskell)",
+				"a009445 n = product [1..2*n+1]  -- _Reinhard Zumkeller_, Dec 03 2011",
+				"(Sage)",
+				"T = taylor(sin(x^2), x, 0, 70)",
+				"[(-1)^n/T.coeff(x,4*n+2) for n in (0..15)] # _Peter Luschny_, Dec 14 2012"
+			],
+			"xref": [
+				"Cf. A010050, A000142."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_R. H. Hardin_, Joe Keane (jgk(AT)jgk.org)",
+			"references": 30,
+			"revision": 58,
+			"time": "2018-08-11T00:35:46-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 10062,
+			"data": "1,2,3,5,7,10,12,14,17,19,22,25,28,31,36,38,41,44,47,52,55,60,64,65,67,70,73,76,79,84,87,92,96,98,101,105,109,114,118,123,129,131,134,137,140,143,148,151,156,160,162,165,169,173,178,182,187,193,196,199,204",
+			"name": "a(0)=1; thereafter a(n+1) = a(n) + number of 1's in binary representation of a(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A010062/b010062.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Raoul Nakhmanson-Kulish, \u003ca href=\"/A010062/a010062.png\"\u003eGraph of a(n)/(n*log_2(n)/2)\u003c/a\u003e, showing self-similar fractal structure.",
+				"Raoul Nakhmanson-Kulish, \u003ca href=\"/A010062/a010062_1.png\"\u003eGraph of f(n)\u003c/a\u003e, where f(n) = (a(n)-n*log_2(n)/2)/(n*sqrt(log_2(n)*log_2 log_2(n))) (see Stolarsky's estimate below).",
+				"Kenneth B. Stolarsky, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9939-1976-0409340-X\"\u003eThe sum of a digitaddition series\u003c/a\u003e, Proc. Amer. Math. Soc. 59 (1976), no. 1, 1--5. MR0409340 (53 #13099)",
+				"\u003ca href=\"/index/Coi#Colombian\"\u003eIndex entries for Colombian or self numbers and related sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (n/2)*log n + O(n*sqrt(log n * loglog n)), where log means log_2. In particular, a(n) ~ (n/2)*log n. [Stolarsky]",
+				"a(n + 1) = A092391(a(n)) = a(n) + A000120(a(n)). - _Reinhard Zumkeller_, May 27 2012, May 08 2004; corrected thanks to a notice by Lambert Herrgesell"
+			],
+			"example": [
+				"a(7) = 14 because a(6) = 12, which is 1100 in binary (having 2 on bits), and 12 + 2 = 14.",
+				"a(8) = 17 because a(7) = 14, which is 1110 in binary (having 3 on bits), and 14 + 3 = 17."
+			],
+			"mathematica": [
+				"NestList[# + DigitCount[#, 2, 1] \u0026, 1, 60] (* _Alonso del Arte_, Oct 26 2012 *)"
+			],
+			"program": [
+				"(PARI) s=1; for(n=1,100,s=s+sum(i=1,length(binary(s)), component(binary(s),i)); print1(s,\",\"))",
+				"(PARI) print1(s=1);for(n=2,30,print1(\", \", s+=hammingweight(s))) \\\\ _Charles R Greathouse IV_, Oct 27 2012",
+				"(Haskell)",
+				"a010062 n = a010062_list !! n",
+				"a010062_list = iterate a092391 1  -- _Reinhard Zumkeller_, May 13 2012",
+				"(MAGMA) [n le 1 select 1 else Self(n-1)+\u0026+Intseq(Self(n-1),2): n in [1..61]]; // _Bruno Berselli_, Oct 27 2012"
+			],
+			"xref": [
+				"First row of A228083.",
+				"For the base-10 analog see A004207.",
+				"Cf. A010061, A092391, A229167, A096303, A229743, A229744, A230297 (this sequence written in binary), A230298 (read mod 2).",
+				"See A230088 for partial sums."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "0,2",
+			"author": "_Leonid Broukhis_, Mar 15 1996",
+			"ext": [
+				"More terms from _Benoit Cloitre_, Jun 02 2002",
+				"Stolarsky reference from _Matthew C. Russell_, Oct 08 2013"
+			],
+			"references": 30,
+			"revision": 83,
+			"time": "2013-11-05T20:34:36-05:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 10878,
+			"data": "0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5",
+			"name": "a(n) = n mod 9.",
+			"comment": [
+				"Periodic with period of length 9. The digital root of n (A010888) is a very similar sequence.",
+				"The rightmost digit in the base-9 representation of n. Also, the equivalent value of the two rightmost digits in the base-3 representation of n. - _Hieronymus Fischer_, Jun 11 2007"
+			],
+			"link": [
+				"Ely Golden, \u003ca href=\"/A010878/b010878.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_09\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,0,0,0,0,0,0,0,1)."
+			],
+			"formula": [
+				"Complex representation: a(n)=(1/9)*(1-r^n)*sum{1\u003c=k\u003c9, k*product{1\u003c=m\u003c9,m\u003c\u003ek, (1-r^(n-m))}} where r=exp(2*pi/9*i) and i=sqrt(-1). Trigonometric representation: a(n)=(256/9)^2*(sin(n*pi/9))^2*sum{1\u003c=k\u003c9, k*product{1\u003c=m\u003c9,m\u003c\u003ek, (sin((n-m)*pi/9))^2}}. G.f.: g(x)=(sum{1\u003c=k\u003c9, k*x^k})/(1-x^9). Also: g(x)=x(8x^9-9x^8+1)/((1-x^9)(1-x)^2). - _Hieronymus Fischer_, May 31 2007",
+				"a(n) = n mod 3 + 3*(floor(n/3)mod 3) = A010872(n) + 3*A010872(A002264(n)). - _Hieronymus Fischer_, Jun 11 2007",
+				"a(n) = floor(12345678/999999999*10^(n+1)) mod 10. - _Hieronymus Fischer_, Jan 03 2013",
+				"a(n) = floor(1513361/96855122*9^(n+1)) mod 9. - _Hieronymus Fischer_, Jan 04 2013"
+			],
+			"maple": [
+				"A010878 := proc(n)",
+				"    modp(n,9) ;",
+				"end proc:",
+				"seq(A010878(n),n=0..100) ; # _R. J. Mathar_, Sep 09 2015"
+			],
+			"mathematica": [
+				"Array[Mod[#, 9]\u0026, 105, 0] (* _Jean-François Alcover_, Jan 30 2018 *)",
+				"PadRight[{},120,Range[0,8]] (* _Harvey P. Dale_, Dec 19 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a010878 = (`mod` 9)",
+				"a010878_list = cycle [0..8]  -- _Reinhard Zumkeller_, Jan 09 2013",
+				"(PARI) a(n)=n%9 \\\\ _Charles R Greathouse IV_, Sep 24 2015"
+			],
+			"xref": [
+				"Partial sums: A130487. Other related sequences A130481, A130482, A130483, A130484, A130485, A130486."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_.",
+			"references": 30,
+			"revision": 38,
+			"time": "2018-12-19T19:34:50-05:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		}
+	]
+}

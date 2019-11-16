@@ -1,0 +1,447 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3750,
+	"results": [
+		{
+			"number": 33651,
+			"data": "9,18,99,198,1089,10890,20691,40293,79497,158994,658845,1207701,2284722,4559544,9019098,17928207,88211178,175322466,839546037,1570191975,7362102726,13634115363,49985258994",
+			"name": "Trajectory of 9 under map x-\u003ex + (x-with-digits-reversed).",
+			"comment": [
+				"Trajectories of 27, 36, 45, 54, 63, 72, 81, 90, ..., merge into this sequence. - _Robert G. Wilson v_, Dec 16 2005."
+			],
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A033651/b033651.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (first 251 terms from Reinhard Zumkeller)",
+				"\u003ca href=\"/index/Res#RAA\"\u003eIndex entries for sequences related to Reverse and Add!\u003c/a\u003e"
+			],
+			"maple": [
+				"a:= proc(n) option remember; `if`(n=0, 9, (h-\u003e h+ (s-\u003e",
+				"      parse(cat(s[-i]$i=1..length(s))))(\"\"||h))(a(n-1)))",
+				"    end:",
+				"seq(a(n), n=0..40);  # _Alois P. Heinz_, Jun 18 2014"
+			],
+			"mathematica": [
+				"NestList[ # + FromDigits@Reverse@IntegerDigits@# \u0026, 9, 26] (* _Robert G. Wilson v_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a063051 n = a063051_list !! n",
+				"a063051_list = iterate a056964 879 -- _Reinhard Zumkeller_, Sep 22 2011"
+			],
+			"xref": [
+				"Cf. A006960, A001127, A033648, A033649, A033650.",
+				"Cf. A056964, A004086.",
+				"Row n=9 of A243238."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 7,
+			"revision": 23,
+			"time": "2014-06-18T16:56:18-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34002,
+			"data": "1,1,1,2,1,1,2,1,1,1,1,1,2,2,1,3,1,2,2,1,1,1,3,1,1,2,2,2,1,1,1,1,3,2,1,3,2,1,1,3,1,1,3,1,2,1,1,1,3,1,2,2,1,1,3,2,1,1,3,1,1,1,2,3,1,1,3,1,1,2,2,1,1,1,1,1,3,1,2,2,1,1,3,3,1,1,2,1,3,2,1,1,3,2,1,2,2,2,1",
+			"name": "A005150 expanded into single digits.",
+			"comment": [
+				"A005150(n) = sum{T(n,k)*10^(A005341(n)-k): k=1..A005341(n)}. - _Reinhard Zumkeller_, Dec 15 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A034002/b034002.txt\"\u003eRows n = 1..25 of triangle, flattened\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.math.utah.edu/~boocher/writings/ConwayLook.pdf\"\u003eThe weird and wonderful chemistry of audioactive decay\u003c/a\u003e, in T. M. Cover and Gopinath, eds., Open Problems in Communication and Computation, Springer, NY 1987, pp. 173-188. DOI: 10.1007/978-1-4612-4808-8_53.",
+				"M. Lothaire, \u003ca href=\"http://www-igm.univ-mlv.fr/~berstel/Lothaire/\"\u003eAlgebraic Combinatorics on Words\u003c/a\u003e, Cambridge, 2002, see p. 36.",
+				"Kevin Watkins, \u003ca href=\"http://www.cs.cmu.edu/~kw/pubs/conway.pdf\"\u003eAbstract Interpretation Using Laziness: Proving Conway's Lost Cosmological Theorem, \u003c/a\u003e",
+				"Kevin Watkins, \u003ca href=\"http://www.cs.cmu.edu/~kw/pubs/conwayslides.pdf\"\u003eProving Conway's Lost Cosmological Theorem, POP seminar talk, CMU, Dec 2006\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LookandSaySequence.html\"\u003eLook and Say Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Look-and-say_sequence\"\u003eLook-and-say sequence\u003c/a\u003e"
+			],
+			"example": [
+				".  Initial rows                          A005150",
+				".  1:  1                                           1",
+				".  2:  1,1                                        11",
+				".  3:  2,1                                        21",
+				".  4:  1,2,1,1                                  1211",
+				".  5:  1,1,1,2,2,1                            111221",
+				".  6:  3,1,2,2,1,1                            312211",
+				".  7:  1,3,1,1,2,2,2,1                      13112221",
+				".  8:  1,1,1,3,2,1,3,2,1,1                1113213211",
+				".  9:  3,1,1,3,1,2,1,1,1,3,1,2,2,1    31131211131221",
+				"-}"
+			],
+			"program": [
+				"(Haskell)  see Watkins link, p. 3.",
+				"import Data.List (group)",
+				"a034002 n k = a034002_tabf !! (n-1) !! (k-1)",
+				"a034002_row n = a034002_tabf !! (n-1)",
+				"a034002_tabf = iterate",
+				"               (concat . map (\\xs -\u003e [length xs, head xs]) . group) [1]",
+				"-- _Reinhard Zumkeller_, Aug 09 2012",
+				"(Python)",
+				"from sympy import flatten",
+				"l=[1]",
+				"L=[1]",
+				"n=s=1",
+				"y=''",
+				"while n\u003c21:",
+				"    x=str(l[n - 1]) + ' '",
+				"    for i in xrange(len(x) - 1):",
+				"        if x[i]==x[i + 1]: s+=1",
+				"        else:",
+				"            y+=str(s)+str(x[i])",
+				"            s=1",
+				"    x=''",
+				"    n+=1",
+				"    l+=[int(y), ]",
+				"    L+=[map(int, list(y)), ]",
+				"    y=''",
+				"    s=1",
+				"print l # A005150",
+				"print flatten(L) # A034002, _Indranil Ghosh_, Jul 05 2017"
+			],
+			"xref": [
+				"See the entry for A005150 for much more about this sequence.",
+				"Cf. A088203.",
+				"Cf. A005341 (row lengths), A220424 (method B version)."
+			],
+			"keyword": "nonn,base,tabf",
+			"offset": "1,4",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Offset changed and keyword tabf added by _Reinhard Zumkeller_, Aug 09 2012"
+			],
+			"references": 7,
+			"revision": 17,
+			"time": "2017-07-06T09:27:16-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 35040,
+			"data": "0,0,0,0,0,0,0,0,1,10,56,232,794,2380,6476,16384,39203,89846,199140,430104,910596,1898712,3913704,7997952,16241061,32828226,66137152,132932104,266752238,534688516,1070937812,2143911424,4290452423",
+			"name": "a(n) = 2^n - C(n,0) - C(n,1) - ... - C(n,7).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A035040/b035040.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"J. Eckhoff, \u003ca href=\"http://dx.doi.org/10.1007/BF01297698\"\u003eDer Satz von Radon in konvexen Produktstrukturen II\u003c/a\u003e, Monat. f. Math., 73 (1969), 7-30."
+			],
+			"formula": [
+				"G.f.: x^8/((1-2*x)*(1-x)^8).",
+				"a(n) = sum_{k=0..n} C(n, k+8) = sum_{k=8..n} C(n, k); a(n) = 2a(n-1) + C(n-1, 7). - _Paul Barry_, Aug 23 2004"
+			],
+			"maple": [
+				"a:=n-\u003esum(binomial(n,j),j=8..n): seq(a(n), n=0..32); # _Zerinvary Lajos_, Jan 04 2007"
+			],
+			"mathematica": [
+				"a=1;lst={};s1=s2=s3=s4=s5=s6=s7=s8=0;Do[s1+=a;s2+=s1;s3+=s2;s4+=s3;s5+=s4;s6+=s5;s7+=s6;s8+=s7;AppendTo[lst,s8];a=a*2,{n,5!}];lst (* _Vladimir Joseph Stephan Orlovsky_, Jan 10 2009 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a035040 n = a035040_list !! n",
+				"a035040_list = map (sum . drop 8) a007318_tabl",
+				"-- _Reinhard Zumkeller_, Jun 20 2015"
+			],
+			"xref": [
+				"a(n)= A055248(n, 8). Partial sums of A035039.",
+				"Cf. A000079, A000225, A000295, A002663, A002664, A035038-A035042.",
+				"Cf. A007318."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,10",
+			"author": "_N. J. A. Sloane_",
+			"references": 7,
+			"revision": 23,
+			"time": "2015-06-20T09:34:09-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 35514,
+			"data": "0,1,2,3,31,5,51,52,8,81,82,83,831,13,131,132,133,1331,135,1351,1352,21,211,212,213,2131,215,2151,2152,218,2181,2182,2183,21831,34,341,342,343,3431,345,3451,3452,348,3481,3482,3483,34831,3413,34131,34132",
+			"name": "Zeckendorf expansion of n: repeatedly subtract the largest Fibonacci number you can until nothing remains.",
+			"reference": [
+				"Zeckendorf, E., Représentation des nombres naturels par une somme des nombres de Fibonacci ou de nombres de Lucas, Bull. Soc. Roy. Sci. Liège 41, 179-182, 1972."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A035514/b035514.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/classic.html#WYTH\"\u003eClassic Sequences\u003c/a\u003e"
+			],
+			"example": [
+				"16 = 13 + 3, so a(16)=13_3 =\u003e 133."
+			],
+			"program": [
+				"(Haskell)",
+				"a035514 n = a035514_list !! (n-1)",
+				"a035514_list = map (read . concatMap show) a035516_tabf :: [Integer]",
+				"-- _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"xref": [
+				"Cf. A035517, A035515, A035516."
+			],
+			"keyword": "nonn,easy,base",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _James A. Sellers_, Dec 13 1999"
+			],
+			"references": 7,
+			"revision": 15,
+			"time": "2018-09-29T18:43:28-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 35524,
+			"data": "1,2,4,5,10,20,25,50,85,170,340,425,850,1385,3070,6140,10225,15335,29410,65135,129070,317675,1280860,2163725,3999775,7999550,20321515,81946460,138412045,255852575,511705150,1300234475,5242880860",
+			"name": "Reverse and add (in base 4).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A035524/b035524.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Res#RAA\"\u003eIndex entries for sequences related to Reverse and Add!\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A055948(a(n)), a(0) = 1. [_Reinhard Zumkeller_, Oct 10 2011]"
+			],
+			"mathematica": [
+				"nxt4[n_]:=Module[{idn4=IntegerDigits[n,4]},FromDigits[idn4+ Reverse[idn4], 4]]; NestList[nxt4,1,40] (* _Harvey P. Dale_, May 02 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a035524 n = a035524_list !! n",
+				"a035524_list = iterate a055948 1",
+				"-- _Reinhard Zumkeller_, Oct 10 2011",
+				"(Python)",
+				"def reversedigits(n, b=10): # reverse digits of n in base b",
+				"....x, y = n, 0",
+				"....while x \u003e= b:",
+				"........x, r = divmod(x, b)",
+				"........y = b*y + r",
+				"....return b*y + x",
+				"A035524_list, l = [1], 1",
+				"for _ in range(50):",
+				"....l += reversedigits(l,4)",
+				"....A035524_list.append(l)"
+			],
+			"xref": [
+				"Cf. A035522.",
+				"Cf. A030103."
+			],
+			"keyword": "nonn,easy,nice,base",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Sep 22 2000"
+			],
+			"references": 7,
+			"revision": 17,
+			"time": "2015-01-04T22:59:26-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36454,
+			"data": "4,9,16,25,49,64,81,121,169,289,361,529,625,729,841,961,1024,1369,1681,1849,2209,2401,2809,3481,3721,4096,4489,5041,5329,6241,6889,7921,9409,10201,10609,11449,11881,12769,14641,15625,16129,17161,18769,19321",
+			"name": "Prime powers with special exponents: q^(p-1) where p \u003e 2 and q are prime numbers.",
+			"comment": [
+				"Composite numbers with a prime number of divisors.",
+				"(1 - A010051(a(n))) * A010055(a(n)) * A010051(A100995(a(n))+1) = 1. - _Reinhard Zumkeller_, Jun 05 2013"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A036454/b036454.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"d(d(a(n))) = 2, where d(x) = tau(x) = sigma_0(x) is the number of divisors of x.",
+				"a(n) = (n log n)^2 + 2n^2 log n log log n + O(n^2 log n). - _Charles R Greathouse IV_, Apr 26 2012",
+				"A036459(a(n)) = 2. - _Ivan Neretin_, Jan 25 2016"
+			],
+			"example": [
+				"From powers of 2: 4,16,64,1024,4096,65536 are in the sequence since exponent+1 is also prime. The same powers of any prime base are also included."
+			],
+			"maple": [
+				"N:= 10^5:",
+				"P1:= select(isprime,[2,seq(2*i+1,i=1..floor((sqrt(N)-1)/2))]):",
+				"P2:= select(`\u003c=`,P1,1+ilog2(N))[2..-1]:",
+				"S:= {seq(seq(p^(q-1), q = select(`\u003c=`,P2,1+floor(log[p](N)))),p=P1)}:",
+				"sort(convert(S,list)); # _Robert Israel_, May 18 2015"
+			],
+			"mathematica": [
+				"specialPrimePowerQ[n_] := With[{f = FactorInteger[n]}, Length[f] == 1 \u0026\u0026 PrimeQ[f[[1, 1]]] \u0026\u0026 f[[1, 2]] \u003e 1 \u0026\u0026 PrimeQ[f[[1, 2]] + 1]]; Select[Range[20000], specialPrimePowerQ]  (* _Jean-François Alcover_, Jul 02 2013 *)",
+				"Select[Range[20000], ! PrimeQ[#] \u0026\u0026 PrimeQ[DivisorSigma[0, #]] \u0026] (* _Carlos Eduardo Olivieri_, May 18 2015 *)"
+			],
+			"program": [
+				"(PARI) for(n=1,34000, if(isprime(n), n++,x=numdiv(n); if(isprime(x),print(n))))",
+				"(PARI) list(lim)=my(v=List(),t);lim=lim\\1+.5;forprime(p=3,log(lim)\\log(2) +1, t=p-1; forprime(q=2,lim^(1/t),listput(v,q^t))); vecsort(Vec(v))",
+				"\\\\ _Charles R Greathouse IV_, Apr 26 2012",
+				"(Haskell)",
+				"a009087 n = a009087_list !! (n-1)",
+				"a009087_list = filter ((== 1) . a010051 . (+ 1) . a100995) a000961_list",
+				"-- _Reinhard Zumkeller_, Jun 05 2013",
+				"(MAGMA) [n: n in [1..20000] | not IsPrime(n) and IsPrime(DivisorSigma(0, n))]; // _Vincenzo Librandi_, May 19 2015"
+			],
+			"xref": [
+				"Cf. A000005, A036450, A036452, A010553, A009087.",
+				"Cf. A002808."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_Labos Elemer_",
+			"references": 7,
+			"revision": 35,
+			"time": "2016-01-25T18:20:39-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36555,
+			"data": "0,2,2,2,2,4,2,3,2,4,4,2,2,4,3,4,2,4,4,4,4,6,2,3,2,4,4,3,3,5,4,5,2,4,4,4,4,6,4,5,4,6,6,2,2,4,3,4,2,4,4,4,4,6,3,4,3,5,5,4,4,6,5,6,2,4,4,4,4,6,4,5,4,6,6,4,4,6,5,6,4,6,6,6,6,8,2,3,2,4,4,3,3,5,4,5,2,4,4",
+			"name": "Hamming weight of 3n: number of 1's in binary expansion of 3n.",
+			"comment": [
+				"a(n) is also the largest integer such that 2^a(n) divides binomial(6n,3n)=A066802(n). - _Benoit Cloitre_, Mar 27 2002",
+				"a(n) = A000120(A008585(n)). - _Reinhard Zumkeller_, Nov 03 2010",
+				"a(A002450(n)) = 2*n."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A036555/b036555.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"S. R. Finch, P. Sebah and Z.-Q. Bai, \u003ca href=\"http://arXiv.org/abs/0802.2654\"\u003eOdd Entries in Pascal's Trinomial Triangle\u003c/a\u003e (arXiv:0802.2654)",
+				"Philippe Flajolet, Peter Grabner, Peter Kirschenhofer, Helmut Prodinger and Robert F. Tichy, \u003ca href=\"http://dx.doi.org/10.1016/0304-3975(92)00065-Y\"\u003eMellin transforms and asymptotics: digital sums\u003c/a\u003e, Theoret. Comput. Sci. 123 (1994), 291-314.",
+				"Michael Gilleland, \u003ca href=\"/selfsimilar.html\"\u003eSome Self-Similar Integer Sequences\u003c/a\u003e",
+				"D. J. Newman, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9939-1969-0244149-8\"\u003eOn the number of binary digits in a multiple of three\u003c/a\u003e, Proc. Amer. Math. Soc. 21 (1969) 719-721."
+			],
+			"maple": [
+				"t1:=[];",
+				"for n from 0 to 100 do t2:=convert(3*n,base,2); t3:=add(t2[i],i=1..nops(t2)); t1:=[op(t1),t3];od:",
+				"t1;"
+			],
+			"mathematica": [
+				"Total/@IntegerDigits[3Range[0,100],2] (* _Harvey P. Dale_, Oct 03 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a036555 = a000120 . (* 3)  -- _Reinhard Zumkeller_, Sep 01 2013",
+				"(PARI) a(n) = hammingweight(3*n); \\\\ _Michel Marcus_, Mar 13 2014"
+			],
+			"xref": [
+				"Cf. A036556, A036557, A099033, A190944."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "0,2",
+			"author": "_Dan Hoey_",
+			"ext": [
+				"Name edited by _Michel Marcus_, Mar 13 2014"
+			],
+			"references": 7,
+			"revision": 38,
+			"time": "2016-08-28T18:23:38-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36746,
+			"data": "1,2,3,8,18,28,38,88,188,288,388,888,1888,2888,3888",
+			"name": "Numbers with \"long\" representations in Roman notation: given by last n letters from ...MMMDCCCLXXXVIII.",
+			"comment": [
+				"Also: Least number using n symbols when written as Roman numeral, cf. A006968 and A061493. One could prefix a conventional a(0)=0. - _M. F. Hasler_, Jan 12 2015"
+			],
+			"link": [
+				"Gerard Schildberger, \u003ca href=\"/A006968/a006968.txt\"\u003e The first 3999 numbers in Roman numerals\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = min{ k\u003e0 | A006968(k)=n }. - _M. F. Hasler_, Jan 12 2015"
+			],
+			"mathematica": [
+				"(* assign the 3999 Roman numerals to the variable 'lst' so that lst = {I, II, III, ... MMMCMXCVII, MMMCMXCVIII, MMMCMXCIX}, e.g. using the link to Schildberger's file, then *) f[1] = 1; f[n_] := Block[{k = 2}, While[ StringLength@ SymbolName@ lst[[k]] != n, k++ ]; k]; Array[f, 15] (* Checked by _Robert G. Wilson v_, Aug 13 2008; edited by _M. F. Hasler_, Jan 12 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, elemIndex)",
+				"import Data.Maybe (mapMaybe)",
+				"a036746 n = a036746_list !! (n-1)",
+				"a036746_list = map (+ 1) $ mapMaybe (`elemIndex` a061493_list)",
+				"   (map (read . reverse) $ tail $ inits $ reverse $ show $ a061493 3888)",
+				"-- _Reinhard Zumkeller_, Apr 14 2013",
+				"(PARI) A036746(n)=(n%4+8/9)\\.1^(n\\4) \\\\ _M. F. Hasler_, Jan 12 2015"
+			],
+			"xref": [
+				"Cf. A061493, A006968, A003587."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_J. H. Conway_",
+			"ext": [
+				"Checked by _Robert G. Wilson v_, Aug 13 2008",
+				"Edited by _M. F. Hasler_, Jan 12 2015"
+			],
+			"references": 7,
+			"revision": 15,
+			"time": "2015-01-12T20:30:16-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36788,
+			"data": "1,5,10,11,15,20,40,50,51,55,60,90,100,101,102,104,105,106,109,110,111,115,120,140,150,151,155,160,190,200,201,205,210,250,300,400,401,405,410,450,500,501,502,504,505,506,509,510,511,515,520,540,550,551,555",
+			"name": "Length of Roman notation for n \u003c= length of decimal representation.",
+			"comment": [
+				"The Roman numeration system used here is the naive one taught in primary school. This sequence, like many others involving numeration systems, is neither well-defined nor interesting for large values of n. - _N. J. A. Sloane_, Jul 03 2008"
+			],
+			"link": [
+				"Nathaniel Johnston, \u003ca href=\"/A036788/b036788.txt\"\u003eTable of n, a(n) for n = 1..199\u003c/a\u003e (complete up to 3999)",
+				"Paul Lewis, \u003ca href=\"http://www.web40571.clarahost.co.uk/roman/howtheywork.htm\"\u003eRoman numerals\u003c/a\u003e"
+			],
+			"formula": [
+				"A006968(a(n)) \u003c= A055642(a(n)). - _Reinhard Zumkeller_, Apr 20 2013"
+			],
+			"example": [
+				"15 = XV has length 2 in both notations."
+			],
+			"maple": [
+				"for n from 1 to 3999 do if(length(convert(n, roman)) \u003c= length(n))then printf(\"%d, \", n): fi: od: # _Nathaniel Johnston_, May 18 2011"
+			],
+			"mathematica": [
+				"Select[Range[560],StringLength[IntegerString[#,\"Roman\"]]\u003c= IntegerLength[ #]\u0026] (* _Harvey P. Dale_, Dec 18 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a036788 n = a036788_list !! (n-1)",
+				"a036788_list = [x | x \u003c- [1..], a006968 x \u003c= a055642 x]",
+				"-- _Reinhard Zumkeller_, Apr 20 2013"
+			],
+			"xref": [
+				"Cf. A036786, A036787, A105269, A119310, A121305."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Corrected and extended by Larry Reeves (larryr(AT)acm.org), Sep 25 2000"
+			],
+			"references": 7,
+			"revision": 17,
+			"time": "2017-08-09T00:16:59-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37380,
+			"data": "1,2,4,8,13,18,22,24,25,26,28,33,36,41,56,66,70,72,73,74,75,78,81,82,84,88,96,97,98,99,100,104,108,112,114,120,121,122,129,132,133,134,135,137,141,144,145,146,147,148,149,151,152,156",
+			"name": "Numbers n such that every base 3 digit of n is a base 4 digit of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037380/b037380.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[200],SubsetQ[IntegerDigits[#,4],IntegerDigits[#,3]]\u0026] (* _Harvey P. Dale_, Jan 19 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037380 n = a037380_list !! (n-1)",
+				"a037380_list = filter f [1..] where",
+				"   f x = null $ nub (ds 3 x) \\\\ nub (ds 4 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013"
+			],
+			"xref": [
+				"Cf. A037381, A037382, A037383, A037384, A037385, A037386."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 11,
+			"time": "2016-01-19T19:36:41-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

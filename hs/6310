@@ -1,0 +1,340 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6310,
+	"results": [
+		{
+			"number": 78730,
+			"data": "0,2,3,10,5,26,7,42,30,62,11,116,13,114,93,170,17,242,19,280,171,266,23,476,130,366,273,528,29,713,31,682,399,614,285,1070,37,762,549,1150,41,1342,43,1264,873,1106,47,1916,350,1562,921,1752,53,2186,665,2166,1143",
+			"name": "Sum of products of two successive divisors of n.",
+			"comment": [
+				"a(n) = dot_product (d_1,d_2,...,d_(tau(n)-1))*(d_2,d_3,...d_tau(n)), where d_1\u003cd_2\u003c...\u003cd_tau(n), is increasing sequence of divisors of n. a(10) = dot_product (1,2,5)*(2,5,10) = 2+10+50 = 62.",
+				"a(n) = n if and only if n is prime. - _Robert Israel_, May 05 2014"
+			],
+			"link": [
+				"Robert Israel, \u003ca href=\"/A078730/b078730.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"A078730:= proc(n)",
+				"local d,i;",
+				"d:= numtheory[divisors](n);",
+				"add(d[i]*d[i+1], i=1..nops(d)-1)",
+				"end proc;",
+				"seq(A078730(n),n=1..100); # _Robert Israel_, May 05 2014"
+			],
+			"mathematica": [
+				"f[n_] := Module[{d, l, s, i}, d = Divisors[n]; l = Length[d]; s = 0; For[i = 1, i \u003c l, i++, s = s + d[[i + 1]]*d[[i]]]; s]; Table[ f[n], {n, 1, 100}]",
+				"f[n_] := Plus @@ Times @@@ Partition[ Divisors@ n, 2, 1]; Array[f, 57] (* _Robert G. Wilson v_, Dec 18 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a078730 n = sum $ zipWith (*) ps $ tail ps where ps = a027750_row n",
+				"-- _Reinhard Zumkeller_, Dec 20 2014",
+				"(PARI) a(n) = my(d = divisors(n)); sum(k=1, #d-1, d[k]*d[k+1]); \\\\ _Michel Marcus_, Feb 15 2015"
+			],
+			"xref": [
+				"Cf. A078713(n) = 2*A001157(n)-2*a(n)-n^2-1.",
+				"Cf. A027750."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Vladeta Jovovic_, Dec 20 2002",
+			"references": 3,
+			"revision": 24,
+			"time": "2015-02-16T04:09:43-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 78832,
+			"data": "1,2,3,2,2,2,3,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2",
+			"name": "Smallest prime contained as binary substring in binary representation of n\u003e1, a(1)=1.",
+			"comment": [
+				"a(n)\u003c=3 and for n\u003e1: a(n)\u003e=2 and a(n)=3 iff n=2^k-1, k\u003e1.",
+				"a(n) = A225243(n,1). - _Reinhard Zumkeller_, Aug 14 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A078832/b078832.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"For n \u003e 1: a(n) = A036987(n) + 2. _Reinhard Zumkeller_, Aug 14 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a078832 = head . a225243_row  -- _Reinhard Zumkeller_, Aug 14 2013"
+			],
+			"xref": [
+				"Cf. A078833, A078826, A078822, A007088, A020639.",
+				"Cf. A030308, A010051, A000225."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 08 2002",
+			"references": 3,
+			"revision": 7,
+			"time": "2015-07-17T05:58:18-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 78834,
+			"data": "1,2,3,2,5,3,7,2,1,5,11,3,13,7,3,2,17,2,19,5,1,11,23,3,1,13,3,7,29,3,31,2,1,17,1,2,37,19,3,5,41,2,43,11,5,23,47,3,1,2,3,13,53,3,11,7,3,29,59,3,61,31,7,2,1,2,67,17,1,2,71,2,73,37,5,19,1,3,79,5,1,41,83,2,5,43",
+			"name": "Greatest prime factor of n also contained as binary substring in binary representation of n; a(n)=1, if no such factor exists.",
+			"comment": [
+				"a(n) \u003c= min{A078833(n), A006530(n)};",
+				"for n\u003e1: a(n) = n iff n is prime.",
+				"a(A100484(n)) = A000040(n); a(A100368(n)) = A006530(A100368(n)). [_Reinhard Zumkeller_, Sep 19 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A078834/b078834.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"n=15=3*5 has two factors; only '11'=3 is contained in '1111'=15, therefore a(15)=3."
+			],
+			"maple": [
+				"with(numtheory): P:=proc(n) local a,b,c,k; a:=factorset(n);",
+				"b:=1; c:=convert(convert(n,binary,decimal),string);",
+				"for k from nops(a) by -1 to 1 do",
+				"if searchtext(convert(convert(a[k],binary,decimal),string),c)\u003e0",
+				"then b:=a[k]; break; fi; od; b; end: seq(P(i),i=1..86);",
+				"# _Paolo P. Lava_, Nov 15 2018"
+			],
+			"mathematica": [
+				"a[n_] := Module[{bn, pp, sel}, bn = IntegerDigits[n, 2]; pp = FactorInteger[n][[All, 1]]; sel = Select[pp, MatchQ[bn, {___, Sequence @@ IntegerDigits[#, 2], ___}] \u0026]; If[sel == {}, 1, Max[sel]]]; Table[a[n], {n, 1, 100}] (* _Jean-François Alcover_, Aug 13 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Numeric (showIntAtBase)",
+				"import Data.List (find, isInfixOf)",
+				"import Data.Maybe (fromMaybe)",
+				"a078834 n = fromMaybe 1 $ find (\\p -\u003e showIntAtBase 2 (\"01\" !!) p \"\"",
+				"                          `isInfixOf` showIntAtBase 2 (\"01\" !!) n \"\") $",
+				"                 reverse $ a027748_row n",
+				"-- _Reinhard Zumkeller_, Sep 19 2011"
+			],
+			"xref": [
+				"Cf. A078833, A078822, A007088, A006530."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 08 2002",
+			"references": 3,
+			"revision": 17,
+			"time": "2018-11-15T03:31:58-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79070,
+			"data": "0,0,1,0,1,2,2,0,1,2,3,3,4,5,3,0,1,2,4,3,5,6,6,4,7,8,7,9,8,9,4,0,1,2,5,3,6,7,10,4,8,9,11,10,12,13,10,5,11,12,14,13,15,16,11,14,17,18,12,19,13,14,5,0,1,2,6,3,7,8,15,4,9,10,16,11,17,18,20,5,12,13,19,14,20,21,21,15",
+			"name": "Number of numbers \u003c n having in binary representation the same number of 0's as n.",
+			"comment": [
+				"a(n) = #{m : m \u003c n and A023416(m) = A023416(n)};",
+				"a(2^k - 1) = k - 1; a(2^k) = 0; a(2^k + 1) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079070/b079070.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"n = 12 -\u003e '1100': A023416(12) = 2 therefore",
+				"a(12) = #{4 -\u003e'100', 9 -\u003e'1001', 10 -\u003e'1010'} = 3;",
+				"n = 13 -\u003e '1101': A023416(13) = 1 therefore",
+				"a(13) = #{2 -\u003e'10', 5 -\u003e'101', 6 -\u003e'110', 11 -\u003e'1011'} = 4."
+			],
+			"mathematica": [
+				"dcn[n_]:=Count[Range[n-1],_?(DigitCount[#,2,0]==DigitCount[ n,2,0]\u0026)]; Array[dcn,90] (* _Harvey P. Dale_, Jun 11 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a079070 n = length $ elemIndices (a023416 n) $ map a023416 [1..n-1]",
+				"-- _Reinhard Zumkeller_, Jun 16 20011"
+			],
+			"xref": [
+				"Cf. A068076, A079071, A079072, A007088, A023416."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "1,6",
+			"author": "_Reinhard Zumkeller_, Dec 21 2002",
+			"references": 3,
+			"revision": 18,
+			"time": "2014-02-15T02:37:47-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79084,
+			"data": "3,3,3,3,7,7,5,5,5,5,19,19,11,11,3,5,31,31,17,37,37,7,7,7,17,17,13,11,19,19,11,23,23,7,19,79,79,41,29,29,13,13,97,97,11,53,53,19,23,23,13,11,11,43,43,11,17,139,139,71,71,11,13,157,157,83,83,29,29,59,59,23,23,19",
+			"name": "Greatest prime factor of (prime(n)+1)*(prime(n+1)+1)/4.",
+			"comment": [
+				"a(n) = A006530(A079079(n))."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A079084/b079084.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a[n_]:=FactorInteger[(Prime[n]+1)(Prime[n+1]+1)/4][[-1,1]]; Table[a[n],{n,1,74}] (* _Jean-François Alcover_, Mar 18 2011 *)",
+				"FactorInteger[(First[#]+1) (Last[#]+1)/4][[-1,1]]\u0026/@Partition[Prime[ Range[100]],2,1] (* _Harvey P. Dale_, Nov 14 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a079084 = a006530 . a079079  -- _Reinhard Zumkeller_, Oct 08 2012"
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 22 2002",
+			"references": 3,
+			"revision": 18,
+			"time": "2018-06-20T01:32:36-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79088,
+			"data": "2,4,6,8,8,6,12,16,18,20,10,8,16,20,20,20,16,8,24,18,16,40,32,18,12,24,32,32,16,28,32,24,32,32,36,12,8,32,36,32,48,48,24,12,54,24,24,48,32,24,64,48,36,32,36,60,64,16,8,16,24,32,64,24,8,16,12,24,48,24,48,72,32,32",
+			"name": "Number of divisors of (prime(n)+1)*(prime(n+1)+1)/4.",
+			"comment": [
+				"a(n)=A000005(A079079(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079088/b079088.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a079088 = a000005 . a079079  -- _Reinhard Zumkeller_, Oct 08 2012"
+			],
+			"xref": [
+				"Cf. A079085, A079086."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 22 2002",
+			"references": 3,
+			"revision": 8,
+			"time": "2013-07-13T12:02:54-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79095,
+			"data": "3,6,42,399,462,930,1054,3135,4830,6478,13110,19599,20022,24963,26394,35530,38805,39999,41205,44310,52899,71002,74254,81510,94863,95790,103362,109230,111547,114243,135790,144399,146685,157206,166866,183183",
+			"name": "Squarefree numbers of the form (prime(n)+1)*(prime(n+1)+1)/4.",
+			"comment": [
+				"Subsequence of A079079; A008966(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079095/b079095.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"(A000040(12)+1)*(A000040(12+1)+1)/4 = (37+1)*(41+1)/4 = 399 = 3*7*19, therefore 399 is a term."
+			],
+			"program": [
+				"(Haskell)",
+				"a079095 n = a079095_list !! (n-1)",
+				"a079095_list = filter ((== 1) . a008966) a079079_list",
+				"-- _Reinhard Zumkeller_, Oct 09 2012"
+			],
+			"xref": [
+				"Cf. A079093, A005117."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 22 2002",
+			"references": 3,
+			"revision": 9,
+			"time": "2013-07-13T12:02:55-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80736,
+			"data": "1,0,2,2,4,0,6,4,6,0,10,4,12,0,8,8,16,0,18,8,12,0,22,8,20,0,18,12,28,0,30,16,20,0,24,12,36,0,24,16,40,0,42,20,24,0,46,16,42,0,32,24,52,0,40,24,36,0,58,16,60,0,36,32,48,0,66,32,44,0,70,24,72,0,40,36,60,0,78,32",
+			"name": "Multiplicative function defined by a(1)=1, a(2)=0, a(2^r) = phi(2^r) (r\u003e1), a(p^r) = phi(p^r) (p odd prime, r\u003e=1), where phi is Euler's function A000010.",
+			"comment": [
+				"a(A016825(n)) = 0; a(A000040(n)) = A000040(n) - 1. - _Reinhard Zumkeller_, Jun 11 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080736/b080736.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = if n mod 4 = 2 then 0 else A000010(n). - _Reinhard Zumkeller_, Jun 13 2012"
+			],
+			"program": [
+				"(PARI) {for(n=1,81,f=factor(n); print1(if(n==1,1,if(f[1,1]==2\u0026\u0026f[1,2]==1,0,prod(j=1,matsize(f)[1],eulerphi(f[j,1]^f[j,2])))),\",\"))}",
+				"(Haskell)",
+				"a080736 n = if n `mod` 4 == 2 then 0 else a000010 n",
+				"-- _Reinhard Zumkeller_, Jun 13 2012, Jun 11 2012"
+			],
+			"xref": [
+				"Cf. A080737.",
+				"Cf. A000010, A141809."
+			],
+			"keyword": "nonn,easy,mult",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, Mar 08 2003",
+			"ext": [
+				"More terms and PARI code from _Klaus Brockhaus_, Mar 10 2003"
+			],
+			"references": 3,
+			"revision": 13,
+			"time": "2013-07-13T12:02:56-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80741,
+			"data": "1,3,5,7,16,11,13,39,17,19,25,23,69,115,29,31,64,155,37,111,41,43,129,47,141,235,53,81,265,59,61,183,128,67,201,71,73,219,365,79,237,83,249,415,89,267,445,623,97,291,101,103,309,107,109,121,113,339,565,791,1417",
+			"name": "Smallest element of n-th row of A080738.",
+			"link": [
+				"J. Bamberg, G. Cairns and D. Kilminster, \u003ca href=\"http://www.jstor.org/stable/3647934\"\u003eThe crystallographic restriction, permutations and Goldbach's conjecture\u003c/a\u003e, Amer. Math. Monthly, 110 (March 2003), 202-209."
+			],
+			"program": [
+				"(Haskell)",
+				"a080741 n k = a080741_list !! n",
+				"a080741_list = map head a080738_tabf  -- _Reinhard Zumkeller_, Jun 13 2012"
+			],
+			"xref": [
+				"Cf. A080737, A080738, A080740, A080742."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Mar 08 2003",
+			"ext": [
+				"More terms from _Vladeta Jovovic_, Mar 09 2003"
+			],
+			"references": 3,
+			"revision": 10,
+			"time": "2017-10-02T10:54:52-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80757,
+			"data": "1,2,2,1,2,2,2,1,2,2,2,1,2,2,1,2,2,2,1,2,2,2,1,2,2,2,1,2,2,1,2,2,2,1,2,2,2,1,2,2,2,1,2,2,1,2,2,2,1,2,2,2,1,2,2,1,2,2,2,1,2,2,2,1,2,2,2,1,2,2,1,2,2,2,1,2,2,2,1,2,2,2,1,2,2,1,2,2,2,1,2,2,2,1,2,2,2,1,2,2,1,2,2,2,1,2",
+			"name": "First differences of Beatty sequence A022838(n) = floor(n sqrt(3)).",
+			"comment": [
+				"Let S(0) = 1; obtain S(k) from S(k-1) by applying 1 -\u003e 221, 2 -\u003e 2221; sequence is S(0), S(1), S(2), ... - _Matthew Vandermast_, Mar 25 2003",
+				"The sequence (a(n+1)-1) is the homogeneous Sturmian sequence with slope sqrt(3)-1, which is fixed point of the morphism 0-\u003e110, 1-\u003e1101. So (a(n), n\u003e0) is the unique fixed point of the morphism 1-\u003e221, 2-\u003e2212. - _Michel Dekking_, Oct 06 2018",
+				"The dual version defined by b(n)=1-(a(n)-1) for n\u003e0 is the Sturmian sequence with slope 1-(sqrt(3)-1) = 2-sqrt(3). It is the fixed point of the morphism 0-\u003e0010, 1-\u003e001. The sequence (b(n)) prefixed with 0 equals A275855. - _Michel Dekking_, Oct 06 2018"
+			],
+			"link": [
+				"Michel Dekking, \u003ca href=\"http://math.colgate.edu/~integers/sjs7/sjs7.Abstract.html\"\u003eSubstitution invariant Sturmian words and binary trees\u003c/a\u003e, Integers 18A, #A7, 1-15 (2018).",
+				"\u003ca href=\"/index/Fi#FIXEDPOINTS\"\u003eIndex entries for sequences that are fixed points of mappings\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A007538(n+1) - 1. - _Reinhard Zumkeller_, Feb 13 2012"
+			],
+			"mathematica": [
+				"Flatten[ NestList[ Flatten[ # /. {1 -\u003e {2, 2, 1}, 2 -\u003e {2, 2, 2, 1}}] \u0026, {1}, 4]] (* _Robert G. Wilson v_, Jun 20 2005 *)",
+				"Differences[Floor[Range[0,110]Sqrt[3]]] (* _Harvey P. Dale_, Mar 15 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a080757 = (subtract 1) . a007538 . (+ 1)",
+				"-- _Reinhard Zumkeller_, Feb 14 2012"
+			],
+			"xref": [
+				"Equals A007538(n+1) - 1. Cf. A001030."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Mar 25 2003",
+			"references": 3,
+			"revision": 28,
+			"time": "2018-10-06T04:30:11-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

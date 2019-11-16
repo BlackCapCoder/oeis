@@ -1,0 +1,374 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6160,
+	"results": [
+		{
+			"number": 53205,
+			"data": "0,0,2,0,8,0,14,6,12,0,26,0,44,36,62,0,44,0,74,48,68,0,134,30,80,78,154,0,242,0,254,72,36,86,170,0,116,84,254,0,440,0,322,330,324,0,590,126,272,414,430,0,674,96,646,120,408,0,794,0,932,384,958,290,524,0",
+			"name": "Row sums of A053201.",
+			"comment": [
+				"a(p(n)) = 0, where p(n) = prime numbers A000040."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053205/b053205.txt\"\u003eTable of n, a(n) for n = 2..1000\u003c/a\u003e"
+			],
+			"example": [
+				"a(6) = 0 + 3 + 2 + 3 + 0 = 8"
+			],
+			"program": [
+				"(Haskell)",
+				"a053205 = sum . a053201_row  -- _Reinhard Zumkeller_, Jan 24 2014"
+			],
+			"xref": [
+				"a(n) = A053204(n) - 2. Cf. A053201, A053202, A053204."
+			],
+			"keyword": "nonn,easy",
+			"offset": "2,3",
+			"author": "Asher Auel (asher.auel(AT)reed.edu) Dec 12, 1999",
+			"ext": [
+				"Corrected and extended by _James A. Sellers_, Dec 13 1999"
+			],
+			"references": 3,
+			"revision": 6,
+			"time": "2014-01-24T14:01:08-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53590,
+			"data": "1,2,3,2,5,6,7,2,3,2,11,6,13,2,15,2,17,6,19,2,3,2,23,6,5,2,3,2,29,30,31,2,3,2,35,6,37,2,3,2,41,6,43,2,15,2,47,6,7,2,3,2,53,6,5,2,3,2,59,30,61,2,3,2,5,6,67,2,3,2,71,6,73,2,15,2,77,6,79,2,3,2,83,6,5,2,3,2,89,30",
+			"name": "Product of the longest chain of consecutive primes (starting with A020639(n)) which divides n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053590/b053590.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(462)=6 because 462=2*3*7*11 and so the greatest product of the longest chain including 2 is 2*3=6."
+			],
+			"mathematica": [
+				"a[1] = 1; a[n_] := Module[{pp}, For[pp = 1; p = FactorInteger[n][[1, 1]], Mod[n, p] == 0, p = NextPrime[p], pp *= p]; pp]; Table[a[n], {n, 1, 90}] (* _Jean-François Alcover_, Mar 04 2014 *)"
+			],
+			"program": [
+				"(PARI) A053590(n) = {",
+				"    local(a) ;",
+				"    if (n==1,",
+				"        return(1)",
+				"    ) ;",
+				"    a = A020639(n) ;",
+				"    p = nextprime(a+1) ;",
+				"    while(1,",
+				"        if ( n % p ==0,",
+				"            a *= p; p=nextprime(p+1),",
+				"            return(a)",
+				"        ) ;",
+				"    ) ;",
+				"    a ;",
+				"}  /* R. J. Mathar, Mar 02 2012 */",
+				"(Haskell)",
+				"a053590 1 = 1",
+				"a053590 n = last $ takeWhile ((== 0) . (mod n)) $",
+				"                   scanl1 (*) $ dropWhile (\u003c a020639 n) a000040_list",
+				"-- _Reinhard Zumkeller_, May 28 2012"
+			],
+			"xref": [
+				"Cf. A073485 (fixed points), A192280."
+			],
+			"keyword": "nice,nonn,easy",
+			"offset": "1,2",
+			"author": "Frederick Magata (frederick.magata(AT)uni-muenster.de), Jan 19 2000",
+			"ext": [
+				"Data corrected by _Reinhard Zumkeller_, May 28 2012"
+			],
+			"references": 3,
+			"revision": 22,
+			"time": "2016-04-25T11:45:28-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53672,
+			"data": "5,7,7,11,11,5,11,7,7,7,5,11,11,11,7,5,7,11,13,13,5,7,7,7,11,5,11,11,7,7,5,13,13,11,11,5,7,7,11,11,5,13,7,7,7,5,11,11,11,7,5,7,13,13,13,5,7,7,7,11,5,11,17,7,7,5,11,11,11,11,5,7,7,13,17,5,17,7,7,7,5,11,11,11,7",
+			"name": "Least number coprime to n, n+1, n+2 and n+3.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053672/b053672.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"5 \u003c= a(n) \u003c= (4 + o(1)) log n. - _Charles R Greathouse IV_, Jun 20 2013"
+			],
+			"mathematica": [
+				"a[n_] := (k = 5; While[ ! (CoprimeQ[k, n] \u0026\u0026 CoprimeQ[k, n+1] \u0026\u0026 CoprimeQ[k, n+2] \u0026\u0026 CoprimeQ[k, n+3]), k++]; k); Table[a[n], {n, 1, 85}](* _Jean-François Alcover_, Nov 30 2011 *)",
+				"Table[Module[{k=3},While[!And@@CoprimeQ[n+Range[0,3],Prime[k]],k++];Prime[k]],{n,90}] (* _Harvey P. Dale_, May 10 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a053672 n = 2 + fromJust",
+				"   (elemIndex 1 $ map (gcd $ foldl1 lcm $ take 4 [n..]) [2..])",
+				"-- _Reinhard Zumkeller_, Sep 25 2011",
+				"(PARI) a(n)=forprime(p=5,,if((n+3)%p\u003e3,return(p))) \\\\ _Charles R Greathouse IV_, Jun 20 2013"
+			],
+			"xref": [
+				"Cf. A053669-A053674, A226891."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_Henry Bottomley_, Feb 15 2000",
+			"ext": [
+				"More terms from _James A. Sellers_, Feb 22 2000"
+			],
+			"references": 3,
+			"revision": 24,
+			"time": "2013-11-21T13:11:33-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53673,
+			"data": "7,7,11,11,11,11,13,7,7,17,17,11,11,11,7,7,11,13,13,13,13,7,7,11,11,11,11,11,7,7,13,13,13,11,11,7,7,11,11,13,13,13,7,7,11,11,11,11,11,7,7,17,13,13,13,11,7,7,11,11,11,17,17,7,7,13,11,11,11,11,7,7,13,17,17,17,17",
+			"name": "Least number \u003e 1 coprime to n, n+1, n+2, n+3 and n+4.",
+			"comment": [
+				"From _Robert Israel_, Jul 06 2016: (Start)",
+				"Least prime that does not divide n(n+1)(n+2)(n+3)(n+4).",
+				"All terms are primes \u003e= 7.",
+				"First occurrences of the first few values:",
+				"  a(1) = 7, a(3) = 11, a(7) = 13, a(10) = 17, a(117) = 19, a(152) = 23, a(1309) = 29, a(986) = 31, a(1767) = 37, a(203201) = 41, a(868868) = 43",
+				"(End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053673/b053673.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"f:= proc(n) local p;",
+				"  p:= 7;",
+				"  while min([n,n+1,n+2,n+3,n+4] mod p) = 0 do p:= nextprime(p) od:",
+				"  p",
+				"end proc:",
+				"seq(f(n),n=1..100); # _Robert Israel_, Jul 06 2016"
+			],
+			"mathematica": [
+				"Table[k=2;While[First[Union[CoprimeQ[k,#]\u0026/@(n+Range[0,4])]]== False, k++];k,{n,80}] (* _Harvey P. Dale_, Jul 07 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a053673 n = 2 + fromJust",
+				"   (elemIndex 1 $ map (gcd $ foldl1 lcm $ take 5 [n..]) [2..])",
+				"-- _Reinhard Zumkeller_, Sep 25 2011"
+			],
+			"xref": [
+				"Cf. A053669-A053674."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_Henry Bottomley_, Feb 15 2000",
+			"ext": [
+				"More terms from Andrew Gacek (andrew(AT)dgi.net), Feb 21 2000 and _James A. Sellers_, Feb 22 2000"
+			],
+			"references": 3,
+			"revision": 18,
+			"time": "2016-07-06T23:47:04-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54008,
+			"data": "0,0,1,1,1,2,1,0,0,2,1,0,1,2,3,1,1,0,1,2,1,2,1,0,1,2,3,4,1,6,1,2,1,2,3,0,1,2,3,0,1,2,1,2,3,2,1,8,1,2,3,4,1,6,3,0,1,2,1,0,1,2,3,1,1,2,1,2,1,6,1,0,1,2,3,4,1,6,1,0,1,2,1,0,1,2,3,0,1,6,3,2,1,2,3,0,1,2,3,1,1,6,1,0,1",
+			"name": "n read modulo (number of divisors of n).",
+			"comment": [
+				"a(n)=0 iff n is a refactorable number (cf. A033950). - _Franz Vrabec_, Oct 16 2005",
+				"a(n) = A049850(n) mod A000005(n). - _Jaroslav Krizek_, Nov 27 2013",
+				"a(A066708(n)) = n and a(m) \u003c n for m \u003c A066708(n). - _Reinhard Zumkeller_, Sep 17 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054008/b054008.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n mod tau(n)."
+			],
+			"maple": [
+				"[ seq( i mod tau(i), i=1..130) ];"
+			],
+			"mathematica": [
+				"a[n_] := Mod[n, DivisorSigma[0, n]]; Array[a, 105] (* _Jean-François Alcover_, Sep 19 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a054008 n = n `mod` a000005 n  -- _Reinhard Zumkeller_, Sep 17 2014",
+				"(PARI) a(n) = n % numdiv(n); \\\\ _Michel Marcus_, Sep 19 2017"
+			],
+			"xref": [
+				"Cf. A000005, A054009."
+			],
+			"keyword": "nonn",
+			"offset": "1,6",
+			"author": "Asher Auel (asher.auel(AT)reed.edu) Jan 12, 2000",
+			"references": 3,
+			"revision": 22,
+			"time": "2017-09-19T03:25:08-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54240,
+			"data": "0,1,1,2,4,2,3,3,3,3,4,6,8,6,4,5,5,9,9,5,5,6,16,6,12,6,16,6,7,7,7,7,7,7,7,7,8,18,12,18,16,18,12,18,8,9,9,13,13,17,17,13,13,9,9,10,12,10,24,18,20,18,24,10,12,10,11,11,11,11,19,19,19,19,11,11,11,11,12,14,32,14",
+			"name": "Bit-interleaved number addition table; like binary addition but carries shift 2 instead of 1; addition base sqrt(2).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054240/b054240.txt\"\u003eAntidiagonals n=0..125 of square array, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"a(3,1)=6 because (0*2+1*sqrt(2)+1*1) + (0*2+0*sqrt(2)+1*1) = (1*2+1*sqrt(2)+0*1) (i.e. base sqrt(2) addition)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Bits (xor, (.\u0026.), shift)",
+				"a054240 :: Integer -\u003e Integer -\u003e Integer",
+				"a054240 x 0 = x",
+				"a054240 x y = a054240 (x `xor` y) (shift (x .\u0026. y) 2)",
+				"a054240_adiag n =  map (\\k -\u003e a054240 (n - k) k) [0..n]",
+				"a054240_square = map a054240_adiag [0..]",
+				"-- _Reinhard Zumkeller_, Dec 03 2011"
+			],
+			"xref": [
+				"Cf. A054239.",
+				"Cf. A201651 (triangle read by rows)."
+			],
+			"keyword": "easy,nonn,tabl,look",
+			"offset": "0,4",
+			"author": "_Marc LeBrun_, Feb 07 2000",
+			"references": 3,
+			"revision": 13,
+			"time": "2014-01-27T08:54:05-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 55654,
+			"data": "0,0,0,1,0,0,0,3,2,0,0,3,0,0,0,7,0,4,0,5,0,0,0,9,4,0,8,7,0,0,0,15,0,0,0,15,0,0,0,15,0,0,0,11,10,0,0,21,6,8,0,13,0,16,0,21,0,0,0,15,0,0,14,31,0,0,0,17,0,0,0,37,0,0,12,19,0,0,0,35,26,0,0,21,0,0,0,33,0,20,0,23",
+			"name": "Difference between n and the result of \"Phi-summation\" over unitary divisors of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A055654/b055654.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n - Sum_{u|n, gcd(u,n/u) = 1} phi(u), i.e. when u is a unitary divisor of n."
+			],
+			"example": [
+				"Squarefree numbers are roots of a(n)=0 equation, while Min n for which a(n)=k is k^2. See also A000188, A008833."
+			],
+			"mathematica": [
+				"Table[n - DivisorSum[n, EulerPhi[#] \u0026, CoprimeQ[#, n/#] \u0026], {n, 92}] (* _Michael De Vlieger_, Oct 26 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a055654 n = a055654_list !! (n-1)",
+				"a055654_list = zipWith (-) [1..] a055653_list",
+				"-- _Reinhard Zumkeller_, Mar 11 2012",
+				"(PARI) a(n) = n - sumdiv(n, d, if (gcd(d, n/d)==1, eulerphi(d))); \\\\ _Michel Marcus_, Oct 27 2017"
+			],
+			"xref": [
+				"Cf. A000188, A008833, A055653, A053570, A053571, A055631, A055632."
+			],
+			"keyword": "nonn",
+			"offset": "1,8",
+			"author": "_Labos Elemer_, Jun 07 2000",
+			"references": 3,
+			"revision": 17,
+			"time": "2017-10-27T20:54:26-04:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		},
+		{
+			"number": 55769,
+			"data": "1,2,2,3,5,5,5,5,11,11,11,11,11,11,23,23,29,29,29,29,29,29,41,41,41,41,41,53,53,53,53,53,53,53,53,53,53,53,83,83,89,89,89,89,89,89,89,89,113,113,113,113,113,113,113,131,131,131,131,131,131,131,131,131,131,131",
+			"name": "Largest prime dividing phi of the n-th primorial.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A055769/b055769.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A001221(A000010(A002110(n))).",
+				"a(n) = A006530(A005867(n)). - _Reinhard Zumkeller_, May 01 2013"
+			],
+			"example": [
+				"While the largest prime factors of 10th,100th or 1000th primorials are 29,541,7919, those of their totients are 11,251,3911 respectively."
+			],
+			"mathematica": [
+				"Map[FactorInteger[EulerPhi@ #][[-1, 1]] \u0026, FoldList[#1 #2 \u0026, Prime@ Range@ 66]] (* _Michael De Vlieger_, Oct 26 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a055769 = a006530 . a005867  -- _Reinhard Zumkeller_, May 01 2013",
+				"(PARI) gpf(n)=my(f=factor(n)[,1]); f[#f]",
+				"a(n)=my(p=prime(n),q=1); while(2*q+1\u003cp, q=max(gpf(p-1),q); p=precprime(p-1)); if(n==2, 2, q) \\\\ _Charles R Greathouse IV_, Dec 03 2014"
+			],
+			"xref": [
+				"Cf. A000010, A002110, A005867, A055768."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Labos Elemer_, Jul 12 2000",
+			"references": 3,
+			"revision": 13,
+			"time": "2017-10-27T20:57:51-04:00",
+			"created": "2000-07-22T03:00:00-04:00"
+		},
+		{
+			"number": 55983,
+			"data": "10,12,14,16,18,20,24,28,32,38,44,52,62,74,88,104,148,200,288,392,542,770,1092,1838,2924,4780,8016,13842,27122,53738,109916,265698,631700,1557936,4347258,12785828,43721312,154070654,621230752,2655100718",
+			"name": "a(n+1) = a(n) converted to base 10 from base 12.",
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A055983/b055983.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A102487(a(n)+1), a(1) = 8. - _Reinhard Zumkeller_, Aug 29 2013"
+			],
+			"mathematica": [
+				"NestList[FromDigits[IntegerDigits[#],12]\u0026,10,40] (* _Vincenzo Librandi_, Apr 06 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a055983 n = a055983_list !! (n-1)",
+				"a055983_list = iterate (a102487 . (+ 1)) 10  -- _Reinhard Zumkeller_, Aug 29 2013"
+			],
+			"xref": [
+				"Cf. A008557, A055982, A055984."
+			],
+			"keyword": "base,nonn,easy",
+			"offset": "0,1",
+			"author": "_Henry Bottomley_, Jun 01 2000",
+			"references": 3,
+			"revision": 8,
+			"time": "2013-08-29T15:01:54-04:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		},
+		{
+			"number": 56875,
+			"data": "1,3,5,6,9,10,11,13,14,18,19,20,21,23,24,27,28,30,33,34,36,38,40,41,42,43,44,46,47,50,51,53,55,58,59,60,62,65,68,69,70,71,73,74,76,79,80,82,83,84,85,88,89,91,92,93,95,96,97,101,102,103,105,106,109,111,113,114",
+			"name": "Generated by sieving the natural numbers: keep the smallest remaining number k and take out its k-th successor l as well as the l-th successor m of l, the m-th successor of m and so on. Then start again from the next remaining number.",
+			"comment": [
+				"These numbers are homogeneously distributed with a density of approximately 0.59060."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A056875/b056875.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Sieve.html\"\u003eSieve\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Sieve_theory\"\u003eSieve theory\u003c/a\u003e",
+				"\u003ca href=\"/index/Si#sieve\"\u003eIndex entries for sequences generated by sieves\u003c/a\u003e"
+			],
+			"example": [
+				"In the first round one starts with 1 and the numbers 2,4,8,16,... are removed leaving 1,3,5,6,7,9,10,11,12,13,14,15,17,18,19,20,... The third successor of 3 is now 7 and the 7th of 7 is 15 leaving 1,3,5,6,8,9,10,11,12,13,14,16,..."
+			],
+			"program": [
+				"(Haskell)",
+				"a056875 n = a056875_list !! (n-1)",
+				"a056875_list =  f [1..] where",
+				"   f zs = head zs : f (g zs) where",
+				"     g (x:xs) = us ++ g vs where (us, vs) = splitAt (x - 1) xs",
+				"-- _Reinhard Zumkeller_, Sep 11 2013"
+			],
+			"xref": [
+				"Cf. A066680, A232054 (complement)."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,2",
+			"author": "Thomas Schulze (jazariel(AT)tiscalenet.it), Sep 02 2000",
+			"references": 3,
+			"revision": 11,
+			"time": "2015-03-12T22:34:30-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

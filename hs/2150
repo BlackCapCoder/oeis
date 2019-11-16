@@ -1,0 +1,431 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2150,
+	"results": [
+		{
+			"number": 193238,
+			"data": "0,0,1,1,0,1,0,1,0,0,0,0,1,1,0,1,0,1,0,0,1,1,2,2,1,2,1,2,1,1,1,1,2,2,1,2,1,2,1,1,0,0,1,1,0,1,0,1,0,0,1,1,2,2,1,2,1,2,1,1,0,0,1,1,0,1,0,1,0,0,1,1,2,2,1,2,1,2,1,1,0,0,1,1,0,1",
+			"name": "Number of prime digits in decimal representation of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193238/b193238.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(A084984(n))=0; a(A118950(n))\u003e0; a(A092620(n))=1; a(A092624(n))=2; a(A092625(n))=3; a(A046034(n))=A055642(A046034(n));",
+				"a(A000040(n)) = A109066(n).",
+				"From _Hieronymus Fischer_, May 30 2012: (Start)",
+				"a(n) = sum_{j=1..m+1} (floor(n/10^j+0.3) + floor(n/10^j+0.5) + floor(n/10^j+0.8) - floor(n/10^j+0.2) - floor(n/10^j+0.4) - floor(n/10^j+0.6)), where m=floor(log_10(n)), n\u003e0.",
+				"a(10n+k) = a(n) + a(k), 0\u003c=k\u003c10, n\u003e=0.",
+				"a(n) = a(floor(n/10)) + a(n mod 10), n\u003e=0.",
+				"a(n) = sum_{j=0..m} a(floor(n/10^j) mod 10), n\u003e=0.",
+				"a(A046034(n)) = floor(log_4(3n+1)), n\u003e0.",
+				"a(A211681(n)) = 1 + floor((n-1)/4), n\u003e0.",
+				"G.f.: g(x) = (1/(1-x))*sum_{j\u003e=0} (x^(2*10^j) + x^(3*10^j)+ x^(5*10^j) + x^(7*10^j))*(1-x^10^j)/(1-x^10^(j+1)).",
+				"Also: g(x) = (1/(1-x))*sum_{j\u003e=0} (x^(2*10^j)- x^(4*10^j)+ x^(5*10^j)- x^(6*10^j)+ x^(7*10^j)- x^(8*10^j))/(1-x^10^(j+1)). (End)"
+			],
+			"program": [
+				"(Haskell)",
+				"a193238 n = length $ filter (`elem` \"2357\") $ show n",
+				"(PARI) a(n)=n=eval(Vec(Str(n)));sum(i=1,#n,isprime(n[i])) \\\\ _Charles R Greathouse IV_, Jul 29 2011"
+			],
+			"xref": [
+				"Cf. A010051.",
+				"Cf. A211681, A046034, A052382, A055640, A055641, A055642, A102669 - A102685, A122640, A117804, A196563, A196564."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,23",
+			"author": "_Reinhard Zumkeller_, Jul 19 2011",
+			"references": 16,
+			"revision": 21,
+			"time": "2013-11-03T17:05:39-05:00",
+			"created": "2011-07-21T12:26:48-04:00"
+		},
+		{
+			"number": 198385,
+			"data": "25,100,169,225,289,400,625,676,625,841,900,1156,1369,1225,1681,1521,1600,2500,2025,2704,2601,2500,3721,2809,3025,4225,3364,3600,4225,4225,4225,4624,5625,5476,7225,4900,6724,6084,5329,5625,6400,7225,7225,7225,7921",
+			"name": "Second of a triple of squares in arithmetic progression.",
+			"comment": [
+				"a(n) = A198389(n)^2; a(n) - A198384(n) = A198386(n) - a(n) = A198387(n).",
+				"A198436(n) = a(A198409(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198384/a198384_2.txt\"\u003eTable of initial values\u003c/a\u003e",
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a198385 n = a198385_list !! (n-1)",
+				"a198385_list = map (^ 2) a198389_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 24 2011",
+			"references": 16,
+			"revision": 17,
+			"time": "2013-05-23T15:08:51-04:00",
+			"created": "2011-10-24T11:10:18-04:00"
+		},
+		{
+			"number": 202018,
+			"data": "41,43,47,53,61,71,83,97,113,131,151,173,197,223,251,281,313,347,383,421,461,503,547,593,641,691,743,797,853,911,971,1033,1097,1163,1231,1301,1373,1447,1523,1601,1681,1763,1847,1933,2021,2111,2203,2297,2393",
+			"name": "a(n) = n^2 + n + 41.",
+			"comment": [
+				"Euler's famous prime-generating polynomial; a(0) through a(39) are all prime."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A202018/b202018.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Prime-GeneratingPolynomial.html\"\u003ePrime-Generating Polynomial\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-3,1)."
+			],
+			"formula": [
+				"a(n) = A005846(n) for n \u003c 41, a(41) = A145292(1);",
+				"Union of A005846 (primes) and A145292 (composites);",
+				"a(n) = A002378(n) + 41.",
+				"a(a(n) + n) = a(n)*a(n+1). - _Vladimir Shevelev_, Jul 16 2012 (This identity holds for all sequences of the form n^2 + n + c, _Joerg Arndt_, Jul 17 2012).",
+				"a(0) = 41 and for n \u003e 0, a(n) = a(n-1) + 2*n. - _Jean-Christophe Hervé_, Sep 27 2014",
+				"a(n) = 3*a(n-1) - 3*a(n-2) + a(n-3). - _Colin Barker_, Sep 28 2014",
+				"G.f.: (41*x^2 - 80*x + 41) / (1-x)^3. - _Colin Barker_, Sep 28 2014",
+				"a(n) = 2*a(n-1) - a(n-2) + 2. - _Vincenzo Librandi_, Mar 04 2016",
+				"E.g.f.: (x^2 + 2*x + 41)*exp(x). - _Robert Israel_, Mar 10 2016"
+			],
+			"maple": [
+				"A202018:=n-\u003en^2+n+41: seq(A202018(n), n=0..50); # _Wesley Ivan Hurt_, Sep 28 2014"
+			],
+			"mathematica": [
+				"Table[n^2 + n + 41, {n, 0, 49}] (* _Alonso del Arte_, Dec 08 2011"
+			],
+			"program": [
+				"(Haskell)",
+				"a202018 = (+ 41) . a002378",
+				"(PARI) a(n)=n^2+n+41 \\\\ _Charles R Greathouse IV_, Dec 08 2011",
+				"(MAGMA) [n^2 + n + 41 : n in [0..50]]; // _Wesley Ivan Hurt_, Sep 28 2014",
+				"(Scala) (0 to 49).map((n: Int) =\u003e n * n + n + 41) // _Alonso del Arte_, Nov 29 2018",
+				"(Sage) [n^2+n+41 for n in range(50)] # _G. C. Greubel_, Dec 04 2018",
+				"(GAP) List([0..50], n -\u003e n^2 +n+41); # _G. C. Greubel_, Dec 04 2018"
+			],
+			"xref": [
+				"Cf. A010051, A000040, A002808.",
+				"Cf. A002378, A005846, A145292.",
+				"Cf. A056561."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Dec 08 2011",
+			"references": 16,
+			"revision": 68,
+			"time": "2018-12-06T03:54:05-05:00",
+			"created": "2011-12-08T21:03:56-05:00"
+		},
+		{
+			"number": 213724,
+			"data": "1,3,0,5,7,0,0,9,11,0,13,15,0,0,0,17,19,0,21,23,0,0,25,27,0,29,31,0,0,0,0,33,35,0,37,39,0,0,41,43,0,45,47,0,0,0,49,51,0,53,55,0,0,57,59,0,61,63,0,0,0,0,0,65,67,0,69,71,0,0,73,75,0,77,79,0,0,0,81,83,0,85,87,0,0,89,91",
+			"name": "Largest natural number x such that x=n+A000120(x), or zero if no such number exists.",
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A213724/b213724.txt\"\u003eTable of n, a(n) for n = 0..1024\u003c/a\u003e"
+			],
+			"formula": [
+				"a(0)=1; and for n\u003e=1, a(n)=0 if A079559(n)=0 (i.e. if A213723(n)=0); otherwise A213723(n)+1."
+			],
+			"program": [
+				"(Scheme): (define (A213724 n) (if (zero? n) 1 (let ((v (A213723 n))) (if (zero? v) v (+ 1 v)))))",
+				"(Haskell)",
+				"a213724 0 = 1",
+				"a213724 n = a213723 n + signum (a213723 n)",
+				"-- _Reinhard Zumkeller_, May 01 2015"
+			],
+			"xref": [
+				"One more than A213723 at its nonzero points. a(A005187(n)) = A005408(n). Used for computing A213725-A213727.",
+				"Cf. A179016. - _M. F. Hasler_, Nov 01 2012"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Antti Karttunen_, Nov 01 2012",
+			"references": 16,
+			"revision": 14,
+			"time": "2015-08-11T01:13:22-04:00",
+			"created": "2012-11-01T21:54:30-04:00"
+		},
+		{
+			"number": 243451,
+			"data": "17,41,97,137,241,457,641,857,977,1697,2417,2617,3041,4241,5641,6257,6577,7937,8297,9041,9817,11897,13241,14177,14657,15641,16657,22817,27241,32057,36497,44537,47977,48857,52457,53377,60041,62017,70241,75641,78977,83537",
+			"name": "Primes of the form n^2 + 16.",
+			"comment": [
+				"Intersection of A241751 and A028916; conjecture: sequence is infinite. - _Reinhard Zumkeller_, Apr 11 2015"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A243451/b243451.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Table[n^2 + 16, {n, 0, 1000}], PrimeQ]",
+				"Select[Range[1,301,2]^2+16,PrimeQ] (* _Harvey P. Dale_, Nov 05 2015 *)"
+			],
+			"program": [
+				"(MAGMA) [a: n in [0..1000] | IsPrime(a) where a is n^2+16];",
+				"(Haskell)",
+				"a243451 n = a243451_list !! (n-1)",
+				"a243451_list = [x | x \u003c- a241751_list, a010051' x == 1]",
+				"-- _Reinhard Zumkeller_, Apr 11 2015",
+				"(PARI) list(lim)=if(lim\u003c17,return([])); my(v=List(),t); forstep(n=1,sqrtint(lim\\1-16),2, if(isprime(t=n^2+16), listput(v,t))); Vec(v) \\\\ _Charles R Greathouse IV_, Aug 18 2017"
+			],
+			"xref": [
+				"Cf. A122062 (associated n).",
+				"Cf. similar sequences listed in A243449.",
+				"Cf. A010051, A241751; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1),  A256775 (b=3), A256776 (b=4), A256777 (b=5), A256834 (b=6), A256835 (b=7), A256836 (b=8), A256837 (b=9), A256838 (b=10), A256839 (b=11), A256840 (b=12), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Vincenzo Librandi_, Jun 05 2014",
+			"references": 16,
+			"revision": 14,
+			"time": "2017-08-18T10:48:10-04:00",
+			"created": "2014-06-05T09:50:36-04:00"
+		},
+		{
+			"number": 244040,
+			"data": "0,1,2,2,3,4,3,4,5,3,4,5,5,6,7,4,5,6,5,6,7,7,8,9,5,6,7,5,6,7,7,8,9,8,9,10,5,6,7,7,8,9,6,7,8,7,8,9,9,10,11,9,10,11,5,6,7,7,8,9,8,9,10,6,7,8,8,9,10,8,9,10,9,10,11,11,12,13,10,11,12,5",
+			"name": "Sum of digits of n in fractional base 3/2.",
+			"comment": [
+				"The base 3/2 expansion is unique, and thus the sum of digits function is well-defined."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A244040/b244040.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"In base 3/2 the number 7 is represented by 211 and so a(7) = 2 + 1 + 1 = 4."
+			],
+			"mathematica": [
+				"a[n_]:= a[n]= If[n==0, 0, a[2*Floor[n/3]] + Mod[n,3]]; Table[a[n], {n, 0, 85}] (* _G. C. Greubel_, Aug 20 2019 *)"
+			],
+			"program": [
+				"(Sage)",
+				"def base32sum(n):",
+				"    L, i = [n], 1",
+				"    while L[i-1]\u003e2:",
+				"        x=L[i-1]",
+				"        L[i-1]=x.mod(3)",
+				"        L.append(2*floor(x/3))",
+				"        i+=1",
+				"    return sum(L)",
+				"[base32sum(n) for n in [0..85]]",
+				"(Haskell)",
+				"a244040 0 = 0",
+				"a244040 n = a244040 (2 * n') + t where (n', t) = divMod n 3",
+				"-- _Reinhard Zumkeller_, Sep 05 2014"
+			],
+			"xref": [
+				"Cf. A024629, A007953, A000120, A053735, A244041.",
+				"Cf. A024629, A246435, A053735."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,3",
+			"author": "_James Van Alstine_, Jun 17 2014",
+			"references": 16,
+			"revision": 15,
+			"time": "2019-08-20T02:09:41-04:00",
+			"created": "2014-06-19T11:29:50-04:00"
+		},
+		{
+			"number": 246435,
+			"data": "1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9",
+			"name": "Length of representation of n in fractional base 3/2.",
+			"comment": [
+				"a(n) = A055642(A024629(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A246435/b246435.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"B. Chen, R. Chen, J. Guo, S. Lee et al, \u003ca href=\"http://arxiv.org/abs/1808.04304\"\u003eOn Base 3/2 and its sequences\u003c/a\u003e, arXiv:1808.04304 [math.NT], 2018."
+			],
+			"formula": [
+				"a(n) = if n \u003c 3 then 1 alse a(2*floor(n/3)) + 1."
+			],
+			"mathematica": [
+				"a[n_] := If[n \u003c 3, 1, a[2 Quotient[n, 3]] + 1]; Array[a, 100, 0] (* _Jean-François Alcover_, Feb 05 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a246435 n = if n \u003c 3 then 1 else a246435 (2 * div n 3) + 1",
+				"-- _Reinhard Zumkeller_, Sep 05 2014"
+			],
+			"xref": [
+				"Cf. A024629, A081604, A070989, A081848 (run lengths)."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Sep 05 2014",
+			"references": 16,
+			"revision": 11,
+			"time": "2019-02-05T07:54:00-05:00",
+			"created": "2014-09-05T17:27:35-04:00"
+		},
+		{
+			"number": 256786,
+			"data": "12,14,42,55,154,222,228,714,1122,1196,1212,1414,2112,2142,2262,3355,4144,4242,5335,5544,5555,6162,9499,11112,11144,11214,11424,11466,11622,11818,11914,12222,12882,14112,15554,16666,21216,21222,21252,21888,22122,22212",
+			"name": "Numbers which are divisible by prime(d) for all digits d in their decimal representation.",
+			"comment": [
+				"All terms are zerofree, cf. A052382;",
+				"there is no term containing digits 1 and 3 simultaneously;",
+				"a(n) contains at least one digit 1 iff a(n) is even, cf. A011531, A005843;",
+				"a(n) contains at least one digit 2 iff a(n) mod 3 = 0, cf. A011532, A008585;",
+				"a(n) contains at least one digit 3 iff a(n) mod 10 = 5, cf. A011533, A017329;",
+				"A020639(a(n)) \u003c= 23.",
+				"The equivalent in base 2 is the empty sequence, in base 3 it is A191681\\{0}; see A256874-A256879 for the base 4 - base 9 variant, and A256870 for a variant where digits 0 are allowed but divisibility by prime(d+1) is required instead. - _M. F. Hasler_, Apr 11 2015"
+			],
+			"link": [
+				"Lars Blomberg and Reinhard Zumkeller, \u003ca href=\"/A256786/b256786.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Éric Angelini, \u003ca href=\"http://list.seqfan.eu/pipermail/seqfan/2015-April/014678.html\"\u003eDivisibility by primes\u003c/a\u003e, SeqFan list, Apr 10 2015.",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"example": [
+				"Smallest terms containing the nonzero decimal digits:",
+				".  d | prime(d) |  n | a(n)",
+				". ---+----------+--------------------------",
+				".  1 |       2  |  1 |   12 = 2^2 * 3",
+				".  2 |       3  |  1 |   12 = 2^2 * 3",
+				".  3 |       5  | 16 | 3355 = 5 * 11 * 61",
+				".  4 |       7  |  2 |   14 = 2 * 7",
+				".  5 |      11  |  4 |   55 = 5 * 11",
+				".  6 |      13  | 10 | 1196 = 2^2 * 13 * 23",
+				".  7 |      17  |  8 |  714 = 2 * 3 * 7 * 17",
+				".  8 |      19  |  7 |  228 = 2^2 * 3 * 19",
+				".  9 |      23  | 10 | 1196 = 2^2 * 13 * 23 ."
+			],
+			"mathematica": [
+				"Select[Range@22222,FreeQ[IntegerDigits[#],0]\u0026\u0026Total[Mod[#,Prime[IntegerDigits[#]]]]==0\u0026] (* _Ivan N. Ianakiev_, Apr 11 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a256786 n = a256786_list !! (n-1)",
+				"a256786_list = filter f a052382_list where",
+				"   f x = g x where",
+				"     g z = z == 0 || x `mod` a000040 d == 0 \u0026\u0026 g z'",
+				"           where (z', d) = divMod z 10",
+				"(PARI) is_A256786(n)=!for(i=1,#d=Set(digits(n)),(!d[i]||n%prime(d[i]))\u0026\u0026return) \\\\ _M. F. Hasler_, Apr 11 2015"
+			],
+			"xref": [
+				"Cf. A000040, A005843, A008585, A011531, A011532, A011533, A017329, A020639, A052382, A256874-A256879, A256882-A256884, A256865-A256870."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Eric Angelini_ and _Reinhard Zumkeller_, Apr 10 2015",
+			"references": 16,
+			"revision": 30,
+			"time": "2017-11-02T15:51:00-04:00",
+			"created": "2015-04-10T15:00:33-04:00"
+		},
+		{
+			"number": 258409,
+			"data": "1,2,1,4,1,6,1,2,1,10,1,12,1,2,1,16,1,18,1,2,1,22,1,4,1,2,1,28,1,30,1,2,1,2,1,36,1,2,1,40,1,42,1,2,1,46,1,6,1,2,1,52,1,2,1,2,1,58,1,60,1,2,1,4,1,66,1,2,1,70,1,72,1,2,1,2,1,78,1",
+			"name": "Greatest common divisor of all (d-1)'s, where the d's are the positive divisors of n.",
+			"comment": [
+				"a(n) = 1 for even n; a(p) = p-1 for prime p.",
+				"a(n) is even for odd n (since all divisors of n are odd).",
+				"It appears that a(n) = A052409(A005179(n)), i.e., it is the largest integer power of the smallest number with exactly n divisors. - _Michel Marcus_, Nov 10 2015",
+				"Conjecture: GCD of all (p-1) for prime p|n. - _Thomas Ordowski_, Sep 14 2016",
+				"Conjecture is true, because the set of numbers == 1 (mod g) is closed under multiplication. - _Robert Israel_, Sep 14 2016",
+				"Conjecture: a(n) = A289508(A328023(n)) = GCD of the differences between consecutive divisors of n. See A328163 and A328164. - _Gus Wiseman_, Oct 16 2019"
+			],
+			"link": [
+				"Ivan Neretin, \u003ca href=\"/A258409/b258409.txt\"\u003eTable of n, a(n) for n = 2..10000\u003c/a\u003e"
+			],
+			"example": [
+				"65 has divisors 1, 5, 13, and 65, hence a(65) = gcd(1-1,5-1,13-1,65-1) = gcd(0,4,12,64) = 4."
+			],
+			"maple": [
+				"f:= n -\u003e igcd(op(map(`-`,numtheory:-factorset(n),-1))):",
+				"map(f, [$2..100]); # _Robert Israel_, Sep 14 2016"
+			],
+			"mathematica": [
+				"Table[GCD @@ (Divisors[n] - 1), {n, 2, 100}]"
+			],
+			"program": [
+				"(PARI) a(n) = my(g=0); fordiv(n, d, g = gcd(g, d-1)); g; \\\\ _Michel Marcus_, May 29 2015",
+				"(PARI) a(n) = gcd(apply(x-\u003ex-1, divisors(n))); \\\\ _Michel Marcus_, Nov 10 2015",
+				"(PARI) a(n)=if(n%2==0, return(1)); if(n%3==0, return(2)); if(n%5==0 \u0026\u0026 n%4 != 1, return(2)); gcd(apply(p-\u003ep-1, factor(n)[,1])) \\\\ _Charles R Greathouse IV_, Sep 19 2016",
+				"(Haskell)",
+				"a258409 n = foldl1 gcd $ map (subtract 1) $ tail $ a027750_row' n",
+				"-- _Reinhard Zumkeller_, Jun 25 2015"
+			],
+			"xref": [
+				"Cf. A049559, A057237, A060680, A063994, A187730, A027750.",
+				"Cf. A084190 (similar but with LCM).",
+				"Looking at prime indices instead of divisors gives A328167.",
+				"Partitions whose parts minus 1 are relatively prime are A328170.",
+				"Cf. A000005, A060681, A060683, A193829, A289508."
+			],
+			"keyword": "nonn",
+			"offset": "2,2",
+			"author": "_Ivan Neretin_, May 29 2015",
+			"references": 16,
+			"revision": 40,
+			"time": "2019-10-16T20:22:36-04:00",
+			"created": "2015-06-25T04:16:46-04:00"
+		},
+		{
+			"number": 258708,
+			"data": "1,1,1,1,2,1,1,3,3,1,1,5,7,4,1,1,7,14,12,5,1,1,9,25,30,18,6,1,1,12,42,66,55,26,7,1,1,15,66,132,143,91,35,8,1,1,18,99,245,334,273,140,45,9,1,1,22,143,429,715,728,476,204,57,10,1",
+			"name": "Triangle read by rows: T(i,j) = integer part of binomial(i+j, i-j)/(2*j+1) for i \u003e= 1 and j = 0..i-1.",
+			"comment": [
+				"In the Loh-Shannon-Horadam paper, Table 3 contains a typo (see Extensions lines).",
+				"T(n,k) = round(A258993(n,k)/(2*k+1)). - _Reinhard Zumkeller_, Jun 22 2015",
+				"From _Reinhard Zumkeller_, Jun 23 2015: (Start)",
+				"(using tables 4 and 5 of the Loh-Shannon-Horadam paper, p. 8f).",
+				"T(n, n-1)  = 1;",
+				"T(n, n-2)  = n for n \u003e 1;",
+				"T(n, n-3)  = A000969(n-3) for n \u003e 2;",
+				"T(n, n-4)  = A000330(n-3) for n \u003e 3;",
+				"T(n, n-5)  = T(2*n-7, 2) = A000970(n) for n \u003e 4;",
+				"T(n, n-6)  = A000971(n) for n \u003e 5;",
+				"T(n, n-7)  = A000972(n) for n \u003e 6;",
+				"T(n, n-8)  = A000973(n) for n \u003e 7;",
+				"T(n, 1)    = A001840(n-1) for n \u003e 1;",
+				"T(2*n, n)  = A001764(n);",
+				"T(3*n-1, 1) = A000326(n);",
+				"T(3*n, 2*n) = A002294(n);",
+				"T(4*n, 3*n) = A002296(n). (End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258708/b258708.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e",
+				"R. P. Loh, A. G. Shannon, and A. F. Horadam, \u003ca href=\"/A000969/a000969.pdf\"\u003eDivisibility Criteria and Sequence Generators Associated with Fermat Coefficients\u003c/a\u003e, Preprint, 1980."
+			],
+			"example": [
+				"Triangle T(i, j) (with rows i \u003e= 1 and columns j \u003e= 0) begins as follows:",
+				"  1;",
+				"  1,  1;",
+				"  1,  2,  1;",
+				"  1,  3,  3,   1;",
+				"  1,  5,  7,   4,   1;",
+				"  1,  7, 14,  12,   5,   1;",
+				"  1,  9, 25,  30,  18,   6,   1;",
+				"  1, 12, 42,  66,  55,  26,   7,  1;",
+				"  1, 15, 66, 132, 143,  91,  35,  8, 1;",
+				"  1, 18, 99, 245, 334, 273, 140, 45, 9, 1;",
+				"  ..."
+			],
+			"program": [
+				"(Haskell)",
+				"a258708 n k = a258708_tabl !! (n-1) !! k",
+				"a258708_row n = a258708_tabl !! (n-1)",
+				"a258708_tabl = zipWith (zipWith ((round .) . ((/) `on` fromIntegral)))",
+				"                       a258993_tabl a158405_tabl",
+				"-- _Reinhard Zumkeller_, Jun 22 2015, Jun 16 2015"
+			],
+			"xref": [
+				"Cf. A011793.",
+				"Cf. A007318, A258993, A158405, A005408, A006013 (central terms).",
+				"Cf. A000326, A000330, A000969, A000970, A000971, A000972, A000973, A000976, A001764, A001840, A002294, A002296."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,5",
+			"author": "_N. J. A. Sloane_, Jun 12 2015",
+			"ext": [
+				"Corrected T(8,5) = 26 from _Reinhard Zumkeller_, Jun 13 2015"
+			],
+			"references": 16,
+			"revision": 49,
+			"time": "2019-07-24T05:06:39-04:00",
+			"created": "2015-06-12T21:01:12-04:00"
+		}
+	]
+}

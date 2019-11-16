@@ -1,0 +1,391 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5070,
+	"results": [
+		{
+			"number": 240236,
+			"data": "1,2,1,1,2,1,2,3,2,1,2,2,3,2,1,3,3,4,3,2,1,1,4,2,4,3,2,1,2,1,3,5,4,3,2,1,2,2,4,2,5,4,3,2,1,3,3,5,3,6,5,4,3,2,1,2,2,3,4,2,6,5,4,3,2,1,3,3,4,5,3,7,6,5,4,3,2,1,3,4,5,6,4,2,7,6,5,4,3,2,1",
+			"name": "Triangle read by rows: sum of digits of n in base k, for 2\u003c=k\u003c=n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A240236/b240236.txt\"\u003eRows n = 2..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"Table starts:",
+				"1",
+				"2 1",
+				"1 2 1",
+				"2 3 2 1",
+				"2 2 3 2 1",
+				"3 3 4 3 2 1"
+			],
+			"program": [
+				"(PARI) T(n,k) = local(r=0);if(k\u003c2,-1,while(n\u003e0,r+=n%k;n\\=k);r)",
+				"(Haskell)",
+				"a240236 n k = a240236_tabl !! (n-1) !! (k-1)",
+				"a240236_row n = a240236_tabl !! (n-1)",
+				"a240236_tabl = zipWith (map . flip q)",
+				"                       [2..] (map tail $ tail a002260_tabl) where",
+				"   q b n = if n \u003c b then n else q b n' + d where (n', d) = divMod n b",
+				"-- _Reinhard Zumkeller_, Apr 29 2015"
+			],
+			"xref": [
+				"Row sums give A043306.",
+				"Cf. A000120, A053735, A053737, A007953.",
+				"See A138530 for another version.",
+				" Cf. A002260."
+			],
+			"keyword": "nonn,tabl,base",
+			"offset": "2,2",
+			"author": "_Franklin T. Adams-Watters_, Apr 02 2014",
+			"references": 5,
+			"revision": 27,
+			"time": "2015-04-29T14:04:10-04:00",
+			"created": "2014-04-04T19:43:32-04:00"
+		},
+		{
+			"number": 240752,
+			"data": "1,3,5,-2,0,2,4,-3,-1,-8,3,5,7,0,-7,4,6,-10,1,-6,5,7,0,2,-5,6,-1,1,-6,-4,7,-9,11,-5,-3,8,1,-6,-4,-2,9,2,4,-3,-10,1,3,-4,-2,0,2,4,6,-1,-8,3,5,-2,0,-7,4,6,8,-8,-6,5,7,-9,2,-5,-3,8,1,3,-4",
+			"name": "First differences of digit sums of squares, cf. A004159.",
+			"comment": [
+				"a(n) = A007953(A000290(n+1)) - A007953(A000290(n)).",
+				"a(A202089(n)) = 0; a(A239878(n)) = 1; a(A240754(n)) = -1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A240752/b240752.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A004159(n+1) - A004159(n)."
+			],
+			"mathematica": [
+				"Differences[Total[IntegerDigits[#]]\u0026/@(Range[0,80]^2)] (* _Harvey P. Dale_, Mar 10 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a240752 n = a240752_list !! (n-1)",
+				"a240752_list = zipWith (-) (tail a004159_list) a004159_list"
+			],
+			"keyword": "sign,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 12 2014",
+			"references": 5,
+			"revision": 6,
+			"time": "2019-03-10T13:52:09-04:00",
+			"created": "2014-04-12T13:23:51-04:00"
+		},
+		{
+			"number": 240960,
+			"data": "2,3,5,7,11,13,15,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269",
+			"name": "Numbers m such that sigma(m) - phi(m) = tau(m)^omega(m), where sigma=A000203, phi=A000010, tau=A000005 and omega=A001221.",
+			"comment": [
+				"a(n) = A182140(n) for n \u003c= 35.",
+				"All primes p are in the sequence since (p+1) - (p-1) = 2^1. The first composites are 15, 119748396, 139254850, 187768485, 1420027536, 3991789984. A182140 seems unrelated. - _Jens Kruse Andersen_, Aug 05 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A240960/b240960.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"maple": [
+				"with(numtheory):",
+				"filter:= n -\u003e sigma(n) - phi(n) = tau(n)^nops(factorset(n)):",
+				"select(filter, [$1..1000]); # _Robert Israel_, Aug 05 2014"
+			],
+			"mathematica": [
+				"Select[Range[300], DivisorSigma[1, #] - EulerPhi[#] == DivisorSigma[0, #]^PrimeNu[#]\u0026] (* _Jean-François Alcover_, Mar 08 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a240960 n = a240960_list !! (n-1)",
+				"a240960_list = filter (\\x -\u003e a051612 x == a110088 x) [1..]",
+				"(Python)",
+				"from sympy import totient,divisors,divisor_count,primefactors",
+				"filter(lambda x:sum(divisors(x))-totient(x)==divisor_count(x)**len(primefactors(x)), range(1,10**5)) # _Chai Wah Wu_, Aug 05 2014",
+				"(PARI) is(n)=my(f=factor(n)); sigma(f)-eulerphi(f)==numdiv(f)^omega(f) \\\\ _Charles R Greathouse IV_, Nov 26 2014"
+			],
+			"xref": [
+				"Cf. A000005, A000010, A000203, A001221, A051612, A110088, A182140, A110086."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 05 2014",
+			"references": 5,
+			"revision": 21,
+			"time": "2019-03-08T07:23:08-05:00",
+			"created": "2014-08-05T15:26:12-04:00"
+		},
+		{
+			"number": 240993,
+			"data": "1,2,24,2592,3317760,62208000000,20316635136000000,133852981198454784000000,20211123400293732996612096000000,78302033109811407811828935756349440000000,8613223642079254859301182933198438400000000000000000",
+			"name": "A000142 (n+1) * A002109(n), a product of factorials and hyperfactorials.",
+			"comment": [
+				"a(n+1) / a(n) = A055897(n+2);",
+				"row products of the triangle A245334."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A240993/b240993.txt\"\u003eTable of n, a(n) for n = 0..36\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ A * sqrt(2*Pi) * n^(n^2/2+3*n/2+19/12) / exp(n*(n+4)/4), where A = 1.2824271291... is the Glaisher-Kinkelin constant (see A074962). - _Vaclav Kotesovec_, Nov 14 2014"
+			],
+			"mathematica": [
+				"Table[(n+1)!*Hyperfactorial[n], {n, 0, 10}] (* _Vaclav Kotesovec_, Nov 14 2014 *)",
+				"Table[(n+1)*(n!)^(n+1)/BarnesG[n+1], {n, 0, 10}] (* _Vaclav Kotesovec_, Nov 14 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a240993 n = a000142 (n + 1) * a002109 n"
+			],
+			"xref": [
+				"Cf. A000142, A002109, A245334, A055897, A245334, A111063, A074962."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Aug 31 2014",
+			"references": 5,
+			"revision": 53,
+			"time": "2015-02-10T09:46:11-05:00",
+			"created": "2014-08-31T13:41:53-04:00"
+		},
+		{
+			"number": 241759,
+			"data": "1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1",
+			"name": "Number of partitions of n into distinct parts of the form 3^k - 2^k, cf. A001047.",
+			"comment": [
+				"a(A241783(n)) = 0; a(A240400(n)) \u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A241759/b241759.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: Product_{k\u003e=1} (1 + x^(3^k-2^k)). - _Ilya Gutkovskiy_, Jan 23 2017"
+			],
+			"mathematica": [
+				"nmax = 200; CoefficientList[Series[Product[1 + x^(3^k-2^k), {k, 1, Floor[Log[nmax]/Log[2]] + 1}], {x, 0, nmax}], x] (* _Vaclav Kotesovec_, Jan 24 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a241759 = p $ tail a001047_list where",
+				"   p _      0 = 1",
+				"   p (k:ks) m = if m \u003c k then 0 else p ks (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A001047, A241766."
+			],
+			"keyword": "nonn",
+			"offset": "0",
+			"author": "_Reinhard Zumkeller_, Apr 28 2014",
+			"references": 5,
+			"revision": 11,
+			"time": "2017-01-24T20:29:00-05:00",
+			"created": "2014-04-28T13:27:43-04:00"
+		},
+		{
+			"number": 242400,
+			"data": "0,0,0,0,0,9,0,9,9,0,0,0,0,0,9,27,36,36,0,0,0,27,27,36,27,36,36,0,0,0,0,0,9,0,9,9,0,0,0,0,0,9,27,36,36,81,81,81,108,108,117,108,117,117,0,0,0,0,0,9,0,9,9,81,81,81,81,81,90,108,117,117,81",
+			"name": "Differences between A008586 (multiples of 4) and A242399.",
+			"comment": [
+				"a(n) = A008586(n) - A242399(n);",
+				"a(m) = 0 iff m is a term of A242407;",
+				"a(A242407(n)) = 0; a(A242408(n)) \u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A242400/b242400.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a242400 n = a008586 n - a242399 n"
+			],
+			"xref": [
+				"Cf. A048728."
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_Reinhard Zumkeller_, May 13 2014",
+			"references": 5,
+			"revision": 5,
+			"time": "2014-07-05T13:08:09-04:00",
+			"created": "2014-07-05T13:08:09-04:00"
+		},
+		{
+			"number": 244080,
+			"data": "1,2,2,3,2,7,3,5,3,11,5,3,2,5,7,13,7,5,19,3,17,3,23,11,23,7,3,13,5,13,19,37,3,7,17,11,2,31,5,29,5,41,7,43,11,5,23,47,3,7,5,17,13,53,3,11,7,19,29,59,5,61,31,7,2,13,11,67,17,67,5,79,13,11",
+			"name": "Largest prime factor of A166133(n).",
+			"comment": [
+				"a(n) = A006530(A166133(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A244080/b244080.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a244080 = a006530 . a166133"
+			],
+			"xref": [
+				"Cf. A166133, A006530, A256564, A256578."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 02 2015",
+			"references": 5,
+			"revision": 25,
+			"time": "2015-04-02T17:07:09-04:00",
+			"created": "2015-04-02T17:07:09-04:00"
+		},
+		{
+			"number": 244365,
+			"data": "3,5,7,11,13,17,17,19,19,23,23,29,31,31,37,37,41,41,43,47,43,47,53,47,53,53,59,59,61,67,61,67,71,73,67,71,73,71,73,79,83,73,79,83,79,83,89,83,89,89,97,97,101,103,107,101,103,107,109,113,103,107,109",
+			"name": "Table read by rows: row n contains all primes p such that prime(n) \u003c p \u003c= floor(prime(n)^(1+1/n)).",
+			"comment": [
+				"Length of n-th row = A182134(n);",
+				"T(n,1) = A000040(n+1); T(n,A182134(n)) = A245396(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A244365/b244365.txt\"\u003eRows n = 1..1000 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A000040(n+k) for k = 1 .. A182134(n)."
+			],
+			"example": [
+				".   n | A182134(n) | A249669(n) |  T(n,1) ... T(n,A182134(n))",
+				". ----+------------+------------+----------------------------",
+				".   1 |          1 |          4 |  [3]",
+				".   2 |          1 |          5 |  [5]",
+				".   3 |          1 |          8 |  [7]",
+				".   4 |          1 |         11 |  [11]",
+				".   5 |          2 |         17 |  [13, 17]",
+				".   6 |          2 |         19 |  [17, 19]",
+				".   7 |          2 |         25 |  [19, 23]",
+				".   8 |          1 |         27 |  [23]",
+				".   9 |          2 |         32 |  [29, 31]",
+				".  10 |          2 |         40 |  [31, 37]",
+				".  11 |          2 |         42 |  [37, 41]",
+				".  12 |          3 |         49 |  [41, 43, 47]",
+				".  13 |          3 |         54 |  [43, 47, 53]",
+				".  14 |          2 |         56 |  [47, 53]",
+				".  15 |          2 |         60 |  [53, 59]",
+				".  16 |          3 |         67 |  [59, 61, 67]",
+				".  17 |          4 |         74 |  [61, 67, 71, 73]",
+				".  18 |          3 |         76 |  [67, 71, 73]",
+				".  19 |          4 |         83 |  [71, 73, 79, 83]",
+				".  20 |          3 |         87 |  [73, 79, 83]",
+				".  21 |          3 |         89 |  [79, 83, 89]",
+				".  22 |          2 |         96 |  [83, 89]",
+				".  23 |          2 |        100 |  [89, 97]",
+				".  24 |          4 |        107 |  [97, 101, 103, 107]",
+				".  25 |          5 |        116 |  [101, 103, 107, 109, 113] ."
+			],
+			"program": [
+				"(Haskell)",
+				"a244365 n k = a244365_tabf !! (n-1) !! (k-1)",
+				"a244365_row n = a244365_tabf !! (n-1)",
+				"a244365_tabf = zipWith farideh (map (+ 1) a000040_list) a249669_list",
+				"               where farideh u v = filter ((== 1) .  a010051') [u..v]"
+			],
+			"xref": [
+				"Cf. A182134 (row lengths), A245722 (row products), A245396, A249669, A010051, A000040."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Nov 16 2014",
+			"references": 5,
+			"revision": 11,
+			"time": "2014-11-18T04:29:07-05:00",
+			"created": "2014-11-16T21:33:35-05:00"
+		},
+		{
+			"number": 245300,
+			"data": "0,1,4,3,7,12,6,11,17,24,10,16,23,31,40,15,22,30,39,49,60,21,29,38,48,59,71,84,28,37,47,58,70,83,97,112,36,46,57,69,82,96,111,127,144,45,56,68,81,95,110,126,143,161,180,55,67,80,94,109,125,142,160",
+			"name": "Triangle read by rows: T(n,k) = (n+k)*(n+k+1)/2 + k, 0 \u003c= k \u003c= n.",
+			"comment": [
+				"T(n,0) = A000217(n);",
+				"T(n,n) = A046092(n);",
+				"central terms: T(2*n,n) = A062725(n);",
+				"sum of row n = A245301(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A245300/b245300.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"First rows and their row sums (A245301):",
+				".   0:   0                                                      0",
+				".   1:   1, 4                                                   5",
+				".   2:   3, 7, 12                                              22",
+				".   3:   6,11, 17, 24                                          58",
+				".   4:  10,16, 23, 31, 40                                     120",
+				".   5:  15,22, 30, 39, 49, 60                                 215",
+				".   6:  21,29, 38, 48, 59, 71, 84                             350",
+				".   7:  28,37, 47, 58, 70, 83, 97,112                         532",
+				".   8:  36,46, 57, 69, 82, 96,111,127,144                     768",
+				".   9:  45,56, 68, 81, 95,110,126,143,161,180                1065",
+				".  10:  55,67, 80, 94,109,125,142,160,179,199,220            1430",
+				".  11:  66,79, 93,108,124,141,159,178,198,219,241,264        1870",
+				".  12:  78,92,107,123,140,158,177,197,218,240,263,287,312    2392 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a245300 n k = (n + k) * (n + k + 1) `div` 2 + k",
+				"a245300_row n = map (a245300 n) [0..n]",
+				"a245300_tabl = map a245300_row [0..]",
+				"a245300_list = concat a245300_tabl"
+			],
+			"xref": [
+				" Cf. A000217, A046092, A062725, A245301."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 17 2014",
+			"references": 5,
+			"revision": 5,
+			"time": "2014-07-17T12:31:51-04:00",
+			"created": "2014-07-17T12:31:51-04:00"
+		},
+		{
+			"number": 245575,
+			"data": "1,2,3,2,3,2,4,2,3,2,4,2,3,4,2,2,4,2,5,0,4,4,4,0,3,4,4,2,2,4,2,4,5,0,4,0,6,4,2,2,3,2,6,2,2,4,4,0,4,2,5,4,2,2,2,4,4,2,6,0,3,4,4,0,2,6,4,2,4,2,2,0,7,4,4,0,6,0,4,2,2,6,2,2,5,4",
+			"name": "Number of ways of writing n as the sum of two quarter-squares (cf. A002620).",
+			"comment": [
+				"a(A182834(n)) mod 2 = 0; a(A007550(n)) mod 2 = 1;",
+				"a(A240952(n)) = n and a(A240952(m)) \u003c\u003e n for m \u003c a(n);",
+				"a(A245585(n)) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A245575/b245575.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(10) = #{9+1, 6+4, 4+6, 1+9} = 4;",
+				"a(11) = #{9+2, 2+9} = 2;",
+				"a(12) = #{12+0, 6+6, 0+12} = 3;",
+				"a(13) = #{12+1, 9+4, 4+9, 1+12} = 4;",
+				"a(14) = #{6+1, 1+6} = 2;",
+				"a(15) = #{9+6, 6+9} = 2;",
+				"a(16) = #{16+0, 12+4, 4+12, 0+16} = 4;",
+				"a(17) = #{16+1, 1+16} = 2;",
+				"a(18) = #{16+2, 12+6, 9+9, 6+12, 2+16} = 5;",
+				"a(19) = #{} = 0;",
+				"a(20) = #{20+0, 16+4, 4+16, 0+20} = 4."
+			],
+			"mathematica": [
+				"qsQ[n_] := qsQ[n] = With[{s = Sqrt[n]}, Which[IntegerQ[s], True, n == Floor[s] (Floor[s]+1), True, True, False]]; a[n_] := Count[Range[0, n], k_ /; qsQ[k] \u0026\u0026 qsQ[n-k]]; Array[a, 100, 0] (* _Jean-François Alcover_, May 08 2017 *) (* or *)",
+				"u[{x_,y_}] := 2-Boole[x==y]; a[n_] := Total[u /@ IntegerPartitions[n, {2}, Floor[Range[1 + 2 Sqrt@ n]^2/4]]]; Array[a, 100, 0] (* _Giovanni Resta_, May 08 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a245575 n = a245575_list !! n",
+				"a245575_list = f 0 [] $ tail a002620_list where",
+				"   f u vs ws'@(w:ws)",
+				"     | u \u003c w     = (sum $ map (a240025 . (u -)) vs) : f (u + 1) vs ws'",
+				"     | otherwise = f u (w : vs) ws"
+			],
+			"xref": [
+				"Cf. A002620, A240025, A007550, A182834, A245585, A240952."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Aug 04 2014",
+			"references": 5,
+			"revision": 16,
+			"time": "2017-05-08T06:32:46-04:00",
+			"created": "2014-08-04T16:34:49-04:00"
+		}
+	]
+}

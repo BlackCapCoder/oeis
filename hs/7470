@@ -1,0 +1,375 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7470,
+	"results": [
+		{
+			"number": 196063,
+			"data": "0,1,2,2,4,4,3,3,8,8,8,6,6,6,16,4,6,12,4,12,12,16,12,8,32,12,24,9,12,24,16,5,32,12,24,16,8,8,24,16,12,18,9,24,48,24,24,10,18,48,24,18,5,32,64,12,16,24,12,32,16,32,36,6,48,48,8,18,48,36,16,20,18,16,96,12,48,36,24,20,64,24,24,24,48,18,48,32,10,64",
+			"name": "The Narumi-Katayama index of the rooted tree with Matula-Goebel number n.",
+			"comment": [
+				"The Narumi-Katayama index of a connected graph is the product of the degrees of the vertices of the graph.",
+				"The Matula-Goebel number of a rooted tree can be defined in the following recursive manner: to the one-vertex tree there corresponds the number 1; to a tree T with root degree 1 there corresponds the t-th prime number, where t is the Matula-Goebel number of the tree obtained from T by deleting the edge emanating from the root; to a tree T with root degree m\u003e=2 there corresponds the product of the Matula-Goebel numbers of the m branches of T."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A196063/b196063.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"E. Deutsch, \u003ca href=\"http://arxiv.org/abs/1111.4288\"\u003eTree statistics from Matula numbers\u003c/a\u003e, arXiv:1111.4288 [math.CO], 2011.",
+				"E. Deutsch, \u003ca href=\"https://doi.org/10.1016/j.dam.2012.05.012\"\u003eRooted tree statistics from Matula numbers\u003c/a\u003e, Discrete Appl. Math., 160, 2012, 2314-2322.",
+				"F. Goebel, \u003ca href=\"http://dx.doi.org/10.1016/0095-8956(80)90049-0\"\u003eOn a 1-1-correspondence between rooted trees and natural numbers\u003c/a\u003e, J. Combin. Theory, B 29 (1980), 141-143.",
+				"I. Gutman and A. Ivic, \u003ca href=\"http://dx.doi.org/10.1016/0012-365X(95)00182-V\"\u003eOn Matula numbers\u003c/a\u003e, Discrete Math., 150, 1996, 131-142.",
+				"I. Gutman and Yeong-Nan Yeh, \u003ca href=\"http://www.emis.de/journals/PIMB/067/3.html\"\u003eDeducing properties of trees from their Matula numbers\u003c/a\u003e, Publ. Inst. Math., 53 (67), 1993, 17-22.",
+				"D. W. Matula, \u003ca href=\"http://www.jstor.org/stable/2027327\"\u003eA natural rooted tree enumeration by prime factorization\u003c/a\u003e, SIAM Rev. 10 (1968) 273.",
+				"H. Narumi and M. Katayama, \u003ca href=\"http://hdl.handle.net/2115/38010\"\u003eSimple topological index. A newly devised index characterizing the topological nature of structural isomers of saturated hydrocarbons\u003c/a\u003e, Mem. Fac. Engin. Hokkaido Univ., 16, 1984, 209-214.",
+				"Z. Tomovic and I. Gutman, \u003ca href=\"https://www.shd.org.rs/JSCS/Vol66/No4.htm#Narumi\"\u003eNarumi-Katayama index of phenylenes\u003c/a\u003e, J. Serb. Chem. Soc., 66(4), 2001, 243-247.",
+				"\u003ca href=\"/index/Mat#matula\"\u003eIndex entries for sequences related to Matula-Goebel numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=0; a(2)=1; if n = prime(t) (the t-th prime, t\u003e=2), then a(n)=a(t)*(1+G(t))/G(t); if n=rs (r,s\u003e=2), then a(n)=a(r)*a(s)*G(n)/[G(r)*G(s)]; G(m) denotes the number of prime divisors of m counted with multiplicities. The Maple program is based on this recursive formula."
+			],
+			"example": [
+				"a(7)=3 because the rooted tree with Matula-Goebel number 7 is the rooted tree Y (1*3*1*1=3).",
+				"a(2^m) = m because the rooted tree with Matula-Goebel number 2^m is a star with m edges."
+			],
+			"maple": [
+				"with(numtheory): a := proc (n) local r, s: r := proc (n) options operator, arrow: op(1, factorset(n)) end proc: s := proc (n) options operator, arrow: n/r(n) end proc: if n = 1 then 0 elif n = 2 then 1 elif bigomega(n) = 1 then a(pi(n))*(1+bigomega(pi(n)))/bigomega(pi(n)) else a(r(n))*a(s(n))*bigomega(n)/(bigomega(r(n))*bigomega(s(n))) end if end proc: seq(a(n), n = 1 .. 90);"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a196063 n = genericIndex a196063_list (n - 1)",
+				"a196063_list = 0 : 1 : g 3 where",
+				"   g x = y : g (x + 1) where",
+				"     y | t \u003e 0     = a196063 t * (a001222 t + 1) `div` a001222 t",
+				"       | otherwise = a196063 r * a196063 s * a001222 x `div`",
+				"                     (a001222 r * a001222 s)",
+				"       where t = a049084 x; r = a020639 x; s = x `div` r",
+				"-- _Reinhard Zumkeller_, Sep 03 2013"
+			],
+			"xref": [
+				"Cf. A049084, A020639, A001222, A196065."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Emeric Deutsch_, Oct 01 2011",
+			"references": 2,
+			"revision": 25,
+			"time": "2019-04-16T11:22:56-04:00",
+			"created": "2011-10-01T14:49:15-04:00"
+		},
+		{
+			"number": 196068,
+			"data": "1,3,6,5,10,8,9,7,11,12,15,10,13,11,15,9,14,13,12,14,14,17,17,12,19,15,16,13,18,17,21,11,20,16,18,15,16,14,18,16,19,16,17,19,20,19,22,14,17,21,19,17,15,18,24,15,17,20,20,19,20,23,19,13,22,22,18,18,22,20,21,17,21,18,24,16,23,20,24,18",
+			"name": "Visitation length of the rooted tree with Matula-Goebel number n.",
+			"comment": [
+				"The visitation length of a rooted tree is defined as the sum of the path length and the number of vertices. The path length of a rooted tree is defined as the sum of distances of all vertices to the root of the tree (see the Keijzer  et al. reference).",
+				"The Matula-Goebel number of a rooted tree can be defined in the following recursive manner: to the one-vertex tree there corresponds the number 1; to a tree T with root degree 1 there corresponds the t-th prime number, where t is the Matula-Goebel number of the tree obtained from T by deleting the edge emanating from the root; to a tree T with root degree m\u003e=2 there corresponds the product of the Matula-Goebel numbers of the m branches of T."
+			],
+			"reference": [
+				"F. Goebel, On a 1-1-correspondence between rooted trees and natural numbers, J. Combin. Theory, B 29 (1980), 141-143.",
+				"I. Gutman and A. Ivic, On Matula numbers, Discrete Math., 150, 1996, 131-142.",
+				"I. Gutman and Yeong-Nan Yeh, Deducing properties of trees from their Matula numbers, Publ. Inst. Math., 53 (67), 1993, 17-22.",
+				"M. Keijzer and J. Foster, Crossover bias in genetic programming, Lecture Notes in Computer Sciences, 4445, 2007, 33-44.",
+				"D. W. Matula, A natural rooted tree enumeration by prime factorization, SIAM Review, 10, 1968, 273."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A196068/b196068.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"E. Deutsch, \u003ca href=\"http://arxiv.org/abs/1111.4288\"\u003eTree statistics from Matula numbers\u003c/a\u003e, arXiv preprint arXiv:1111.4288, 2011",
+				"\u003ca href=\"/index/Mat#matula\"\u003eIndex entries for sequences related to Matula-Goebel numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=1; if n=p(t) (= the t-th prime) then a(n)=a(t)+N(t)+1, where N(t) is the number of nodes of the rooted tree with Matula number t; if n=rs (r,s\u003e=2), then a(n)=a(r)+a(s)-1. The Maple program is based on this recursive formula."
+			],
+			"example": [
+				"a(7)=9 because the rooted tree with Matula-Goebel number 7 is the rooted tree Y (1+2+2+4=9).",
+				"a(2^m) = 2m+1 because the rooted tree with Matula-Goebel number 2^m is a star with m edges (m+(m+1)=2m+1)."
+			],
+			"maple": [
+				"with(numtheory): a := proc (n) local r, s, N: r := proc (n) options operator, arrow: op(1, factorset(n)) end proc: s := proc (n) options operator, arrow: n/r(n) end proc: N := proc (n) if n = 1 then 1 elif bigomega(n) = 1 then 1+N(pi(n)) else N(r(n))+N(s(n))-1 end if end proc: if n = 1 then 1 elif bigomega(n) = 1 then a(pi(n))+N(pi(n))+1 else a(r(n))+a(s(n))-1 end if end proc: seq(a(n), n = 1 .. 80);"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a196068 n = genericIndex a196068_list (n - 1)",
+				"a196068_list = 1 : g 2 where",
+				"   g x = y : g (x + 1) where",
+				"     y | t \u003e 0     = a196068 t + a061775 t + 1",
+				"       | otherwise = a196068 r + a196068 s - 1",
+				"       where t = a049084 x; r = a020639 x; s = x `div` r",
+				"-- _Reinhard Zumkeller_, Sep 03 2013"
+			],
+			"xref": [
+				"Cf. A196046, A196047.",
+				"Cf. A049084, A020639, A061775."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Emeric Deutsch_, Oct 04 2011",
+			"references": 2,
+			"revision": 17,
+			"time": "2017-03-07T11:29:22-05:00",
+			"created": "2011-10-04T23:35:03-04:00"
+		},
+		{
+			"number": 196486,
+			"data": "1,7,5,1,25,23,19,11,79,77,73,65,49,17,241,239,235,227,211,179,115,727,725,721,713,697,665,601,473,217,2185,2183,2179,2171,2155,2123,2059,1931,1675,1163,139,6559,6557,6553,6545,6529,6497,6433,6305,6049,5537",
+			"name": "Irregular triangle 3^n-2^m.",
+			"comment": [
+				"Each n-th row consists of A056576(n) terms, the first term is 3^n-2, n-th term is 3^n-2^n=A001047(n), and the last term is A056577(n).",
+				"T(n,k) = A227048(n,A056576(n)-k) for k = 1..A056576(n). - _Reinhard Zumkeller_, Jun 30 2013"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A196486/b196486.txt\"\u003eRows n = 1..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"Rows are:",
+				"n=1: 1",
+				"n=2: 7,5,1",
+				"n=3: 25,23,19,11",
+				"n=4: 79,77,73,65,49,17",
+				"n=5: 241,239,235,227,211,179,115."
+			],
+			"mathematica": [
+				"Flatten[Table[3^k - 2^m, {k, 10}, {m, Floor[Log[2, 3^k]]}]]"
+			],
+			"program": [
+				"(Haskell)",
+				"a196486 n k = a196486_tabf !! (n-1) !! (k-1)",
+				"a196486_row n = a196486_tabf !! (n-1)",
+				"a196486_tabf = map (tail . reverse) $ tail a227048_tabf",
+				"-- _Reinhard Zumkeller_, Jun 30 2013"
+			],
+			"xref": [
+				"Cf. A001047, A056576, A056577."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,2",
+			"author": "_Zak Seidov_, Oct 03 2011",
+			"references": 2,
+			"revision": 16,
+			"time": "2018-10-30T10:31:02-04:00",
+			"created": "2011-10-03T12:40:13-04:00"
+		},
+		{
+			"number": 197877,
+			"data": "2,0,5,6,465,7,16,208,37,17,11,58,40,35,84,18,45,29,395,30,68,59,41,62,32,191,325,109,369,33,89,72,36,85,42,47,64,51,101,88,77,49,125,394,1124,249,76,50,54,65,119,74,2193,61,483,133,80,186,95,990,468",
+			"name": "Smallest number m such that A096535(m) = n.",
+			"comment": [
+				"A096535(a(n)) = n and A096535(m) \u003c\u003e n for m \u003c a(n), concerning first conjecture in A096535."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A197877/b197877.txt\"\u003eTable of n, a(n) for n = 0..9999\u003c/a\u003e"
+			],
+			"example": [
+				"a(0) = A096274(1) = 2; a(1) = A132678(1) = 0."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a197877 n = a197877_list !! n",
+				"a197877_list = map (fromJust . (`elemIndex` a096535_list)) [0..]"
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Oct 19 2011",
+			"references": 2,
+			"revision": 11,
+			"time": "2018-01-17T17:50:03-05:00",
+			"created": "2011-10-19T12:36:04-04:00"
+		},
+		{
+			"number": 197945,
+			"data": "1,0,0,0,0,0,1,1,0,0,0,1,2,1,2,1,2,4,4,6,2,6,11,8,10,22,16,33,30,34,47,57,81,86,108,112,173,200,232,303,382,465,558,656,857,1051,1261,1579,1972,2455,2922,3594,4588,5532,6839,8402,10267,12976,15550",
+			"name": "Length of longest prefix of A096095(n) that is also a prefix of A096095(n+1).",
+			"example": [
+				"a(17) = A055642(5161) = 4, as 5161 is the longest common prefix of A096095(17)=5161310711827714 and A096095(18)=51618211410616387511."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, isPrefixOf)",
+				"a197945 n = length $ takeWhile (`isPrefixOf` (show $ a096095 $ n+1)) $",
+				"                               tail $ inits $ show $ a096095 n"
+			],
+			"xref": [
+				"Cf. A055642."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,13",
+			"author": "_Reinhard Zumkeller_, Oct 19 2011",
+			"references": 2,
+			"revision": 6,
+			"time": "2012-03-30T18:51:11-04:00",
+			"created": "2011-10-19T15:40:40-04:00"
+		},
+		{
+			"number": 198259,
+			"data": "0,0,1,1,3,2,6,5,9,9,17,13,26,26,39,39,66,61,104,102,156,162,265,249,405,419,646,652,1059,1031,1676,1696,2660,2705,4362,4283,6937,7039,11159,11206,18138,17998,29130,29325,46805,47075,76171,75713,122502,123123",
+			"name": "a(n) = Sum_{k=1..n} F(n mod k) where F=A000045, the Fibonacci numbers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198259/b198259.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"B. Cloitre, \u003ca href=\"http://BCmathematics.monsite-orange.fr/Asymptotic%20sum%202%5E(n%20mod%20k).pdf\"\u003eAn asymptotic formula for sum_{k=1..n}x^(n modk)\u003c/a\u003e [broken link]"
+			],
+			"formula": [
+				"a(n) is asymptotic to (1/10)*(5+sqrt(5))*phi^ceiling(n/2) where phi=(1+sqrt(5))/2."
+			],
+			"program": [
+				"(Haskell)",
+				"a198259 n = sum $ map (a000045 . (mod n)) [1..n]",
+				"-- _Reinhard Zumkeller_, Oct 22 2011"
+			],
+			"xref": [
+				"Cf. A001622."
+			],
+			"keyword": "nonn",
+			"offset": "1,5",
+			"author": "_Benoit Cloitre_, Oct 22 2011",
+			"references": 2,
+			"revision": 20,
+			"time": "2018-11-07T21:54:18-05:00",
+			"created": "2011-10-23T05:23:32-04:00"
+		},
+		{
+			"number": 198328,
+			"data": "1,1,2,1,3,2,2,1,4,3,5,2,3,2,6,1,3,4,2,3,4,5,7,2,9,3,8,2,5,6,11,1,10,3,6,4,3,2,6,3,5,4,3,5,12,7,13,2,4,9,6,3,2,8,15,2,4,5,5,6,7,11,8,1,9,10,3,3,14,6,5,4,7,3,18,2,10,6,11,3,16,5",
+			"name": "The Matula-Goebel number of the rooted tree obtained from the rooted tree with Matula-Goebel number n after removing the leaves, together with their incident edges.",
+			"comment": [
+				"This is not the pruning operation mentioned in the Balaban reference (p. 360) and in the Todeschini-Consonni reference (p. 42) since in the case that the root has degree 1, this root and the incident edge are not deleted."
+			],
+			"reference": [
+				"A. T. Balaban, Chemical graphs, Theoret. Chim. Acta (Berl.) 53, 355-375, 1979.",
+				"R. Todeschini and V. Consonni, Handbook of Molecular Descriptors, Wiley-VCH, 2000."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198328/b198328.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"F. Goebel, \u003ca href=\"http://dx.doi.org/10.1016/0095-8956(80)90049-0\"\u003eOn a 1-1-correspondence between rooted trees and natural numbers\u003c/a\u003e, J. Combin. Theory, B 29 (1980), 141-143.",
+				"I. Gutman and A. Ivic, \u003ca href=\"http://dx.doi.org/10.1016/0012-365X(95)00182-V\"\u003eOn Matula numbers\u003c/a\u003e, Discrete Math., 150, 1996, 131-142.",
+				"I. Gutman and Yeong-Nan Yeh, \u003ca href=\"http://www.emis.de/journals/PIMB/067/3.html\"\u003eDeducing properties of trees from their Matula numbers\u003c/a\u003e, Publ. Inst. Math., 53 (67), 1993, 17-22.",
+				"D. Matula, \u003ca href=\"http://www.jstor.org/stable/2027327\"\u003eA natural rooted tree enumeration by prime factorization\u003c/a\u003e, SIAM Rev. 10 (1968) 273.",
+				"\u003ca href=\"/index/Mat#matula\"\u003eIndex entries for sequences related to Matula-Goebel numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=1; a(2)=1; if n=p(t) (the t-th prime, t\u003e1), then a(n)=p(a(t)); if n=rs (r,s,\u003e=2), then a(n)=a(r)a(s). The Maple program is based on this recursive formula.",
+				"Completely multiplicative with a(2) = 1, a(prime(t)) = prime(a(t)) for t \u003e 1. - _Andrew Howroyd_, Aug 01 2018"
+			],
+			"example": [
+				"a(7)=2 because the rooted tree with Matula-Goebel number 7 is Y; after deleting the leaves and their incident edges, we obtain the 1-edge tree having Matula-Goebel number 2."
+			],
+			"maple": [
+				"with(numtheory): a := proc (n) local r, s: r := proc (n) options operator, arrow: op(1, factorset(n)) end proc: s := proc (n) options operator, arrow: n/r(n) end proc: if n = 1 then 1 elif n = 2 then 1 elif bigomega(n) = 1 then ithprime(a(pi(n))) else a(r(n))*a(s(n)) end if end proc; seq(a(n), n = 1 .. 120);"
+			],
+			"mathematica": [
+				"a[1] = a[2] = 1; a[n_] := a[n] = If[PrimeQ[n], Prime[a[PrimePi[n]]], Times @@ (a[#[[1]]]^#[[2]]\u0026 /@ FactorInteger[n])];",
+				"Array[a, 100] (* _Jean-François Alcover_, Dec 18 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a198328 n = genericIndex a198328_list (n - 1)",
+				"a198328_list = 1 : 1 : g 3 where",
+				"   g x = y : g (x + 1) where",
+				"     y = if t \u003e 0 then a000040 (a198328 t) else a198328 r * a198328 s",
+				"         where t = a049084 x; r = a020639 x; s = x `div` r",
+				"-- _Reinhard Zumkeller_, Sep 03 2013"
+			],
+			"xref": [
+				"Cf. A198329.",
+				"Cf. A049084, A020639, A000040."
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,3",
+			"author": "_Emeric Deutsch_, Nov 24 2011",
+			"references": 2,
+			"revision": 22,
+			"time": "2018-08-01T18:14:36-04:00",
+			"created": "2011-11-25T17:10:08-05:00"
+		},
+		{
+			"number": 199162,
+			"data": "1,6,7,8,9,10,11,12,14,24,26,27,28,29,31,45,46,47,48,49,62,68,82,83,84,85,98,104,117,122,135,142,154,155,159,172,191,192,193,194,195,209,234,245,248,249,250,265,266,267,268,270,283,302,303,304,305,306",
+			"name": "a(1) = 1, a(2) = 6; for n\u003e2, a(n) = least number \u003e a(n-1) which is a unique sum of two distinct earlier terms.",
+			"comment": [
+				"An Ulam-type sequence - see A002858 for many further references, comments, etc."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A199162/b199162.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UlamSequence.html\"\u003eUlam Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ulam_number\"\u003eUlam number\u003c/a\u003e",
+				"\u003ca href=\"/index/U#Ulam_num\"\u003eIndex entries for Ulam numbers\u003c/a\u003e"
+			],
+			"example": [
+				"13 is not a term, as 13 = 7+6 = a(3)+a(2) and 13 = 12+1 = a(8)+a(1);",
+				"14 is a term, because 14 = 8 + 6 = a(4) + a(2) is unique for distinct terms, a(9) = 14."
+			],
+			"program": [
+				"(Haskell)",
+				"a199162 n = a199162_list !! (n-1)",
+				"a199162_list = 1 : 6 : ulam 2 6 a199162_list",
+				"-- Function ulam as defined in A002858.",
+				"-- _Reinhard Zumkeller_, Nov 03 2011"
+			],
+			"xref": [
+				"Cf. A003663."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Nov 03 2011",
+			"references": 2,
+			"revision": 8,
+			"time": "2013-07-13T12:04:18-04:00",
+			"created": "2011-11-03T21:41:50-04:00"
+		},
+		{
+			"number": 199799,
+			"data": "1,2,4,5,8,10,16,17,19,20,23,25,29,31,32,34,38,40,41,43,46,47,50,53,58,59,61,62,64,67,68,71,73,76,79,80,82,83,85,86,89,92,94,95,97,100,101,103,106,107,109,113,115,116,118,122,124,125,127,128,131,134",
+			"name": "Totatives of 111111.",
+			"comment": [
+				"a(n) and 111111 are coprime, 111111 = 3*7*11*13*37; empty intersections with A008585, A008593, A008595, or A085959; sequence is finite with 51840 terms, A000010(111111) = 51840, last term: a(51840) = 111110."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A199799/b199799.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Repunit.html\"\u003eRepunit\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Totative.html\"\u003eTotative\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a199799 n = a199799_list !! (n-1)",
+				"a199799_list = [x | x \u003c- [1..111111], gcd x 111111 == 1]"
+			],
+			"xref": [
+				"Cf. A109492 (divisors of 111111)."
+			],
+			"keyword": "nonn,fini",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Nov 11 2011",
+			"references": 2,
+			"revision": 10,
+			"time": "2013-07-13T12:04:19-04:00",
+			"created": "2011-11-11T12:35:17-05:00"
+		},
+		{
+			"number": 200087,
+			"data": "1,2,53,5,71,26,9,8,19,72,149,27,91,18,21,17,43,20,29,50,35,150,45,28,99,92,773,34,171,42,33,32,123,44,49,41,75227,58,137,51,295,48,789,68,47,46,65,57,891,100,269,90,111,428,921,64,131,172,105,203",
+			"name": "Smallest number m such that A079878(m) = n.",
+			"comment": [
+				"A079878(a(n)) = n and A079878(m) \u003c\u003e n for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A200087/b200087.txt\"\u003eTable of n, a(n) for n = 1..860\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a200087 n = (fromJust $ elemIndex n a079878_list) + 1"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Nov 13 2011",
+			"references": 2,
+			"revision": 8,
+			"time": "2013-07-13T12:04:19-04:00",
+			"created": "2011-11-13T17:14:37-05:00"
+		}
+	]
+}

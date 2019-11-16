@@ -1,0 +1,519 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3950,
+	"results": [
+		{
+			"number": 159999,
+			"data": "1,2,3,3,4,6,5,4,7,6,7,9,7,10,7,5,9,14,11,8,6,12,9,11,14,10,10,16,14,11,10,6,17,12,9,20,18,17,18,9,13,8,20,16,14,12,13,12,20,21,18,12,10,18,15,20,24,19,22,16,14,17,15,7,23,25,22,15,13,12,16,23",
+			"name": "Number of numbers not greater than n occurring in Collatz (3x+1) trajectory starting with n.",
+			"comment": [
+				"a(n) \u003c n for n\u003e6;",
+				"a(A033496(n)) = A008908(A033496(n)).",
+				"a(n) = n - A246436(n); row lengths of triangle A214614. - _Reinhard Zumkeller_, Sep 01 2014"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A159999/b159999.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = f(n,n,1) with f(n,m,x) = if m=1 then x else f(n, A006370(m), if A006370(m)\u003cn then x+1 else x)."
+			],
+			"example": [
+				"a(9) = #{1,2,4,5,7,8,9} = 7, as",
+				"9-28-14-7-22-11-34-17-52-26-13-40-20-10-5-16-8-[4-2-1]*",
+				"9-..-..-7-..-..-..-..-..-..-..-..-..-..-5-..-8-[4-2-1]*."
+			],
+			"mathematica": [
+				"Collatz[n_] := NestWhileList[If[EvenQ[#], #/2, 3 # + 1] \u0026, n, # \u003e 1 \u0026]; f[n_] := Module[{c = Collatz[n]}, Length[Select[c, # \u003c= n \u0026]]]; Table[ f[n], {n, 100}] (* _T. D. Noe_, Mar 07 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a159999 n = length $ takeWhile (\u003c= n) $ sort $ a070165_row n",
+				"-- _Reinhard Zumkeller_, Sep 01 2012"
+			],
+			"xref": [
+				"Cf. A033496, A008908, A070165, A214614."
+			],
+			"keyword": "nonn,look",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 04 2009",
+			"references": 7,
+			"revision": 15,
+			"time": "2014-09-01T07:40:59-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 162643,
+			"data": "4,9,12,16,18,20,25,28,32,36,44,45,48,49,50,52,60,63,64,68,72,75,76,80,81,84,90,92,96,98,99,100,108,112,116,117,121,124,126,132,140,144,147,148,150,153,156,160,162,164,169,171,172,175,176,180,188,192,196,198",
+			"name": "Numbers such that their number of divisors is not a power of 2.",
+			"comment": [
+				"Complement of A036537;",
+				"A072587 is a subsequence.",
+				"A number m is a term if and only if it has at least one non-infinitary divisor, or A000005(m) \u003e A037445(m). - _Vladimir Shevelev_, Feb 23 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A162643/b162643.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"A209229(A000005(a(n))) = 0. - _Reinhard Zumkeller_, Nov 15 2012"
+			],
+			"mathematica": [
+				"Select[Range@ 192, ! IntegerQ@ Log2@ DivisorSigma[0, #] \u0026] (* _Michael De Vlieger_, Feb 24 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a162643 n = a162643_list !! (n-1)",
+				"a162643_list = filter ((== 0) . a209229 . a000005) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 15 2012"
+			],
+			"xref": [
+				"A000005."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 08 2009",
+			"references": 7,
+			"revision": 18,
+			"time": "2017-02-24T17:50:58-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 164055,
+			"data": "1,10,325,11026,374545,12723490,432224101,14682895930,498786237505,16944049179226,575598885856165,19553418069930370,664240615491776401,22564627508650467250,766533094678624110085,26039560591564569275626",
+			"name": "Triangular numbers that are one plus a perfect square.",
+			"comment": [
+				"a(n+1) is the second element of the n-th set of three consecutive triangular numbers whose product is a perfect square. - _Arkadiusz Wesolowski_, Apr 27 2012",
+				"The triangular numbers of this sequence satisfy the Diophantine equation T(k) = k*(k+1)/2 = m^2 + 1, which is equivalent to (2k+1)^2 - 2*(2m)^2 = 9. Now, with x=2k+1 and y=2m, the Pell-Fermat equation x^2 - 2*y^2 = 9 appears. The solutions x and y of this equation are respectively in A106329 and A075848. The indices k=(x-1)/2 of the triangular numbers of this sequence are in A072221, while the indices m=y/2 of the corresponding square numbers are in A106328. - _Bernard Schott_, Mar 09 2019"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A164055/b164055.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (35,-35,1)."
+			],
+			"formula": [
+				"A000217 INTERSECT A002522.",
+				"a(n) = A000217(A072221(n-1)).",
+				"From _R. J. Mathar_, Sep 22 2009: (Start)",
+				"a(n) = 35*a(n-1) - 35*a(n-2) + a(n-3).",
+				"G.f.: x*(1-25*x+10*x^2)/((1-x)*(x^2-34*x+1)). (End)",
+				"A010054(a(n)) * A010052(a(n) - 1) = 1. - _Reinhard Zumkeller_, Apr 29 2012",
+				"a(n) = (A106329(n) - 1)*(A106329(n) + 1)/8 = (A106328(n))^2 + 1. - _Bernard Schott_, Mar 10 2019",
+				"a(n) = (14 + 9*(17+12*sqrt(2))^(1-n) - 9*(-17+12*sqrt(2))*(17+12*sqrt(2))^n) / 32. - _Colin Barker_, Mar 23 2019"
+			],
+			"example": [
+				"10 is in this sequence because it is a triangular number A000217(4) and is equal to a square plus 1: 10 = 3^2 + 1."
+			],
+			"mathematica": [
+				"LinearRecurrence[{35,-35,1}, {1,10,325}, 50] (* _G. C. Greubel_, Sep 09 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a164055 n = a164055_list !! (n-1)",
+				"a164055_list = 1 : 10 : 325 : zipWith (+) a164055_list",
+				"   (map (* 35) $ tail $ zipWith (-) (tail a164055_list) a164055_list)",
+				"-- _Reinhard Zumkeller_, Apr 29 2012",
+				"(PARI) x='x+O('x^50); Vec(x*(1-25*x+10*x^2)/((1-x)*(x^2-34*x+1))) \\\\ _G. C. Greubel_, Sep 09 2017"
+			],
+			"xref": [
+				"Cf. A106329, A075848 (solutions of x^2 - 2 * y^2 = 9).",
+				"Cf. A072221 (indices of the triangular terms of this sequence), A106328 (indices of the corresponding square numbers)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Tanya Khovanova_ \u0026 Alexey Radul, Aug 08 2009",
+			"ext": [
+				"Comment molded into formula by _R. J. Mathar_, Sep 22 2009"
+			],
+			"references": 7,
+			"revision": 81,
+			"time": "2019-04-24T12:21:44-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 164652,
+			"data": "1,0,1,1,0,1,0,5,0,1,8,0,15,0,1,0,84,0,35,0,1,180,0,469,0,70,0,1,0,3044,0,1869,0,126,0,1,8064,0,26060,0,5985,0,210,0,1,0,193248,0,152900,0,16401,0,330,0,1,604800,0,2286636,0,696905,0,39963,0,495,0,1,0,19056960,0,18128396,0,2641925,0,88803,0,715,0,1",
+			"name": "Triangle read by rows: Hultman numbers: a(n,k) is the number of permutations of n elements whose cycle graph (as defined by Bafna and Pevzner) contains k cycles.",
+			"comment": [
+				"a(n,k) is also the number of ways to express a given (n+1)-cycle as the product of an (n+1)-cycle and a permutation with k cycles (see Doignon and Labarre). a(n,n+1-2k) is the number of permutations of n elements whose block-interchange distance is k (see Christie, Doignon and Labarre)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A164652/b164652.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"N. Alexeev, A. Pologova, M. A. Alekseyev, Generalized Hultman Numbers and Cycle Structures of Breakpoint Graphs, Journal of Computational Biology 24:2 (2017), 93-105. doi:\u003ca href=\"http://online.liebertpub.com/doi/10.1089/cmb.2016.0190\"\u003e10.1089/cmb.2016.0190\u003c/a\u003e arXiv:\u003ca href=\"http://arxiv.org/abs/1503.05285\"\u003e1503.05285\u003c/a\u003e",
+				"N. Alexeev, P. Zograf, \u003ca href=\"http://arxiv.org/abs/1111.3061\"\u003eHultman numbers, polygon gluings and matrix integrals\u003c/a\u003e, arXiv preprint arXiv:1111.3061 [math.PR], 2011.",
+				"N. Alexeev, P. Zograf, \u003ca href=\"http://dx.doi.org/10.1089/cmb.2013.0066\"\u003eRandom matrix approach to the distribution of genomic distance\u003c/a\u003e, Journal of Computational Biology 21:8 (2014), 622-631.",
+				"M. Bona and R. Flynn, \u003ca href=\"http://arxiv.org/abs/0811.0740\"\u003eThe Average Number of Block Interchanges Needed to Sort A Permutation and a recent result of Stanley\u003c/a\u003e, arXiv:0811.0740 [math.CO], 2008.",
+				"M. Bona and R. Flynn, \u003ca href=\"http://dx.doi.org/10.1016/j.ipl.2009.04.019\"\u003eThe Average Number of Block Interchanges Needed to Sort A Permutation and a recent result of Stanley\u003c/a\u003e, Inf. Process. Lett., 109 (2009), 927-931",
+				"D. A. Christie, \u003ca href=\"http://dx.doi.org/10.1016/S0020-0190(96)00155-X\"\u003eSorting Permutations by Block-Interchanges\u003c/a\u003e, Inf. Process. Lett. 60 (1996), 165-169",
+				"J.-P. Doignon and A. Labarre, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL10/Doignon/doignon77.html\"\u003eOn Hultman Numbers\u003c/a\u003e, J. Integer Seq., 10 (2007), 13 pages.",
+				"Simona Grusea and Anthony Labarre, \u003ca href=\"http://arxiv.org/abs/1104.3353\"\u003eThe distribution of cycles in breakpoint graphs of signed permutations\u003c/a\u003e, arXiv:1104.3353 [cs.DM], 2011-2012."
+			],
+			"formula": [
+				"T(n,k) = S1(n+2,k+1)/C(n+2,2) if n-k is even, and 0 otherwise. Here S1(n,k) are the unsigned Stirling numbers of the first kind A132393 and C(n,k) is the binomial coefficient (see Bona and Flynn).  [Edited by _Peter Luschny_, Mar 24 2015]",
+				"For n \u003e 0: T(n,k) = A128174(n-1,k-1) * A130534(n,k) / A000217(n). - _Reinhard Zumkeller_, Aug 01 2014"
+			],
+			"example": [
+				"Triangle begins:",
+				"  1;",
+				"  0, 1;",
+				"  1, 0, 1;",
+				"  0, 5, 0, 1;",
+				"  8, 0, 15, 0, 1;",
+				"  0, 84, 0, 35, 0, 1;",
+				"  180, 0, 469, 0, 70, 0, 1;",
+				"  0, 3044, 0, 1869, 0, 126, 0, 1;",
+				"  8064, 0, 26060, 0, 5985, 0, 210, 0, 1;",
+				"  0, 193248, 0, 152900, 0, 16401, 0, 330, 0, 1;",
+				"  604800, 0, 2286636, 0, 696905, 0, 39963, 0, 495, 0, 1;",
+				"  ..."
+			],
+			"maple": [
+				"A164652:= (n, k)-\u003e `if`(n-k mod 2 = 0, -Stirling1(n+2, k+1)/binomial(n+2, 2), 0):",
+				"for n from 0 to 7 do seq(A164652(n,k),k=0..n) od; # _Peter Luschny_, Mar 22 2015"
+			],
+			"mathematica": [
+				"T[n_, k_] := If[EvenQ[n-k], Abs[StirlingS1[n+2, k+1]]/Binomial[n+2, 2], 0];",
+				"Table[T[n, k], {n, 0, 11}, {k, 0, n}] // Flatten (* _Jean-François Alcover_, Aug 10 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a164652 n k = a164652_tabl !! n !! k",
+				"a164652_row n = a164652_tabl !! n",
+				"a164652_tabl = [0] : tail (zipWith (zipWith (*)) a128174_tabl $",
+				"   zipWith (map . flip div) (tail a000217_list) (map init $ tail a130534_tabl))",
+				"-- _Reinhard Zumkeller_, Aug 01 2014",
+				"(Sage)",
+				"def A164652(n, k):",
+				"    return stirling_number1(n+2,k+1)/binomial(n+2,2) if is_odd(n-k-1) else 0",
+				"for n in (0..7): print [A164652(n,k) for k in (0..n)] # _Peter Luschny_, Mar 22 2015",
+				"(PARI)",
+				"T(n,k)= my(s=(n-k)%2); (-1)^s*s*stirling(n+2,k,1)/binomial(n+2,2);",
+				"concat(vector(12, n, vector(n, k, T(n-1,k)))) \\\\ _Gheorghe Coserea_, Jan 23 2018"
+			],
+			"xref": [
+				"Cf. A000217, A060593, A128174, A130534, A185259, A189507.",
+				"Row sums give A000142."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,8",
+			"author": "_Anthony Labarre_, Aug 19 2009",
+			"ext": [
+				"T(0,0) set to 1 by _Peter Luschny_, Mar 24 2015"
+			],
+			"references": 7,
+			"revision": 67,
+			"time": "2018-08-20T01:47:01-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 164874,
+			"data": "2,5,6,11,13,14,23,27,29,30,47,55,59,61,62,95,111,119,123,125,126,191,223,239,247,251,253,254,383,447,479,495,503,507,509,510,767,895,959,991,1007,1015,1019,1021,1022,1535,1791,1919,1983,2015,2031,2039,2043",
+			"name": "Triangle read by rows: T(1,1)=2; T(n,k)=2*T(n-1,k)+1, 1\u003c=k\u003cn; T(n,n)=2*(T(n-1,n-1)+1).",
+			"comment": [
+				"T(n,k) = A030130(n*(n-1)/2 + k + 1);",
+				"A023416(T(n,k)) = 1, 1\u003c=k\u003c=n;",
+				"A059673(n) = sum of n-th row;",
+				"T(n,1) = A055010(n);",
+				"T(n,2) = A086224(n-2) for n \u003e 1;",
+				"T(n,n-1) = A036563(n+1) for n \u003e 1;",
+				"T(n,n) = A000918(n+1).",
+				"All terms contain exactly 1 zero in binary representation."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A164874/b164874.txt\"\u003eRows n = 1..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = 2^(n+1) - 2^(n-k) - 1, 1 \u003c= k \u003c= n."
+			],
+			"example": [
+				"Initial rows:",
+				".  1:                             2",
+				".  2:                        5        6",
+				".  3:                  11        13        14",
+				".  4:             23        27       29        30",
+				".  5:        47        55        59        61        62",
+				".  6:    95       111       119      123       125       126",
+				"also in binary representation:",
+				".                                10",
+				".                           101       110",
+				".                     1011      1101      1110",
+				".                10111     11011     11101     11110",
+				".          101111    110111    111011    111101    111110",
+				".     1011111   1101111   1110111   1111011   1111101   1111110 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a164874 n k = a164874_tabl !! (n-1) !! (k-1)",
+				"a164874_row n = a164874_tabl !! (n-1)",
+				"a164874_tabl = map reverse $ iterate f [2] where",
+				"   f xs@(x:_) = (2 * x + 2) : map ((+ 1) . (* 2)) xs",
+				"-- _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"xref": [
+				"Cf. A030130, A023416, A059673, A055010, A086224, A036563, A000918."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 29 2009",
+			"references": 7,
+			"revision": 5,
+			"time": "2015-03-31T17:37:02-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 169611,
+			"data": "0,1,1,2,0,2,0,3,2,1,0,3,0,1,1,4,0,3,0,2,1,1,0,4,0,1,3,2,0,2,0,5,1,1,0,4,0,1,1,3,0,2,0,2,2,1,0,5,0,1,1,2,0,4,0,3,1,1,0,3,0,1,2,6,0,2,0,2,1,1,0,5,0,1,1,2,0,2,0,4,4,1,0,3,0,1,1,3,0,3,0,2,1,1,0,6,0,1,2,2,0,2,0,3,1",
+			"name": "Number of prime divisors of n that are not greater than 3, counted with multiplicity.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A169611/b169611.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A001222(n) - A106799(n).",
+				"a(n) = A007814(n) + A007949(n). - _R. J. Mathar_, Dec 04 2009",
+				"a(n) = A001222(A065331(n)). - _Reinhard Zumkeller_, Nov 19 2015"
+			],
+			"maple": [
+				"A169611 := proc(n) local f; a := 0 ; for f in ifactors(n)[2] do if op(1,f) \u003c= 3 then a := a+op(2,f) ; end if; end do: return a; end proc: seq(A169611(n),n=1..100) ; # _R. J. Mathar_, Dec 04 2009"
+			],
+			"mathematica": [
+				"f[n_] := Plus @@ Last /@ Select[ FactorInteger@ n, 1 \u003c #[[1]] \u003c 4 \u0026]; Array[f, 105] (* _Robert G. Wilson v_, Dec 19 2009 *)"
+			],
+			"program": [
+				"(PARI) A169611(n)=valuation(n,2)+valuation(n,3)  \\\\ _M. F. Hasler_, Aug 24 2012",
+				"(Haskell)",
+				"a169611 = a001222 . a065331  -- _Reinhard Zumkeller_, Nov 19 2015"
+			],
+			"xref": [
+				"Cf. A001222, A106799.",
+				"Cf. A007814, A007949, A065331."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Juri-Stepan Gerasimov_, Dec 03 2009",
+			"ext": [
+				"Definition corrected by _M. F. Hasler_, Aug 24 2012"
+			],
+			"references": 7,
+			"revision": 15,
+			"time": "2015-11-19T16:30:31-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 175499,
+			"data": "1,2,-1,3,4,-5,6,-4,5,-3,7,-8,9,-2,8,-10,11,-6,10,-14,12,-7,13,-12,14,-13,15,-11,16,-19,17,-9,18,-21,19,-17,20,-18,21,-15,22,-26,23,-16,24,-29,25,-22,27,-23,26,-25,28,-27,29,-28,30,-24,31,-35,32,33,-62,34,-31,35,-34,36,-33,37,-39,38,-32,39,-42,40,-36",
+			"name": "a(n) = A175498(n+1)-A175498(n).",
+			"comment": [
+				"No integer occurs in this sequence more than once, by definition. Is this sequence a permutation of the nonzero integers?"
+			],
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A175499/b175499.txt\"\u003eTable of n, a(n) for n = 1..4999\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a[1] = 0; d[1] = 1; k = 1; z = 10000; zz = 120;",
+				"A[k_] := Table[a[i], {i, 1, k}]; diff[k_] := Table[d[i], {i, 1, k}];",
+				"c[k_] := Complement[Range[-z, z], diff[k]];",
+				"T[k_] := -a[k] + Complement[Range[z], A[k]]",
+				"Table[{h = Min[Intersection[c[k], T[k]]], a[k + 1] = a[k] + h,",
+				"   d[k + 1] = h, k = k + 1}, {i, 1, zz}];",
+				"u = Table[a[k], {k, 1, zz}]  (* A257884 *)",
+				"Table[d[k], {k, 1, zz}] (* A175499 *)",
+				"(* _Clark Kimberling_, May 13 2015 *)"
+			],
+			"program": [
+				"(Python)",
+				"A175499_list, l, s, b = [1], 2, 3, set()",
+				"for n in range(2, 10**2):",
+				"....i, j = s, s-l",
+				"....while True:",
+				"........if not (i in b or j in A175499_list):",
+				"............A175499_list.append(j)",
+				"............b.add(i)",
+				"............l = i",
+				"............while s in b:",
+				"................b.remove(s)",
+				"................s += 1",
+				"............break",
+				"........i += 1",
+				"........j += 1 # _Chai Wah Wu_, Dec 15 2014",
+				"(Haskell)",
+				"a175499 n = a175499_list !! (n-1)",
+				"a175499_list = zipWith (-) (tail a175498_list) a175498_list",
+				"-- _Reinhard Zumkeller_, Apr 25 2015"
+			],
+			"xref": [
+				"Cf. A175498, A257884, A131389."
+			],
+			"keyword": "sign",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, May 31 2010",
+			"ext": [
+				"More terms from _Sean A. Irvine_, Jan 27 2011"
+			],
+			"references": 7,
+			"revision": 19,
+			"time": "2015-05-13T15:56:27-04:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 182028,
+			"data": "0,1,2,4,9,18,37,74,148,297,594,1188,2377,4754,9509,19018,38036,76073,152146,304293,608586,1217172,2434345,4868690,9737380,19474761,38949522,77899045,155798090,311596180,623192361,1246384722,2492769444,4985538889,9971077778",
+			"name": "Take first n bits of the infinite Fibonacci word A003849, regard them as a binary number, then convert it to base 10.",
+			"comment": [
+				"a(n) mod 2 = A003849(n);",
+				"a(n) = A000225(n+1) - A044432(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A182028/b182028.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 2*a(n-1) + A003849(n) for n \u003e 0, a(0) = 0."
+			],
+			"example": [
+				"0 -\u003e                            0 -\u003e a(0) = 0,",
+				"0,1 -\u003e                         01 -\u003e a(1) = 1,",
+				"0,1,0 -\u003e                      010 -\u003e a(2) = 2,",
+				"0,1,0,0 -\u003e                   0100 -\u003e a(3) = 4,",
+				"0,1,0,0,1 -\u003e                01001 -\u003e a(4) = 9,",
+				"0,1,0,0,1,0 -\u003e             010010 -\u003e a(5) = 18,",
+				"0,1,0,0,1,0,1 -\u003e          0100101 -\u003e a(6) = 37",
+				"0,1,0,0,1,0,1,0 -\u003e       01001010 -\u003e a(7) = 74",
+				"0,1,0,0,1,0,1,0,0 -\u003e    010010100 -\u003e a(8) = 148,",
+				"0,1,0,0,1,0,1,0,0,1 -\u003e 0100101001 -\u003e a(9) = 297."
+			],
+			"mathematica": [
+				"nesting = 7; A003849 = Flatten[Nest[{#, #[[1]]}\u0026, {0, 1}, nesting]]; a[n_] := FromDigits[Take[A003849, n+1], 2]; Table[a[n], {n, 0, Length[A003849] - 1}] (* _Jean-François Alcover_, Feb 13 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a182028 n = a182028_list !! n",
+				"a182028_list = scanl1 (\\v b -\u003e 2 * v + b) a003849_list"
+			],
+			"xref": [
+				"Cf. A003842, A003849, A000225, A044432, A214318."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Apr 07 2012",
+			"references": 7,
+			"revision": 17,
+			"time": "2016-02-13T10:43:24-05:00",
+			"created": "2012-04-08T09:12:47-04:00"
+		},
+		{
+			"number": 183209,
+			"data": "1,2,3,5,4,8,7,14,6,11,12,23,10,20,21,41,9,17,16,32,18,35,34,68,15,29,30,59,31,62,61,122,13,26,25,50,24,47,48,95,27,53,52,104,51,101,102,203,22,44,43,86,45,89,88,176,46,92,93,185,91,182,183,365,19,38,39,77,37",
+			"name": "Tree generated by floor(3n/2): a(1) = 1, a(2n) = (3*a(n))-1, a(2n+1) = floor((3*a(n+1))/2).",
+			"comment": [
+				"A permutation of the positive integers. See the comment at A183079. Leftmost branch of tree is essentially A061418. Rightmost: A007051."
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A183209/b183209.txt\"\u003eTable of n, a(n) for n = 1..8192; the first 14 levels of the tree, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"Let L(n)=floor(3n/2).",
+				"Let U(n)=3n-1.  U is the complement of L.",
+				"The tree-array T(n,k) is then given by rows:",
+				"T(0,0)=1; T(1,0)=2;",
+				"T(n,2j)=L(T(n-1),j);",
+				"T(n,2j+1)=U(T(n-1),j);",
+				"for j=0,1,...,2^(n-1)-1, n\u003e=2.",
+				"From _Antti Karttunen_, Jan 26 2015: (Start)",
+				"a(1) = 1, a(2n) = (3*a(n))-1, a(2n+1) = A032766(a(n+1)) = floor((3*a(n+1))/2).",
+				"Other identities:",
+				"a(2^n) = A007051(n) for all n \u003e= 0. [A property shared with A048673 and A254103.]",
+				"(End)"
+			],
+			"example": [
+				"First levels of the tree:",
+				"......................1",
+				"......................2",
+				"............3..................5",
+				"..........4...8..............7...14"
+			],
+			"maple": [
+				"f:= proc(n) option remember;",
+				"  if n::even then 3*procname(n/2)-1",
+				"  else floor(3*procname((n+1)/2)/2)",
+				"  fi",
+				"end proc:",
+				"f(1):= 1:",
+				"seq(f(n), n=1..100); # _Robert Israel_, Jan 26 2015"
+			],
+			"mathematica": [
+				"a[1]=1; a[n_] := a[n] = If[EvenQ[n], 3a[n/2]-1, Floor[3a[(n+1)/2]/2] ]; Array[a, 100] (* _Jean-François Alcover_, Feb 02 2018 *)"
+			],
+			"program": [
+				"(Scheme, with memoizing macro definec)",
+				"(definec (A183209 n) (cond ((\u003c= n 1) n) ((even? n) (A016789 (- (A183209 (/ n 2)) 1))) (else (A032766 (A183209 (/ (+ n 1) 2))))))",
+				";; _Antti Karttunen_, Jan 26 2015",
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a183209 n k = a183209_tabf !! (n-1) !! (k-1)",
+				"a183209_row n = a183209_tabf !! (n-1)",
+				"a183209_tabf = [1] : iterate (\\xs -\u003e concat $",
+				"   transpose [map a032766 xs, map (a016789 . subtract 1) xs]) [2]",
+				"a183209_list = concat a183209_tabf",
+				"-- _Reinhard Zumkeller_, Jun 27 2015",
+				"(Python)",
+				"def a(n):",
+				"    if n==1: return 1",
+				"    if n%2==0: return 3*a(n/2) - 1",
+				"    else: return int((3*a((n - 1)/2 + 1))/2)",
+				"print [a(n) for n in xrange(1, 101)] # _Indranil Ghosh_, Jun 06 2017"
+			],
+			"xref": [
+				"Cf. A183079, A007051, A016789, A183207, A183208, A032766, A191450.",
+				"Similar permutations: A048673, A254103.",
+				"Inverse permutation: A259431."
+			],
+			"keyword": "nonn,tabf,look",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, Dec 30 2010",
+			"ext": [
+				"Formula to the name-field added by _Antti Karttunen_, Jan 26 2015"
+			],
+			"references": 7,
+			"revision": 33,
+			"time": "2018-02-02T08:24:02-05:00",
+			"created": "2010-12-30T09:20:46-05:00"
+		},
+		{
+			"number": 186424,
+			"data": "1,3,11,17,33,43,67,81,113,131,171,193,241,267,323,353,417,451,523,561,641,683,771,817,913,963,1067,1121,1233,1291,1411,1473,1601,1667,1803,1873,2017,2091,2243,2321,2481,2563,2731,2817,2993,3083,3267,3361,3553,3651",
+			"name": "Odd terms in A186423.",
+			"comment": [
+				"Sum of odd square and half of even square. - _Vladimir Joseph Stephan Orlovsky_, May 20 2011",
+				"Numbers m such that 6*m-2 is a square. - _Bruno Berselli_, Apr 29 2016"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A186424/b186424.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_05\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,2,-2,-1,1)."
+			],
+			"formula": [
+				"G.f. ( -1-2*x-6*x^2-2*x^3-x^4 ) / ( (1+x)^2*(x-1)^3 ). - _R. J. Mathar_, Feb 28 2011",
+				"a(n) = 3*(1+2*n+2*n^2)/4 + (-1)^n*(1+2*n)/4. - _R. J. Mathar_, Feb 28 2011",
+				"a(n+2) = a(n) + A091999(n+2).",
+				"Union of A080859 and A126587: a(2*n) = A080859(n) and a(2*n+1) = A126587(n+1)."
+			],
+			"mathematica": [
+				"Table[If[OddQ[n],n^2+((n+1)^2)/2,(n^2)/2+(n+1)^2],{n,0,100}] (* _Vladimir Joseph Stephan Orlovsky_, May 20 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a186424 n = a186424_list !! n",
+				"a186424_list = filter odd a186423_list"
+			],
+			"xref": [
+				"Cf. A186421."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Feb 21 2011",
+			"references": 7,
+			"revision": 25,
+			"time": "2017-06-18T02:18:51-04:00",
+			"created": "2011-02-21T07:08:56-05:00"
+		}
+	]
+}

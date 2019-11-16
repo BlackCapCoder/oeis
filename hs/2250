@@ -1,0 +1,471 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2250,
+	"results": [
+		{
+			"number": 162910,
+			"data": "1,2,1,3,3,1,2,5,4,4,5,2,1,3,3,8,7,5,7,7,5,7,8,3,3,1,2,5,4,4,5,13,11,9,12,9,6,10,11,11,10,6,9,12,9,11,13,5,4,4,5,2,1,3,3,8,7,5,7,7,5,7,8,21,18,14,19,16,11,17,19,14,13,7,11,17,13,15,18,18,15,13,17,11,7,13,14,19",
+			"name": "Denominators of Bird tree fractions.",
+			"comment": [
+				"The Bird tree is an infinite binary tree labeled with rational numbers. The root is labeled with 1. The tree enjoys the following fractal property: it can be transformed into its left subtree by first incrementing and then reciprocalizing the elements; for the right subtree interchange the order of the two steps: the elements are first reciprocalized and then incremented. Like the Stern-Brocot tree, the Bird tree enumerates all the positive rationals (A162909(n)/A162910(n)).",
+				"From _Yosu Yurramendi_, Jul 11 2014: (Start)",
+				"If the terms (n\u003e0) are written as an array (left-aligned fashion) with rows of length 2^m, m = 0,1,2,3,...",
+				"1,",
+				"2, 1,",
+				"3, 3,1, 2,",
+				"5, 4,4, 5,2,1, 3, 3,",
+				"8, 7,5, 7,7,5, 7, 8, 3, 3,1,2, 5,4, 4, 5,",
+				"13,11,9,12,9,6,10,11,11,10,6,9,12,9,11,13,5,4,4,5,2,1,3,3,8,7,5,7,7,5,7,8,",
+				"then the sum of the m-th row is 3^m (m = 0,1,2,), each column k is a Fibonacci sequence.",
+				"If the rows are written in a right-aligned fashion:",
+				"                                                                        1,",
+				"                                                                      2,1,",
+				"                                                                  3,3,1,2,",
+				"                                                          5,4,4,5,2,1,3,3,",
+				"                                          8,7,5,7,7,5,7,8,3,3,1,2,5,4,4,5,",
+				"13,11,9,12,9,6,10,11,11,10,6,9,12,9,11,13,5,4,4,5,2,1,3,3,8,7,5,7,7,5,7,8,",
+				"then each column k also is a Fibonacci sequence.",
+				"The Fibonacci sequences of both triangles are equal except the first terms of second triangle.",
+				"If the sequence is considered by blocks of length 2^m, m = 0,1,2,..., the blocks of this sequence are the reverses of blocks of A162909 ( a(2^m+k) = A162909(2^(m+1)-1-k), m = 0,1,2,..., k = 0,1,2,...,2^m-1).",
+				"(End)"
+			],
+			"link": [
+				"R. Hinze, \u003ca href=\"http://www.cs.ox.ac.uk/ralf.hinze/publications/Bird.pdf\"\u003eFunctional pearls: the bird tree\u003c/a\u003e, J. Funct. Programming 19 (2009), no. 5, 491-508.",
+				"\u003ca href=\"/index/Fo#fraction_trees\"\u003eIndex entries for fraction trees\u003c/a\u003e"
+			],
+			"formula": [
+				"a(2^m+k) = a(2^m-k-1) + a(2^(m-1)+k), a(2^m+2^(m-1)+k) = a(2^m-k-1), a(1) = 1, m=0,1,2,3,..., k=0,1,...,2^(m-1)-1. - _Yosu Yurramendi_, Jul 11 2014",
+				"If k is odd a(A080675(n)*2^m+k) = A268087(2^m+k), if k is even a(A136412(2^m+k+1)*2^m+k) = A268087(2^m+k), m \u003e= 0, 0 \u003c= k \u003c 2^m, n \u003e 0. a(A081254(n)) = 1, n \u003e 0. - _Yosu Yurramendi_, Feb 21 2017"
+			],
+			"example": [
+				"The first four levels of the Bird tree: [1/1] [1/2, 2/1] [2/3, 1/3, 3/1, 3/2], [3/5, 3/4, 1/4, 2/5, 5/2, 4/1, 4/3, 5/3]."
+			],
+			"program": [
+				"(Haskell)",
+				"import Ratio; bird :: [Rational]; bird = branch (recip . succ) (succ . recip) 1; branch f g a = a : branch f g (f a) \\/ branch f g (g a); (a : as) \\/ bs = a : (bs \\/ as); a162909 = map numerator bird; a162910 = map denominator bird",
+				"(R)",
+				"blocklevel \u003c- 6 # arbitrary",
+				"a \u003c- 1",
+				"for(m in 1:blocklevel) for(k in 0:(2^(m-1)-1)){",
+				"a[2^m+k]         = a[2^m-k-1] + a[2^(m-1)+k]",
+				"a[2^m+2^(m-1)+k] = a[2^m-k-1]",
+				"}",
+				"a",
+				"# _Yosu Yurramendi_, Jul 11 2014"
+			],
+			"xref": [
+				"This sequence is the composition of A162912 and A059893: a(n) = A162912(A059893(n)). This sequence is a permutation of A002487(n+2)."
+			],
+			"keyword": "easy,frac,nonn",
+			"offset": "1,2",
+			"author": "Ralf Hinze (ralf.hinze(AT)comlab.ox.ac.uk), Aug 05 2009",
+			"references": 15,
+			"revision": 34,
+			"time": "2018-03-19T04:07:07-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 163617,
+			"data": "0,3,6,7,12,15,14,15,24,27,30,31,28,31,30,31,48,51,54,55,60,63,62,63,56,59,62,63,60,63,62,63,96,99,102,103,108,111,110,111,120,123,126,127,124,127,126,127,112,115,118,119,124,127,126,127,120,123,126,127,124,127,126",
+			"name": "a(2*n) = 2*a(n), a(2*n + 1) = 2*a(n) + 2 + (-1)^n, for all n in Z.",
+			"comment": [
+				"Fibbinary numbers (A003714) give all integers n\u003e=0 for which a(n) = 3*n.",
+				"From _Antti Karttunen_, Feb 21 2016: (Start)",
+				"Fibbinary numbers give also all integers n \u003e= 0 for which a(n) = A048724(n).",
+				"Note that there are also other multiples of three in the sequence, like for example A163617(99) = 231 (\"11100111\" in binary) = 3*77, while 77 (\"1001101\" in binary) is not included in A003714. Note that 99 is \"1100011\" in binary.",
+				"(End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A163617/b163617.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = -A163618(-n) for all n in ZZ.",
+				"Conjecture: a(n) = A003188(n) + (6*n+1-(-1)^n)/4. - _Velin Yanev_, Dec 17 2016"
+			],
+			"example": [
+				"G.f. = 3*x + 6*x^2 + 7*x^3 + 12*x^4 + 15*x^5 + 14*x^6 + 15*x^7 + 24*x^8 + 27*x^9 + ..."
+			],
+			"maple": [
+				"A163617 := n -\u003e Bits:-Or(2*n, n):",
+				"seq(A163617(n), n=0..62); # _Peter Luschny_, Sep 23 2019"
+			],
+			"mathematica": [
+				"Table[BitOr[n, 2*n], {n, 0, 100}] (* _Vladimir Joseph Stephan Orlovsky_, Jul 19 2011 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = bitor(n, n\u003c\u003c1)};",
+				"(PARI) {a(n) = if( n==0 || n==-1, n, 2 * a(n \\ 2) + (n%2) * (2 + (-1)^(n \\ 2)))};",
+				"(Haskell)",
+				"import Data.Bits ((.|.), shiftL)",
+				"a163617 n = n .|. shiftL n 1 :: Integer",
+				"-- _Reinhard Zumkeller_, Mar 06 2013",
+				"(Scheme) (define (A163617 n) (A003986bi n (+ n n))) ;; Here A003986bi implements dyadic bitwise-OR operation (see A003986) - _Antti Karttunen_, Feb 21 2016"
+			],
+			"xref": [
+				"Cf. A003986, A048724, A213370, A163618.",
+				"Cf. also A269161."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Michael Somos_, Aug 01 2009",
+			"ext": [
+				"Comment about Fibbinary numbers rephrased by _Antti Karttunen_, Feb 21 2016"
+			],
+			"references": 15,
+			"revision": 31,
+			"time": "2019-09-23T15:39:25-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 167535,
+			"data": "11,19,41,149,181,251,449,491,499,641,811,1009,1289,1361,1699,2251,2549,4001,4289,4441,4729,6449,6481,6761,7841,8419,9001,9619,10891,11369,11681,12149,12251,12401,12601,12809,13249,13691,13721,14449,14489",
+			"name": "Primes which are the concatenation of two squares (in decimal notation).",
+			"comment": [
+				"Necessarily a(n) has to end with 1 or 9.",
+				"It is not known if the sequence is infinite.",
+				"Intersection of A191933 and A000040; A193095(a(n))\u003e0 and A010051(a(n))=1. [_Reinhard Zumkeller_, Jul 17 2011]"
+			],
+			"reference": [
+				"Richard E. Crandall, Carl Pomerance, Prime Numbers, Springer 2005",
+				"Wladyslaw Narkiewicz, The Development of Prime Number Theory from Euclid to Hardy and Littlewood, Springer 2000",
+				"Paulo Ribenboim, The New Book of Prime Number Records, Springer 1996"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A167535/b167535.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = m^2 * 10^k + n^2 for a k-digit square number n^2"
+			],
+			"example": [
+				"(1) 11=1^2 x 10 + 1^2, 149=1^2 x 10^2 + 7^2, 1361=1^2 x 10^3 + 19^2 (2) 14401=12^2 x 10^2 + 1^2 is no term of sequence, because included \"0\" (1^2=1 is 1-digit)",
+				"3) 14449=12^2 x 10^2 + 7^2 = 38^2 x 10 + 3^2 is smallest prime with 2 such representations"
+			],
+			"program": [
+				"(Haskell)",
+				"a167535 n = a167535_list !! (n-1)",
+				"a167535_list = filter ((\u003e 0) . a193095) a000040_list",
+				"-- _Reinhard Zumkeller_, Jul 17 2011",
+				"(PARI) is_A167535(n)={ my(t=1); isprime(n) \u0026\u0026 while(n\u003et*=10, apply(issquare,divrem(n,t))==[1,1]~ \u0026\u0026 n%t*10\u003e=t \u0026\u0026 return(1))}",
+				"forprime(p=1,default(primelimit), is_A167535(p) \u0026\u0026 print1(p\",\")) \\\\ - M. F. Hasler, Jul 24 2011"
+			],
+			"xref": [
+				"Cf. A167416, A167417"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "Eva-Maria Zschorn (e-m.zschorn(AT)zaschendorf.km3.de), Nov 06 2009",
+			"ext": [
+				"11369 inserted by _R. J. Mathar_, Nov 07 2009"
+			],
+			"references": 15,
+			"revision": 10,
+			"time": "2013-07-13T12:03:40-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 169849,
+			"data": "9,3,6,2,4,8,10,5,15,12,14,7,21,18,16,20,22,11,33,24,26,13,39,27,30,25,35,28,32,34,17,51,36,38,19,57,42,40,44,46,23,69,45,48,50,52,54,56,49,63,60,55,65,70,58,29,87,66,62,31,93,72,64,68,74,37,111,75,78,76,80,82,41",
+			"name": "EKG sequence started at 9 instead of 2.",
+			"comment": [
+				"A generalization of A064413.",
+				"a(n) = A064413(n+1) for n \u003e 43; a(n) = A169837(n) for n \u003e 9. - _Reinhard Zumkeller_, Jul 04 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A169849/b169849.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Gordon Hamilton, \u003ca href=\"http://www.youtube.com/watch?v=yd2jr30K2R4\"\u003eThe EKG Sequence and the Tree of Numbers\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/EKGSequence.html\"\u003eEKG Sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Ed#EKG\"\u003eIndex entries for sequences related to EKG sequence\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a169849 n = a169849_list !! (n-1)",
+				"a169849_list = 9 : ekg 9 (delete 9 [2..]) where",
+				"   ekg x zs = f zs where",
+				"       f (y:ys) = if gcd x y \u003e 1 then y : ekg y (delete y zs) else f ys",
+				"-- _Reinhard Zumkeller_, Jul 04 2014"
+			],
+			"xref": [
+				" Cf. A064413, A064417, A169837."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_T. D. Noe_ and _N. J. A. Sloane_, Jun 02 2010",
+			"references": 15,
+			"revision": 7,
+			"time": "2019-05-16T01:32:32-04:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 179909,
+			"data": "13,17,29,31,43,47,59,67,71,79,83,97,103,107,151,163,191,199,269,281,349,421,461,463,487,509,569,607,641,661,701,709,769,787,811,821,863,877,887,907,911,919,941,1021,1051,1061,1063,1087,1091,1201,1249,1409",
+			"name": "Primes with only one embedded prime.",
+			"comment": [
+				"A079066(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A179909/b179909.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"f[n_] := Block[ {id = IntegerDigits@n}, len = Length@ id - 1; Count[ PrimeQ@ Union[ FromDigits@# \u0026 /@ Flatten[ Table[ Partition[ id, k, 1], {k, len}], 1]], True] + 1]; Select[ Prime@ Range@ 230, f@# == 2 \u0026]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a179909 n = a179909_list !! (n-1)",
+				"a179909_list = map (a000040 . (+ 1)) $ elemIndices 1 a079066_list",
+				"-- _Reinhard Zumkeller_, Jul 19 2011"
+			],
+			"xref": [
+				"Cf. A039996, A079397, A033274, A034844, A092621, A179909 - A179919, A033274."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Robert G. Wilson v_, Aug 01 2010",
+			"references": 15,
+			"revision": 7,
+			"time": "2013-07-13T12:03:43-04:00",
+			"created": "2010-08-27T03:00:00-04:00"
+		},
+		{
+			"number": 179919,
+			"data": "111317,113177,113537,113719,113731,117193,117331,121379,123733,129719,131797,132173,132971,136733,136739,137197,137321,137339,137353,137359,137393,137573,152311,172313,173137,173359,174311,193373,211319,213799",
+			"name": "Primes with eleven embedded primes.",
+			"comment": [
+				"A079066(a(n)) = 11."
+			],
+			"mathematica": [
+				"f[n_] := Block[ {id = IntegerDigits@n}, len = Length@ id - 1; Count[ PrimeQ@ Union[ FromDigits@# \u0026 /@ Flatten[ Table[ Partition[ id, k, 1], {k, len}], 1]], True] + 1]; Select[ Prime@ Range@ 19110, f@# == 12 \u0026]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a179919 n = a179919_list !! (n-1)",
+				"a179919_list = map (a000040 . (+ 1)) $ elemIndices 11 a079066_list",
+				"-- _Reinhard Zumkeller_, Jul 19 2011"
+			],
+			"xref": [
+				"Cf. A039996, A079397, A033274, A034844, A092621, A179909 - A179919, A033274."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Robert G. Wilson v_, Aug 01 2010",
+			"references": 15,
+			"revision": 6,
+			"time": "2013-02-22T21:38:32-05:00",
+			"created": "2010-08-27T03:00:00-04:00"
+		},
+		{
+			"number": 187203,
+			"data": "1,1,2,1,4,2,6,1,4,0,10,1,12,2,8,1,16,4,18,1,8,6,22,2,16,8,8,3,28,4,30,1,8,12,24,1,36,14,8,0,40,4,42,3,20,18,46,1,36,0,8,3,52,8,36,0,8,24,58,3,60,26,4,1,40,12,66,3,8,2,70,4,72,32,32,3",
+			"name": "The bottom entry in the absolute difference triangle of the divisors of n.",
+			"comment": [
+				"Note that if n is prime then a(n) = n - 1.",
+				"Where records occurs gives the odd noncomposite numbers (A006005).",
+				"First differs from A187202 at a(14).",
+				"It is important to note that at each step in the process, the absolute differences are taken, and not just at the end. This sequence is therefore not abs(A187202) as I mistakenly assumed at first. [Alonso del Arte, Aug 01 2011]"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A187203/b187203.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(18) = 4 because the divisors of 18 are 1, 2, 3, 6, 9, 18, and the absolute difference triangle of the divisors is:",
+				"1 . 2 . 3 . 6 . 9 . 18",
+				". 1 . 1 . 3 . 3 . 9",
+				". . 0 . 2 . 0 . 6",
+				". . . 2 . 2 . 6",
+				". . . . 0 . 4",
+				". . . . . 4",
+				"with bottom entry a(18) = 4.",
+				"Note that A187202(18) = 12."
+			],
+			"mathematica": [
+				"Table[d = Divisors[n]; While[Length[d] \u003e 1, d = Abs[Differences[d]]]; d[[1]], {n, 100}] (* _T. D. Noe_, Aug 01 2011 *)"
+			],
+			"program": [
+				"(PARI) A187203(n)={ for(i=2,#n=divisors(n), n=abs(vecextract(n,\"^1\")-vecextract(n,\"^-1\"))); n[1]}  \\\\ _M. F. Hasler_, Aug 01 2011",
+				"(Haskell)",
+				"a187203 = head . head . dropWhile ((\u003e 1) . length) . iterate diff . divs",
+				"   where divs n = filter ((== 0) . mod n) [1..n]",
+				"         diff xs = map abs $ zipWith (-) (tail xs) xs",
+				"-- _Reinhard Zumkeller_, Aug 02 2011"
+			],
+			"xref": [
+				"Cf. A006005, A027750, A187202, A187205, A187208."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Omar E. Pol_, Aug 01 2011",
+			"ext": [
+				"Edited by _Omar E. Pol_, May 14 2016"
+			],
+			"references": 15,
+			"revision": 52,
+			"time": "2016-05-15T16:34:28-04:00",
+			"created": "2011-08-01T22:58:31-04:00"
+		},
+		{
+			"number": 188431,
+			"data": "1,1,0,1,0,0,1,1,0,0,1,1,2,2,1,2,1,2,3,4,5,7,7,8,9,11,10,13,14,17,20,25,28,34,40,46,54,62,69,80,90,102,115,131,144,167,186,213,239,273,304,349,388,441,495,563,625,710,790,890,990,1114,1232,1387,1530,1713,1894,2119,2330,2605,2866,3192,3512,3910,4289,4774,5237,5809,6377,7068,7739",
+			"name": "The number of n-full sets, F(n).",
+			"comment": [
+				"Let A be a set of positive integers. We say that A is n-full if (sum A)=[n] for a positive integer n, where (sum A) is the set of all positive integers which are a sum of distinct elements of A and [n]={1,2,...,n}. Then F(n) denotes the number of n-full sets.",
+				"Also the number of distinct and complete partitions of n, by definition, which are counted by A000009 and A126796. - _George Beck_, Nov 06 2017",
+				"An integer partition of n is complete (see also A325781) if every number from 0 to n is the sum of some submultiset of the parts. The Heinz numbers of these partitions are given by A325986. - _Gus Wiseman_, May 31 2019"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A188431/b188431.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (terms n=1..1000 from Reinhard Zumkeller)",
+				"L. Naranjani and M. Mirzavaziri, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL14/Mirzavaziri/mirza4.html\"\u003eFull Subsets of N\u003c/a\u003e, Journal of Integer Sequences, 14 (2011), Article 11.5.3."
+			],
+			"formula": [
+				"F(n) = Sum_(i=L(n) .. U(n), F(n,i)), where F(n,i) = Sum_(j=L(n-i) .. min(U(n-i),i-1), F(n-i,j) ) and L(n), U(n) are defined in A188429 and A188430, respectively.",
+				"G.f.: 1 = Sum_{n\u003e=0} a(n)*x^n / Product_{k=1..n+1} (1+x^k), with a(0)=1. - _Paul D. Hanna_, Mar 08 2012",
+				"a(n) ~ c * exp(Pi*sqrt(n/3)) / n^(3/4), where c = 0.03316508... - _Vaclav Kotesovec_, Oct 21 2019"
+			],
+			"example": [
+				"a(26) = 10, because there are 10 26-full sets: {1,2,4,5,6,8}, {1,2,3,5,7,8}, {1,2,3,5,6,9}, {1,2,3,4,7,9}, {1,2,3,4,6,10}, {1,2,3,4,5,11}, {1,2,4,8,11}, {1,2,4,7,12}, {1,2,4,6,13}, {1,2,3,7,13}.",
+				"G.f.: 1 = 1/(1+x) + 1*x/((1+x)*(1+x^2)) + 0*x^2/((1+x)*(1+x^2)*(1+x^3)) + 1*x^3/((1+x)*(1+x^2)*(1+x^3)*(1+x^4)) +...+ a(n)*x^n / Product_{k=1..n+1} (1+x^k) +..."
+			],
+			"maple": [
+				"sums:= proc(s) local i, m;",
+				"          m:= max(s[]);",
+				"         `if`(m\u003c1, {}, {m, seq([i, i+m][], i=sums(s minus {m}))})",
+				"       end:",
+				"a:= proc(n) local b;",
+				"      b:= proc(i,s) local si;",
+				"            if i=1 then `if`(sums(s)={$1..n}, 1, 0)",
+				"          else si:= s union {i};",
+				"               b(i-1, s)+ `if`(max(sums(si)[])\u003en, 0, b(i-1, si))",
+				"            fi",
+				"          end; b(n, {1})",
+				"    end:",
+				"seq(a(n), n=1..40);  # _Alois P. Heinz_, Apr 03 2011",
+				"# second Maple program:",
+				"b:= proc(n, i) option remember; `if`(i*(i+1)/2\u003cn, 0, `if`(n=0, 1,",
+				"      b(n, i-1)+`if`(i\u003en or i\u003en-i+1, 0, b(n-i, i-1))))",
+				"    end:",
+				"a:= n-\u003e b(n$2):",
+				"seq(a(n), n=0..80);  # _Alois P. Heinz_, May 20 2017"
+			],
+			"mathematica": [
+				"Sums[s_] := Sums[s] = With[{m = Max[s]}, If[m \u003c 1, {}, Union @ Flatten @ Join[{m}, Table[{i, i + m}, {i, Sums[s ~Complement~ {m}]}]]]];",
+				"a[n_] := Module[{b}, b[i_, s_] := b[i, s] = Module[{si}, If[i == 1, If[Sums[s] == Range[n], 1, 0], si = s ~Union~ {i}; b[i-1, s] + If[Max[ Sums[si]] \u003e n, 0, b[i - 1, si]]]]; b[n, {1}]];",
+				"Table[an = a[n]; Print[\"a(\", n, \") = \", an]; an, {n, 1, 80}] (* _Jean-François Alcover_, Apr 12 2017, after _Alois P. Heinz_ *)",
+				"Table[Length[Select[IntegerPartitions[n],UnsameQ@@#\u0026\u0026Union[Total/@Union[Subsets[#]]]==Range[0,n]\u0026]],{n,30}] (* _Gus Wiseman_, May 31 2019 *)"
+			],
+			"program": [
+				"(PARI) /* As coefficients in g.f. */",
+				"{a(n)=local(A=[1]); for(i=1, n+1, A=concat(A,0); A[#A]=polcoeff(1 - sum(m=1,#A,A[m]*x^m/prod(k=1, m, 1+x^k +x*O(x^#A) )), #A) ); A[n+1]}",
+				"for(n=0, 50, print1(a(n),\", \")) /* _Paul D. Hanna_, Mar 06 2012 */",
+				"(Haskell)",
+				"import Data.MemoCombinators (memo2, integral, Memo)",
+				"a188431 n = a188431_list !! (n-1)",
+				"a188431_list = map",
+				"   (\\x -\u003e sum [fMemo x i | i \u003c- [a188429 x .. a188430 x]]) [1..] where",
+				"   fMemo = memo2 integral integral f",
+				"   f _ 1 = 1",
+				"   f m i = sum [fMemo (m - i) j |",
+				"                j \u003c- [a188429 (m - i) .. min (a188430 (m - i)) (i - 1)]]",
+				"-- _Reinhard Zumkeller_, Aug 06 2015"
+			],
+			"xref": [
+				"Cf. A188429, A188430, A126796.",
+				"Cf. A002033, A103295, A108917, A276024, A325763, A325765, A325781, A325782, A325788, A325986, A325790, A325791."
+			],
+			"keyword": "nonn",
+			"offset": "0,13",
+			"author": "_Madjid Mirzavaziri_, Mar 31 2011",
+			"ext": [
+				"More terms from _Alois P. Heinz_, Apr 03 2011",
+				"a(0)=1 prepended by _Alois P. Heinz_, May 20 2017"
+			],
+			"references": 15,
+			"revision": 55,
+			"time": "2019-10-21T07:20:24-04:00",
+			"created": "2011-04-04T10:13:03-04:00"
+		},
+		{
+			"number": 193829,
+			"data": "1,2,1,2,4,1,1,3,6,1,2,4,2,6,1,3,5,10,1,1,1,2,6,12,1,5,7,2,2,10,1,2,4,8,16,1,1,3,3,9,18,1,2,1,5,10,2,4,14,1,9,11,22,1,1,1,2,2,4,12,4,20,1,11,13,2,6,18,1,2,3,7,14,28,1,1,2,1,4,5,15,30",
+			"name": "Irregular triangle read by rows in which row n lists the differences between consecutive divisors of n.",
+			"comment": [
+				"The sum of row n gives A000027(n-1). The product of row n gives A057449(n). Row n has length A032741(n). The final term of row n is A060681(n). It appears that the first term of row n is A057237(n)."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A193829/b193829.txt\"\u003eRows n = 2..1600, flattened\u003c/a\u003e",
+				"Omar E. Pol, \u003ca href=\"http://www.polprimos.com/imagenespub/poldiv05.jpg\"\u003eIllustration of divisors of n\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Table_of_divisors\"\u003eTable of divisors\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A027750(n,k+1)-A027750(n,k). - R. J. Mathar, Sep 01 2011"
+			],
+			"example": [
+				"Written as a triangle:",
+				"1,",
+				"2,",
+				"1, 2,",
+				"4,",
+				"1, 1, 3,",
+				"6,",
+				"1, 2, 4,",
+				"2, 6,",
+				"1, 3, 5,",
+				"10,",
+				"1, 1, 1, 2, 6"
+			],
+			"mathematica": [
+				"Flatten[Table[Differences[Divisors[n]], {n, 2, 30}]] (* _T. D. Noe_, Aug 31 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a193829 n k = genericIndex a193829_tabf (n - 1) !! (k - 1)",
+				"a193829_row n = genericIndex a193829_tabf (n - 1)",
+				"a193829_tabf = zipWith (zipWith (-))",
+				"                       (map tail a027750_tabf') a027750_tabf'",
+				"-- _Reinhard Zumkeller_, Jun 25 2015, Jun 23 2013"
+			],
+			"xref": [
+				"Cf. A027750, A032742.",
+				"Cf. A060682 (distinct terms per row), A060680 (row minima), A060681 (row maxima)."
+			],
+			"keyword": "nonn,tabf,easy",
+			"offset": "2,2",
+			"author": "_Omar E. Pol_, Aug 31 2011",
+			"references": 15,
+			"revision": 33,
+			"time": "2015-06-25T16:13:00-04:00",
+			"created": "2011-08-31T17:38:21-04:00"
+		},
+		{
+			"number": 198384,
+			"data": "1,4,49,9,49,16,289,196,25,1,36,196,529,49,961,441,64,1156,81,784,441,100,2401,289,121,2209,4,144,1225,529,169,784,2601,2116,5041,196,3844,1764,49,225,256,1681,1225,289,1681,2401,6241,9,4624,324,9409,361",
+			"name": "First of a triple of squares in arithmetic progression.",
+			"comment": [
+				"a(n) = A198388(n)^2; A198385(n) - a(n) = A198386(n) - A198385(n) = A198387(n).",
+				"A198435(n) = a(A198409(n))."
+			],
+			"link": [
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e",
+				"Reinhard Zumkeller, \u003ca href=\"/A198384/a198384_2.txt\"\u003eTable of initial values\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a198384 n = a198384_list !! (n-1)",
+				"a198384_list = map (^ 2) a198388_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 24 2011",
+			"ext": [
+				"Thanks to _Benoit Jubin_, who had the idea for sequences A198384 .. A198390 and A198435 .. A198441."
+			],
+			"references": 15,
+			"revision": 24,
+			"time": "2015-07-12T20:40:08-04:00",
+			"created": "2011-10-24T11:09:58-04:00"
+		}
+	]
+}

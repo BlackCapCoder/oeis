@@ -1,0 +1,485 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3230,
+	"results": [
+		{
+			"number": 67139,
+			"data": "1,2,3,5,9,11,13,17,19,23,25,29,33,35,37,39,41,43,49,53,57,65,67,69,71,75,77,79,81,83,87,89,93,97,101,105,107,113,117,121,129,131,133,135,137,139,141,143,145,147,149,151,157,159,161,163,167,169,171,177,179",
+			"name": "Irreducible elements in OR-numbral arithmetic.",
+			"comment": [
+				"Numbers n such that there is no number d in range 1 \u003c d \u003c n with d*k = n for any 1 \u003c k \u003c n, where * is defined in A066376.",
+				"See A048888 for the definition of OR-numbral arithmetic. Note that 2 is the only prime element in OR-numbral arithmetic; for all other nonunit irreducibles x there exist numbers a and b not divisible by x such that x is a divisor of a * b.",
+				"Numbers n such that A066376(n) = 1.",
+				"1 together with primes in lunar arithmetic base 2. - _N. J. A. Sloane_, Aug 14 2010"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A067139/b067139.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e",
+				"D. Applegate, M. LeBrun and N. J. A. Sloane, \u003ca href=\"http://arxiv.org/abs/1107.1130\"\u003eDismal Arithmetic\u003c/a\u003e, arXiv:1107.1130 [math.NT], 2011 [Note: we have now changed the name from \"dismal arithmetic\" to \"lunar arithmetic\" - the old name was too depressing]",
+				"D. Applegate, M. LeBrun, N. J. A. Sloane, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL14/Sloane/carry2.html\"\u003eDismal Arithmetic\u003c/a\u003e, J. Int. Seq. 14 (2011) # 11.9.8.",
+				"A. Frosini and S. Rinaldi, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL9/Frosini/fros2.html\"\u003eOn the Sequence A079500 and Its Combinatorial Interpretations\u003c/a\u003e, J. Integer Seq., Vol. 9 (2006), Article 06.3.1.",
+				"\u003ca href=\"/index/Di#dismal\"\u003eIndex entries for sequences related to dismal (or lunar) arithmetic\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a067139 n = a067139_list !! (n-1)",
+				"a067139_list = 1 : map (+ 1) (elemIndices 1 a066376_list)",
+				"-- _Reinhard Zumkeller_, Mar 01 2013"
+			],
+			"xref": [
+				"Cf. A003986, A067138, A048888, A007059.",
+				"See A169912 for the number of elements that are n bits long - _N. J. A. Sloane_, Aug 31 2010. See A171000 for the binary expansions."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_Jens Voß_, Jan 02 2002",
+			"ext": [
+				"Edited by _N. J. A. Sloane_ at the suggestion of _Andrew S. Plewe_ and _Joshua Zucker_, Jun 12 2007"
+			],
+			"references": 9,
+			"revision": 35,
+			"time": "2018-09-24T16:53:13-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 68494,
+			"data": "0,0,1,0,1,0,1,0,3,2,1,0,1,2,7,0,1,0,1,4,9,2,1,0,5,2,9,4,1,6,1,0,13,2,11,0,1,2,15,8,1,6,1,4,21,2,1,0,7,10,19,4,1,0,15,8,21,2,1,12,1,2,27,0,17,6,1,4,25,22,1,0,1,2,35,4,17,6,1,16,27,2,1,12,21,2,31,8,1,18,19,4",
+			"name": "a(n) = n mod phi(n).",
+			"comment": [
+				"By Lehmer's Conjecture, when n \u003e 2 then a(n) = 1 if and only if n is prime. The Notices article states \"Lehmer's Conjecture (1932). phi(n) | (n-1) if and only if n is prime.\" - _Michael Somos_, Oct 14 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A068494/b068494.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"D. H. Bailey and J. M. Borwein, \u003ca href=\"http://www.ams.org/notices/201110/rtx111001410p.pdf\"\u003eExploratory Experimentation and Computation\u003c/a\u003e, Notices of A. M. S. 58 (2011) 1410-1419, see p. 1416."
+			],
+			"formula": [
+				"b^(n - a(n)) == 1 (mod n) for every b coprime to n. - _Thomas Ordowski_, Jun 30 2017"
+			],
+			"mathematica": [
+				"Table[Mod[n, EulerPhi[n]], {n, 100}] (* _Alonso del Arte_, Feb 15 2013 *)"
+			],
+			"program": [
+				"(PARI) for(n=1,150,print1(n%eulerphi(n),\",\"))",
+				"(PARI) {a(n) = n % eulerphi(n)}; /* _Michael Somos_, Oct 14 2011 */",
+				"(Haskell)",
+				"a068494 n = mod n $ a000010 n  -- _Reinhard Zumkeller_, Oct 14 2011",
+				"(MAGMA) [n mod EulerPhi(n): n in [1..100]]; // _Vincenzo Librandi_, Jul 19 2015"
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,9",
+			"author": "_Benoit Cloitre_, Mar 11 2002",
+			"references": 9,
+			"revision": 34,
+			"time": "2017-07-14T11:28:17-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 70047,
+			"data": "1,1,2,1,3,3,5,5,8,8,12,12,19,19,27,28,39,41,55,58,77,82,106,113,145,156,196,210,262,283,348,376,459,497,600,651,781,849,1009,1097,1298,1413,1660,1807,2113,2302,2676,2916,3377,3681,4242,4623,5309,5787,6619",
+			"name": "Number of partitions of n in which no part appears more than twice and no two parts differ by 1.",
+			"comment": [
+				"Coefficients in expansion of permanent of infinite tridiagonal matrix: matrix([[1, x, 0, 0, 0, ...], [1+x, 1, x^2, 0, 0, ...], [0, 1+x^2, 1, x^3, 0, ...], [0, 0, 1+x^3, 1, x^4, ...], ...]). - _Vladeta Jovovic_, Jul 18 2004",
+				"Number of partitions of n into non-multiples of 3 in which no two parts differ by 1 (see the Andrews-Lewis reference). Example: a(6)=5 because we have 51,42,411,222,111111. - _Emeric Deutsch_, May 19 2008",
+				"Ramanujan theta functions: f(q) (see A121373), phi(q) (A000122), psi(q) (A010054), chi(q) (A000700)."
+			],
+			"reference": [
+				"D. M. Bressoud, Analytic and combinatorial generalizations of the Rogers-Ramanujan identities, Mem. Amer. Math. Soc. 24 (1980), no. 227, 54 pp."
+			],
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A070047/b070047.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (terms 0..120 from Reinhard Zumkeller)",
+				"G. E. Andrews and R. P. Lewis, \u003ca href=\"http://dx.doi.org/10.1016/S0012-365X(00)00295-8\"\u003eAn algebraic identity of F. H. Jackson and its implications for partitions\u003c/a\u003e, Discrete Math., 232 (2001), 77-83. see equations (3.1) and (3.2)",
+				"Bin Lan and James A. Sellers, \u003ca href=\"http://www.emis.de/journals/INTEGERS/papers/p23/p23.pdf\"\u003eProperties of a Restricted Binary Partition Function a la Andrews and Lewis\u003c/a\u003e, Electronic Journal of Combinatorial Number Theory, Volume 15 #A23.",
+				"Andrew Sills, \u003ca href=\"https://works.bepress.com/andrew_sills/40/\"\u003eRademacher-Type Formulas for Restricted Partition and Overpartition Functions\u003c/a\u003e, Ramanujan Journal, 23 (1-3): 253-264, 2010.",
+				"M. Somos, \u003ca href=\"/A010815/a010815.txt\"\u003eIntroduction to Ramanujan theta functions\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RamanujanThetaFunctions.html\"\u003eRamanujan Theta Functions\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Bailey_pair\"\u003eBailey pair\u003c/a\u003e",
+				"Mingjia Yang, Doron Zeilberger, \u003ca href=\"https://arxiv.org/abs/1910.08989\"\u003eSystematic Counting of Restricted Partitions\u003c/a\u003e, arXiv:1910.08989 [math.CO], 2019."
+			],
+			"formula": [
+				"Expansion of phi(-x^3) / f(-x) in powers of x where phi(), f() are Ramanujan theta functions. - _Michael Somos_, Jun 02 2011",
+				"Expansion of q^(1/24) * eta(q^3)^2 / (eta(q) * eta(q^6)) in powers of q. - _Michael Somos_, Dec 04 2002",
+				"Euler transform of period 6 sequence [ 1, 1, -1, 1, 1, 0, ...]. - _Michael Somos_, Dec 04 2002",
+				"G.f. is a period 1 Fourier series which satisfies f(-1 / (1152 t)) = (2/3)^(1/2) g(t) where q = exp(2 Pi i t) and g is the g.f. of A233006.",
+				"G.f.: Prod_{k\u003e0} (1 - x^(6*k - 3))^2 * (1 - x^(6*k)) / (1 - x^k).",
+				"G.f.: Prod_{n\u003e0}[(1-q^(6n-3))/[(1-q^(3n-2))(1-q^(3n-1))]]. - _Emeric Deutsch_, May 19 2008",
+				"a(n) ~ 2*Pi * BesselI(1, Pi/6 * sqrt((24*n-1)/2)) / sqrt(3*(24*n-1)) ~ exp(Pi*sqrt(n/3)) / (2*3^(3/4)*n^(3/4)) * (1 - (3*sqrt(3)/(8*Pi) + Pi/(48*sqrt(3)))/sqrt(n) + (Pi^2/13824 - 45/(128*Pi^2) + 5/128)/n). - _Vaclav Kotesovec_, Sep 02 2015, extended Jan 11 2017"
+			],
+			"example": [
+				"G.f. = 1 + x + 2*x^2 + x^3 + 3*x^4 + 3*x^5 + 5*x^6 + 5*x^7 + 8*x^8 + 8*x^9 + 12*x^10 + ...",
+				"G.f. = 1/q + q^23 + 2*q^47 + q^71 + 3*q^95 + 3*q^119 + 5*q^143 + 5*q^167 + 8*q^191 + ...",
+				"a(6)=5 because we have 6,51,42,411,33."
+			],
+			"maple": [
+				"b:= proc(n, i) option remember; `if`(n=0, 1, `if`(i\u003c1, 0,",
+				"       b(n, i-1) +add(b(n-i*j, i-2), j=1..min(n/i, 2))))",
+				"    end:",
+				"a:= n-\u003e b(n, n):",
+				"seq(a(n), n=0..60);  # _Alois P. Heinz_, Jan 18 2013"
+			],
+			"mathematica": [
+				"a[ n_] := If[ n \u003c 0, 0, SeriesCoefficient[ Product[ (1 - x^(6 k - 3))^2 (1 - x^(6 k)), {k, Ceiling[ n/6]}] / Product[ 1 - x^k, {k, n}], {x, 0, n}]]; (* _Michael Somos_, Jun 02 2011 *)",
+				"a[ n_] := SeriesCoefficient[ EllipticTheta[ 4, 0, x^3] / QPochhammer[ x], {x, 0, n}]; (* _Michael Somos_, Dec 03 2013 *)",
+				"b[n_, i_] := b[n, i] = If[n == 0, 1, If[i\u003c1, 0, b[n, i-1] + Sum[b[n-i*j, i-2], {j, 1, Min[n/i, 2]}]]]; a[n_] := b[n, n]; Table[a[n], {n, 0, 60}] (* _Jean-François Alcover_, Mar 04 2015, after _Alois P. Heinz_ *)",
+				"nmax = 100; CoefficientList[Series[Product[1 / ( (1-x^(3*k-2)) * (1-x^(3*k-1)) * (1 + x^(3*k)) ), {k, 1, nmax}], {x, 0, nmax}], x] (* _Vaclav Kotesovec_, Aug 30 2015 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = my(A); if( n\u003c0, 0, A = x * O(x^n); polcoeff( eta(x^3 + A)^2 / (eta(x + A) * eta(x^6 + A)), n))}; /* _Michael Somos_, Jun 02 2011 */",
+				"(Haskell)",
+				"a070047 n = p 1 n where",
+				"   p k m | m == 0 = 1 | m \u003c k = 0 | otherwise = q k (m-k) + p (k+1) m",
+				"   q k m | m == 0 = 1 | m \u003c k = 0 | otherwise = p (k+2) (m-k) + p (k+2) m",
+				"-- _Reinhard Zumkeller_, Nov 12 2011"
+			],
+			"xref": [
+				"Cf. A233006, A000700, A108961, A108962, A271661, A280937, A280938."
+			],
+			"keyword": "nonn,changed",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, May 09 2002",
+			"ext": [
+				"Additional comments from _Michael Somos_, Dec 04 2002"
+			],
+			"references": 9,
+			"revision": 53,
+			"time": "2019-11-13T21:58:47-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 70198,
+			"data": "0,1,5,11,59,59,419,839,2519,2519,27719,27719,360359,360359,360359,720719,12252239,12252239,232792559,232792559,232792559,232792559,5354228879,5354228879,26771144399,26771144399,80313433199,80313433199",
+			"name": "Smallest nonnegative number m such that m == i (mod i+1) for all 1 \u003c= i \u003c= n.",
+			"comment": [
+				"Also, smallest k such that, for 0 \u003c= i \u003c n, i+1 divides k-i.",
+				"Suggested by Chinese Remainder Theorem. This sequence can generate others: smallest b(n) such that b(n) == i (mod (i+2)), 1 \u003c= i \u003c= n, gives b(1)=1 and b(n) = a(n+1)-1 for n \u003e 1; smallest c(n) such that c(n) == i (mod (i+3)), 1 \u003c= i \u003c= n, gives c(1)=1, c(2)=17 and c(n) = a(n+2) - 2 for n \u003e 2; smallest d(n) such that c(n) == i (mod (i+4)), 1 \u003c= i \u003c= n, gives d(1)=1, d(2)=26, d(3)=206 and d(n) = a(n+3) - 3 for n \u003e 3, etc.",
+				"A208768(n) occurs A057820(n) times. - _Reinhard Zumkeller_, Mar 01 2012",
+				"From _Kival Ngaokrajang_, Oct 10 2013: (Start)",
+				"A070198(n-1) is m such that max(Sum_{i=1..n} m (mod i)) = A000217(n-1).",
+				"Example for n = 3:",
+				"  m\\i = 1  2  3  sum",
+				"  1     0  1  1   2",
+				"  2     0  0  2   2",
+				"  3     0  1  0   1",
+				"  4     0  0  1   1",
+				"  5     0  1  2   3 \u003c--max remainder sum = 3 = A000217(2)",
+				"  6     0  0  0   0  first occuring at m = 5 = A070198(2)",
+				"(End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A070198/b070198.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/ChineseRemainder Theorem.html\"\u003eChinese Remainder Theorem\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Chinese_remainder_theorem\"\u003eChinese remainder theorem\u003c/a\u003e",
+				"\u003ca href=\"/index/Lc#lcm\"\u003eIndex entries for sequences related to lcm's\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = lcm(1, 2, 3, ..., n+1) - 1 = A003418(n+1) - 1."
+			],
+			"example": [
+				"a(3) = 11 because 11 == 1 (mod 2), 11 == 2 (mod 3) and 11 == 3 (mod 4)."
+			],
+			"maple": [
+				"seq(ilcm($1..n) - 1, n=1..100); # _Robert Israel_, Nov 03 2014"
+			],
+			"mathematica": [
+				"f[n_] := ChineseRemainder[ Range[0, n - 1], Range[n]]; Array[f, 28] (* or *)",
+				"f[n_] := LCM @@ Range@ n - 1; Array[f, 28] (* _Robert G. Wilson v_, Oct 30 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a070198 n = a070198_list !! n",
+				"a070198_list = map (subtract 1) $ scanl lcm 1 [2..]",
+				"-- _Reinhard Zumkeller_, Mar 01 2012",
+				"(MAGMA) [Exponent(SymmetricGroup(n))-1 : n in [1..30]]; /* _Vincenzo Librandi_, Oct 31 2014 - after _Arkadiusz Wesolowski_ in A003418 */"
+			],
+			"xref": [
+				"Cf. A053664, A072562.",
+				"Cf. A057825 (indices of primes). - _R. J. Mathar_, Jan 14 2009",
+				"Cf. A116151. - _Zak Seidov_, Mar 11 2014"
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,3",
+			"author": "_Benoit Cloitre_, May 06 2002",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Nov 18 2007, at the suggestion of _Max Alekseyev_"
+			],
+			"references": 9,
+			"revision": 53,
+			"time": "2018-03-18T04:04:40-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71521,
+			"data": "1,2,3,4,4,5,5,6,7,7,7,8,8,8,8,9,9,10,10,10,10,10,10,11,11,11,12,12,12,12,12,13,13,13,13,14,14,14,14,14,14,14,14,14,14,14,14,15,15,15,15,15,15,16,16,16,16,16,16,16,16,16,16,17,17,17,17,17,17,17,17,18,18,18,18",
+			"name": "Number of 3-smooth numbers \u003c= n.",
+			"comment": [
+				"A 3-smooth number is a number of the form 2^x*3^y where x\u003e=0 and y\u003e= 0."
+			],
+			"reference": [
+				"Bruce C. Berndt and Robert A. Rankin, \"Ramanujan : letters and commentary\", History of Mathematics Volume 9, AMS-LMS, p. 23, p. 35.",
+				"G. H. Hardy, Ramanujan: Twelve lectures on subjects suggested by his life and work, AMS Chelsea Pub., 1999, pages 67-82."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A071521/b071521.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Thierry Bousch, \u003ca href=\"http://www.emis.de/journals/SLC/wpapers/s77bousch.pdf\"\u003eLa Tour de Stockmeyer\u003c/a\u003e, Séminaire Lotharingien de Combinatoire 77 (2017), Article B77d.",
+				"M. Haussman and H. N. Shapiro, \u003ca href=\"http://dx.doi.org/10.1002/cpa.3160420608\"\u003eOn Ramanujan right triangle conjecture\u003c/a\u003e, Comm. Pure Appl. Math. 42 (1989), 885-889.",
+				"A. M. Ostrowski, \u003ca href=\"http://dx.doi.org/10.1007/BF02940581\"\u003eBemerkungen zur Theorie der Diophantischen Approximationen\u003c/a\u003e, Abh. Math. Sem. Univ. Hamburg 1 (1922), 77-98; 250-251."
+			],
+			"formula": [
+				"a(n) = Card{ k | A003586(k) \u003c= n } Asymptotically : let a=1/(2*log(2)*log(3)), b=sqrt(6), then from Ramanujan a(n) ~ a*log(2*n)*log(3*n) or equivalently a(n) ~ a*log(b*n)^2.",
+				"A022331(n) = a(A000079(n)); A022330(n) = a(A000244(n)). - _Reinhard Zumkeller_, May 09 2006",
+				"a(n) = Sum_{k=1..n} mu(6k)*floor(n/k). - _Benoit Cloitre_, Jun 14 2007",
+				"a(n) = Sum_{k=1..n} (floor(6^k/k)-floor((6^k-1)/k)). - _Anthony Browne_, May 19 2016"
+			],
+			"maple": [
+				"N:= 10000: # to get a(1) to a(N)",
+				"V:= Vector(N):",
+				"for y from 0 to floor(log[3](N)) do",
+				"  for x from 0 to ilog2(N/3^y) do",
+				"    V[2^x*3^y]:= 1",
+				"od od:",
+				"convert(map(round,Statistics:-CumulativeSum(V)),list); # _Robert Israel_, Dec 16 2014"
+			],
+			"mathematica": [
+				"a[n_] := Sum[ MoebiusMu[6k]*Floor[n/k], {k, 1, n}]; Table[a[n], {n, 1, 75}] (* _Jean-François Alcover_, Oct 11 2011, after _Benoit Cloitre_ *)",
+				"f[n_] := Sum[Floor@Log[3, n/2^i] + 1, {i, 0, Log[2, n]}]; Array[f, 75] (* faster, or *)",
+				"f[n_] := Sum[Floor@Log[2, n/3^i] + 1, {i, 0, Log[3, n]}]; Array[f, 75] (* _Robert G. Wilson v_, Aug 18 2012 *)",
+				"Accumulate[Table[If[Max[FactorInteger[n][[All,1]]]\u003c4,1,0],{n,80}]] (* _Harvey P. Dale_, Jan 11 2017 *)"
+			],
+			"program": [
+				"(PARI) for(n=1,100,print1(sum(k=1,n,if(sum(i=3,n,if(k%prime(i),0,1)),0,1)),\",\"))",
+				"(PARI) a(n)=sum(k=1,n,moebius(2*3*k)*floor(n/k)) \\\\ _Benoit Cloitre_, Jun 14 2007",
+				"(PARI) a(n)=my(t=1/3); sum(k=0,logint(n,3), t*=3; logint(n\\t,2)+1) \\\\ _Charles R Greathouse IV_, Jan 08 2018",
+				"(Haskell)",
+				"a071521 n = length $ takeWhile (\u003c= n) a003586_list",
+				"-- _Reinhard Zumkeller_, Aug 14 2011"
+			],
+			"xref": [
+				"Cf. A003586."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "1,2",
+			"author": "_Benoit Cloitre_, Jun 02 2002",
+			"references": 9,
+			"revision": 47,
+			"time": "2018-04-09T03:45:51-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71574,
+			"data": "0,1,3,2,7,6,5,4,14,12,15,10,13,8,28,24,11,30,9,20,26,16,29,56,48,22,60,18,25,40,31,52,32,58,112,96,21,44,120,36,27,50,17,80,62,104,57,64,116,224,192,42,49,88,240,72,54,100,23,34,61,160,124,208,114,128,19",
+			"name": "If n = k-th prime, a(n) = 2*a(k) + 1; if n = k-th nonprime, a(n) = 2*a(k).",
+			"comment": [
+				"The recursion start is implicit in the rule, since the rule demands that a(1)=2*a(1). All other terms are defined through terms for smaller indices until a(1) is reached.",
+				"a(n) is a bijective mapping from the positive integers to the nonnegative integers. Given the value of a(n), you can get back to n using the following algorithm:",
+				"Start with an initial value of k=1 and write a(n) in binary representation. Then for each bit, starting with the most significant one, do the following: - if the bit is 1, replace k by the k-th prime - if the bit is 0, replace k by the k-th nonprime After you processed the last (i.e. least significant) bit of a(n), you've got n=k.",
+				"Example: From a(n) = 12 = 1100_2, you get 1-\u003e2-\u003e3=\u003e6=\u003e10; a(10)=12. Here each \"-\u003e\" is a step due to binary digit 1; each \"=\u003e\" is a step due to binary digit 0.",
+				"The following sequences all appear to have the same parity (with an extra zero term at the start of A010051): A010051, A061007, A035026, A069754, A071574. - _Jeremy Gardiner_, Aug 09 2002. (At least with this sequence the identity a(n) = A010051(n) mod 2 is obvious, because each prime is mapped to an odd number and each composite to an even number. - _Antti Karttunen_, Apr 04 2015)",
+				"For n \u003e 1: a(n) = 2 * a(if i \u003e 0 then i else A066246(n) + 1) + A057427(i) with i = a049084(n). - _Reinhard Zumkeller_, Feb 12 2014",
+				"A237739(a(n)) = n; a(A237739(n)) = n. - _Reinhard Zumkeller_, Apr 30 2014"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A071574/b071574.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1) = 0, and for n \u003e 1, if A010051(n) = 1 [when n is a prime], a(n)  = 1 + 2*a(A000720(n)), otherwise a(n) = 2*a(1 + A065855(n)). - _Antti Karttunen_, Apr 04 2015"
+			],
+			"example": [
+				"1 is the first nonprime, so f(1) = 2*f(1), therefore f(1) = 0; 2 is the first prime, so f(2) = 2*f(1)+1 = 2*0+1 = 1; 4 is the 2nd nonprime, so f(4) = 2*f(2) = 2*1 = 2."
+			],
+			"mathematica": [
+				"a[1] = 0 a[n_] := If[PrimeQ[n], 2*a[PrimePi[n]] + 1, 2*a[n - PrimePi[n]]]"
+			],
+			"program": [
+				"(Haskell)",
+				"a071574 1 = 0",
+				"a071574 n = 2 * a071574 (if j \u003e 0 then j + 1 else a049084 n) + 1 - signum j",
+				"            where j = a066246 n",
+				"-- _Reinhard Zumkeller_, Feb 12 2014",
+				"(Scheme, with memoizing definec-macro)",
+				"(definec (A071574 n) (cond ((= 1 n) 0) ((= 1 (A010051 n)) (+ 1 (* 2 (A071574 (A000720 n))))) (else (* 2 (A071574 (+ 1 (A065855 n)))))))",
+				";; _Antti Karttunen_, Apr 04 2015",
+				"(PARI) first(n) = my(res = vector(n), p); for(x=2, n, p=isprime(x); res[x]=2*res[x*!p-(-1)^p*primepi(x)]+p); res \\\\ _Iain Fox_, Oct 19 2018"
+			],
+			"xref": [
+				"Inverse: A237739.",
+				"Cf. A000720, A049084, A065855, A066246, A010051.",
+				"Compare also to the permutation A246377."
+			],
+			"keyword": "easy,nice,nonn,look",
+			"offset": "1,3",
+			"author": "Christopher Eltschka (celtschk(AT)web.de), May 31 2002",
+			"references": 9,
+			"revision": 26,
+			"time": "2018-10-21T13:54:03-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 72140,
+			"data": "1012,1023,1034,1045,1067,1078,1089,1100,1122,1133,1144,1155,1177,1188,1199,1210,1232,1243,1254,1265,1287,1298,1320,1342,1353,1364,1375,1397,1408,1430,1452,1463,1474,1485,1507,1518,1540,1562,1573,1584,1595,1606",
+			"name": "The period length of the 'Reverse and Subtract' trajectory of n is greater than 1.",
+			"comment": [
+				"'Reverse and Subtract' (cf. A072137) is defined by x -\u003e |x - reverse(x)|. There is no number k \u003e 0 such that |k - reverse(k)| = k, so 0 is the only period with length 1. Consequently this sequence consists of the numbers n such that repeated application of 'Reverse and Subtract' does not lead to a palindrome. It is an analog of A023108, which uses 'Reverse and Add'. - A072141, A072142, A072143 give the numbers which generate periods of length 2, 14, 22 respectively."
+			],
+			"link": [
+				"Ray Chandler, \u003ca href=\"/A072140/b072140.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"1012 -\u003e |1012 - 2101| = 1089 -\u003e |1089 - 9801| = 8712 -\u003e |8712 - 2178| = 6534 -\u003e |6534 - 4356| = 2178 -\u003e |2178 - 8712| = 6534; the period of the trajectory is 6534, 2178 and a palindrome is never reached."
+			],
+			"program": [
+				"Contribution from _Reinhard Zumkeller_, Oct 24 2010: (Start)",
+				"(Other) Haskell:",
+				"import Data.List (find, findIndices, inits)",
+				"import Data.Maybe (fromJust)",
+				"spanCycle :: Eq a =\u003e (a -\u003e a) -\u003e a -\u003e ([a],[a])",
+				"spanCycle f x = fromJust $ find (not . null . snd) $",
+				".......................... zipWith (span . (/=)) xs $ inits xs",
+				"............... where xs = iterate f x",
+				"a072140_list = findIndices (\u003e 1) $",
+				".............. map (length . snd . spanCycle (abs . a056965)) [0..]",
+				"-- eop. (End)"
+			],
+			"xref": [
+				"Cf. A023108, A072137, A072141, A072142, A072143."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Klaus Brockhaus_, Jun 24 2002",
+			"references": 9,
+			"revision": 9,
+			"time": "2015-08-28T09:35:26-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 73353,
+			"data": "2,4,6,6,10,12,14,10,12,20,22,18,26,28,30,18,34,24,38,30,42,44,46,30,30,52,30,42,58,60,62,34,66,68,70,42,74,76,78,50,82,84,86,66,60,92,94,54,56,60,102,78,106,60,110,70,114,116,118,90,122,124,84,66,130,132",
+			"name": "Sum of n and its squarefree kernel.",
+			"comment": [
+				"a(n) is even; a(n)=2*n iff n is squarefree.",
+				"Least k \u003en such that n divides k^n - _Benoit Cloitre_, Oct 09 2002",
+				"a(n) = smallest integer \u003e n such that the positive integers coprime to a(n) are also coprime to n. - _Leroy Quet_, Dec 24 2006"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A073353/b073353.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n + A007947(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a073353 n = n + a007947 n  -- _Reinhard Zumkeller_, Jul 23 2013",
+				"(PARI) a(n)=vecsum(factor(n)[,1])+n \\\\ _Charles R Greathouse IV_, Nov 05 2017"
+			],
+			"xref": [
+				"Cf. A007947, A005117, A066503, A064549, A003557, A073354, A078310."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 29 2002",
+			"references": 9,
+			"revision": 17,
+			"time": "2017-11-05T12:10:16-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 73708,
+			"data": "1,2,5,8,18,28,50,72,129,186,301,416,664,912,1368,1824,2730,3636,5234,6832,9788,12744,17724,22704,31506,40308,54730,69152,93592,118032,156888,195744,259625,323506,423021,522536,681642,840748,1083402,1326056,1705665",
+			"name": "Generating function A(x) satisfies A(x) = (1+x)^2*A(x^2)^2, with A(0)=1.",
+			"link": [
+				"Paul D. Hanna, \u003ca href=\"/A073708/b073708.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"Equals the self-convolution of A073707."
+			],
+			"example": [
+				"G.f.: A(x) = 1 + 2*x + 5*x^2 + 8*x^3 + 18*x^4 + 28*x^5 + 50*x^6 +...",
+				"where A(x)^2 = 1 + 4*x + 14*x^2 + 36*x^3 + 93*x^4 + 208*x^5 + 456*x^6 +...",
+				"This sequence equals the self-convolution of A073707, which begins:",
+				"[1, 1, 2, 2, 5, 5, 8, 8, 18, 18, 28, 28, 50, 50, ...].",
+				"The first differences of this sequence result in A073709:",
+				"[1, 1, 3, 3, 10, 10, 22, 22, 57, 57, 115, 115, ...];",
+				"the self-convolution of A073709 yields A073710:",
+				"[1, 2, 7, 12, 35, 58, 133, 208, ...],",
+				"which in turn equals the first differences of the unique terms of A073709."
+			],
+			"mathematica": [
+				"A073708list[n_] := Module[{m = 1, A = 1}, While[m \u003c= n, m = 2 m; A = ((1 + x)*(A /. x -\u003e x^2))^2] + O[x]^m; CoefficientList[A, x][[1 ;; n]]]; A073708list[50] (* _Jean-François Alcover_, Apr 21 2016, adapted from PARI *)"
+			],
+			"program": [
+				"(PARI) a(n)=local(A,m); if(n\u003c0,0,m=1; A=1+O(x); while(m\u003c=n,m*=2; A=((1+x)*subst(A,x,x^2))^2); polcoeff(A,n))",
+				"(Haskell)",
+				"a073708 n = a073708_list !! n",
+				"a073708_list = conv a073707_list [] where",
+				"   conv (v:vs) ws = (sum $ zipWith (*) ws' $ reverse ws') : conv vs ws'",
+				"                    where ws' = v : ws",
+				"-- _Reinhard Zumkeller_, Jun 13 2013"
+			],
+			"xref": [
+				"Cf. A073709, A073710. A073707(2n)=a(n)."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_Paul D. Hanna_, Aug 04 2002",
+			"ext": [
+				"Edited by _Michael Somos_, May 03, 2003",
+				"Edited by _Paul D. Hanna_, Jan 04 2013"
+			],
+			"references": 9,
+			"revision": 17,
+			"time": "2016-04-21T05:22:11-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 73776,
+			"data": "1,1,2,3,6,9,17,28,50,83,147,249,435,742,1288,2207,3819,6561,11333,19497,33640,57915,99874,172020,296550,510886,880580,1517226,2614889,4505745,7765094,13380640,23059193,39735969,68476885,118001888",
+			"name": "a(n) = Sum_{k=1..n} -mu(k+1) * a(n-k), with a(0)=1.",
+			"comment": [
+				"Recurrence relation involves the Moebius function.",
+				"Radius of convergence of A(x) is r=0.5802946238073267...",
+				"Related limits are limit_{n-\u003einf} a(n) r^n = 0.6303632342...",
+				"and limit_{n-\u003einf} a(n+1)/a(n) = 1.723262561763844...",
+				"From _Gary W. Adamson_, Aug 11 2016 (Start): The definition in the heading follows from the INVERTi transform of (1, 2, 3, 6, 9, 17,...) equals -mu(n) for n\u003e=2 (Cf. A157658). Then a(6) = 17 = (1, 1, 0, 1, -1, 1) dot (9, 6, 3, 2, 1, 1) = (9 + 6 + 0 + 2 - 1 + 1); in agreement with the first example. (End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A073776/b073776.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: A(x) = x / [Sum_{n\u003e=1} mu(n)*x^n], A(0)=1, where mu(n) = Moebius function of n.",
+				"G.f. A(x) satisfies: x*A(x) = Sum_{n\u003e=1} x^n*A(x)^n / A( x^n*A(x)^n ). - _Paul D. Hanna_, Apr 19 2016"
+			],
+			"example": [
+				"a(6) = -mu(2)a(5) -mu(3)a(4) -mu(4)a(3) -mu(5)a(2) -mu(6)a(1) -mu(7)a(0) = 9 +6 +0 +2 -1 +1 = 17.",
+				"G.f.: A(x) = 1 + x + 2*x^2 + 3*x^3 + 6*x^4 + 9*x^5 + 17*x^6 + 28*x^7 + 50*x^8 + 83*x^9 + 147*x^10 + 249*x^11 + 435*x^12 +...",
+				"where",
+				"1/A(x) = 1 - x - x^2 - x^4 + x^5 - x^6 + x^9 - x^10 - x^12 + x^13 + x^14 - x^16 - x^18 + x^20 + x^21 - x^22 + x^25 - x^28 - x^29 - x^30 +...+ mu(n)*x^n +...",
+				"Also, g.f. A(x) satisfies:",
+				"x*A(x) = x*A(x)/A(x*A(x)) + x^2*A(x)^2/A(x^2*A(x)^2) + x^3*A(x)^3/A(x^3*A(x)^3) + x^4*A(x)^4/A(x^4*A(x)^4) + x^5*A(x)^5/A(x^5*A(x)^5) +..."
+			],
+			"mathematica": [
+				"a[0] = 1; a[n_] := a[n] = Sum[-MoebiusMu[k + 1]*a[n - k], {k, 1, n}]; Array[a,35,0] (* _Jean-François Alcover_, Apr 11 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a073776 n = a073776_list !! (n-1)",
+				"a073776_list = 1 : f [1] where",
+				"   f xs = y : f (y : xs) where y = sum $ zipWith (*) xs ms",
+				"   ms = map negate $ tail a008683_list",
+				"-- _Reinhard Zumkeller_, Nov 03 2015",
+				"(PARI) {a(n) = my(A=[1,1],F); for(i=1,n, A=concat(A,0); F=Ser(A); A = Vec(sum(m=1,#A, subst(x/F, x, x^m*F^m))) ); A[n+1]}",
+				"for(n=0,50, print1(a(n),\", \")) \\\\ _Paul D. Hanna_, Apr 19 2016"
+			],
+			"xref": [
+				"Cf. A073777, A068341, A070965, A008683, A185694, A157658."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "0,3",
+			"author": "_Paul D. Hanna_, Aug 10 2002",
+			"references": 9,
+			"revision": 21,
+			"time": "2016-08-12T07:06:55-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

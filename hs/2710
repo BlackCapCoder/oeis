@@ -1,0 +1,377 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2710,
+	"results": [
+		{
+			"number": 193428,
+			"data": "56,217,394,550,686,802,898,974,1030,1066,1084,1103,1126,1169,1232,1315,1418,1541,1684,1847,2080,2353,2618,2852,3058,3232,3377,3491,3576,3629,3656,3683,3710,3744,3808,3901,4025,4178,4363,4576,4814,5058,5303,5536",
+			"name": "a(n) = A031287(n) + A031288(n) + A031289(n) + A031290(n) + A031291(n) + A031292(n) + A031293(n) + A031294(n) + A031295(n) + A031296(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193428/b193428.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a193428 n = sum $ map ($ n) [a031287, a031288, a031289, a031290, a031291, a031292, a031293, a031294, a031295, a031296]"
+			],
+			"xref": [
+				"Cf. A007376."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 28 2011",
+			"references": 12,
+			"revision": 14,
+			"time": "2013-07-13T12:04:13-04:00",
+			"created": "2011-07-30T23:40:39-04:00"
+		},
+		{
+			"number": 195069,
+			"data": "2048,6144,9216,10240,13824,14336,20736,22528,25600,26624,30720,31104,34816,38912,43008,46080,46656,47104,50176,59392,63488,64000,64512,67584,69120,69984,71680,75776,76800,79872,83968,88064,96256,96768,101376,103680,104448",
+			"name": "Numbers k such that (number of prime factors of k counted with multiplicity) less (number of distinct prime factors of k) = 10.",
+			"comment": [
+				"A046660(a(n)) = 10. - _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195069/b195069.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"example": [
+				"14336 = 2^11 * 7^1, so it has 12 prime factors (counted with multiplicity) and 2 distinct prime factors, and 12-2 = 10."
+			],
+			"maple": [
+				"op(select(n-\u003ebigomega(n)-nops(factorset(n))=10, [$1..104448])); # _Paolo P. Lava_, Jul 03 2018"
+			],
+			"mathematica": [
+				"Select[Range[200000], PrimeOmega[#] - PrimeNu[#] == 10\u0026]"
+			],
+			"program": [
+				"(Haskell)",
+				"a195069 n = a195069_list !! (n-1)",
+				"a195069_list = filter ((== 10) . a046660) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 29 2015",
+				"(PARI) isok(n) = bigomega(n) - omega(n) == 10; \\\\ _Michel Marcus_, Jul 03 2018"
+			],
+			"xref": [
+				"Cf. A025487, A060687, A195087, A195088, A195089, A195090, A195091, A195092, A195093.",
+				"Cf. A046660, A257851, A261256, A264959."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_, Sep 08 2011",
+			"references": 12,
+			"revision": 26,
+			"time": "2018-07-05T01:53:38-04:00",
+			"created": "2011-09-08T15:05:48-04:00"
+		},
+		{
+			"number": 195087,
+			"data": "16,48,72,80,81,108,112,162,176,200,208,240,272,304,336,360,368,392,405,464,496,500,504,528,540,560,567,592,600,624,625,656,675,688,752,756,792,810,816,848,880,891,900,912,936,944,968,976",
+			"name": "Numbers k such that (number of prime factors of k counted with multiplicity) less (number of distinct prime factors of k) = 3.",
+			"comment": [
+				"A001222(a(n)) - A001221(a(n)) = 3.",
+				"A046660(a(n)) = 3. - _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195087/b195087.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"maple": [
+				"op(select(n-\u003ebigomega(n)-nops(factorset(n))=3, [$1..976]));",
+				"# _Paolo P. Lava_, Jul 03 2018"
+			],
+			"mathematica": [
+				"Select[Range[1000],PrimeOmega[#]-PrimeNu[#]==3\u0026]"
+			],
+			"program": [
+				"(PARI) is(n)=bigomega(n)-omega(n)==3 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(Haskell)",
+				"a195087 n = a195087_list !! (n-1)",
+				"a195087_list = filter ((== 3) . a046660) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"xref": [
+				"Cf. A001221, A001222, A060687, A195069, A195086, A195088, A195089, A195090, A195091, A195092, A195093.",
+				"Cf. A025487, A046660, A257851, A261256, A264959."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_, Sep 08 2011",
+			"references": 12,
+			"revision": 26,
+			"time": "2018-07-03T11:42:18-04:00",
+			"created": "2011-09-08T16:53:17-04:00"
+		},
+		{
+			"number": 195088,
+			"data": "32,96,144,160,216,224,243,324,352,400,416,480,486,544,608,672,720,736,784,928,992,1000,1008,1056,1080,1120,1184,1200,1215,1248,1312,1376,1504,1512,1584,1620,1632,1696,1701,1760,1800,1824,1872,1888,1936,1952",
+			"name": "Numbers k such that (number of prime factors of k counted with multiplicity) less (number of distinct prime factors of k) = 4.",
+			"comment": [
+				"A046660(a(n)) = 4. - _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195088/b195088.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"maple": [
+				"op(select(n-\u003ebigomega(n)-nops(factorset(n))=4, [$1..1952])); # _Paolo P. Lava_, Jul 03 2018"
+			],
+			"mathematica": [
+				"Select[Range[2000],PrimeOmega[#]-PrimeNu[#]==4\u0026]"
+			],
+			"program": [
+				"(PARI) is(n)=bigomega(n)-omega(n)==4 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(Haskell)",
+				"a195088 n = a195088_list !! (n-1)",
+				"a195088_list = filter ((== 4) . a046660) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"xref": [
+				"Cf. A060687, A195069, A195086, A195087, A195089, A195090, A195091, A195092, A195093.",
+				"Cf. A025487, A046660, A257851, A261256, A264959."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_, Sep 08 2011",
+			"references": 12,
+			"revision": 25,
+			"time": "2018-07-03T12:01:13-04:00",
+			"created": "2011-09-08T16:56:11-04:00"
+		},
+		{
+			"number": 195089,
+			"data": "64,192,288,320,432,448,648,704,729,800,832,960,972,1088,1216,1344,1440,1458,1472,1568,1856,1984,2000,2016,2112,2160,2240,2368,2400,2496,2624,2752,3008,3024,3168,3240,3264,3392,3520,3600,3645,3648,3744,3776,3872,3904",
+			"name": "Numbers k such that (number of prime factors of k counted with multiplicity) less (number of distinct prime factors of k) = 5.",
+			"comment": [
+				"A046660(a(n)) = 5. - _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195089/b195089.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"maple": [
+				"op(select(n-\u003ebigomega(n)-nops(factorset(n))=5, [$1..3904])); # _Paolo P. Lava_, Jul 03 2018"
+			],
+			"mathematica": [
+				"Select[Range[4000],PrimeOmega[#]-PrimeNu[#]==5\u0026]"
+			],
+			"program": [
+				"(PARI) is(n)=bigomega(n)-omega(n)==5 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(Haskell)",
+				"a195089 n = a195089_list !! (n-1)",
+				"a195089_list = filter ((== 5) . a046660) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"xref": [
+				"Cf. A060687, A195069, A195086, A195087, A195088, A195090,",
+				"A195091, A195092, A195093.",
+				"Cf. A025487, A046660, A257851, A261256, A264959."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_, Sep 08 2011",
+			"references": 12,
+			"revision": 23,
+			"time": "2018-07-03T11:41:54-04:00",
+			"created": "2011-09-08T16:58:47-04:00"
+		},
+		{
+			"number": 195090,
+			"data": "128,384,576,640,864,896,1296,1408,1600,1664,1920,1944,2176,2187,2432,2688,2880,2916,2944,3136,3712,3968,4000,4032,4224,4320,4374,4480,4736,4800,4992,5248,5504,6016,6048,6336,6480,6528,6784",
+			"name": "Numbers k such that (number of prime factors of k counted with multiplicity) less (number of distinct prime factors of k) = 6.",
+			"comment": [
+				"A046660(a(n)) = 6. - _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195090/b195090.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"maple": [
+				"op(select(n-\u003ebigomega(n)-nops(factorset(n))=6, [$1..6784])); # _Paolo P. Lava_, Jul 03 2018"
+			],
+			"mathematica": [
+				"Select[Range[7000],PrimeOmega[#]-PrimeNu[#]==6\u0026]"
+			],
+			"program": [
+				"(PARI) is(n)=bigomega(n)-omega(n)==6 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(Haskell)",
+				"a195090 n = a195090_list !! (n-1)",
+				"a195090_list = filter ((== 6) . a046660) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"xref": [
+				"Cf. A060687, A195069, A195086, A195087, A195088, A195089, A195091, A195092, A195093.",
+				"Cf. A025487, A046660, A257851, A261256, A264959."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_, Sep 08 2011",
+			"references": 12,
+			"revision": 23,
+			"time": "2018-07-03T11:41:48-04:00",
+			"created": "2011-09-08T17:01:11-04:00"
+		},
+		{
+			"number": 195091,
+			"data": "256,768,1152,1280,1728,1792,2592,2816,3200,3328,3840,3888,4352,4864,5376,5760,5832,5888,6272,6561,7424,7936,8000,8064,8448,8640,8748,8960,9472,9600,9984,10496,11008,12032,12096,12672,12960,13056,13122,13568",
+			"name": "Numbers k such that (number of prime factors of k counted with multiplicity) less (number of distinct prime factors of k) = 7.",
+			"comment": [
+				"A046660(a(n)) = 7. - _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195091/b195091.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"maple": [
+				"op(select(n-\u003ebigomega(n)-nops(factorset(n))=7, [$1..13568])); # _Paolo P. Lava_, Jul 03 2018"
+			],
+			"mathematica": [
+				"Select[Range[14000],PrimeOmega[#]-PrimeNu[#]==7\u0026]"
+			],
+			"program": [
+				"(PARI) is(n)=bigomega(n)-omega(n)==7 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(Haskell)",
+				"a195091 n = a195091_list !! (n-1)",
+				"a195091_list = filter ((== 7) . a046660) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"xref": [
+				"Cf. A060687, A195069, A195086, A195087, A195088, A195089, A195090, A195092, A195093.",
+				"Cf. A025487, A046660, A257851, A261256, A264959."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_, Sep 08 2011",
+			"references": 12,
+			"revision": 23,
+			"time": "2018-07-03T11:41:38-04:00",
+			"created": "2011-09-08T17:03:46-04:00"
+		},
+		{
+			"number": 195092,
+			"data": "512,1536,2304,2560,3456,3584,5184,5632,6400,6656,7680,7776,8704,9728,10752,11520,11664,11776,12544,14848,15872,16000,16128,16896,17280,17496,17920,18944,19200,19683,19968,20992,22016,24064,24192",
+			"name": "Numbers k such that (number of prime factors of k counted with multiplicity) less (number of distinct prime factors of k) = 8.",
+			"comment": [
+				"A046660(a(n)) = 8. - _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195092/b195092.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"maple": [
+				"op(select(n-\u003ebigomega(n)-nops(factorset(n))=8, [$1..24192])); # _Paolo P. Lava_, Jul 03 2018"
+			],
+			"mathematica": [
+				"Select[Range[25000],PrimeOmega[#]-PrimeNu[#]==8\u0026]"
+			],
+			"program": [
+				"(PARI) is(n)=bigomega(n)-omega(n)==8 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(Haskell)",
+				"a195092 n = a195092_list !! (n-1)",
+				"a195092_list = filter ((== 8) . a046660) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"xref": [
+				"Cf. A060687, A195069, A195086, A195087, A195088, A195089, A195090, A195091, A195093.",
+				"Cf. A025487, A046660, A257851, A261256, A264959."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_, Sep 08 2011",
+			"references": 12,
+			"revision": 23,
+			"time": "2018-07-03T11:41:29-04:00",
+			"created": "2011-09-08T17:06:36-04:00"
+		},
+		{
+			"number": 195093,
+			"data": "1024,3072,4608,5120,6912,7168,10368,11264,12800,13312,15360,15552,17408,19456,21504,23040,23328,23552,25088,29696,31744,32000,32256,33792,34560,34992,35840,37888,38400,39936,41984,44032,48128,48384",
+			"name": "Numbers k such that (number of prime factors of k counted with multiplicity) less (number of distinct prime factors of k) = 9.",
+			"comment": [
+				"A046660(a(n)) = 9. - _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195093/b195093.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"maple": [
+				"op(select(n-\u003ebigomega(n)-nops(factorset(n))=9, [$1..48384])); # _Paolo P. Lava_, Jul 03 2018"
+			],
+			"mathematica": [
+				"Select[Range[50000],PrimeOmega[#]-PrimeNu[#]==9\u0026]"
+			],
+			"program": [
+				"(PARI) is(n)=bigomega(n)-omega(n)==9 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(Haskell)",
+				"a195093 n = a195093_list !! (n-1)",
+				"a195093_list = filter ((== 9) . a046660) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"xref": [
+				"Cf. A060687, A195069, A195086, A195087, A195088, A195089, A195090, A195091, A195092.",
+				"Cf. A025487, A046660, A257851, A261256, A264959."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_, Sep 08 2011",
+			"references": 12,
+			"revision": 23,
+			"time": "2018-07-03T11:41:15-04:00",
+			"created": "2011-09-08T17:09:07-04:00"
+		},
+		{
+			"number": 209061,
+			"data": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69",
+			"name": "Exponentially squarefree numbers.",
+			"comment": [
+				"Numbers having only squarefree exponents in their canonical prime factorization;",
+				"A166234(a(n)) \u003c\u003e 0;",
+				"Product_{k=1..A001221(n)} A008966(A124010(n,k)) = 1.",
+				"According to the formula of Theorem 3 [Toth], the density of the exponentially squarefree numbers is 0.9559230158619... - _Peter J. C. Moses_ and _Vladimir Shevelev_, Sep 10 2015",
+				"From _Vladimir Shevelev_, Sep 24 2015: (Start)",
+				"A generalization. Let S be a finite or infinite increasing integer sequence s=s(n), s(0)=0.",
+				"Let us call a positive number N an exponentially S-number, if all exponents in its prime power factorization are in the sequence S.",
+				"Let {u(n)} be the characteristic function of S. Then, for the density h=h(S) of the exponentially S-numbers, we have the representations",
+				"h(S) = Product_{prime p} Sum_{j in S}(p-1)/p^(j+1) = Product_{p} (1 + Sum_{j\u003e=1} (u(j) - u(j-1))/p^j}. In particular, if S = {0,1}, then the exponentially S-numbers are squarefree numbers; if S consists of 0 and {2^k}_(k\u003e=0}, then the exponentially S-numbers form A138302 (see [Shevelev], 2007); if S consists of 0 and squarefree numbers, then u(n)=|mu(n)|, where mu(n) is the Möbius function (A008683), we obtain the density h of the exponentially squarefree numbers (cf. Toth's link, Theorem 3); the calculation of h with a very high degree of accuracy belongs to _Juan Arias-de-Reyna_ (A262276). Note that if S contains 1, then h(S) \u003e= 1/zeta(2) = 6/Pi^2; otherwise h(S) = 0. Indeed, in the latter case, the density of the sequence of exponentially S-numbers does not exceed the density of A001694, which equals 0. (End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A209061/b209061.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"X. Cao, W. Zhai, \u003ca href=\"http://www.emis.ams.org/journals/JIS/VOL13/Cao/cao4.html\"\u003eSome arithmetic functions involving exponential divisors\u003c/a\u003e, JIS 13 (2010) 10.3.7",
+				"Y.-F. S. Petermann, \u003ca href=\"http://ac.inf.elte.hu/Vol_032_2010/143.pdf\"\u003eArithmetical functions involving exponential divisors: note on two papers by L. Toth\u003c/a\u003e, Ann. Univ. Sci. Budapest, Sect. Comp. 32 (2010) 143-149",
+				"Vladimir Shevelev, \u003ca href=\"http://dx.doi.org/10.4064/aa126-3-1\"\u003eCompact integers and factorials\u003c/a\u003e, Acta Arithmetica 126:3 (2007), pp. 195-236.",
+				"Vladimir Shevelev, \u003ca href=\"http://arxiv.org/abs/1510.05914\"\u003eExponentially S-numbers\u003c/a\u003e, arXiv:1510.05914 [math.NT], 2015.",
+				"Vladimir Shevelev, \u003ca href=\"http://arxiv.org/abs/1511.03860\"\u003eSet of all densities of exponentially S-numbers\u003c/a\u003e, arXiv:1511.03860 [math.NT], 2015.",
+				"Vladimir Shevelev, \u003ca href=\"http://arxiv.org/abs/1602.04244\"\u003eA fast computation of density of exponentially S-numbers\u003c/a\u003e, arXiv:1602.04244 [math.NT], 2016.",
+				"Vladimir Shevelev, \u003ca href=\"http://dx.doi.org/10.4064/aa8395-5-2016\"\u003eS-exponential numbers\u003c/a\u003e, Acta Arithmetica, Vol. 175(2016), 385-395.",
+				"H. M. Stark, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9939-1966-0199161-1\"\u003eOn the asymptotic density of the k-free integers\u003c/a\u003e, Proc. Amer. Soc. 17 (1966), 1211-1214.",
+				"Laszlo Toth, \u003ca href=\"http://arxiv.org/abs/0708.3557\"\u003eOn certain arithmetic functions involving exponential divisors, II.\u003c/a\u003e, Annales Univ. Sci. Budapest., Sect. Comp., 27 (2007), 155-166 and arXiv:0708.3557 [math.NT], 2007-2009."
+			],
+			"formula": [
+				"One can prove that the principal term of Toth's asymptotics for the density of this sequence (cf. Toth's link, Theorem 3) equals also Product_{prime p}(Sum_{j in S}(p-1)/p^{j+1})*x, where S is the set of 0 and squarefree numbers. The remainder term O(x^(0.2+t)), where t\u003e0 is arbitrarily small, was obtained by L. Toth while assuming the Riemann Hypothesis. - _Vladimir Shevelev_, Sep 12 2015"
+			],
+			"mathematica": [
+				"Select[Range@ 69, Times @@ Boole@ Map[SquareFreeQ, Last /@ FactorInteger@ #] \u003e 0 \u0026] (* _Michael De Vlieger_, Sep 07 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a209061 n = a209061_list !! (n-1)",
+				"a209061_list = filter",
+				"   (all (== 1) . map (a008966 . fromIntegral) . a124010_row) [1..]",
+				"(PARI) is(n)=my(f=factor(n)[,2]); for(i=1,#f,if(!issquarefree(f[i]), return(0))); 1 \\\\ _Charles R Greathouse IV_, Sep 02 2015"
+			],
+			"xref": [
+				"Complement of A130897.",
+				"A005117, A004709, and A046100 are subsequences.",
+				"Cf. A001694, A008683, A036537, A115063, A138302, A197680, A262276, A262675, A268335, A270428."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Mar 13 2012",
+			"references": 12,
+			"revision": 150,
+			"time": "2017-03-03T03:15:43-05:00",
+			"created": "2012-03-13T21:24:28-04:00"
+		}
+	]
+}

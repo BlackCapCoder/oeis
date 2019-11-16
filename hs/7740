@@ -1,0 +1,359 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7740,
+	"results": [
+		{
+			"number": 256673,
+			"data": "105,165,231,255,273,285,345,357,385,399,455,465,483,555,561,595,609,645,651,663,665,715,795,805,861,885,915,957,969,987,1001,1015,1023,1045,1095,1131,1185,1281,1295,1309,1311,1335,1353,1407,1443,1463,1479,1495,1515,1533,1545,1547,1551,1615,1635,1645",
+			"name": "Odd numbers with prime arithmetic derivative A003415.",
+			"comment": [
+				"The subsequence of odd numbers in A157037.",
+				"In order to have a prime arithmetic derivative (satisfying (mn)' = m'n + m n', p' = 1 for primes), an odd number must have at least 3 distinct prime factors."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256673/b256673.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1)=105 is the smallest odd number with prime arithmetic derivative A003415(3*5*7) = 5*7 + 3*7 + 3*5 = 71."
+			],
+			"program": [
+				"(Haskell)",
+				"a256673 n = a256673_list !! (n-1)",
+				"a256673_list = filter odd a157037_list",
+				"-- _Reinhard Zumkeller_, Apr 08 2015"
+			],
+			"xref": [
+				"Cf. A003415, A157037."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_M. F. Hasler_, Apr 07 2015",
+			"references": 2,
+			"revision": 11,
+			"time": "2015-04-08T11:22:16-04:00",
+			"created": "2015-04-08T03:03:23-04:00"
+		},
+		{
+			"number": 256751,
+			"data": "2,4,3,5,2,7,2,8,3,7,4,6,4,10,8,4,12,2,11,3,10,6,11,4,8,6,12,10,4,12,4,12,8,7,4,14,2,19,5,21,3,17,7,9,7,13,4,19,7,13,5,17,5,21,9,11,5,17,3,17,7,9,13,17,5,17,6,12,5,24,4,16,12,8,6,15,2",
+			"name": "Index of A166133(n) in the list of divisors of A166133(n-1)^2 - 1.",
+			"comment": [
+				"A166133(n) = A027750(A166133(n-1)^2-1,a(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256751/b256751.txt\"\u003eTable of n, a(n) for n = 4..10000\u003c/a\u003e"
+			],
+			"example": [
+				"n = 12: A166133(12) = 9, A166133(12-1) = 10, 10^2 - 1 = 99,",
+				"9 is the third term of divisors(99) = [1,3,9,11,33,99],",
+				"therefore a(12) = 3;",
+				"n = 13: A166133(13) = 16, A166133(13-1) = 9, 9^2 - 1 = 80,",
+				"16 is the seventh term of divisors(80) = [1,2,4,5,8,10,16,20,40,80],",
+				"therefore a(13) = 7."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a256751 n = (+ 1) $ fromJust $",
+				"            a166133 n `elemIndex` a027750_row' (a166133 (n - 1) ^ 2 - 1)"
+			],
+			"xref": [
+				"Cf. A166133, A027750."
+			],
+			"keyword": "nonn",
+			"offset": "4,1",
+			"author": "_Reinhard Zumkeller_, Apr 09 2015",
+			"references": 2,
+			"revision": 5,
+			"time": "2015-04-09T16:28:24-04:00",
+			"created": "2015-04-09T16:28:24-04:00"
+		},
+		{
+			"number": 256758,
+			"data": "1,2,3,7,19,47,163,487,1307,2879,19683,59049,177147,531441,1594323,4782969,14348907,43046721,86093443",
+			"name": "Position of first appearance of n in A256757.",
+			"comment": [
+				"Smallest number m such that the trajectory of m under iteration of A007733 takes n steps to reach the fixed point.",
+				"The terms a(1)..a(9) are primes. The next eight terms are powers of 3, so that for n=10..17, a(n)=3^(n-1), but this apparently established pattern breaks at a(18), which is again a prime."
+			],
+			"mathematica": [
+				"A007733 = Function[n, MultiplicativeOrder[2, n/(2^IntegerExponent[n, 2])]];",
+				"A256757 = Function[n, k = 0; m = n; While[m \u003e 1, m = A007733[m]; k++]; k];",
+				"a = Function[n, t = 1; While[A256757[t] \u003c n , t++]; t]; Table[a[n], {n, 0, 9}] (* _Ivan Neretin_, Apr 13 2015 *)"
+			],
+			"program": [
+				"(PARI) a007733(n) = znorder(Mod(2, n/2^valuation(n, 2)));",
+				"a256757(n) = {if (n==1, return(0)); nb = 1; while((n = a007733(n)) != 1, nb++); nb; }",
+				"a(n) = {k = 1; while(a256757(k) != n, k++); k;} \\\\ _Michel Marcus_, Apr 11 2015",
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a256758 = (+ 1) . fromJust . (`elemIndex`  a256757_list)",
+				"-- _Reinhard Zumkeller_, Apr 13 2015"
+			],
+			"xref": [
+				"Cf. A007733, A007755 (similarly built upon the totient function), A173927 (similarly built upon the Carmichael lambda function)."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,2",
+			"author": "_Ivan Neretin_, Apr 09 2015",
+			"ext": [
+				"a(15)-a(18) from _Michel Marcus_, Apr 11 2015"
+			],
+			"references": 2,
+			"revision": 34,
+			"time": "2018-12-04T17:22:52-05:00",
+			"created": "2015-04-13T05:09:34-04:00"
+		},
+		{
+			"number": 256885,
+			"data": "1,2,4,8,12,18,24,32,41,51,61,73,85,99,114,130,146,164,182,202,223,245,267,291,316,342,369,397,425,455,485,517,550,584,619,655,691,729,768,808,848,890,932,976,1021,1067,1113,1161,1210,1260,1311,1363,1415,1469,1524",
+			"name": "a(n) = n*(n + 1)/2 - pi(n), where pi(n) = A000720(n) is the prime counting function.",
+			"comment": [
+				"Number of lattice points (x,y) in the region 1 \u003c= x \u003c= n, 1 \u003c= y \u003c= n - A010051(n); see example.",
+				"This sequence gives the row sums of the triangle A257232. - _Wolfdieter Lang_, Apr 21 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256885/b256885.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimeCountingFunction.html\"\u003ePrime Counting Function\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Prime-counting_function\"\u003ePrime-counting function\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000217(n) - A000720(n).",
+				"a(n) - a(n-1) = A014684(n), n \u003e= 2.",
+				"a(n) = Sum_{i=1..n} A014684(i).",
+				"a(n) = 1 + Sum_{i=2..n}(i - A000720(i) + A000720(i-1))."
+			],
+			"example": [
+				"10 .                             x",
+				"9  .                          x  x",
+				"8  .                       x  x  x",
+				"7  .                    .  x  x  x",
+				"6  .                 x  x  x  x  x",
+				"5  .              .  x  x  x  x  x",
+				"4  .           x  x  x  x  x  x  x",
+				"3  .        .  x  x  x  x  x  x  x",
+				"2  .     .  x  x  x  x  x  x  x  x",
+				"1  .  x  x  x  x  x  x  x  x  x  x",
+				"0  .__.__.__.__.__.__.__.__.__.__.",
+				"   0  1  2  3  4  5  6  7  8  9  10"
+			],
+			"maple": [
+				"with(numtheory)[pi]: A256885:=n-\u003en*(n+1)/2-pi(n): seq(A256885(n), n=1..100);"
+			],
+			"mathematica": [
+				"Table[n (n + 1)/2 - PrimePi[n], {n, 1, 50}]"
+			],
+			"program": [
+				"(MAGMA) [n*(n + 1)/2 - #PrimesUpTo(n): n in [1..60] ]; // _Vincenzo Librandi_, Apr 12 2015",
+				"(PARI) vector(80, n, n*(n+1)/2 - primepi(n)) \\\\ _Michel Marcus_, Apr 13 2015",
+				"(Haskell)",
+				"a256885 n = a000217 n - a000720 n  -- _Reinhard Zumkeller_, Apr 21 2015"
+			],
+			"xref": [
+				"Cf. A000217, A000720, A010051, A014684, A113638, A257232."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Wesley Ivan Hurt_, Apr 11 2015",
+			"ext": [
+				"Edited, following the hint by Reinhard Zumkeller to change the offset. - _Wolfdieter Lang_, Apr 22 2015"
+			],
+			"references": 2,
+			"revision": 42,
+			"time": "2017-09-18T21:16:54-04:00",
+			"created": "2015-04-21T06:29:22-04:00"
+		},
+		{
+			"number": 256946,
+			"data": "1,2,3,1,4,5,2,6,7,3,8,1,4,9,10,5,11,2,6,12,13,7,3,14,8,15,1,4,9,16,17,10,5,18,11,19,2,6,12,20,21,13,7,22,3,14,23,8,15,24,1,4,9,16,25,26,17,10,27,5,18,28,11,19,29,2,6,12,20,30,31,21,13,7,32,22,3,14,33,23,8,34,15,24,35",
+			"name": "Irregular triangle where n-th row is integers from 1 to n*(n+2), sorted with first squares in order, then remaining numbers by fractional part of the square root.",
+			"comment": [
+				"This is a fractal sequence.",
+				"T(n,k) = T(n+1,A256507(n,k),k), that is, A256507 gives the positions of n-th's row terms in row n+1. - _Reinhard Zumkeller_, Apr 22 2015"
+			],
+			"link": [
+				"Franklin T. Adams-Watters, \u003ca href=\"/A256946/b256946.txt\"\u003eTable of n, a(n) for n = 1..10385\u003c/a\u003e (Rows 1 to 30, flattened.)"
+			],
+			"example": [
+				"The table starts:",
+				"1 2 3",
+				"1 4 5 2 6 7 3 8",
+				"1 4 9 10 5 11 2 6 12 13 7 3 14 8 15",
+				"1 4 9 16 17 10 5 18 11 19 2 6 12 20 21 13 7 22 3 14 23 8 15 24"
+			],
+			"mathematica": [
+				"row[n_] := SortBy[Range[n(n+2)], If[IntegerQ[Sqrt[#]], 0, N[FractionalPart[ Sqrt[#]]]]\u0026];",
+				"Array[row, 5] // Flatten (* _Jean-François Alcover_, Sep 17 2019 *)"
+			],
+			"program": [
+				"(PARI) arow(n)=vecsort(vector(n*(n+2),k,if(issquare(k),0.,sqrt(k)-floor(sqrt(k)))),,1) \\\\ This relies on vecsort being stable.",
+				"(Haskell)",
+				"import Data.List (sortBy); import Data.Function (on)",
+				"a256946 n k = a256946_tabf !! (n-1) !! (k-1)",
+				"a256946_row n = a256946_tabf !! (n-1)",
+				"a256946_tabf = f 0 [] [] where",
+				"   f k us vs = (xs ++ ys) : f (k+1) xs ys where",
+				"     xs = us ++ qs",
+				"     ys = sortBy (compare `on`",
+				"                  snd . properFraction . sqrt . fromIntegral) (vs ++ rs)",
+				"     (qs, rs) = span ((== 1) . a010052') [k*(k+2)+1 .. (k+1)*(k+3)]",
+				"-- _Reinhard Zumkeller_, Apr 22 2015"
+			],
+			"xref": [
+				"Cf. A005563 (row lengths and last of each row), A083374 (row sums).",
+				"Cf. A256507."
+			],
+			"keyword": "nonn,tabf,nice",
+			"offset": "1,2",
+			"author": "_Franklin T. Adams-Watters_, Apr 19 2015",
+			"references": 2,
+			"revision": 36,
+			"time": "2019-09-17T08:57:58-04:00",
+			"created": "2015-04-21T15:39:07-04:00"
+		},
+		{
+			"number": 256971,
+			"data": "5,22,59,64,165,170,367,624,629,1030,1035,1612,2289,2294,2311,2316,2329,3626,3631,5232,5237,5250,5279,5284,5325,5330,8247,11384,11389,11402,11407,11424,15781,15786,15799,15804,21281,21334,21339,21376",
+			"name": "Partial sums of A256970.",
+			"reference": [
+				"Richard Friedberg, An Adventurer's Guide to Number Theory, McGraw-Hill, NY, 1968.",
+				"Popular Computing (Calabasas, CA), Friedberg's Sequence, Vol. 5 (No. 46, Jan 1977), page PC46-2."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256971/b256971.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Accumulate[Table[FactorInteger[4*n^2+1][[1,1]],{n,40}]] (* _Ivan N. Ianakiev_, Apr 20 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a256971 n = a256971_list !! (n-1)",
+				"a256971_list = scanl1 (+) a256970_list"
+			],
+			"xref": [
+				"Cf. A053755, A256970."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Apr 19 2015",
+			"references": 2,
+			"revision": 10,
+			"time": "2015-04-21T12:29:49-04:00",
+			"created": "2015-04-19T23:11:32-04:00"
+		},
+		{
+			"number": 257078,
+			"data": "1,4,3,11,18,13,7,23,39,42,64,27,43,29,15,47,78,141,142,212,278,83,241,55,86,149,150,59,90,61,31,95,158,285,286,541,542,1051,796,931,483,167,485,295,422,171,489,111,174,301,302,557,558,179,497,119,182",
+			"name": "Smallest number m such that A248756(m) = n.",
+			"comment": [
+				" A248756(a(n)) = n and A248756(m) != n for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257078/b257078.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a257078 = (+ 1) . fromJust . (`elemIndex` a248756_list)"
+			],
+			"xref": [
+				"Cf. A248756."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 15 2015",
+			"references": 2,
+			"revision": 5,
+			"time": "2015-04-17T01:33:37-04:00",
+			"created": "2015-04-17T01:33:37-04:00"
+		},
+		{
+			"number": 257111,
+			"data": "1,1,2,-1,3,-1,5,-2,4,4,2,-11,15,6,-8,4,6,6,4,-6,8,4,-37,39,-37,41,-39,1,44,-32,28,-16,-23,45,-39,29,16,-49,47,-41,47,-45,7,-1,25,16,6,4,-6,8,4,8,4,-73,67,-61,57,-53,65,4,-62,64,4,-93,101,-6,4",
+			"name": "First differences of A257339.",
+			"comment": [
+				" a(n) = A257339(n+1) - A257339(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257111/b257111.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257111 n = a257111_list !! (n-1)",
+				"a257111_list = zipWith (-) (tail a257339_list) a257339_list"
+			],
+			"xref": [
+				"Cf. A257339."
+			],
+			"keyword": "sign",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Apr 24 2015",
+			"references": 2,
+			"revision": 12,
+			"time": "2015-04-24T06:32:19-04:00",
+			"created": "2015-04-24T06:32:19-04:00"
+		},
+		{
+			"number": 257173,
+			"data": "0,1,2,3,69,5,9,7,40,171,365,11,805,13,217,49,637,17,1519,19,671,125,403,23,143,2891,1199,1351,917,29,559,31,799,1099,323,14443,949,37,803,5027,679,41,2167,43,1837,6253,341,47,253,2327,169,4697,2021,53",
+			"name": "Smallest number m such that A248737(m) = n.",
+			"comment": [
+				"A248737(a(n)) = n and A248737(m) != n for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257173/b257173.txt\"\u003eTable of n, a(n) for n = 0..90\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a257173 = fromJust . (`elemIndex` a248737_list)"
+			],
+			"xref": [
+				" Cf. A248737."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Apr 17 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-04-17T16:04:25-04:00",
+			"created": "2015-04-17T16:04:25-04:00"
+		},
+		{
+			"number": 257212,
+			"data": "1,1,1,2,2,2,2,2,3,2,3,3,3,3,3,4,3,3,4,4,3,4,4,4,5,4,4,4,5,5,4,4,5,5,5,4,5,5,5,5,6,6,5,5,5,6,6,6,5,5,6,6,6,6,5,7,6,6,6,6,7,7,7,6,6,6,7,7,7,7,6,6,7,7,7,7,7,6,8,8,7,7,7,7,8,8,8",
+			"name": "Least d\u003e0 such that floor(n/d) - floor(n/(d+1)) \u003c= 1.",
+			"comment": [
+				"An efficient formula for this sequence could be useful for faster computation of A024916."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257212/b257212.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) \u003c= ceiling(sqrt(n)) \u003c= A257213(n) for all n\u003e0."
+			],
+			"mathematica": [
+				"f[n_] := Block[{d, k}, Reap@ For[k = 0, k \u003c= n, k++, d = 1; While[Floor[k/d] - Floor[k/(d + 1)] \u003e 1, d++]; Sow[d]] // Flatten // Rest]; f@ 86 (* _Michael De Vlieger_, Apr 18 2015 *)",
+				"ld[n_]:=Module[{d=1},While[Floor[n/d]-Floor[n/(d+1)]\u003e1,d++];d]; Array[ ld,90,0] (* _Harvey P. Dale_, Oct 18 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n)=for(d=1,n+1,1\u003e=n\\d-n\\(d+1)\u0026\u0026return(d))",
+				"(Haskell)",
+				"a257212 n = head [d | d \u003c- [1..], div n d - div n (d+1) \u003c= 1]",
+				"-- _Reinhard Zumkeller_, Apr 19 2015"
+			],
+			"xref": [
+				"Cf. A257213, A024916."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_M. F. Hasler_, Apr 18 2015",
+			"references": 2,
+			"revision": 15,
+			"time": "2015-10-18T12:57:45-04:00",
+			"created": "2015-04-18T15:09:45-04:00"
+		}
+	]
+}

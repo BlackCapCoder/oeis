@@ -1,0 +1,411 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2940,
+	"results": [
+		{
+			"number": 26233,
+			"data": "1,1,2,2,3,3,4,4,5,6,5,7,6,8,9,10,7,11,8,12,13,14,9,15,16,17,18,19,10,20,11,21,22,23,24,25,12,26,27,28,13,29,14,30,31,32,15,33,34,35,36,37,16,38,39,40,41,42,17,43,18,44,45,46,47,48",
+			"name": "a(n) = j if n is the j-th prime, else a(n) = k if n is the k-th nonprime.",
+			"comment": [
+				"Each n occurs at two positions, the distances between them are: 1, 1, 1, 1, 2, 3, 5, 5, 8, 13, 13, 17, 20, 21, 23, 28, 33, 34, 39, 41, 41, ... - _Zak Seidov_, Mar 06 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A026233/b026233.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A049084(n) + A066246(n) + A000007(A010051(n)). - _Reinhard Zumkeller_, Feb 12 2014",
+				"a(n) = A049084(n) + A239968(n). - _Reinhard Zumkeller_, Mar 30 2014"
+			],
+			"mathematica": [
+				"m=100;pr=Prime[Range[m]];npr=Select[Range[m],!PrimeQ[#]\u0026];",
+				"a[n_]:=If[PrimeQ[n],PrimePi[n],Position[npr,n][[1,1]]]; Table[a[n],{n,m}] (* Zak Seidov Mar 05 2011 *) s=Range[500];Do[s=Insert[s,n,Prime[n]],{n,100}];s (* _Zak Seidov_, Mar 05 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a026233 n = a049084 n + a239968 n",
+				"-- _Reinhard Zumkeller_, Mar 30 2014, Feb 12 2014",
+				"(PARI) first(n)=my(p,c); vector(n,k,if(isprime(k),p++,c++)) \\\\ _Charles R Greathouse IV_, Sep 02 2015"
+			],
+			"xref": [
+				"Cf. A026238."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Clark Kimberling_",
+			"references": 10,
+			"revision": 22,
+			"time": "2015-10-17T08:52:15-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 26274,
+			"data": "3,5,8,11,13,16,18,21,24,26,29,32,34,37,39,42,45,47,50,52,55,58,60,63,66,68,71,73,76,79,81,84,87,89,92,94,97,100,102,105,107,110,113,115,118,121,123,126,128,131,134,136,139,141,144",
+			"name": "Greatest k such that s(k) = n, where s = A026272.",
+			"comment": [
+				"This is the upper s-Wythoff sequence, where s(n)=n+1.",
+				"See comments at A026273.",
+				"Conjecture: This sequence consists precisely of those numbers without a 1 or 2 in their Zeckendorf representation. [In other words, numbers which are the sum of distinct Fibonacci numbers greater than 2.] - _Charles R Greathouse IV_, Jan 28 2015",
+				"A Beatty sequence with complement A026273. - _Robert G. Wilson v_, Jan 30 2015",
+				"A035612(a(n)+1) = 1. - _Reinhard Zumkeller_, Jul 20 2015",
+				"From _Michel Dekking_, Mar 12 2018: (Start)",
+				"One has r*r*(n-2*r+3) = n*r^2 -2r^3+3*r^2 = (n+1)*r^2 -2, where r = (1+sqrt(5))/2.",
+				"So  a(n) = (n+1)*r^2-2, and we see that this sequence is simply the Beatty sequence of the square of the golden ratio, shifted spatially and temporally. In other words if w = A001950 = 2,5,7,10,13,15,18,20,...  is the upper Wythoff sequence, then a(n)=w(n+1)-2.",
+				"(End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A026274/b026274.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = floor(r*r*(n+2r-3)), where r = (1+sqrt(5))/2 = A001622. [Corrected by _Tom Edgar_, Jan 30 2015]",
+				"a(n) = 3*n - floor[(n+1)/(1+phi)], phi = (1+sqrt(5))/2. - Joshua Tobin (tobinrj(AT)tcd.ie), May 31 2008"
+			],
+			"mathematica": [
+				"r=(1+Sqrt[5])/2;",
+				"a[n_]:=Floor[r*r*(n+2r-3)];",
+				"Table[a[n],{n,200}]"
+			],
+			"program": [
+				"(Haskell)",
+				"a026274 n = a026274_list !! (n-1)",
+				"a026274_list = map (subtract 1) $ tail $ filter ((== 1) . a035612) [1..]",
+				"-- _Reinhard Zumkeller_, Jul 20 2015"
+			],
+			"xref": [
+				"Cf. A184117, A026273, A001950."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"Extended by _Clark Kimberling_, Jan 14 2011"
+			],
+			"references": 10,
+			"revision": 36,
+			"time": "2018-03-12T10:15:40-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 27384,
+			"data": "1,2,4,7,10,15,19,26,31,37,43,54,60,73,81,90,98,115,124,143,153,165,177,200,210,226,240,255,268,297,309,340,355,373,391,411,424,461,481,502,518,559,576,619,639,660,684,731,748,779,801,828,851,904,926,957,979,1009,1039",
+			"name": "Number of distinct products ij with 0 \u003c= i, j \u003c= n.",
+			"comment": [
+				"a(n) = A027420(n,0) = A027420(n,n). - _Reinhard Zumkeller_, May 02 2014"
+			],
+			"link": [
+				"Seiichi Manyama, \u003ca href=\"/A027384/b027384.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (terms 0..1000 from T. D. Noe)"
+			],
+			"formula": [
+				"For prime p, a(p) = a(p - 1) + p. - _David A. Corneth_, Jan 01 2019"
+			],
+			"maple": [
+				"A027384 := proc(n)",
+				"    local L,i,j ;",
+				"    L := {};",
+				"    for i from 0 to n do",
+				"        for j from i to n do",
+				"            L := L union {i*j};",
+				"        end do:",
+				"    end do:",
+				"    nops(L);",
+				"end proc: # _R. J. Mathar_, May 06 2016"
+			],
+			"mathematica": [
+				"u = {}; Table[u = Union[u, n*Range[0, n]]; Length[u], {n, 0, 100}] (* _T. D. Noe_, Jan 07 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (nub)",
+				"a027384 n = length $ nub [i*j | i \u003c- [0..n], j \u003c- [0..n]]",
+				"-- _Reinhard Zumkeller_, Jan 01 2012",
+				"(PARI) a(n) = {my(s=Set()); for (i=0, n, s = setunion(s, Set(vector(n+1, k, i*(k-1))));); #s;} \\\\ _Michel Marcus_, Jan 01 2019"
+			],
+			"xref": [
+				"Equals A027424 + 1, n\u003e0.",
+				"Cf. A027417, A027427, A027425."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "Fred Schwab (fschwab(AT)nrao.edu)",
+			"references": 10,
+			"revision": 36,
+			"time": "2019-01-02T03:03:10-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30057,
+			"data": "2,4,2,8,2,13,2,16,2,4,2,29,2,4,2,32,2,40,2,43,2,4,2,61,2,4,2,57,2,73,2,64,2,4,2,92,2,4,2,91,2,97,2,8,2,4,2,125,2,4,2,8,2,121,2,121,2,4,2,169,2,4,2,128,2,145,2,8,2,4,2,196,2,4,2,8,2,169,2,187,2,4,2,225,2,4,2,181",
+			"name": "Least number that is not a sum of distinct divisors of n.",
+			"comment": [
+				"a(n) = 2 if and only if n is odd. a(2^n) = 2^(n+1). - _Emeric Deutsch_, Aug 07 2005",
+				"a(n) \u003e n if and only if n belongs to A005153, and then a(n) = sigma(n) + 1. - _Michel Marcus_, Oct 18 2013",
+				"The most frequent values are 2 (50%), 4 (16.7%), 8 (5.7%), 13 (3.2%), 16 (2.4%), 29 (1.3%), 32 (1%), 40, 43, 61, ... - _M. F. Hasler_, Apr 06 2014"
+			],
+			"link": [
+				"David Wasserman and T. D. Noe, \u003ca href=\"/A030057/b030057.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from David Wasserman)"
+			],
+			"example": [
+				"a(10)=4 because 4 is the least positive integer that is not a sum of distinct divisors (namely 1,2,5 and 10) of 10."
+			],
+			"maple": [
+				"with(combinat): with(numtheory): for n from 1 to 100 do div:=powerset(divisors(n)): b[n]:=sort({seq(sum(div[i][j],j=1..nops(div[i])),i=1..nops(div))}) od: for n from 1 to 100 do B[n]:={seq(k,k=0..1+sigma(n))} minus b[n] od: seq(B[n][1],n=1..100); # _Emeric Deutsch_, Aug 07 2005"
+			],
+			"mathematica": [
+				"a[n_] :=  First[ Complement[ Range[ DivisorSigma[1, n] + 1], Total /@ Subsets[ Divisors[n]]]]; Table[a[n], {n, 1, 100}] (* _Jean-François Alcover_, Jan 02 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a030057 n = head $ filter ((== 0) . p (a027750_row n)) [1..] where",
+				"   p _      0 = 1",
+				"   p []     _ = 0",
+				"   p (k:ks) x = if x \u003c k then 0 else p ks (x - k) + p ks x",
+				"-- _Reinhard Zumkeller_, Feb 27 2012"
+			],
+			"xref": [
+				"Cf. A005153, A093896.",
+				"Distinct elements form A030058.",
+				"Cf. A027750."
+			],
+			"keyword": "nonn,nice,look",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, May 05 2007"
+			],
+			"references": 10,
+			"revision": 42,
+			"time": "2016-01-04T01:40:02-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30130,
+			"data": "0,2,5,6,11,13,14,23,27,29,30,47,55,59,61,62,95,111,119,123,125,126,191,223,239,247,251,253,254,383,447,479,495,503,507,509,510,767,895,959,991,1007,1015,1019,1021,1022,1535,1791,1919,1983,2015,2031,2039",
+			"name": "Binary expansion contains a single 0.",
+			"comment": [
+				"From _Reinhard Zumkeller_, Aug 29 2009: (Start)",
+				"A023416(a(n)) = 1;",
+				"apart from the initial term the sequence can be seen as a triangle read by rows, see A164874;",
+				"A055010 and A086224 are subsequences, see also A000918 and A036563. (End)",
+				"Zero and numbers of form 2^m-2^k-1, 2 \u003c= m, 0 \u003c= k \u003c= m-2. - _Zak Seidov_, Aug 06 2010"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A030130/b030130.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 2^(g(n))-1-2^(((2*g(n)-1)^2-1-8*n)/8) with g(n)=int((sqrt(8*n-7)+3)/2) for all n\u003e0 and g(0)=1. - Ulrich Schimke (ulrschimke(AT)aol.com)"
+			],
+			"example": [
+				"23 is OK because it is '10111' in base 2."
+			],
+			"mathematica": [
+				"Sort[Flatten[{{0}, Table[2^n - 2^m - 1, {n, 2, 50}, {m, 0, n - 2}]}]] (* _Zak Seidov_, Aug 06 2010 *)"
+			],
+			"program": [
+				"(C) long int element (long int i) { return (pow(2,g(i))-1-pow(2,(pow(2*g(i)-1,2)-1-8*i)/8));} long int g(long int m) {if (m==0) return(1); return ((sqrt(8*m-7)+3)/2);}",
+				"(Haskell)",
+				"a030130 n = a030130_list !! (n-1)",
+				"a030130_list = filter ((== 1) . a023416) [0..]",
+				"-- _Reinhard Zumkeller_, Mar 31 2015, Dec 07 2012"
+			],
+			"xref": [
+				"Cf. A023416, A164874, A055010, A086224, A000918, A036563."
+			],
+			"keyword": "nonn,base,easy,look",
+			"offset": "1,2",
+			"author": "Toby Donaldson (tjdonald(AT)uwaterloo.ca)",
+			"ext": [
+				"More terms from _Erich Friedman_",
+				"Offset fixed by _Reinhard Zumkeller_, Aug 24 2009"
+			],
+			"references": 10,
+			"revision": 19,
+			"time": "2018-06-20T01:35:13-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30284,
+			"data": "2,3,5,7,11,23,41,53,61,73,89,101,223,401,523,601,727,809,1117,2003,4111,5003,6121,7039,8111,9007,11113,20029,31147,50069,71143,80209,111143,200009,311111,400009,511111,600043,711121,800053,911111,2000003,4111147,5000263,7111199,8000023,9111161",
+			"name": "a(n) is the least prime \u003e a(n-1) whose digits do not appear in a(n-1).",
+			"comment": [
+				"Sequence is infinite. - _T. D. Noe_, Jun 06 2007",
+				"a(n) may never have all of the 4 digits 1, 3, 7, 9: if a(n) has 3 of these digits then a(n+1) ends with the fourth one. - _Pierre CAMI_, May 06 2011"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A030284/b030284.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e"
+			],
+			"mathematica": [
+				"ta={1};Do[s1=IntegerDigits[Part[ta, Length[ta]]]; s2=IntegerDigits[Prime[n]];If[Equal[Intersection[s1, s2], {}], Print[{Prime[n], Prime[n+1]}];ta=Append[ta, Prime[n]]], {n, 1, 1000000}];ta=Delete[ta, 1] (* _Labos Elemer_, Nov 18 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersect)",
+				"a030284 n = a030284_list !! (n-1)",
+				"a030284_list = f [] a000040_list where",
+				"   f xs (p:ps) = if null $ intersect xs ys then p : f ys ps else f xs ps",
+				"                 where ys = show p",
+				"-- _Reinhard Zumkeller_, Sep 21 2013"
+			],
+			"xref": [
+				"Cf. A030283, A229364, A000040."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_",
+			"ext": [
+				"More terms from _Labos Elemer_, Nov 18 2004"
+			],
+			"references": 10,
+			"revision": 32,
+			"time": "2018-04-11T08:36:04-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 32740,
+			"data": "6,10,35,36,37,44,49,51,60,67,72,73,82,85,89,93,179,188,190,191,226,234,252,297,312,321,356,373,391,425,429,430,438,445,451,475,478,479,486,516,519,521,526,549,551,581,582,583,598,601,603,609,613,619,627,632,642,652,653,655,660",
+			"name": "Numbers k such that k is a substring of 2^k.",
+			"link": [
+				"David W. Wilson, \u003ca href=\"/A032740/b032740.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"2^93 = 99035203142830421991929_93_792."
+			],
+			"maple": [
+				"op(select(n-\u003esearchtext(convert(n,string),convert(2^n,string))\u003e0,[$1..660])); # _Paolo P. Lava_, Sep 05 2018"
+			],
+			"mathematica": [
+				"d[n_] := IntegerDigits[n]; parQ[n_] := MemberQ[Partition[d[2^n], Length[x = d[n]], 1], x]; Select[Range[660], parQ] (* _Jayanta Basu_, Jun 17 2013 *)",
+				"Select[Range[700],SequenceCount[IntegerDigits[2^#],IntegerDigits[#]]\u003e0\u0026] (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Jul 10 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a032740 n = a032740_list !! (n-1)",
+				"a032740_list = [x | x \u003c- [0..], show x `isInfixOf` (show $ 2 ^ x)]",
+				"-- _Reinhard Zumkeller_, Jan 19 2014"
+			],
+			"xref": [
+				"Cf. A049301-A049307."
+			],
+			"keyword": "base,nonn,nice,easy",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_, May 15 1998",
+			"references": 10,
+			"revision": 25,
+			"time": "2019-07-10T11:56:56-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33491,
+			"data": "1,2,4,8,16,5,10,3,6,12,24,48,17,34,11,22,7,14,28,9,18,36,72,25,49,98,33,65,130,43,86,172,57,114,39,78,153,305,105,203,406,135,270,540,185,361,123,246,481,169,329,641,219,427,159,295,569,1138,379,758,283,505",
+			"name": "a(n) is the smallest integer that takes n halving and tripling steps to reach 1 in the 3x+1 problem.",
+			"comment": [
+				"a(n) = smallest term in n-th row of A127824. - _Reinhard Zumkeller_, Nov 29 2012",
+				"Interestingly, there are many n such that a(n)=2a(n-1). - _Dmitry Kamenetsky_, Feb 11 2017"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A033491/b033491.txt\"\u003eTable of n, a(n) for n=0..1924\u003c/a\u003e (from Eric Roosendaal's data) [Roosendaal's table is now complete through 2007 - _N. J. A. Sloane_, Oct 21 2012]",
+				"Eric Roosendaal, \u003ca href=\"http://www.ericr.nl/wondrous/classrec.html\"\u003e3x+1 Class Records\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/CollatzProblem.html\"\u003eCollatz Problem\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"mathematica": [
+				"f[ n_ ] := Module[ {i = 0, m = n}, While[ m != 1, m = If[ OddQ[ m ], 3m + 1, m/2 ]; i++ ]; i ]; a = Table[ 0, {75} ]; Do[ m = f[ n ]; If[ a[ [ m + 1 ] ] == 0, a[ [ m + 1 ] ] = n ] ], {n, 1, 1250} ]; a",
+				"With[{c=Table[Length[NestWhileList[If[OddQ[#],3#+1,#/2]\u0026,n,#!=1\u0026]],{n,2000}]}, Flatten[Table[Position[c,i,1,1],{i,70}]]] (* _Harvey P. Dale_, Jan 06 2013 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c0,0,k=1; while(abs(if(k\u003c0,0,s=k; c=1; while((1-(s%2))*s/2+(s%2)*(3*s+1)\u003e1,s=(1-(s%2))*s/2+(s%2)*(3*s+1); c++); c)-n-1)\u003e0,k++); k)",
+				"(Haskell)",
+				"a033491 = head . a127824_row  -- _Reinhard Zumkeller_, Nov 29 2012"
+			],
+			"xref": [
+				"Cf. A126727 (missing numbers)."
+			],
+			"keyword": "nonn,nice,look",
+			"offset": "0,2",
+			"author": "_Jeff Burch_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Apr 27 2001"
+			],
+			"references": 10,
+			"revision": 26,
+			"time": "2017-02-15T09:49:13-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34883,
+			"data": "0,1,2,2,3,2,3,4,3,3,4,4,5,4,4,4,4,5,5,4,6,4,5,4,5,5,5,5,6,6,6,5,5,7,5,5,6,5,6,6,6,6,6,6,6,6,7,6,7,7,6,6,6,5,8,6,6,6,6,7,6,6,6,7,7,7,7,7,7,6,7,6,7,7,7,8,6,6,8,8,8,7,7,6,7,7,7,7,9,6,7,7,7,7,7,6,8,7,7,7",
+			"name": "Maximum length of Euclidean algorithm starting with n and any i\u003cn.",
+			"comment": [
+				"Apart from initial term, same as A071647. - _Franklin T. Adams-Watters_, Nov 14 2006",
+				"Records occur when n is a Fibonacci number. For n\u003e1, the smallest i such that the algorithm requires a(n) steps is A084242(n). The maximum number of steps a(n) is greater than k for n \u003e A188224(k). - _T. D. Noe_, Mar 24 2011",
+				"Largest term in n-th row of A051010. - _Reinhard Zumkeller_, Jun 27 2013"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A034883/b034883.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"Eric W. Weisstein, \u003ca href=\"http://mathworld.wolfram.com/EuclideanAlgorithm.html\"\u003eMathWorld: Euclidean Algorithm\u003c/a\u003e"
+			],
+			"mathematica": [
+				"GCDSteps[n1_, n2_] := Module[{a = n1, b = n2, cnt = 0}, While[b \u003e 0, cnt++; {a, b} = {Min[a, b], Mod[Max[a, b], Min[a, b]]}]; cnt]; Table[Max @@ Table[GCDSteps[n, i], {i, 0, n - 1}], {n, 100}] (* _T. D. Noe_, Mar 24 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034883 = maximum . a051010_row  -- _Reinhard Zumkeller_, Jun 27 2013"
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,3",
+			"author": "_Erich Friedman_",
+			"references": 10,
+			"revision": 27,
+			"time": "2015-08-17T14:26:59-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 35313,
+			"data": "1,3,9,26,66,154,346,771,1726,3887,8768,19700,43890,96717,210665,453893,968903,2053260,4328489,9093971,19068611,39943689,83628399,175018523,366081209,765102907,1597315656,3330380593,6933810145",
+			"name": "(Largest) diagonal of the Zorach additive triangle A035312.",
+			"comment": [
+				"From Philippe Lallouet (philip.lallouet(AT)wanadoo.fr), Apr 22 2007: (Start)",
+				"Starting with 1, smallest sequence for which:",
+				"all its terms a1(n).............................. 1,3,9,26,66",
+				"all terms of first differences a2(n)=a1(n+1)-a1(n) 2,6,17,40",
+				"all terms of second differences a3(n)=a2(n+1)-a2(n) 4,11,23",
+				"...",
+				"all terms of (1+i)th differences ai(n)=ai-1(n+1)-ai-1(n)",
+				"are different for any n and any i (End)",
+				"Which is to say, this sequence is the lexicographically earliest sequence of positive integers such that the sequence itself and its n-th differences for n \u003e= 1 are pairwise disjoint. - _David W. Wilson_, Feb 26 2012",
+				"Conjecturally, every positive integer occurs in the sequence or one of its n-th differences, which would imply that the sequence and its n-th differences partition the positive integers. - _David W. Wilson_, Feb 26 2012",
+				"Conjecture: lim(n-\u003einfinity, a(n+1)/a(n)) = 2. - _David W. Wilson_, Feb 26 2012",
+				"Note that the n-th differences yield the n-th subdiagonals (parallels to the right edge) in the triangle A035312. Therefore Lallouet's statement and Wilson's 1st comment above are just rephrasing the definition of that triangle.  - _M. F. Hasler_, May 09 2013",
+				"Binomial transform of A035311. Hence, from the observed asymptotic equality A035311(n) ~ 2*n, a stronger statement than the one given above follows: a(n) ~ n*2^n. - _Andrey Zabolotskiy_, Feb 08 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A035313/b035313.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"A. C. Zorach, \u003ca href=\"http://www.cazort.net/static/triangle.php\"\u003eAdditive triangle\u003c/a\u003e",
+				"A. C. Zorach, \u003ca href=\"/A035312/a035312_2.hs.txt\"\u003eHaskell programs for sequences in connection with Zorach additive triangle\u003c/a\u003e"
+			],
+			"example": [
+				"Start with 1; 2 is the next, then add 1+2 to get 3, then 4 is next, then 4+2=6 and 6+3 is 9, then 5 is not next because 5+4=9 and 9 was already used, so 7 is next...which ultimately generates 26 in the final column..."
+			],
+			"mathematica": [
+				"(* Assuming n \u003c= t(n,1) \u003c= 3n *) rows = 29; uniqueQ[t1_, n_] := (t[n, 1] = t1; Do[t[n, k] = t[n, k-1] + t[n-1, k-1], {k, 2, n}]; n*(n+1)/2 == Length[ Union[ Flatten[ Table[t[m, k], {m, 1, n}, {k, 1, m}]]]]); t[n_, 1] := t[n, 1] = Select[ Complement[Range[n, 3 n], Flatten[ Table[t[m, k], {m, 1, n-1}, {k, 1, m}]]], uniqueQ[#, n] \u0026, 1][[1]]; Last /@ Table[t[n, k], {n, 1, rows}, {k, 1, n}] (* _Jean-François Alcover_, Jun 05 2012 *)"
+			],
+			"program": [
+				"See link for Haskell program."
+			],
+			"xref": [
+				"Cf. A035311, A035312, A189713, A035358."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,2",
+			"author": "_Alex Zorach_",
+			"ext": [
+				"More terms from _Christian G. Bower_ and _Dean Hickerson_"
+			],
+			"references": 10,
+			"revision": 47,
+			"time": "2017-02-16T03:16:10-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

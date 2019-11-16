@@ -1,0 +1,419 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5330,
+	"results": [
+		{
+			"number": 60765,
+			"data": "1,2,4,6,8,12,16,18,20,24,32,36,42,48,54,60,64,72,96,100,108,120,128,144,156,162,168,180,192,216,240,256,272,288,294,300,324,342,360,384,432,480,486,500,504,512,576,600,648,720,768,840,900,960,972,1008,1024",
+			"name": "Numbers n such that every difference between consecutive divisors (ordered by increasing magnitude) of n is also a divisor of n.",
+			"comment": [
+				"Equivalently, A060763(n)=0.",
+				"Powers of 2 and factorials up to 7! are here.",
+				"For each k=1..A000005(a(n))-1 exists k' \u003c A000005(a(n)) such that A193829(a(n),k) = A027750(a(n),k'). - _Reinhard Zumkeller_, Jun 25 2015",
+				"From _Robert Israel_, Jul 03 2017: (Start)",
+				"Also includes 3*2^k and 2*3^k for all k\u003e= 1.",
+				"All terms except 1 are even. (End)",
+				"Conjecture: a(n) has the property that for each prime divisor p, p-1|a(n)/p. If this conjecture is true then terms can be searched by distinct prime divisors. - _David A. Corneth_, Jul 06 2017"
+			],
+			"link": [
+				"Donovan Johnson, \u003ca href=\"/A060765/b060765.txt\"\u003eTable of n, a(n) for n = 1..750\u003c/a\u003e"
+			],
+			"example": [
+				"For n = 12, divisors={1, 2, 3, 4, 6, 12}; differences={1, 1, 1, 2, 6}; every difference is a divisor, so 12 is in the sequence."
+			],
+			"maple": [
+				"f:= proc(n) local D,L;",
+				"  D:= numtheory:-divisors(n);",
+				"  L:= sort(convert(D,list));",
+				"  nops(convert(L[2..-1]-L[1..-2],set) minus D);",
+				"end proc:",
+				"select(f=0, [$1..1000]); # _Robert Israel_, Jul 03 2017"
+			],
+			"mathematica": [
+				"test[n_ ] := Length[Complement[Drop[d=Divisors[n], 1]-Drop[d, -1], d]]==0; Select[Range[1, 1024], test]",
+				"(* Second program: *)",
+				"Select[Range[2^10], Function[n, AllTrue[Differences@ Divisors@ n, Divisible[n, #] \u0026]]] (* _Michael De Vlieger_, Jul 12 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (sort, nub); import Data.List.Ordered (subset)",
+				"a060765 n = a060765_list !! (n-1)",
+				"a060765_list = filter",
+				"(\\x -\u003e sort (nub $ a193829_row x) `subset` a027750_row' x) [1..]",
+				"-- _Reinhard Zumkeller_, Jun 25 2015",
+				"(PARI) isok(n)=my(d=divisors(n), v=vecsort(vector(#d-1, k, d[k+1]-d[k]),,8)); #select(x-\u003esetsearch(d, x), v) == #v; \\\\ _Michel Marcus_, Jul 06 2017",
+				"(PARI) is(n)=my(t); fordiv(n,d, if(n%(d-t), return(0)); t=d); 1 \\\\ _Charles R Greathouse IV_, Jul 12 2017"
+			],
+			"xref": [
+				"Cf. A060683, A060763, A193829, A027750."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Labos Elemer_, Apr 24 2001",
+			"ext": [
+				"Edited by _Dean Hickerson_, Jan 22 2002"
+			],
+			"references": 4,
+			"revision": 26,
+			"time": "2017-07-12T17:52:40-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61021,
+			"data": "3,3,3,6,15,87,1299,112998,146784315,16586334025071,2434613678231239448367,40381315689150066251526220641224742,98312903521778500654864668915856114278134197773017871243",
+			"name": "a(n) = a(n-1)*a(n-2) - a(n-3) with a(0) = a(1) = a(2) = 3.",
+			"comment": [
+				"Any three consecutive terms are a solution to the Diophantine equation x^2 + y^2 + z^2 = xyz."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A061021/b061021.txt\"\u003eTable of n, a(n) for n = 0..17\u003c/a\u003e",
+				"Loren C. Larson, \u003ca href=\"https://www.jstor.org/stable/1559041\"\u003eSolution to Problem Proposal 701\u003c/a\u003e, College Mathematics Journal 33 (2002), pp. 241-242.",
+				"Edward T. H. Wang, \u003ca href=\"http://www.jstor.org/stable/2687476\"\u003eProblem Proposal 701\u003c/a\u003e, College Mathematics Journal 32 (2001), p. 211."
+			],
+			"formula": [
+				"From _Jon E. Schoenfield_, May 12 2019: (Start)",
+				"It appears that, for n \u003e= 1,",
+				"  a(n) = ceiling(e^(c0*phi^n - c1/(-phi)^n))",
+				"where",
+				"  phi = (1 + sqrt(5))/2,",
+				"   c0 = 0.4004033011137849744572073756789830081726425559860...",
+				"   c1 = 0.2798639753144007577581523025628820390768226527315...",
+				"(End)"
+			],
+			"mathematica": [
+				"RecurrenceTable[{a[n] == a[n - 1] a[n - 2] - a[n - 3], a[0] == a[1] == a[2] == 3}, a, {n, 0, 12}] (* _Michael De Vlieger_, Aug 21 2016 *)"
+			],
+			"program": [
+				"(PARI) for (n=0, 17, if (n\u003e2, a=a1*a2 - a3; a3=a2; a2=a1; a1=a, if (n==0, a=a3=3, if (n==1, a=a2=3, a=a1=3))); write(\"b061021.txt\", n, \" \", a)) \\\\ _Harry J. Smith_, Jul 16 2009",
+				"(Haskell)",
+				"a061021 n = a061021_list !! n",
+				"a061021_list = 3 : 3 : 3 : zipWith (-)",
+				"(tail $ zipWith (*) (tail a061021_list) a061021_list) a061021_list",
+				"-- _Reinhard Zumkeller_, Mar 25 2015"
+			],
+			"xref": [
+				"Cf. A022405, A061292, A072878, A072879, A072880, A074394, A178768."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,1",
+			"author": "Stephen G. Penrice (spenrice(AT)ets.org), May 23 2001",
+			"ext": [
+				"More terms from _Erich Friedman_, Jun 03 2001",
+				"Name clarified by _Petros Hadjicostas_, May 11 2019"
+			],
+			"references": 4,
+			"revision": 38,
+			"time": "2019-05-16T08:05:22-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61023,
+			"data": "0,0,0,3,3,4,4,1,1,1,1,1,1,8,8,8,8,8,11,11,11,2,2,2,2,2,2,2,2,2,2,9,9,9,9,9,9,9,9,9,9,9,9,22,22,22,15,15,15,15,15,15,15,15,15,15,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,17,17,17,17,17",
+			"name": "Difference between the closest square and the closest cube to n.",
+			"comment": [
+				"a(A201217(n)) = 0."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A061023/b061023.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = abs(A053187(n) - A201053(n)). [_Reinhard Zumkeller_, Nov 28 2011]"
+			],
+			"example": [
+				"a(46)=15 because the nearest square is 49 and the nearest cube is 64 and 64 - 49 = 15."
+			],
+			"mathematica": [
+				"dsc[n_]:=Module[{s=Floor[Sqrt[n]],c=Floor[Power[n, (3)^-1]],ns,nc}, ns= Nearest[{s^2,(s+1)^2},n]; nc=Nearest[{c^3,(c+1)^3},n];Abs[nc-ns]]; Flatten[ Array[dsc,100,0]] (* _Harvey P. Dale_, Aug 19 2011 *)"
+			],
+			"program": [
+				"(PARI) { for (n=0, 10000, x=n^(1/2); s=floor(x)^2; t=ceil(x)^2; if (n-s \u003e t-n, s=t); x=n^(1/3); c=floor(x)^3; d=ceil(x)^3; if (n-c \u003e d-n, c=d); write(\"b061023.txt\", n, \" \", abs(c-s)) ) } \\\\ _Harry J. Smith_, Jul 16 2009",
+				"(Haskell)",
+				"a061023 n = abs (a053187 n - a201053 n)",
+				"a061023_list = map a061023 [0..]",
+				"-- _Reinhard Zumkeller_, Nov 28 2011"
+			],
+			"xref": [
+				"Cf. A000290, A000578."
+			],
+			"keyword": "easy,nice,nonn,look",
+			"offset": "0,4",
+			"author": "Hareendra Yalamanchili (hyalaman(AT)mit.edu), May 24 2001",
+			"ext": [
+				"More terms from _Harvey P. Dale_, Aug 19 2011"
+			],
+			"references": 4,
+			"revision": 20,
+			"time": "2018-07-02T01:43:04-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61217,
+			"data": "0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,11,12,13,14",
+			"name": "Number of zeros in the concatenation n(n-1)(n-2)(n-3)...321.",
+			"comment": [
+				"The number of zeros necessary to write down all the numbers 1, 2, ..., n. Thus, the partial sums of A055641 are given by a(n)+1 (for n\u003e=1). - _Hieronymus Fischer_, Jun 12 2012"
+			],
+			"link": [
+				"Hieronymus Fischer, \u003ca href=\"/A061217/b061217.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"From _Hieronymus Fischer_, Jun 12 2012: (Start)",
+				"a(n) = (m+1)*(n+1) - (10^(m+1)-1)/9 + (1/2)*Sum_{j=1..m+1} (floor(n/10^j)*(2n + 2 - (1 + floor(n/10^j))*10^j) - floor(n/10^j + 9/10)*(2n + 2 + ((4/5 - floor(n/10^j + 9/10))*10^j)), where m=floor(log_10(n)).",
+				"a(n) = A117804(n+1) - (n+1)*A054640(n) + (1/2)*Sum_{j=1..m+1} ((floor(n/10^j + 9/10)^2 - floor(n/10^j)^2)*10^j - (4/5*floor(n/10^j + 9/10) + floor(n/10^j))*10^j), where m=floor(log_10(n)).",
+				"a(10^m-1) = m*10^(m-1) - (10^m-1)/9.",
+				"(this is the total number of zeros occurring in all the numbers 1..10^m-1 or numbers with \u003c= m places excluding zero).",
+				"G.f.: g(x) = (1/(1-x)^2)*sum_{j\u003e=0} (1-x^10^j)*x^10^(j+1)/(1-x^10^(j+1)). (End)"
+			],
+			"example": [
+				"a(30) = 3 since number of zeros in 302928272625242322212019181716151413121110987654321 is 3. (this example implies offset = 1)"
+			],
+			"mathematica": [
+				"Table[Count[Flatten[IntegerDigits/@Table[x-n,{n,0,x-1}]],0],{x,110}] (* From _Harvey P. Dale_, Aug 10 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a061217 n = a061217_list !! (n-1)",
+				"a061217_list = scanl1 (+) $ map a055641 [1..]",
+				"-- _Reinhard Zumkeller_, Oct 27 2013",
+				"(PARI) a(n) = my(m=logint(n,10)); (m+1)*(n+1) - (10^(m+1)-1)/9 + (1/2) * sum(j=1, m+1, (n\\10^j * (2*n+2 - (1 + n\\10^j) * 10 ^ j) - floor(n/10^j+9/10) * (2*n+2 + ((4/5 - floor(n / 10^j + 9 / 10))*10^j)))) \\\\ adapted from formula by _Hieronymus Fischer_ \\\\ _David A. Corneth_, Jan 23 2019"
+			],
+			"xref": [
+				"Cf. A055640, A055641, A102669-A102685, A117804."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,20",
+			"author": "_Amarnath Murthy_, Apr 22 2001",
+			"ext": [
+				"Corrected and extended by _Patrick De Geest_, Jun 05 2001",
+				"Offset changed to 1 by _Hieronymus Fischer_, Jun 12 2012"
+			],
+			"references": 4,
+			"revision": 29,
+			"time": "2019-01-23T16:18:26-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61282,
+			"data": "0,1,2,2,3,4,3,4,5,3,4,5,4,5,6,5,6,7,4,5,6,5,6,7,6,7,8,4,5,6,5,6,7,6,7,8,5,6,7,6,7,8,7,8,9,6,7,8,7,8,9,8,9,10,5,6,7,6,7,8,7,8,9,6,7,8,7,8,9,8,9,10,7,8,9,8,9,10,9,10,11,5,6,7,6,7,8,7,8,9,6,7,8,7,8,9,8,9,10,7,8",
+			"name": "Minimal number of steps to get from 0 to n by (a) adding 1 or (b) multiplying by 3. A stopping problem: begin with n and at each stage if a multiple of 3 divide by 3, otherwise subtract 1.",
+			"comment": [
+				"n \u003e 0 occurs A001590(n+2) times in this sequence. - _Peter Kagey_, Jul 19 2015",
+				"a(n) gives the number of iterations of A260316 to reach 0. - _Peter Kagey_, Jul 22 2015"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A061282/b061282.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Com#complexity\"\u003eIndex to sequences related to the complexity of n\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A062153(n) + A053735(n) = (number of base 3 digits of n) + (sum of base 3 digits of n)-1. a(3n) = a(n)+1, a(3n+1) = a(n)+2, a(3n+2) = a(n)+3; a(0)=0, a(1)=1, a(2)=2."
+			],
+			"example": [
+				"a(25)=7 since 25=((0+1+1)*3+1+1)*3+1."
+			],
+			"maple": [
+				"a:= n-\u003e (l-\u003e nops(l)+add(i, i=l)-1)(convert(n, base, 3)):",
+				"seq(a(n), n=0..105);  # _Alois P. Heinz_, Jul 16 2015"
+			],
+			"program": [
+				"(PARI) a(n)=sumdigits(n,3)+#digits(n,3)-1 \\\\ _Charles R Greathouse IV_, Jul 16 2015",
+				"(Haskell)",
+				"c i = if i `mod` 3 == 0 then i `div` 3 else i - 1",
+				"b 0 foldCount = foldCount",
+				"b sheetCount foldCount = b (c sheetCount) (foldCount + 1)",
+				"a061282 n = b n 0 -- _Peter Kagey_, Sep 02 2015"
+			],
+			"xref": [
+				"Cf. A001590, A007089, A053735, A056792, A062153, A260316.",
+				"Analogous sequences with a different multiplier k: A056792 (k=2), A260112 (k=4)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Henry Bottomley_, Jun 06 2001",
+			"references": 4,
+			"revision": 33,
+			"time": "2017-03-24T00:47:50-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61292,
+			"data": "2,2,2,2,6,22,262,34582,199330642,1806032092550706,12449434806576800059248920402,4481765860945171681908664776799089162954814190172722",
+			"name": "a(n) = a(n-1)*a(n-2)*a(n-3) - a(n-4) for n\u003e3 with a(0) = a(1) = a(2) = a(3) = 2.",
+			"comment": [
+				"Any four consecutive terms are a solution to the Diophantine equation w^2 + x^2 + y^2 + z^2 = wxyz.",
+				"a(n) = 2 * A072878(n+1)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A061292/b061292.txt\"\u003eTable of n, a(n) for n = 0..18\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a[1] := 2; a[2] := 2; a[3] := 2; a[4] := 2; a[n_] := a[n - 1]*a[n - 2]*a[n - 3] - a[n - 4]; Table[a[n], {n, 1, 15}] (* _Stefan Steinerberger_, Mar 31 2006 *)",
+				"RecurrenceTable[{a[0]==a[1]==a[2]==a[3]==2,a[n]==a[n-1]a[n-2]a[n-3]- a[n-4]},a[n],{n,12}] (* _Harvey P. Dale_, Sep 15 2011 *)"
+			],
+			"program": [
+				"(MAGMA) I:=[2,2,2,2]; [n le 4 select I[n] else Self(n-1)*Self(n-2)*Self(n-3)-Self(n-4): n in [1..12]]; // _Vincenzo Librandi_, Sep 17 2011",
+				"(Haskell)",
+				"a061292 n = a061292_list !! n",
+				"a061292_list = 2 : 2 : 2 : 2 : zipWith (-)",
+				"   (zipWith3 (((*) .) . (*)) (drop 2 xs) (tail xs) xs) a061292_list",
+				"   where xs = tail a061292_list",
+				"-- _Reinhard Zumkeller_, Mar 25 2015"
+			],
+			"xref": [
+				"Cf. A022405, A061021, A072878, A072879, A072880."
+			],
+			"keyword": "easy,nonn,nice",
+			"offset": "0,1",
+			"author": "Stephen G. Penrice (spenrice(AT)ets.org), Jun 04 2001",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org) and _Jason Earls_, Jun 05 2001"
+			],
+			"references": 4,
+			"revision": 30,
+			"time": "2019-05-12T03:06:18-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61338,
+			"data": "0,1,2,2,4,2,3,3,8,2,3,3,5,3,4,4,16,2,3,3,5,3,4,4,9,3,4,4,6,4,5,5,32,2,3,3,5,3,4,4,9,3,4,4,6,4,5,5,17,3,4,4,6,4,5,5,10,4,5,5,7,5,6,6,64,2,3,3,5,3,4,4,9,3,4,4,6,4,5,5,17,3,4,4,6,4,5,5,10,4,5,5,7,5,6,6,33,3,4,4",
+			"name": "Increase in maximal number of comparisons for sorting n elements by list merging.",
+			"comment": [
+				"Or, first differences of A003071. - _Zak Seidov_, Dec 28 2011"
+			],
+			"link": [
+				"Zak Seidov, \u003ca href=\"/A061338/b061338.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/So#sorting\"\u003eIndex entries for sequences related to sorting\u003c/a\u003e"
+			],
+			"formula": [
+				"For n \u003e 0: a(n) = A003071(n) - A003071(n - 1) = A006519(n) + A000120(n) - 1. If n is a power of 2 then a(n) = n, otherwise a(n) = a(A053645(n)) + 1 where A053645(n) = n - 2^[log2(n)] is the amount by which n exceeds a power of 2.",
+				"G.f.: x/(1-x)^2 + (1/(1-x))*Sum_{k\u003e=1} (-1 + (1-x)*2^(k-1))*x^2^k/(1-x^2^k). - _Ralf Stephan_, Apr 17 2003"
+			],
+			"mathematica": [
+				"nn=100; s={1}; m = Ceiling[Log[2, nn]]; Do[s=Join[s, {2^n}, s+1], {n,m}]; Prepend[Take[s,nn], 0] (* _Zak Seidov_, Dec 28 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a061338 0 = 0",
+				"a061338 n = a006519 n + a000120 n - 1  -- _Reinhard Zumkeller_, Dec 29 2011"
+			],
+			"xref": [
+				"Cf. A003071."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Henry Bottomley_, Apr 27 2001",
+			"references": 4,
+			"revision": 20,
+			"time": "2018-10-30T10:31:02-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61428,
+			"data": "4,28,44,82,188,248,284,428,444,482,818,824,842,881,1488,1848,1884,2288,2448,2484,2828,2844,2882,4188,4248,4284,4428,4444,4482,4818,4824,4842,4881,8148,8184,8228,8244,8282,8418,8424,8442,8481,8814,8822,8841",
+			"name": "Geometric mean of the digits = 4. In other words the product of the digits is = 4^k where k is the number of digits.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061428/b061428.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"248 is a term as the geometric mean of digits is (2*4*8) = 64 = 4^3."
+			],
+			"program": [
+				"(Haskell)",
+				"a061428 n = a061428_list !! (n-1)",
+				"a061428_list = g [1] where",
+				"   g ds = if product ds == 4 ^ length ds",
+				"          then foldr (\\d v -\u003e 10 * v + d) 0 ds : g (s ds) else g (s ds)",
+				"   s [] = [1]; s (8:ds) = 1 : s ds; s (d:ds) = 2*d : ds",
+				"-- _Reinhard Zumkeller_, Jan 13 2014"
+			],
+			"xref": [
+				"Cf. A061426-A061430.",
+				"Cf. A028846."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, May 03 2001",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), May 16 2001"
+			],
+			"references": 4,
+			"revision": 5,
+			"time": "2014-01-13T12:37:00-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61862,
+			"data": "0,1,2,3,4,5,6,7,8,9,24,43,63,89,132,135,153,175,209,224,226,254,258,262,263,264,267,283,332,333,334,347,357,370,371,372,373,374,375,376,377,378,379,407,445,463,472,518,538,598,629,635,653,675,730,731,732",
+			"name": "Powerful numbers (2a): a sum of nonnegative powers of its digits.",
+			"comment": [
+				"Zero digits cannot be used in the sum. - _N. J. A. Sloane_, Aug 31 2009"
+			],
+			"link": [
+				"D. Wilson, \u003ca href=\"/A061862/b061862.txt\"\u003eTable of n, a(n) for n=1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Pow#powerful\"\u003eIndex entries for sequences related to powerful numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"If n = d_1 d_2 ... d_k in decimal then there are integers m_1 m_2 ... m_k \u003e= 0 such that n = d_1^m_1 + ... + d_k^m_k."
+			],
+			"example": [
+				"43 = 4^2 + 3^3; 254 = 2^7 + 5^3 + 4^0 = 128 + 125 + 1.",
+				"209 = 2^7 + 9^2.",
+				"732 = 7^0 + 3^6 + 2^1."
+			],
+			"mathematica": [
+				"f[ n_ ] := Module[ {}, a=IntegerDigits[ n ]; e=g[ Length[ a ] ]; MemberQ[ Map[ Apply[ Plus, a^# ] \u0026, e ], n ] ] g[ n_ ] := Map[ Take[ Table[ 0, {n} ]~Join~#, -n ] \u0026, IntegerDigits[ Range[ 10^n ], 10 ] ] For[ n=0, n \u003e= 0, n++, If[ f[ n ], Print[ n ] ] ]"
+			],
+			"program": [
+				"(Haskell)",
+				"a061862 n = a061862_list !! (n-1)",
+				"a061862_list = filter f [0..] where",
+				"   f x = g x 0 where",
+				"     g 0 v = v == x",
+				"     g u v = if d \u003c= 1 then g u' (v + d) else v \u003c= x \u0026\u0026 h 1",
+				"             where h p = p \u003c= x \u0026\u0026 (g u' (v + p) || h (p * d))",
+				"                   (u', d) = divMod u 10",
+				"-- _Reinhard Zumkeller_, Jun 02 2013"
+			],
+			"xref": [
+				"Cf. A001694, A005934, A005188, A003321, A014576, A023052, A046074.",
+				"Different from A007532 and A134703, which are variations."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,3",
+			"author": "_Erich Friedman_, Jun 23 2001",
+			"references": 4,
+			"revision": 11,
+			"time": "2013-06-02T11:56:49-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61985,
+			"data": "0,1,2,3,4,6,7,8,11,12,15,19,20,21,27,32,36,37,47,48,54,64,65,80,85,92,112,113,114,135,150,158,193,199,200,228,263,264,273,329,350,351,387,457,464,474,558,614,615,616,661,787,815,826,946,1072,1073,1081,1136",
+			"name": "Values which can occur in sequence b(k) = 1 + b(floor(k/2)) + b(floor(k/3)) with b(0) = 0, i.e., in A061984.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061985/b061985.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = a(n-1) + C(A022328(n) + A022329(n), A022328(n)). - _David Wasserman_, Nov 17 2005"
+			],
+			"program": [
+				"(Haskell)",
+				"a061985 n = a061985_list !! n",
+				"a061985_list = f (-1) a061984_list where",
+				"   f u (v:vs) = if v == u then f u vs else v : f v vs",
+				"-- _Reinhard Zumkeller_, Jan 11 2014"
+			],
+			"xref": [
+				"Cf. A061984, A061986, A061987."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Henry Bottomley_, May 24 2001",
+			"references": 4,
+			"revision": 9,
+			"time": "2017-07-30T23:04:43-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

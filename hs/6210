@@ -1,0 +1,381 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6210,
+	"results": [
+		{
+			"number": 64654,
+			"data": "1,3,2,3,2,2,2,4,3,1,2,2,2,3,2,2,3,3,2,5,2,1,2,2,2,2,2,4,3,4,3,1,1,2,2,1,2,3,2,2,1,2,2,2,2,5,3,1,2,2,2,1,2,4,2,2,3,3,2,2,3,1,2,4,1,2,3,1,2,3,3,4,2,2,3,5,1,2,2,1,1,3,3,1,2,2,2,4,2,2,5,1,1,2,3,1,1,5,2,4,1,3,3,3,1,1",
+			"name": "Length of n-th run of evens or odds in A064413.",
+			"comment": [
+				"Also gives lengths of runs of zeros and ones in A195376."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A064654/b064654.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"J. C. Lagarias, E. M. Rains and N. J. A. Sloane, \u003ca href=\"http://arXiv.org/abs/math.NT/0204011\"\u003eThe EKG sequence\u003c/a\u003e, Exper. Math. 11 (2002), 437-446.",
+				"\u003ca href=\"/index/Ed#EKG\"\u003eIndex entries for sequences related to EKG sequence\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a064654 n = a064654_list !! (n-1)",
+				"a064654_list = map length $ group a195376_list",
+				"-- _Reinhard Zumkeller_, Sep 17 2001"
+			],
+			"xref": [
+				"Cf. A064413, A064655, A065656."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Oct 09 2001",
+			"ext": [
+				"More terms from _Matthew Conroy_, Oct 16 2001"
+			],
+			"references": 3,
+			"revision": 13,
+			"time": "2014-10-02T18:03:07-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64657,
+			"data": "1,1,1,1,2,4,8,12,10,5,2,2,13,12,26,13,3,9,14,11,11,25,12,26,13,13,27,27,26,4,2,6,34,10,60,5,28,53,22,62,25,24,22,25,22,51,38,25,28,3,26,53,16,53,27,63,26,4,10,12,86,57,42,79,24,36,25,38,56,32,85,23",
+			"name": "a(n)=a(|n-a(n-3)|)+a(|n-a(n-4)|) for n\u003e3, a(n)=1 otherwise.",
+			"comment": [
+				"The sequence is defined only for n \u003c= 866, see example. - _Reinhard Zumkeller_, Jul 21 2012",
+				"Sequence A064552 is defined in terms of this one. It is not immediate to see whether the sequence really is undefined or rather only implicitely defined for n\u003e866. [It seems a priori conceivable to me that the given relation might be satisfied for a unique choice of all a(n).] - _M. F. Hasler_, Aug 28 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A064657/b064657.txt\"\u003efull Table of n, a(n) for n = 0..866\u003c/a\u003e"
+			],
+			"example": [
+				"Last term: a(866) = a(|866 - a(866-3)|) + a(|866 - a(866-4)|) = a(|866 - a(863)|) + a(|866 - a(862)|) = a(|866 - 718|) + a(|866 - 88|) = a(148) + a(778) = 28 + 655 = 683,",
+				"but a(867) = a(|867 - a(867-3)|) + a(|867 - a(867-4)|) = a(|867 - a(864)|) + a(|867 - a(863)|) =  a(|867 - 2546|) + a(|867 - 718|) = a(1679) + a(149) = undefined + 112 = undefined."
+			],
+			"program": [
+				"(Haskell)",
+				"a064657 n = a064657_list !! n",
+				"a064657_list = map fromJust $ takeWhile (/= Nothing) zs where",
+				"  z n = fromJust $ zs !! n",
+				"  zs = (map Just [1,1,1,1]) ++ f 4 where",
+				"     f x = y : f (x + 1) where",
+				"       y | 2*x \u003c max i3 i4 = Nothing",
+				"         | otherwise       = Just $ z (abs (x - i3)) + z (abs (x - i4))",
+				"         where i3 = z (x - 3); i4 = z (x - 4)",
+				"b064657 = bFile' \"A064657\" a064657_list 0 -- (0.03 secs, 3184228 bytes)",
+				"-- _Reinhard Zumkeller_, Jul 21 2012",
+				"(PARI) A064657_vec=[1,1,1]; A064657(n)={n\u003c4 \u0026 return(1);",
+				"#A064657_vec\u003cn \u0026 A064657_vec=concat(A064657_vec, vector(n-#A064657_vec)); A064657_vec[n] \u0026 return(A064657_vec[n]); A064657_vec[n]=A064657(abs(A064657(n-3)-n))+A064657(abs(A064657(n-4)-n))} \\\\ - _M. F. Hasler_, Aug 28 2012"
+			],
+			"keyword": "nonn,fini",
+			"offset": "0,5",
+			"author": "_Roger L. Bagula_, Oct 08 2001",
+			"ext": [
+				"More terms from _Vladeta Jovovic_, Oct 09, 2001",
+				"Keyword fini added by _Reinhard Zumkeller_, Jul 21 2012"
+			],
+			"references": 3,
+			"revision": 19,
+			"time": "2017-01-21T10:44:25-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64702,
+			"data": "0,1,2,3,4,5,6,7,8,9,22,123,132,137,139,168,173,179,186,188,193,197,213,231,233,267,276,299,312,317,319,321,323,332,346,364,371,389,391,398,436,463,618,627,634,643,672,681,713,719,726,731,762,791,816,818,839",
+			"name": "Nonnegative numbers such that additive and multiplicative digital roots coincide.",
+			"comment": [
+				"If k is in this sequence then all permutations of (the digits of) k are in this sequence.",
+				"A010888(a(n)) = A031347(a(n)). - _Reinhard Zumkeller_, Jul 10 2013"
+			],
+			"link": [
+				"Nathaniel Johnston, \u003ca href=\"/A064702/b064702.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/DigitalRoot.html\"\u003eDigital Root\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/MultiplicativeDigitalRoot.html\"\u003eMultiplicative Digital Root\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Digital_root\"\u003eDigital root\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Multiplicative_digital_root\"\u003eMultiplicative digital root\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"maple": [
+				"A007954 := proc(n) return mul(d, d=convert(n,base,10)): end: A031347 := proc(n) local m: m:=n: while(length(m)\u003e1)do m:=A007954(m): od: return m: end: A064702 := proc(n) option remember: local k: if(n=1)then return 1:fi: for k from procname(n-1)+1 do if(A031347(k)-1 = (k-1) mod 9)then return k: fi: od: end: seq(A064702(n),n=1..56); # _Nathaniel Johnston_, May 04 2011"
+			],
+			"mathematica": [
+				"okQ[n_]:=NestWhile[Times@@IntegerDigits[#]\u0026,n,#\u003e9\u0026]== NestWhile[ Total[ IntegerDigits[#]]\u0026, n,#\u003e9\u0026]; Select[Range[1000],okQ]  (* _Harvey P. Dale_, Apr 20 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a064702 n = a064702_list !! (n-1)",
+				"a064702_list = filter (\\x -\u003e a010888 x == a031347 x) [1..]",
+				"-- _Reinhard Zumkeller_, Jul 10 2013",
+				"(PARI) is(n) = my(cn = n); while(cn \u003e 9, d = digits(cn); cn = prod(i = 1, #d, d[i])); cn - 1 == (n-1)%9 \\\\ _David A. Corneth_, Aug 23 2018"
+			],
+			"xref": [
+				"Cf. A010888, A031347."
+			],
+			"keyword": "easy,nice,nonn,base",
+			"offset": "1,3",
+			"author": "_Santi Spadaro_, Oct 12 2001",
+			"ext": [
+				"Definition rephrased by _Reinhard Zumkeller_, Jul 10 2013",
+				"Initial 0 added by _Halfdan Skjerning_, Aug 21 2018"
+			],
+			"references": 3,
+			"revision": 33,
+			"time": "2018-09-14T04:57:55-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64823,
+			"data": "1,1,1,2,1,1,1,1,2,2,3,1,2,1,3,3,2,4,2,2,2,3,3,3,5,6,3,7,4,2,4,4,1,5,4,5,4,3,5,3,4,4,6,8,7,8,9,4,5,5,2,6,6,6,3,9,5,5,10,6,7,7,11,7,10,4,6,7,6,5,8,5,6,8,8,7,9,6,9,12,13,10,8,10,11,7,11,9,12,11,8,12,10,12,7,8,7",
+			"name": "Number of indices 1 \u003c= i \u003c= n with A000796(i)=A000796(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A064823/b064823.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ph#Pi314\"\u003eIndex entries for sequences related to the number Pi\u003c/a\u003e"
+			],
+			"mathematica": [
+				"terms = 100; Clear[cnt]; cnt[_] = n = 0;",
+				"Do[a[++n] = ++cnt[k], {k, RealDigits[Pi, 10, terms][[1]]}];",
+				"a /@ Range[terms] (* _Jean-François Alcover_, Nov 15 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a064823_list = f a000796_list $ replicate 10 0 where",
+				"   f (d:ds) cs = (v + 1) : f ds (us ++ (v + 1) : vs) where",
+				"     (us, v:vs) = splitAt d cs",
+				"-- _Reinhard Zumkeller_, Jul 14 2013"
+			],
+			"xref": [
+				"A000796 is the sequence of decimal digits of Pi."
+			],
+			"keyword": "base,nonn,changed",
+			"offset": "1,4",
+			"author": "Klaus Strassburger (strass(AT)ddfi.uni-duesseldorf.de), Oct 23 2001",
+			"references": 3,
+			"revision": 8,
+			"time": "2019-11-15T10:45:48-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64944,
+			"data": "1,5,7,17,11,38,15,49,34,60,23,132,27,82,82,129,35,191,39,207,112,126,47,384,86,148,142,283,59,469,63,321,172,192,172,666,75,214,202,597,83,640,87,435,403,258,95,1016,162,485,262,511,107,812,264,813,292,324",
+			"name": "a(n) = Sum_{i|n, j|n, j \u003e= i} j.",
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A064944/b064944.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{i=1..tau(n)} i*d_i, where {d_i}, i=1..tau(n) is the increasing sequence of divisors of n.",
+				"a(n) = Sum_{i=1..A000005(n)} i*A027750(n, i). - _Michel Marcus_, Jun 10 2015"
+			],
+			"example": [
+				"a(6) = max(1,1)+max(1,2)+max(1,3)+max(1,6)+max(2,2)+max(2,3)+max(2,6)+max(3,3)+max(3,6)+max(6,6)=38, or a(6) = dot_product(1,2,3,4)*(1,2,3,6)=1*1+2*2+3*3+4*6=38."
+			],
+			"maple": [
+				"with(numtheory): seq(add(i*sort(convert(divisors(n),'list'))[i],i=1..tau(n)), n=1..200);"
+			],
+			"program": [
+				"(PARI) { for (n=1, 1000, d=divisors(n); a=sum(i=1, length(d), i*d[i]); write(\"b064944.txt\", n, \" \", a) ) } \\\\ _Harry J. Smith_, Sep 30 2009",
+				"(Haskell)",
+				"a064944 = sum . zipWith (*) [1..] . a027750_row'",
+				"-- _Reinhard Zumkeller_, Jul 14 2015"
+			],
+			"xref": [
+				"Cf. A000005, A060640, A064945.",
+				"Cf. A027750."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Vladeta Jovovic_, Oct 28 2001",
+			"references": 3,
+			"revision": 16,
+			"time": "2015-07-14T03:36:19-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65003,
+			"data": "1,2,3,4,5,7,8,10,11,13,14,16,17,19,22,23,25,28,31,34,37,43",
+			"name": "Not McNugget numbers.",
+			"comment": [
+				"A McNugget number has the form 6x + 9y + 20z for nonnegative integers x, y, z.",
+				"A214772(a(n)) = 0. - _Reinhard Zumkeller_, Jul 28 2012"
+			],
+			"reference": [
+				"Eric Weisstein, Concise Encyclopedia of Mathematics, p. 1151."
+			],
+			"link": [
+				"Scott Chapman, Christopher O'Neill, \u003ca href=\"https://arxiv.org/abs/1709.01606\"\u003eFactoring in the Chicken McNugget monoid\u003c/a\u003e, arXiv:1709.01606 [math.AC], 2017.",
+				"James Grime and Brady Haran, \u003ca href=\"http://www.youtube.com/watch?v=vNTSugyS038\"\u003eHow to order 43 Chicken McNuggets\u003c/a\u003e, Numberphile video (2012)",
+				"C. U. Jensen, A. Thorup, \u003ca href=\"https://doi.org/10.1016/j.jpaa.2014.05.013\"\u003eGorenstein orders\u003c/a\u003e, Journal of Pure and Applied Algebra, Volume 219, Issue 3, March 2015, Pages 551-562. See Example 7.1. - _N. J. A. Sloane_, Jul 22 2014",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/McNuggetNumber.html\"\u003eMcNugget Numbers\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Coin_problem\"\u003eCoin problem\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[43], Length@FrobeniusSolve[{6, 9, 20}, #] == 0 \u0026] (* _Arkadiusz Wesolowski_, Feb 20 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a065003 n = a065003_list !! n",
+				"a065003_list = elemIndices 0 $ map a214772 [0..43]",
+				"-- _Reinhard Zumkeller_, Jul 28 2012",
+				"(PARI) is(n)=forstep(k=n,6,-20,if(k%3==0, return(0)));n%20\u003e0 \\\\ _Charles R Greathouse IV_, May 05 2013"
+			],
+			"xref": [
+				"Cf. A214777 (complement)."
+			],
+			"keyword": "easy,fini,full,nonn",
+			"offset": "1,2",
+			"author": "Karl Sabbagh (karl.sabbagh(AT)btinternet.com), Nov 01 2001",
+			"references": 3,
+			"revision": 25,
+			"time": "2018-06-16T15:56:38-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65037,
+			"data": "1,2,3,5,7,4,9,6,11,8,13,15,17,10,19,21,23,12,25,27,29,14,31,16,33,18,35,37,39,20,41,22,43,24,45,47,49,26,51,28,53,30,55,57,59,32,61,63,65,34,67,69,71,36,73,38,75,40,77,79,81,42,83,85,87,44,89,91,93,46,95,48",
+			"name": "Inverse permutation to A036552.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A065037/b065037.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(2n+1) - a(2n-1) = 2*A091297(2n-1) + 2 . - _Philippe Deléham_, Feb 24 2004",
+				"a(2n) \u003c a(2n+2) if a(2n+1) - a(2n-1) = 2; a(2n) \u003e a(2n+2) if a(2n+1) - a(2n-1) = 4. a(n) = a(n+1) - 2 = a(n-1) + 2 iff n = 2*A036554(k) = 4*A003159(k) = A056196(k)/2. - _Philippe Deléham_, Feb 24 2004"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a065037 = (+ 1) . fromJust . (`elemIndex` a036552_list)",
+				"-- _Reinhard Zumkeller_, Jan 08 2013"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Nov 05 2001",
+			"ext": [
+				"More terms from _Naohiro Nomoto_, Nov 22 2001"
+			],
+			"references": 3,
+			"revision": 15,
+			"time": "2013-07-13T12:02:41-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65307,
+			"data": "1,2,3,4,5,6,7,9,8,10,11,12,13,15,14,16,17,18,19,24,20,21,25,22,26,29,23,27,28,33,30,31,34,35,32,41,36,38,37,39,40,42,43,51,44,45,52,46,48,53,47,54,58,49,55,67,50,56,57,62,59,60,63,64,61,74,65,68,66,69,70,79",
+			"name": "\"Inverse\" to A065306.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A065307/b065307.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a065307 n = (fromJust $ elemIndex n a065306_list) + 1",
+				"-- _Reinhard Zumkeller_, Jan 30 2012"
+			],
+			"xref": [
+				"A065305, A065306.",
+				"Cf. A205666 (fixed points)."
+			],
+			"keyword": "nice,nonn",
+			"offset": "1,2",
+			"author": "Klaus Strassburger (strass(AT)ddfi.uni-duesseldorf.de), Oct 29 2001",
+			"references": 3,
+			"revision": 11,
+			"time": "2014-08-11T22:45:21-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65422,
+			"data": "1,1,2,6,24,120,20,140,1120,10080,1008,11088,77,1001,14014,210210,3363360,57177120,1029188160,19554575040,977728752,2217072,100776,2317848,96577,2414425,62775050,1694926350,47457937800,1376280196200",
+			"name": "If n|a(n) then a(n+1) = a(n)/(highest power of n that divides a(n)), otherwise a(n+1) = n*a(n); a(0) = 1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A065422/b065422.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rea#Recaman\"\u003eIndex entries for sequences related to Recamán's sequence\u003c/a\u003e"
+			],
+			"mathematica": [
+				"nxt[{n_,a_}]:={n+1,If[Divisible[a,n],a/n^IntegerExponent[a,n],a*n]}; Join[ {1,1},Transpose[NestList[nxt,{3,2},30]][[2]]] (* _Harvey P. Dale_, Jan 08 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a065422 n = a065422_list !! n",
+				"a065422_list = 1 : 1 : f 2 1 where",
+				"   f n x = x' : f (n+1) x' where",
+				"       x' | x `mod` n == 0 = until ((\u003e 0) . (`mod` n)) (`div` n) x",
+				"          | otherwise      = x * n",
+				"-- _Reinhard Zumkeller_, Oct 10 2011"
+			],
+			"xref": [
+				"See A008336 for another version. Cf. A005132."
+			],
+			"keyword": "easy,nonn,nice,look",
+			"offset": "0,3",
+			"author": "_Naohiro Nomoto_, Nov 23 2001",
+			"ext": [
+				"Definition and offset corrected by _Reinhard Zumkeller_, Oct 10 2011",
+				"Typo in Crossrefs fixed by _Paul Tek_, Aug 01 2015"
+			],
+			"references": 3,
+			"revision": 33,
+			"time": "2015-08-04T04:30:31-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65602,
+			"data": "1,1,1,3,2,1,8,6,3,1,24,18,10,4,1,75,57,33,15,5,1,243,186,111,54,21,6,1,808,622,379,193,82,28,7,1,2742,2120,1312,690,311,118,36,8,1,9458,7338,4596,2476,1164,474,163,45,9,1,33062,25724,16266,8928,4332,1856,692,218",
+			"name": "Triangle T(n,k) giving number of hill-free Dyck paths of length 2n and having height of first peak equal to k.",
+			"comment": [
+				"A Riordan triangle.",
+				"Subtriangle of triangle in A167772. [_Philippe Deléham_, Nov 14 2009]",
+				"Riordan array (f(x), x*g(x)) where f(x) is the g.f. of A000958 and g(x) is the g.f. of A000108. [_Philippe Deléham_, Jan 23 2010]",
+				"T(n,k) = A167772(n-1,k-1), k=2..n. - _Reinhard Zumkeller_, May 15 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A065602/b065602.txt\"\u003eRows n=2..125 of triangle, flattened\u003c/a\u003e",
+				"E. Deutsch and L. Shapiro, \u003ca href=\"https://doi.org/10.1016/S0012-365X(01)00121-2\"\u003eA survey of the Fine numbers\u003c/a\u003e, Discrete Math., 241 (2001), 241-265."
+			],
+			"formula": [
+				"T(n, k)= sum((k-1+2j)*binomial(2n-k-1-2j, n-1)/(2n-k-1-2j), j=0..floor((n-k)/2)). G.f.=t^2*z^2*C/[(1-z^2*C^2)(1-tzC)], where C=(1-sqrt(1-4z))/(2z) is the Catalan function. - _Emeric Deutsch_, Feb 23 2004"
+			],
+			"example": [
+				"Example: T(3,2)=1 reflecting the unique Dyck path (UUDUDD) of length 6, with no hills and height of first peak equal to 2.",
+				"Triangle begins:",
+				"  1;",
+				"  1,1;",
+				"  3,2,1;",
+				"  8,6,3,1;",
+				"  ..."
+			],
+			"maple": [
+				"a := proc(n,k) if n=0 and k=0 then 1 elif k\u003c2 or k\u003en then 0 else sum((k-1+2*j)*binomial(2*n-k-1-2*j,n-1)/(2*n-k-1-2*j),j=0..floor((n-k)/2)) fi end: seq(seq(a(n,k),k=2..n),n=1..14);"
+			],
+			"mathematica": [
+				"nmax = 12; t[n_, k_] := Sum[(k-1+2j)*Binomial[2n-k-1-2j, n-1] / (2n-k-1-2j), {j, 0, (n-k)/2}]; Flatten[ Table[t[n, k], {n, 2, nmax}, {k, 2, n}]] (* _Jean-François Alcover_, Nov 08 2011, after Maple *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a065602 n k = sum",
+				"   [(k-1+2*j) * a007318' (2*n-k-1-2*j) (n-1) `div` (2*n-k-1-2*j) |",
+				"    j \u003c- [0 .. div (n-k) 2]]",
+				"a065602_row n = map (a065602 n) [2..n]",
+				"a065602_tabl = map a065602_row [2..]",
+				"-- _Reinhard Zumkeller_, May 15 2014"
+			],
+			"xref": [
+				"Row sums give A000957 (the Fine sequence). First column is A000958.",
+				"Cf. A007318."
+			],
+			"keyword": "nonn,tabl,easy,nice",
+			"offset": "2,4",
+			"author": "_N. J. A. Sloane_, Dec 02 2001",
+			"ext": [
+				"More terms from _Emeric Deutsch_, Feb 23 2004"
+			],
+			"references": 3,
+			"revision": 21,
+			"time": "2019-04-06T09:29:48-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,454 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3690,
+	"results": [
+		{
+			"number": 259730,
+			"data": "3,5,7,11,13,23,37,43,53,67,71,113,127,137,167,181,191,193,211,251,263,331,347,373,431,433,443,461,487,587,727,751,757,907,991,1021,1091,1103,1171,1187,1213,1231,1297,1367,1453,1483,1597,1637,1663,1667,1733",
+			"name": "Primes p such that both 2*p - 3 and 3*p - 2 are prime.",
+			"comment": [
+				"A010051(2*a(n) - 3) * A010051(3*a(n) - 2) = 1;",
+				"A259758(n) = (2*a(n) - 3) * (3*a(n) - 2).",
+				"Except for a(1)=3 this is the same sequence as primes p such that A288814(3*p) - A288814(2*p) = 5. - _David James Sycamore_, Jul 22 2017",
+				"Furthermore, (A288814(3*p)*A288814(2*p))/6 belongs to A259758. - _David James Sycamore_, Jul 23 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A259730/b259730.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Prime@ Range@ 270, Times @@ Boole@ Map[PrimeQ, {2 # - 3, 3 # - 2}] \u003e 0 \u0026] (* _Michael De Vlieger_, Jul 22 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List.Ordered (isect)",
+				"a259730 n = a259730_list !! (n-1)",
+				"a259730_list = a063908_list `isect` a088878_list",
+				"(PARI) lista(nn) = forprime(p=3, nn, if(isprime(2*p-3) \u0026\u0026 isprime(3*p-2), print1(p, \", \"))); \\\\ _Altug Alkan_, Jul 22 2017"
+			],
+			"xref": [
+				"Intersection of A063908 and A088878; A172287, A259758.",
+				"Cf. A288814, A259758."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 05 2015",
+			"references": 8,
+			"revision": 24,
+			"time": "2017-07-24T12:55:28-04:00",
+			"created": "2015-07-05T14:50:10-04:00"
+		},
+		{
+			"number": 260682,
+			"data": "1,7,13,19,25,31,37,43,49,61,67,73,79,91,97,103,109,121,127,133,139,151,157,163,169,175,181,193,199,211,217,223,229,241,247,259,271,277,283,289,301,307,313,325,331,337,343,349,361,367,373,379,397,403,409,421,427,433,439,457,463,469,475,481,487,499",
+			"name": "Löschian numbers (A003136) of the form 6*k+1.",
+			"comment": [
+				"Odd terms of A202822, which lists Löschian numbers of the form 3*k+1. - _Altug Alkan_, Nov 15 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A260682/b260682.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Joerg Arndt, \u003ca href=\"https://arxiv.org/abs/1607.02433\"\u003ePlane-filling curves on all uniform grids\u003c/a\u003e, arXiv preprint arXiv:1607.02433 [math.CO], 2016."
+			],
+			"mathematica": [
+				"nn = 25; Select[Union[Flatten[Table[x^2 + x*y + y^2, {x, 0, nn}, {y, 0, x}]]], Mod[#, 6] == 1 \u0026\u0026 # \u003c= nn^2\u0026] (* _Jean-François Alcover_, Jul 21 2018, after _T. D. Noe_ *)"
+			],
+			"program": [
+				"(PARI) is(n)=(n%6==1)\u0026\u0026#bnfisintnorm(bnfinit(z^2+z+1), n);",
+				"select(n-\u003eis(n), vector(500,j,j))",
+				"(PARI) x='x+O('x^500); p=eta(x)^3/eta(x^3); for(n=0, 499, if(polcoeff(p, n) != 0 \u0026\u0026 n%6==1, print1(n, \", \"))) \\\\ _Altug Alkan_, Nov 15 2015",
+				"(PARI) isok(n) = if( n\u003c1 || (n%3 == 0), 0, 0 != sumdiv( n, d, kronecker( -3, d))) \u0026\u0026 n%2==1;",
+				"for(n=0, 500, if(isok(n), print1(n\", \"))) \\\\ _Altug Alkan_, Nov 15 2015",
+				"(PARI) list(lim)=my(v=List(), y, t); for(x=0, sqrtint(lim\\3), my(y=x, t); while((t=x^2+x*y+y^2)\u003c=lim, if(t%6==1, listput(v, t)); y++)); Set(v) \\\\ _Charles R Greathouse IV_, Jul 05 2017",
+				"(Haskell)",
+				"a260682 n = a260682_list !! (n-1)",
+				"a260682_list = filter ((== 1) . flip mod 6) a003136_list",
+				"-- _Reinhard Zumkeller_, Nov 16 2015"
+			],
+			"xref": [
+				"Cf. A003136, A016921, A202822."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Joerg Arndt_, Nov 15 2015",
+			"references": 8,
+			"revision": 35,
+			"time": "2018-07-21T08:28:31-04:00",
+			"created": "2015-11-16T08:10:04-05:00"
+		},
+		{
+			"number": 261922,
+			"data": "1,0,3,0,3,3,4,0,3,3,3,4,5,4,4,0,3,3,3,5,3,3,4,4,5,5,4,4,5,4,4,0,3,3,3,5,3,3,5,5,3,3,3,4,7,4,4,4,5,5,5,5,7,4,4,4,5,5,4,4,5,4,4,0,3,3,3,5,3,3,5,5,3,3,3,6,5,7,5,5,3,3,3,6,3,3,4,4,7,7,4,4,8,4,4,4,5,5,5,5,5,7",
+			"name": "a(n) = smallest nonnegative number that is not a substring of n in its binary representation.",
+			"comment": [
+				"a(A062289(n))=A261461(A062289(n)); a(A126646(n))!=A261461(A126646(n)). - _Reinhard Zumkeller_, Sep 17 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261922/b261922.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a261922 x = f a030308_tabf where",
+				"   f (cs:css) = if isInfixOf cs (a030308_row x)",
+				"                   then f css else foldr (\\d v -\u003e 2 * v + d) 0 cs",
+				"-- _Reinhard Zumkeller_, Sep 17 2015"
+			],
+			"xref": [
+				"Similar to A261461.",
+				"Cf. A007088, A030308, A062289, A126646, A262281."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Sep 16 2015",
+			"references": 8,
+			"revision": 10,
+			"time": "2015-09-17T19:46:56-04:00",
+			"created": "2015-09-16T21:32:10-04:00"
+		},
+		{
+			"number": 263017,
+			"data": "1,2,1,3,2,3,1,4,4,5,2,6,3,4,1,5,7,8,5,9,6,7,2,10,8,9,3,10,4,5,1,6,11,12,11,13,12,13,6,14,14,15,7,16,8,9,2,15,17,18,10,19,11,12,3,20,13,14,4,15,5,6,1,7,16,17,21,18,22,23,16,19,24,25,17",
+			"name": "n is the a(n)-th positive integer having its binary weight.",
+			"comment": [
+				"Binary weight is given by A000120.",
+				"a(2^k) = k+1 for any k\u003e=0.",
+				"a(2^k-1) = 1 for any k\u003e0.",
+				"a(A057168(k)) = a(k)+1 for any k\u003e0.",
+				"a(A036563(k+1)) = k for any k\u003e0.",
+				"Ordinal transform of A000120. - _Alois P. Heinz_, Dec 23 2018"
+			],
+			"link": [
+				"Paul Tek, \u003ca href=\"/A263017/b263017.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Paul Tek, \u003ca href=\"/A263017/a263017.pl.txt\"\u003ePERL program for this sequence\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 1 + A068076(n). - _Antti Karttunen_, May 22 2017"
+			],
+			"example": [
+				"The numbers with binary weight 3 are: 7, 11, 13, 14, 19, ...",
+				"Hence: a(7)=1, a(11)=2, a(13)=3, a(14)=4, a(19)=5, ...",
+				"And more generally: a(A014311(k))=k for any k\u003e0."
+			],
+			"maple": [
+				"a:= proc() option remember; local a, b, t; b, a:=",
+				"      proc() 0 end, proc(n) option remember; a(n-1);",
+				"        t:= add(i, i=convert(n, base, 2)); b(t):= b(t)+1",
+				"      end; a(0):=0; a",
+				"    end():",
+				"seq(a(n), n=1..120);  # _Alois P. Heinz_, Dec 23 2018"
+			],
+			"program": [
+				"(Perl) See Links section.",
+				"(Haskell)",
+				"import Data.IntMap (empty, findWithDefault, insert)",
+				"a263017 n = a263017_list !! (n-1)",
+				"a263017_list = f 1 empty where",
+				"   f x m = y : f (x + 1) (insert h (y + 1) m) where",
+				"           y = findWithDefault 1 h m",
+				"           h = a000120 x",
+				"-- _Reinhard Zumkeller_, Oct 09 2015",
+				"(Python)",
+				"def a(n):",
+				"    x=bin(n)[2:].count(\"1\")",
+				"    return sum([1 for i in xrange(n) if bin(i)[2:].count(\"1\")==x]) # _Indranil Ghosh_, May 24 2017"
+			],
+			"xref": [
+				"One more than A068076.",
+				"Cf. A000120, A036563, A057168, A254524, A286478, A286552, A286554, A286558.",
+				"Cf. A263109, A263110."
+			],
+			"keyword": "nonn,look,base",
+			"offset": "1,2",
+			"author": "_Paul Tek_, Oct 07 2015",
+			"references": 8,
+			"revision": 29,
+			"time": "2018-12-23T14:46:06-05:00",
+			"created": "2015-10-08T15:44:55-04:00"
+		},
+		{
+			"number": 269347,
+			"data": "1,1,3,3,3,15,3,3,30,3,3,51,3,3,84,3,3,111,3,3,150,3,3,195,3,3,246,3,3,318,3,3,366,3,3,435,3,3,510,3,3,591,3,3,684,3,3,771,3,3,882,3,3,975,3,3,1086,3,3,1218,3,3,1326,3,3,1455",
+			"name": "With a(1) = 1, a(n) is the sum of all 0 \u003c m \u003c n for which a(m) divides n.",
+			"comment": [
+				"For n \u003e 2, I can prove that a(n) = 3 if 3 does not divide n, and in general, 3 divides a(n).",
+				"The base case is a(3) = 3. Suppose that the results hold for a(n) over 3 \u003c n \u003c k; we will show that the results hold for a(k) also. In the case that 3 does not divide k, then a(k) = 3, since a(1) and a(2) divide k but no other previous term can. This proves the first claim.",
+				"Otherwise, if 3 does divide k, then a(m) divides k for each 0 \u003c m \u003c k not divisible by 3; these numbers can be divided into k/3 pairs so that the sum of each pair is congruent to 0 modulo 3 (for instance, 1 + 2 == 4 + 5 == 7 + 8 == ... == 0 (mod 3)). If a(m) divides k for some 0 \u003c m \u003c k divisible by 3, this m does not change the congruence class of the sum that forms a(k). Thus, a(k) == 0 (mod 3) as required to prove the second claim."
+			],
+			"link": [
+				"Alec Jones, \u003ca href=\"/A269347/b269347.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 1;",
+				"a(2) = 1 because a(1) divides 2;",
+				"a(3) = 3 because a(1) and a(2) divide 3: 1+2=3;",
+				"a(4) = 3 because a(1) and a(2) divide 4: 1+2=3;",
+				"a(5) = 3 because a(1) and a(2) divide 5: 1+2=3;",
+				"a(6) = 15 because a(1), a(2), a(3), a(4), and a(5) divide 6: 1+2+3+4+5=15."
+			],
+			"mathematica": [
+				"a = {1}; Do[AppendTo[a, Total@ Select[Range[n - 1], Divisible[n, a[[#]]] \u0026]], {n, 2, 66}]; a (* _Michael De Vlieger_, Mar 24 2016 *)"
+			],
+			"program": [
+				"(Java)",
+				"int[] terms = new int[1000];",
+				"terms[0] = 1;",
+				"for (int i = 1; i \u003c 1000; i++) {",
+				"     int count = 0;",
+				"     for (int j = 0; j \u003c i; j++) {",
+				"          if ((i + 1) % terms[j] == 0) {",
+				"               count = count + (j + 1);",
+				"          }",
+				"     }",
+				"     terms[i] = count;",
+				"}",
+				"(PARI) lista(nn) = {va = vector(nn); va[1] = 1; for (n=2, nn, va[n] = sum(k=1, n-1, k*((n % va[k])==0));); va;} \\\\ _Michel Marcus_, Feb 24 2016",
+				"(Ruby)",
+				"def a(n)",
+				"  seq = [1]",
+				"  (2..Float::INFINITY).each do |i|",
+				"    return seq.last[0...n].last if seq.length \u003e n",
+				"    indices = seq.each_index.select { |j| i % seq[j] == 0 }",
+				"    seq \u003c\u003c indices.map(\u0026:next).reduce(:+)",
+				"  end",
+				"end # _Peter Kagey_, Feb 25 2016",
+				"(Haskell)",
+				"a269347 1 = 1",
+				"a269347 n = genericIndex a269347_list (n - 1)",
+				"a269347_list = map a [1..] where",
+				"  a n = sum $ filter ((==) 0 . mod n . a269347) [1..n-1]",
+				"-- _Peter Kagey_, Jun 17 2016"
+			],
+			"xref": [
+				"Cf. A088167 which gives the number of m \u003c n for which a(m) divides n.",
+				"Cf. A271326, A271328."
+			],
+			"keyword": "easy,nonn,nice",
+			"offset": "1,3",
+			"author": "_Alec Jones_, Feb 24 2016",
+			"references": 8,
+			"revision": 37,
+			"time": "2016-06-20T17:07:08-04:00",
+			"created": "2016-04-04T00:16:13-04:00"
+		},
+		{
+			"number": 304,
+			"data": "2,3,6,18,108,1944,209952,408146688,85691213438976,34974584955819144511488,2997014624388697307377363936018956288,104819342594514896999066634490728502944926883876041385836544",
+			"name": "a(n) = a(n-1)*a(n-2).",
+			"comment": [
+				"A038500(a(n)) = A010098(n-2); for n \u003e 2: A006519(a(n)) = A000301(n-3); A001222(a(n)) = A000045(n-1). - _Reinhard Zumkeller_, Jul 06 2014"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000304/b000304.txt\"\u003eTable of n, a(n) for n = 2..18\u003c/a\u003e",
+				"Sergio Falcon, \u003ca href=\"http://dx.doi.org/10.1080/0020739031000158362\"\u003eFibonacci's multiplicative sequence\u003c/a\u003e, Int. J. Math. Edu. Sci. Technol. 34-2 (2003), 310-315. [_Sergio Falcon_, Nov 23 2009]"
+			],
+			"formula": [
+				"For n\u003e=4, a(n) = 2^A000045(n-3)*3^A000045(n-2). - _Benoit Cloitre_, Sep 26 2003",
+				"For n \u003e 2: a(n) = A000301(n-3) * A010098(n-2). - _Reinhard Zumkeller_, Jul 06 2014"
+			],
+			"maple": [
+				"A000304 := proc(n) option remember; if n \u003c=3 then n else A000304(n-1)*A000304(n-2); fi; end;",
+				"a[0]:=2: a[1]:=3: for n from 2 to 13 do a[n]:=a[n-1]*a[n-2] od: seq(a[n], n=0..10); # _Zerinvary Lajos_, Mar 19 2009"
+			],
+			"mathematica": [
+				"a=2;b=3;lst={a,b};Do[z=a*b;AppendTo[lst,z];a=b;b=z,{n,12}];lst (* _Vladimir Joseph Stephan Orlovsky_, Feb 17 2010 *)",
+				"t={2,3}; Do[AppendTo[t, t[[-1]]*t[[-2]]], {n,15}]; t (* _Vladimir Joseph Stephan Orlovsky_, Nov 23 2010 *)",
+				"nxt[{a_,b_}]:={b,a*b}; Transpose[NestList[nxt,{2,3},12]][[1]] (* _Harvey P. Dale_, Nov 16 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000304 n = a000304_list !! (n-2)",
+				"a000304_list = 2 : 3 : zipWith (*) a000304_list (tail a000304_list)",
+				"-- _Reinhard Zumkeller_, Jul 06 2014"
+			],
+			"xref": [
+				"Cf. A000045, A000301, A001222, A006519, A010098, A038500, A249406."
+			],
+			"keyword": "nonn",
+			"offset": "2,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Vladimir Joseph Stephan Orlovsky_, Feb 17 2010"
+			],
+			"references": 7,
+			"revision": 46,
+			"time": "2017-06-19T04:57:38-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 350,
+			"id": "M3935 N1619",
+			"data": "0,1,5,25,29,41,49,61,65,85,89,101,125,145,149,245,265,365,385,485,505,601,605,625,649,701,725,745,749,845,865,965,985,1105,1205,1249,1345,1445,1585,1685,1825,1925,2065,2165,2305,2405,2501,2545,2645,2785,2885",
+			"name": "Numbers n such that Fibonacci(n) ends with n.",
+			"comment": [
+				"Conjecture: Other than 1 and 5, there is no n such that Fibonacci(n) in binary ends with n in binary. The conjecture holds up to n=50000. - _Ralf Stephan_, Aug 21 2006",
+				"The conjecture for binary numbers holds for n \u003c 2^25. - _T. D. Noe_, May 14 2007",
+				"Conjecture is true. It is easy to prove (by induction on k) that if F(n) ends with n in binary, then n == 0, 1, or 5 modulo 3*2^k for any positive integer k, i.e., n must simply be equal to 0, 1, or 5. - _Max Alekseyev_, Jul 03 2009"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe and Alois P. Heinz, \u003ca href=\"/A000350/b000350.txt\"\u003eTable of n, a(n) for n = 1..1034\u003c/a\u003e (terms n = 1..803 from T. D. Noe)",
+				"G. R. Deily, \u003ca href=\"https://www.fq.math.ca/Scanned/4-2/deily.pdf\"\u003eTerminal Digit Coincidences Between Fibonacci Numbers and Their Indices\u003c/a\u003e, The Fibonacci Quarterly, 4.2 (1966) 151.",
+				"M. Dunton and R. E. Grimm, \u003ca href=\"http://www.fq.math.ca/Scanned/4-4/dunton.pdf\"\u003eFibonacci on Egyptian fractions\u003c/a\u003e, Fib. Quart., 4 (1966), 339-354.",
+				"D. A. Lind, \u003ca href=\"https://www.fq.math.ca/Scanned/5-2/lind.pdf\"\u003eExtended Computations of Terminal Digit Coincidences\u003c/a\u003e, Fibonacci Quarterly, 5.2 April 1967 pp. 183-184."
+			],
+			"example": [
+				"Fibonacci(25) = 75025 ends with 25."
+			],
+			"mathematica": [
+				"a=0;b=1;c=1;lst={}; Do[a=b;b=c;c=a+b;m=Floor[N[Log[10,n]]]+1; If[Mod[c,10^m]==n,AppendTo[lst,n]],{n,3,5000}]; Join[{0,1},lst] (* edited and changed by _Harvey P. Dale_, Sep 10 2011 *)",
+				"fnQ[n_]:=Mod[Fibonacci[n],10^IntegerLength[n]]==n; Select[Range[ 0,2900],fnQ] (* _Harvey P. Dale_, Nov 03 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isSuffixOf, elemIndices)",
+				"import Data.Function (on)",
+				"a000350 n = a000350_list !! (n-1)",
+				"a000350_list = elemIndices True $",
+				"               zipWith (isSuffixOf `on` show) [0..] a000045_list",
+				"-- _Reinhard Zumkeller_, Apr 10 2012",
+				"(PARI) for(n=0,1e4,if(((Mod([1,1;1,0],10^#Str(n)))^n)[1,2]==n,print1(n\", \"))) \\\\ _Charles R Greathouse IV_, Apr 10 2012"
+			],
+			"xref": [
+				"Cf. A000045, A050816, A038546, A052000, A023172."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 7,
+			"revision": 51,
+			"time": "2019-06-08T17:59:56-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 738,
+			"data": "0,1,3,8,25,85,334,1497,7635,43738,278415,1949531,14893000,123254221,1098523231,10490117340,106851450165,1156403632189,13251409502982,160286076269309,2040825708462175,27283829950774822,382127363497453243,5595206208670390323",
+			"name": "Boustrophedon transform (first version) of Fibonacci numbers 0,1,1,2,3,...",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000738/b000738.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e.",
+				"J. Millar, N. J. A. Sloane, and N. E. Young, A new operation on sequences: the Boustrophedon transform, J. Combin. Theory Ser. A, 76(1) (1996), 44-54 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"J. Millar, N. J. A. Sloane, and N. E. Young, \u003ca href=\"https://doi.org/10.1006/jcta.1996.0087\"\u003eA new operation on sequences: the Boustrophedon transform\u003c/a\u003e, J. Combin. Theory Ser. A, 76(1) (1996), 44-54.",
+				"Ludwig Seidel, \u003ca href=\"https://babel.hathitrust.org/cgi/pt?id=hvd.32044092897461\u0026amp;view=1up\u0026amp;seq=175\"\u003eÜber eine einfache Entstehungsweise der Bernoulli'schen Zahlen und einiger verwandten Reihen\u003c/a\u003e, Sitzungsberichte der mathematisch-physikalischen Classe der königlich bayerischen Akademie der Wissenschaften zu München, volume 7 (1877), 157-187. [USA access only through the \u003ca href=\"https://www.hathitrust.org/accessibility\"\u003eHATHI TRUST Digital Library\u003c/a\u003e]",
+				"Ludwig Seidel, \u003ca href=\"https://www.zobodat.at/pdf/Sitz-Ber-Akad-Muenchen-math-Kl_1877_0157-0187.pdf\"\u003eÜber eine einfache Entstehungsweise der Bernoulli'schen Zahlen und einiger verwandten Reihen\u003c/a\u003e, Sitzungsberichte der mathematisch-physikalischen Classe der königlich bayerischen Akademie der Wissenschaften zu München, volume 7 (1877), 157-187. [Access through \u003ca href=\"https://de.wikipedia.org/wiki/ZOBODAT\"\u003eZOBODAT\u003c/a\u003e]",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e.",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"E.g.f.: (2/sqrt(5)) * exp(x/2) * sinh((sqrt(5)/2)*x) * (sin(x)+1) / cos(x). - _Alois P. Heinz_, Feb 08 2011",
+				"a(n) ~ 4*(exp(sqrt(5)*Pi/2)-1) * (2*n/Pi)^(n+1/2) * exp(Pi/4-n-sqrt(5)*Pi/4) / sqrt(5). - _Vaclav Kotesovec_, Oct 05 2013",
+				"a(n) = sum(A109449(n,k)*A000045(k): k=0..n). - _Reinhard Zumkeller_, Nov 03 2013"
+			],
+			"maple": [
+				"read(transforms);",
+				"with(combinat):",
+				"F:=fibonacci;",
+				"[seq(F(n),n=0..50)];",
+				"BOUS2(%);"
+			],
+			"mathematica": [
+				"FullSimplify[CoefficientList[Series[(2/Sqrt[5]) * E^(x/2) * (E^(Sqrt[5]/2*x)/2 - E^(-Sqrt[5]/2*x)/2) * (Sin[x]+1) / Cos[x], {x, 0, 20}], x]* Range[0, 20]!] (* _Vaclav Kotesovec_ after _Alois P. Heinz_, Oct 05 2013 *)",
+				"t[n_, 0] := Fibonacci[n]; t[n_, k_] := t[n, k] = t[n, k-1] + t[n-1, n-k]; a[n_] := t[n, n]; Array[a, 30, 0] (* _Jean-François Alcover_, Feb 12 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000738 n = sum $ zipWith (*) (a109449_row n) a000045_list",
+				"-- _Reinhard Zumkeller_, Nov 03 2013"
+			],
+			"xref": [
+				"Cf. A000045, A000687, A092073, A000744."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Entry revised by _N. J. A. Sloane_, Mar 16 2011"
+			],
+			"references": 7,
+			"revision": 49,
+			"time": "2019-10-13T02:21:39-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 747,
+			"data": "2,5,13,35,103,345,1325,5911,30067,172237,1096319,7677155,58648421,485377457,4326008691,41310343279,420783672791,4553946567241,52184383350787,631210595896453,8036822912123765,107444407853010597",
+			"name": "Boustrophedon transform of primes.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000747/b000747.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e.",
+				"J. Millar, N. J. A. Sloane, and N. E. Young, A new operation on sequences: the Boustrophedon on transform, J. Combin. Theory Ser. A, 76(1) (1996), 44-54 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"J. Millar, N. J. A. Sloane, and N. E. Young, \u003ca href=\"https://doi.org/10.1006/jcta.1996.0087\"\u003eA new operation on sequences: the Boustrophedon on transform\u003c/a\u003e, J. Combin. Theory Ser. A, 76(1) (1996), 44-54.",
+				"Ludwig Seidel, \u003ca href=\"https://babel.hathitrust.org/cgi/pt?id=hvd.32044092897461\u0026amp;view=1up\u0026amp;seq=175\"\u003eÜber eine einfache Entstehungsweise der Bernoulli'schen Zahlen und einiger verwandten Reihen\u003c/a\u003e, Sitzungsberichte der mathematisch-physikalischen Classe der königlich bayerischen Akademie der Wissenschaften zu München, volume 7 (1877), 157-187. [USA access only through the \u003ca href=\"https://www.hathitrust.org/accessibility\"\u003eHATHI TRUST Digital Library\u003c/a\u003e]",
+				"Ludwig Seidel, \u003ca href=\"https://www.zobodat.at/pdf/Sitz-Ber-Akad-Muenchen-math-Kl_1877_0157-0187.pdf\"\u003eÜber eine einfache Entstehungsweise der Bernoulli'schen Zahlen und einiger verwandten Reihen\u003c/a\u003e, Sitzungsberichte der mathematisch-physikalischen Classe der königlich bayerischen Akademie der Wissenschaften zu München, volume 7 (1877), 157-187. [Access through \u003ca href=\"https://de.wikipedia.org/wiki/ZOBODAT\"\u003eZOBODAT\u003c/a\u003e]",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e.",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum(A109449(n,k)*A000040(k+1): k=0..n). - _Reinhard Zumkeller_, Nov 03 2013",
+				"E.g.f.: (sec(x) + tan(x)) * Sum_{k\u003e=0} prime(k+1)*x^k/k!. - _Ilya Gutkovskiy_, Jun 26 2018"
+			],
+			"mathematica": [
+				"t[n_, 0] := Prime[n+1]; t[n_, k_] := t[n, k] = t[n, k-1] + t[n-1, n-k]; a[n_] := t[n, n]; Array[a, 30, 0] (* _Jean-François Alcover_, Feb 12 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000747 n = sum $ zipWith (*) (a109449_row n) a000040_list",
+				"-- _Reinhard Zumkeller_, Nov 03 2013"
+			],
+			"xref": [
+				"Cf. A230953, A230956, A230954, A230955."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 7,
+			"revision": 34,
+			"time": "2019-10-13T02:21:28-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 752,
+			"data": "1,3,9,28,93,338,1369,6238,31993,183618,1169229,8187598,62545893,517622498,4613366689,44054301358,448733127793,4856429646978,55650582121749,673136951045518,8570645832753693,114581094529057058,1604780986816602409,23497612049668468078",
+			"name": "Boustrophedon transform of powers of 2.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000752/b000752.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon on transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"E.g.f.: exp(2x) (tan x + sec x).",
+				"a(n) = sum(A109449(n,k)*2^k: k=0..n). - _Reinhard Zumkeller_, Nov 03 2013",
+				"G.f.: E(0)*x/(1-2*x)/(1-3*x) + 1/(1-2*x), where E(k) = 1 - x^2*(k+1)*(k+2)/(x^2*(k+1)*(k+2) - 2*(x*(k+3)-1)*(x*(k+4)-1)/E(k+1) ); (continued fraction). - _Sergei N. Gladkovskii_, Jan 16 2014",
+				"a(n) ~ n! * exp(Pi) * 2^(n+2) / Pi^(n+1). - _Vaclav Kotesovec_, Jun 12 2015"
+			],
+			"mathematica": [
+				"t[n_, 0] := 2^n; t[n_, k_] := t[n, k] = t[n, k - 1] + t[n - 1, n - k]; a[n_] := t[n, n]; Array[a, 30, 0] (* _Jean-François Alcover_, Feb 12 2016 *)",
+				"With[{nn=30},CoefficientList[Series[Exp[2x](Tan[ x]+Sec[x]),{x,0,nn}],x] Range[ 0,nn]!] (* _Harvey P. Dale_, Dec 15 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000752 n = sum $ zipWith (*) (a109449_row n) a000079_list",
+				"-- _Reinhard Zumkeller_, Nov 03 2013"
+			],
+			"xref": [
+				"Cf. A000079, A000734.",
+				"Column k=2 of A292975."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"references": 7,
+			"revision": 31,
+			"time": "2019-10-13T02:21:23-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

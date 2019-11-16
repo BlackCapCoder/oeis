@@ -1,0 +1,421 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4820,
+	"results": [
+		{
+			"number": 109682,
+			"data": "2,7,24,80,238,723,2183,5653,19674,59042,177145,531429,1594313,4782955,14348892,43046708,129140146,387420471,1162261451,3486784397,10460353182,31381059590,94143178804,282429536457,847288609421",
+			"name": "Numbers missing from A109681.",
+			"comment": [
+				"3^(n-1) \u003c a(n) \u003c 3^n. - _Reinhard Zumkeller_, Nov 19 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"-- import Data.List (delete)",
+				"a109682 n = a109682_list !! (n-1)",
+				"a109682_list = compl a109681_list [0..] where",
+				"   compl us'@(u:us) vs'@(v:vs)",
+				"       | u == v    = compl us vs",
+				"       | u \u003e 3 * v = v : compl us (delete u vs)",
+				"       | otherwise = compl us (delete u vs')",
+				"-- _Reinhard Zumkeller_, Nov 19 2013"
+			],
+			"xref": [
+				"Cf. A109681, A109683, also A109684 (ternary equivalents)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Philippe Deléham_, Aug 08 2005",
+			"references": 5,
+			"revision": 8,
+			"time": "2013-11-19T20:09:56-05:00",
+			"created": "2005-09-21T03:00:00-04:00"
+		},
+		{
+			"number": 110080,
+			"data": "1,3,6,11,2,16,29,10,32,4,39,70,31,75,27,80,20,87,17,94,9,97,176,91,183,81,188,77,193,73,198,57,203,50,206,38,209,28,216,22,223,12,226,417,222,422,219,435,202,440,199,445,190,448,177,455,169,462,166,469,161,472",
+			"name": "a(1) = 1; skipping over integers occurring earlier in the sequence, count down p(n) (p(n) = n-th prime) from a(n) to get a(n+1). If this is \u003c= 0, instead count up from a(n) p(n) positions (skipping already occurring integers) to get a(n+1).",
+			"comment": [
+				"If we did not skip earlier occurring integers when counting, we would instead have Cald's sequence (A006509)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A110080/b110080.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"The first 5 terms of the sequence can be plotted on the number line as:",
+				"1,2,3,*,*,6,*,*,*,*,11,*,*,*,*,*.",
+				"a(5) is 2. Counting p(5) = 11 down from 2 gets a negative integer. So we instead count up 11 positions, skipping the 3, 6 and 11 as we count, to arrive at 16 (which is at the rightmost * of the number line above).",
+				"Here is the calculation of the first 6 terms in more detail:",
+				"integers i : 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ...",
+				"i at n = ... : 1 5 2 . . 3 . . . .. .4 .. .. .. .. .6 ...",
+				"prime p used : - 7 2 . . 3 . . . .. .5 .. .. .. .. 11 ..."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, member, insert)",
+				"a110080 n = a110080_list !! (n-1)",
+				"a110080_list = 1 : f 1 a000040_list (singleton 1) where",
+				"   f x (p:ps) m = y : f y ps (insert y m) where",
+				"     y = g x p",
+				"     g 0 _ = h x p",
+				"     g u 0 = u",
+				"     g u v = g (u - 1) (if member (u - 1) m then v else v - 1)",
+				"     h u 0 = u",
+				"     h u v = h (u + 1) (if member (u + 1) m then v else v - 1)",
+				"-- _Reinhard Zumkeller_, Sep 02 2014"
+			],
+			"xref": [
+				"Cf. A091023, A091263, A006509, A111187 (inverse)."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Oct 12 2005",
+			"ext": [
+				"More terms from _Klaus Brockhaus_ and _Hans Havermann_, Oct 17 2005"
+			],
+			"references": 5,
+			"revision": 19,
+			"time": "2014-09-02T06:34:54-04:00",
+			"created": "2005-09-21T03:00:00-04:00"
+		},
+		{
+			"number": 110085,
+			"data": "1,6,10,12,18,20,24,30,36,42,60,66,70,78,84,90,102,105,110,114,120,126,130,132,138,140,150,154,156,165,168,170,174,180,182,186,190,195,198,204,210,220,222,228,230,231,234,238,240,246,252,255,258,260,264,266",
+			"name": "Numbers n such that sigma(n) - phi(n) \u003c tau(n)^omega(n), where sigma=A000203, phi=A000010, tau=A000005 and omega=A001221.",
+			"comment": [
+				"A051612(a(n)) \u003c A110088(a(n)); intersection of A018252 and A110086."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A110085/b110085.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(PARI) is(n)=sigma(n)-eulerphi(n)\u003cnumdiv(n)^omega(n) \\\\ _Charles R Greathouse IV_, Feb 14 2013",
+				"(Haskell)",
+				"a110085 n = a110085_list !! (n-1)",
+				"a110085_list = filter (\\x -\u003e a051612 x \u003c a110088 x) [1..]",
+				"-- _Reinhard Zumkeller_, Aug 05 2014"
+			],
+			"xref": [
+				"Cf. A110087."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 11 2005",
+			"references": 5,
+			"revision": 9,
+			"time": "2014-08-05T15:01:47-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 110170,
+			"data": "1,2,10,50,258,1362,7306,39650,217090,1196834,6634890,36949266,206549250,1158337650,6513914634,36718533570,207412854786,1173779487810,6653482333450,37770112857074,214694383882498,1221832400430482,6961037946938250,39697830840765090,226596964146630658",
+			"name": "First differences of the central Delannoy numbers (A001850).",
+			"comment": [
+				"Number of Delannoy paths of length n that do not start with a (1, 1) step (a Delannoy path of length n is a path from (0, 0) to (n, n), consisting of steps E = (1, 0), N = (0, 1) and D = (1, 1)). Example: a(1) = 2 because we have NE and EN. Column 0 of A110169 (also nonzero entries in each column of A110169).",
+				"For n \u003e 0: a(n) = A128966(2*n,n). - _Reinhard Zumkeller_, Jul 20 2013"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A110170/b110170.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e",
+				"Robert A. Sulanke, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL6/Sulanke/delannoy.html\"\u003eObjects Counted by the Central Delannoy Numbers\u003c/a\u003e, Journal of Integer Sequences, Volume 6, 2003, Article 03.1.5."
+			],
+			"formula": [
+				"G.f.: (1-z)/sqrt(1-6*z+z^2).",
+				"a(n) = P_n(3) - P_{n-1}(3) (n \u003e= 1), where P_j is j-th Legendre polynomial.",
+				"From _Paul Barry_, Oct 18 2009: (Start)",
+				"G.f.: (1-x)/(1-x-2x/(1-x-x/(1-x-x/(1-x-x/(1-... (continued fraction);",
+				"G.f.: 1/(1-2x/((1-x)^2-x/(1-x/((1-x)^2-x/(1-x/((1-x)^2-x/(1-... (continued fraction);",
+				"a(n) = sum{k = 0..n, (0^(n + k) + C(n + k - 1, 2k - 1)) * C(2k, k)} = 0^n + sum{k = 0..n, C(n + k - 1, 2k - 1) * C(2k, k)}. (End)",
+				"Recurrence: n*(2*n-3)*a(n) = 2*(6*n^2-12*n+5)*a(n-1) - (n-2)*(2*n-1)*a(n-2). - _Vaclav Kotesovec_, Oct 18 2012",
+				"a(n) ~ 2^(-1/4)*(3+2*sqrt(2))^n/sqrt(Pi*n). - _Vaclav Kotesovec_, Oct 18 2012",
+				"a(n) = A277919(2n,n). - _John P. McSorley_, Nov 23 2016",
+				"a(n) = 2*hypergeom([1 - n, -n], [1], 2) for n\u003e0. - _Peter Luschny_, May 22 2017"
+			],
+			"maple": [
+				"with(orthopoly): a:=proc(n) if n=0 then 1 else P(n,3)-P(n-1,3) fi end: seq(a(n),n=0..25);",
+				"a := n -\u003e `if`(n=0, 1, 2*hypergeom([1 - n, -n], [1], 2)):",
+				"seq(simplify(a(n)), n=0..24); # _Peter Luschny_, May 22 2017"
+			],
+			"mathematica": [
+				"CoefficientList[Series[(1 - x)/Sqrt[1 - 6 * x + x^2], {x, 0, 20}], x] (* _Vaclav Kotesovec_, Oct 18 2012 *)"
+			],
+			"program": [
+				"(PARI) x='x+O('x^66); Vec((1-x)/sqrt(1-6*x+x^2)) \\\\ _Joerg Arndt_, May 16 2013",
+				"(Haskell)",
+				"a110170 0 = 1",
+				"a110170 n = a128966 (2 * n) n  -- _Reinhard Zumkeller_, Jul 20 2013"
+			],
+			"xref": [
+				"Cf. A001850, A110169."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Emeric Deutsch_, Jul 14 2005",
+			"references": 5,
+			"revision": 38,
+			"time": "2017-05-22T10:17:00-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 110267,
+			"data": "1,4,7,13,17,26,31,43,50,62,73,87,99,118,131,153,168,187,207,231,252,275,298,326,352,379,405,438,468,502,533,572,598,637,666,712,744,788,826,871,918,959,1004,1053,1091,1146,1188,1239,1283,1336,1379,1438,1490",
+			"name": "Total number of black cells at the n first generations of a single black cell following Wolfram's Rule 30 cellular automaton.",
+			"comment": [
+				"At each generation, \"looking back\", one can see \"behind\", groups of black cells: total number of black cells (cumulative sum of n first terms of A070952)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A110267/b110267.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Rule30.html\"\u003eRule 30.\u003c/a\u003e",
+				"\u003ca href=\"/index/Ce#cell\"\u003eIndex entries for sequences related to cellular automata\u003c/a\u003e"
+			],
+			"example": [
+				"a(1)=1 because one black cell;",
+				"a(2)=4 because there are now 3 contiguous black cell connected to the first one, which form one only black surface of 4 cells;",
+				"a(3)=7 because appear three black cells: 4+3=7",
+				"From _Michael De Vlieger_, Dec 16 2015: (Start)",
+				"First 12 rows, replacing \"0\" with \".\" for better visibility of ON cells, followed by the total number of ON cells per row, and the running total up to that row:",
+				"                1                  =  1 -\u003e   1",
+				"              1 1 1                =  3 -\u003e   4",
+				"            1 1 . . 1              =  3 -\u003e   7",
+				"          1 1 . 1 1 1 1            =  6 -\u003e  13",
+				"        1 1 . . 1 . . . 1          =  4 -\u003e  17",
+				"      1 1 . 1 1 1 1 . 1 1 1        =  9 -\u003e  26",
+				"    1 1 . . 1 . . . . 1 . . 1      =  5 -\u003e  31",
+				"  1 1 . 1 1 1 1 . . 1 1 1 1 1 1    = 12 -\u003e  43",
+				"1 1 . . 1 . . . 1 1 1 . . . . . 1  =  7 -\u003e  50",
+				"(End)"
+			],
+			"mathematica": [
+				"Accumulate[Total /@ CellularAutomaton[30, {{1}, 0}, 52]] (* _Michael De Vlieger_, Dec 16 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a110267 n = a110267_list !! (n-1)",
+				"a110267_list = scanl1 (+) a070952_list",
+				"-- _Reinhard Zumkeller_, Jun 08 2013"
+			],
+			"xref": [
+				"Cf. A070950, A051023, A092539, A092540, A070952, A100053, A100054, A100055, A094603, A094604, A000225, A074890.",
+				"See A265704 for an essentially identical sequence."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_Alexandre Wajnberg_, Sep 06 2005",
+			"ext": [
+				"Offset changed by _Reinhard Zumkeller_, Jun 08 2013"
+			],
+			"references": 5,
+			"revision": 23,
+			"time": "2016-04-09T19:43:05-04:00",
+			"created": "2005-09-21T03:00:00-04:00"
+		},
+		{
+			"number": 111063,
+			"data": "1,1,3,9,31,129,651,3913,27399,219201,1972819,19728201,217010223,2604122689,33853594971,473950329609,7109254944151,113748079106433,1933717344809379,34806912206568841,661331331924807999,13226626638496160001,277759159408419360043",
+			"name": "a(0) = 1; a(n) = (n-1)*a(n-1) + n.",
+			"comment": [
+				"From _Frank Ruskey_, Nov 24 2009: (Start)",
+				"If the initial 1 were deleted, the recurrence relation becomes a(n) = n+1+n*a(n-1) with a(0) = 1. Furthermore, it can then be shown that a(n) is the number of nonempty subsets of binary strings with n 1's and 2 0's that are closed under the operation of replacing the leftmost 01 with 10. Taking the maximal elements under this relation,",
+				"a(2) = 9 = |{0011},{0101},{1001},{1010},{1100},{0110}, {0110,1001},{0101,0110},{0011,0110}|.",
+				"We also have the e.g.f. (1+x)/(1-x) e^x and the formula a(n) = -1 + 2*n!*sum_{j=0..n} 1/j!. (End)",
+				"a(n+1) = sum of n-th row in triangle A245334. - _Reinhard Zumkeller_, Aug 30 2014 [A-number corrected by _N. J. A. Sloane_, May 03 2017]",
+				"Eigensequence of triangle with (1, 2, 3,...) as the right and left borders and the rest zeros. - _Gary W. Adamson_, Aug 01 2016",
+				"The following remarks apply to the sequence without the initial term a(0) = 1: For k = 2,3,4,... the difference a(n+k) - a(n) is divisible by k. It follows that for each k the sequence a(n) taken modulo k is periodic with period dividing k. For example, modulo 10 the sequence becomes 1, 3, 9, 1, 9, 1, 3, 9, 1, 9, ... with period 5. Cf. A000522. - _Peter Bala_, Nov 19 2017"
+			],
+			"reference": [
+				"F. Drewes et al., Tight Bounds for Cut-Operations on Deterministic Finite Automata, in Lecture Notes in Computer Science, Volume 9288 2015, Machines, Computations, and Universality, 7th International Conference, MCU 2015, Famagusta, North Cyprus, September 9-11, 2015, Editors: Jerome Durand-Lose, Benedek Nagy, ISBN: 978-3-319-23110-5 (Print) 978-3-319-23111-2 (Online). [\"In the On-Line Encyclopedia of Integer Sequences (OEIS) this matches the sequence A111063.\"]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A111063/b111063.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = Sum_{k=0..2*n} C(n,floor(k/2))(n-floor(k/2))!. - _Paul Barry_, May 04 2007",
+				"a(n) = A030297(n)/n, n\u003e0.",
+				"a(n) = A007526(n) + A000522(n). - _Gary Detlefs_, Jun 10 2010",
+				"a(n) = 2*floor(e*n!) - 1, n\u003e1. - _Gary Detlefs_, Jun 10 2010",
+				"E.g.f.: exp(x)*(1+x)/(1-x), - _N. J. A. Sloane_, May 03 2017",
+				"a(n) ~ 2*sqrt(2*Pi)*exp(1)*n^n*sqrt(n)/exp(n). - _Ilya Gutkovskiy_, Aug 02 2016",
+				"a(n) = 2*exp(1)*GAMMA(n, 1) - 1 for n\u003e=1. - _Peter Luschny_, Nov 21 2017"
+			],
+			"maple": [
+				"a:=proc(n) option remember; if n=0 then RETURN(1); fi; (n-1)*a(n-1)+n; end;",
+				"# Alternatively:",
+				"a := n -\u003e `if`(n=0, 1, 2*exp(1)*GAMMA(n, 1) - 1):",
+				"seq(simplify(a(n)), n=0..22); # _Peter Luschny_, Nov 21 2017"
+			],
+			"mathematica": [
+				"FoldList[#1*#2 + #2 + 1 \u0026, 1, Range[21]] (* _Robert G. Wilson v_, Jul 07 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a111063 n = a111063_list !! n",
+				"a111063_list = 1 : zipWith (+) [1..] (zipWith (*) [0..] a111063_list)",
+				"-- _Reinhard Zumkeller_, Aug 30 2014"
+			],
+			"xref": [
+				"Cf. A000522, A007526, A030297, A245334, A240993."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Oct 08 2005",
+			"references": 5,
+			"revision": 47,
+			"time": "2017-11-21T12:26:55-05:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 111065,
+			"data": "0,69,96,609,906,6009,6699,6969,9006,9696,9966,60009,66099,69069,90006,96096,99066,600009,606909,609609,660099,666999,669699,690069,696969,699669,900006,906906,909606,960096,966996,969696,990066,996966,999666",
+			"name": "Numbers that look the same when rotated by 180°, using only digits 0, 6 and 9.",
+			"comment": [
+				"Strobogrammatic numbers (A000787) without digits 1 or 8.",
+				"Apparently this sequence and A006072 have the same parity. - Jeremy Gardiner, Oct 15 2005",
+				"There are no primes in this sequence because all terms are divisible by 3. _M. F. Hasler_, May 04 2012"
+			],
+			"mathematica": [
+				"fQ[n_] := Block[{s = {0, 6, 9}, id = IntegerDigits[n]}, If[ Union[ Join[s, id]] == s \u0026\u0026 (id /. {6 -\u003e 9, 9 -\u003e 6}) == Reverse[id], True, False]]; Select[ Range[0, 10^6], fQ[ # ] \u0026] (_Robert G. Wilson v_, Oct 11 2005)"
+			],
+			"program": [
+				"{-Haskell-} main=print$\"0\":concat[concat[[reverse(reverse(map f x)++z++x)|x\u003c-y]|z\u003c-[\"\",\"0\"]]|y\u003c-s(iterate i\"6\")];f '0'='0';f '6'='9';f '9'='6';i('0':x)='6':x;i('6':x)='9':x;i('9':x)='0':i x;i\"\"=\"6\";s(x:y@(z:_))=let w:v=s y in if length x==length z then(x:w):v else[x]:w:v",
+				"(PARI) is_A111065(n)=!setminus(Set(n=Vec(Str(n))),Vec(\"069\")) \u0026 apply(t-\u003eVec(\"096\")[max(eval(t)/3,1)], n)==vecextract(n,\"-1..1\")  \\\\ - _M. F. Hasler_, May 04 2012"
+			],
+			"xref": [
+				"Cf. strobogrammatic numbers A000787. If 8's are included we get A111156."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,2",
+			"author": "Paul Stoeber (pstoeber(AT)uni-potsdam.de), Oct 08 2005",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, Sep 26 2014"
+			],
+			"references": 5,
+			"revision": 8,
+			"time": "2014-09-26T13:32:53-04:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 112465,
+			"data": "1,-1,1,1,0,1,-1,1,1,1,1,0,2,2,1,-1,1,2,4,3,1,1,0,3,6,7,4,1,-1,1,3,9,13,11,5,1,1,0,4,12,22,24,16,6,1,-1,1,4,16,34,46,40,22,7,1,1,0,5,20,50,80,86,62,29,8,1,-1,1,5,25,70,130,166,148,91,37,9,1,1,0,6,30,95,200,296,314,239,128,46,10,1",
+			"name": "Riordan array (1/(1+x),x/(1-x)).",
+			"comment": [
+				"Row sums are A078008. Diagonal sums are A078024. Inverse is A112466. Note that C(n,k) = sum{j = 0..n-k, C(j+k-1,j)}.",
+				"Central coefficients T(2n, n) are A072547. - _Paul Barry_, Apr 08 2011",
+				"T(n,k) = A108561(n, n-k). - _Reinhard Zumkeller_, Jan 03 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A112465/b112465.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"Roland Bacher, \u003ca href=\"http://arxiv.org/abs/1509.09054\"\u003eChebyshev polynomials, quadratic surds and a variation of Pascal's triangle\u003c/a\u003e, arXiv:1509.09054 [math.CO], 2015.",
+				"E. Deutsch, L. Ferrari and S. Rinaldi, \u003ca href=\"http://dx.doi.org/10.1016/j.aam.2004.05.002\"\u003eProduction Matrices\u003c/a\u003e, Advances in Mathematics, 34 (2005) pp. 101-122.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"Number triangle T(n, k) = sum{j = 0..n-k, C(j+k-1, j)*(-1)^(n-k-j)}.",
+				"T(n, 0) = (-1)^n, T(n, n) = 1, T(n+1, k) = T(n, k-1) + T(n, k), 0 \u003c k \u003c n. - _Reinhard Zumkeller_, Jan 03 2014",
+				"T(n, k) = T(n-1, k-1) + T(n-2,k) + T(n-2,k-1), T(0, 0) = 1, T(1, 0) = -1, T(1, 1) = 1, T(n, k) = 0 if k \u003c 0 or if k \u003e n. - _Philippe Deléham_, Jan 11 2014",
+				"exp(x) * e.g.f. for row n = e.g.f. for diagonal n. For example, for n = 3 we have exp(x)*(-1 + x + x^2/2! + x^3/3!) = -1 + 2*x^2/2! + 6*x^3/3! + 13*x^4/4! + .... The same property holds more generally for Riordan arrays of the form ( f(x), x/(1 - x) ). - _Peter Bala_, Dec 21 2014"
+			],
+			"example": [
+				"Triangle starts",
+				"1;",
+				"-1,1;",
+				"1,0,1;",
+				"-1,1,1,1;",
+				"1,0,2,2,1;",
+				"-1,1,2,4,3,1;",
+				"1,0,3,6,7,4,1;",
+				"Production matrix begins",
+				"-1, 1,",
+				"0, 1, 1,",
+				"0, 0, 1, 1,",
+				"0, 0, 0, 1, 1,",
+				"0, 0, 0, 0, 1, 1,",
+				"0, 0, 0, 0, 0, 1, 1,",
+				"0, 0, 0, 0, 0, 0, 1, 1,",
+				"0, 0, 0, 0, 0, 0, 0, 1, 1",
+				"- _Paul Barry_, Apr 08 2011"
+			],
+			"mathematica": [
+				"T[n_, k_] := Sum[Binomial[j + k - 1, j]*(-1)^(n - k - j), {j, 0, n - k}];",
+				"Table[T[n, k], {n, 0, 12}, {k, 0, n}] // Flatten (* _Jean-François Alcover_, Jul 23 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a112465 n k = a112465_tabl !! n !! k",
+				"a112465_row n = a112465_tabl !! n",
+				"a112465_tabl = iterate f [1] where",
+				"   f xs'@(x:xs) = zipWith (+) ([-x] ++ xs ++ [0]) ([0] ++ xs')",
+				"-- _Reinhard Zumkeller_, Jan 03 2014"
+			],
+			"xref": [
+				"Cf. A112468, A059260."
+			],
+			"keyword": "easy,sign,tabl",
+			"offset": "0,13",
+			"author": "_Paul Barry_, Sep 06 2005",
+			"references": 5,
+			"revision": 34,
+			"time": "2018-07-23T04:35:07-04:00",
+			"created": "2005-09-21T03:00:00-04:00"
+		},
+		{
+			"number": 112963,
+			"data": "0,1,1,-1,-1,-4,-2,-5,-5,-4,-7,-4,-6,-7,-11,0,-12,-1,-11,-6,-12,-1,-20,2,-13,-2,-16,2,-19,9,-18,-9,-20,4,-31,10,-21,-2,-18,7,-20,14,-26,-3,-16,13,-40,5,-26,7,-22,-1,-40,18,-32,2,-21,10,-40,16,-25,5,-21,17,-41,31,-40,-4,-14,30,-38,3,-39,8,-21,14,-58",
+			"name": "Sum(mu(i)*tau(j): i+j=n), with mu=A008683 and tau=A000005.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A112963/b112963.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(5)=mu(1)*tau(4)+mu(2)*tau(3)+mu(3)*tau(2)+mu(4)*tau(1)",
+				"= 1*3 - 1*2 - 1*2 + 0*1 = -1."
+			],
+			"program": [
+				"(Haskell)",
+				"a112963 n = sum $ zipWith (*)",
+				"   a008683_list $ reverse $ take (n - 1) a000005_list",
+				"-- _Reinhard Zumkeller_, Feb 29 2012"
+			],
+			"xref": [
+				"Cf. A006218, A055507, A068341, A112962, A112964, A112966, A112968."
+			],
+			"keyword": "sign",
+			"offset": "1,6",
+			"author": "_Reinhard Zumkeller_, Oct 07 2005",
+			"references": 5,
+			"revision": 9,
+			"time": "2013-07-13T12:03:22-04:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 113233,
+			"data": "1,2,4,3,6,9,16,5,10,7,20,12,26,14,28,8,13,11,22,19,24,30,39,17,33,36,41,44,51,54,76,15,18,25,43,21,37,34,48,23,31,60,80,46,57,85,104,27,66,62,71,64,90,83,109,68,88,100,102,74,112,107,162,29,35,32,45,42,61,67",
+			"name": "Inverse permutation to A109812.",
+			"comment": [
+				"A113234 = a(a(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A113233/b113233.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a113233 = (+ 1) . fromJust . (`elemIndex` a109812_list)",
+				"-- _Reinhard Zumkeller_, Sep 15 2014"
+			],
+			"xref": [
+				"Cf. A109812, A113232, A113234, A305370."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 19 2005",
+			"ext": [
+				"a(63) corrected by _Reinhard Zumkeller_, Sep 15 2014"
+			],
+			"references": 5,
+			"revision": 13,
+			"time": "2018-06-02T16:04:21-04:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,401 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6200,
+	"results": [
+		{
+			"number": 63662,
+			"data": "0,10,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,32,33,34,35,36,37,38,39,43,44,45,46,47,48,49,54,55,56,57,58,59,65,66,67,68,69,76,77,78,79,87,88,89,90,91,92,93,94,95,96,97,98,99,109,110,111,112",
+			"name": "Starting with 0, select the next number having in decimal notation at least one common digit.",
+			"comment": [
+				"a(n+1) = a(n)+1 unless a(n) is of the form d*10^k - 1, 1\u003c=d\u003c=8. - _Robert Israel_, Sep 21 2016"
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A063662/b063662.txt\"\u003eTable of n, a(n) for n=0,...,1000\u003c/a\u003e"
+			],
+			"maple": [
+				"A[0]:= 0: S:= {0}:",
+				"for n from 1 to 1000 do",
+				"  for x from A[n-1]+1 do",
+				"    Sx:= convert(convert(x,base,10),set);",
+				"    if Sx intersect S \u003c\u003e {} then break fi;",
+				"  od;",
+				"  A[n]:= x;",
+				"  S:= Sx;",
+				"od:",
+				"seq(A[i],i=0..1000); # _Robert Israel_, Sep 21 2016"
+			],
+			"mathematica": [
+				"NestList[Block[{k = # + 1}, While[! IntersectingQ[IntegerDigits@ k, IntegerDigits@ #], k++]; k] \u0026, 0, 66] (* _Michael De Vlieger_, Sep 20 2016 *)"
+			],
+			"program": [
+				"(PARI) XhasD(x,d)= { local(f); while (x\u003e9, f=x-10*(x\\10); if (f==d, return(1)); x\\=10); return(x==d) } { a=0; for (n=0, 1000, if (n, for (m=a + 1, 10*a + 10, b=0; for (d=0, 9, if (XhasD(a, d) \u0026\u0026 XhasD(m, d), a=m; b=true; break)); if (b, break) ) ); write(\"b063662.txt\", n, \" \", a) ) } \\\\ _Harry J. Smith_, Aug 27 2009",
+				"(Haskell)",
+				"a063662_list = iterate a063660 0  -- _Reinhard Zumkeller_, Jan 15 2013"
+			],
+			"xref": [
+				"A063662(0) = 0 and A063662(n + 1) = A063660(A063662(n))"
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jul 25 2001",
+			"references": 3,
+			"revision": 17,
+			"time": "2016-09-21T08:32:48-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63905,
+			"data": "2,2,3,3,3,5,5,5,5,5,7,7,7,7,7,7,7,11,11,11,11,11,11,11,11,11,11,11,13,13,13,13,13,13,13,13,13,13,13,13,13,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19",
+			"name": "Each prime p appears p times.",
+			"comment": [
+				"a(A007504(k)) = prime(k) and a(A007504(k) + 1) = prime(k + 1) for k \u003e 0, where prime = A000040."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A063905/b063905.txt\"\u003eTable of n, a(n) for n=1,...,1000\u003c/a\u003e"
+			],
+			"example": [
+				"a(A007504(4)) = prime(4) = 7 = a(17) and a(18) = a(A007504(4)+1) = prime(4+1) = prime(5) = 11."
+			],
+			"mathematica": [
+				"Flatten[Table[Prime[n], {n, 8}, {Prime[n]}]] (* _Alonso del Arte_, Sep 08 2011 based on _Robert G. Wilson v_'s program for A002024 *)"
+			],
+			"program": [
+				"(PARI) { n=0; p=1; for (m=1, 10^9, p=nextprime(p+1); for (i=1, p, write(\"b063905.txt\", n++, \" \", p); if (n==1000, break)); if (n==1000, break) ) } \\\\ _Harry J. Smith_, Sep 02 2009",
+				"(Haskell)",
+				"a063905 n = a063905_list !! (n-1)",
+				"a063905_list =",
+				"   concat $ zipWith ($) (map replicate a000040_list) a000040_list",
+				"-- _Reinhard Zumkeller_, Mar 18 2011"
+			],
+			"xref": [
+				"Cf. A007504, A002024, A000040, A175944."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 30 2001",
+			"references": 3,
+			"revision": 19,
+			"time": "2015-03-20T17:21:20-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63936,
+			"data": "15,26,44,56,95,96,119,122,124,140,143,194,215,216,236,287,304,364,386,407,495,511,527,551,556,560,575,639,740,752,764,780,791,794,815,871,900,935,936,992,1004,1036,1116,1159,1196,1199,1232,1295,1328,1346",
+			"name": "Sum of unitary proper divisors of k is a square \u003e 1.",
+			"comment": [
+				"A unitary divisor of n is a divisor d of n such that gcd(d, n/d) = 1."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A063936/b063936.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"A034460(a(n)) \u003e 1 and A010052(A034460(a(n))) = 1. - _Reinhard Zumkeller_, Aug 15 2012"
+			],
+			"example": [
+				"The unitary divisors of 15 are 1,3,5,15 and then the unitary aliquot part is 9 which is a square."
+			],
+			"program": [
+				"(PARI) us(n) = sumdiv(n,d, if(gcd(d,n/d)==1,d));",
+				"j=[]; for(n=1,3000, if(us(n)-n \u003e 1 \u0026\u0026 issquare(us(n)-n),j=concat(j,n))); j",
+				"(PARI) us(n) = sumdiv(n, d, if(gcd(d, n/d)==1, d))",
+				"{ n=0; for (m=1, 10^9, u=us(m) - m; if (issquare(u) \u0026\u0026 u \u003e 1, write(\"b063936.txt\", n++, \" \", m); if (n==1000, break)) ) } \\\\ _Harry J. Smith_, Sep 03 2009",
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a063936 n = a063936_list !! (n-1)",
+				"a063936_list = map (+ 1) $",
+				"               findIndices (\\x -\u003e x \u003e 1 \u0026\u0026 a010052 x == 1) a034460_list",
+				"-- _Reinhard Zumkeller_, Aug 15 2012"
+			],
+			"xref": [
+				"Cf. A034448, A063937."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Felice Russo_, Aug 31 2001",
+			"ext": [
+				"More terms from _Jason Earls_, Sep 04 2001"
+			],
+			"references": 3,
+			"revision": 18,
+			"time": "2018-06-25T03:42:59-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63937,
+			"data": "3,8,22,24,66,70,76,94,115,119,170,210,214,217,228,252,265,282,310,316,322,345,357,382,385,490,497,510,517,522,527,580,612,642,651,679,710,716,742,745,782,795,801,833,862,889,920,930,935,948,952,966,970",
+			"name": "Sum of unitary divisors of n is a square \u003e 1.",
+			"comment": [
+				"A unitary divisor of n is a divisor d of n such that gcd(d, n/d) = 1."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A063937/b063937.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) \u003e 1 and A010052(A034448(a(n))) = 1. - _Reinhard Zumkeller_, Aug 15 2012"
+			],
+			"example": [
+				"The unitary divisors of 3 are 1,3 and then 3 + 1 = 4 is a square."
+			],
+			"mathematica": [
+				"udQ[n_]:=Module[{totdivs=Total[Sort[Flatten[Outer[Times,Sequence@@({1,#}\u0026/@Power@@@FactorInteger[n])]]]]},totdivs\u003e1\u0026\u0026IntegerQ[Sqrt[totdivs]]]; Select[Range[1000],udQ] (* _Harvey P. Dale_, Apr 22 2012, using program from Eric Weisstein at http://mathworld.wolfram.com/UnitaryDivisor.html *)"
+			],
+			"program": [
+				"(PARI) us(n) = sumdiv(n, d, if(gcd(d, n/d)==1, d)) { n=0; for (m=1, 10^9, u=us(m); if (issquare(u) \u0026\u0026 u \u003e 1, write(\"b063937.txt\", n++, \" \", m); if (n==1000, break)) ) } \\\\ _Harry J. Smith_, Sep 03 2009",
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a063937 n = a063937_list !! (n-1)",
+				"a063937_list = map (+ 2) $",
+				"               findIndices ((== 1) . a010052) $ tail a034448_list",
+				"-- _Reinhard Zumkeller_, Aug 15 2012"
+			],
+			"xref": [
+				"Cf. A034448, A063936."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "1,1",
+			"author": "_Felice Russo_, Aug 31 2001",
+			"references": 3,
+			"revision": 15,
+			"time": "2018-06-24T21:12:16-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64223,
+			"data": "1,2,3,4,5,6,7,8,9,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,96,98,100,103,106,109,112,115,118,121,124,127,130,133,136",
+			"name": "a(1) = 1; a(n + 1) = a(n) + number of decimal digits of a(n) for n \u003e 0.",
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A064223/b064223.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1) = 1; a(n + 1) = a(n) + ceiling(log10(a(n) + 1)) for n \u003e 0. [corrected by _Harry J. Smith_, Sep 10 2009]"
+			],
+			"mathematica": [
+				"NestList[#+IntegerLength[#]\u0026,1,70] (* _Harvey P. Dale_, Jul 26 2011 *)"
+			],
+			"program": [
+				"(PARI) { a=0; for (n=1, 1000, write(\"b064223.txt\", n, \" \", a+=#Str(a)) ) } \\\\ _Harry J. Smith_, Sep 10 2009",
+				"(Haskell)",
+				"a064223 n = a064223_list !! (n-1)",
+				"a064223_list = iterate (\\x -\u003e x + (fromIntegral $ a055642 x)) 1",
+				"-- _Reinhard Zumkeller_, Aug 02 2012"
+			],
+			"xref": [
+				"Cf. A055642."
+			],
+			"keyword": "nice,nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 21 2001",
+			"references": 3,
+			"revision": 19,
+			"time": "2019-06-09T21:15:04-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64275,
+			"data": "1,2,3,4,6,5,10,7,11,8,19,9,21,12,14,15,27,13,33,16,22,20,42,17,37,23,34,24,54,18,56,28,38,29,44,25,65,35,45,30,73,26,82,39,46,43,89,31,83,40,58,47,102,36,74,48,66,55,109,32,111,57,67,59,91,41,128,60,86,49,130,50,132,68,75,69,112,51,149,61",
+			"name": "Inverse of sequence A032447 considered as a permutation of the positive integers.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A064275/b064275.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a064275 = (+ 1) . fromJust . (`elemIndex` a032447_list)",
+				"-- _Reinhard Zumkeller_, Nov 22 2015"
+			],
+			"xref": [
+				"Cf. A032447, A007614."
+			],
+			"keyword": "nonn,look,easy",
+			"offset": "1,2",
+			"author": "_Howard A. Landman_, Sep 23 2001",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Nov 05 2007",
+				"More terms from _Alois P. Heinz_, Jan 20 2011"
+			],
+			"references": 3,
+			"revision": 18,
+			"time": "2015-11-22T13:34:42-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64418,
+			"data": "1,2,3,4,8,12,6,18,9,27,36,16,20,5,10,15,25,30,24,28,7,14,21,35,40,32,44,11,22,33,55,45,50,60,42,48,52,13,26,39,65,70,49,56,63,54,66,72,64,68,17,34,51,85,75,80,76,19,38,57,95,90,78,84,77,88,92,23,46,69,115,100,96",
+			"name": "a(1) = 1, a(2) = 2, a(3) = 3, a(4) = 4; for n \u003e 4, a(n) = smallest number not already used such that gcd(a(n), a(n-1)) \u003e= 4.",
+			"comment": [
+				"A permutation of the natural numbers."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A064418/b064418.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"J. C. Lagarias, E. M. Rains and N. J. A. Sloane, \u003ca href=\"http://arXiv.org/abs/math.NT/0204011\"\u003eThe EKG sequence\u003c/a\u003e, Exper. Math. 11 (2002), 437-446.",
+				"\u003ca href=\"/index/Ed#EKG\"\u003eIndex entries for sequences related to EKG sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"mathematica": [
+				"A064418 = Range[4]; Do[ For[ an=5, True, an++, If[GCD[an, Last[A064418]] \u003e= 4 \u0026\u0026 FreeQ[A064418, an], AppendTo[A064418, an]; Break[]]], {70}]; A064418 (* _Jean-François Alcover_, May 07 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a064418 n = a064418_list !! (n-1)",
+				"a064418_list = 1 : 2 : 3 : 4 : (f 4 [5..]) where",
+				"   f :: Integer -\u003e [Integer] -\u003e [Integer]",
+				"   f x xs = m : (f m $ delete m xs) where",
+				"      m = head $ dropWhile ((\u003c 4) . (gcd x)) xs",
+				"-- _Reinhard Zumkeller_, Feb 20 2011"
+			],
+			"xref": [
+				"Cf. A064413. Inverse permutation: A064958."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "Jonathan Ayres (Jonathan.ayres(AT)btinternet.com), Sep 30 2001",
+			"ext": [
+				"More terms from _Naohiro Nomoto_, Sep 30 2001"
+			],
+			"references": 3,
+			"revision": 18,
+			"time": "2019-10-18T23:12:36-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64419,
+			"data": "1,2,3,4,5,10,15,20,25,30,6,12,18,9,27,36,24,8,16,32,40,35,7,14,21,28,42,48,54,45,50,55,11,22,33,44,66,60,65,13,26,39,52,78,72,56,49,63,70,75,80,64,88,77,84,90,81,99,108,96,102,17,34,51,68,85,95,19,38,57,76,114,120",
+			"name": "a(n) = n for n \u003c= 5; for n \u003e 5, a(n) = smallest number not already used such that gcd(a(n), a(n-1)) \u003e= 5.",
+			"comment": [
+				"A permutation of the natural numbers."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A064419/b064419.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"J. C. Lagarias, E. M. Rains and N. J. A. Sloane, \u003ca href=\"http://arXiv.org/abs/math.NT/0204011\"\u003eThe EKG sequence\u003c/a\u003e, Exper. Math. 11 (2002), 437-446.",
+				"\u003ca href=\"/index/Ed#EKG\"\u003eIndex entries for sequences related to EKG sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Module[{gcdlist=Range[5],k},Do[k=6;While[GCD[k,Last[gcdlist]]\u003c5 || MemberQ[ gcdlist,k],k++];AppendTo[gcdlist,k];,{80}];gcdlist] (* _Harvey P. Dale_, Apr 11 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a064419 n = a064419_list !! (n-1)",
+				"a064419_list = [1,2,3,4,5] ++ f 5 [] [6..] where",
+				"   f z xs (y:ys) | y `gcd` z \u003e 4 = y : f y [] (reverse xs ++ ys)",
+				"                 | otherwise     = f z (y:xs) ys",
+				"-- _Reinhard Zumkeller_, Sep 17 2001",
+				"(Python)",
+				"from sympy import gcd",
+				"l=range(1, 6)",
+				"for n in xrange(5, 101):",
+				"    k=6",
+				"    while k in l or gcd(l[n - 1], k)\u003c5: k+=1",
+				"    l+=[k, ]",
+				"print l # _Indranil Ghosh_, Jun 27 2017"
+			],
+			"xref": [
+				"Cf. A064413. See A064959 for inverse permutation."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "Jonathan Ayres (Jonathan.ayres(AT)btinternet.com), Sep 30 2001",
+			"ext": [
+				"More terms from _Naohiro Nomoto_, Sep 30 2001"
+			],
+			"references": 3,
+			"revision": 22,
+			"time": "2019-10-18T23:12:14-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64550,
+			"data": "1,2,4,7,9,12,16,19,23,26,28,33,37,40,46,49,53,58,62,67,71,74,76,85,89,92,98,103,107,110,120,123,125,132,140,143,147,154,158,163,169,174,180,185,189,192,194,211,211,212,222,227,227,234,240,241",
+			"name": "Define Hofstadter's batrachian Q-sequence (A005185) by Q(0) = Q(1) = 1, Q(n)=Q(n-Q(n-1))+Q(n-Q(n-2)), n \u003e 1; then a(1) = 2, a(n)=a(n-1)+2*Q(n)-n, n \u003e 1.",
+			"comment": [
+				"Prime-like simulation using Hofstadter's Batrachian sequence as difference generator."
+			],
+			"reference": [
+				"Simone Caramel, personal communication, also postings to newsgroups.",
+				"Clifford Pickover, article on the crying of Batrachian sequences"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A064550/b064550.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Roger L. Bagula, \u003ca href=\"http://victorian.fortunecity.com/carmelita/435/hofstadterintegers.html\"\u003eA Simulation of a Prime Type of Sequence: The Hofstadter Integers\u003c/a\u003e"
+			],
+			"maple": [
+				"A064550 := proc(n) option remember; if n=0 then 1 else A064550(n-1)+2*A005185(n-1)(n) - n; fi; end;"
+			],
+			"mathematica": [
+				"q[0] = q[1] = 1; q[n_] := q[n - q[n - 1]] + q[n - q[n - 2]]; a[1] = 2; a[n_] := a[n] = a[n - 1] + 2*(q[n] - n/2); Table[ a[n], {n, 1, 70} ]"
+			],
+			"program": [
+				"(ARIBAS): function a064550(maxarg: integer); var n,r,rm,q: integer; qar: array; begin qar := alloc(array,maxarg + 1); qar[0] := 1; for n := 1 to maxarg do if n \u003c 2 then q := 1; else q := qar[n - qar[n - 1]] + qar[n - qar[n - 2]]; end; qar[n] := q; if n = 1 then r := 2; else r := rm + round(2*(q - n/2)); end; rm := r; write(r,\" \"); end; end; a064550(65).",
+				"(Haskell)",
+				"a064550 n = a064550_list !! n",
+				"a064550_list = 1 : 2 : zipWith3 (\\a q n -\u003e a + 2 * q - n)",
+				"    (tail a064550_list) (drop 2 a005185_list) [2..]",
+				"-- _Reinhard Zumkeller_, May 13 2012"
+			],
+			"xref": [
+				"Cf. A064551, A064552, A005185."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,2",
+			"author": "_Roger L. Bagula_, Oct 08 2001",
+			"ext": [
+				"More terms from _Vladeta Jovovic_, _Klaus Brockhaus_ and _Matthew Conroy_, Oct 09 2001"
+			],
+			"references": 3,
+			"revision": 16,
+			"time": "2014-10-02T18:01:10-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64551,
+			"data": "1,1,1,1,3,9,23,51,103,195,353,619,1061,1789,2981,4925,8087,13221,21547,35039,56891,92271,149541,242231,392233,634969,1027753,1663321,2691723,4355745,7048223,11404779,18453871,29859579,48314441,78175075",
+			"name": "Ado [Simone Caramel]'s Fibonacci function: define the Fibonacci sequence by f(0) = 1, f(1) = 1, f(n) = f(n-1)+f(n-2); then a(0) = 1, a(n) = a(n-1) + 2*(f(n)-n), n \u003e 0.",
+			"comment": [
+				"A Pickover sequence with properties analogous to the primes."
+			],
+			"reference": [
+				"Ado [Simone Caramel], Postings in egroups and newsgroups."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A064551/b064551.txt\"\u003eTable of n, a(n) for n = 0..500\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_05\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4,-5,1,2,-1)."
+			],
+			"formula": [
+				"G.f.: (1 - 3x + 2x^2 + x^3 + x^4)/((x-1)^3 (x^2 + x - 1)). - _T. D. Noe_, Oct 12 2007",
+				"a(n) = 4*a(n-1) - 5*a(n-2) + a(n-3) + 2*a(n-4) - a(n-5). - _T. D. Noe_, Oct 12 2007",
+				"a(n) = (1/5)*2^(-n)*(-15*2^n + (10-4*sqrt(5))*(1-sqrt(5))^n + (1+sqrt(5))^n*(10+4*sqrt(5))) - n - n^2. - _Jean-François Alcover_, May 28 2013",
+				"a(n) = a(n-1) - 2 * A065220(n), n \u003e 0. - _Reinhard Zumkeller_, Sep 13 2013",
+				"a(n) = 2*F(n+3) - n^2 - n - 3 = 1 + 2*Sum_{k=1..n} F(k+1) - k = 1 + 2*Sum_{k=1..n} A001924(k-3), F=A000045. - _Ehren Metcalfe_, Dec 27 2018"
+			],
+			"maple": [
+				"a := proc(n) option remember: f := n-\u003efibonacci(n+1): if n=0 then RETURN(1) fi: a(n-1)+2*(f(n)-n): end: for n from 1 to 60 do printf(`%d,`,a(n)) od:"
+			],
+			"mathematica": [
+				"a[0] = f[0] = f[1] = 1; f[n_] := f[n] = f[n - 1] + f[n - 2]; a[n_] := a[n] = a[n - 1] + 2*(f[n] - n); Table[ a[n], {n, 0, 40} ]",
+				"LinearRecurrence[{4,-5,1,2,-1},{1,1,1,1,3},50] (* _Harvey P. Dale_, Sep 27 2011 *)"
+			],
+			"program": [
+				"(ARIBAS): function a064551(maxarg: integer); var n,r,rm,q,qm1,qm2: integer; begin qm2 := 0; qm1 := 0; rm := 0; for n := 0 to maxarg do if n \u003c 2 then q := 1; else q := qm1 + qm2; end; qm2 := qm1; qm1 := q; if n = 0 then r := 1; else r := rm + 2*(q - n); end; rm := r; write(r,\" \"); end; end; a064551(35).",
+				"(Haskell)",
+				"a064551 n = a064551_list !! n",
+				"a064551_list = 1 : zipWith (+) a064551_list",
+				"                   (map (* 2) $ zipWith (-) (drop 2 a000045_list) [1..])",
+				"-- _Reinhard Zumkeller_, Sep 13 2013"
+			],
+			"xref": [
+				"Cf. A064550, A064552, A000045."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,5",
+			"author": "_Roger L. Bagula_, Oct 08 2001",
+			"references": 3,
+			"revision": 32,
+			"time": "2018-12-28T02:38:28-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

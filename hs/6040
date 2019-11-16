@@ -1,0 +1,462 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6040,
+	"results": [
+		{
+			"number": 462,
+			"data": "1,2,10,11,12,100,101,102,110,1000,1001,1002,1010,1011,10000,10001,10002,10010,10011,10012,100000,100001,100002,100010,100011,100012,100100,1000000,1000001,1000002,1000010,1000011,1000012,1000100,1000101,10000000,10000001",
+			"name": "Numbers written in base of triangular numbers.",
+			"comment": [
+				"A003056 and A057945 give lengths and sums. [_Reinhard Zumkeller_, Mar 27 2011]"
+			],
+			"reference": [
+				"F. Smarandache, \"Properties of the numbers\", Univ. of Craiova Archives, 1975; Arizona State University Special Collections, Tempe, AZ."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000462/b000462.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/SmarandacheSequences.html\"\u003eSmarandache Sequences\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a000462 n = g [] n $ reverse $ takeWhile (\u003c= n) $ tail a000217_list where",
+				"   g as 0 []     = read $ concat $ map show $ reverse as :: Integer",
+				"   g as x (t:ts) = g (a:as) r ts where (a,r) = divMod x t",
+				"-- _Reinhard Zumkeller_, Mar 27 2011"
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "John Radu (Suttones(AT)aol.com)",
+			"references": 3,
+			"revision": 18,
+			"time": "2014-04-04T19:36:08-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 658,
+			"data": "1,4,68,1732,51076,1657904,57793316,2117525792,80483121028,3147565679824,125937573689968,5133632426499152,212530848994367524,8914634034287235856,378138515326996979168,16196097181014298854032",
+			"name": "Strehl's sequence \"C_n^(3)\".",
+			"reference": [
+				"Volker Strehl, Binomial identities - combinatorial and algorithmic aspects. Trends in discrete mathematics. Discrete Math. 136 (1994), no. 1-3, 309-346."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000658/b000658.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e",
+				"Vaclav Kotesovec, \u003ca href=\"/A000658/a000658.txt\"\u003eRecurrence (of order 6)\u003c/a\u003e"
+			],
+			"formula": [
+				"Sum binomial(n, k)^2 * binomial(2k, k)^2 * binomial(2k, n-k); k=0..n.",
+				"a(n) ~ 7^(2*n+5/2) / (20 * sqrt(15) * Pi^2 * n^2). - _Vaclav Kotesovec_, Mar 09 2014"
+			],
+			"maple": [
+				"A000658:=n-\u003eadd(binomial(n,k)^2*binomial(2*k,k)^2*binomial(2*k,n-k), k=0..n): seq(A000658(n), n=0..15); # _Wesley Ivan Hurt_, Sep 19 2014"
+			],
+			"mathematica": [
+				"Table[Sum[Binomial[n,k]^2 Binomial[2k,k]^2 Binomial[2k,n-k],{k,0,n}], {n,0,25}] (* _Harvey P. Dale_, Oct 19 2011 *)"
+			],
+			"program": [
+				"(PARI) a(n)=sum(k=1,n, binomial(n, k)^2 * binomial(2k, k)^2 * binomial(2k, n-k)) \\\\ _Charles R Greathouse IV_, Sep 19 2014",
+				"(Haskell)",
+				"a000658 n = sum $ map c3 [0..n] where",
+				"   c3 k = (a007318' n k)^2 * (a007318' (2*k) k)^2 * a007318' (2*k) (n-k)",
+				"-- _Reinhard Zumkeller_, May 20 2015"
+			],
+			"xref": [
+				"Third row of array A094424.",
+				"Cf. A007318."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,2",
+			"author": "_Don Knuth_",
+			"references": 3,
+			"revision": 27,
+			"time": "2015-09-09T23:51:09-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 660,
+			"data": "1,2,5,14,41,136,523,2330,11857,67912,432291,3027166,23125673,191389108,1705788659,16289080922,165919213089,1795666675824,20576824369027,248892651678198,3168999664907705,42366404751871660",
+			"name": "Boustrophedon transform of 1,1,2,3,4,5,...",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000660/b000660.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon on transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{k=0..n} A109449(n,k)*A028310(k). - _Reinhard Zumkeller_, Nov 04 2013",
+				"E.g.f.:  (x*exp(x) + 1)*(sec(x) + tan(x)). - _Sergei N. Gladkovskii_, Oct 28 2014",
+				"a(n) = A231179(n) + A000111(n). - _Sergei N. Gladkovskii_, Oct 28 2014",
+				"a(n) ~ n! * (2 + Pi*exp(Pi/2)) * (2/Pi)^(n+1). - _Vaclav Kotesovec_, Jun 12 2015"
+			],
+			"maple": [
+				"seq(coeff(series(factorial(n)*(x*exp(x)+1)*(sec(x)+tan(x)), x,n+1),x,n),n=0..25); # _Muniru A Asiru_, Jul 30 2018"
+			],
+			"mathematica": [
+				"a[n_] := n! SeriesCoefficient[(1+x Exp[x])(1+Sin[x])/Cos[x], {x, 0, n}];",
+				"Table[a[n], {n, 0, 21}] (* _Jean-François Alcover_, Jul 30 2018, after _Sergei N. Gladkovskii_ *)"
+			],
+			"program": [
+				"(Sage) # Algorithm of L. Seidel (1877)",
+				"def A000660_list(n) :",
+				"    R = []; A = {-1:0, 0:1}",
+				"    k = 0; e = 1",
+				"    for i in range(n) :",
+				"        Am = i",
+				"        A[k + e] = 0",
+				"        e = -e",
+				"        for j in (0..i) :",
+				"            Am += A[k]",
+				"            A[k] = Am",
+				"            k += e",
+				"        print [A[z] for z in (-i//2..i//2)]",
+				"        R.append(A[e*i//2])",
+				"    return R",
+				"A000660_list(10) # _Peter Luschny_, Jun 02 2012",
+				"(Haskell)",
+				"a000660 n = sum $ zipWith (*) (a109449_row n) (1 : [1..])",
+				"-- _Reinhard Zumkeller_, Nov 04 2013"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, _Simon Plouffe_",
+			"references": 3,
+			"revision": 36,
+			"time": "2019-10-13T02:22:06-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 703,
+			"id": "M3265 N1318",
+			"data": "4,6,7,7,8,9,9,10,10,10,11,11,12,12,12,13,13,13,13,14,14,14,15,15,15,15,16,16,16,16,16,17,17,17,17,18,18,18,18,18,19,19,19,19,19,19,20,20,20,20,20,21,21,21,21,21,21,22,22,22,22,22,22,22,23,23,23,23,23,23,24,24,24,24",
+			"name": "Chromatic number (or Heawood number) of nonorientable surface with n crosscaps.",
+			"reference": [
+				"J. L. Gross and T. W. Tucker, Topological Graph Theory, Wiley, 1987; see Table 5.2 p. 221.",
+				"J. L. Gross and J. Yellen, eds., Handbook of Graph Theory, CRC Press, 2004; p. 368 and 631.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000703/b000703.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"K. Appel and W. Haken, \u003ca href=\"http://projecteuclid.org/euclid.ijm/1256049011\"\u003eEvery planar map is four colorable. I. Discharging\u003c/a\u003e, Illinois J. Math. 21 (1977), no. 3, 429-490.",
+				"G. A. Dirac, \u003ca href=\"http://dx.doi.org/10.4153/CJM-1952-043-9\"\u003eMap-color theorems\u003c/a\u003e, Canad. J. Math., 4 (1952), 480ff.",
+				"G. Ringel \u0026 J. W. T. Youngs, \u003ca href=\"http://www.pnas.org/content/60/2/438.full.pdf\"\u003eSolution Of The Heawood Map-Coloring Problem\u003c/a\u003e, Proc. Nat. Acad. Sci. USA, 60 (1968), 438-445.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/ChromaticNumber.html\"\u003eChromatic Number\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/HeawoodConjecture.html\"\u003eHeawood Conjecture\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = floor((7+sqrt(1+24*n))/2)."
+			],
+			"maple": [
+				"A000703:=n-\u003efloor((7+sqrt(1+24*n))/2): seq(A000703(n), n=0..150); # _Wesley Ivan Hurt_, Apr 24 2017"
+			],
+			"mathematica": [
+				"Floor[(7+Sqrt[1+24*Range[0,80]])/2] (* _Harvey P. Dale_, Feb 03 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000703 = floor . (/ 2) . (+ 7) . sqrt . (+ 1) . (* 24) . fromInteger",
+				"-- _Reinhard Zumkeller_, Dec 04 2012"
+			],
+			"xref": [
+				"Cf. A000934 (the orientable case)."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 3,
+			"revision": 31,
+			"time": "2017-06-30T09:09:28-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 733,
+			"data": "1,2,4,10,30,101,394,1760,8970,51368,326991,2289669,17491625,144760655,1290204758,12320541392,125496010615,1358185050788,15563654383395,188254471337718,2396930376564860,32044598671291610",
+			"name": "Boustrophedon transform of partition numbers 1, 1, 1, 2, 3, 5, 7, ...",
+			"link": [
+				"John Cerkan, \u003ca href=\"/A000733/b000733.txt\"\u003eTable of n, a(n) for n = 0..482\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon on transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"example": [
+				"The array begins:",
+				"                   1",
+				"               1  -\u003e   2",
+				"           4  \u003c-   3  \u003c-   1",
+				"       2  -\u003e   6  -\u003e   9  -\u003e  10",
+				"  30  \u003c-  28  \u003c-  22  \u003c-  13  \u003c-   3",
+				"- _John Cerkan_, Jan 26 2017"
+			],
+			"mathematica": [
+				"t[n_, 0] := If[n == 0, 1, PartitionsP[n-1]]; t[n_, k_] := t[n, k] = t[n, k - 1] + t[n-1, n-k]; a[n_] := t[n, n]; Array[a, 30, 0] (* _Jean-François Alcover_, Feb 12 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000733 n = sum $ zipWith (*) (a109449_row n) (1 : a000041_list)",
+				"-- _Reinhard Zumkeller_, Nov 04 2013"
+			],
+			"xref": [
+				"Cf. A000041, A000751, A109449, A230957."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, _Simon Plouffe_",
+			"references": 3,
+			"revision": 32,
+			"time": "2019-10-13T02:21:47-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 745,
+			"data": "1,5,18,57,180,617,2400,10717,54544,312353,1988104,13921501,106350816,880162337,7844596536,74910367309,763030711936,8257927397569,94628877364936,1144609672707741,14573622985067744",
+			"name": "Boustrophedon transform of squares.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000745/b000745.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon on transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ n! * (6 + Pi + 4/Pi) * exp(Pi/2) * 2^n / Pi^n. - _Vaclav Kotesovec_, Jun 12 2015",
+				"E.g.f.: exp(x)*(x^2 + 3*x + 1)*(1+sin(x))/cos(x). - _Vaclav Kotesovec_, Jun 12 2015"
+			],
+			"mathematica": [
+				"CoefficientList[Series[E^(x)*(x^2+3*x+1)*(1+Sin[x])/Cos[x], {x, 0, 20}], x] * Range[0, 20]! (* _Vaclav Kotesovec_, Jun 12 2015 *)",
+				"t[n_, 0] := (n + 1)^2; t[n_, k_] := t[n, k] = t[n, k - 1] + t[n - 1, n - k]; a[n_] := t[n, n]; Array[a, 30, 0] (* _Jean-François Alcover_, Feb 12 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000745 n = sum $ zipWith (*) (a109449_row n) $ tail a000290_list",
+				"-- _Reinhard Zumkeller_, Nov 03 2013"
+			],
+			"xref": [
+				"Cf. A000290, A000697."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"references": 3,
+			"revision": 30,
+			"time": "2019-10-12T16:39:24-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 803,
+			"id": "M4472 N2232",
+			"data": "0,0,8,4,8,16,24,44,80,144,264,484,888,1632,3000,5516,10144,18656,34312,63108,116072,213488,392664,722220,1328368,2443248,4493832,8265444,15202520,27961792,51429752,94594060,173985600,320009408",
+			"name": "a(n+3) = a(n+2) + a(n+1) + a(n) - 4.",
+			"comment": [
+				"This sequence and A004306 coincide from the term \"24\" onwards. This follows easily by studying the two g.f.'s. - _R. J. Mathar_ and _Andrew S. Plewe_, Dec 04 2007"
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000803/b000803.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Henry Beker and Chris Mitchell, \u003ca href=\"http://dx.doi.org/10.1137/0608029\"\u003ePermutations with restricted displacement\u003c/a\u003e, SIAM J. Algebraic Discrete Methods 8 (1987), no. 3, 338--363. MR0897734 (89f:05009).",
+				"N. Metropolis, M. L. Stein, P. R. Stein, \u003ca href=\"http://dx.doi.org/10.1016/S0021-9800(69)80058-X\"\u003ePermanents of cyclic (0,1) matrices\u003c/a\u003e, J. Combin. Theory, 7 (1969), 291-321.",
+				"H. Minc, \u003ca href=\"http://dx.doi.org/10.4153/CMB-1964-023-3\"\u003ePermanents of (0,1)-circulants\u003c/a\u003e, Canad. Math. Bull., 7 (1964), 253-263.",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,0,-1)."
+			],
+			"formula": [
+				"G.f.: -4x^2*(3x-2) /((x-1)(x^3+x^2+x-1)) = 2(-5x^2+1)/(x^3+x^2+x-1)-2/(x-1). - _R. J. Mathar_, Dec 04 2007",
+				"a(0)=0, a(1)=0, a(2)=8, a(3)=4, a(n) = 2*a(n-1) - a(n-4). - _Harvey P. Dale_, Mar 25 2013"
+			],
+			"mathematica": [
+				"LinearRecurrence[{2,0,0,-1},{0,0,8,4},40] (* _Harvey P. Dale_, Mar 25 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000803 n = a000803_list !! n",
+				"a000803_list = 0 : 0 : 8 : zipWith (+)",
+				"               (tail $ zipWith (+) (tail a000803_list) a000803_list)",
+				"               (map (subtract 4) a000803_list)",
+				"-- _Reinhard Zumkeller_, Nov 18 2011",
+				"(PARI) concat([0,0],Vec((8-12*x)/(1-2*x+x^4)+O(x^97))) \\\\ _Charles R Greathouse IV_, Nov 18 2011"
+			],
+			"xref": [
+				"Cf. A000804, A000805, A004306."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Mar 17 2000"
+			],
+			"references": 3,
+			"revision": 38,
+			"time": "2018-09-24T16:53:13-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 967,
+			"id": "M1148 N0437",
+			"data": "1,2,4,8,18,40,91,210,492,1165,2786,6710,16267,39650,97108,238824,589521,1459960,3626213,9030450,22542396,56393792,141358274,354975429,892893120,2249412290,5674891000,14335757256,36259245522,91815545800",
+			"name": "Sum of Fermat coefficients.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A000967/b000967.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e (corrected by Sean A. Irvine, April 17, 2019)",
+				"R. P. Loh, A. G. Shannon, A. F. Horadam, \u003ca href=\"/A000969/a000969.pdf\"\u003eDivisibility Criteria and Sequence Generators Associated with Fermat Coefficients\u003c/a\u003e, Preprint, 1980.",
+				"P. A. Piza, \u003ca href=\"http://www.jstor.org/stable/3029103\"\u003eFermat coefficients\u003c/a\u003e, Math. Mag., 27 (1954), 141-146."
+			],
+			"formula": [
+				"Following Piza's definition for the Fermat coefficients: (n:c)=binomial(2n-c, c-1)/c, a(n)= Round( sum_ {c=1..n} (n:c) ). - Pab Ter (pabrlos2(AT)yahoo.com), Oct 13 2005",
+				"a(n) = rounded(sum(A258993(n,k)/(2*k+1)): k = 0..n-1). - _Reinhard Zumkeller_, Jun 22 2015"
+			],
+			"example": [
+				"n...Sum_{c=1..n} (n:c).....a(n)",
+				"--------------------------------",
+				".1........1.................1",
+				".2........2.................2",
+				".3........4.................4",
+				".4........8+1/3.............8"
+			],
+			"maple": [
+				"FermatCoeff:=(n,c)-\u003ebinomial(2*n-c,c-1)/c:seq(round(add(FermatCoeff(n,c),c=1..n)),n=1..40); # Pab Ter, Oct 13 2005"
+			],
+			"mathematica": [
+				"Table[Round[Sum[Binomial[n+k, n-k]/(2*k+1), {k, 0, n-1}]], {n,1,35}] (* _G. C. Greubel_, Apr 16 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Function (on)",
+				"a000967 n = round $ sum $",
+				"            zipWith ((/) `on` fromIntegral) (a258993_row n) [1, 3 ..]",
+				"-- _Reinhard Zumkeller_, Jun 22 2015",
+				"(PARI) {a(n) = round(sum(k=0,n-1, binomial(n+k,n-k)/(2*k+1)))}; \\\\ _G. C. Greubel_, Apr 16 2019",
+				"(MAGMA) [Round((\u0026+[Binomial(n+k,n-k)/(2*k+1): k in [0..n-1]])): n in [1..35]]; // _G. C. Greubel_, Apr 16 2019",
+				"(Sage) [round(sum(binomial(n+k,n-k)/(2*k+1) for k in (0..n-1))) for n in (1..35)] # _G. C. Greubel_, Apr 16 2019"
+			],
+			"xref": [
+				"Cf. A143858, A258708."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Pab Ter (pabrlos2(AT)yahoo.com), Oct 13 2005"
+			],
+			"references": 3,
+			"revision": 32,
+			"time": "2019-04-17T03:22:17-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 1042,
+			"id": "M0743 N0279",
+			"data": "1,2,3,5,16,231,53105,2820087664,7952894429824835871,63248529811938901240357985099443351745,4000376523371723941902615329287219027543200136435757892789536976747706216384",
+			"name": "a(n) = a(n-1)^2 - a(n-2)^2.",
+			"comment": [
+				"The next term has 152 digits. - _Franklin T. Adams-Watters_, Jun 11 2009"
+			],
+			"reference": [
+				"Archimedeans Problems Drive, Eureka, 27 (1964), 6.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A001042/b001042.txt\"\u003eTable of n, a(n) for n = 0..13\u003c/a\u003e",
+				"A. V. Aho and N. J. A. Sloane, \u003ca href=\"http://neilsloane.com/doc/doubly.html\"\u003eSome doubly exponential sequences\u003c/a\u003e, Fib. Quart., 11 (1973), 429-437.",
+				"R. K. Guy, \u003ca href=\"/A002186/a002186.pdf\"\u003eLetters to N. J. A. Sloane, June-August 1968\u003c/a\u003e",
+				"R. P. Loh, A. G. Shannon, A. F. Horadam, \u003ca href=\"/A000969/a000969.pdf\"\u003eDivisibility Criteria and Sequence Generators Associated with Fermat Coefficients\u003c/a\u003e, Preprint, 1980.",
+				"\u003ca href=\"/index/Aa#AHSL\"\u003eIndex entries for sequences of form a(n+1)=a(n)^2 + ...\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ c^(2^n), where c = 1.1853051643868354640833201434870139866230288004895868726506278977814490371... . - _Vaclav Kotesovec_, Dec 17 2014"
+			],
+			"mathematica": [
+				"RecurrenceTable[{a[0]==1,a[1]==2,a[n]==a[n-1]^2-a[n-2]^2},a,{n,0,12}] (* _Harvey P. Dale_, Jan 11 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a001042 n = a001042_list !! n",
+				"a001042_list = 1 : 2 : zipWith (-) (tail xs) xs",
+				"               where xs = map (^ 2) a001042_list",
+				"-- _Reinhard Zumkeller_, Dec 16 2013"
+			],
+			"xref": [
+				"Cf. A001146, A000278, A000283, A058182, A007018.",
+				"Cf. A064236 (numbers of digits)."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, _R. K. Guy_",
+			"ext": [
+				"More terms from _James A. Sellers_, Sep 19 2000"
+			],
+			"references": 3,
+			"revision": 31,
+			"time": "2016-04-26T21:42:20-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 1056,
+			"id": "M2378 N0944",
+			"data": "1,3,4,13,53,690,36571,25233991,922832284862,23286741570717144243,21489756930695820973683319349467,500426416062641238759467086706254193219790764168482,10754042042885415070816603338436200915110904821126871858491675028294447933424899095",
+			"name": "a(n) = a(n-1)*a(n-2) + 1, a(0) = 1, a(1) = 3.",
+			"reference": [
+				"Archimedeans Problems Drive, Eureka, 19 (1957), 13.",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A001056/b001056.txt\"\u003eTable of n, a(n) for n = 0..17\u003c/a\u003e",
+				"A. V. Aho and N. J. A. Sloane, \u003ca href=\"http://neilsloane.com/doc/doubly.html\"\u003eSome doubly exponential sequences\u003c/a\u003e, Fib. Quart., 11 (1973), 429-437.",
+				"\u003ca href=\"/index/Aa#AHSL\"\u003eIndex entries for sequences of form a(n+1)=a(n)^2 + ...\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ c^(phi^n), where c = A258112 = 1.7978784900091604813559508837..., phi = (1+sqrt(5))/2 = A001622. - _Vaclav Kotesovec_, Dec 17 2014"
+			],
+			"maple": [
+				"a:= proc (n) option remember;",
+				"if n=0 then 1",
+				"elif n=1 then 3",
+				"else a(n-1)*a(n-2) + 1",
+				"end if",
+				"end proc;",
+				"seq(a(n), n = 0..13); # _G. C. Greubel_, Sep 19 2019"
+			],
+			"mathematica": [
+				"RecurrenceTable[{a[0]==1,a[1]==3,a[n]==a[n-1]*a[n-2]+1},a,{n,0,14}] (* _Harvey P. Dale_, Jul 17 2011 *)",
+				"t = {1, 3}; Do[AppendTo[t, t[[-1]] * t[[-2]] + 1], {n, 2, 14}] (* _T. D. Noe_, Jun 25 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a001056 n = a001056_list !! n",
+				"a001056_list = 1 : 3 : (map (+ 1 ) $",
+				"               zipWith (*) a001056_list $ tail a001056_list)",
+				"-- _Reinhard Zumkeller_, Aug 15 2012",
+				"(PARI) m=13; v=concat([1,3], vector(m-2)); for(n=3, m, v[n]=v[n-1]*v[n-2] +1 ); v \\\\ _G. C. Greubel_, Sep 19 2019",
+				"(MAGMA) I:=[1,3]; [n le 2 select I[n] else Self(n-1)*Self(n-2) + 1: n in [1..13]]; // _G. C. Greubel_, Sep 19 2019",
+				"(Sage)",
+				"def a(n):",
+				"    if (n==0): return 1",
+				"    elif (n==1): return 3",
+				"    else: return a(n-1)*a(n-2) + 1",
+				"[a(n) for n in (0..13)] # _G. C. Greubel_, Sep 19 2019",
+				"(GAP) a:=[1,3];; for n in [3..13] do a[n]:=a[n-1]*a[n-2]+1; od; a; # _G. C. Greubel_, Sep 19 2019"
+			],
+			"xref": [
+				"Cf. A001622 (phi), A258112."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, _R. K. Guy_",
+			"references": 3,
+			"revision": 38,
+			"time": "2019-09-20T09:00:35-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

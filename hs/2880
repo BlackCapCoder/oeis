@@ -1,0 +1,513 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2880,
+	"results": [
+		{
+			"number": 182972,
+			"data": "1,1,1,2,1,1,2,3,1,3,1,2,4,1,3,1,2,3,4,5,1,5,1,2,3,4,5,6,1,3,5,1,2,4,7,1,3,5,7,1,2,3,4,5,6,7,8,1,5,7,1,2,3,4,5,6,7,8,9,1,3,7,9,1,2,4,5,8,10,1,3,5,7,9,1,2,3,4,5,6,7,8,9,10,11,1,5,7,11,1,2,3,4,6,7,8,9,11,12,1,3,5,7,9,11",
+			"name": "Numerators of positive rationals \u003c 1 arranged by increasing sum of numerator and denominator then by increasing numerator.",
+			"comment": [
+				"A023022(n) and A245677(n) give number and numerator of sum of fractions a(k)/A182973(k) such that a(k)+A182973(k) = n. - _Reinhard Zumkeller_, Jul 30 2014"
+			],
+			"reference": [
+				"S. Cook, Problem 511: An Enumeration Problem, Journal of Recreational Mathematics, Vol. 9:2 (1976-77), 137. Solution by the Problem Editor, JRM, Vol. 10:2 (1977-78), 122-123.",
+				"R. K. Guy, Unsolved Problems in Number Theory (UPINT), Section D11."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A182972/b182972.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Paul Yiu, \u003ca href=\"http://math.fau.edu/Yiu/RecreationalMathematics2003.pdf\"\u003eRecreational Mathematics\u003c/a\u003e, 24.3.1 Appendix: Two enumerations of the rational numbers in (0,1), page 633."
+			],
+			"example": [
+				"Positive fractions \u003c 1 listed by increasing sum of numerator and denominator, and by increasing numerator for equal sums:",
+				"1/2",
+				"1/3",
+				"1/4 2/3",
+				"1/5",
+				"1/6 2/5 3/4",
+				"1/7 3/5",
+				"1/8 2/7 4/5",
+				"1/9 3/7",
+				"1/10 2/9 3/8 4/7 5/6",
+				"1/11 5/7",
+				"1/12 2/11 3/10 4/9 5/8 6/7",
+				"1/13 3/11 5/9",
+				"1/14 2/13 4/11 7/8",
+				"1/15 3/13 5/11 7/9",
+				"1/16 2/15 3/14 4/13 5/12 6/11 7/10 8/9",
+				"1/17 5/13 7/11",
+				"1/18 2/17 3/16 4/15 5/14 6/13 7/12 8/11 9/10",
+				"1/19 3/17 7/13 9/11",
+				"(this is A182972/A182973)."
+			],
+			"maple": [
+				"t1:=[];",
+				"for n from 2 to 40 do",
+				"t1:=[op(t1),1/(n-1)];",
+				"for i from 2 to floor((n-1)/2) do",
+				"   if gcd(i,n-i)=1 then t1:=[op(t1),i/(n-i)]; fi; od:",
+				"od:",
+				"t1;"
+			],
+			"mathematica": [
+				"t1={}; For[n=2, n \u003c= 40, n++, AppendTo[t1, 1/(n-1)]; For[i=2, i \u003c= Floor[(n-1)/2], i++, If[GCD[i, n-i] == 1, AppendTo[t1, i/(n-i)]]]]; t1 // Numerator // Rest (* _Jean-François Alcover_, Jan 20 2015, translated from Maple *)"
+			],
+			"program": [
+				"(PASCAL) program a182972;",
+				"var",
+				"  num,den,n: longint;",
+				"function gcd(i,j: longint):longint;",
+				"begin",
+				"  repeat",
+				"    if i\u003ej then i:=i mod j else j:=j mod i;",
+				"  until (i=0) or (j=0);",
+				"  if i=0 then gcd:=j else gcd:=i;",
+				"end;",
+				"begin",
+				"  num:=1; den:=1; n:=0;",
+				"  repeat",
+				"    repeat",
+				"      inc(num); dec(den);",
+				"      if num\u003e=den then",
+				"      begin",
+				"        inc(den,num); num:=1;",
+				"      end;",
+				"    until gcd(num,den)=1;",
+				"    inc(n); writeln(n,' ',num);",
+				"  until n=100000;",
+				"end.",
+				"(Haskell)",
+				"a182972 n = a182972_list !! (n-1)",
+				"a182972_list = map fst $ concatMap q [3..] where",
+				"   q x = [(num, den) | num \u003c- [1 .. div x 2],",
+				"                       let den = x - num, gcd num den == 1]",
+				"-- _Reinhard Zumkeller_, Jul 29 2014"
+			],
+			"xref": [
+				"Cf. A020652, A038567, A182973-A182976.",
+				"Cf. A023022, A245677, A245678, A245718."
+			],
+			"keyword": "nonn,easy,frac,nice",
+			"offset": "1,4",
+			"author": "_William Rex Marshall_, Dec 16 2010",
+			"ext": [
+				"Corrected by _William Rex Marshall_, Aug 12 2013"
+			],
+			"references": 11,
+			"revision": 31,
+			"time": "2017-02-12T09:32:38-05:00",
+			"created": "2010-12-16T15:14:26-05:00"
+		},
+		{
+			"number": 198387,
+			"data": "24,96,120,216,240,384,336,480,600,840,864,960,840,1176,720,1080,1536,1344,1944,1920,2160,2400,1320,2520,2904,2016,3360,3456,3000,3696,4056,3840,3024,3360,2184,4704,2880,4320,5280,5400,6144,5544,6000,6936,6240,5880",
+			"name": "Common differences in triples of squares in arithmetic progression.",
+			"comment": [
+				"a(n) = A198385(n) - A198384(n) = A198386(n) - A198385(n).",
+				"A198438(n) = a(aA198409(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198384/a198384_1.txt\"\u003eTable of initial values\u003c/a\u003e",
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a198387 n = a198387_list !! (n-1)",
+				"a198387_list = zipWith (-) a198385_list a198384_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 24 2011",
+			"references": 11,
+			"revision": 14,
+			"time": "2013-06-24T21:14:13-04:00",
+			"created": "2011-10-24T11:11:45-04:00"
+		},
+		{
+			"number": 198441,
+			"data": "7,17,23,31,41,47,49,71,73,79,89,97,103,113,119,119,127,137,151,161,161,167,191,193,199,217,217,223,233,239,241,257,263,271,281,287,287,289,311,313,329,329,337,343,353,359,367,383,391,391,401,409,431,433",
+			"name": "Square root of third term of a triple of squares in arithmetic progression that is not a multiple of another triple in (A198384, A198385, A198386).",
+			"comment": [
+				"A198437(n) = a(n)^2; a(n) = A198390(A198409(n)).",
+				"This sequence gives the sum of the two legs (catheti) x + y of primitive Pythagorean triangles (x,y,z) with y even and gcd(x,y) = 1, ordered nondecreasingly (with multiple entries). See A058529(n), n\u003e=2, for the sequence without multiple entries. For the proof, put in the Zumkeller link w = x + y, v = z and u = abs(x - y). This works because w^2 - v^2 = v^2 - u^2, hence u^2 = 2*v^2 - w^2 = 2*z^2 - (x+y)^2 = 2*(x^2 + y^2) - (x+y)^2 = x^2 + y^2 - 2*x*y = (x-y)^2. The primitivity of the arithmetic progression triples follows from the one of the Pythagorean triples: gcd(u,w) = 1 follows from gcd(x,y) = 1, then gcd(u,v,w) = gcd(gcd(u,w),v) = 1. The converse can also be proved: given a primitive arithmetic progression triple (u,v,w), 1 \u003c= u \u003c v \u003c w, gcd(u,v,w) = 1, the corresponding primitive Pythagorean triple with even y is ((w-u)/2,(w+u)/2,v) or ((w+u)/2,(w-u)/2,v), depending on whether (w+u)/2 is even or odd, respectively. - _Wolfdieter Lang_, May 22 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198435/a198435.txt\"\u003eTable of initial values\u003c/a\u003e",
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e"
+			],
+			"example": [
+				"Primitive Pythagorean triangle connection: a(1) = 7 because (u,v,w) = (1,5,7) corresponds to the primitive Pythagorean triangle (x = (w-u)/2, y = (w+u)/2, z = v) = (3,4,5) with leg sum 3 + 4 = 7. - _Wolfdieter Lang_, May 23 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a198441 n = a198441_list !! (n-1)",
+				"a198441_list = map a198390 a198409_list"
+			],
+			"xref": [
+				"Cf. A225949 (triangle version of leg sums).",
+				"Cf. A198384, A198385, A198386.",
+				"Cf. A058529, A198390, A198409, A198437."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 25 2011",
+			"references": 11,
+			"revision": 22,
+			"time": "2015-12-13T01:30:55-05:00",
+			"created": "2011-10-25T17:35:55-04:00"
+		},
+		{
+			"number": 204094,
+			"data": "0,7,70,77,700,707,770,777,7000,7007,7070,7077,7700,7707,7770,7777,70000,70007,70070,70077,70700,70707,70770,70777,77000,77007,77070,77077,77700,77707,77770,77777,700000,700007,700070,700077,700700,700707,700770,700777",
+			"name": "Numbers whose set of base 10 digits is {0,7}.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A204094/b204094.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 7 * A007088(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a204094 n = a204094_list !! n",
+				"a204094_list = map (* 7) a007088_list"
+			],
+			"xref": [
+				"Cf. A078246, A169965, A169966, A169967, A169964, A204093, A204095, A097256."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jan 10 2012",
+			"references": 11,
+			"revision": 9,
+			"time": "2013-07-13T12:04:21-04:00",
+			"created": "2012-01-11T11:47:12-05:00"
+		},
+		{
+			"number": 206925,
+			"data": "1,2,3,4,4,4,6,7,6,6,6,6,6,7,10,11,9,8,8,8,9,8,9,9,8,8,9,9,9,11,15,16,13,11,11,11,10,10,11,11,10,12,11,10,11,11,13,13,11,10,11,10,11,11,12,12,11,11,12,13,13,16,21,22,18,15,15,14,13,13,14,14",
+			"name": "Number of contiguous palindromic bit patterns in the binary representation of n.",
+			"comment": [
+				"The number of contiguous palindromic bit patterns in the binary representation of n is a measure for the grade of symmetry in an abstract arrangement of two kinds of elements (where the number of elements is the number of binary digits, of course).",
+				"The minimum value for a(n) is 2*floor(log_2(n)) and will be taken infinitely often (see A206926 and A206927). This means: For a given number of places m there are at least 2*(m-1) palindromic substrings in the binary representation. This lower bound indicates to a certain extent the minimal possible symmetry."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A206925/b206925.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e",
+				"\u003ca href=\"/index/Pac#palindromes\"\u003eIndex entries for sequences related to palindromes\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) \u003c= (m+1)*(m+2)/2, where m = floor(log_2(n)); equality holds if n + 1 is a power of 2.",
+				"a(n) \u003e= 2*floor(log_2(n)).",
+				"This estimation cannot be improved in general, since equality holds for A206926(n): a(A206926(n)) = 2*floor(log_2(A206926(n))).",
+				"Asymptotic behavior:",
+				"a(n) = O(log(n)^2).",
+				"lim sup a(n)/log_2(n)^2 = 1/2, for n --\u003e infinity.",
+				"lim inf a(n)/log_2(n) = 2, for n --\u003e infinity."
+			],
+			"example": [
+				"a(1) = 1, since 1 = 1_2 is the only palindromic bit pattern;",
+				"a(4) = 4, since 4 = 100_2 and there are the following palindromic bit patterns: 1, 0, 0, 00;",
+				"a(5) = 4, since 5 = 101_2 and there are the following palindromic bit patterns: 1, 0, 1, 101;",
+				"a(8) = 7, since 8 = 1000_2 and there are the following palindromic bit patterns: 1, 0, 0, 0, 00, 00, 000."
+			],
+			"program": [
+				"(PARI) a(n)=n=binary(n);sum(k=0,#n-1,sum(i=1,#n-k,prod(j=0, k\\2,n[i+j]==n[i+k-j]))) \\\\ _Charles R Greathouse IV_, Mar 21 2012",
+				"(Haskell)",
+				"import Data.Map (fromList, (!), insert)",
+				"import Data.List (inits, tails)",
+				"a206925 n = a206925_list !! (n-1)",
+				"a206925_list = 1 : f [0, 1] (fromList [(Bin [0], 1), (Bin [1], 1)]) where",
+				"   f bs'@(b:bs) m = y : f (succ bs') (insert (Bin bs') y m) where",
+				"     y = m ! (Bin bs) +",
+				"         length (filter (\\ds -\u003e ds == reverse ds) $ tail $ inits bs')",
+				"     succ [] = [1]; succ (0:ds) = 1 : ds; succ (1:ds) = 0 : succ ds",
+				"-- _Reinhard Zumkeller_, Dec 17 2012",
+				"(Smalltalk)",
+				"A206925",
+				"\"Answers the number of symmetric bit patterns of n as a binary.\"",
+				"| m p q n numSym |",
+				"n := self.",
+				"n \u003c 2 ifTrue: [^1].",
+				"m := n integerFloorLog: 2.",
+				"p := n printStringRadix: 2.",
+				"numSym := 0.",
+				"1 to: m + 1",
+				"  do:",
+				"   [:k |",
+				"   1 to: k",
+				"    do:",
+				"     [:j |",
+				"     q := p copyFrom: j to: k.",
+				"     q = q reverse ifTrue: [numSym := numSym + 1]]].",
+				"^numSym // _Hieronymus Fischer_, Feb 16 2013"
+			],
+			"xref": [
+				"Cf. A006995, A206923, A206924, A206925, A206926, A070939.",
+				"Cf. A215244, A030308."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Hieronymus Fischer_, Mar 12 2012",
+			"ext": [
+				"Comments and formulas added by _Hieronymus Fischer_, Jan 23 2013"
+			],
+			"references": 11,
+			"revision": 37,
+			"time": "2018-12-16T23:40:22-05:00",
+			"created": "2012-03-30T17:03:23-04:00"
+		},
+		{
+			"number": 211223,
+			"data": "3,8,9,10,15,20,21,30,32,33,39,40,49,51,55,56,57,62,63,69,70,75,85,87,88,90,92,93,94,96,99,104,105,108,110,111,114,116,117,123,125,126,128,129,130,134,135,136,140,141,145,147,150,152,153,155,158,159,160",
+			"name": "Numbers n for which sigma(n) = sigma(x) + sigma(y), where n = x + y.",
+			"comment": [
+				"A211225(a(n)) \u003e 0. - _Reinhard Zumkeller_, Jan 06 2013"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A211223/b211223.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"sigma(49)=sigma(8)+sigma(41) that is 57=15+42.",
+				"sigma(93)=sigma(31)+sigma(62) that is 128=32+96.",
+				"In more than one way: sigma(117)=sigma(41)+sigma(76)=sigma(52)+sigma(65)=sigma(56)+sigma(61) that is 182=42+140=98+84=120+62."
+			],
+			"maple": [
+				"with(numtheory);",
+				"A211223:=proc(q)",
+				"local i,n;",
+				"for n from 1 to q do",
+				"  for i from 1 to trunc(n/2) do",
+				"    if sigma(i)+sigma(n-i)=sigma(n) then print(n); break; fi;",
+				"od; od; end:",
+				"A211223(10000);"
+			],
+			"mathematica": [
+				"sigmaPartitionQ[n_] := With[{s = DivisorSigma[1, n], ip = IntegerPartitions[n, {2}]}, MemberQ[ip, {x_, y_} /; s == DivisorSigma[1, x] + DivisorSigma[1, y]]]; Select[Range[160], sigmaPartitionQ] (* _Jean-François Alcover_, Aug 19 2013 *)"
+			],
+			"program": [
+				"(PARI) is(n)=my(t=sigma(n));for(i=1,n\\2,if(sigma(i)+sigma(n-i)==t, return(1))) \\\\ _Charles R Greathouse IV_, May 04 2012",
+				"(Haskell)",
+				"a211223 n = a211223_list !! (n-1)",
+				"a211223_list = map (+ 1) $ findIndices (\u003e 0) a211225_list",
+				"-- _Reinhard Zumkeller_, Jan 06 2013"
+			],
+			"xref": [
+				"Cf. A083207, A204830, A204831, A211224, A211225.",
+				"Cf. A218852.",
+				"Cf. A000203."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_Paolo P. Lava_, Apr 27 2012",
+			"references": 11,
+			"revision": 28,
+			"time": "2013-09-22T12:02:08-04:00",
+			"created": "2012-05-04T13:17:51-04:00"
+		},
+		{
+			"number": 213629,
+			"data": "1,1,1,2,0,1,1,1,0,1,2,1,0,0,1,2,1,1,0,0,1,3,0,2,0,0,0,1,1,1,0,1,0,0,0,1,2,1,0,1,0,0,0,0,1,2,2,0,0,1,0,0,0,0,1,3,1,1,0,1,0,0,0,0,0,1,2,1,1,1,0,1,0,0,0,0,0,1,3,1,1,0,1,1,0,0",
+			"name": "In binary representation: T(n,k) = number of (possibly overlapping) occurrences of k in n, triangle read by rows, 1\u003c=k\u003c=n.",
+			"comment": [
+				"The definition is based on the definition of pattern functions in the paper of Allouche and Shallit;",
+				"sum of n-th row = A029931(n);",
+				"T(n,1) = A000120(n);",
+				"T(n,2) = A033264(n) for n \u003e 1;",
+				"T(n,3) = A014081(n) for n \u003e 2;",
+				"T(n,4) = A056978(n) for n \u003e 3;",
+				"T(n,5) = A056979(n) for n \u003e 4;",
+				"T(n,6) = A056980(n) for n \u003e 5;",
+				"T(n,7) = A014082(n) for n \u003e 6;",
+				"T(n,k) = 0 for k with floor(n/2) \u003c k \u003c n;",
+				"T(n,n) = 1;",
+				"A122953(n) = sum (A057427(T(n,k): k=1..n);",
+				"A005811(n) = T(n,1) + T(n,2) - T(n,3);",
+				"A007302(n) = A000120(n) - sum (A213629(n,A136412(k)))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A213629/b213629.txt\"\u003eRows n = 1..150 of triangle, flattened\u003c/a\u003e",
+				"J.-P. Allouche, J. Shallit, \u003ca href=\"http://www.math.jussieu.fr/~allouche/kreg2.ps\"\u003eThe Ring of k-regular Sequences II, Example 4, p. 12\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"example": [
+				"The triangle begins:",
+				".   1:                        1",
+				".   2:                      1   1",
+				".   3:                    2   0   1",
+				".   4:                  1   1   0   1",
+				".   5:                2   1   0   0   1",
+				".   6:              2   1   1   0   0   1",
+				".   7:            3   0   2   0   0   0   1",
+				".   8:          1   1   0   1   0   0   0   1",
+				".   9:        2   1   0   1   0   0   0   0   1",
+				".  10:      2   2   0   0   1   0   0   0   0   1",
+				".  11:    3   1   1   0   1   0   0   0   0   0   1",
+				".  12:  2   1   1   1   0   1   0   0   0   0   0   1."
+			],
+			"mathematica": [
+				"t[n_, k_] := (idn = IntegerDigits[n, 2]; idk = IntegerDigits[k, 2]; ln = Length[idn]; lk = Length[idk]; For[cnt = 0; i = 1, i \u003c= ln - lk + 1, i++, If[idn[[i ;; i + lk - 1]] == idk, cnt++]]; cnt); Table[t[n, k], {n, 1, 14}, {k, 1, n}] // Flatten (* _Jean-François Alcover_, Oct 22 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, tails, isPrefixOf)",
+				"a213629 n k = a213629_tabl !! (n-1) !! (k-1)",
+				"a213629_row n = a213629_tabl !! (n-1)",
+				"a213629_tabl = map f $ tail $ inits $ tail $ map reverse a030308_tabf where",
+				"   f xss = map (\\xs -\u003e",
+				"           sum $ map (fromEnum . (xs `isPrefixOf`)) $ tails $ last xss) xss"
+			],
+			"xref": [
+				"Cf. A030308, A007088."
+			],
+			"keyword": "nonn,base,tabl",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, Jun 17 2012",
+			"references": 11,
+			"revision": 12,
+			"time": "2014-10-14T01:42:30-04:00",
+			"created": "2012-06-17T14:12:33-04:00"
+		},
+		{
+			"number": 215631,
+			"data": "3,7,12,13,19,27,21,28,37,48,31,39,49,61,75,43,52,63,76,91,108,57,67,79,93,109,127,147,73,84,97,112,129,148,169,192,91,103,117,133,151,171,193,217,243,111,124,139,156,175,196,219,244,271,300,133,147,163",
+			"name": "Triangle read by rows: T(n,k) = n^2 + n*k + k^2, 1 \u003c= k \u003c= n.",
+			"comment": [
+				"T(n,k) = A093995(n,k) + A075362(n,k) + A133819(n,k) = 2*A070216(n,k). - _Avi Friedlich_, May 26 2015",
+				"First subdiagonal T(k+1,k) = A003215(k), the centered hexagonal numbers. Second subdiagonal T(k+2,k)=  A003215(k)/2 + A003215((k+1)/2. Third subdiagonal T(k+3,k) = A003215(k)/3 + A003215((k+1)/3 + A003215(k+2)/3 and so on. - _Avi Friedlich_, May 26 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A215631/b215631.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f. for triangle: (3-2*x+3*x*y+x^2-11*x^2*y+4*x^3*y+x^3*y^2+x^4*y^2)*x*y/((1-x)^3*(1-x*y)^3). - _Robert Israel_, May 10 2015"
+			],
+			"example": [
+				"The triangle begins:",
+				"row n   T(n,k), 1 \u003c= k \u003c= n",
+				"   1:     3",
+				"   2:     7   12",
+				"   3:    13   19   27",
+				"   4:    21   28   37   48",
+				"   5:    31   39   49   61   75",
+				"   6:    43   52   63   76   91  108",
+				"   7:    57   67   79   93  109  127  147",
+				"   8:    73   84   97  112  129  148  169  192",
+				"   9:    91  103  117  133  151  171  193  217  243",
+				"  10:   111  124  139  156  175  196  219  244  271  300",
+				"  11:   133  147  163  181  201  223  247  273  301  331  363",
+				"  12:   157  172  189  208  229  252  277  304  333  364  397  432"
+			],
+			"maple": [
+				"seq(seq(i^2+i*j+j^2, j=1..i),i=1..10); # _Robert Israel_, May 10 2015"
+			],
+			"mathematica": [
+				"Table[n^2 + n*k + k^2, {n, 11}, {k, n}] // Flatten (* _Michael De Vlieger_, May 12 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a215631 n k = a215631_tabl !! (n-1) !! (k-1)",
+				"a215631_row n = a215631_tabl !! (n-1)",
+				"a215631_tabl = zipWith3 (zipWith3 (\\u v w -\u003e u + v + w))",
+				"                        a093995_tabl a075362_tabl a133819_tabl",
+				"-- _Reinhard Zumkeller_, Nov 11 2012",
+				"(PARI) for(n=1,15,for(k=1,n,print1(n^2+n*k+k^2,\", \"))) \\\\ _Derek Orr_, May 13 2015",
+				"(MAGMA) [[i^2+i*j+j^2: j in [1..i]]: i in [1..10]]; // _Vincenzo Librandi_, Jun 07 2015"
+			],
+			"xref": [
+				"Cf. A215646 (row sums), A002061 (left edge, shifted), A033428 (right edge), A003215."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Nov 11 2012",
+			"references": 11,
+			"revision": 57,
+			"time": "2015-07-30T22:31:52-04:00",
+			"created": "2012-11-11T14:21:33-05:00"
+		},
+		{
+			"number": 219531,
+			"data": "1,2,4,8,16,32,64,128,256,512,1024,2048,4095,8178,16278,32192,63019,121670,230964,430104,784626,1401292,2449868,4194304,7036530,11576916,18696432,29666704,46295513,71116846,107636402,160645504,236618693,344212906,494889092",
+			"name": "a(n) = Sum_{k=0..11} C(n, k).",
+			"comment": [
+				"a(n) is the number of compositions (ordered partitions) of n+1 into twelve or fewer parts. a(n) = sum(binomial(n + 1, 2k - 1), for k = 1 .. 6). a(n) is the sum of the first twelve terms in the n-th row of Pascal's triangle."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A219531/b219531.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_12\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (12,-66,220,-495,792,-924,792,-495,220,-66,12,-1)."
+			],
+			"formula": [
+				"a(n) = 1 + (n^11 - 44*n^10 + 935*n^9 - 11550*n^8 + 94083*n^7 - 497112*n^6 +1870385*n^5 -3920950*n^4 +8550916*n^3 +4429656*n^2 +29400480*n)/11!. a(n) = 2*a(n - 1), for 1 \u003c= n \u003c= 11 with a(0) = 1, a(n) = 2*a(n - 1) - C(n - 1, 11), for n \u003e 11. - Mohamed",
+				"G.f.: (1 - 10*x + 46*x^2 - 128*x^3 + 239*x^4 - 314*x^5 + 296*x^6 - 200*x^7 + 95*x^8 - 30*x^9 + 6*x^10)/(1-x)^12. - _Mokhtar Mohamed_, Nov 23 2012"
+			],
+			"maple": [
+				"seq(sum(binomial(n,j), j=0..11), n=0..40); # _G. C. Greubel_, Sep 13 2019"
+			],
+			"mathematica": [
+				"Table[Sum[Binomial[n, k], {k, 0, 11}], {n, 0, 40}] (* _T. D. Noe_, Nov 23 2012 *)",
+				"LinearRecurrence[{12,-66,220,-495,792,-924,792,-495,220,-66,12,-1},{1,2,4,8,16,32,64,128,256,512,1024,2048},40] (* _Harvey P. Dale_, Sep 19 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a219531 = sum . take 12 . a007318_row  -- _Reinhard Zumkeller_, Nov 24 2012",
+				"(Python)",
+				"A219531_list, m = [], [1, -9, 37, -91, 148, -166, 130, -70, 25, -5, 1, 1]",
+				"for _ in range(10**2):",
+				"    A219531_list.append(m[-1])",
+				"    for i in range(11):",
+				"        m[i+1] += m[i] # _Chai Wah Wu_, Jan 24 2016",
+				"(PARI) vector(40, n, sum(j=0,11, binomial(n-1,j))) \\\\ _G. C. Greubel_, Sep 13 2019",
+				"(MAGMA) [(\u0026+[Binomial(n,k): k in [0..11]]): n in [0..40]]; // _G. C. Greubel_, Sep 13 2019",
+				"(Sage) [sum(binomial(n,k) for k in (0..11)) for n in (0..40)] # _G. C. Greubel_, Sep 13 2019",
+				"(GAP) List([0..40], n-\u003e Sum([0..11], k-\u003e Binomial(n,k)) ); # _G. C. Greubel_, Sep 13 2019"
+			],
+			"xref": [
+				"Cf. A000127, A006261, A008859, A008860, A008861, A008862, A008863.",
+				"Cf. A007318."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Mokhtar Mohamed_, Nov 21 2012",
+			"references": 11,
+			"revision": 28,
+			"time": "2019-09-19T09:26:15-04:00",
+			"created": "2012-11-23T13:44:09-05:00"
+		},
+		{
+			"number": 227362,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,1,21,31,41,51,61,71,81,91,20,21,2,32,42,52,62,72,82,92,30,31,32,3,43,53,63,73,83,93,40,41,42,43,4,54,64,74,84,94,50,51,52,53,54,5,65,75,85,95,60,61,62,63,64,65,6,76,86",
+			"name": "Distinct digits of n arranged in decreasing order.",
+			"comment": [
+				"a(n) \u003c= 9876543210; a(a(n)) = a(n);",
+				"A055642(a(n)) \u003c= 10;",
+				"A055642(a(n)) \u003c= A055642(n), A055642(a(n)) = A055642(n) iff A178788(n) = 1;",
+				"a(A109303(n)) \u003c A109303(n); a(A009995(n)) = A009995(n); a(A071589(n)) \u003e A071589(n);",
+				"a(n) = A151949(n) + A180410(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227362/b227362.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"f[n_] := FromDigits[Reverse@ Union@ IntegerDigits@ n]; f /@ Range[0, 68]",
+				"(* _Michael De Vlieger_, Apr 16 2015, corrected by _Robert G. Wilson v_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (nub, sort)",
+				"a227362 = read . reverse . sort . nub . show :: Integer -\u003e Integer",
+				"(PARI) a(n) = {if (n == 0, d = [0], d = digits(n)); eval(subst(Pol(vecsort(d,,12)), x, 10));} \\\\ _Michel Marcus_, Apr 16 2015",
+				"(PARI) a(n)=fromdigits(vecsort(digits(n),,12)) \\\\ _Charles R Greathouse IV_, Apr 16 2015"
+			],
+			"xref": [
+				"Cf. A004186, A230959."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 09 2013",
+			"references": 11,
+			"revision": 18,
+			"time": "2015-04-16T12:16:43-04:00",
+			"created": "2013-07-09T15:03:12-04:00"
+		}
+	]
+}

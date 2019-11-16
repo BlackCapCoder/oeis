@@ -1,0 +1,325 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7120,
+	"results": [
+		{
+			"number": 53399,
+			"data": "0,2,0,2,0,3,0,3,0,2,0,2,0,4,0,4,0,2,0,2,0,3,0,3,0,2,0,2,0,5,0,5,0,2,0,2,0,3,0,3,0,2,0,2,0,4,0,4,0,2,0,2,0,3,0,3,0,2,0,2,0,6,0,6,0,2,0,2,0,3,0,3,0,2,0,2,0,4,0,4,0,2,0,2,0,3,0,3,0,2,0,2,0,5,0,5,0,2,0,2,0,3,0,3,0",
+			"name": "A053398(3, n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053399/b053399.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a053399 = flip a053398 3 . (+ 2)  -- _Reinhard Zumkeller_, Aug 04 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_David W. Wilson_",
+			"references": 2,
+			"revision": 7,
+			"time": "2014-08-04T08:23:41-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53405,
+			"data": "3,4,4,5,5,4,6,5,5,6,6,6,5,7,7,6,6,8,7,7,7,6,8,8,8,7,7,9,9,8,8,8,7,9,9,9,9,8,8,10,10,10,9,9,9,8,11,10,10,10,10,9,9,11,11,11,11,10,10,10,9,12,12,11,11,11,11,10,10,12,12,12,12,12,11,11,11,10,13,13,13,12,12,12,12",
+			"name": "Definition: A kara B = C, where C is the least nonnegative integer such that: C * B \u003e= A and C * (B-1) \u003c A. Sequence gives smallest a such that n kara a is undefined.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053405/b053405.txt\"\u003eTable of n, a(n) for n = 4..10000\u003c/a\u003e"
+			],
+			"example": [
+				"For instance, 7 kara 4 = 2 because 2 * 4 \u003e 7 and 2 * 3 \u003c 7. 7 kara 5 is undefined: 7 kara 5 != 2 because 2 * (5-1) \u003e 7 and 7 kara 5 != 1 because 1 * 5 \u003c 7. 4 kara 3 is undefined: 4 kara 2 = 2; 4 kara 4 = 1."
+			],
+			"mathematica": [
+				"kara[a_, b_] := Module[{r, c}, r = Reduce[c*b \u003e= a \u0026\u0026 c*(b-1) \u003c a, c, Integers]; If[r === False, Null, c /. {ToRules[r]} // First]]; a[n_] := For[k = 2, True, k++, If[!IntegerQ[n ~kara~ k], Return[k]]]; Table[a[n], {n, 4, 88}] (* _Jean-François Alcover_, Sep 13 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a053405 n = head [a | a \u003c- [1..], n `kara` a == Nothing] where",
+				"   kara a b = if null ks then Nothing else Just $ head ks",
+				"              where ks = [c | c \u003c- [1..a], a \u003c= c * b, a \u003e c * (b - 1)]",
+				"-- _Reinhard Zumkeller_, Mar 30 2013"
+			],
+			"xref": [
+				"Cf. A053087."
+			],
+			"keyword": "nice,nonn,easy",
+			"offset": "4,1",
+			"author": "Robert Lozyniak (11(AT)onna.com), Jan 08 2000",
+			"ext": [
+				"Corrected and extended by _James A. Sellers_, Jan 10 2000"
+			],
+			"references": 2,
+			"revision": 9,
+			"time": "2013-09-13T04:26:37-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53671,
+			"data": "5,5,7,7,11,5,5,7,7,7,5,5,11,11,7,5,5,7,11,13,5,5,7,7,7,5,5,11,7,7,5,5,13,11,11,5,5,7,7,11,5,5,7,7,7,5,5,11,11,7,5,5,7,13,13,5,5,7,7,7,5,5,11,7,7,5,5,11,11,11,5,5,7,7,13,5,5,7,7,7,5,5,11,11,7,5,5,7,11,11,5,5",
+			"name": "Least number coprime to n, n+1 and n+2.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053671/b053671.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a[n_] := (k = 5; While[! (CoprimeQ[k, n] \u0026\u0026 CoprimeQ[k, n+1] \u0026\u0026 CoprimeQ[k, n+2]), k++]; k); Table[a[n], {n, 1, 92}] (* _Jean-François Alcover_, Nov 30 2011 *)",
+				"lnc[n_]:=Module[{k=5,c=n+{0,1,2}},While[!And@@CoprimeQ[k,c],k=k+2];k]; Array[lnc,100] (* _Harvey P. Dale_, Mar 01 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a053671 n = f $ drop 2 a000040_list where",
+				"   f (p:ps) | (n `mod` p) * ((n+1) `mod` p) * ((n+2) `mod` p) \u003e 0 = p",
+				"            | otherwise = f ps",
+				"-- _Reinhard Zumkeller_, Mar 19 2011"
+			],
+			"xref": [
+				"Cf. A053669-A053674."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_Henry Bottomley_, Feb 15 2000",
+			"ext": [
+				"More terms from _James A. Sellers_, Feb 22 2000"
+			],
+			"references": 2,
+			"revision": 17,
+			"time": "2015-03-01T14:01:29-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54028,
+			"data": "2,10,16,23,30,37,44,52,59,67,75,83,92,100,109,117,126,135,144,153,162,171,180,190,199,208,218,227,237,247,256,266,276,286,296,306,316,326,336,346,356,367,377,387,398,408,418,429,439,450,460,471,482,492",
+			"name": "a(n) = first k such that 2^k \u003e= k^n, (for n \u003e= 2, k \u003e= 2).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054028/b054028.txt\"\u003eTable of n, a(n) for n = 2..1000\u003c/a\u003e"
+			],
+			"example": [
+				"a(3) = 10 since 2^10=1024 \u003e= 10^3=1000. a(4) = 16 since 2^16=65536 \u003e= 16^4=65536."
+			],
+			"maple": [
+				"Digits:= 500: f := k-\u003e2^x=x^k; seq(ceil(fsolve(f(n),x,2..infinity)), n=2..20); # for n \u003e= 2"
+			],
+			"mathematica": [
+				"f[n_]:=Module[{k=2},While[2^k\u003ck^n,k++];k]; Join[{0,0},Array[f,60,2]] (* _Harvey P. Dale_, Jan 15 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a054028 n = head [k | k \u003c- [2..], 2^k \u003e= k^n] :: Integer",
+				"-- _Reinhard Zumkeller_, Jul 24 2013"
+			],
+			"xref": [
+				"Cf. A000079, A054029."
+			],
+			"keyword": "nonn,nice",
+			"offset": "2,1",
+			"author": "Asher Auel (asher.auel(AT)reed.edu) Feb 28 2000",
+			"references": 2,
+			"revision": 26,
+			"time": "2019-04-24T05:11:30-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54496,
+			"data": "1,2,3,16,5,6,7,512,81,10,11,48,13,14,15,65536,17,162,19,80,21,22,23,1536,625,26,19683,112,29,30,31,33554432,33,34,35,1296,37,38,39,2560,41,42,43,176,405,46,47,196608,2401,1250,51,208,53,39366,55,3584,57",
+			"name": "If n = p_1^e_1 *p_2^e_2 *p_3^e_3..., p's = distinct primes, e's = positive integers, then a(n) = p_1^(e_1^2) *p_2^(e_2^2) *p_3^(e_3^2) ... .",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054496/b054496.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(24) = 1536, since 24 = 2^3 *3^1 and 1536 = 2^(3^2) *3^(1^2)."
+			],
+			"maple": [
+				"a:= n-\u003e mul(i[1]^(i[2]^2), i=ifactors(n)[2]):",
+				"seq(a(n), n=1..50);  # _Alois P. Heinz_, Jun 09 2014"
+			],
+			"program": [
+				"(Haskell)",
+				"a054496 n = product $",
+				"            zipWith (^) (a027748_row n) (map a000290 $ a124010_row n)",
+				"-- _Reinhard Zumkeller_, Apr 27 2013",
+				"(PARI) a(n) = my(f=factor(n)); for (i=1, #f~, f[i,2] = f[i, 2]^2); factorback(f); \\\\ _Michel Marcus_, Jun 09 2014"
+			],
+			"xref": [
+				"Cf. A027748, A124010, A000290."
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, May 14 2000",
+			"references": 2,
+			"revision": 17,
+			"time": "2014-06-09T15:30:54-04:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		},
+		{
+			"number": 54527,
+			"data": "1,1,-1,1,-1,-1,1,-1,-1,0,1,-1,-1,0,-1,1,-1,-1,0,-1,1,1,-1,-1,0,-1,1,-1,1,-1,-1,0,-1,1,-1,0,1,-1,-1,0,-1,1,-1,0,0,1,-1,-1,0,-1,1,-1,0,0,1,1,-1,-1,0,-1,1,-1,0,0,1,-1,1,-1,-1,0,-1,1,-1,0,0,1,-1,0,1,-1,-1,0,-1,1,-1,0,0,1,-1,0,-1,1,-1",
+			"name": "Triangle read by rows: T(n,k) = Moebius mu(k) (n \u003e= 1, 1\u003c=k\u003c=n).",
+			"comment": [
+				"Row sums = Mertens sequence = A002321; right border = mu(n) = A008683. - _Gary W. Adamson_, Jan 17 2007",
+				"M * Q as infinite lower triangular matrices; M = (1; 1, 1; 1, 1, 1;...); Q = mu(n) in the main diagonal and the rest zeros. - _Gary W. Adamson_, Jan 17 2007",
+				"Terms in rows of this table appears to be the values of the minors in the first expansion of the determinant of the Redheffer matrix. [From _Mats Granvik_, Aug 24 2008]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054527/b054527.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"First few rows of the triangle are;",
+				"1;",
+				"1, -1;",
+				"1, -1, -1;",
+				"1, -1, -1, 0;",
+				"1, -1, -1, 0, -1;",
+				"1, -1, -1, 0, -1, 1;",
+				"..."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits)",
+				"a054527 n k = a054527_tabl !! (n-1) !! (k-1)",
+				"a054527_row n = a054527_tabl !! (n-1)",
+				"a054527_tabl = tail $ inits a008683_list",
+				"-- _Reinhard Zumkeller_, Sep 03 2015"
+			],
+			"xref": [
+				"Cf. A008683, A002321, A054521."
+			],
+			"keyword": "sign,tabl",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Apr 09 2000",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Jul 03 2008 at the suggestion of R. J. Mathar"
+			],
+			"references": 2,
+			"revision": 10,
+			"time": "2015-09-04T23:35:42-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54791,
+			"data": "0,1,3,4,9,6,25,8,49,16,11,100,13,144,15,196,81,18,289,20,361,22,441,24,529,36,27,676,29,784,31,900,33,1024,35,1156,625,38,1369,40,1521,42,1681,44,1849,46,2025,48,2209,64,51,2500,53,2704,55,2916,57,3136,59",
+			"name": "Earliest sequence with a(a(n))=n^2.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A054791/b054791.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Aa#aan\"\u003eIndex entries for sequences of the a(a(n)) = 2n family\u003c/a\u003e"
+			],
+			"formula": [
+				"if n is a square then a(n)=a(sqrt(n))^2, otherwise if the difference between n and the highest square less than n is odd then a(n)=n+1, otherwise a(n)=(n-1)^2"
+			],
+			"mathematica": [
+				"a[n_] := a[n] = Which[r = Sqrt[n]; IntegerQ[r], a[r]^2, OddQ[n - Floor[r]^2], n+1, True, (n-1)^2]; a[0]=0; a[1]=1; Table[a[n], {n, 0, 58}] (* _Jean-François Alcover_, Aug 07 2012, after formula *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a054791 n = a054791_list `genericIndex` n",
+				"a054791_list = 0 : 1 : f 2 where",
+				"   f x | r ^ 2 == x  = a054791 r ^ 2 : f (x + 1)",
+				"       | odd (x - r) = x + 1         : f (x + 1)",
+				"       | otherwise   = (x - 1) ^ 2   : f (x + 1)",
+				"       where r = a000196 x",
+				"-- _Reinhard Zumkeller_, Oct 27 2013"
+			],
+			"xref": [
+				"Cf. A002516."
+			],
+			"keyword": "nice,nonn",
+			"offset": "0,3",
+			"author": "_Henry Bottomley_, Apr 27 2000",
+			"references": 2,
+			"revision": 13,
+			"time": "2016-08-28T18:23:40-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 55018,
+			"data": "411,811,1421,2036,2044,2054,3054,4036,4044,4054,8036,12036,16036,20036,24036,28036,32036,40011,40044,50054,50074,80011,88296,100110,100270,100369,120296,120404,140021,144242,176296,200044,200270,200369",
+			"name": "Numbers n such that n and n+1 are modest (cf. A054986).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A055018/b055018.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e"
+			],
+			"example": [
+				"2036 is modest because Mod[2036, 36] = 20. 2037 is modest because Mod[2037, 037] = 2. Hence 2036 is this pair's modest twin representative."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a055018 n = a055018_list !! (n-1)",
+				"a055018_list = map (a054986 . (+ 1)) $ elemIndices 1 $",
+				"               zipWith (-) (tail a054986_list) a054986_list",
+				"-- _Reinhard Zumkeller_, Mar 26 2012"
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,1",
+			"author": "_Hans Havermann_, May 31 2000",
+			"references": 2,
+			"revision": 15,
+			"time": "2013-07-13T12:02:30-04:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		},
+		{
+			"number": 55040,
+			"data": "6,15,24,33,42,51,54,60,69,78,87,96,105,114,123,132,135,141,150,159,168,177,186,195,204,213,216,222,231,240,249,258,267,276,285,294,297,303,312,321,330,339,348,357,366,375,378,384,393,402,411",
+			"name": "Numbers of the form 3^(2i+1)*(3*j+2).",
+			"comment": [
+				"Numbers not of the form x^2+y^2+3z^2."
+			],
+			"reference": [
+				"L. J. Mordell, A new Waring's problem with squares of linear forms, Quart. J. Math., 1 (1930), 276-288 (see p. 283)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A055040/b055040.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: [x(x+2)(x^2+x+1)(x^7+x^3+1)]/(x^11-x^10-x+1) (conjectured)."
+			],
+			"mathematica": [
+				"max = 500; Select[ Union[ Flatten[ Table[3^(2*i + 1)*(3*j + 2), {i, 0, Ceiling[ Log[max/6]/Log[9]]}, {j, 0, Ceiling[(max/9^i - 6)/9]}]]], # \u003c= max \u0026] (* _Jean-François Alcover_, Oct 13 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a055040 n = a055040_list !! (n-1)",
+				"a055040_list = map (* 3) a055048_list",
+				"-- _Reinhard Zumkeller_, Apr 07 2012"
+			],
+			"xref": [
+				"Equals 3*A055048(n)."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Jun 01 2000",
+			"references": 2,
+			"revision": 15,
+			"time": "2013-11-21T13:11:34-05:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		},
+		{
+			"number": 55118,
+			"data": "0,7,6,5,4,3,2,1,56,63,62,61,60,59,58,57,48,55,54,53,52,51,50,49,40,47,46,45,44,43,42,41,32,39,38,37,36,35,34,33,24,31,30,29,28,27,26,25,16,23,22,21,20,19,18,17,8,15,14,13,12,11,10,9,448,455,454,453,452,451",
+			"name": "Base-8 complement of n (write n in base 8, then replace each digit with its base-8 negative).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A055118/b055118.txt\"\u003eTable of n, a(n) for n = 0..4095\u003c/a\u003e (4095 = 8^4 - 1)",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a055118 0 = 0",
+				"a055118 n = if d == 0 then 8 * a055118 n' else 8 * a055118 n' + 8 - d",
+				"            where (n', d) = divMod n 8",
+				"-- _Reinhard Zumkeller_, Mar 12 2014"
+			],
+			"xref": [
+				"Cf. A004488, A048647, A055115-A055126.",
+				"Column k=8 of A248813."
+			],
+			"keyword": "base,easy,nonn,look",
+			"offset": "0,2",
+			"author": "_Henry Bottomley_, Apr 19 2000",
+			"references": 2,
+			"revision": 17,
+			"time": "2017-03-31T22:24:36-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		}
+	]
+}

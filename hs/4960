@@ -1,0 +1,327 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4960,
+	"results": [
+		{
+			"number": 193773,
+			"data": "1,1,1,1,2,1,1,2,1,1,2,1,2,2,1,1,2,2,1,2,1,1,3,1,2,2,1,2,2,1,1,3,2,1,2,1,1,3,2,1,3,1,2,2,1,2,2,2,1,3,1,1,4,1,1,2,1,2,3,2,2,2,2,1,2,1,2,4,1,1,2,2,2,3,1,1,3,2,1,2,2,1,4,1,2,3",
+			"name": "Number of ways to write n as 2*x*y - x - y with 1 \u003c= x \u003c= y.",
+			"comment": [
+				"a(A005097(n)) = 1; for n \u003e 1: a(A047845(n)) \u003e 1. - _Reinhard Zumkeller_, Jan 02 2013",
+				"Number of ways to write 2*n+1 as a difference of two squares. Note that 2*(2*x*y - x - y) + 1 = (2*x - 1) * (2*y - 1) = (y + x - 1)^2 - (y - x)^2. - _Michael Somos_, Dec 23 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193773/b193773.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = ceiling(A000005(2*n+1) / 2). - _Michael Somos_, Dec 23 2018"
+			],
+			"example": [
+				"G.f. = 1 + x + x^2 + x^3 + 2*x^4 + x^5 + x^6 + 2*x^7 + x^8 + x^9 + 2*x^10 + ... - _Michael Somos_, Dec 23 2018"
+			],
+			"mathematica": [
+				"a[ n_] := If[ n \u003c 0, 0, Ceiling[ DivisorSigma[0, 2 n + 1] / 2]]; (* _Michael Somos_, Dec 23 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a193773 n = length [() | x \u003c- [1 .. n + 1],",
+				"                         let (y,m) = divMod (x + n) (2 * x - 1),",
+				"                         x \u003c= y, m == 0]",
+				"(PARI) {a(n) = if(n \u003c 0, 0, (numdiv(2*n+1) + 1)\\2)}; /* _Michael Somos_, Dec 23 2018 */"
+			],
+			"xref": [
+				"Cf. A000005, A005097, A047845, A125203."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Jan 02 2013",
+			"references": 5,
+			"revision": 17,
+			"time": "2018-12-23T20:04:06-05:00",
+			"created": "2013-01-02T16:14:49-05:00"
+		},
+		{
+			"number": 195063,
+			"data": "6,14,22,26,28,30,46,50,54,58,60,62,78,86,90,94,98,102,106,108,110,114,116,118,120,122,124,126,158,166,174,182,186,190,194,198,202,206,210,214,218,220,222,226,228,230,234,236,238,242,244,246,248,250,252",
+			"name": "Numbers n such that BCR(n) is less than n, where BCR = binary-complement-and-reverse = A036044.",
+			"comment": [
+				"A035928(a(n)) \u003c n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195063/b195063.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a195063 n = a195063_list !! (n-1)",
+				"a195063_list = filter (\\x -\u003e a036044 x \u003c x) [0,2..]"
+			],
+			"xref": [
+				"Complement of A195066; subsequence of A195064; cf. A035928, A195065."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 16 2011",
+			"references": 5,
+			"revision": 8,
+			"time": "2013-07-13T12:04:15-04:00",
+			"created": "2011-09-17T15:03:51-04:00"
+		},
+		{
+			"number": 195064,
+			"data": "2,6,10,12,14,22,26,28,30,38,42,46,50,52,54,56,58,60,62,78,86,90,94,98,102,106,108,110,114,116,118,120,122,124,126,142,150,158,166,170,174,178,182,186,190,194,198,202,204,206,210,212,214,218,220,222,226",
+			"name": "Numbers n such that BCR(n) is not greater than n, where BCR = binary-complement-and-reverse = A036044.",
+			"comment": [
+				"A035928(a(n)) \u003c= n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195064/b195064.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a195064 n = a195064_list !! (n-1)",
+				"a195064_list = filter (\\x -\u003e a036044 x \u003c= x) [0,2..]"
+			],
+			"xref": [
+				"Complement of A195065; A035928 and A195063 are subsequences; cf. A195066."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 16 2011",
+			"references": 5,
+			"revision": 9,
+			"time": "2014-01-29T07:49:19-05:00",
+			"created": "2011-09-17T15:04:04-04:00"
+		},
+		{
+			"number": 195065,
+			"data": "0,4,8,16,18,20,24,32,34,36,40,44,48,64,66,68,70,72,74,76,80,82,84,88,92,96,100,104,112,128,130,132,134,136,138,140,144,146,148,152,154,156,160,162,164,168,172,176,180,184,188,192,196,200,208,216,224",
+			"name": "Numbers n such that BCR(n) is greater than n, where BCR = binary-complement-and-reverse = A036044.",
+			"comment": [
+				"A035928(a(n)) \u003e n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195065/b195065.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a195065 n = a195065_list !! (n-1)",
+				"a195065_list = filter (\\x -\u003e a036044 x \u003e x) [0,2..]"
+			],
+			"xref": [
+				"Complement of A195064; subsequence of A195066; cf. A035928, A195063."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 16 2011",
+			"references": 5,
+			"revision": 7,
+			"time": "2013-07-13T12:04:15-04:00",
+			"created": "2011-09-17T15:04:17-04:00"
+		},
+		{
+			"number": 196277,
+			"data": "1,2,3,4,6,8,9,10,12,14,16,17,19,20,22,25,26,27,28,34,35,37,41,43,45,46,48,50,54,55,60,65,66,67,69,73,75,77,79,81,82,86,92,93,94,100,102,106,107,109,112,114,116,117,119,122,123,126,130,134,136,137",
+			"name": "Numbers m such that A196274(m) \u003e 1.",
+			"comment": [
+				"Complement of A196276; A196274(a(n)) \u003e 1;",
+				"A047846(n+1) = a(n+1) - a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A196277/b196277.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a196277 n = a196277_list !! (n-1)",
+				"a196277_list = map (+ 1) $ findIndices (\u003e 1) a196274_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 30 2011",
+			"references": 5,
+			"revision": 7,
+			"time": "2013-07-13T12:04:17-04:00",
+			"created": "2011-09-30T11:23:52-04:00"
+		},
+		{
+			"number": 198069,
+			"data": "1,1,1,2,1,2,4,1,2,1,4,8,1,2,1,4,1,2,1,8,16,1,2,1,4,1,2,1,8,1,2,1,4,1,2,1,16,32,1,2,1,4,1,2,1,8,1,2,1,4,1,2,1,16,1,2,1,4,1,2,1,8,1,2,1,4,1,2,1,32,64,1,2,1,4,1,2,1,8,1,2,1,4,1,2",
+			"name": "Table read by rows, T(0,0) = 1 and for n\u003e0, 0\u003c=k\u003c=2^(n-1) T(n,k) = gcd(k,2^(n-1)).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198069/b198069.txt\"\u003eRows n = 0..13 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"For n \u003e 0: Let S be the n-th row, S' = replace the initial term by its double, then row (n+1) = concatenation of S' and the reverse of S' without the initial term. - _Reinhard Zumkeller_, May 26 2013"
+			],
+			"example": [
+				"                         1",
+				"                        1, 1",
+				"                      2, 1, 2",
+				"                   4, 1, 2, 1, 4",
+				"             8, 1, 2, 1, 4, 1, 2, 1, 8",
+				"16, 1, 2, 1, 4, 1, 2, 1, 8, 1, 2, 1, 4, 1, 2, 1, 16"
+			],
+			"maple": [
+				"# In triangular form:",
+				"seq(print(seq(gcd(k,2^(n-1)),k=0..2^(n-1))),n=0..6);"
+			],
+			"program": [
+				"(Haskell)",
+				"a198069 n k = a198069_tabf !! n !! k",
+				"a198069_row n = a198069_tabf !! n",
+				"a198069_tabf = [0] : iterate f [1, 1] where",
+				"   f (x:xs) = ys ++ tail (reverse ys) where ys = (2 * x) : xs",
+				"-- _Reinhard Zumkeller_, May 26 2013"
+			],
+			"xref": [
+				"Cf. A094373 (row lengths), A045623 (row sums), A011782 (edges and central terms)."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0,4",
+			"author": "_Peter Luschny_, Nov 12 2011",
+			"references": 5,
+			"revision": 12,
+			"time": "2013-05-27T05:41:36-04:00",
+			"created": "2011-11-12T14:15:07-05:00"
+		},
+		{
+			"number": 198388,
+			"data": "1,2,7,3,7,4,17,14,5,1,6,14,23,7,31,21,8,34,9,28,21,10,49,17,11,47,2,12,35,23,13,28,51,46,71,14,62,42,7,15,16,41,35,17,41,49,79,3,68,18,97,19,56,7,42,20,69,98,34,21,93,31,63,22,85,94,23,49,73",
+			"name": "Square root of first term of a triple of squares in arithmetic progression.",
+			"comment": [
+				"A198384(n) = a(n)^2.",
+				"A198439(n) = a(A198409(n)).",
+				"There is a connection to |x-y| of Pythagorean triangles (x,y,z). See a comment on the primitive Pythagorean triangle case under A198441 which applies mutatis mutandis. - _Wolfdieter Lang_, May 23 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198384/a198384_2.txt\"\u003eTable of initial values\u003c/a\u003e",
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e"
+			],
+			"example": [
+				"Connection to Pythagorean triangles: a(2) = 2 because (in the notation of the Zumkeller link) (u,v,w) = 2*(1,5,7) and the corresponding Pythagorean triangle is 2*((7-1)/2,(1+7)/2,5) = 2*(3,4,5) with |x-y| = 2*(4-3) = 2. - _Wolfdieter Lang_, May 23 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a198388 n = a198388_list !! (n-1)",
+				"a198388_list = map (\\(x,_,_) -\u003e x) ts where",
+				"   ts = [(u,v,w) | w \u003c- [1..], v \u003c- [1..w-1], u \u003c- [1..v-1],",
+				"                   w^2 - v^2 == v^2 - u^2]"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 24 2011",
+			"references": 5,
+			"revision": 20,
+			"time": "2013-05-23T15:10:44-04:00",
+			"created": "2011-10-24T11:11:29-04:00"
+		},
+		{
+			"number": 198389,
+			"data": "5,10,13,15,17,20,25,26,25,29,30,34,37,35,41,39,40,50,45,52,51,50,61,53,55,65,58,60,65,65,65,68,75,74,85,70,82,78,73,75,80,85,85,85,89,91,101,87,100,90,113,95,104,97,102,100,111,122,106,105,123,109",
+			"name": "Square root of second term of a triple of squares in arithmetic progression.",
+			"comment": [
+				"A198385(n) = a(n)^2.",
+				"A198440(n) = a(A198409(n)).",
+				"Apart from its initial 1, A001653 is a subsequence: for all n\u003e1 exists an m such that A198388(m)=1 and a(m)=A001653(n). [observed by _Zak Seidov_, _Reinhard Zumkeller_, Oct 25 2011]",
+				"There is a connection to hypotenuses of Pythagorean triangles. See a comment for the primitive case on A198441 which applies here mutatis mutandis. - _Wolfdieter Lang_, May 23 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198384/a198384_2.txt\"\u003eTable of initial values\u003c/a\u003e",
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e"
+			],
+			"example": [
+				"Connection to Pythagorean triangle hypotenuses: a(20) = 10 because (in the notation of the Zumkeller link) (u,v,w) = 2*(1,5,7) and the Pythagorean triangle is 2*(x=(7-1)/2,y=(1+7)/2,5) = 2*(3,4,5) with hypotenuse 2*5 = 10. - _Wolfdieter Lang_, May 23 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a198389 n = a198389_list !! (n-1)",
+				"a198389_list = map (\\(_,x,_) -\u003e x) ts where",
+				"   ts = [(u,v,w) | w \u003c- [1..], v \u003c- [1..w-1], u \u003c- [1..v-1],",
+				"                   w^2 - v^2 == v^2 - u^2]"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 24 2011",
+			"references": 5,
+			"revision": 25,
+			"time": "2018-10-30T10:31:02-04:00",
+			"created": "2011-10-24T11:11:19-04:00"
+		},
+		{
+			"number": 198440,
+			"data": "5,13,17,25,29,37,41,61,53,65,65,85,73,85,89,101,113,97,109,125,145,145,149,137,181,157,173,197,185,169,221,185,193,205,229,257,265,205,221,233,241,269,313,265,293,325,277,317,281,365,289,305,305,365,401",
+			"name": "Square root of second term of a triple of squares in arithmetic progression that is not a multiple of another triple in (A198384, A198385, A198386).",
+			"comment": [
+				"A198436(n) = a(n)^2; a(n) = A198389(A198409(n)).",
+				"This sequence gives the hypotenuses of primitive Pythagorean triangles (with multiplicities) ordered according to nondecreasing values of the leg sums x+y (called w in the Zumkeller link, given by A198441). See the comment on the equivalence to primitive Pythagorean triangles in A198441. For the values of these hypotenuses ordered nondecreasingly see A020882. See also the triangle version A222946. - _Wolfdieter Lang_, May 23 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198435/a198435.txt\"\u003eTable of initial values\u003c/a\u003e",
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e"
+			],
+			"example": [
+				"From _Wolfdieter Lang_, May 22 2013: (Start)",
+				"Primitive Pythagorean triangle (x,y,z), even y, connection:",
+				"a(8) = 61 because the leg sum x+y = A198441(8) = 71 and due to A198439(8) = 49 one has y = (71+49)/2 = 60 is even, hence x = (71-49)/2 = 11 and z = sqrt(11^2 + 60^2) = 61. (End)"
+			],
+			"program": [
+				"(Haskell)",
+				"a198440 n = a198440_list !! (n-1)",
+				"a198440_list = map a198389 a198409_list"
+			],
+			"xref": [
+				"Cf. A020882, A222946."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 25 2011",
+			"references": 5,
+			"revision": 17,
+			"time": "2015-12-13T00:11:39-05:00",
+			"created": "2011-10-25T17:35:44-04:00"
+		},
+		{
+			"number": 198799,
+			"data": "2,0,49,637,1729,8281,12103,1529437,53599,157339,593047,19882681,375193,68574961,2989441,7709611,1983163,47738317081,4877509",
+			"name": "Smallest m such that m can be written in exactly n ways as x^2 + xy + y^2 with 0 \u003c= x \u003c= y.",
+			"comment": [
+				"10^12 \u003c a(19) \u003c= 21169376772835837. a(20) = 18384457. a(21) = 377770939. - _Donovan Johnson_, Nov 07 2011"
+			],
+			"formula": [
+				"A088534(a(n)) = n and A088534(m) \u003c\u003e n for m \u003c a(n)."
+			],
+			"example": [
+				"a(0) = A034020(1) = 2;",
+				"a(1) = A198772(1) = 0;",
+				"a(2) = A198773(1) = A118886(1) = 49;",
+				"a(3) = A198774(1) = A118886(28) = 637;",
+				"a(4) = A198775(1) = A118886(97) = 1729;",
+				"a(5) = 8281 = A118886(569) = 0 + 0*91 + 91^2 = 11^2 + 11*85 + 85^2 = 19^2 + 19*80 + 80^2 = 39^2 + 39*65 + 65^2 = 49^2 + 49*56 + 56^2;",
+				"a(6) = 12103 = A118886(862) = 2^2 + 2*109 + 109^2 = 21^2 + 21*98 + 98^2 = 27^2 + 27*94 + 94^2 = 34^2 + 34*89 + 89^2 = 49^2 + 49*77 + 77^2 = 61^2 + 61*66 + 66^2.",
+				"405769 = Q(0, 637) = Q(77, 595) = Q(133, 560) = Q(145, 552) = Q(200, 513) = Q(208, 507) = Q(273, 455) = Q(343, 392), where Q(x, y) = x^2 + xy + y^2 but it is not a(7) since sequence definition focuses 'exactly'. - _M. F. Hasler_, Mar 06 2018"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a198799 n = fromJust $ elemIndex n a088534_list",
+				"(PARI) a(n)=for(k=0,oo,A088534(k)==n\u0026\u0026return(k)) \\\\ _M. F. Hasler_, Mar 06 2018"
+			],
+			"xref": [
+				"Cf. A300419 (analog, with x,y \u003e= 1)."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Oct 30 2011",
+			"ext": [
+				"a(7)-a(18) from _Donovan Johnson_, Nov 07 2011"
+			],
+			"references": 5,
+			"revision": 23,
+			"time": "2018-03-08T19:53:49-05:00",
+			"created": "2011-10-30T14:14:13-04:00"
+		}
+	]
+}

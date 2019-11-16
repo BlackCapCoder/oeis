@@ -1,0 +1,368 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5760,
+	"results": [
+		{
+			"number": 199696,
+			"data": "1,1,2,3,35,91,7337,25493,9351479,42980489,78695113801,584834423801,4754839123536133,43472885623916761,1887750276489057845213,21019416307292530253881,4675204650607654300508731931,77008997457626136207428248409",
+			"name": "Products of distinct terms in n-th row of the triangle in A199333.",
+			"comment": [
+				"a(n) = product(A199333(n,k): 0 \u003c= k \u003c= n/2);",
+				"a020639(a(n)) = A008578(n); A006530(a(n)) = A199582(n)."
+			],
+			"formula": [
+				"a(n) = A007947(A199695(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"a199696 n = product . (take (n `div` 2 + 1)) $ a199333_row n"
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Nov 09 2011",
+			"references": 4,
+			"revision": 5,
+			"time": "2012-03-30T18:51:11-04:00",
+			"created": "2011-11-09T18:44:06-05:00"
+		},
+		{
+			"number": 199745,
+			"data": "2145,2730,4641,4845,5005,5460,5610,6435,7410,8190,8778,9177,10725,10920,11220,11305,11730,13485,13585,13650,13923,14535,14820,16380,16830,17017,17556,19110,19305,20010,20930,21489,21505,21840,22230,22440,23460,23529,23595",
+			"name": "Numbers such that the sum of the largest and the smallest prime divisor equals the sum of the other distinct prime divisors.",
+			"comment": [
+				"The definition implies that members of the sequence have at least four distinct prime factors. An even term must have at least five distinct prime factors."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A199745/b199745.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"n such that A008472(n)/2 = A074320(n) = A020639(n) + A006530 (n). - Ray Chandler",
+				"Sum(A027748(a(n),k): 1\u003ck\u003cA001221(a(n))) = A027748(a(n),1) + A027748(a(n),A001221(a(n))). - _Reinhard Zumkeller_, Nov 10 2011"
+			],
+			"example": [
+				"22440 is in the sequence because the distinct prime divisors are  {2, 3, 5, 11, 17} and 17+2 = 3+5+11."
+			],
+			"maple": [
+				"isA199745 := proc(n)",
+				"  local p;",
+				"  p := sort(convert(numtheory[factorset](n),list)) ;",
+				"  if nops(p) \u003e= 3 then",
+				"    return ( op(1,p) + op(-1,p) = add(op(i,p),i=2..nops(p)-1) ) ;",
+				"  else",
+				"    false;",
+				"  end if;",
+				"end proc:",
+				"for n from 2 to 20000 do",
+				"  if isA199745(n) then",
+				"    printf(\"%d,\",n) ;",
+				"  end if ;",
+				"end do: # _R. J. Mathar_, Nov 10 2011"
+			],
+			"mathematica": [
+				"Select[Range[25000],Plus@@(pl=First/@FactorInteger[#])/2==pl[[1]]+pl[[-1]]\u0026] (* _Ray Chandler_, Nov 10 2011 *)"
+			],
+			"program": [
+				"(Sage)",
+				"def isA199745(n) :",
+				"    p = factor(n)",
+				"    return len(p) \u003e 2 and p[0][0] + p[-1][0] == add(p[i][0] for i in (1..len(p)-2))",
+				"[n for n in (2..20000) if isA199745(n)]  # _Peter Luschny_, Nov 10 2011",
+				"(Haskell)",
+				"a199745 n = a199745_list !! (n-1)",
+				"a199745_list = filter (\\x -\u003e 2 * (a074320 x) == a008472 x) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 10 2011"
+			],
+			"xref": [
+				"Cf. A020639, A006530, A074320, A008472, A109353."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Michel Lagneau_, Nov 09 2011",
+			"references": 4,
+			"revision": 34,
+			"time": "2014-05-28T01:51:04-04:00",
+			"created": "2011-11-10T17:30:31-05:00"
+		},
+		{
+			"number": 199770,
+			"data": "1,0,2,6,18,50,146,426,1282,3810,11394,34082,102338,306658,919874,2759154,8276898,24828386,74484386,223444258,670326242,2010964770,6032902242,18098635298,54295809826,162887261410,488661978274,1465985458850,4397955924386",
+			"name": "Self-convolution with \"addition\" played by bitwise XOR.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A199770/b199770.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=1, a(n) = sum ( a(i) XOR a(n-i), i = 1 .. n-1)."
+			],
+			"maple": [
+				"a:= proc(n) option remember; `if`(n=0, 1, add(",
+				"      Bits[Xor](a(i), a(n-1-i)), i=0..n-1))",
+				"    end:",
+				"seq(a(n), n=0..35);  # _Alois P. Heinz_, Jun 16 2018"
+			],
+			"mathematica": [
+				"a[1] = 1; a[n_] := a[n] = Sum[BitXor[a[i], a[n - i]], {i, 1, n - 1}]; Table[a[n], {n, 30}]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Bits (xor)",
+				"a199770 n = a199770_list !! (n-1)",
+				"a199770_list = 1 : f [1] where",
+				"   f xs = y : f (y : xs) where",
+				"     y = sum $ zipWith xor xs $ reverse xs :: Integer",
+				"-- _Reinhard Zumkeller_, Jul 15 2012"
+			],
+			"xref": [
+				"Cf. A000108 (Catalan numbers).",
+				"Cf. A007462, A192484."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,3",
+			"author": "_Jacob A. Siehler_, Nov 10 2011",
+			"references": 4,
+			"revision": 16,
+			"time": "2018-06-16T17:44:47-04:00",
+			"created": "2011-11-10T12:00:29-05:00"
+		},
+		{
+			"number": 199921,
+			"data": "7,31,93,215,389,573,691,691,573,389,215,93,31,7,1",
+			"name": "Number of Roman numerals \u003c 4000 with n letters.",
+			"comment": [
+				"Note that the sequence is completely symmetrical with the addition of the single (notional) Roman string of length zero. - _Ian Duff_, Jun 27 2017"
+			],
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RomanNumerals.html\"\u003eRoman Numerals\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Roman_numerals\"\u003eRoman numerals\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 7, since there are the seven one-letter roman numerals I, V, X, L, C, D, M.",
+				"a(15) = 1, since there is one fifteen-letter roman numeral MMMDCCCLXXXVIII."
+			],
+			"maple": [
+				"for i from 1 to 15 do L[i]:={}: od: for n from 1 to 3999 do L[length(convert(n,roman))]:={op(L[length(convert(n,roman))]),n}; od:",
+				"seq(nops(L[i]),i=1..15); # _Martin Renner_, Nov 13 2011"
+			],
+			"mathematica": [
+				"romanLetterCount = Table[0, {15}]; j = 1; While[j \u003c 4000, romanLetterCount[[StringLength[IntegerString[j, \"Roman\"]]]]++; j++]; romanLetterCount (* _Alonso del Arte_, Nov 12 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group, sort)",
+				"a199921 n = a199921_list !! (n-1)",
+				"a199921_list = map length $ group $ sort $ map (a055642 . a061493) [1..3999]",
+				"-- _Reinhard Zumkeller_, Apr 14 2013"
+			],
+			"xref": [
+				"Cf. A003587, A006968.",
+				"Cf. A055642, A061493."
+			],
+			"keyword": "nonn,fini",
+			"offset": "1,1",
+			"author": "_Martin Renner_, Nov 12 2011",
+			"references": 4,
+			"revision": 25,
+			"time": "2017-06-29T13:21:16-04:00",
+			"created": "2011-11-14T16:27:19-05:00"
+		},
+		{
+			"number": 199968,
+			"data": "0,0,2,3,2,4,2,3,2,3,2,5,2,3,2,3,2,4,2,3,2,3,2,5,2,3,2,3,2,4,2,3,2,3,2,5,2,3,2,3,2,4,2,3,2,3,2,5,2,3,2,3,2,4,2,3,2,3,2,7,2,3,2,3,2,4,2,3,2,3,2,5,2,3,2,3,2,4,2,3,2,3,2",
+			"name": "a(n) = the smallest non-divisor h of n (1\u003ch\u003cn), or 0 if no such h exists.",
+			"comment": [
+				"a(n) = A173540(n,1). - _Reinhard Zumkeller_, Oct 02 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A199968/b199968.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A007978(n) for n\u003e=3."
+			],
+			"program": [
+				"(Haskell)",
+				"a199968 = head . a173540_row  -- _Reinhard Zumkeller_, Oct 02 2015"
+			],
+			"xref": [
+				"Cf. A199969 (the greatest non-divisor h of n (1\u003ch\u003cn)), A199970.",
+				" Cf. A173540."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Jaroslav Krizek_, Nov 26 2011",
+			"references": 4,
+			"revision": 11,
+			"time": "2015-10-06T01:47:09-04:00",
+			"created": "2011-11-26T19:30:17-05:00"
+		},
+		{
+			"number": 200612,
+			"data": "3,9,20,27,60,81,112,180,243,336,400,540,729,1008,1200,1620,2187,2240,2816,3024,3600,4860,6561,6720,8000,8448,9072,10800,12544,13312,14580,19683,20160,24000,25344,27216,32400,37632,39936,43740,44800,56320,59049,60480",
+			"name": "The arithmetic mean of the prime factors (with multiplicity) of n is 3.",
+			"link": [
+				"Reinhard Zumkeller and Donovan Johnson, \u003ca href=\"/A200612/b200612.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e (first 150 terms from Reinhard Zumkeller)"
+			],
+			"formula": [
+				"A001414(a(n)) mod A001222(a(n)) = 0 and A001414(a(n))/A001222(a(n)) = 3. [_Reinhard Zumkeller_, Nov 20 2011]"
+			],
+			"example": [
+				"20 is in the sequence because 20 = 2*2*5 and (2+2+5)/3 = 9/3 = 3."
+			],
+			"maple": [
+				"for i from 2 to 35000 do: a:=ifactors(i): s:=sum((a[2][j][1]*a[2][j][2]),j=1..nops(a[2])): t:=sum((a[2][j][2]),j=1..nops(a[2])): if s/t=3 then print(i); fi od:"
+			],
+			"mathematica": [
+				"Select[Range[61000],Mean[Flatten[Table[#[[1]],{#[[2]]}]\u0026/@FactorInteger[ #]]]==3\u0026] (* _Harvey P. Dale_, Nov 08 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a200612 n = a200612_list !! (n-1)",
+				"a200612_list = filter f [2..] where",
+				"   f x = r == 0 \u0026\u0026 x' == 3 where (x',r) = divMod (a001414 x) (a001222 x)",
+				"-- _Reinhard Zumkeller_, Nov 20 2011",
+				"(PARI) isok(n) = my(f = factor(n)); (sum(k=1, #f~, f[k,1]*f[k,2]) / vecsum(f[,2])) == 3; \\\\ _Michel Marcus_, Feb 22 2016"
+			],
+			"xref": [
+				"Subsequence of A078175."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Jeffrey Burch_, Nov 19 2011",
+			"references": 4,
+			"revision": 26,
+			"time": "2016-02-22T04:51:16-05:00",
+			"created": "2011-11-19T19:36:12-05:00"
+		},
+		{
+			"number": 201881,
+			"data": "1,1,2,2,1,1,1,3,3,1,4,4,1,2,2,1,1,1,2,1,2,3,1,1,3,2,5,1,1,2,1,5,2,2,2,6,1,1,1,1,1,2,3,3,2,1,3,1,1,1,1,1,6,2,1,2,1,1,2,2,3,1,1,4,4,1,2,1,1,2,2,2,1,3,1,4,1,1,2,1,1,1,1,7,3,2",
+			"name": "Run lengths in maximally unpredictable sequences A007061, A038219.",
+			"comment": [
+				"a(2*n-1) = length of n-th block of consecutive ones in A007061, or consecutive zeros in A038219;",
+				"a(2*n) = length of n-th block of consecutive twos in A007061, or consecutive ones in A038219;",
+				"a(A201882(n)) = n and a(m) \u003c n for m \u003c A201882(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A201881/b201881.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"A007061: 1, 2, 1,1, 2,2, 1, 2, 1, 2,2,2, 1,1,1, 2, 1,1,1,1, 2,2,2,2, ..",
+				"A038219: 0, 1, 0,0, 1,1, 0, 1, 0, 1,1,1, 0,0,0, 1, 0,0,0,0, 1,1,1,1, ..",
+				"A201881: 1, 1, __2, __2, 1, 1, 1, ____3, ____3, 1, ______4, ______4, ..."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a201881 n = a201881_list !! (n-1)",
+				"a201881_list = map length $ group a007061_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Dec 11 2011",
+			"references": 4,
+			"revision": 9,
+			"time": "2013-07-13T12:04:19-04:00",
+			"created": "2011-12-12T12:06:56-05:00"
+		},
+		{
+			"number": 202089,
+			"data": "4,13,22,49,58,76,103,130,139,157,193,202,229,247,256,274,283,301,391,418,427,454,463,472,481,508,526,553,598,607,616,643,661,679,688,724,733,742,760,769,778,796,850,868,877,886,904,913,931,949,958,976,1003",
+			"name": "Numbers n such that n^2 and (n+1)^2 have same digit sum.",
+			"comment": [
+				"Or numbers n such that A004159(n)=A004159(n+1), or A007953(n^2)=A007953((n+1)^2).",
+				"Corresponding digit sums are of the form 7+9k, with k=1, 2, 3,... .",
+				"Numbers n are of the form 4+9m, with  m=0, 1, 2, 5, 6, 8, 11, ... .",
+				"A240752(a(n)) = 0. - _Reinhard Zumkeller_, Apr 12 2014"
+			],
+			"link": [
+				"Zak Seidov, \u003ca href=\"/A202089/b202089.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"4^2=16 and 5^2=25 have same digit sum ds=7.",
+				"13^2=169 and 14^2=196 have ds=16.",
+				"76^2=5776 and 77^2=5929 have ds=25.",
+				"526^2=276676 and 527^2=277729 have ds=34."
+			],
+			"mathematica": [
+				"cnt = 0; nn = 10000; n = 4; Reap[While[cnt \u003c nn, While[Total[IntegerDigits[n^2]] != Total[IntegerDigits[(n + 1)^2]], n = n + 9]; cnt++; Sow[n]; n = n + 9]][[2, 1]]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a202089 n = a202089_list !! (n-1)",
+				"a202089_list = elemIndices 0 a240752_list",
+				"-- _Reinhard Zumkeller_, Apr 12 2014"
+			],
+			"xref": [
+				"Cf. A004159, A007953.",
+				"Cf. A239878, A240754."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Zak Seidov_, Dec 11 2011",
+			"references": 4,
+			"revision": 15,
+			"time": "2018-10-30T10:31:02-04:00",
+			"created": "2011-12-12T17:03:46-05:00"
+		},
+		{
+			"number": 202138,
+			"data": "17,78,19,23,29,77,95,77,1,11,13,15,1,55",
+			"name": "Numerators of Conway's PRIMEGAME.",
+			"comment": [
+				"Denominators are in A203363.",
+				"Conway's PRIMEGAME (also called \"Conway's prime producing machine\") is a fascinating (and very inefficient) method for obtaining the prime numbers.",
+				"The \"machine\" consists of 14 rational numbers. Starting with 2, one finds the first number in the machine that multiplied by 2 gives an integer; then for that integer we find the first number in the machine that generates another integer. This process is repeated for each new integer obtained. Thus A007542 is generated. Except for the initial 2, each number in A007542 having an integer for a binary logarithm is a prime number.",
+				"Note that in R. K. Guy's 1983 paper, the last four numbers of the machine are 13/11, 15/14, 15/2 and 55 rather than 13/11, 15/2, 1/7 and 55."
+			],
+			"link": [
+				"R. K. Guy, \u003ca href=\"http://www.jstor.org/stable/2690263\"\u003eConway's prime producing machine\u003c/a\u003e, Math. Mag. 56 (1983), no. 1, 26-33."
+			],
+			"program": [
+				"(Haskell)",
+				"a202138_list = [17, 78, 19, 23, 29, 77, 95, 77, 1, 11, 13, 15, 1, 55]",
+				"-- _Reinhard Zumkeller_, Jan 24 2012"
+			],
+			"xref": [
+				"Cf. A007546, A007547."
+			],
+			"keyword": "nonn,frac,fini,full",
+			"offset": "1,1",
+			"author": "_Alonso del Arte_, Dec 31 2011",
+			"references": 4,
+			"revision": 27,
+			"time": "2015-06-09T16:00:00-04:00",
+			"created": "2012-01-02T19:29:22-05:00"
+		},
+		{
+			"number": 202340,
+			"data": "1,2,1,1,2,2,1,2,1,1,2,1,1,2,2,1,1,2,2,1,2,1,1,2,2,1,2,1,1,2,1,1,2,2,1,2,1,1,2,1,1,2,2,1,1,2,2,1,2,1,1,2,1,1,2,2,1,1,2,2,1,2,1,1,2,2,1,2,1,1,2,1,1,2,2,1,1,2,2,1,2,1,1,2,2,1",
+			"name": "Number of times n occurs in Hofstadter H-sequence A005374.",
+			"comment": [
+				"a(A202341(n)) = 1; a(A202342(n)) = 2."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A202340/b202340.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/HofstadterH-Sequence.html\"\u003eHofstadter H-Sequence.\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Hofstadter_sequence\"\u003eHofstadter sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a202340 n = a202340_list !! n",
+				"a202340_list = map length $ group a005374_list"
+			],
+			"xref": [
+				"Cf. A005374, A202341, A202342."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Dec 17 2011",
+			"references": 4,
+			"revision": 10,
+			"time": "2014-04-15T15:55:49-04:00",
+			"created": "2011-12-17T17:46:36-05:00"
+		}
+	]
+}

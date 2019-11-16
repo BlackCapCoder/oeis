@@ -1,0 +1,272 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6910,
+	"results": [
+		{
+			"number": 254793,
+			"data": "3,6,12,11,13,28,27,32,29,22,47,36,30,66,48,33,70,57,49,51,54,53,63,60,59,135,99,64,145,110,77,162,121,82,171,128,86,182,137,94,201,150,100,214,160,109,232,174,119,251,187,124,261,194,129,272,202,133",
+			"name": "Sums of pairs of adjacent pairs of terms in A254788.",
+			"comment": [
+				"a(n) = A254788(n) + A254788(n+1).",
+				"by definition of A254788:",
+				"(i) all terms are distinct, (ii) disjoint to A254792."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254793/b254793.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a254793 n = a254793_list !! (n-1)",
+				"a254793_list = zipWith (+) a254788_list $ tail a254788_list"
+			],
+			"xref": [
+				"Cf. A254788, A254792 (complement)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Feb 08 2015",
+			"references": 3,
+			"revision": 6,
+			"time": "2015-02-08T11:23:51-05:00",
+			"created": "2015-02-08T05:22:12-05:00"
+		},
+		{
+			"number": 255136,
+			"data": "12,28,36,44,52,68,76,84,92,100,116,124,132,140,148,156,172,180,188,196,204,212,228,244,252,260,268,276,284,292,300,316,324,332,340,348,356,364,372,380,396,404,412,420,428,436,444,452,460,476,484,492,500",
+			"name": "Records in A255134.",
+			"comment": [
+				"a(n) = A255134(A255137(n)) and A255134(m) \u003c a(n) for m \u003c A255137(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A255136/b255136.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a255136 n = a255136_list !! (n-1)",
+				"(a255136_list, a255137_list) = unzip $ f [1..] a255134_list (-1) where",
+				"   f (x:xs) (y:ys) r = if y \u003e r then (y, x) : f xs ys y else f xs ys r"
+			],
+			"xref": [
+				"Cf. A255137, A255134, A097764."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Feb 15 2015",
+			"references": 3,
+			"revision": 5,
+			"time": "2015-02-15T02:19:19-05:00",
+			"created": "2015-02-15T02:19:19-05:00"
+		},
+		{
+			"number": 255137,
+			"data": "1,4,5,6,7,10,11,12,13,14,17,18,19,20,21,22,25,26,27,28,29,30,33,36,37,38,39,40,41,42,43,46,47,48,49,50,51,52,53,54,57,58,59,60,61,62,63,64,65,68,69,70,71,72,73,74,75,76,77,78,81,82,83,84,85,86",
+			"name": "Where records occur in A255134.",
+			"comment": [
+				" A255134(a(n)) = A255136(n) and A255134(m) \u003c A255136(n) for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A255137/b255137.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a255137 n = a255137_list !! (n-1)  -- a255137_list is defined in A255136."
+			],
+			"xref": [
+				" Cf. A255136, A255134, A097764."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Feb 15 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-02-15T02:19:30-05:00",
+			"created": "2015-02-15T02:19:30-05:00"
+		},
+		{
+			"number": 255420,
+			"data": "1,2,3,5,11,37,181,1361,13927,183871,3005533,59045717",
+			"name": "Ludic recurrence: Iterates of f(n) = A003309(n+1) starting from n=1.",
+			"link": [
+				"Donovan Johnson, \u003ca href=\"/A255420/a255420.txt\"\u003eLudic numbers computed up to A003309(1236290) = 23000711\u003c/a\u003e"
+			],
+			"formula": [
+				"a(0) = 1; for n \u003e= 1: a(n) = A003309(1+a(n-1)).",
+				"Other identities. For all n \u003e= 0:",
+				"a(n) = A237126(A000225(n+1)).",
+				"a(n) = A255421(A007097(n))."
+			],
+			"program": [
+				"(Scheme, with memoization-macro definec)",
+				"(definec (A255420 n) (if (zero? n) 1 (A003309 (+ 1 (A255420 (- n 1))))))",
+				"(Haskell)",
+				"a255420 n = a255420_list !! n",
+				"a255420_list = iterate (a003309 . (+ 1)) 1",
+				"-- _Reinhard Zumkeller_, Feb 25 2015"
+			],
+			"xref": [
+				"Cf. A000225, A003309, A007097, A237126, A255421."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,2",
+			"author": "_Antti Karttunen_, Feb 23 2015",
+			"references": 3,
+			"revision": 24,
+			"time": "2019-05-13T15:56:11-04:00",
+			"created": "2015-02-23T23:05:13-05:00"
+		},
+		{
+			"number": 255480,
+			"data": "1,2,3,4,3,2,3,5,2,5,7,3,7,2,3,4,3,4,11,2,11,13,2,13,4,3,2,5,17,5,17,5,3,2,6,19,4,19,2,3,23,3,23,2,3,2,2,4,29,7,29,7,3,7,2,11,31,5,31,5,3,2,2,4,37,4,37,3,3,5,3,4,9,2,6,41,2,41,43,3,43,8,3,4,17",
+			"name": "a(n) = gcd(b(n),b(n-2)), where b(n) = A255582(n).",
+			"link": [
+				"Ray Chandler, \u003ca href=\"/A255480/b255480.txt\"\u003eTable of n, a(n) for n = 3..10002\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a255480 n = a255480_list !! (n-1)",
+				"a255480_list = zipWith gcd a255582_list $ drop 2 a255582_list",
+				"-- _Reinhard Zumkeller_, Mar 10 2015"
+			],
+			"xref": [
+				"Cf. A255582, A255481, A255102.",
+				"Cf. A251102."
+			],
+			"keyword": "nonn",
+			"offset": "3,2",
+			"author": "_N. J. A. Sloane_, Feb 28 2015",
+			"references": 3,
+			"revision": 12,
+			"time": "2015-03-10T18:07:08-04:00",
+			"created": "2015-02-28T11:43:52-05:00"
+		},
+		{
+			"number": 255481,
+			"data": "1,1,1,2,2,1,1,2,1,1,1,1,1,3,1,1,1,1,3,1,1,2,1,1,1,1,2,2,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,3,1,2,2,2,2,1,1,1,3,3,1,1,1,1,1,1,1,2,2,2,2,1,1,3,3,3,2,1,1,2,2,2,1,1,1,1,1,3,1,2,2,1,1,1,1,1,1,1,1",
+			"name": "a(n) = gcd(b(n),b(n-1)), where b(n) = A255582(n).",
+			"comment": [
+				"By definition, a(n) \u003c= A255480(n) for n \u003e= 4."
+			],
+			"link": [
+				"Ray Chandler, \u003ca href=\"/A255481/b255481.txt\"\u003eTable of n, a(n) for n = 2..10001\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a255481 n = a255481_list !! (n-1)",
+				"a255481_list = zipWith gcd a255582_list $ tail a255582_list",
+				"-- _Reinhard Zumkeller_, Mar 10 2015"
+			],
+			"xref": [
+				"Cf. A255582, A255480, A255479."
+			],
+			"keyword": "nonn",
+			"offset": "2,4",
+			"author": "_N. J. A. Sloane_, Feb 28 2015",
+			"references": 3,
+			"revision": 12,
+			"time": "2015-03-10T18:07:20-04:00",
+			"created": "2015-02-28T11:48:52-05:00"
+		},
+		{
+			"number": 255482,
+			"data": "0,0,2,-1,0,-1,1,2,-1,1,-1,-2,4,2,-1,1,2,-2,-1,0,0,-4,0,-4,-6,5,5,1,6,-5,2,4,2,3,-7,-7,0,0,3,6,-4,0,0,2,-3,1,-1,1,-2,0,1,-1,-1,1,-5,-1,-2,7,-1,-3,-4,3,-3,0,-6",
+			"name": "a(n) = A064664(n)-A255479(n).",
+			"comment": [
+				"Gives an idea of how similar A255582 is to A064413."
+			],
+			"link": [
+				"Ray Chandler, \u003ca href=\"/A255482/b255482.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a255482 n = a064664 n - a255479 n  -- _Reinhard Zumkeller_, Mar 10 2015"
+			],
+			"xref": [
+				"Cf. A064413, A255582, A064664, A255479."
+			],
+			"keyword": "sign",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, Feb 28 2015",
+			"references": 3,
+			"revision": 8,
+			"time": "2015-03-10T18:07:33-04:00",
+			"created": "2015-02-28T12:00:09-05:00"
+		},
+		{
+			"number": 255527,
+			"data": "1,2,3,6,7,8,9,13,14,15,16,17,18,23,24,25,26,27,28,29,30,36,37,38,39,40,41,42,43,44,45,52,53,54,55,56,57,58,59,60,61,62,63,71,72,73,74,75,76,77,78,79,80,81,82,83,84,93,94,95,96,97,98,99,100,101",
+			"name": "Where records occur in A255437.",
+			"comment": [
+				"A255437(a(n)) = A164514(n) and A255437(m) \u003c A164514(n) for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A255527/b255527.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a255527 = (+ 1) . fromJust . (`elemIndex` a255437_list) . a164514"
+			],
+			"xref": [
+				"Cf. A255437, A164514."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Mar 23 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-03-26T11:35:24-04:00",
+			"created": "2015-03-26T11:35:24-04:00"
+		},
+		{
+			"number": 255646,
+			"data": "7,5,3,5,9,5,7,5,7,3,5,1,5,5,7,1,5,5,1,3,5,9,5,5,3,3,5,7,3,9,5,7,9,3,5,9,5,5,5,5,7,3,7,1,9,9,5,1,5,5,3,5,9,5,7,7,9,5,1,7,3,5,5,1,5,5,1,7,9,5,7,5,1,5,3,5,7,1,7,3,5,7,3,9,5,5",
+			"name": "Odd triprimes modulo 10.",
+			"comment": [
+				"Final digits of odd triprimes;",
+				"a(n) = A046316(n) mod 10."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A255646/b255646.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Fi#final\"\u003eIndex entries for sequences related to final digits of numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a255646 = flip mod 10 . a046316",
+				"(PARI) do(x)=my(v=List(), t); forprime(p=3, x\\9, forprime(q=3, min(x\\(3*p), p), t=p*q; forprime(r=3, min(x\\t, q), listput(v, t*r)))); Set(v)%10 \\\\"
+			],
+			"xref": [
+				"Cf. A046316, subsequence of A253721."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 05 2015",
+			"references": 3,
+			"revision": 10,
+			"time": "2017-08-30T02:47:36-04:00",
+			"created": "2015-05-05T17:26:25-04:00"
+		},
+		{
+			"number": 255678,
+			"data": "0,4,14,45,143,452,1431,4549,14334,46097",
+			"name": "Smallest number m needing exactly n distinct digits in decimal representation of m*(m+1)/2.",
+			"comment": [
+				"A118668(a(n)) = n and A118668(m) \u003c\u003e n for m \u003c a(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a255678 n = head $ filter ((== n) . a118668) [0..]"
+			],
+			"xref": [
+				"Cf. A118668."
+			],
+			"keyword": "nonn,base,fini,full",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 11 2015",
+			"references": 3,
+			"revision": 9,
+			"time": "2015-07-11T09:43:44-04:00",
+			"created": "2015-07-11T08:21:47-04:00"
+		}
+	]
+}

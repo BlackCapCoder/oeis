@@ -1,0 +1,297 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6720,
+	"results": [
+		{
+			"number": 226778,
+			"data": "1,10,13,14,16,17,19,23,25,29,31,32,34,35,37,38,41,43,47,49,52,53,56,58,59,61,65,67,71,73,74,76,79,83,85,89,91,92,94,95,97,98,100,103,104,106,107,109,112,113,115,116,118,119,122,124,125,127,128,130",
+			"name": "Numbers having no common divisor \u003e 1 with their reversal in decimal representation (see A043537).",
+			"comment": [
+				"A055483(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226778/b226778.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[130], GCD[#, FromDigits[Reverse[IntegerDigits[#]]]] == 1 \u0026] (* _Jayanta Basu_, Jul 24 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a226778 n = a226778_list !! (n-1)",
+				"a226778_list = filter ((== 1) . a055483) [1..]",
+				"(PARI) isok(n) = gcd(n, subst(Pol(Vecrev(digits(n))), x, 10)) == 1; \\\\ _Michel Marcus_, Jul 02 2015",
+				"(PARI) is(n)=gcd(fromdigits(Vecrev(digits(n))), n)==1 \\\\ _Charles R Greathouse IV_, Aug 25 2016"
+			],
+			"xref": [
+				"Cf. A071249 (complement)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 18 2013",
+			"references": 3,
+			"revision": 14,
+			"time": "2016-08-25T09:35:09-04:00",
+			"created": "2013-06-18T08:37:18-04:00"
+		},
+		{
+			"number": 226946,
+			"data": "2,4,5,6,8,9,10,11,12,14,15,16,17,18,20,22,23,24,25,26,27,28,29,30,32,33,34,35,36,38,40,41,42,44,45,46,47,48,50,51,52,53,54,55,56,58,59,60,62,63,64,65,66,68,69,70,71,72,74,75,76,77,78,80,81,82",
+			"name": "Numbers that can't be written as x^2 + x*y + y^2, with 0 \u003c= x \u003c= y and gcd(x,y) = 1.",
+			"comment": [
+				"A000086(a(n)) = 0.",
+				"Also numbers n with psi(n) congruent to 0 mod 3, where psi is A001615, and also numbers divisible by 9 or by at least one prime of the form 3k-1: A003627. - _Enrique Pérez Herrero_, Dec 08 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226946/b226946.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[1000],Mod[# * Times@@(1+1/Transpose[FactorInteger[#]][[1]]),3]==0\u0026] (* _Enrique Pérez Herrero_, Dec 08 2013 *)",
+				"nn = 10; lim = 1 + nn + nn^2; Complement[Range[2, lim], Select[Union[Flatten[Table[If[GCD[x, y] == 1, x^2 + x*y + y^2, 0], {y, nn}, {x, y}]]], # \u003c= lim \u0026]] (* _T. D. Noe_, Dec 09 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a226946 n = a226946_list !! (n-1)",
+				"a226946_list = filter ((== 0) . a000086) [1..]",
+				"-- _Reinhard Zumkeller_, Dec 16 2013, Jun 23 2013"
+			],
+			"xref": [
+				"Cf. A034017 (complement).",
+				"Cf. A003627, A001615."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 23 2013",
+			"ext": [
+				"The original definition was too weak; thanks to _T. D. Noe_ for having corrected this. - _Reinhard Zumkeller_, Dec 09 2013"
+			],
+			"references": 3,
+			"revision": 21,
+			"time": "2013-12-16T07:09:20-05:00",
+			"created": "2013-06-23T15:39:09-04:00"
+		},
+		{
+			"number": 227068,
+			"data": "2,6,12,24,48,60,144,120,180,240,3072,360,900,960,720,840,5184,1260,36864,1680,2880,3600,12582912,2520,6480,61440,6300,6720,805306368,5040,14400,7560,46080,983040,25920,10080,32400,746496,184320,15120",
+			"name": "Least number with exactly n divisors less than its square root.",
+			"comment": [
+				"This is similar to A038549, which counts divisors of n \u003c= sqrt(n). Note that an upper bound on a(n) is 3*2^(n-1), which is attained at n = 2, 3, 4, 5, 11, 23, and 29 -- the number 4 and the primes in A005384 (Sophie Germain primes, p and 2p+1 are prime).",
+				"A056924(a(n)) = n and A056924(m) \u003c\u003e n for m \u003c a(n). - _Reinhard Zumkeller_, Jul 12 2013",
+				"Least k such that there are exactly n couples of distinct divisors whose product is k. [_Paolo P. Lava_, May 13 2016]"
+			],
+			"link": [
+				"Paul Tek, \u003ca href=\"/A227068/a227068_1.txt\"\u003eC program for this sequence\u003c/a\u003e"
+			],
+			"example": [
+				"The divisors of 60 are 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60. Only 6 of these are \u003c sqrt(60). And 60 is the first such number."
+			],
+			"mathematica": [
+				"nn = 22; t = Table[0, {nn}]; found = 0; n = 0; While[found \u003c nn, n++; c = Length[Select[Divisors[n], # \u003c Sqrt[n] \u0026]]; If[c \u003e 0 \u0026\u0026 c \u003c= nn \u0026\u0026 t[[c]] == 0, t[[c]] = n; found++]]; t",
+				"Map[Function[k, FirstPosition[#, k]], Range@ 22] \u0026@ Table[Count[Divisors@ n, m_ /; m \u003c Sqrt@ n], {n, 10^5}] // Flatten (* _Michael De Vlieger_, May 13 2016, Version 10 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a227068 = (+ 1) . fromJust . (`elemIndex` a056924_list)",
+				"-- _Reinhard Zumkeller_, Jul 12 2013",
+				"(C) See links section."
+			],
+			"xref": [
+				"Cf. A005384, A038549, A056924."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_T. D. Noe_, Jul 11 2013",
+			"ext": [
+				"a(29) from _Paul Tek_, Jul 13 2013"
+			],
+			"references": 3,
+			"revision": 40,
+			"time": "2016-05-17T09:24:24-04:00",
+			"created": "2013-07-11T13:10:49-04:00"
+		},
+		{
+			"number": 227288,
+			"data": "1,2,1,3,1,5,1,7,2,4,3,3,1,11,1,13,2,2,1,17,1,19,2,4,3,3,1,23,1,5,2,4,1,29,1,31,1,3,1,5,1,37,1,3,1,41,1,43,2,4,3,5,1,47,1,7,1,3,2,4,1,53,1,5,1,3,1,59,1,61,2,2,1,67,2,2,1,3,1,71,1",
+			"name": "Greatest common divisor of consecutive terms in A227113.",
+			"comment": [
+				"a(n) = GCD(A227113(n),A227113(n+1));",
+				"a(2*n) \u003e 1 by definition of A227113;",
+				"9 is the smallest odd number m with a(m) \u003e 1: a(9) = GCD(A227113(9),A227113(10)) = GCD(14,8) = 2;",
+				"a(A227289(n)) = n and a(m) \u003c\u003e n for m \u003c A227289(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227288/b227288.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a227288 n = a227288_list !! (n-1)",
+				"a227288_list = zipWith gcd (tail a227113_list) a227113_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 05 2013",
+			"references": 3,
+			"revision": 5,
+			"time": "2013-07-05T07:58:49-04:00",
+			"created": "2013-07-05T07:58:49-04:00"
+		},
+		{
+			"number": 227296,
+			"data": "1,1,1,2,3,6,4,14,15,26,23,55,34,100,90,146,186,296,199,489,434,725,807,1254,919,1946,2063,2943,3036,4564,2462,6841,7665,9871,11098,14744,12384,21636,23928,30677,31603,44582,31570,63260,69414,86420,99795,124753",
+			"name": "Number of partitions of n into parts \u003c= phi(n), where phi is Euler's totient function (cf. A000010).",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A227296/b227296.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ exp(Pi*sqrt(2*n/3)) / (4*sqrt(3)*n). - _Vaclav Kotesovec_, May 24 2018"
+			],
+			"maple": [
+				"with(numtheory):",
+				"b:= proc(n, i) option remember; `if`(n=0 or i=1, 1,",
+				"       b(n, i-1) +`if`(i\u003en, 0, b(n-i, i)))",
+				"    end:",
+				"a:= n-\u003e b(n, phi(n)):",
+				"seq(a(n), n=0..100);  # _Alois P. Heinz_, May 11 2015"
+			],
+			"mathematica": [
+				"(* Requires version 6.0+ *) Table[Length[IntegerPartitions[n, n, Range[EulerPhi[n]]]], {n, 0, 47}] (* _Ivan Neretin_, May 11 2015 *)",
+				"intPartLen[n_, i_] := intPartLen[n, i] = If[n == 0 || i == 1, 1, intPartLen[n, i - 1] + If[i \u003e n, 0, intPartLen[n - i, i]]]; intPartLenPhi[n_] := intPartLen[n, EulerPhi[n]]; Table[intPartLenPhi[n], {n, 0, 99}] (* _Jean-François Alcover_, Nov 11 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a227296 n = p [1 .. a000010 n] n where",
+				"   p _          0 = 1",
+				"   p []         _ = 0",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A079124, A057562."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Jul 05 2013",
+			"references": 3,
+			"revision": 22,
+			"time": "2018-05-24T09:25:34-04:00",
+			"created": "2013-07-05T14:28:14-04:00"
+		},
+		{
+			"number": 227388,
+			"data": "1,2,4,10,14,24,30,36,42,48,54,72,80,88,96,120,130,140,150,160,170,180,190,200,210,246,258,270,282,294,306,350,364,378,392,406,420,472,488,504,520,536,552,612,630,648,666,684,702,770,790,810,830,850,870",
+			"name": "Smallest m such that A226390(m) = n.",
+			"comment": [
+				"A226390(a(n)) = n and A226390(m) \u003c n for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227388/b227388.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a227388 = (+ 1) . fromJust . (`elemIndex` a226390_list)"
+			],
+			"xref": [
+				"Cf. A227389 (first differences); A014011."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 10 2013",
+			"references": 3,
+			"revision": 5,
+			"time": "2013-07-10T15:17:41-04:00",
+			"created": "2013-07-10T15:17:41-04:00"
+		},
+		{
+			"number": 227389,
+			"data": "1,2,6,4,10,6,6,6,6,6,18,8,8,8,24,10,10,10,10,10,10,10,10,10,36,12,12,12,12,12,44,14,14,14,14,14,52,16,16,16,16,16,60,18,18,18,18,18,68,20,20,20,20,20,76,22,22,22,22,22,22,22,22,22,22,22,22,22",
+			"name": "Run lengths in A226390.",
+			"comment": [
+				"Also first differences of A227388."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227389/b227389.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a227389 n = a227389_list !! (n-1)",
+				"a227389_list = map length $ group a226390_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 10 2013",
+			"references": 3,
+			"revision": 4,
+			"time": "2013-07-10T15:18:13-04:00",
+			"created": "2013-07-10T15:18:13-04:00"
+		},
+		{
+			"number": 227632,
+			"data": "1,2,5,19,34,61,114,175,1094,1695,3390,9372,15605,116478,220288,455587,552188",
+			"name": "Record values in A227617.",
+			"comment": [
+				"a(n) = A227617(A227633(n));",
+				"A227633(n) = A100707(a(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"a227632 n = a227632_list !! (n-1)",
+				"(a227632_list, a227633_list) = unzip $ (1,1) : f 1 1 a227617_list where",
+				"   f i v (q:qs) | q \u003e v = (q,i) : f (i + 1) q qs",
+				"                | otherwise = f (i + 1) v qs"
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 19 2013",
+			"references": 3,
+			"revision": 4,
+			"time": "2013-07-19T14:18:20-04:00",
+			"created": "2013-07-19T14:18:20-04:00"
+		},
+		{
+			"number": 227633,
+			"data": "1,2,3,5,15,28,41,71,89,644,969,2129,6380,9684,10016,10055,160584",
+			"name": "Where record values occur in A227617.",
+			"comment": [
+				"A227617(a(n)) = A227632(n);",
+				"a(n) = A100707(A227632(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"a227633 n = a227633_list !! (n-1)",
+				"-- See A227632: for definition of a227633_list."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 19 2013",
+			"references": 3,
+			"revision": 3,
+			"time": "2013-07-19T14:19:06-04:00",
+			"created": "2013-07-19T14:19:06-04:00"
+		},
+		{
+			"number": 227791,
+			"data": "1,2,8,36,176,940,5568,37128,280992,2410812,23250080,249164344,2934303264,37617633976,521009920256,7748175156240,123095897716800,2080205257723740,37253560076385120,704703668205036120,14039778681732928800,293831851498842784680",
+			"name": "Central terms of the triangle in A227550.",
+			"comment": [
+				"a(n) = A074911(2*n,n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a227791 n = a227550 (2 * n) n"
+			],
+			"xref": [
+				"Cf. A225621."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Aug 05 2013",
+			"references": 3,
+			"revision": 19,
+			"time": "2013-08-05T13:44:37-04:00",
+			"created": "2013-08-05T13:44:37-04:00"
+		}
+	]
+}

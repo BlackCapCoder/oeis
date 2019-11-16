@@ -1,0 +1,500 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1920,
+	"results": [
+		{
+			"number": 178910,
+			"data": "1,3,2,7,4,6,6,15,11,12,10,14,12,10,8,31,16,29,18,28,16,30,22,30,29,20,16,18,28,24,30,63,40,48,32,49,36,54,40,60,40,48,42,54,44,58,46,62,55,39,32,36,52,48,56,34,40,36,58,56,60,34,38,127,72,120,66,112,80,96,70",
+			"name": "Binary XOR of divisors of n.",
+			"comment": [
+				"If 2^k \u003c= n \u003c 2^(k+1), then also 2^k \u003c= a(n) \u003c 2^(k+1), since any proper divisor of n is \u003c 2^k."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A178910/b178910.txt\"\u003eTable of n, a(n) for n = 1..8191\u003c/a\u003e"
+			],
+			"program": [
+				"(PARI) a(n)=local(ds,r);ds=divisors(n);for(k=1,#ds,r=bitxor(r,ds[k]));r",
+				"(Haskell)",
+				"import Data.Bits (xor)",
+				"a178910 = foldl1 xor . a027750_row :: Integer -\u003e Integer",
+				"-- _Reinhard Zumkeller_, Nov 17 2012"
+			],
+			"xref": [
+				"Cf. A000203, A178908, A178911, A003987.",
+				"Cf. A027750, A072594; subsequences A028982 (odd), A028982 (even)."
+			],
+			"keyword": "base,nonn,look",
+			"offset": "1,2",
+			"author": "_Franklin T. Adams-Watters_, Jun 22 2010",
+			"references": 18,
+			"revision": 12,
+			"time": "2014-01-28T09:29:38-05:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 179253,
+			"data": "196417,271442,300099,311045,315226,316823,317433,317666,317755,317789,317802,317807,317809,317810,392835,421492,432438,436619,438216,438826,439059,439148,439182,439195,439200,439202,439203,467860,478806,482987",
+			"name": "Numbers k that have 13 terms in their Zeckendorf representation.",
+			"comment": [
+				"A007895(a(n)) = 13. - _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A179253/b179253.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"196417 = 1 + 3 + 8 + 21 + 55 + 144 + 377 + 987 + 2584 + 6765 + 17711 + 46368 + 121393;",
+				"271442 = 1 + 3 + 8 + 21 + 55 + 144 + 377 + 987 + 2584 + 6765 + 17711 + 46368 + 196418;"
+			],
+			"maple": [
+				"with(combinat): seq(add(fibonacci(2*k), k = 1 .. 13-m)+add(fibonacci(27-2*k+2), k = 1 .. m), m = 0 .. 13); # this program yields only the first 14 terms of the sequence",
+				"From _R. J. Mathar_, Jul 23 2010: (Start)",
+				"Lzto10 := proc(L) local i ; add( op(i,L)*combinat[fibonacci](i+1),i=1..nops(L) ) ; end proc:",
+				"zbits := proc(numbits,toset,upbits) local L,hibi ; if 2*toset-1 \u003e numbits then return ; end if; if toset = 0 then L := [(seq(0,i=1..numbits)),op(upbits)] ; Lzto10(L); print(%) ; else for hibi from toset-1 to numbits -1 do if toset = 1 then procname(hibi,toset-1,[1,seq(0,i=1..numbits-hibi-1),op(upbits)]) ; else procname(hibi-1,toset-1,[0,1,seq(0,i=1..numbits-hibi-1),op(upbits)]) ; end if; end do; end if; return ; end proc:",
+				"ztot := 13 : for numbits from 2*ztot -1 to 50 do zbits(numbits-2,ztot-1,[0,1]) ; end do: (End)"
+			],
+			"program": [
+				"(Haskell)",
+				"a179253 n = a179253_list !! (n-1)",
+				"a179253_list = filter ((== 13) . a007895) [1..]",
+				"-- _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"xref": [
+				"Cf. A035517, A007895, A179242, A179243, A179244, A179245, A179246, A179247, A179248, A179249, A179250, A179251, A179252."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Emeric Deutsch_, Jul 05 2010",
+			"ext": [
+				"More terms from _R. J. Mathar_, Jul 23 2010"
+			],
+			"references": 18,
+			"revision": 13,
+			"time": "2019-03-03T02:20:30-05:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 182205,
+			"data": "40,60,90,135,101,76,114,171,128,192,288,432,648,972,1458,2187,1640,2460,3690,5535,4151,3113,2335,1751,1313,985,739,554,831,623,467,350,525,394,591,443,332,498,747,560,840,1260,1890,2835,2126,3189,2392,3588,5382",
+			"name": "Iterate the map in A006368 starting at 40.",
+			"comment": [
+				"Like for iterations with starting points 8 or 14, it is conjectured that also this trajectory never repeats."
+			],
+			"reference": [
+				"D. Gale, Tracking the Automatic Ant and Other Mathematical Explorations, A Collection of Mathematical Entertainments Columns from The Mathematical Intelligencer, Springer, 1998; see p. 16."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A182205/b182205.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.jstor.org/stable/10.4169/amer.math.monthly.120.03.192\"\u003eOn unsettleable arithmetical problems\u003c/a\u003e, Amer. Math. Monthly, 120 (2013), 192-198."
+			],
+			"formula": [
+				"a(n+1) = A006368(a(n)), with a(0) = 40."
+			],
+			"mathematica": [
+				"SubstitutionSystem[{n_ :\u003e If[EvenQ[n], 3 n/2, Round[3 n/4]]}, {40}, 60] // Flatten (* _Jean-François Alcover_, Mar 01 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a182205 n = a182205_list !! n",
+				"a182205_list = iterate a006368 40"
+			],
+			"xref": [
+				"Cf. A028393, A028395, A180853, A180864, A182205; A028398(6) = 40.",
+				"Trajectories under A006368 and A006369: A180853, A217218, A185590, A180864, A028393, A028394, A094328, A094329, A028396, A028395, A217729, A182205, A223083-A223088, A185589, A185590."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Apr 18 2012",
+			"references": 18,
+			"revision": 21,
+			"time": "2019-03-01T08:46:30-05:00",
+			"created": "2012-04-18T14:06:58-04:00"
+		},
+		{
+			"number": 192895,
+			"data": "-1,0,-1,1,-1,2,-2,2,1,2,-2,5,-2,2,1,3,-1,6,-2,5,3,2,-3,8,0,2,1,6,-3,10,-4,4,4,2,3,11,-2,2,2,8,-2,12,-3,6,7,2,-4,11,1,6,1,6,-3,10,1,10,2,2,-4,19,-4,2,5,5,4,12,-2,5,4,12,-3,16,-2,2,8,6",
+			"name": "A000120-deficiency of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A192895/b192895.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum(A000120(d): 1 \u003c= d \u003c n and n mod d = 0) - A000120(n); see A175522 for motivation and more information;",
+				"a(A175524(n)) \u003c 0; a(A175522(n)) = 0; a(A175526(n)) \u003e 0.",
+				"a(n) = A292257(n) - A000120(n). - _Antti Karttunen_, Nov 10 2017"
+			],
+			"mathematica": [
+				"a[n_] := DivisorSum[n, Total[IntegerDigits[#, 2]]*(-1)^Boole[# == n]\u0026]; Array[a, 80] (* _Jean-François Alcover_, Dec 05 2015, adapted from PARI *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a192895 n =",
+				"   sum (map a000120 $ filter ((== 0) . (mod n)) [1..n-1]) - a000120 n",
+				"a192895_list = map a192895 [1..]",
+				"(PARI) a(n)=sumdiv(n,d,hammingweight(d)*(-1)^(d==n)) \\\\ _Charles R Greathouse IV_, Feb 07 2013"
+			],
+			"xref": [
+				"Cf. A000120, A033879, A093653, A175522, A175524, A175526, A292257.",
+				"Cf. A257691 (positions where a(n) \u003c= 0), A294905 (and its char.fun)."
+			],
+			"keyword": "sign",
+			"offset": "1,6",
+			"author": "_Reinhard Zumkeller_, Jul 12 2011",
+			"references": 18,
+			"revision": 21,
+			"time": "2017-11-11T11:58:40-05:00",
+			"created": "2011-07-12T03:11:10-04:00"
+		},
+		{
+			"number": 209816,
+			"data": "1,3,7,15,30,58,105,186,318,530,863,1380,2164,3345,5096,7665,11395,16765,24418,35251,50460,71669,101050,141510,196888,272293,374423,512081,696760,943442,1271527,1706159,2279700,3033772,4021695,5311627,6990367,9168321",
+			"name": "Number of partitions of 2n in which every part is \u003cn+1; also, the number of partitions of 2 into rational numbers a/b such that 0\u003ca\u003c=b\u003c=n and b divides n.",
+			"comment": [
+				"Also, the number of partitions of 3n in which n is the maximal part.",
+				"Also, the number of partitions of 3n into n parts. - _Seiichi Manyama_, May 07 2018",
+				"Also the number of multigraphical partitions of 2n, i.e., integer partitions that comprise the multiset of vertex-degrees of some multigraph. - _Gus Wiseman_, Oct 24 2018",
+				"Also number of partitions of 2n with at most n parts. Conjugate partitions map one to one to partitions of 2*n with each part \u003c= n. - _Wolfdieter Lang_, May 21 2019"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A209816/b209816.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Gus Wiseman, \u003ca href=\"/A209816/a209816.png\"\u003eMultigraphs realizing each of the a(4) = 15 multigraphical partitions of 8.\u003c/a\u003e",
+				"Gus Wiseman, \u003ca href=\"/A209816/a209816_1.png\"\u003eMultigraphs realizing each of the a(5) = 30 multigraphical partitions of 10.\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000041(2*n)-A000070(n-1). - _Matthew Vandermast_, Jul 16 2012",
+				"a(n) = Sum_{k=1..n} A008284(2*n, k) = A000041(2*n) - A000070(n-1), for n \u003e= 1. - _Wolfdieter Lang_, May 21 2019"
+			],
+			"example": [
+				"The 7 partitions of 6 with parts \u003c4 are as follows:",
+				"3+3, 3+2+1, 3+1+1+1",
+				"2+2+2, 2+2+1+1, 2+1+1+1+1",
+				"1+1+1+1+1+1.",
+				"Matching partitions of 2 into rationals as described:",
+				"1 + 1",
+				"1 + 3/3 + 1/3",
+				"1 + 1/3 + 1/3 + 1/3",
+				"2/3 + 2/3 + 2/3",
+				"2/3 + 2/3 + 1/3 + 1/3",
+				"2/3 + 1/3 + 1/3 + 1/3 + 1/3",
+				"1/3 + 1/3 + 1/3 + 1/3 + 1/3 + 1/3.",
+				"From _Seiichi Manyama_, May 07 2018: (Start)",
+				"n | Partitions of 3n into n parts",
+				"--+-------------------------------------------------",
+				"1 | 3;",
+				"2 | 5+1, 4+2, 3+3;",
+				"3 | 7+1+1, 6+2+1, 5+3+1, 5+2+2, 4+4+1, 4+3+2, 3+3+3; (End)",
+				"From _Gus Wiseman_, Oct 24 2018: (Start)",
+				"The a(1) = 1 through a(4) = 15 partitions:",
+				"  (11)  (22)    (33)      (44)",
+				"        (211)   (222)     (332)",
+				"        (1111)  (321)     (422)",
+				"                (2211)    (431)",
+				"                (3111)    (2222)",
+				"                (21111)   (3221)",
+				"                (111111)  (3311)",
+				"                          (4211)",
+				"                          (22211)",
+				"                          (32111)",
+				"                          (41111)",
+				"                          (221111)",
+				"                          (311111)",
+				"                          (2111111)",
+				"                          (11111111)",
+				"(End)"
+			],
+			"maple": [
+				"b:= proc(n, i) option remember;",
+				"      `if`(n=0, 1, `if`(i\u003c1, 0, b(n, i-1)+`if`(i\u003en, 0, b(n-i, i))))",
+				"    end:",
+				"a:= n-\u003e b(2*n, n):",
+				"seq(a(n), n=1..50);  # _Alois P. Heinz_, Jul 09 2012"
+			],
+			"mathematica": [
+				"f[n_] := Length[Select[IntegerPartitions[2 n], First[#] \u003c= n \u0026]]; Table[f[n], {n, 1, 30}] (* A209816 *)",
+				"Table[SeriesCoefficient[Product[1/(1-x^k),{k,1,n}],{x,0,2*n}],{n,1,20}] (* _Vaclav Kotesovec_, May 25 2015 *)",
+				"Table[Length@IntegerPartitions[3n, {n}], {n, 25}] (* _Vladimir Reshetnikov_, Jul 24 2016 *)",
+				"b[n_, i_] := b[n, i] = If[n==0, 1, If[i\u003c1, 0, b[n, i-1] + If[i\u003en, 0, b[n-i, i]]]]; a[n_] := b[2*n, n]; Table[a[n], {n, 1, 50}] (* _Jean-François Alcover_, Aug 29 2016, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a209816 n = p [1..n] (2*n) where",
+				"   p _          0 = 1",
+				"   p []         _ = 0",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Nov 14 2013"
+			],
+			"xref": [
+				"Cf. A000041, A000070, A000569, A008284, A025065, A079122, A096373, A147878, A209815, A320911, A320921, A320924."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, Mar 13 2012",
+			"ext": [
+				"More terms from _Alois P. Heinz_, Jul 09 2012"
+			],
+			"references": 18,
+			"revision": 53,
+			"time": "2019-05-21T17:33:20-04:00",
+			"created": "2012-03-18T19:11:30-04:00"
+		},
+		{
+			"number": 213723,
+			"data": "0,2,0,4,6,0,0,8,10,0,12,14,0,0,0,16,18,0,20,22,0,0,24,26,0,28,30,0,0,0,0,32,34,0,36,38,0,0,40,42,0,44,46,0,0,0,48,50,0,52,54,0,0,56,58,0,60,62,0,0,0,0,0,64,66,0,68,70,0,0,72,74,0,76,78",
+			"name": "a(n) = smallest natural number x such that x=n+A000120(x), otherwise zero.",
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A213723/b213723.txt\"\u003eTable of n, a(n) for n = 0..1024\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 2*A213714(n).",
+				"Also, by partitioning into sums of distinct nonzero terms of A000225: if n can be formed as a sum of (2^a)-1 + (2^b)-1 + (2^c)-1, etc. where the exponents a, b, c are distinct and all \u003e 0, then a(n) = 2^a + 2^b + 2^c, etc. If this is not possible, then n is one of the terms of A055938, and a(n)=0."
+			],
+			"example": [
+				"a(1) = 2, as 2 is the smallest natural number such that x such that x=1+A000120(x) (as 2=1+A000120(2)=1+1).",
+				"a(2) = 0, as there are no solutions for 2, because it belongs to A055938.",
+				"a(11) = 14, as 14 is the smallest natural number x such that x=11+A000120(x) (as 14=11+A000120(14)=11+3)."
+			],
+			"program": [
+				"(Scheme): (define (A213723 n) (A005843 (A213714 n)))",
+				"(Haskell)",
+				"a213723 = (* 2) . a213714  -- _Reinhard Zumkeller_, May 01 2015"
+			],
+			"xref": [
+				"a(A055938(n)) = 0. a(A005187(n)) = A005843(n) = 2n.",
+				"Cf. A213724. Used for computing A213725-A213727. Cf. A179016."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Antti Karttunen_, Nov 01 2012",
+			"references": 18,
+			"revision": 16,
+			"time": "2015-08-11T01:13:40-04:00",
+			"created": "2012-11-02T11:19:59-04:00"
+		},
+		{
+			"number": 247758,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,11,20,21,22,23,24,25,26,27,28,29,30,31,33,40,41,43,44,45,46,47,50,51,53,55,56,57,60,61,63,66,67,70,71,73,77,80,81,83,84,85,86,87,88,90,91,93,94,95,96,97,98,99,100,110",
+			"name": "Numbers in decimal representation, such that in Latin their digits are in alphabetic order.",
+			"comment": [
+				"List of decimal digits, alphabetically sorted by their names in Latin:",
+				"2 _ duo/duae/duo, 9 _ novem, 8 _ octo, 4 _ quattuor, 5 _ quinque, 6 _ sex, 7 _ septem, 3 _ tres/tria, 1 _ unus/una/unum, 0 _ zipherum;",
+				"a(131861) = A247808(1023) = 2984567310 is the greatest term not containing any repeating digits."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247758/b247758.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://de.wikipedia.org/wiki/Zahlen_in_unterschiedlichen_Sprachen#0_bis_10\"\u003eZahlen in unterschiedlichen Sprachen\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/List_of_numbers_in_various_languages\"\u003eList of numbers in various languages\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.IntSet (fromList, deleteFindMin, union)",
+				"a247758 n = a247758_list !! (n-1)",
+				"a247758_list = 0 : f (fromList [1..9]) where",
+				"   f s = x : f (s' `union`",
+				"         fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))",
+				"     where (x, s') = deleteFindMin s",
+				"   digs = [2, 9, 8, 4, 5, 6, 7, 3, 1, 0]"
+			],
+			"xref": [
+				"Cf. A247808 (subsequence).",
+				"Cf. A247750 (Czech), A247751 (Danish), A247752 (Dutch), A053432 (English), A247753 (Finnish), A247754 (French), A247755 (German), A247756 (Hungarian), A247757 (Italian), A247759 (Norwegian), A247760 (Polish), A247757 (Portuguese), A247761 (Russian), A247762 (Slovak), A161390 (Spanish), A247759 (Swedish), A247764 (Turkish)."
+			],
+			"keyword": "nonn,base,word",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"references": 18,
+			"revision": 6,
+			"time": "2014-10-18T07:25:37-04:00",
+			"created": "2014-10-05T19:13:03-04:00"
+		},
+		{
+			"number": 252867,
+			"data": "0,1,2,5,10,4,3,12,17,6,9,18,8,7,24,33,14,32,11,36,19,40,16,13,48,15,80,34,20,35,28,65,22,41,66,21,42,68,25,38,72,23,64,26,69,50,73,52,67,44,81,46,129,30,97,130,29,98,132,27,100,131,56,70,49,74,37,82",
+			"name": "a(n) = n if n \u003c= 2, otherwise the smallest number not occurring earlier having in its binary representation at least one bit in common with a(n-2), but none with a(n-1).",
+			"comment": [
+				"Conjectured to be a permutation of the nonnegative integers. [Comment modified by _N. J. A. Sloane_, Jan 10 2015]",
+				"This is a purely set-based version of A098550, using the binary representation of numbers."
+			],
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A252867/b252867.txt\"\u003eTable of n, a(n) for n = 0..50002\u003c/a\u003e (First 10000 terms from Reinhard Zumkeller)",
+				"David L. Applegate, Hans Havermann, Bob Selcoe, Vladimir Shevelev, N. J. A. Sloane, and Reinhard Zumkeller, \u003ca href=\"http://arxiv.org/abs/1501.01669\"\u003eThe Yellowstone Permutation\u003c/a\u003e, arXiv preprint arXiv:1501.01669, 2015 and \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL18/Sloane/sloane9.html\"\u003eJ. Int. Seq. 18 (2015) 15.6.7\u003c/a\u003e.",
+				"Chai Wah Wu, \u003ca href=\"/A252867/a252867.png\"\u003eScatterplot of first million terms\u003c/a\u003e",
+				"Chai Wah Wu, \u003ca href=\"/A252867/a252867_1.png\"\u003eScatterplot of first million terms\u003c/a\u003e, with red lines powers of 2.",
+				"Chai Wah Wu, \u003ca href=\"/A252867/a252867.zip.txt\"\u003eGzipped file with first million terms\u003c/a\u003e [Save file, delete .txt suffix, then open]"
+			],
+			"example": [
+				"The sequence of sets is {}, {0}, {1}, {0,2}, {1,3}, {2}, {0,1}, {3,4}. After the initial 3 terms, a(n) is the minimum set (as ordered by A048793) that has a nonempty intersection with a(n-2) but empty intersection with a(n-1).",
+				"Comment from _N. J. A. Sloane_, Dec 31 2014: The binary expansions of the first few terms are:",
+				"0  = 000000",
+				"1  = 000001",
+				"2  = 000010",
+				"5  = 000101",
+				"10 = 001010",
+				"4  = 000100",
+				"3  = 000011",
+				"12 = 001100",
+				"17 = 010001",
+				"6  = 000110",
+				"9  = 001001",
+				"18 = 010010",
+				"8  = 001000",
+				"7  = 000111",
+				"24 = 011000",
+				"33 = 100001",
+				"14 = 001110",
+				"32 = 100000",
+				"11 = 001011",
+				"36 = 100100",
+				"19 = 010011",
+				"40 = 101000",
+				"..."
+			],
+			"mathematica": [
+				"a[n_] := a[n] = If[n\u003c3, n, For[k=3, True, k++, If[FreeQ[Array[a, n-1], k], If[BitAnd[k, a[n-2]] \u003e= 1 \u0026\u0026 BitAnd[k, a[n-1]] == 0, Return[k]]]]];",
+				"Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Oct 03 2018 *)"
+			],
+			"program": [
+				"(PARI) invecn(v,k,x)=for(i=1,k,if(v[i]==x,return(i)));0",
+				"alist(n)=local(v=vector(n,i,i-1), x); for(k=4, n, x=3; while(invecn(v, k-1, x)||!bitand(v[k-2], x)||bitand(v[k-1],x), x++); v[k]=x); v",
+				"(Haskell)",
+				"import Data.Bits ((.\u0026.)); import Data.List (delete)",
+				"a252867 n = a252867_list !! n",
+				"a252867_list = 0 : 1 : 2 : f 1 2 [3..] where",
+				"   f :: Int -\u003e Int -\u003e [Int] -\u003e [Int]",
+				"   f u v ws = g ws where",
+				"     g (x:xs) = if x .\u0026. u \u003e 0 \u0026\u0026 x .\u0026. v == 0",
+				"                   then x : f v x (delete x ws) else g xs",
+				"-- _Reinhard Zumkeller_, Dec 24 2014",
+				"(Python)",
+				"A252867_list, l1, l2, s, b = [0,1,2], 2, 1, 3, set()",
+				"for _ in range(10**2):",
+				"....i = s",
+				"....while True:",
+				"........if not (i in b or i \u0026 l1) and i \u0026 l2:",
+				"............A252867_list.append(i)",
+				"............l2, l1 = l1, i",
+				"............b.add(i)",
+				"............while s in b:",
+				"................b.remove(s)",
+				"................s += 1",
+				"............break",
+				"........i += 1 # _Chai Wah Wu_, Dec 27 2014"
+			],
+			"xref": [
+				"Cf. A098550, A252865, A048793, A252868.",
+				"Reading this sequence mod 2 gives A253050 and A253051.",
+				"Cf. A253581, A253582, A253589 (binary weight), A253603.",
+				"Analyzed further in A303596, A303597, A303598, A303599, A305368.",
+				"The graphs of A109812, A252867, A305369, A305372 all have roughly the same, mysterious, fractal-like structure. - _N. J. A. Sloane_, Jun 03 2018"
+			],
+			"keyword": "nonn,base",
+			"offset": "0,3",
+			"author": "_Franklin T. Adams-Watters_, Dec 23 2014",
+			"references": 18,
+			"revision": 62,
+			"time": "2018-10-03T08:21:27-04:00",
+			"created": "2014-12-23T19:45:52-05:00"
+		},
+		{
+			"number": 38,
+			"id": "M0004",
+			"data": "2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+			"name": "Twice A000007.",
+			"comment": [
+				"Multiplicative with a(p^e) = 0. - _Mitch Harris_, Jun 09 2005"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"James Spahlinger, \u003ca href=\"/A000038/b000038.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Norman L. de Forest, \u003ca href=\"http://www.gutenberg.org/ebooks/3651\"\u003eThe Square Root of 4 to a Million Places\u003c/a\u003e, Project Gutenberg EBook 3651, 2003.",
+				"Daniele A. Gewurz and Francesca Merola, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL6/Gewurz/gewurz5.html\"\u003eSequences realized as Parker vectors of oligomorphic permutation groups\u003c/a\u003e, J. Integer Seqs., Vol. 6, 2003.",
+				"Chai Wah Wu, \u003ca href=\"https://arxiv.org/abs/1805.07431\"\u003eCan machine learning identify interesting mathematics? An exploration using empirically observed laws\u003c/a\u003e, arXiv:1805.07431 [cs.LG], 2018."
+			],
+			"formula": [
+				"a(n) = 2*A000007(n) = (-1)^A000040(n) + 1. - _Juri-Stepan Gerasimov_, Oct 29 2009"
+			],
+			"mathematica": [
+				"PadRight[{2}, 104] (* or *)",
+				"Array[(-1)^Prime@ # + 1 \u0026, 105] (* _Michael De Vlieger_, Aug 15 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000038 n = 2 * a000007 n -- _James Spahlinger_, Oct 08 2012",
+				"(PARI) a(n)=if(n,0,2) \\\\ _Charles R Greathouse IV_, Oct 09 2012"
+			],
+			"xref": [
+				"Cf. A007395, A000007."
+			],
+			"keyword": "easy,nonn,mult",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 17,
+			"revision": 46,
+			"time": "2019-07-10T08:21:36-04:00",
+			"created": "1994-05-24T03:00:00-04:00"
+		},
+		{
+			"number": 141,
+			"data": "1,12,60,160,252,312,544,960,1020,876,1560,2400,2080,2040,3264,4160,4092,3480,4380,7200,6552,4608,8160,10560,8224,7812,10200,13120,12480,10104,14144,19200,16380,11520,17400,24960,18396,16440,24480,27200",
+			"name": "Number of ways of writing n as a sum of 6 squares.",
+			"comment": [
+				"The relevant identity for the o.g.f. is theta_3(x)^6 = 1 + 16*Sum_{j\u003e=1} j^2*x^j/(1 + x^(2*j)) - 4*Sum_{j \u003e=0} (-1)^j*(2*j+1)^2 *x^(2*j+1)/(1 - x^(2*j+1)), See the Hardy-Wright reference, p. 315, first equation. - _Wolfdieter Lang_, Dec 08 2016"
+			],
+			"reference": [
+				"Philippe A. J. G. Chevalier, On the discrete geometry of physical quantities, 2013, Preprint submitted to Journal of Geometry and Physics.",
+				"E. Grosswald, Representations of Integers as Sums of Squares. Springer-Verlag, NY, 1985, p. 121.",
+				"G. H. Hardy and E. M. Wright, An Introduction to the Theory of Numbers. 3rd ed., Oxford Univ. Press, 1954, p. 314."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000141/b000141.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"L. Carlitz, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9939-1957-0084520-2\"\u003eNote on sums of four and six squares\u003c/a\u003e, Proc. Amer. Math. Soc. 8 (1957), 120-124",
+				"S. H. Chan, \u003ca href=\"http://www.jstor.org/stable/4145192\"\u003eAn elementary proof of Jacobi's six squares theorem\u003c/a\u003e, Amer. Math. Monthly, 111 (2004), 806-811.",
+				"H. H. Chan and C. Krattenthaler, \u003ca href=\"http://arXiv.org/abs/math.NT/0407061\"\u003eRecent progress in the study of representations of integers as sums of squares\u003c/a\u003e, arXiv:math/0407061 [math.NT], 2004.",
+				"Shi-Chao Chen, \u003ca href=\"http://dx.doi.org/10.1016/j.jnt.2010.01.011\"\u003eCongruences for rs(n)\u003c/a\u003e, Journal of Number Theory, Volume 130, Issue 9, September 2010, Pages 2028-2032.",
+				"S. C. Milne, \u003ca href=\"http://dx.doi.org/10.1023/A:1014865816981\"\u003eInfinite families of exact sums of squares formulas, Jacobi elliptic functions, continued fractions and Schur functions\u003c/a\u003e, Ramanujan J., 6 (2002), 7-149.",
+				"\u003ca href=\"/index/Su#ssq\"\u003eIndex entries for sequences related to sums of squares\u003c/a\u003e"
+			],
+			"formula": [
+				"Expansion of theta_3(z)^6.",
+				"a(n) = 4( Sum_{ d|n, d ==3 mod 4} d^2 - Sum_{ d|n, d ==1 mod 4} d^2 ) + 16( Sum_{ d|n, n/d ==1 mod 4} d^2 - Sum_{ d|n, n/d ==3 mod 4} d^2 ) [Jacobi]",
+				"a(n) = 16*A050470(n) - 4*A002173(n). - _Michel Marcus_, Dec 15 2012",
+				"a(n) = (12/n)*Sum_{k=1..n} A186690(k)*a(n-k), a(0) = 1. - _Seiichi Manyama_, May 27 2017"
+			],
+			"maple": [
+				"(sum(x^(m^2),m=-10..10))^6;",
+				"# Alternative:",
+				"A000141list := proc(len) series(JacobiTheta3(0, x)^6, x, len+1);",
+				"seq(coeff(%, x, j), j=0..len-1) end: A000141list(40); # _Peter Luschny_, Oct 02 2018"
+			],
+			"mathematica": [
+				"Table[SquaresR[6, n], {n, 0, 40}] (* _Ray Chandler_, Dec 06 2006 *)",
+				"SquaresR[6,Range[0,50]] (* _Harvey P. Dale_, Aug 26 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a000141 0 = 1",
+				"a000141 n = 16 * a050470 n - 4 * a002173 n",
+				"-- _Reinhard Zumkeller_, Jun 17 2013",
+				"(Sage)",
+				"Q = DiagonalQuadraticForm(ZZ, [1]*6)",
+				"Q.representation_number_list(40) # _Peter Luschny_, Jun 20 2014"
+			],
+			"xref": [
+				"Row d=6 of A122141 and of A319574, 6th column of A286815.",
+				"Cf. A050470, A002173."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Extended by _Ray Chandler_, Nov 28 2006",
+				"Formula corrected by _Sean A. Irvine_, Oct 01 2009"
+			],
+			"references": 17,
+			"revision": 67,
+			"time": "2018-10-02T04:23:25-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,425 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5040,
+	"results": [
+		{
+			"number": 226474,
+			"data": "0,0,1,0,0,0,1,1,0,0,1,1,1,0,1,0,0,1,1,0,1,1,0,0,0,1,0,1,0,0,0,1,1,0,0,0,1,0,1,0,1,0,0,1,1,1,1,0,0,1,1,0,1,0,1,0,0,1,0,1,0,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,0,1,0,1,0,0,0",
+			"name": "Central terms of triangles A226463 and A226464.",
+			"comment": [
+				"Central column of rule 135 and rule 149 1-D cellular automatons:",
+				"a(n) = A226463(n,n) = A226464(n,n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226474/b226474.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Rule30.html\"\u003eRule 30\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/ElementaryCellularAutomaton.html\"\u003eElementary Cellular Automaton\u003c/a\u003e",
+				"\u003ca href=\"/index/Ce#cell\"\u003eIndex entries for sequences related to cellular automata\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 1 - A051023(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a226474 = (1 -) . a051023"
+			],
+			"keyword": "nonn",
+			"offset": "0",
+			"author": "_Reinhard Zumkeller_, Jun 08 2013",
+			"references": 5,
+			"revision": 4,
+			"time": "2013-06-09T01:05:25-04:00",
+			"created": "2013-06-09T01:05:25-04:00"
+		},
+		{
+			"number": 226748,
+			"data": "1,1,1,1,2,2,3,3,5,5,7,7,11,11,14,14,20,20,26,27,37,37,46,47,62,63,77,80,101,103,125,130,160,164,194,203,245,253,296,311,368,381,440,463,540,562,642,677,780,814,922,973,1107,1157,1302,1375,1552,1626",
+			"name": "Number of partitions of n into Platonic numbers, cf. A053012.",
+			"example": [
+				"First Platonic numbers: 1, 4, 6, 8, 10, 12, 19, 20, ...",
+				"a(10) = #{10, 8+1+1, 6+4, 6+1+1+1+1, 4+4+1+1, 4+6x1, 10x1} = 7;",
+				"a(11) = #{10+1, 8+1+1+1, 6+4+1, 6+5x1, 4+4+1+1+1, 4+7x1, 11x1} = 7;",
+				"a(12) = #{12, 10+1+1, 8+4, 8+1+1+1+1, 6+6, 6+4+1+1, 6+6x1, 4+4+4, 4+4+1+1+1+1, 4+8x1, 12x1} = 11;",
+				"a(13) = #{12+1, 10+1+1+1, 8+4+1, 8+5x1, 6+6+1, 6+4+1+1+1, 6+7x1, 4+4+4+1, 4+4+5x1, 4+9x1, 13x1} = 11;",
+				"a(14) = #{12+1+1, 10+4, 10+1+1+1+1, 8+6, 8+4+1+1, 8+6x1, 6+6+1+1, 6+4+4, 6+4+1+1+1+1, 6+8x1, 4+4+4+1+1, 4+4+6x1, 4+10x1, 14x1} = 14;",
+				"a(15) = #{12+1+1+1, 10+4+1, 10+5x1, 8+6+1, 8+4+1+1+1, 8+7x1, 6+6+1+1+1, 6+4+4+1, 6+4+5x1, 6+9x1, 4+4+4+1+1+1, 4+4+7x1, 4+11x1, 15x1} = 14;",
+				"a(16) = #{12+4, 12+1+1+1+1, 10+6, 10+4+1+1, 10+6x1, 8+8, 8+6+1+1, 8+4+4, 8+4+1+1+1+1, 8+8x1, 6+6+4, 6+6+1+1+1+1, 6+4+4+1+1, 6+4+6x1, 6+10x1, 4+4+4+4, 4+4+4+1+1+1+1, 4+4+8x1, 4+12x1, 16x1} = 20."
+			],
+			"program": [
+				"(Haskell)",
+				"a226748 = p a053012_list where",
+				"   p _          0 = 1",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A003108, A068980, A226749."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Jun 17 2013",
+			"references": 5,
+			"revision": 4,
+			"time": "2013-06-17T08:40:09-04:00",
+			"created": "2013-06-17T08:40:09-04:00"
+		},
+		{
+			"number": 226898,
+			"data": "1,2,1,2,1,2,1,2,1,2,1,3,1,2,2,2,1,2,1,3,2,2,1,4,1,2,1,2,1,3,1,2,1,2,2,3,1,2,1,4,1,3,1,2,2,2,1,4,1,2,1,2,1,2,2,3,1,2,1,4,1,2,2,2,2,2,1,2,1,3,1,4,1,2,2,2,2,2,1,4,1,2,1,4,1,2,1,2,1,4,2,2",
+			"name": "Hooley's Delta function: maximum number of divisors of n in [u, eu] for all u. (Here e is Euler's number 2.718... = A001113.)",
+			"comment": [
+				"This functions measures the tendency of divisors of a number to cluster.",
+				"Tenenbaum (1985) proves that a(1) + ... + a(n) \u003c n exp(c sqrt(log log n log log log n)) for some constant c \u003e 0 and all n \u003e 16. In particular, the average order of a(n) is O((log n)^k) for any k \u003e 0.",
+				"Maier \u0026 Tenenbaum show that (log log n)^(g + o(1)) \u003c a(n) \u003c (log log n)^(log 2 + o(1)) for almost all n, with g = log 2/log((1-1/log 27)/(1-1/log 3)) = 0.338....",
+				"For generalizations, see de la Bretèche \u0026 Tenenbaum, Brüdern, Hall \u0026 Tenenbaum, and Caballero."
+			],
+			"reference": [
+				"J. M. R. Caballero, \"Symmetric Dyck Paths and Hooley’s ∆-function\", Combinatorics on Words, Springer International Publishing AG (2017)."
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A226898/b226898.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"R. de la Bretèche and G. Tenenbaum, \u003ca href=\"http://iecl.univ-lorraine.fr/~Gerald.Tenenbaum/PUBLIC/Prepublications_et_publications/Delta(n,chi).pdf\"\u003eOscillations localisées sur les diviseurs\u003c/a\u003e, J. Lond. Math. Soc. 2 85:3 (2012), pp. 669-693.",
+				"Jörg Brüdern, \u003ca href=\"http://dx.doi.org/10.1007/978-1-4614-1219-9_3\"\u003eDaniel's twists of Hooley's Delta function\u003c/a\u003e, Contributions in Analytic and Algebraic Number Theory, Springer Proceedings in Mathematics 9 (2012), pp 31-82.",
+				"Paul Erdős, \u003ca href=\"http://www.renyi.hu/~p_erdos/1974-12.pdf\"\u003eOn abundant-like numbers\u003c/a\u003e, Canad. Math. Bull. 17 (1974), pp. 599-602.",
+				"Paul Erdős and Jean-Louis Nicolas, \u003ca href=\"https://users.renyi.hu/~p_erdos/1976-16.pdf\"\u003eMéthodes probabilistes et combinatoires en théorie des nombres\u003c/a\u003e, Bulletin des Sciences Mathématiques 2 (1976), pp. 301-320.",
+				"P. Erdős and J.-L. Nicolas, \u003ca href=\"http://archive.numdam.org/article/BSMF_1975__103__65_0.pdf\"\u003eRépartition des nombres superabondants\u003c/a\u003e, Bull. Soc. Math. France 103 (1975), pp. 65-90.",
+				"R. R. Hall and G. Tenenbaum, \u003ca href=\"http://dx.doi.org/10.1112/S0025579300010706\"\u003eThe average orders of Hooley's Δ_r-functions\u003c/a\u003e, Mathematika 31:1 (1984), pp. 98-109.",
+				"R. R. Hall and G. Tenenbaum, \u003ca href=\"http://www.numdam.org/item?id=CM_1986__60_2_163_0\"\u003eThe average orders of Hooley's Δ_r-functions, II\u003c/a\u003e, Compositio Math. 60 (1986), pp. 163-186.",
+				"C. Hooley, \u003ca href=\"http://plms.oxfordjournals.org/content/s3-38/1/115.extract\"\u003eOn a new technique and its applications to the theory of numbers\u003c/a\u003e, Proc. London Math. Soc. 3 38:1 (1979), pp. 115-151.",
+				"Helmut Maier and Gérald Tenenbaum, \u003ca href=\"http://gdz.sub.uni-goettingen.de/dms/load/img/?PPN=GDZPPN002100452\u0026amp;IDDOC=175177\"\u003eOn the set of divisors of an integer\u003c/a\u003e, Invent. Math. 76 (1984), pp. 121-128.",
+				"Helmut Maier and Gérald Tenenbaum, \u003ca href=\"http://iecl.univ-lorraine.fr/~Gerald.Tenenbaum/PUBLIC/Prepublications_et_publications/Delta(n)2.pdf\"\u003eOn the normal concentration of divisors\u003c/a\u003e,  J. London Math. Soc. 2 31:3 (1985), pp. 393-400.",
+				"Helmut Maier and Gérald Tenenbaum, \u003ca href=\"http://www.iecn.u-nancy.fr/~tenenb/PUBLIC/Prepublications_et_publications/Delta(n)2.pdf\"\u003eOn the normal concentration of divisors. II.\u003c/a\u003e, Math. Proc. Cambridge Philos. Soc. 147:3 (2009), pp. 513-540.",
+				"J.-L. Nicolas, \u003ca href=\"http://www.numdam.org/item/?id=SDPP_1975-1976__17_1_A9_0\"\u003eMéthodes probabilistes et combinatoires en théorie des nombres\u003c/a\u003e, Séminaire Delange-Pisot-Poitou. Théorie des nombres, Tome 17 (1975-1976) no. 1, Exposé no. 9,  p. 1",
+				"J. M. Rodríguez Caballero, \u003ca href=\"https://dx.doi.org/10.1007/978-3-319-66396-8_23\"\u003eSymmetric Dyck Paths and Hooley's Δ-Function\u003c/a\u003e, In: Brlek S., Dolce F., Reutenauer C., Vandomme É. (eds) Combinatorics on Words, WORDS 2017, Lecture Notes in Computer Science, vol 10432.",
+				"Gérald Tenenbaum, \u003ca href=\"http://dx.doi.org/10.5169/seals-46323\"\u003eSur la concentration moyenne des diviseurs\u003c/a\u003e, Commentarii Mathematici Helvetici 60:1 (1985), pp. 411-428.",
+				"\u003ca href=\"/index/Cor#core\"\u003eIndex entries for \"core\" sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"a(mn) \u003c= d(m)a(n) where d(n) is A000005."
+			],
+			"example": [
+				"The divisors of 24 are 1, 2, 3, 4, 6, 8, 12, 24. For u = 3, {3, 4, 6, 8} are in [3, 3e] = [3, 8.15...] and thus a(24) = 4."
+			],
+			"maple": [
+				"with(numtheory):",
+				"a:= n-\u003e (l-\u003e max(seq(nops(select(x-\u003e is(x\u003c=exp(1)*l[i]), l))-i+1,",
+				"        i=1..nops(l))))(sort([divisors(n)[]])):",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Jun 21 2013"
+			],
+			"mathematica": [
+				"a[n_] := Module[{d = Divisors[n], m = 1}, For[i = 1, i \u003c Length[d], i++, t = E*d[[i]]; m = Max[ Sum[ Boole[d[[j]] \u003c t], {j, i, Length[d]}], m]]; m]; Table[a[n], {n, 1, 100}] (* _Jean-François Alcover_, Oct 08 2013, after Pari *)"
+			],
+			"program": [
+				"(PARI) a(n)=my(d=divisors(n),m=1);for(i=1,#d-1, my(t=exp(1)*d[i]); m=max(sum(j=i,#d,d[j]\u003ct), m)); m",
+				"(PARI) a(n)=my(d=divisors(n),r,t); for(i=1,#d\\2, t=setsearch(d, d[i]*exp(1)\\1,1); t=if(t, t-i, setsearch(d,d[i]*exp(1)\\1)+1-i); if(t\u003er, r=t)); r \\\\ _Charles R Greathouse IV_, Mar 01 2018",
+				"(Haskell)",
+				"a226898 = maximum . map length .",
+				"   map (\\ds@(d:_) -\u003e takeWhile (\u003c= e' d) ds) . init . tails . a027750_row",
+				"   where e' = floor . (* e) . fromIntegral; e = exp 1",
+				"-- _Reinhard Zumkeller_, Jul 06 2013",
+				"(Python)",
+				"from sympy import divisors, exp",
+				"def a(n):",
+				"    d=divisors(n)",
+				"    m=1",
+				"    for i in xrange(len(d) - 1):",
+				"        t=exp(1)*d[i]",
+				"        m=max(sum([1 if d[j]\u003ct else 0 for j in xrange(i, len(d))]), m)",
+				"    return m",
+				"print map(a, xrange(1, 151)) # _Indranil Ghosh_, Jul 19 2017"
+			],
+			"xref": [
+				"Partial sums are A226901. Cf. A226899, A226900, A027750, A022843."
+			],
+			"keyword": "nonn,nice,core",
+			"offset": "1,2",
+			"author": "_Charles R Greathouse IV_, Jun 21 2013",
+			"references": 5,
+			"revision": 78,
+			"time": "2019-04-27T20:03:04-04:00",
+			"created": "2013-06-22T19:06:15-04:00"
+		},
+		{
+			"number": 227291,
+			"data": "1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0",
+			"name": "Characteristic function of squarefree numbers squared (A062503).",
+			"comment": [
+				"a(n) = A008966(A037213(n)), when assumed A008966(0) = 0. - _Reinhard Zumkeller_, Jul 07 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227291/b227291.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"formula": [
+				"Dirichlet g.f.: zeta(2s)/zeta(4s) = prod[prime p: 1+p^(-2s) ], see A008966.",
+				"a(n) = A063524(sum(A225817(n,k)*A225817(n,A000005(n)+1-k): k=1..A000005(n))). - _Reinhard Zumkeller_, Aug 01 2013",
+				"Multiplicative with a(p^e) = 1 if e=2, a(p^e) = 0 if e=1 or e\u003e2. - _Antti Karttunen_, Jul 28 2017",
+				"Sum_{k=1..n} a(k) ~ 6*sqrt(n) / Pi^2. - _Vaclav Kotesovec_, Feb 02 2019",
+				"a(n) = A225569(A225546(n)-1). - _Peter Munn_, Oct 31 2019"
+			],
+			"example": [
+				"a(3) = 0 because 3 is not the square of a squarefree number.",
+				"a(4) = 1 because sqrt(4) = 2, a squarefree number."
+			],
+			"mathematica": [
+				"Table[Abs[Sum[MoebiusMu[n/d], {d,Select[Divisors[n], SquareFreeQ[#] \u0026]}]], {n, 1, 200}] (* _Geoffrey Critzer_, Mar 18 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c1, 0, direuler(p=2, n, 1+X^2)[n])",
+				"(Haskell)",
+				"a227291 n = fromEnum $ (sum $ zipWith (*) mds (reverse mds)) == 1",
+				"   where mds = a225817_row n",
+				"-- _Reinhard Zumkeller_, Jul 30 2013, Jul 07 2013",
+				"(Scheme) (define (A227291 n) (if (= 1 n) n (* (if (= 2 (A067029 n)) 1 0) (A227291 (A028234 n))))) ;; _Antti Karttunen_, Jul 28 2017"
+			],
+			"xref": [
+				"Cf. A225817, A008683, A027750, A225546, A225569.",
+				"Absolute values of A271102."
+			],
+			"keyword": "nonn,mult,easy,changed",
+			"offset": "1,1",
+			"author": "_Ralf Stephan_, Jul 05 2013",
+			"references": 5,
+			"revision": 35,
+			"time": "2019-11-03T01:50:02-05:00",
+			"created": "2013-07-05T11:13:52-04:00"
+		},
+		{
+			"number": 227455,
+			"data": "1,3,5,6,9,10,12,15,17,18,20,21,23,24,25,27,29,30,33,34,35,36,39,40,42,45,46,48,50,51,53,54,55,57,58,60,63,65,66,68,69,70,72,75,78,80,81,83,84,85,87,89,90,92,93,95,96,99,100,102,105,106,108,110",
+			"name": "Sequence defined as a recursive set: 1 is in the sequence and n \u003e 1 is in the sequence iff for some prime divisor p of n, p-1 is not in the sequence.",
+			"comment": [
+				"Consider a turn-based game in which with a number n=p_1^s_1* ... *p_k^s_k the player has the possible moves: p_1 -1,..., p_k -1. Lose the player whose move is 1. In this sequence are the winning positions for the player in possession of turn."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A227455/b227455.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"2^n is not in the sequence because their unique divisor prime is p = 2 and p-1 = 1 is in the sequence. 3^n is in the sequence because 3-1 is not in the sequence. 5^n is in the sequence because 5-1 = 4=2^2 is not in the sequence"
+			],
+			"mathematica": [
+				"fa=FactorInteger;win[1] = True; win[n_] := win[n] = ! Union@Table[win[fa[n][[i, 1]] - 1], {i, 1, Length@fa@n}] == {True}; Select[Range[300], win]"
+			],
+			"program": [
+				"(Haskell)",
+				"a227455 n = a227455_list !! (n-1)",
+				"a227455_list = 1 : f [2..] [1] where",
+				"   f (v:vs) ws = if any (`notElem` ws) $ map (subtract 1) $ a027748_row v",
+				"                    then v : f vs (v : ws) else f vs ws",
+				"-- _Reinhard Zumkeller_, Dec 08 2014"
+			],
+			"xref": [
+				"Cf. A227006, A227691.",
+				"Cf. A027748."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_José María Grau Ribas_, Jul 12 2013",
+			"references": 5,
+			"revision": 33,
+			"time": "2014-12-08T13:13:35-05:00",
+			"created": "2013-07-28T16:05:59-04:00"
+		},
+		{
+			"number": 227876,
+			"data": "0,1,2,3,4,5,6,7,8,9,2,2,4,6,8,10,12,14,16,18,4,4,4,6,8,10,12,14,16,18,6,6,6,6,8,10,12,14,16,18,8,8,8,8,8,10,12,14,16,18,10,10,10,10,10,10,12,14,16,18,12,12,12,12,12,12,12,14,16,18,14,14,14,14,14,14,14,14,16,18,16,16,16,16,16,16,16,16,16,18,18,18,18,18,18,18,18,18,18,18,3,4,7,10,13,16,19,22,25,28,4,3,6,9,12,15,18,21,24,27,7,6,7,8,11,14,17,20,23,26",
+			"name": "Write the decimal digits of n and take successive absolute differences; sequence is the sum of all digits at each level of the pyramid.",
+			"comment": [
+				"A given nonnegative integer n is decomposed into its digits and the absolute differences between the digits are taken, then the differences between differences between digits (and so on, until the top of the difference pyramid is reached). The sum of the resulting digits is a(n)."
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A227876/b227876.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)=n, if 0\u003c=n\u003c=9;",
+				"a(n)=n-9*floor(n/10)+|-n+11*floor(n/10)|, if 10\u003c=n\u003c=99;",
+				"a(n)=n-9*floor(n/10)-9*floor(n/100)+|-floor(n/10)+11*floor(n/100)|+|-n+11*floor(n/10)-10*floor(n/100)|+||-floor(n/10)+11*floor(n/100)|-|-n+11*floor(n/10)-10*floor(n/100)||, if 100\u003c=n\u003c=999."
+			],
+			"example": [
+				"a(364)=19",
+				".",
+				"____1____",
+				"__3_:_2_ --\u003e 3+6+4+|3-6|+|6-4|+||3-6|-|6-4||=3+6+4+3+2+1=19",
+				"3_:_6_:_4"
+			],
+			"mathematica": [
+				"Join[{0},Table[Total[Abs[Flatten[NestList[Differences[Abs[#]]\u0026, IntegerDigits[n], IntegerLength[n]-1]]]],{n,130}]] (* _Harvey P. Dale_, Mar 02 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n)=my(d=digits(n),s); while(#d, s+=sum(i=1,#d,d[i]); d=vector(#d-1,i,abs(d[i+1]-d[i]))); s \\\\ _Charles R Greathouse IV_, Oct 25 2013",
+				"(Haskell)",
+				"a227876 n = fst $ until (null . snd) h (0, a031298_row n) where",
+				"            h (s, ds) = (s + sum ds, map abs $ zipWith (-) ds $ tail ds)",
+				"-- _Reinhard Zumkeller_, Apr 28 2014"
+			],
+			"xref": [
+				"Cf. A031298."
+			],
+			"keyword": "nonn,base,easy,hear",
+			"offset": "0,3",
+			"author": "_Filipi R. de Oliveira_, Oct 25 2013",
+			"references": 5,
+			"revision": 24,
+			"time": "2015-03-02T11:52:32-05:00",
+			"created": "2013-10-27T04:51:15-04:00"
+		},
+		{
+			"number": 228276,
+			"data": "1,10,2,19,72,100,3,20,4,30,5,40,6,50,7,60,8,70,9,12,79,18,13,68,113,198,21,91,32,181,130,170,131,82,120,80,101,89,109,23,69,27,14,28,54,17,24,58,117,124,90,11,200,15,36,26,37,126,93,41,273,52,163,29,63,107,123,96,71,230,73,241,83,152,64,182,31,92,119,78,102,99",
+			"name": "Sum of a(n)+a(n+1) can be written using the digits of {a(n),a(n+1)}; always choose the smallest possible unused positive integer.",
+			"comment": [
+				"The sequence is a permutation of the natural numbers.  Sketch of proof: (1) all terms are distinct by definition; (2) each term has a successor (with pandigitals as ultimate candidates); (3) an alleged non-occurring number will succeed the first occurred pandigital number. Cf. A245586. - _Reinhard Zumkeller_, Jul 26 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A228276/b228276.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"E. Angelini, \u003ca href=\"http://list.seqfan.eu/pipermail/seqfan/2013-November/011829.html\"\u003eAdd neighbours, use their digits\u003c/a\u003e, SeqFan list, Nov. 2, 2013",
+				"E. Angelini, \u003ca href=\"http://www.cetteadressecomportecinquantesignes.com/WriteAB.htm\"\u003eAdd A to B\u003c/a\u003e",
+				"E. Angelini, \u003ca href=\"/A228276/a228276.pdf\"\u003eAdd A to B\u003c/a\u003e [Cached copy, with permission]",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"example": [
+				"We see that the result of 1+10 uses only digits from the set {1,1,0} (really a multi-set).",
+				"The same with 10+2 which use some elements of {1,0,2}.",
+				"Again, 2+19 uses elements of {2,1,9} for its result.",
+				"72 is now the smallest integer respecting the constraint (we see that 19+72 is 91 which uses for its transcription only a few elements of {1,9,7,2}."
+			],
+			"program": [
+				"(PARI) {subseq(a,b,j)=!for(i=1,#a,while(j\u003c#b, a[i]==b[j++]\u0026\u0026next(2));return)}",
+				"{u=0;a=1;for(n=1,99,print1(a\",\");u+=1\u003c\u003ca;for(t=1,9e9,bittest(u,t)\u0026\u0026next; subseq(vecsort(digits(a+t)), vecsort(concat(digits(a),digits(t))))||next;a=t;break))}",
+				"(Haskell)",
+				"import Data.List ((\\\\), delete)",
+				"a228276 n = a228276_list !! (n-1)",
+				"a228276_list = 1 : f 1 [2..] where",
+				"   f x zs = g zs where",
+				"     g (y:ys) = if null $ show (x + y) \\\\ (show x ++ show y)",
+				"                   then y : f y (delete y zs) else g ys",
+				"-- _Reinhard Zumkeller_, Jul 26 2014"
+			],
+			"xref": [
+				"Cf. A234932, A234934, A234935.",
+				"Cf. A245586 (inverse)."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "1,2",
+			"author": "_Eric Angelini_ and _M. F. Hasler_, Nov 02 2013",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Dec 29 2013"
+			],
+			"references": 5,
+			"revision": 43,
+			"time": "2016-06-10T00:21:00-04:00",
+			"created": "2013-11-02T23:36:57-04:00"
+		},
+		{
+			"number": 228709,
+			"data": "11,13,15,17,19,20,22,24,26,28,31,33,35,37,39,40,42,44,46,48,51,53,55,57,59,60,62,64,66,68,71,73,75,77,79,80,82,84,86,88,91,93,95,97,99,100,102,104,106,108,110,111,112,113,114,115,116,117,118,119,120",
+			"name": "Numbers having in decimal representation at least one pair of consecutive digits with the same parity.",
+			"comment": [
+				"A228710(a(n)) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A228709/b228709.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a228709 n = a228709_list !! (n-1)",
+				"a228709_list = filter ((== 0) . a228710) [0..]"
+			],
+			"xref": [
+				"Cf. A030141 (complement), A228722, A228723; subsequences: A059708, A010785 apart from first 10 terms)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 31 2013",
+			"references": 5,
+			"revision": 6,
+			"time": "2013-08-31T17:12:35-04:00",
+			"created": "2013-08-31T17:12:35-04:00"
+		},
+		{
+			"number": 229109,
+			"data": "1,3,4,5,6,8,8,9,10,12,12,14,14,16,17,17,18,20,20,22,23,24,24,26,26,28,28,30,30,33,32,33,35,36,37,38,38,40,41,42,42,45,44,46,47,48,48,50,50,52,53,54,54,56,57,58,59,60,60,63,62,64,65,65,67,69,68",
+			"name": "a(n) = n plus the number of its distinct prime factors.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A229109/b229109.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n + A001221(n).",
+				"a(n) = n + 1 if and only if n is prime or a power of a prime (that is, n \u003e 1 is in A000961). - _Alonso del Arte_, Nov 17 2016"
+			],
+			"example": [
+				"a(40) = 42, since 40 has two distinct prime divisors (2 and 5), and so 40 + 2 = 42.",
+				"a(41) = 42 also, since 41 is prime and therefore 41 + 1 = 42.",
+				"a(42) = 45, since 42 has three distinct prime divisors (2, 3, 7), and so 42 + 3 = 45."
+			],
+			"mathematica": [
+				"Table[n + PrimeNu[n], {n, 80}] (* _Harvey P. Dale_, Jun 22 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a229109 n  = a001221 n + n"
+			],
+			"xref": [
+				"Cf. A064800."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 13 2013",
+			"references": 5,
+			"revision": 18,
+			"time": "2016-11-26T10:38:34-05:00",
+			"created": "2013-09-13T15:39:02-04:00"
+		},
+		{
+			"number": 230094,
+			"data": "101,103,105,107,109,111,113,115,117,202,204,206,208,210,212,214,216,218,303,305,307,309,311,313,315,317,319,404,406,408,410,412,414,416,418,420,505,507,509,511,513,515,517,519,521,606,608,610,612,614,616,618,620,622,707,709,711,713,715,717,719,721,723,808",
+			"name": "Numbers n that can be expressed as (m + sum of digits of m) in exactly two ways.",
+			"comment": [
+				"Numbers n such that A230093(n) = 2.",
+				"The sequence \"Numbers n such that A230093(n) = 3\" starts at 10^13+1 (see A230092). This implies that changing the definition of A230094 to \"Numbers n such that A230093(n) \u003e= 2\" (the so-called \"junction numbers\") would produce a sequence which agrees with A230094 up to 10^13.",
+				"Makowski shows that the sequence of junction numbers is infinite."
+			],
+			"reference": [
+				"Max A. Alekseyev, Donovan Johnson and N. J. A. Sloane, On Kaprekar's Junction Numbers, in preparation, 2017.",
+				"Joshi, V. S. A note on self-numbers. Volume dedicated to the memory of V. Ramaswami Aiyar. Math. Student 39 (1971), 327--328 (1972). MR0330032 (48 #8371)",
+				"D. R. Kaprekar, Puzzles of the Self-Numbers. 311 Devlali Camp, Devlali, India, 1959.",
+				"D. R. Kaprekar, The Mathematics of the New Self Numbers, Privately Printed, 311 Devlali Camp, Devlali, India, 1963.",
+				"Makowski, Andrzej. On Kaprekar's \"junction numbers''. Math. Student 34 1966 77 (1967). MR0223292 (36 #6340)",
+				"Narasinga Rao, A. On a technique for obtaining numbers with a multiplicity of generators. Math. Student 34 1966 79--84 (1967). MR0229573 (37 #5147)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A230094/b230094.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"D. R. Kaprekar, \u003ca href=\"/A003052/a003052.pdf\"\u003eThe Mathematics of the New Self Numbers\u003c/a\u003e [annotated and scanned]",
+				"\u003ca href=\"/index/Coi#Colombian\"\u003eIndex entries for Colombian or self numbers and related sequences\u003c/a\u003e",
+				"David A. Corneth, \u003ca href=\"/A230094/a230094.gp.txt\"\u003eexample file\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 101 = 91 + (9+1) = 100 + (1+0+0);",
+				"a(10) = 202 = 191 + (1+9+1) = 200 + (2+0+0);",
+				"a(100) = 1106 = 1093 + (1+0+9+3) = 1102 + (1+1+0+2);",
+				"a(1000) = 10312 = 10295 + (1+0+2+9+5) = 10304 + (1+0+3+0+4)."
+			],
+			"maple": [
+				"For Maple code see A230093."
+			],
+			"program": [
+				"(Haskell)",
+				"a230094 n = a230094_list !! (n-1)",
+				"a230094_list = filter ((== 2) . a230093) [0..]",
+				"-- _Reinhard Zumkeller_, Oct 11 2013"
+			],
+			"xref": [
+				"Cf. A003052, A007953, A004207, A048528, A062028, A176995, A225793, A227915, A230092, A230093."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Oct 10 2013, Oct 24 2013",
+			"references": 5,
+			"revision": 46,
+			"time": "2019-10-21T11:05:16-04:00",
+			"created": "2013-10-10T23:42:17-04:00"
+		}
+	]
+}

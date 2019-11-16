@@ -1,0 +1,584 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2200,
+	"results": [
+		{
+			"number": 48158,
+			"data": "0,0,0,0,1,0,0,0,1,0,0,1,2,1,0,0,0,0,2,1,0,0,1,1,3,2,1,0,0,0,2,0,3,2,1,0,0,1,0,1,4,3,2,1,0,0,0,1,2,0,4,3,2,1,0,0,1,2,3,1,5,4,3,2,1,0,0,0,0,0,2,0,5,4,3,2,1,0,0,1,1,1,3,1,6,5,4,3,2,1,0,0,0,2,2,4,2,0,6,5,4,3,2,1,0",
+			"name": "Triangular array T read by rows: T(n,k) = n mod k, for k=1,2,...,n, n=1,2,...",
+			"comment": [
+				"Also, rectangular array read by antidiagonals: a(n, k) = n%k, n \u003e= 0, k \u003e= 1. Cf. A051126, A051127, A051777. - _David Wasserman_, Oct 01 2008",
+				"A051731(n,k) = A000007(T(n,k)). - _Reinhard Zumkeller_, Nov 01 2009"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A048158/b048158.txt\"\u003eRows n = 1..141, flattened\u003c/a\u003e",
+				"Michael Z. Spivey, \u003ca href=\"http://www.jstor.org/stable/30044176\"\u003eThe Humble Sum of Remainders Function\u003c/a\u003e, Mathematics Magazine, Vol. 78, No. 4 (Oct., 2005), pp. 300-305.",
+				"Weisstein, Eric W., \u003ca href=\"http://mathworld.wolfram.com/Mod.html\"\u003eMod\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = n - k * A010766(n,k). - _Mats Granvik_, _Gary W. Adamson_, Feb 20 2010"
+			],
+			"example": [
+				"0 ;",
+				"0  0 ;",
+				"0  1  0 ;",
+				"0  0  1  0 ;",
+				"0  1  2  1  0 ;",
+				"0  0  0  2  1  0 ;",
+				"0  1  1  3  2  1  0 ;",
+				"0  0  2  0  3  2  1  0 ;",
+				"0  1  0  1  4  3  2  1  0 ;",
+				"0  0  1  2  0  4  3  2  1  0 ;",
+				"0  1  2  3  1  5  4  3  2  1  0 ;",
+				"0  0  0  0  2  0  5  4  3  2  1  0 ;",
+				"...",
+				"From _Omar E. Pol_, Feb 21 2014: (Start)",
+				"Illustration of the 12th row of triangle:",
+				"-----------------------------------",
+				".      k: 1 2 3 4 5 6 7 8 9 10..12",
+				"-----------------------------------",
+				".         _ _ _ _ _ _ _ _ _ _ _ _",
+				".        |_| | | | | | | | | | | |",
+				".        |_|_| | | | | | | | | | |",
+				".        |_| |_| | | | | | | | | |",
+				".        |_|_| |_| | | | | | | | |",
+				".        |_| | | |_| | | | | | | |",
+				".        |_|_|_| | |_| | | | | | |",
+				".        |_| | | | | |_| | | | | |",
+				".        |_|_| |_| | |*|_| | | | |",
+				".        |_| |_| | | |* *|_| | | |",
+				".        |_|_| | |_| |* * *|_| | |",
+				".        |_| | | |*| |* * * *|_| |",
+				".        |_|_|_|_|*|_|* * * * *|_|",
+				".",
+				"Row 12 is 0 0 0 0 2 0 5 4 3 2 1 0",
+				".",
+				"(End)"
+			],
+			"maple": [
+				"T:= (n, k)-\u003e modp(n, k):",
+				"seq(seq(T(n, k), k=1..n), n=1..20); # _Alois P. Heinz_, Apr 04 2012"
+			],
+			"mathematica": [
+				"Flatten[Table[Mod[n, Range[n]], {n, 15}]]"
+			],
+			"program": [
+				"(Haskell)",
+				"a048158 = mod",
+				"a048158_row n = a048158_tabl !! (n-1)",
+				"a048158_tabl = zipWith (map . mod) [1..] a002260_tabl",
+				"-- _Reinhard Zumkeller_, Apr 29 2015, Jan 20 2014 (fixed), Aug 13 2013"
+			],
+			"xref": [
+				"Row sums are given by A004125.",
+				"Cf. A002260.",
+				"Cf. A000007, A010766, A051126, A051127, A051731, A051777."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,13",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"More terms from _David Wasserman_, Oct 01 2008"
+			],
+			"references": 15,
+			"revision": 35,
+			"time": "2016-09-05T07:45:26-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 48669,
+			"data": "1,2,2,2,2,4,2,2,2,4,2,4,2,4,3,2,2,4,2,4,3,4,2,4,2,4,2,4,2,6,2,2,3,4,3,4,2,4,3,4,2,6,2,4,3,4,2,4,2,4,3,4,2,4,3,4,3,4,2,6,2,4,3,2,3,6,2,4,3,6,2,4,2,4,3,4,3,6,2,4,2,4,2,6,3,4,3,4,2,6,3,4,3,4,3,4,2,4,3,4,2,6,2,4,5",
+			"name": "The Jacobsthal function g(n): maximal gap in a list of all the integers relatively prime to n.",
+			"comment": [
+				"Equivalently, g(n) is the least integer such that among any g(n) consecutive integers i, i+1, ..., i+g(n)-1 there is at least one which is relatively prime to n.",
+				"The definition refers to all integers, not just those in the range 1..n-1.",
+				"Differs from A070194 by 1 at the primes. - _T. D. Noe_, Mar 21 2007",
+				"Jacobsthal's function is used in the proofs of Recamán's and Pomerance's conjectures on P-integers--see A192224. - _Jonathan Sondow_, Jun 14 2014"
+			],
+			"reference": [
+				"E. Jacobsthal, Uber Sequenzen ganzer Zahlen, von denen keine zu n teilerfremd ist, I, II, III. Norske Vid. Selsk. Forh., 33, 1960, 117-139.",
+				"D. S. Mitrinovic et al., Handbook of Number Theory, Kluwer, Pages 33-34.",
+				"E. Westzynthius, Uber die Verteilung der Zahlen, die zu der n ersten Primzahlen teilerfremd sind, Comm. Phys. Math. Helsingfors 25 (1931), 1-37."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A048669/b048669.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Fintan Costello, and Paul Watts, \u003ca href=\"https://arxiv.org/abs/1306.1064\"\u003eA short note on Jacobsthal's function\u003c/a\u003e, arXiv preprint arXiv:1306.1064 [math.NT], 2013.",
+				"P. Erdős, \u003ca href=\"http://www.digizeitschriften.de/dms/img/?PPN=GDZPPN002346826\"\u003eOn the integers relatively prime to n and on a number theoretic function considered by Jacobsthal\u003c/a\u003e. Math. Scand., 10, 1962, 163-170.",
+				"H. Iwaniec, \u003ca href=\"https://doi.org/10.1515/dema-1978-0121\"\u003eOn the problem of Jacobsthal\u003c/a\u003e, Demonstratio Math. 11 (1978), pp. 225-231.",
+				"Hans-Joachim Kanold, \u003ca href=\"https://eudml.org/doc/161543\"\u003eÜber eine zahlentheoretische Funktion von Jacobsthal\u003c/a\u003e, Mathematische Annalen 170.4 (1967): 314-326.",
+				"Gerhard R. Paseman, \u003ca href=\"https://arxiv.org/abs/1311.5944\"\u003eUpdating an upper bound of Erik Westzynthius\u003c/a\u003e, arXiv preprint arXiv:1311.5944 [math.NT], 2013-2014.",
+				"Carl Pomerance, \u003ca href=\"https://doi.org/10.1016/0022-314X(80)90056-6\"\u003eA note on the least prime in an arithmetic progression\u003c/a\u003e, Journal of Number Theory 12.2 (1980): 218-223.",
+				"Harlan Stevens, \u003ca href=\"https://eudml.org/doc/162943\"\u003eOn Jacobsthal's g(n)-function\u003c/a\u003e, Mathematische Annalen 226.1 (1977): 95-97.",
+				"Mario Ziller, John F. Morack, \u003ca href=\"https://arxiv.org/abs/1611.03310\"\u003eAlgorithmic concepts for the computation of Jacobsthal's function\u003c/a\u003e, arXiv:1611.03310 [math.NT], 2016."
+			],
+			"formula": [
+				"From _N. J. A. Sloane_, Apr 19 2017 (Start):",
+				"g(n) = g(Rad(n)) (cf. A007947). So in studying g(n) we may focus on the case when n is a product of w (say) distinct primes.",
+				"g(n) \u003c= 2^w for all w [Kanold].",
+				"g(n) \u003c= 2^(1/w) for all w \u003e= e^50 [Kanold].",
+				"For some unknown X, g(n) \u003c= X*(w*log(w))^2 for all w [Iwaniec].",
+				"(End)",
+				"g(n) \u003c\u003c (log(n))^2, as proved by Iwaniec. - _Charles R Greathouse IV_, Sep 08 2012."
+			],
+			"example": [
+				"g(6)=4 because the gap between 1 and 5, both being relatively prime to 6, is maximal and 5-1 = 4.",
+				"g(7)=2, because the numbers relatively prime to 7 are 1,2,3,4,5,6,8,9,10,..., and the biggest gap is 2. Similarly a(p) = 2 for any prime p. - _N. J. A. Sloane_, Sep 08 2012"
+			],
+			"mathematica": [
+				"g[n_] := Module[{L = 1, m = 1}, For[k = 2, k \u003c= n+1, k++, If[GCD[k, n] == 1, If[L+m \u003c k, m = k-L]; L = k]]; m]; Table[g[n], {n, 1, 105}] (* _Jean-François Alcover_, Sep 03 2013, after _M. F. Hasler_ *)"
+			],
+			"program": [
+				"(PARI) A048669(n)=my(L=1,m=1);for(k=2,n+1,gcd(k,n)\u003e1 \u0026\u0026 next;L+m\u003ck \u0026\u0026 m=k-L;L=k);m \\\\ _M. F. Hasler_, Sep 08 2012",
+				"(Haskell)",
+				"a048669 n = maximum $ zipWith (-) (tail ts) ts where",
+				"   ts = a038566_row n ++ [n + 1]",
+				"-- _Reinhard Zumkeller_, Oct 01 2012"
+			],
+			"xref": [
+				"Essentially same as A049298. See A132468 for another version.",
+				"Cf. A048670, A070971, A007947, A038566, A192224, A285183."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_Jan Kristian Haugland_",
+			"ext": [
+				"Edited, changed symbol to g(n), added references pertaining to bounds. - _N. J. A. Sloane_, Apr 19 2017"
+			],
+			"references": 15,
+			"revision": 81,
+			"time": "2019-02-04T14:14:44-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49444,
+			"data": "1,-2,1,6,-5,1,-24,26,-9,1,120,-154,71,-14,1,-720,1044,-580,155,-20,1,5040,-8028,5104,-1665,295,-27,1,-40320,69264,-48860,18424,-4025,511,-35,1,362880,-663696,509004,-214676,54649,-8624,826,-44,1,-3628800,6999840,-5753736",
+			"name": "Generalized Stirling number triangle of first kind.",
+			"comment": [
+				"a(n,m) = ^2P_n^m in the notation of the given reference with a(0,0) := 1. The monic row polynomials s(n,x) := Sum_{m=0..n} a(n,m)*x^m which are s(n,x) = Product_{k=0..n-1} (x-(2+k)), n \u003e= 1 and s(0,x)=1 satisfy s(n,x+y) = Sum_{k=0..n} binomial(n,k)*s(k,x)*S1(n-k,y), with the Stirling1 polynomials S1(n,x) = Sum_{m=1..n} (A008275(n,m)*x^m) and S1(0,x)=1.",
+				"In the umbral calculus (see the S. Roman reference given in A048854) the s(n,x) polynomials are called Sheffer polynomials for (exp(2*t), exp(t)-1).",
+				"See A143491 for the unsigned version of this array and A143494 for the inverse. - _Peter Bala_, Aug 25 2008",
+				"Corresponding to the generalized Stirling number triangle of second kind A137650. - _Peter Luschny_, Sep 18 2011",
+				"Unsigned, reversed rows (cf. A145324, A136124) are the dimensions of the cohomology of a complex manifold with a symmetric group (S_n) action. See p. 17 of the Hyde and Lagarias link. See also the Murri link for an interpretation as the Betti numbers of the moduli space M(0,n) of smooth Riemann surfaces. - _Tom Copeland_, Dec 09 2016"
+			],
+			"reference": [
+				"Mitrinovic, D. S.; Mitrinovic, R. S.; Tableaux d'une classe de nombres relies aux nombres de Stirling. Univ. Beograd. Pubi. Elektrotehn. Fak. Ser. Mat. Fiz. No. 77 1962, 77 pp.",
+				"Y. Manin, Frobenius Manifolds, Quantum Cohomology and Moduli Spaces, American Math. Soc. Colloquium Publications Vol. 47, 1999 [From _Tom Copeland_, Jun 29 2008]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A049444/b049444.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"E. Getzler, \u003ca href=\"http://arxiv.org/abs/alg-geom/9411004\"\u003eOperads and moduli spaces of genus 0 Riemann surfaces\u003c/a\u003e, arXiv:alg-geom/9411004, 1994, (see p. 23, g(x,t)). [From _Tom Copeland_, Dec 11 2011]",
+				"T. Hyde and J. Lagarias \u003ca href=\"http://arxiv.org/abs/1604.05359\"\u003ePolynomial splitting measures and cohomology of the pure braid group\u003c/a\u003e, arXiv preprint arXiv:1604.05359 [math.RT], 2016.",
+				"Y. Manin, \u003ca href=\"http://arxiv.org/abs/alg-geom/9407005\"\u003eGenerating functions in algebraic geometry and sums over trees\u003c/a\u003e, arXiv:alg-geom/9407005, 1994, (Eqn. 0.7 and 1.7). [From _Tom Copeland_, Dec 10 2011]",
+				"R. Murri, \u003ca href=\"http://arxiv.org/abs/1202.1820\"\u003eFatgraph Algorithms and the Homology of the Kontsevich Complex\u003c/a\u003e, arXiv:1202.1820 [math.AG], 2012, (see Table 1, p. 3). [From _Tom Copeland_, Sep 18 2012]"
+			],
+			"formula": [
+				"a(n, m) = a(n-1, m-1) -(n+1)*a(n-1, m), n \u003e= m \u003e= 0; a(n, m) = 0, n \u003c m; a(n, -1) = 0, a(0, 0) = 1.",
+				"E.g.f. for m-th column of signed triangle: ((log(1+x))^m)/(m!*(1+x)^2).",
+				"Triangle (signed) = [-2, -1, -3, -2, -4, -3, -5, -4, -6, -5, ...] DELTA [1, 0, 1, 0, 1, 0, 1, 0, ...]; triangle (unsigned) = [2, 1, 3, 2, 4, 3, 5, 4, 6, 5, ...] DELTA [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, ...], where DELTA is Deléham's operator defined in A084938 (unsigned version in A143491).",
+				"E.g.f.: (1+y)^(x-2). - _Vladeta Jovovic_, May 17 2004",
+				"With P(n,t) = Sum_{j=0..n-2} a(n-2,j) * t^j and P(1,t) = -1 and P(0,t) = 1, then G(x,t) = -1 + exp[P(.,t)*x] = [(1+x)^t - 1 - t^2 * x] / [t(t-1)], whose compositional inverse in x about 0 is given in A074060. G(x,0) = -log(1+x) and G(x,1) = (1+x) log(1+x) - 2x. G(x,q^2) occurs in formulas on pages 194-196 of the Manin reference. - _Tom Copeland_, Feb 17 2008",
+				"If we define f(n,i,a) = Sum_{k=0..n-i} binomial(n,k)*Stirling1(n-k,i)*Product_{j=0..k-1} (-a-j), then T(n,i) = f(n,i,2), for n=1,2,...; i=0..n. - _Milan Janjic_, Dec 21 2008"
+			],
+			"example": [
+				"First few rows of the triangle are:",
+				"              1;",
+				"          -2,    1;",
+				"        6,   -5,    1;",
+				"   -24,   26,   -9,    1;",
+				"120, -154,   71,  -14,    1;"
+			],
+			"maple": [
+				"A049444_row := proc(n) local k,i;",
+				"add(add(combinat[stirling1](n, n-i), i=0..k)*x^(n-k-1),k=0..n-1);",
+				"seq(coeff(%,x,k),k=1..n-1) end:",
+				"seq(print(A049444_row(n)),n=1..7); # _Peter Luschny_, Sep 18 2011"
+			],
+			"mathematica": [
+				"t[n_, i_] = Sum[(-1)^k*Binomial[n, k]*(k+1)!*StirlingS1[n-k, i], {k, 0, n-i}]; Flatten[Table[t[n, i], {n, 0, 9}, {i, 0, n}]] [[1 ;; 48]]",
+				"(* _Jean-François Alcover_, Apr 29 2011, after _Milan Janjic_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a049444 n k = a049444_tabl !! n !! k",
+				"a049444_row n = a049444_tabl !! n",
+				"a049444_tabl = map fst $ iterate (\\(row, i) -\u003e",
+				"   (zipWith (-) ([0] ++ row) $ map (* i) (row ++ [0]), i + 1)) ([1], 2)",
+				"-- _Reinhard Zumkeller_, Mar 11 2014"
+			],
+			"xref": [
+				"Unsigned column sequences are A000142(n+1), A001705-A001709. Row sums (signed triangle): n!*(-1)^n, row sums (unsigned triangle): A001710(n-2). Cf. A008275 (Stirling1 triangle).",
+				"Cf. A000035 A084938, A094645, A094646.",
+				"Cf. A143491, A143494. - _Peter Bala_, Aug 25 2008",
+				"Cf. A137650.",
+				"Cf. A136124."
+			],
+			"keyword": "sign,easy,tabl,nice",
+			"offset": "0,2",
+			"author": "_Wolfdieter Lang_",
+			"ext": [
+				"Second formula corrected by _Philippe Deléham_, Nov 09 2008"
+			],
+			"references": 15,
+			"revision": 73,
+			"time": "2017-10-08T17:40:20-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 50216,
+			"data": "2,2,5,6,15,9,22,11,27,47,16,57,44,20,46,80,78,32,90,66,30,106,75,114,163,89,42,87,42,100,354,99,165,49,299,58,182,186,128,198,195,76,356,77,144,75,463,479,168,82,166,270,90,438,275,274,292,91,292,199,99",
+			"name": "Number of primes between (prime(n))^2 and (prime(n+1))^2, with a(0) = 2 by convention.",
+			"comment": [
+				"The function in Brocard's Conjecture, which states that for n \u003e= 2, a(n) \u003e= 4.",
+				"The lines in the graph correspond to prime gaps of 2, 4, 6, ... .  - _T. D. Noe_, Feb 04 2008",
+				"Lengths of blocks of consecutive primes in A000430 (union of primes and squares of primes). - _Reinhard Zumkeller_, Sep 23 2011",
+				"In the n-th step of the sieve of Eratosthenes, all multiples of prime(n) are removed. Then a(n) gives the number of new primes obtained after the n-th step. - _Jean-Christophe Hervé_, Oct 27 2013",
+				"More precisely, after the n-th step, one is sure to have eliminated all composites less than prime(n+1)^2, since any composite N has a prime factor \u003c= sqrt(N). It is in exactly this (restricted) sense that a(n) yields the number of \"new primes\" (additional numbers known to be prime) after the n-th step. But one knows after the n-th step also that all remaining numbers between prime(n+1)^2 and prime(n+1)*(prime(n+1)+2) are prime: By construction they don't have a factor less than prime(n+1) and they don't have a factor prime(n+1) so the least prime factor could be prime(n+2) \u003e= prime(n+1)+2. For example, after eliminating multiples of 3 in the 2nd step, one has (2, 3, 5, 7, 11, 13, 17, 23, 25, 29, 31, 35, ...) and one knows that all remaining numbers strictly in between 5^2=25 and 5*(5+2)=35 are prime, too. - _M. F. Hasler_, Dec 31 2014",
+				"Numerically, the slope of the lowest \"ray\" m(n) = min {a(k); k\u003en}, seems to converge to a value somewhere in the range 1.75 \u003c m(n)/n \u003c 1.8; with m(n)/n \u003e 1.7 for n \u003e 900, m(n)/n \u003e 1.75 for n \u003e 2700. - _M. F. Hasler_, Dec 31 2014",
+				"Legendre's conjecture (see A014085) would imply that a(n) \u003e= 2 for all n and that sequences A054272, A250473 and A250474 were thus strictly increasing (see the Wikipedia article about Brocard's conjecture). - _Antti Karttunen_, Jan 01 2015"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A050216/b050216.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"A. G. Shannon and J. V. Leyendekkers, \u003ca href=\"http://nntdm.net/volume-23-2017/number-2/117-125/\"\u003e\"On Legendre's Conjecture\"\u003c/a\u003e, Notes on Number Theory and Discrete Mathematics, Vol. 23, No. 2 (2017): 117-125.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/BrocardsConjecture.html\"\u003eBrocard's Conjecture\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Brocard%27s_conjecture\"\u003eBrocard's Conjecture\u003c/a\u003e"
+			],
+			"formula": [
+				"For all n \u003e= 1, a(n) = A256468(n) + A256469(n). - _Antti Karttunen_, Mar 30 2015"
+			],
+			"example": [
+				"There are 2 primes less than 2^2, there are 2 primes between 2^2 and 3^2, 5 primes between 3^2 and 5^2, etc."
+			],
+			"mathematica": [
+				"PrimePi[ Prime[ n+1 ]^2 ]-PrimePi[ Prime[ n ]^2 ]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a050216 n = a050216_list !! (n-1)",
+				"a050216_list =",
+				"   map length $ filter (/= [0]) $ group $ map a010051 a000430_list",
+				"-- _Reinhard Zumkeller_, Sep 23 2011",
+				"(PARI) a(n)={n||return(2);primepi(prime(n+1)^2)-primepi(prime(n)^2)} \\\\ _M. F. Hasler_, Dec 31 2014"
+			],
+			"xref": [
+				"First differences of A000879.",
+				"One more than A251723.",
+				"Cf. A010051, A001248, A014085, A089609, A251719, A256468, A256469, A256470."
+			],
+			"keyword": "nonn,look",
+			"offset": "0,1",
+			"author": "_Eric W. Weisstein_",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Nov 15 2009",
+				"Example corrected by Jonathan Sperry, Aug 30 2013"
+			],
+			"references": 15,
+			"revision": 58,
+			"time": "2018-02-23T11:52:08-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 50935,
+			"data": "0,0,1,1,1,0,-1,-2,-2,-1,1,3,4,3,0,-4,-7,-7,-3,4,11,14,10,-1,-15,-25,-24,-9,16,40,49,33,-7,-56,-89,-82,-26,63,145,171,108,-37,-208,-316,-279,-71,245,524,595,350,-174,-769,-1119,-945,-176,943,1888,2064,1121,-767,-2831,-3952",
+			"name": "a(1)=0, a(2)=0, a(3)=1, a(n+1) = a(n) - a(n-2).",
+			"comment": [
+				"The Ze3 sums, see A180662, of triangle A108299 equal the terms of this sequence without the two leading zeros. [Johannes W. Meijer, Aug 14 2011]"
+			],
+			"reference": [
+				"R. Palmaccio, \"Average Temperatures Modeled with Complex Numbers\", Mathematics and Informatics Quarterly, pp. 9-17 of Vol. 3, No. 1, March 1993."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050935/b050935.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"José L. Ramírez, Víctor F. Sirvent, \u003ca href=\"http://ami.ektf.hu/uploads/papers/finalpdf/AMI_45_from91to105.pdf\"\u003eA note on the k-Narayana sequence\u003c/a\u003e, Annales Mathematicae et Informaticae, 45 (2015) pp. 91-105.",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1, 0, -1)."
+			],
+			"formula": [
+				"G.f. : x^2/(1-x+x^3); a(n+2) = sum{k=0..floor(n/3), binomial(n-2*k, k)*(-1)^k)} - _Paul Barry_, Oct 20 2004",
+				"G.f.: Q(0)*x^2/2 , where Q(k) = 1 + 1/(1 - x*(12*k-1 + x^2)/( x*(12*k+5 + x^2 ) - 1/Q(k+1) )); (continued fraction). - _Sergei N. Gladkovskii_, Sep 12 2013"
+			],
+			"maple": [
+				"A050935 := proc(n) option remember; if n \u003c= 1 then 0 elif n = 2 then 1 else A050935(n-1)-A050935(n-3); fi; end: seq(A050935(n), n=0..61);"
+			],
+			"mathematica": [
+				"LinearRecurrence[{1,0,-1},{0,0,1},70] (* _Harvey P. Dale_, Jan 30 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a050935 n = a050935_list !! (n-1)",
+				"a050935_list = 0 : 0 : 1 : zipWith (-) (drop 2 a050935_list) a050935_list",
+				"-- _Reinhard Zumkeller_, Jan 01 2012",
+				"(PARI) a(n)=([0,1,0; 0,0,1; -1,0,1]^(n-1)*[0;0;1])[1,1] \\\\ _Charles R Greathouse IV_, Feb 06 2017"
+			],
+			"xref": [
+				"When run backwards this gives a signed version of A000931.",
+				"Cf. A099529.",
+				"Apart from signs, essentially the same as A078013.",
+				"Cf. A203400 (partial sums)."
+			],
+			"keyword": "easy,nice,sign",
+			"offset": "1,8",
+			"author": "Richard J. Palmaccio (palmacr(AT)pinecrest.edu), Dec 31 1999",
+			"ext": [
+				"Offset fixed by _Reinhard Zumkeller_, Jan 01 2012"
+			],
+			"references": 15,
+			"revision": 28,
+			"time": "2017-02-06T23:53:42-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 51135,
+			"data": "2,2,1,3,1,1,2,4,1,1,1,2,1,2,3,5,1,1,1,1,2,1,1,2,1,2,3,1,2,3,4,6,1,1,1,1,1,2,1,1,1,2,1,1,2,1,2,3,1,1,2,1,2,3,1,2,3,4,1,2,3,4,5,7,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,2,1,1,2,1,2,3,1,1,1,2,1,1,2,1,2,3,1,1,2,1,2,3,1,2,3",
+			"name": "a(n) = number of times n appears in the Hofstadter-Conway $10000 sequence A004001.",
+			"comment": [
+				"If the initial 2 is changed to a 1, the resulting sequence (A265332) has the property that if all 1's are deleted, the remaining terms are the sequence incremented. - _Franklin T. Adams-Watters_, Oct 05 2006",
+				"a(A088359(n)) = 1 and a(A087686(n)) \u003e 1; first differences of A188163. - _Reinhard Zumkeller_, Jun 03 2011",
+				"Start:",
+				"a(k)=1 for k = 3, 5, 6, 9, 10, 11, 13, 17, 18, 19, 20, 22, 23, 25, 28, ..., ; (A088359)",
+				"a(k)=2 for k = 1, 2, 7, 12, 14, 21, 24, 26, 29, 38, 42, 45, 47, 51, 53, ..., ; (1 followed by A266109)",
+				"a(k)=3 for k = 4, 15, 27, 30, 48, 54, 57, 61, 86, 96, 102, 105, 112, ..., ; (A267103)",
+				"a(k)=4 for k = 8, 31, 58, 62, 106, 116, 120, 125, 192, 212, 222, 226, ..., ;",
+				"a(k)=5 for k = 16, 63, 121, 126, 227, 242, 247, 253, 419, 454, 469, ..., ;",
+				"a(k)=6 for k = 32, 127, 248, 254, 475, 496, 502, 509, 894, 950, 971, ..., ;",
+				"a(k)=7 for k = 64, 255, 503, 510, 978, 1006, 1013, 1021, 1872, 1956, ..., ;",
+				"a(k)=8 for k = 128, 511, 1014, 1022, 1992, 2028, 2036, 2045, 3864, ..., ;",
+				"a(k)=9 for k = 256, 1023, 2037, 2046, 4029, 4074, 4083, 4093, 7893, ..., ;",
+				"a(k)=10 for k = 512, 2047, 4084, 4094, 8113, 8168, 8178, 8189, ..., ; etc. - _Robert G. Wilson v_, Jun 07 2011",
+				"Compare above to array A265903. - _Antti Karttunen_, Jan 18 2016"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051135/b051135.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"T. Kubo and R. Vakil, \u003ca href=\"http://dx.doi.org/10.1016/0012-365X(94)00303-Z\"\u003eOn Conway's recursive sequence\u003c/a\u003e, Discr. Math. 152 (1996), 225-252.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Hofstadter_sequence\"\u003eHofstadter sequence\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Hofstadter-Conway10000-DollarSequence.html\"\u003eHofstadter-Conway $10,000 Sequence.\u003c/a\u003e",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"From _Antti Karttunen_, Jan 18 2016: (Start)",
+				"a(n) = A188163(n+1) - A188163(n). [after _Reinhard Zumkeller_'s Jun 03 2011 comment above]",
+				"Other identities:",
+				"a(n) = 1 if and only if A093879(n-1) = 1. [See A188163 for a reason.]",
+				"(End)"
+			],
+			"maple": [
+				"a[1]:=1: a[2]:=1: for n from 3 to 300 do a[n]:=a[a[n-1]]+a[n-a[n-1]] od: A:=[seq(a[n],n=1..300)]:for j from 1 to A[nops(A)-1] do c[j]:=0: for n from 1 to 300 do if A[n]=j then c[j]:=c[j]+1 else fi od: od: seq(c[j],j=1..A[nops(A)-1]); # _Emeric Deutsch_, Jun 06 2006"
+			],
+			"mathematica": [
+				"a[1] = 1; a[2] = 1; a[n_] := a[n] = a[a[n - 1]] + a[n - a[n - 1]]; t = Array[a, 250]; Take[ Transpose[ Tally[t]][[2]], 105] (* _Robert G. Wilson v_, Jun 07 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a051135 n = a051135_list !! (n-1)",
+				"a051135_list = map length $ group a004001_list",
+				"-- _Reinhard Zumkeller_, Jun 03 2011",
+				"(Scheme) (define (A051135 n) (- (A188163 (+ 1 n)) (A188163 n))) ;; _Antti Karttunen_, Jan 18 2016"
+			],
+			"xref": [
+				"Cf. A004001, A087686, A093879, A188163, A266109, A267103 and array A265903.",
+				"Cf. A088359 (positions of ones).",
+				"Cf. A265332 (essentially the same sequence, but with a(1) = 1 instead of 2)."
+			],
+			"keyword": "easy,nonn,nice",
+			"offset": "1,1",
+			"author": "Robert Lozyniak (11(AT)onna.com)",
+			"ext": [
+				"More terms from _Jud McCranie_",
+				"Added links (in parentheses) to recently submitted related sequences - _Antti Karttunen_, Jan 18 2016"
+			],
+			"references": 15,
+			"revision": 42,
+			"time": "2017-08-11T03:25:38-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51841,
+			"data": "1,0,1,1,3,4,9,14,28,48,93,165,315,576,1091,2032,3855,7252,13797,26163,49929,95232,182361,349350,671088,1290240,2485504,4792905,9256395,17894588,34636833,67106816,130150493,252641280,490853403,954429840,1857283155,3616800768,7048151355,13743869130,26817356775",
+			"name": "Number of binary Lyndon words with an even number of 1's.",
+			"comment": [
+				"Also number of trace 0 irreducible polynomials over GF(2).",
+				"Also number of trace 0 Lyndon words over GF(2)."
+			],
+			"reference": [
+				"May, Robert M. \"Simple mathematical models with very complicated dynamics.\" Nature, Vol. 261, June 10, 1976, pp. 459-467; reprinted in The Theory of Chaotic Attractors, pp. 85-93. Springer, New York, NY, 2004. The sequences listed in Table 2 are A000079, A027375, A000031, A001037, A000048, A051841. - _N. J. A. Sloane_, Mar 17 2019"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A051841/b051841.txt\"\u003eTable of n, a(n) for n = 1..300\u003c/a\u003e",
+				"F. Ruskey, \u003ca href=\"http://combos.org/TSlyndon\"\u003eNumber of q-ary Lyndon words with given trace mod q\u003c/a\u003e",
+				"F. Ruskey, \u003ca href=\"http://combos.org/TlyndonFk\"\u003eNumber of Lyndon words over GF(q) with given trace\u003c/a\u003e",
+				"\u003ca href=\"/index/Lu#Lyndon\"\u003eIndex entries for sequences related to Lyndon words\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = ( Sum_{d|n} gcd(d, 2)*mu(d)*2^{n/d}) / (2n).",
+				"a(n) ~ 2^(n-1) / n. - _Vaclav Kotesovec_, May 31 2019"
+			],
+			"example": [
+				"a(5) = 3 = |{ 00011, 00101, 01111 }|."
+			],
+			"mathematica": [
+				"a[n_] := Sum[GCD[d, 2]*MoebiusMu[d]*2^(n/d), {d, Divisors[n]}]/(2n);",
+				"Table[a[n], {n, 1, 32}]",
+				"(* _Jean-François Alcover_, May 14 2012, from formula *)"
+			],
+			"program": [
+				"(PARI)",
+				"L(n, k) = sumdiv(gcd(n,k), d, moebius(d) * binomial(n/d, k/d) );",
+				"a(n) = sum(k=0, n, if( (n+k)%2==0, L(n, k), 0 ) ) / n;",
+				"vector(33,n,a(n))",
+				"/* _Joerg Arndt_, Jun 28 2012 */",
+				"(Haskell)",
+				"a051841 n = (sum $ zipWith (\\u v -\u003e gcd 2 u * a008683 u * 2 ^ v)",
+				"             ds $ reverse ds) `div` (2 * n) where ds = a027750_row n",
+				"-- _Reinhard Zumkeller_, Mar 17 2013"
+			],
+			"xref": [
+				"Same as A001037 - A000048. Same as A042980 + A042979.",
+				"Cf. A027750, A008683."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,5",
+			"author": "_Frank Ruskey_, Dec 13 1999",
+			"references": 15,
+			"revision": 39,
+			"time": "2019-05-31T08:50:41-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 52203,
+			"data": "1,5,36,286,2380,20349,177100,1560780,13884156,124403620,1121099408,10150595910,92263734836,841392966470,7694644696200,70539987842520,648045936942300,5964720367660956,54991682779774384,507749884105448600,4694436188839116720",
+			"name": "a(n) = (4n+1)*binomial(4n,n)/(3n+1).",
+			"comment": [
+				"Central terms of the triangles in A122366 and A111418. - _Reinhard Zumkeller_, Aug 30 2006 and Mar 14 2014",
+				"a(n) is the number of paths from (0,0) to (4n,n), taking north and east steps while avoiding exactly 2 consecutive north steps. - _Shanzhen Gao_, Apr 15 2010"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A052203/b052203.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = C(4n+1, n); a(n) is asymptotic to c/sqrt(n)*(256/27)^n with c=0.614... - _Benoit Cloitre_, Jan 27 2003 [c = 2^(5/2)/(3^(3/2)*sqrt(Pi)) = 0.61421182128... - _Vaclav Kotesovec_, Feb 14 2019]",
+				"G.f.: g^2/(4-3*g) where g = 1+x*g^4 is the g.f. of A002293. - _Mark van Hoeij_, Nov 11 2011",
+				"G.f.: hypergeom([1/2, 3/4, 5/4], [2/3, 4/3], (256/27)*x). - _Robert Israel_, Aug 07 2014",
+				"3*n*(3*n-1)*(3*n+1)*a(n) - 8*(4*n+1)*(2*n-1)*(4*n-1)*a(n-1)=0. - _R. J. Mathar_, Nov 26 2012",
+				"From _Peter Bala_, Nov 04 2015: (Start)",
+				"The o.g.f. equals f(x)*g(x), where f(x) is the o.g.f. for A005810 and g(x) is the o.g.f. for A002293.",
+				"More generally, f(x)*g(x)^k is the o.g.f. for the sequence binomial(4*n + k,n). Cf. A262977 (k = -1), A005810 (k = 0), A257633 (k = 2), A224274 (k = 3) and A004331 (k = 4). (End)",
+				"a(n) = [x^n] 1/(1 - x)^(3*n+2). - _Ilya Gutkovskiy_, Oct 03 2017"
+			],
+			"mathematica": [
+				"Table[Binomial[4 n + 1, n], {n, 0, 20}] (* _Vincenzo Librandi_, Aug 07 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a052203 n = a122366 (2 * n) n  -- _Reinhard Zumkeller_, Mar 14 2014",
+				"(MAGMA) [Binomial(4*n+1, n): n in [0..20]]; // _Vincenzo Librandi_, Aug 07 2014",
+				"(PARI) vector(30, n, n--; (4*n+1)*binomial(4*n,n)/(3*n+1)) \\\\ _Altug Alkan_, Nov 05 2015"
+			],
+			"xref": [
+				"Cf. A002293, A051944, A004331, A005810, A224274, A257633, A262977."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_Barry E. Williams_, Jan 28 2000",
+			"ext": [
+				"More terms from _James A. Sellers_, Jan 31 2000"
+			],
+			"references": 15,
+			"revision": 51,
+			"time": "2019-02-14T11:03:47-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53989,
+			"data": "3,2,1,1,4,1,2,1,2,2,4,1,8,1,2,2,4,1,2,1,2,2,6,1,6,4,2,3,6,1,2,1,4,2,4,2,2,1,6,2,4,1,6,1,2,3,6,1,2,3,2,2,4,1,2,3,2,3,6,1,8,1,4,2,6,2,6,1,2,2,4,1,14,1,2,2,4,3,2,1,8,2,4,1,6,3,2,3,16,1,2,4,6,3,4,2,2,1,2,2",
+			"name": "Smallest k such that nk-1 is prime.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053989/b053989.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (A038700(n)+1)/n."
+			],
+			"example": [
+				"a(5)=4 because the smallest prime in the sequence 5k-1 (4,9,14,19,24...) is 19 when k=4"
+			],
+			"program": [
+				"(Haskell)",
+				"a053989 n = head [k | k \u003c- [1..], a010051' (k * n - 1) == 1]",
+				"-- _Reinhard Zumkeller_, Feb 14 2013",
+				"(PARI) a(n)=my(j);while(!isprime(j++*n-1),);j \\\\ _Charles R Greathouse IV_, Apr 18 2013"
+			],
+			"xref": [
+				"Cf. A034693, A038700, A071558, A010051, A103689, A200996."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Henry Bottomley_, Apr 04 2000",
+			"references": 15,
+			"revision": 10,
+			"time": "2013-07-13T12:02:28-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 55653,
+			"data": "1,2,3,3,5,6,7,5,7,10,11,9,13,14,15,9,17,14,19,15,21,22,23,15,21,26,19,21,29,30,31,17,33,34,35,21,37,38,39,25,41,42,43,33,35,46,47,27,43,42,51,39,53,38,55,35,57,58,59,45,61,62,49,33,65,66,67,51,69,70,71,35,73",
+			"name": "Sum of phi(d) [A000010] over all unitary divisors d of n (that is, gcd(d,n/d) = 1).",
+			"comment": [
+				"Phi-summation over d-s if runs over all divisors is n, so these values are not exceeding n. Compare also other \"Phi-summations\" like A053570, A053571, or distinct primes dividing n, etc.",
+				"a(n) is also the number of solutions of x^(k+1)=x mod n for some k\u003e=1. - _Steven Finch_, Apr 11 2006",
+				"An integer a is called regular (mod n) if there is an integer x such that a^2 x == a (mod n). Then a(n) is also the number of regular integers a (mod n) such that 1 \u003c= a \u003c= n. - _Laszlo Toth_, Sep 04 2008",
+				"Equals row sums of triangle A156361 and inverse Mobius transform of A114810. - _Gary W. Adamson_, Feb 28 2009",
+				"a(m) = m iff m is squarefree, a(A005117(n)) = A005117(n). - _Reinhard Zumkeller_, Mar 11 2012",
+				"Apostol \u0026 Tóth call this ϱ(n), i.e., varrho(n). - _Charles R Greathouse IV_, Apr 23 2013"
+			],
+			"reference": [
+				"J. Morgado, Inteiros regulares módulo n, Gazeta de Matematica (Lisboa), 33 (1972), no. 125-128, 1-5. [From _Laszlo Toth_, Sep 04 2008]",
+				"J. Morgado, A property of the Euler phi-function concerning the integers which are regular modulo n, Portugal. Math., 33 (1974), 185-191."
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A055653/b055653.txt\"\u003eTable of n, a(n) for n = 1..65537\u003c/a\u003e (first 1000 terms from T. D. Noe)",
+				"Osama Alkam and Emad Abu Osba, \u003ca href=\"http://journals.tubitak.gov.tr/math/issues/mat-08-32-1/mat-32-1-4-0610-4.pdf\"\u003eOn the regular elements in Zn\u003c/a\u003e, Turk J Math, 32 (2008) , 31-39.",
+				"B. Apostol, L. Petrescu, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL16/Apostol/apostol3.html\"\u003eExtremal Orders of Certain Functions Associated with Regular Integers (mod n)\u003c/a\u003e, Journal of Integer Sequences, 2013, # 13.7.5.",
+				"Brăduţ Apostol and László Tóth, \u003ca href=\"http://arxiv.org/abs/1304.2699\"\u003eSome remarks on regular integers modulo n\u003c/a\u003e, arXiv:1304.2699 [math.NT], 2013.",
+				"S. R. Finch, \u003ca href=\"https://arxiv.org/abs/math/0605019\"\u003eIdempotents and nilpotents modulo n\u003c/a\u003e, arXiv:1304.2699 [math.NT], 2013.",
+				"V. S. Joshi, \u003ca href=\"https://doi.org/10.1007/BFb0097176\"\u003eOrder-free integers (mod m)\u003c/a\u003e, Number Theory (Mysore, 1981), Lect. Notes in Math. 938, Springer-Verlag, 1982, pp. 93-100.",
+				"L. Tóth, \u003ca href=\"http://arxiv.org/abs/0710.1936\"\u003e Regular integers modulo n\u003c/a\u003e, arXiv:0710.1936 [math.NT], 2007-2008; Annales Univ. Sci. Budapest., Sect. Comp., 29 (2008), 263-275.",
+				"L. Toth, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL12/Toth/toth3.html\"\u003eA gcd-sum function over regular integers modulo n\u003c/a\u003e, JIS 12 (2009) 09.2.5"
+			],
+			"formula": [
+				"If n = product p_i^e_i, a(n) = product (1+p_i^e_i-p_i^(e_i-1)). - _Vladeta Jovovic_, Apr 19 2001",
+				"Dirichlet g.f.: zeta(s)*zeta(s-1)*product_{primes p} (1+p^(-2s)-p^(1-2s)-p^(-s)). - _R. J. Mathar_, Oct 24 2011",
+				"Dirichlet convolution square of A318661(n)/A318662(n). - _Antti Karttunen_, Sep 03 2018"
+			],
+			"example": [
+				"n=1260 has 36 divisors of which 16 are unitary ones: {1,4,5,7,9,20,28,35,36,45,63,140,180,252,315,1260}.",
+				"EulerPhi values of these divisors are: {1,2,4,6,6,8,12,24,12,24,36,48,48,72,144,288}.",
+				"The sum is 735, thus a(1260)=735.",
+				"Or, 1260=2^2*3^2*5*7, thus a(1260) = (1 + 2^2 - 2)*(1 + 3^2 - 3)*(1 + 5 - 5^0)*(1 + 7 - 7^0) = 735."
+			],
+			"maple": [
+				"A055653 := proc(n) local ans, i:ans := 1: for i from 1 to nops(ifactors(n)[ 2 ]) do ans := ans*(1+ifactors(n)[ 2 ][ i ] [ 1 ]^ifactors(n)[ 2 ] [ i ] [ 2 ]-ifactors(n)[ 2 ][ i ] [ 1 ]^(ifactors(n)[ 2 ] [ i ] [ 2 ]-1)): od: RETURN(ans) end:"
+			],
+			"mathematica": [
+				"a[n_] := Total[EulerPhi[Select[Divisors[n], GCD[#, n/#] == 1 \u0026]]]; Array[a, 73] (* _Jean-François Alcover_, May 03 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a055653 = sum . map a000010 . a077610_row",
+				"-- _Reinhard Zumkeller_, Mar 11 2012",
+				"(PARI) a(n) = sumdiv(n, d, if(gcd(n/d, d)==1, eulerphi(d))); \\\\ _Charles R Greathouse IV_, Feb 19 2013, corrected by _Antti Karttunen_, Sep 03 2018",
+				"(PARI) a(n)=my(f=factor(n));prod(i=1,#f[,1],f[i,1]^f[i,2]-f[i,1]^(f[i,2]-1)+1) \\\\ _Charles R Greathouse IV_, Feb 19 2013"
+			],
+			"xref": [
+				"Cf. A000010, A053570, A053571, A000188, A006833, A055654, A157361, A114810, A000010, A077610, A318661, A318662."
+			],
+			"keyword": "nonn,easy,nice,mult",
+			"offset": "1,2",
+			"author": "_Labos Elemer_, Jun 07 2000",
+			"references": 15,
+			"revision": 65,
+			"time": "2018-09-03T23:01:16-04:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		}
+	]
+}

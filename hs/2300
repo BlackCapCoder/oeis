@@ -1,0 +1,464 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2300,
+	"results": [
+		{
+			"number": 30717,
+			"data": "1,1,2,2,1,3,2,3,3,1,4,3,3,4,3,5,1,5,3,6,2,1,6,4,7,2,2,1,7,6,7,3,2,2,1,8,8,8,3,2,3,3,8,9,11,3,2,3,3,3,8,10,15,3,2,3,3,4,1,0,1,10,11,18,4,2,3,3,5,1,1,1,0,0,0,1,14,12,20,5,3,3,3,5,1,2,2,0,0,0,1,0,0,1,17,14,23,5,5",
+			"name": "Table with T(1,1) = 1; for n\u003e1, T(n,k) is the number of k's in rows 1 through n-1.",
+			"comment": [
+				"Equivalently, row 1, where, at stage k\u003e1, write i in row 1 and j in row 2, where i is the number of j's in row 1, for j=1,2,...,m, where m=max number in row 1 from stages 1 to k-1; state 1 is 1 in row 1."
+			],
+			"link": [
+				"Franklin T. Adams-Watters, \u003ca href=\"/A030717/b030717.txt\"\u003eFirst 32 rows, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"1;",
+				"1;",
+				"2;",
+				"2, 1;",
+				"3, 2;",
+				"3, 3, 1;",
+				"4, 3, 3;"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (sort, group)",
+				"a030717 n k = a030717_tabf !! (n-1) !! (k-1)",
+				"a030717_row n = a030717_tabf !! (n-1)",
+				"a030717_tabf = [1] : f [1] where",
+				"   f xs = ys : f ((filter (\u003e 0) ys) ++ xs) where",
+				"          ys = h (group $ sort xs) [1..] where",
+				"               h [] _ = []",
+				"               h vss'@(vs:vss) (w:ws)",
+				"                 | head vs == w = (length vs) : h vss ws",
+				"                 | otherwise    = 0 : h vss' ws",
+				"-- _Reinhard Zumkeller_, Dec 28 2014"
+			],
+			"xref": [
+				"Cf. A126027 (row lengths), A006920, A030718 (column numbers).",
+				"Cf. A174382.",
+				" Cf. A253170 (row sums)."
+			],
+			"keyword": "nonn,tabf,nice",
+			"offset": "1,3",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"More terms from _Franklin T. Adams-Watters_, Dec 14 2006"
+			],
+			"references": 14,
+			"revision": 14,
+			"time": "2014-12-28T20:26:32-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33846,
+			"data": "10,20,40,50,80,100,160,200,250,320,400,500,640,800,1000,1250,1280,1600,2000,2500,2560,3200,4000,5000,5120,6250,6400,8000,10000,10240,12500,12800,16000,20000,20480,25000,25600,31250,32000,40000,40960",
+			"name": "Numbers k whose prime factors are 2 and 5.",
+			"comment": [
+				"k such that Sum_{d prime divisor of k} 1/d = 7/10. - _Benoit Cloitre_, Apr 13 2002",
+				"k such that phi(k) = (2/5)*k. - _Benoit Cloitre_, Apr 19 2002",
+				"A143201(a(n)) = 4. - _Reinhard Zumkeller_, Sep 13 2011",
+				"Numbers k such that Sum_{d|k} A008683(d)*A000700(d) = 7. - _Carl Najafi_, Oct 20 2011",
+				"k-th cyclotomic polynomial with exactly 2 negative coefficients (see A086780). - _Paolo P. Lava_, May 10 2019"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A033846/b033846.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 10*A003592(n)."
+			],
+			"maple": [
+				"A033846 := proc(n)",
+				"if (numtheory[factorset](n) = {2,5}) then",
+				"   RETURN(n)",
+				"fi: end:  seq(A033846(n),n=1..50000); # _Jani Melik_, Feb 24 2011",
+				"# Alternate",
+				"with(numtheory): P:=proc(n) local x; if nops(select(x-\u003ex\u003c0, [coeffs(cyclotomic(n, x))]))=2 then n; fi; end: seq(P(j), j=1..40960); # _Paolo P. Lava_, May 10 2019"
+			],
+			"mathematica": [
+				"Take[Union[Times@@@Select[Flatten[Table[Tuples[{2,5},n],{n,2,15}],1], Length[Union[#]]\u003e1\u0026]],45] (* _Harvey P. Dale_, Dec 15 2011 *)"
+			],
+			"program": [
+				"(PARI) isA033846(n)=factor(n)[,1]==[2,5]~ \\\\ _Charles R Greathouse IV_, Feb 24 2011",
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a033846 n = a033846_list !! (n-1)",
+				"a033846_list = f (singleton (2*5)) where",
+				"   f s = m : f (insert (2*m) $ insert (5*m) s') where",
+				"     (m,s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Sep 13 2011",
+				"(MAGMA) [n:n in [1..100000]| Set(PrimeDivisors(n)) eq {2,5}]; // _Marius A. Burtea_, May 10 2019"
+			],
+			"xref": [
+				"Cf. A086780, A033845, A033847, A033848, A033849, A033850, A033851."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Jeff Burch_",
+			"ext": [
+				"Offset fixed by _Reinhard Zumkeller_, Sep 13 2011"
+			],
+			"references": 14,
+			"revision": 45,
+			"time": "2019-05-10T08:35:50-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 35516,
+			"data": "0,1,2,3,3,1,5,5,1,5,2,8,8,1,8,2,8,3,8,3,1,13,13,1,13,2,13,3,13,3,1,13,5,13,5,1,13,5,2,21,21,1,21,2,21,3,21,3,1,21,5,21,5,1,21,5,2,21,8,21,8,1,21,8,2,21,8,3,21,8,3,1,34,34,1,34,2,34,3,34,3,1,34,5,34,5,1,34,5,2",
+			"name": "Triangular array formed from Zeckendorf expansion of integers: repeatedly subtract the largest Fibonacci number you can until nothing remains.",
+			"comment": [
+				"Row n has A007895(n) terms."
+			],
+			"reference": [
+				"Zeckendorf, E., Représentation des nombres naturels par une somme des nombres de Fibonacci ou de nombres de Lucas, Bull. Soc. Roy. Sci. Liège 41, 179-182, 1972."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A035516/b035516.txt\"\u003eRows n=0..1000 of triangle, flattened\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/classic.html#WYTH\"\u003eClassic Sequences\u003c/a\u003e"
+			],
+			"example": [
+				"16 = 13 + 3, so row 16 is 13, 6.",
+				"The first few rows are:",
+				"  0;",
+				"  1;",
+				"  2;",
+				"  3;",
+				"  3, 1;",
+				"  5;",
+				"  5, 1;",
+				"  5, 2;",
+				"  8;",
+				"  8, 1;",
+				"  8, 2;",
+				"  ...",
+				"Row 1000000 is 832040,121393,46368,144,55. Indeed, the Maple program yields in no time Z(1000000) = {55,144,46368,121393,832040}. - _Emeric Deutsch_, Oct 22 2014"
+			],
+			"maple": [
+				"with(combinat): Z := proc (n) local F, LF, A, m: F := proc (n) options operator, arrow: fibonacci(n) end proc: LF := proc (m) local i: for i from 0 while F(i) \u003c= m do  end do: F(i-1) end proc: A := {}: m := n: while 0 \u003c m do A := `union`(A, {LF(m)}): m := m-LF(m) end do: A end proc: # The Maple program, with the command Z(n), yields the set of the Fibonacci numbers in the Zeckendorf representation of n (terms in {} are in reverse order). - _Emeric Deutsch_, Oct 21 2014"
+			],
+			"mathematica": [
+				"t = Fibonacci /@ Range@ 12; Table[If[MemberQ[t, n], {n}, Most@ MapAt[# + 1 \u0026, Abs@ Differences@ FixedPointList[# - First@ Reverse@ TakeWhile[t, Function[k, # \u003e= k]] \u0026, n], -1]], {n, 41}] // Flatten (* faster, or *)",
+				"t = Fibonacci /@ Range@ 12; {{0}}~Join~Table[First@ Select[ Select[ IntegerPartitions@ n, Times @@ Boole@ Map[MemberQ[t, #] \u0026, #] == 1 \u0026], Times @@ Boole@ Map[# \u003e 1 \u0026, Abs@ Differences@ Map[Position[t, #][[1, 1]] \u0026, #, {1}]] == 1 \u0026], {n, 41}] // Flatten (* _Michael De Vlieger_, May 17 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a035516 n k = a035516_tabf !! n !! k",
+				"a035516_tabf = map a035516_row [0..]",
+				"a035516_row 0 = [0]",
+				"a035516_row n = z n $ reverse $ takeWhile (\u003c= n) a000045_list where",
+				"   z 0 _              = []",
+				"   z x (f:fs'@(_:fs)) = if f \u003c= x then f : z (x - f) fs else z x fs'",
+				"-- _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"xref": [
+				"Cf. A035517, A035514, A035515, A000045, A106530, A273156."
+			],
+			"keyword": "nonn,easy,tabf",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _James A. Sellers_, Dec 13 1999"
+			],
+			"references": 14,
+			"revision": 44,
+			"time": "2018-09-29T18:43:46-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36447,
+			"data": "1,2,4,8,61,221,244,884,8671,24371,24784,86594,881371,2472671,2435494,8890784,86518771,245730371,247064194,883821494,8892467671,24353948771,24579870784,86514795194,883095920371,2470481916671,2433383690494",
+			"name": "Double and reverse digits.",
+			"link": [
+				"Harvey P. Dale, \u003ca href=\"/A036447/b036447.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Nick Hobson, \u003ca href=\"/A036447/a036447.py.txt\"\u003ePython program for this sequence\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A004093(a(n)). - _Reinhard Zumkeller_, Feb 09 2012"
+			],
+			"mathematica": [
+				"NestList[ FromDigits[ Reverse[ IntegerDigits[ 2# ] ] ] \u0026, 1, 27 ]",
+				"NestList[IntegerReverse[2#]\u0026,1,30] (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Jun 18 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a036447 n = a036447_list !! n",
+				"a036447_list = iterate a004093 1  -- _Reinhard Zumkeller_, Feb 09 2012"
+			],
+			"xref": [
+				"Cf. A004086, A004093.",
+				"The following are parallel families: A000079 (2^n), A004094 (2^n reversed), A028909 (2^n sorted up), A028910 (2^n sorted down), A036447 (double and reverse), A057615 (double and sort up), A263451 (double and sort down); A000244 (3^n), A004167 (3^n reversed), A321540 (3^n sorted up), A321539 (3^n sorted down), A163632 (triple and reverse), A321542 (triple and sort up), A321541 (triple and sort down)."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "0,2",
+			"author": "_Rodolfo Kurchan_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Mar 31 2000"
+			],
+			"references": 14,
+			"revision": 21,
+			"time": "2018-11-19T17:19:25-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37019,
+			"data": "1,2,4,6,16,12,64,30,36,48,1024,60,4096,192,144,210,65536,180,262144,240,576,3072,4194304,420,1296,12288,900,960,268435456,720,1073741824,2310,9216,196608,5184,1260,68719476736,786432,36864,1680,1099511627776",
+			"name": "Let n = p_1*p_2*...*p_k be the prime factorization of n, with the primes sorted in descending order. Then a(n) = 2^(p_1 - 1)*3^(p_2 - 1)*...*A000040(k)^(p_k - 1).",
+			"comment": [
+				"This is an easy way to produce a number with exactly n divisors and it usually produces the smallest such number (A005179(n).) The references call n \"ordinary\" if A005179(n) = a(n) and \"exceptional\" or \"extraordinary\" otherwise. - _David Wasserman_, Jun 12 2002"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A037019/b037019.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"R. Brown, \u003ca href=\"http://dx.doi.org/10.1016/j.jnt.2005.04.004\"\u003eThe minimal number with a given number of divisors\u003c/a\u003e, Journal of Number Theory 116 (2006) 150-158.",
+				"M. E. Grost, \u003ca href=\"http://www.jstor.org/stable/2315183\"\u003eThe smallest number with a given number of divisors\u003c/a\u003e, Amer. Math. Monthly, 75 (1968), 725-729.",
+				"Anna K. Savvopoulou and Christopher M. Wedrychowicz, \u003ca href=\"https://doi.org/10.1007/s11139-014-9572-9\"\u003eOn the smallest number with a given number of divisors\u003c/a\u003e, The Ramanujan Journal, 2015, Vol. 37, pp. 51-64."
+			],
+			"example": [
+				"12 = 3*2*2, so a(12) = 2^2*3*5 = 60."
+			],
+			"maple": [
+				"a:= n-\u003e (l-\u003e mul(ithprime(i)^(l[i]-1), i=1..nops(l)))(",
+				"        sort(map(i-\u003e i[1]$i[2], ifactors(n)[2]), `\u003e`)):",
+				"seq(a(n), n=1..60);  # _Alois P. Heinz_, Feb 28 2019"
+			],
+			"mathematica": [
+				"(Times@@(Prime[ Range[ Length[ # ] ] ]^Reverse[ #-1 ]))\u0026@Flatten[ FactorInteger[ n ]/.{ a_Integer, b_}:\u003eTable[ a, {b} ] ]"
+			],
+			"program": [
+				"(Haskell)",
+				"a037019 = product .",
+				"   zipWith (^) a000040_list . reverse . map (subtract 1) . a027746_row",
+				"-- _Reinhard Zumkeller_, Nov 25 2012",
+				"(PARI) A037019(n,p=1)=prod(i=1,#f=Vecrev(factor(n)~),prod(j=1,f[i][2],(p=nextprime(p+1))^(f[i][1]-1))) \\\\ _M. F. Hasler_, Oct 14 2014"
+			],
+			"xref": [
+				"Cf. A005179, A000040, A072066.",
+				"Cf. A027746."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_Wouter Meeussen_",
+			"ext": [
+				"More terms from _David Wasserman_, Jun 12 2002"
+			],
+			"references": 14,
+			"revision": 24,
+			"time": "2019-02-28T09:38:31-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 38397,
+			"data": "1,41,941,16941,2516941,362516941,49362516941,6449362516941,816449362516941,100816449362516941,121100816449362516941,144121100816449362516941",
+			"name": "Concatenate first n squares in reverse order.",
+			"reference": [
+				"Mihaly Bencze [Beneze], L. Tutescu, Some Notions and Questions in Number Theory, Sequence 5."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A038397/b038397.txt\"\u003eTable of n, a(n) for n = 1..225\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (n^2)*10^floor(1 + log_10(a(n-1))) + a(n-1), with a(1) = 1. - _Paolo P. Lava_, Jun 20 2008"
+			],
+			"maple": [
+				"P:=proc(i) local a,n; a:=1; print(1); for n from 2 by 1 to i do a:=n^2*10^floor(evalf(1+log10(a),1000))+a; print(a); od; end: P(100); # _Paolo P. Lava_, Jun 20 2008"
+			],
+			"mathematica": [
+				"Join[{s = 1}, Table[s = FromDigits[Flatten[IntegerDigits[{n^2, s}]]], {n, 2, 12}]] (* _Jayanta Basu_, Jul 14 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a038397 n = a038397_list !! (n-1)",
+				"a038397_list = f \"\" $ tail a000290_list where",
+				"   f xs (q:qs) = (read ys :: Integer) : f ys qs",
+				"     where ys = show q ++ xs",
+				"-- _Reinhard Zumkeller_, Mar 01 2014"
+			],
+			"xref": [
+				"Cf. A000290, A019521."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "M. I. Petrescu (mipetrescu(AT)yahoo.com)",
+			"references": 14,
+			"revision": 21,
+			"time": "2017-08-10T03:07:53-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 38610,
+			"data": "1,1,2,3,12,5,60,105,280,63,2520,385,27720,6435,8008,45045,720720,85085,12252240,2909907,3695120,1322685,232792560,37182145,1070845776,128707425,2974571600,717084225,80313433200,215656441,2329089562800",
+			"name": "Least common multiple of integers less than and prime to n.",
+			"comment": [
+				"If n is a prime power, tau(a(n)) is the number of times n occurs in A034699. (If n is not a prime power, it does not occur in A034699.) - _Franklin T. Adams-Watters_, Apr 01 2008",
+				"a(n) = lcm(A038566(n,k): k = 1..A000010(n)). - _Reinhard Zumkeller_, Sep 21 2013"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A038610/b038610.txt\"\u003eTable of n, a(n) for n=1..200\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = e^[Sum_{k=1..n} (1-floor(n^k/k)+floor((n^k -1)/k))*Mangoldt(k)] where Mangoldt is the Mangoldt function. - _Anthony Browne_, Jun 16 2016"
+			],
+			"example": [
+				"Since 1, 5, 7, and 11 are relatively prime to 12, a(12) = LCM(1,5,7,11) = 385."
+			],
+			"maple": [
+				"A038610 := n -\u003e ilcm(op(select(k-\u003eigcd(n,k)=1,[$1..n]))); # _Peter Luschny_, Jun 25 2011"
+			],
+			"mathematica": [
+				"Table[ LCM@@ Flatten[ Position[ GCD[ n, # ]\u0026 /@ Range[ n ], 1 ] ], {n, 32} ]",
+				"Join[{1},Table[LCM@@Select[Range[n-1],CoprimeQ[#,n]\u0026],{n,2,40}]] (* _Harvey P. Dale_, Mar 05 2016 *)"
+			],
+			"program": [
+				"(PARI) a(n) = local(r); r=1;for(i=1,n-1,if(gcd(i,n)==1,r=lcm(r,i)));r \\\\ _Franklin T. Adams-Watters_, Apr 01 2008",
+				"(Haskell)",
+				"a038610 = foldl lcm 1 . a038566_row",
+				"-- _Reinhard Zumkeller_, Sep 21 2013, Oct 04 2011"
+			],
+			"xref": [
+				"Cf. A034699, A000005."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,3",
+			"author": "_Wouter Meeussen_",
+			"references": 14,
+			"revision": 31,
+			"time": "2019-06-20T02:58:18-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 39672,
+			"data": "1,2,4,5,7,10,11,13,16,19,20,23,25,28,29,32,37,38,40,41,49,50,52,56,58,59,61,65,68,74,76,77,82,83,86,88,91,97,101,103,104,106,115,118,121,122,124,130,131,133,136,137,149,151,154,155,158,163,164,166,173,175",
+			"name": "Fibonacci-lucky numbers: generated by a sieve process with Fibonacci rule.",
+			"comment": [
+				"Start with 1 2 3 4 5 6 7 8 9 10 11 12 13...; sum of first and 2nd terms = 3; strike out every 3rd term: 1 2 4 5 7 8 10 11 13...; sum of 2nd and 3rd terms = 6; strike out every 6th term: 1 2 4 5 7 10 11 13...; sum of 3rd and 4th terms = 9; strike out every 9th number; etc."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A039672/b039672.txt\"\u003eTable of n, a(n) for n = 1..400\u003c/a\u003e",
+				"\u003ca href=\"/index/Si#sieve\"\u003eIndex entries for sequences generated by sieves\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Fold[ Delete[ #1, Thread[ List[ Rest[ Range[ 0, Length[ #1 ], #1[ [ #2 ] ]+#1[ [ #2+1 ] ] ] ] ] ] ]\u0026, Range[ 200 ], Range[ 20 ] ]"
+			],
+			"program": [
+				"(Haskell)",
+				"a039672 n = a039672_list !! (n-1)",
+				"a039672_list = sieve 1 [1..] where",
+				"   sieve k xs = z : sieve (k + 1) (fLucky xs) where",
+				"      z = xs !! (k - 1 )",
+				"      fLucky ws = us ++ fLucky vs where",
+				"             (us, _:vs) = splitAt (z + xs !! k - 1) ws",
+				"-- _Reinhard Zumkeller_, Dec 05 2011"
+			],
+			"xref": [
+				"Cf. A000959, A039681."
+			],
+			"keyword": "nice,nonn",
+			"offset": "1,2",
+			"author": "_Felice Russo_",
+			"ext": [
+				"Corrected by Larry Reeves (larryr(AT)acm.org), Feb 21 2001"
+			],
+			"references": 14,
+			"revision": 16,
+			"time": "2013-07-13T12:02:03-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 39723,
+			"data": "0,1,2,3,4,5,6,7,8,9,190,191,192,193,194,195,196,197,198,199,180,181,182,183,184,185,186,187,188,189,170,171,172,173,174,175,176,177,178,179,160,161,162,163,164,165,166,167,168,169,150,151,152,153,154,155",
+			"name": "Numbers in base -10.",
+			"reference": [
+				"D. E. Knuth, The Art of Computer Programming. Addison-Wesley, Reading, MA, 1969, Vol. 2, p. 189."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A039723/b039723.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Prepared and presented by Matthew Szudzik of Wolfram Research, \u003ca href=\"http://library.wolfram.com/conferences/devconf99/challenge/\"\u003eA Mathematica programming contest\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Negadecimal.html\"\u003eNegadecimal\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Negabinary.html\"\u003eNegabinary\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Negative_base\"\u003eNegative base\u003c/a\u003e"
+			],
+			"example": [
+				"Decimal 25 is \"185\" in base -10 because 100 - 80 + 5 = 25."
+			],
+			"mathematica": [
+				"ToNegaBases[i_Integer, b_Integer] := FromDigits@ Rest@ Reverse@ Mod[ NestWhileList[(# - Mod[ #, b])/-b \u0026, i, # != 0 \u0026], b]"
+			],
+			"program": [
+				"(Haskell)",
+				"a039723 0 = 0",
+				"a039723 n = a039723 n' * 10 + m where",
+				"   (n',m) = if r \u003c 0 then (q + 1, r + 10) else qr where",
+				"            qr@(q, r) = quotRem n (negate 10)",
+				"-- _Reinhard Zumkeller_, Apr 20 2011",
+				"(Python)",
+				"def A039723(n):",
+				"    s, q = '', n",
+				"    while q \u003e= 10 or q \u003c 0:",
+				"        q, r = divmod(q, -10)",
+				"        if r \u003c 0:",
+				"            q += 1",
+				"            r += 10",
+				"        s += str(r)",
+				"    return int(str(q)+s[::-1]) # _Chai Wah Wu_, Apr 10 2016",
+				"(PARI) A039723 = base(n, b=-10) = if(n, base(n\\b, b)*10 + n%b, 0) \\\\ _M. F. Hasler_, Oct 16 2018 [Corrected by _Jianing Song_, Oct 21 2018]"
+			],
+			"xref": [
+				"Nonnegative numbers in negative bases: this sequence (b=-10), A039724 (b=-2), A073785 (b=-3), A007608 (b=-4), A073786 (b=-5), A073787 (b=-6), A073788 (b=-7), A073789 (b=-8), A073790 (b=-9).",
+				"Cf. A051022.",
+				"Cf. A305238: negative numbers in base -10."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "0,3",
+			"author": "Robert Lozyniak (11(AT)onna.com)",
+			"references": 14,
+			"revision": 26,
+			"time": "2018-10-21T13:41:32-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45797,
+			"data": "1,3,7,9,21,23,27,29,41,43,47,49,61,63,67,69,81,83,87,89,101,103,107,109,121,123,127,129,141,143,147,149,161,163,167,169,181,183,187,189,201,203,207,209,221,223,227,229,241,243,247,249,261,263,267,269,281",
+			"name": "Evenish numbers (prime to 10 and 10's digit is even).",
+			"comment": [
+				"From _Jianing Song_, Apr 27 2019: (Start)",
+				"Numbers congruent to {1, 3, 7, 9} mod 20.",
+				"Numbers k such that Kronecker(-20,k) = A289741(k) = +1. (End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A045797/b045797.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_05\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1, 0, 0, 1, -1)."
+			],
+			"formula": [
+				"Conjecture a(n) = a(n-1)+a(n-4)-a(n-5). G.f.: x*(1+2*x+4*x^2+2*x^3+11*x^4) / ((1-x)^2*(1+x)*(1+x^2)). - _Colin Barker_, Apr 14 2012",
+				"The conjecture above is correct. - _Jianing Song_, Apr 27 2019"
+			],
+			"mathematica": [
+				"Flatten[Table[10n+{1,3,7,9},{n,0,30,2}]] (* _Harvey P. Dale_, Dec 05 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a045797 n = a045797_list !! (n-1)",
+				"a045797_list = filter (even . (`mod` 10) . (`div` 10)) a045572_list",
+				"-- _Reinhard Zumkeller_, Dec 10 2011",
+				"(PARI) is(n)=gcd(n,10)==1 \u0026\u0026 n\\10%2==0 \\\\ _Charles R Greathouse IV_, Sep 24 2015"
+			],
+			"xref": [
+				"Complement of A045798 with respect to A045572."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "1,2",
+			"author": "_J. H. Conway_",
+			"ext": [
+				"More terms from _Erich Friedman_.",
+				"Offset changed by _Reinhard Zumkeller_, Dec 10 2011"
+			],
+			"references": 14,
+			"revision": 30,
+			"time": "2019-04-29T09:50:39-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,473 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3090,
+	"results": [
+		{
+			"number": 175047,
+			"data": "1,4,3,8,9,12,7,16,17,36,19,24,25,28,15,32,33,68,35,72,73,76,39,48,49,100,51,56,57,60,31,64,65,132,67,136,137,140,71,144,145,292,147,152,153,156,79,96,97,196,99,200,201,204,103,112,113,228,115,120,121,124,63,128",
+			"name": "Write n in binary, then increase each run of 0's by one 0. a(n) is the decimal equivalent of the result.",
+			"comment": [
+				"From _Reinhard Zumkeller_, Dec 12 2009: (Start)",
+				"A070939(a(n)) = A070939(n) + A033264(n);",
+				"A171598 and A171599 give record values and where they occur. (End)"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A175047/b175047.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = if n\u003c2 then n else 2*(1 + 0^((n+2) mod 4))*a([n/2]) + n mod 2. - _Reinhard Zumkeller_, Jan 20 2010",
+				"a(2^n) = 2^(n+1). - _Chai Wah Wu_, Nov 21 2018"
+			],
+			"example": [
+				"12 in binary is 1100. Increase each run of 0 by one digit to get 11000, which is 24 in decimal. So a(12) = 24."
+			],
+			"mathematica": [
+				"f[n_] := Block[{s = Split@ IntegerDigits[n, 2]}, FromDigits[ Flatten@ Insert[s, {0}, Table[{2 i}, {i, Floor[ Length@s/2]} ]], 2]]; Arrar[ f, 64] (* _Robert G. Wilson v_, Dec 11 2009 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a175047 = foldr (\\b v -\u003e 2 * v + b) 0 . concatMap",
+				"   (\\bs@(b:_) -\u003e if b == 0 then 0 : bs else bs) . group . a030308_row",
+				"-- _Reinhard Zumkeller_, Jul 05 2013",
+				"(Python)",
+				"from re import split",
+				"def A175047(n):",
+				"  return int(''.join(d+'0' if '0' in d else d for d in split('(0+)|(1+)',bin(n)[2:]) if d != '' and d != None),2) # _Chai Wah Wu_, Nov 21 2018"
+			],
+			"xref": [
+				"Cf. A175046, A175048.",
+				"Cf. A084471. - _Robert G. Wilson v_, Dec 11 2009",
+				"Cf. A030308, A106151, A007088."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Dec 02 2009",
+			"ext": [
+				"Extended by _Ray Chandler_, Dec 18 2009",
+				"a(11) onwards from _Robert G. Wilson v_ and _Reinhard Zumkeller_, Dec 11 2009"
+			],
+			"references": 10,
+			"revision": 26,
+			"time": "2018-11-21T12:16:59-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 175836,
+			"data": "1,3,12,72,432,5184,41472,497664,5971968,107495424,1289945088,30958682112,433421549568,10402117189632,249650812551168,5991619501228032,107849151022104576,3882569436795764736",
+			"name": "a(n) = Product_{i=1..n} psi(i) where psi is the Dedekind psi function (A001615).",
+			"comment": [
+				"a(n) is also the determinant of the symmetric n X n matrix M defined by M(i,j) = A060648(gcd(i,j)) for 1 \u003c= i,j \u003c= n, note that A060648 is the Inverse Möbius transform of A001615. - _Enrique Pérez Herrero_, Aug 12 2011"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A175836/b175836.txt\"\u003eTable of n, a(n) for n = 1..423\u003c/a\u003e",
+				"Antal Bege, \u003ca href=\"http://www.emis.de/journals/AUSM/C1-1/MATH1-4.PDF\"\u003eHadamard product of GCD matrices\u003c/a\u003e, Acta Univ. Sapientiae, Mathematica, 1, 1 (2009) 43-49",
+				"\u003ca href=\"/index/Di#divseq\"\u003eIndex to divisibility sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A059381(n)/A001088(n)."
+			],
+			"maple": [
+				"A175836 := proc(n) option remember; local p; `if`(n\u003c2,1, n*mul(1+1/p,p=factorset(n))*A175836(n-1)) end: # _Peter Luschny_, Feb 28 2014"
+			],
+			"mathematica": [
+				"JordanTotient[n_,k_:1]:=DivisorSum[n,#^k*MoebiusMu[n/# ]\u0026]/;(n\u003e0)\u0026\u0026IntegerQ[n];",
+				"DedekindPsi[n_]:=JordanTotient[n,2]/EulerPhi[n];",
+				"A175836[n_]:=Times@@DedekindPsi/@Range[n]"
+			],
+			"program": [
+				"(PARI) a=direuler(p=2, 100, (1+X)/(1-p*X));for(i=2,#a,a[i]*=a[i-1]);a",
+				"\\\\ _Charles R Greathouse IV_, Jul 29 2011",
+				"(Haskell)",
+				"a175836 n = a175836_list !! (n-1)",
+				"a175836_list = scanl1 (*) a001615_list",
+				"-- _Reinhard Zumkeller_, Mar 01 2014"
+			],
+			"xref": [
+				"Cf. A001615, A001088, A059381, A059382, A059383, A059384, A238498."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Enrique Pérez Herrero_, Sep 18 2010",
+			"references": 10,
+			"revision": 39,
+			"time": "2015-07-01T02:26:13-04:00",
+			"created": "2010-10-02T03:00:00-04:00"
+		},
+		{
+			"number": 175965,
+			"data": "1,2,4,7,12,19,30,43,60,79,102,131,162,199,240,283,330,383,442,503,570,641,714,793,876,965,1062,1163,1266,1373,1482,1595,1722,1853,1990,2129,2278,2429,2586,2749,2916,3089,3268,3449,3640,3833,4030,4229,4440,4663",
+			"name": "Lexicographically earliest sequence with first differences as increasing sequence of noncomposites A008578.",
+			"comment": [
+				"Complement of A175966.",
+				"A175944(a(n)) = A018252(n). - _Reinhard Zumkeller_, Mar 18 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A175965/b175965.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A036439(n-1) for n \u003e 1.",
+				"a(n) - a(n-1) = A008578(n-1) for n \u003e 1.",
+				"a(n) = A014284(n-1) + 1 for n \u003e 1."
+			],
+			"mathematica": [
+				"FoldList[Plus,1,Join[{1},Prime[Range[50]]]] (* or *) Accumulate[ Join[ {1,1},Prime[Range[50]]]] (* _Harvey P. Dale_, Sep 28 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a175965 n = a175965_list !! n",
+				"a175965_list = scanl (+) 1 a008578_list",
+				"-- _Reinhard Zumkeller_, Mar 26 2015"
+			],
+			"xref": [
+				"Cf. A008578, A014284, A018252, A036439, A051349.",
+				"Cf. A175944, A175966, A175967, A175968, A175969, A175970."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Jaroslav Krizek_, Oct 31 2010",
+			"references": 10,
+			"revision": 26,
+			"time": "2016-09-28T08:04:49-04:00",
+			"created": "2010-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 177904,
+			"data": "1,1,1,3,5,3,11,19,11,41,71,41,17,43,101,23,167,97,41,61,199,43,101,7,151,37,13,67,13,31,37,3,71,37,37,29,103,13,29,29,71,43,13,127,61,67,17,29,113,53,13,179,7,199,11,31,241,283,37,17,337,23,29,389,7,17,59,83,53,13,149,43,41,233,317,197,83,199,479,761,1439,47,107",
+			"name": "a(1)=a(2)=a(3)=1; thereafter a(n) = gpf(a(n-1)+a(n-2)+a(n-3)), where gpf = \"greatest prime factor\".",
+			"comment": [
+				"After 86 steps, enters a cycle of length 212 (see A177923)."
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A177904/b177904.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"G. Back and M. Caragiu, \u003ca href=\"http://www.fq.math.ca/Papers1/48-4/Back_Caragiu.pdf\"\u003eThe greatest prime factor and recurrent sequences\u003c/a\u003e, Fib. Q., 48 (2010), 358-362."
+			],
+			"maple": [
+				"with(numtheory, divisors); A006530 := proc(n) local i, t1, t2, t3, t4, t5; t1 := divisors(n); t2 := convert(t1, list); t3 := sort(t2); t4 := nops(t3); t5 := 1; for i from 1 to t4 do if isprime(t3[t4+1-i]) then RETURN(t3[t4+1-i]); fi; od; 1; end;",
+				"M:=1000;",
+				"t1:=[1,1,1];",
+				"for n from 4 to M do",
+				"t1:=[op(t1),A006530(t1[n-1]+t1[n-2]+t1[n-3])]; od:",
+				"t1;"
+			],
+			"mathematica": [
+				"nxt[{a_,b_,c_}]:={b,c,FactorInteger[a+b+c][[-1,1]]}; NestList[nxt,{1,1,1},90][[All,1]] (* _Harvey P. Dale_, Jul 17 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a177904 n = a177904_list !! (n-1)",
+				"a177904_list = 1 : 1 : 1 : (map a006530 $ zipWith (+)",
+				"   a177904_list (tail $ zipWith (+) a177904_list $ tail a177904_list))",
+				"-- _Reinhard Zumkeller_, Jul 24 2012"
+			],
+			"xref": [
+				"Cf. A006530, A175723, A178174, A178095, A214320."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,4",
+			"author": "_N. J. A. Sloane_, Dec 16 2010",
+			"references": 10,
+			"revision": 40,
+			"time": "2017-07-17T13:29:16-04:00",
+			"created": "2010-11-12T14:26:25-05:00"
+		},
+		{
+			"number": 178361,
+			"data": "1,10,11,20,100,101,102,110,111,120,200,201,210,300,1000,1001,1002,1003,1010,1011,1012,1020,1021,1030,1100,1101,1102,1110,1111,1120,1200,1201,1210,1300,2000,2001,2002,2010,2011,2020,2100,2101,2110,2200,3000,3001",
+			"name": "Numbers with rounded up arithmetic mean of digits = 1.",
+			"comment": [
+				"A004427(a(n)) = 1;",
+				"A000027 = union of A178362, A178363, A178364, A178365, A178366, A178367, A178368, A178369, and this sequence."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A178361/b178361.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"A007953(a(n)) \u003c= A055642(a(n)). - _Reinhard Zumkeller_, May 06 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a178361 n = a178361_list !! (n-1)",
+				"a178361_list = [x | x \u003c- [1..], a007953 x \u003c= a055642 x]",
+				"-- _Reinhard Zumkeller_, May 06 2015"
+			],
+			"xref": [
+				"Cf. A007953, A055642."
+			],
+			"keyword": "base,nonn,look",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 27 2010",
+			"references": 10,
+			"revision": 7,
+			"time": "2015-05-06T17:30:20-04:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 179051,
+			"data": "1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10",
+			"name": "Number of partitions of n into powers of 10 (cf. A011557).",
+			"comment": [
+				"a(n) = A133880(n) for n \u003c 90;",
+				"a(n) = A132272(n) for n \u003c 100;",
+				"a(10^n) = A145513(n);",
+				"A179052 and A008592 give record values and where they occur: A179052(n)=a(A008592(n));",
+				"a(10*n) = A179052(n)."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A179051/b179051.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Par#partN\"\u003eIndex entries for related partition-counting sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = p(n,1) where p(n,k) = if k\u003c=n then p(10*[(n-k)/10],k)+p(n,10*k) else 0^n.",
+				"G.f.: Product_{k\u003e=0} 1/(1 - x^(10^k)). - _Ilya Gutkovskiy_, Jul 26 2017"
+			],
+			"example": [
+				"a(19) = #{10 + 9x1, 19x1} = 2;",
+				"a(20) = #{10 + 10, 10 + 10x1, 20x1} = 3;",
+				"a(21) = #{10 + 10 + 1, 10 + 11x1, 21x1} = 3."
+			],
+			"program": [
+				"(Haskell)",
+				"a179051 = p 1 where",
+				"   p _ 0 = 1",
+				"   p k m = if m \u003c k then 0 else p k (m - k) + p (k * 10) m",
+				"-- _Reinhard Zumkeller_, Feb 05 2012"
+			],
+			"xref": [
+				"Number of partitions of n into powers of b: b=2 A018819, b=3 A062051.",
+				"Cf. A206245, A000041, A179051."
+			],
+			"keyword": "nonn",
+			"offset": "0,11",
+			"author": "_Reinhard Zumkeller_, Jun 27 2010",
+			"references": 10,
+			"revision": 12,
+			"time": "2017-07-26T09:29:21-04:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 181971,
+			"data": "1,1,2,1,3,2,1,4,5,3,1,5,9,8,3,1,6,14,17,11,4,1,7,20,31,28,15,4,1,8,27,51,59,43,19,5,1,9,35,78,110,102,62,24,5,1,10,44,113,188,212,164,86,29,6,1,11,54,157,301,400,376,250,115,35,6,1,12,65",
+			"name": "Triangle read by rows: T(n,0) = 1, T(n,n) = floor((n+3)/2) and T(n,k) = T(n-1,k-1) + T(n-1,k), 0 \u003c k \u003c n.",
+			"comment": [
+				"Another variant of Pascal's triangle;",
+				"row sums: A081254; central terms: T(2*n,n) = A128082(n+1);",
+				"T(n,0) = 1;",
+				"T(n,1) = n + 1 for n \u003e 0;",
+				"T(n,2) = A000096(n-1) for n \u003e 1;",
+				"T(n,3) = A105163(n-2) for n \u003e 2;",
+				"T(n,n-2) = A005744(n-1) for n \u003e 1;",
+				"T(n,n-1) = A024206(n) for n \u003e 0;",
+				"T(n,n) = A008619(n+1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A181971/b181971.txt\"\u003eRows n=0..150 of triangle, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"example": [
+				"The triangle begins:",
+				".  0:                              1",
+				".  1:                           1     2",
+				".  2:                        1     3     2",
+				".  3:                     1     4     5     3",
+				".  4:                  1     5     9     8     3",
+				".  5:               1     6    14    17    11     4",
+				".  6:            1     7    20    31    28    15     4",
+				".  7:         1     8    27    51    59    43    19     5",
+				".  8:      1     9    35    78   110   102    62    24     5",
+				".  9:   1    10    44   113   188   212   164    86    29     6."
+			],
+			"program": [
+				"(Haskell)",
+				"a181971 n k = a181971_tabl !! n !! k",
+				"a181971_row n = a181971_tabl !! n",
+				"a181971_tabl = map snd $ iterate f (1, [1]) where",
+				"   f (i, row) = (1 - i, zipWith (+) ([0] ++ row) (row ++ [i]))",
+				"(PARI) {T(n,k)=if(n==k,(n+3)\\2,if(k==0,1,if(n\u003ek,T(n-1,k-1)+T(n-1,k))))}",
+				"for(n=0,12,for(k=0,n,print1(T(n,k),\",\"));print(\"\")) \\\\ _Paul D. Hanna_, Jul 18 2012"
+			],
+			"xref": [
+				"Cf. A035317, A007318, A074909."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 09 2012",
+			"references": 10,
+			"revision": 12,
+			"time": "2018-09-21T10:40:38-04:00",
+			"created": "2012-07-09T16:28:22-04:00"
+		},
+		{
+			"number": 182973,
+			"data": "2,3,4,3,5,6,5,4,7,5,8,7,5,9,7,10,9,8,7,6,11,7,12,11,10,9,8,7,13,11,9,14,13,11,8,15,13,11,9,16,15,14,13,12,11,10,9,17,13,11,18,17,16,15,14,13,12,11,10,19,17,13,11,20,19,17,16,13,11,21,19,17,15,13,22,21,20,19,18,17,16,15,14,13,12",
+			"name": "Denominators of positive rationals \u003c 1 arranged by increasing sum of numerator and denominator then by increasing numerator.",
+			"comment": [
+				"A023022(n) and A245678(n) give number and denominator of sum of fractions A182972(k)/a(k) such that A182972(k)+a(k) = n. - _Reinhard Zumkeller_, Jul 30 2014"
+			],
+			"reference": [
+				"S. Cook, Problem 511: An Enumeration Problem, Journal of Recreational Mathematics, Vol. 9:2 (1976-77), 137. Solution by the Problem Editor, JRM, Vol. 10:2 (1977-78), 122-123.",
+				"R. K. Guy, Unsolved Problems in Number Theory (UPINT), Section D11."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A182973/b182973.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Paul Yiu, \u003ca href=\"http://math.fau.edu/Yiu/RecreationalMathematics2003.pdf\"\u003eRecreational Mathematics\u003c/a\u003e, 24.3.1 Appendix: Two enumerations of the rational numbers in (0,1), page 633."
+			],
+			"example": [
+				"Positive fractions \u003c 1 listed by increasing sum of numerator and denominator, and by increasing numerator for equal sums:",
+				"1, 1/2, 1/3, 1/4, 2/3, 1/5, 1/6, 2/5, 3/4, 1/7, 3/5, 1/8, 2/7, 4/5, 1/9, 3/7, ...",
+				"(this is A182972/A182973)."
+			],
+			"program": [
+				"(PASCAL) program a182973;",
+				"var",
+				"  num,den,n: longint;",
+				"function gcd(i,j: longint):longint;",
+				"begin",
+				"  repeat",
+				"    if i\u003ej then i:=i mod j else j:=j mod i;",
+				"  until (i=0) or (j=0);",
+				"  if i=0 then gcd:=j else gcd:=i;",
+				"end;",
+				"begin",
+				"  num:=1; den:=1; n:=0;",
+				"  repeat",
+				"    repeat",
+				"      inc(num); dec(den);",
+				"      if num\u003e=den then",
+				"      begin",
+				"        inc(den,num); num:=1;",
+				"      end;",
+				"    until gcd(num,den)=1;",
+				"    inc(n); writeln(n,' ',den);",
+				"  until n=100000;",
+				"end.",
+				"(Haskell)",
+				"a182973 n = a182973_list !! (n-1)",
+				"a182973_list = map snd $ concatMap q [3..] where",
+				"   q x = [(num, den) | num \u003c- [1 .. div x 2],",
+				"                       let den = x - num, gcd num den == 1]",
+				"-- _Reinhard Zumkeller_, Jul 29 2014"
+			],
+			"xref": [
+				"Cf. A020652, A038567, A182972, A182974-A182976.",
+				"Cf. A023022, A245677, A245678, A245718."
+			],
+			"keyword": "nonn,easy,frac,nice",
+			"offset": "1,1",
+			"author": "_William Rex Marshall_, Dec 16 2010",
+			"references": 10,
+			"revision": 21,
+			"time": "2014-07-30T16:58:07-04:00",
+			"created": "2010-12-16T15:14:26-05:00"
+		},
+		{
+			"number": 188068,
+			"data": "0,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1,1,1",
+			"name": "[nr]-[kr]-[nr-kr], where r=sqrt(3), k=1, [ ]=floor.",
+			"comment": [
+				"Sturmian word with slope alpha = sqrt(3)-1, and offset 0. Since alpha has a periodic continued fraction expansion with period 12, (a(n+1)) is the unique fixed point of the morphism 0 -\u003e 110, 1 -\u003e 1101. - _Michel Dekking_, Feb 06 2017",
+				"A275855(n) = R(a(n)) for n\u003e1, where R is the mirror morphism R(0)=1, R(1)=0, This can be shown by induction on the iterates of the two morphisms generating the sequences. - _Michel Dekking_, Feb 07 2017",
+				"See also A188014."
+			],
+			"reference": [
+				"J.-P. Allouche and J. Shallit, Automatic Sequences, Cambridge Univ. Press, 2003, p. 286."
+			],
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A188068/b188068.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A007538(n) - 2. [_Reinhard Zumkeller_, Feb 14 2012]"
+			],
+			"mathematica": [
+				"r=3^(1/2)); k=1;",
+				"t=Table[Floor[n*r]-Floor[(n-k)*r]-Floor[k*r],{n,1,220}]   (*A188068*)",
+				"Flatten[Position[t,0]]  (*A188069*)",
+				"Flatten[Position[t,1]]  (*A188070*)"
+			],
+			"program": [
+				"(Haskell)",
+				"a188068 = (subtract 2) . a007538  -- _Reinhard Zumkeller_, Feb 14 2012",
+				"(Python)",
+				"from gmpy2 import isqrt",
+				"def A188068(n):",
+				"    return int(isqrt(3*n**2) - isqrt(3*(n-1)**2)) - 1 # _Chai Wah Wu_, Oct 07 2016"
+			],
+			"xref": [
+				"Cf. A188014."
+			],
+			"keyword": "nonn",
+			"offset": "1",
+			"author": "_Clark Kimberling_, Mar 20 2011",
+			"references": 10,
+			"revision": 24,
+			"time": "2017-02-07T02:45:48-05:00",
+			"created": "2011-03-20T15:40:30-04:00"
+		},
+		{
+			"number": 189920,
+			"data": "1,1,0,1,0,0,1,0,1,1,0,0,0,1,0,0,1,1,0,1,0,1,0,0,0,0,1,0,0,0,1,1,0,0,1,0,1,0,1,0,0,1,0,1,0,1,1,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,1,0,1,0,0,1,0,0,1,0,0,1,0,1,1,0,1,0,0,0,1,0,1,0,0,1,1,0,1,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,1,0,1,0,0,0,1,0,0,1,0,0,0,1,0,1",
+			"name": "Zeckendorf representation of natural numbers.",
+			"comment": [
+				"The row lengths sequence of this array is A072649(n), n \u003e= 1.",
+				"Note that the Fibonacci numbers F(0)=0 and F(1)=1 are not used in this unique representation of n \u003e= 1. No neighboring Fibonacci numbers are allowed (no 1,1, subsequence in any row n).",
+				"T(n,k) = A213676(n, A072649(n, k)-1) for k = 1..A072649(k). - _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"reference": [
+				"E. Zeckendorf, Représentation des nombres naturels par une somme des nombres de Fibonacci ou de nombres de Lucas, Bull. Soc. Roy. Sci. Liège 41.3-4 (1972) 179-182 (with the proof from 1939).",
+				"R. L. Graham, D. E. Knuth and O. Patashnik, Concrete Mathematics, 2nd ed., 1994, Addison-Wesley, Reading MA, pp. 295-296."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A189920/b189920.txt\"\u003eRows n = 1..1000 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"n = Sum_{m=1..rl(n)} a(n,m)*F(rl(n) + 2 - m), n \u003e= 1, with",
+				"rl(n):=A072649(n)(row length) and F(n):=A000045(n) (Fibonacci numbers)."
+			],
+			"example": [
+				"n=1:  1;",
+				"n=2:  1, 0;",
+				"n=3:  1, 0, 0;",
+				"n=4:  1, 0, 1;",
+				"n=5:  1, 0, 0, 0;",
+				"n=6:  1, 0, 0, 1;",
+				"n=7:  1, 0, 1, 0;",
+				"n=8:  1, 0, 0, 0, 0;",
+				"n=9:  1, 0, 0, 0, 1;",
+				"n=10: 1, 0, 0, 1, 0;",
+				"n=11: 1, 0, 1, 0, 0;",
+				"n=12: 1, 0, 1, 0, 1;",
+				"n=13: 1, 0, 0, 0, 0, 0;",
+				"...",
+				"1 = F(2),",
+				"6 = F(5) + F(2),",
+				"11 = F(6) + F(4)."
+			],
+			"mathematica": [
+				"f[n_] := (k = 1; ff = {}; While[(fi = Fibonacci[k]) \u003c= n, AppendTo[ff, fi]; k++]; Drop[ff, 1]); a[n_] := (fn = f[n]; xx = Array[x, Length[fn]]; r = xx /. {ToRules[ Reduce[ And @@ (0 \u003c= # \u003c= 1 \u0026 ) /@ xx \u0026\u0026 fn . xx == n, xx, Integers]]}; Reverse[ First[ Select[ r, FreeQ[ Split[#], {1, 1, ___}] \u0026 ]]]); Flatten[ Table[ a[n], {n, 1, 25}]] (* _Jean-François Alcover_, Sep 29 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a189920 n k = a189920_row n !! k",
+				"a189920_row n = z n $ reverse $ takeWhile (\u003c= n) $ tail a000045_list where",
+				"   z x (f:fs'@(_:fs)) | f == 1 = if x == 1 then [1] else []",
+				"                      | f == x = 1 : replicate (length fs) 0",
+				"                      | f \u003c x  = 1 : 0 : z (x - f) fs",
+				"                      | f \u003e x  = 0 : z x fs'",
+				"a189920_tabf = map a189920_row [1..]",
+				"-- _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"xref": [
+				"Cf. A035517, A014417."
+			],
+			"keyword": "nonn,easy,tabf,base",
+			"offset": "1",
+			"author": "_Wolfdieter Lang_, Jun 12 2011",
+			"references": 10,
+			"revision": 26,
+			"time": "2018-09-29T18:48:00-04:00",
+			"created": "2011-06-15T04:25:16-04:00"
+		}
+	]
+}

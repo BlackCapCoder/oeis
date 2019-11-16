@@ -1,0 +1,453 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3820,
+	"results": [
+		{
+			"number": 62725,
+			"data": "0,7,23,48,82,125,177,238,308,387,475,572,678,793,917,1050,1192,1343,1503,1672,1850,2037,2233,2438,2652,2875,3107,3348,3598,3857,4125,4402,4688,4983,5287,5600,5922,6253,6593,6942,7300,7667,8043,8428,8822,9225",
+			"name": "Write 0,1,2,3,4,... in a triangular spiral, then a(n) is the sequence found by reading the terms along the line from 0 in the direction 0,7,...",
+			"comment": [
+				"Central terms of triangle A245300. - _Reinhard Zumkeller_, Jul 17 2014",
+				"Digital root of a(n) = A180597(n). - _Gionata Neri_, Apr 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A062725/b062725.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-3,1)."
+			],
+			"formula": [
+				"a(n) = n*(9*n+5)/2.",
+				"a(n) = 9*n + a(n-1) - 2 with a(0)=0. - _Vincenzo Librandi_, Aug 07 2010",
+				"From _Colin Barker_, Jul 07 2012: (Start)",
+				"a(n) = 3*a(n-1) - 3*a(n-2) + a(n-3).",
+				"G.f.: x*(7+2*x)/(1-x)^3. (End)",
+				"a(n) = A218470(9*n+6). - _Philippe Deléham_, Mar 27 2013",
+				"a(n) = a(n-1) + A017245(n-1), a(0)=0. - _Gionata Neri_, Apr 30 2015"
+			],
+			"example": [
+				"The spiral begins:",
+				".",
+				"            15",
+				"            / \\",
+				"          16  14",
+				"          /     \\",
+				"        17   3  13",
+				"        /   / \\   \\",
+				"      18   4   2  12",
+				"      /   /     \\   \\",
+				"    19   5   0---1  11",
+				"    /   /             \\",
+				"  20   6---7---8---9--10",
+				"."
+			],
+			"mathematica": [
+				"s=0;lst={s};Do[s+=n++ +7;AppendTo[lst, s], {n, 0, 7!, 9}];lst (* _Vladimir Joseph Stephan Orlovsky_, Nov 16 2008 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a062725 n = n * (9 * n + 5) `div` 2 -- _Reinhard Zumkeller_, Jul 17 2014",
+				"(PARI) a(n) = n*(9*n+5)/2 \\\\ _Charles R Greathouse IV_, Apr 30 2015"
+			],
+			"xref": [
+				"Cf. A051682."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Floor van Lamoen_, Jul 21 2001",
+			"ext": [
+				"Formula that confused indices corrected by _R. J. Mathar_, Jun 04 2010"
+			],
+			"references": 7,
+			"revision": 41,
+			"time": "2018-08-22T10:29:41-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63694,
+			"data": "0,1,0,1,4,5,4,5,0,1,0,1,4,5,4,5,16,17,16,17,20,21,20,21,16,17,16,17,20,21,20,21,0,1,0,1,4,5,4,5,0,1,0,1,4,5,4,5,16,17,16,17,20,21,20,21,16,17,16,17,20,21,20,21,64,65,64,65,68,69,68,69,64,65,64,65,68,69,68",
+			"name": "Remove odd-positioned bits from the binary expansion of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A063694/b063694.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"R. Stephan, \u003ca href=\"/somedcgf.html\"\u003eSome divide-and-conquer sequences ...\u003c/a\u003e",
+				"R. Stephan, \u003ca href=\"/A079944/a079944.ps\"\u003eTable of generating functions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{k\u003e=0} (-1)^k*2^k*floor(n/2^k).",
+				"a(n) = n-2*a(floor(n/2)). - _Vladeta Jovovic_, Feb 23 2003",
+				"G.f. 1/(1-x) * sum(k\u003e=0, (-2)^k*x^2^k/(1-x^2^k)). - _Ralf Stephan_, May 05 2003",
+				"a(n) = 4*a(floor(n/4)) + (n mod 4) mod 2. - _Reinhard Zumkeller_, Sep 26 2015"
+			],
+			"example": [
+				"E.g. a(25) = 17 because 25 = 11001 in binary and when we AND this with 10101 we are left with 10001 = 17."
+			],
+			"maple": [
+				"[seq(every_other_pos(j,2,0),j=0..120)]; every_other_pos := proc(nn,x,w) local n,i,s; n := nn; i := 0; s := 0; while(n \u003e 0) do if((i mod 2) = w) then s := s + ((x^i)*(n mod x)); fi; n := floor(n/x); i := i+1; od; RETURN(s); end;"
+			],
+			"mathematica": [
+				"a[n_] := BitAnd[n, Sum[2^k, {k, 0, Log[2, n] // Floor, 2}]]; Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Feb 28 2016 *)"
+			],
+			"program": [
+				"(PARI) /since n\u003e ceil(log(n)/log(2)) / a(n)=sum(k=0,n,(-1)^k*2^k*floor(n/2^k))",
+				"(PARI) /since n\u003e ceil(log(n)/log(2)) / a(n)=if(n\u003c0,0,sum(k=0,n,(-1)^k*2^k*floor(n/2^k)))",
+				"(Haskell)",
+				"a063694 0 = 0",
+				"a063694 n = 4 * a063694 n' + mod q 2",
+				"            where (n', q) = divMod n 4",
+				"-- _Reinhard Zumkeller_, Sep 26 2015"
+			],
+			"xref": [
+				"A001477[n] = a[n]+A063695[n]"
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Antti Karttunen_, Aug 03 2001",
+			"references": 7,
+			"revision": 21,
+			"time": "2016-02-28T12:15:24-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64415,
+			"data": "0,1,1,2,2,2,2,3,2,3,3,3,3,3,3,4,4,3,3,4,3,4,4,4,4,4,3,4,4,4,4,5,4,5,4,4,4,4,4,5,5,4,4,5,4,5,5,5,4,5,5,5,5,4,5,5,4,5,5,5,5,5,4,6,5,5,5,6,5,5,5,5,5,5,5,5,5,5,5,6,4,6,6,5,6,5,5,6,6,5,5,6,5,6,5,6,6,5,5,6,6,6,6,6,5",
+			"name": "a(1) = 0, a(n) = iter(n) if n is even, a(n) = iter(n)-1 if n is odd, where iter(n) = A003434(n) = smallest number of iterations of Euler totient function phi needed to reach 1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A064415/b064415.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Paul Erdős, Andrew Granville, Carl Pomerance and Claudia Spiro, \u003ca href=\"http://math.dartmouth.edu/~carlp/iterate.pdf\"\u003eOn the normal behavior of the iterates of some arithmetic functions\u003c/a\u003e, Analytic number theory, Birkhäuser Boston, 1990, pp. 165-204.",
+				"Paul Erdos, Andrew Granville, Carl Pomerance and Claudia Spiro, \u003ca href=\"/A000010/a000010_1.pdf\"\u003eOn the normal behavior of the iterates of some arithmetic functions\u003c/a\u003e, Analytic number theory, Birkhäuser Boston, 1990, pp. 165-204. [Annotated copy with A-numbers]"
+			],
+			"formula": [
+				"For all integers m \u003e0 and n\u003e0 a(m*n)=a(m)+a(n). The function a(n) is completely additive. The smallest integer q which satisfy the equation a(q)=n is 2^q, the greatest is 3^q. For all integers n\u003e0, the counter image off n, a^-1(n) is finite.",
+				"a(1) = 0 and a(n) = A064415(n) for n\u003e=2. [_Joerg Arndt_, Apr 08 2014]"
+			],
+			"program": [
+				"(Haskell)",
+				"a064415 1 = 0",
+				"a064415 n = a003434 n - n `mod` 2 -- _Reinhard Zumkeller_, Sep 18 2011",
+				"(PARI)",
+				"A003434(n)=for(k=0, n, n\u003e1 || return(k); n=eulerphi(n));",
+				"a(n) = if( n\u003c=2, n-1, A003434(n) - (n%2) );",
+				"vector(200, n, a(n)) \\\\ _Joerg Arndt_, Apr 08 2014"
+			],
+			"xref": [
+				"Cf. A000010, A003434, A064416.",
+				"Cf. A054725. [From _R. J. Mathar_, Oct 02 2008]"
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "Christian WEINSBERG (cweinsbe(AT)fr.packardbell.org), Sep 30 2001",
+			"ext": [
+				"More terms from _David Wasserman_, Jul 22 2002",
+				"Definition corrected by _Reinhard Zumkeller_, Sep 18 2011"
+			],
+			"references": 7,
+			"revision": 18,
+			"time": "2017-09-02T14:27:08-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64555,
+			"data": "1,2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,319,317",
+			"name": "a(n) = max { k | A064553(k) = n }.",
+			"comment": [
+				"a(n+1) = A000040(n) for 1 \u003c n \u003c 66, but A000040(65) = 313 \u003c\u003e 319 = 11*29 = a(66).",
+				"In the plot, the lowest line corresponds to the cases when a(n)=prime(n-1). - _T. D. Noe_, Dec 12 2004",
+				"a(n) = A080688(n,A001055(n)). - _Reinhard Zumkeller_, Oct 01 2012"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A064555/b064555.txt\"\u003eTable of n, a(n) for n = 1..8000\u003c/a\u003e"
+			],
+			"formula": [
+				"A064553(a(n)) = n and A064553(a(k)) \u003c\u003e k for k \u003e a(n)."
+			],
+			"mathematica": [
+				"(* b = A064553 *) nmax = 67; b[1] = 1; b[p_?PrimeQ] := b[p] = PrimePi[p] + 1; b[n_] := b[n] = b[p = FactorInteger[n][[1, 1]]]*b[n/p]; bb = Table[{k, b[k]}, {k, 1, 4*Prime[nmax]}]; A064555 = Max[#[[All, 1]]]\u0026 /@ Split[ Sort[bb, #1[[2]] \u003c #2[[2]] \u0026], #1[[2]] == #2[[2]]\u0026]; a[n_] := A064555[[n]]; Table[a[n], {n, 1, nmax}] (* _Jean-François Alcover_, Sep 04 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a064555 = last . a080688_row  -- _Reinhard Zumkeller_, Oct 01 2012"
+			],
+			"xref": [
+				"Cf. A064554, A001055, A064553, A000040."
+			],
+			"keyword": "nonn,look",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 21 2001",
+			"references": 7,
+			"revision": 28,
+			"time": "2014-05-01T01:49:17-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64806,
+			"data": "2,4,6,8,10,12,14,16,18,11,13,15,17,19,21,23,25,27,20,22,24,26,28,30,32,34,36,29,31,33,35,37,39,41,43,45,38,40,42,44,46,48,50,52,54,47,49,51,53,55,57,59,61,63,56,58,60,62,64,66,68,70,72,65,67,69,71",
+			"name": "a(n) = n + digital root of n.",
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A064806/b064806.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_10\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,0,0,0,0,0,0,0,1,-1).",
+				"\u003ca href=\"/index/Coi#Colombian\"\u003eIndex entries for Colombian or self numbers and related sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n + A010888(n).",
+				"G.f.: -x*(9*x^9-2*x^8-2*x^7-2*x^6-2*x^5-2*x^4-2*x^3-2*x^2-2*x-2) / ((x-1)^2*(x^2+x+1)*(x^6+x^3+1)). - _Colin Barker_, Apr 05 2013"
+			],
+			"maple": [
+				"A064806 := proc(n) return n+1 + ((n-1) mod 9): end: seq(A064806(n), n=1..100); # _Nathaniel Johnston_, May 04 2011"
+			],
+			"program": [
+				"(PARI) { for (n=1, 1000, write(\"b064806.txt\", n, \" \", n + (n - 1)%9 + 1) ) } \\\\ _Harry J. Smith_, Sep 26 2009",
+				"(Haskell)",
+				"a064806 n = n + a010888 n  -- _Reinhard Zumkeller_, Apr 13 2013"
+			],
+			"xref": [
+				"Cf. A010888 (digital root of n), A062028 (sum of digits of n)."
+			],
+			"keyword": "nonn,easy,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 21 2001",
+			"references": 7,
+			"revision": 24,
+			"time": "2015-06-13T00:50:29-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65297,
+			"data": "1,4,13,36,113,487,1036,3214,10456,36786,100963,319656,1001964,3165969,10001786,31626854,100013919,316256807,1000029656",
+			"name": "a(n+1) is the smallest number \u003e a(n) such that the digits of a(n)^2 are all (with multiplicity) properly contained in the digits of a(n+1)^2, with a(0)=1.",
+			"comment": [
+				"Probably infinite and at least O(10^(n/2)). - _David W. Wilson_"
+			],
+			"example": [
+				"13^2 = 169 and 36 is the next smallest number whose square (in this case 1296) properly contains the digits 1,6,9."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), sort)",
+				"a065297 n = a065297_list !! n",
+				"a065297_list = 1 : f 1 (drop 2 a000290_list) where",
+				"   f x (q:qs) | null (xs \\\\ sq) \u0026\u0026 sort xs /= sort sq = y : f y qs",
+				"              | otherwise                             = f x qs",
+				"              where y = a000196 q; sq = show q; xs = show (x * x)",
+				"-- _Reinhard Zumkeller_, Nov 22 2012"
+			],
+			"xref": [
+				"Cf. A050630, A050631, A048559, A050636, A065298, A014563, A066825.",
+				"Cf. A000290, A000196."
+			],
+			"keyword": "base,nonn",
+			"offset": "0,2",
+			"author": "_Floor van Lamoen_, Oct 29 2001",
+			"ext": [
+				"More terms from _Marc Paulhus_, Jan 29, 2002",
+				"More terms from _David W. Wilson_ and _Marc Paulhus_, Feb 05 2002"
+			],
+			"references": 7,
+			"revision": 13,
+			"time": "2015-03-02T16:08:47-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65649,
+			"data": "0,1,2,3,4,5,6,7,8,9,11,10,21,31,41,12,51,13,61,14,71,15,81,16,91,17,101,18,111,19,22,20,32,121,42,52,62,23,72,24,82,25,92,26,102,27,112,28,122,29,33,30,43,131,53,132,63,73,83,34,93,35,103,36,113,37,123,38",
+			"name": "Permutation of nonnegative integers based on Champernowne's constant 0.123456789101112131415...",
+			"comment": [
+				"A261293(n) = a(a(n)). - _Reinhard Zumkeller_, Aug 14 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A065649/b065649.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Klaus Strassburger, \u003ca href=\"/A065649/a065649.jpg\"\u003eIllustration\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = if n = 0 then 0 else 10*(A065648(n)-1) + A033307(n-1)."
+			],
+			"program": [
+				"(Haskell)",
+				"a065649 n = a065649_list !! n",
+				"a065649_list = zipWith (+)",
+				"               (map ((* 10) . subtract 1) a065648_list) (0 : a033307_list)",
+				"-- _Reinhard Zumkeller_, Aug 13 2015"
+			],
+			"xref": [
+				"A033307, A065648, A065650.",
+				"Cf. A261279 (fixed points), A261293, A261333."
+			],
+			"keyword": "base,nice,nonn,look",
+			"offset": "0,3",
+			"author": "Klaus Strassburger (strass(AT)ddfi.uni-duesseldorf.de), Nov 09 2001",
+			"ext": [
+				"Offset and defining formula adjusted by _Reinhard Zumkeller_, Aug 13 2015"
+			],
+			"references": 7,
+			"revision": 11,
+			"time": "2015-08-15T10:27:13-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65650,
+			"data": "0,1,2,3,4,5,6,7,8,9,11,10,15,17,19,21,23,25,27,29,31,12,30,37,39,41,43,45,47,49,51,13,32,50,59,61,63,65,67,69,71,14,34,52,70,81,83,85,87,89,91,16,35,54,72,90,103,105,107,109,111,18,36,56,74,92,110,125,127",
+			"name": "Inverse permutation to A065649.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A065650/b065650.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a065650 = fromJust . (`elemIndex` a065649_list)",
+				"-- _Reinhard Zumkeller_, Aug 13 2015"
+			],
+			"xref": [
+				"Cf. A033307, A065648, A065649, A261334.",
+				"Cf. A261279 (fixed points), A261294."
+			],
+			"keyword": "base,nonn,look",
+			"offset": "0,3",
+			"author": "Klaus Strassburger (strass(AT)ddfi.uni-duesseldorf.de), Nov 09 2001",
+			"ext": [
+				"Offset changed by _Reinhard Zumkeller_, Aug 13 2015"
+			],
+			"references": 7,
+			"revision": 10,
+			"time": "2015-08-15T10:29:02-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 66411,
+			"data": "1,1,3,5,23,61,143,215,995,2481,5785,12907,29279,64963,144289,158049,683311,1471123,3166531,6759177,14404547,30548713",
+			"name": "Form a triangle with the numbers [0..n] on the base, where each number is the sum of the two below; a(n) = number of different possible values for the apex.",
+			"comment": [
+				"a(n) = number of different possible sums of c_k * (n choose k) where the c_k are a permutation of 0 through n. - _Joshua Zucker_, May 08 2006"
+			],
+			"example": [
+				"For n = 2 we have three triangles:",
+				"..4.......5.......3",
+				".1,3.....2,3.....2,1",
+				"0,1,2...0,2,1...2,0,1",
+				"with three different values for the apex, so a(2) = 3."
+			],
+			"mathematica": [
+				"g[s_List] := Plus @@@ Partition[s, 2, 1]; f[n_] := Block[{k = 1, lmt = 1 + (n + 1)!, lst = {}, p = Permutations[Range[0, n]]}, While[k \u003c lmt, AppendTo[ lst, Nest[g, p[[k]], n][[1]]]; k++]; lst]; Table[ Length@ Union@ f@ n, {n, 0, 10}] (* _Robert G. Wilson v_, Jan 24 2012 *)"
+			],
+			"program": [
+				"(MATLAB)",
+				"for n=0:9",
+				"size(unique(perms(0:n)*diag(fliplr(pascal(n+1)))),1)",
+				"end % _Nathaniel Johnston_, Apr 20 2011",
+				"(C++)",
+				"#include \u003ciostream\u003e",
+				"#include \u003cvector\u003e",
+				"#include \u003cset\u003e",
+				"#include \u003calgorithm\u003e",
+				"using namespace std;",
+				"inline long long pascApx(const vector\u003cint\u003e \u0026 s)",
+				"{",
+				"    const int n = s.size() ;",
+				"    vector\u003clong long\u003e scp(n) ;",
+				"    for(int i=0; i\u003cn; i++)",
+				"        scp[i] = s[i] ;",
+				"    for(int i=1; i\u003cn; i++)",
+				"        for(int acc=0 ; acc \u003c n-i ; acc++)",
+				"            scp[acc] += scp[acc+1] ;",
+				"    return scp[0] ;",
+				"}",
+				"int main(int argc, char *argv[])",
+				"{",
+				"    for(int n=1 ; ;n++)",
+				"    {",
+				"        vector\u003cint\u003e s;",
+				"        for(int i=0;i\u003cn;i++)",
+				"            s.push_back(i) ;",
+				"        set\u003clong long\u003e apx;",
+				"        do",
+				"        {",
+				"            apx.insert( pascApx(s)) ;",
+				"        } while( next_permutation(s.begin(),s.end()) ) ;",
+				"        cout \u003c\u003c n \u003c\u003c \" \" \u003c\u003c apx.size() \u003c\u003c endl ;",
+				"    }",
+				"    return 0 ;",
+				"} /* _R. J. Mathar_, Jan 24 2012 */",
+				"(PARI) A066411(n)={my(u=0,o=A189391(n),v,b=vector(n++,i,binomial(n-1,i-1))~);sum(k=1,n!\\2,!bittest(u,numtoperm(n,k)*b-o) \u0026 u+=1\u003c\u003c(numtoperm(n,k)*b-o))}  \\\\ - _M. F. Hasler_, Jan 24 2012",
+				"(Haskell)",
+				"import Data.List (permutations, nub)",
+				"a066411 0 = 1",
+				"a066411 n = length $ nub $ map",
+				"   apex [perm | perm \u003c- permutations [0..n], head perm \u003c last perm] where",
+				"   apex = head . until ((== 1) . length)",
+				"                       (\\xs -\u003e (zipWith (+) xs $ tail xs))",
+				"-- _Reinhard Zumkeller_, Jan 24 2012"
+			],
+			"xref": [
+				"Cf. A062684, A062896, A099325, A189162, A189390, A189391."
+			],
+			"keyword": "nice,more,nonn",
+			"offset": "0,3",
+			"author": "_Naohiro Nomoto_, Dec 25 2001",
+			"ext": [
+				"More terms from _John W. Layman_, Jan 07 2003",
+				"a(10) from _Nathaniel Johnston_, Apr 20 2011",
+				"a(11) from _Alois P. Heinz_, Apr 21 2011",
+				"a(12) and a(13) from _Joerg Arndt_, Apr 21 2011",
+				"a(14)-a(15) from _Alois P. Heinz_, Apr 27 2011",
+				"a(0)-a(15) verified by _R. H. Hardin_ Jan 27 2012",
+				"a(16) from _Alois P. Heinz_, Jan 28 2012",
+				"a(17)-a(21) from _Graeme McRae_, Jan 28, Feb 01 2012"
+			],
+			"references": 7,
+			"revision": 55,
+			"time": "2014-11-13T11:57:46-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 66459,
+			"data": "1,1,2,6,24,120,720,5040,40320,362880,1,1,2,6,24,120,720,5040,40320,362880,2,2,4,12,48,240,1440,10080,80640,725760,6,6,12,36,144,720,4320,30240,241920,2177280,24,24,48,144,576,2880,17280,120960,967680",
+			"name": "Product of factorials of the digits of n.",
+			"link": [
+				"Harry J. Smith and Indranil Ghosh, \u003ca href=\"/A066459/b066459.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (first 1001 terms from Harry J. Smith)",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Factorial.html\"\u003eFactorial\u003c/a\u003e",
+				"\u003ca href=\"/index/Fa#factorial\"\u003eIndex entries for sequences related to factorial numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"If n=10*q+r,(0\u003c=r\u003c10) then a(n)=(q+1+r)!*(sum((-1)^(q-k)*binomial(r,k)/(q+1+r-k),k=0..r)); _Milan Janjic_, Dec 14 2008]"
+			],
+			"example": [
+				"a(24) = (2!) * (4!) = 2 * 24 = 48."
+			],
+			"maple": [
+				"A066459 := proc(n)",
+				"    local a,d;",
+				"    a := 1 ;",
+				"    for d in convert(n,base,10) do",
+				"        a := a*d! ;",
+				"    end do:",
+				"    a ;",
+				"end proc: # _R. J. Mathar_, Aug 07 2014"
+			],
+			"program": [
+				"(PARI) { for (n=0, 1000, m=n; a=1; while (m\u003e0, d=m%10; m=(m-d)/10; a*=d!); write(\"b066459.txt\", n, \" \", a) ) } \\\\ _Harry J. Smith_, Feb 15 2010",
+				"(Haskell)",
+				"import Data.List (unfoldr)",
+				"a066459 = product . map a000142 .",
+				"   unfoldr (\\x -\u003e if x == 0 then Nothing else Just $ swap $ divMod x 10)",
+				"-- _Reinhard Zumkeller_, Oct 11 2011",
+				"(Python)",
+				"import math",
+				"def A066459(n):",
+				"    s=1",
+				"    for i in str(n):",
+				"        s*=math.factorial(int(i))",
+				"    return s # _Indranil Ghosh_, Jan 11 2017"
+			],
+			"xref": [
+				"Cf. A000142, A034879 (iterated)."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "0,3",
+			"author": "_Jason Earls_, Jan 02 2002",
+			"references": 7,
+			"revision": 29,
+			"time": "2017-12-15T17:35:47-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

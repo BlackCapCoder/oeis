@@ -1,0 +1,377 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5520,
+	"results": [
+		{
+			"number": 103369,
+			"data": "1,4,37,4,89,89,1,89,37,1,4,89,1,89,16,16,89,37,1,20,89,89,1,20,89,16,89,1,89,37,1,1,37,89,89,89,37,58,37,16,89,42,89,1,89,89,37,89,1,89,16,89,89,89,89,37,37,58,37,89,37,16,89,89,37,89,89,1,16,1,89,89,58",
+			"name": "Number in the 2-digitaddition sequence at which the eventually periodic part starts.",
+			"comment": [
+				"a(A007770(n)) = 1; a(A031177(n)) \u003e 1. - _Reinhard Zumkeller_, Mar 16 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A103369/b103369.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Digitaddition.html\"\u003eDigitaddition\u003c/a\u003e"
+			],
+			"example": [
+				"The 2-digitaddition sequence for n = 3 is {3, 9, 81, 65, 61, 37, 58, 89, 145, 42, 20, 4, 16, 37, ...}, so a(3) = 37."
+			],
+			"program": [
+				"(Haskell)",
+				"a103369 = until (`elem` a039943_list) a003132",
+				"a103369_list = map a103369 [1..]",
+				"-- _Reinhard Zumkeller_, Oct 17 2011, Aug 24 2011"
+			],
+			"xref": [
+				"Cf. A007770, A031176, A003132, A039943."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Eric W. Weisstein_, Feb 02 2005",
+			"references": 4,
+			"revision": 18,
+			"time": "2015-08-15T10:30:35-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 103960,
+			"data": "1,1,2,2,2,3,1,2,4,3,2,5,3,3,5,3,4,4,4,5,6,3,4,6,3,5,6,5,3,6,5,8,5,5,6,5,7,9,7,6,6,5,7,6,8,5,8,10,5,6,8,6,7,7,10,10,3,11,8,11,6,10,8,12,9,9,7,11,9,7,8,9,6,14,8,10,11,11,12,11,7,8",
+			"name": "Number of primes p such that prime(n)*p - 2 is prime and p \u003c= prime(n).",
+			"comment": [
+				"Conjecture: All items of this sequence are greater than or equal to 1. Tested to prime(1000000).",
+				"a(A137291(n)) = A210481(A137291(n)) + 1. - _Reinhard Zumkeller_, Jul 30 2015"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A103960/b103960.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"Prime(1)*2-2 = 2, so a(1)=1;",
+				"Prime(3) = 5, 5*3-2 = 13, 5*5-2 = 23, so a(3)=2;"
+			],
+			"mathematica": [
+				"Table[p=Prime[n]; ct=0; Do[pk=Prime[k]; If[PrimeQ[p*pk-2], ct=ct+1], {k, n}]; ct, {n, 100}]"
+			],
+			"program": [
+				"(Haskell)",
+				"a103960 n = sum [a010051' $ p * q - 2 |",
+				"                 let p = a000040 n, q \u003c- takeWhile (\u003c= p) a000040_list]",
+				"-- _Reinhard Zumkeller_, Jul 30 2015"
+			],
+			"xref": [
+				"Cf. A103959.",
+				" Cf. A010051, A000040, A137291, A210481."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,3",
+			"author": "_Lei Zhou_, Feb 22 2005",
+			"references": 4,
+			"revision": 9,
+			"time": "2015-07-30T15:37:18-04:00",
+			"created": "2005-02-23T03:00:00-05:00"
+		},
+		{
+			"number": 104887,
+			"data": "2,3,2,5,3,2,7,5,3,2,11,7,5,3,2,13,11,7,5,3,2,17,13,11,7,5,3,2,19,17,13,11,7,5,3,2,23,19,17,13,11,7,5,3,2,29,23,19,17,13,11,7,5,3,2,31,29,23,19,17,13,11,7,5,3,2,37,31,29,23,19,17,13,11,7,5,3,2,41,37,31,29",
+			"name": "Triangle T(n,k) = (n-k+1)th prime, read by rows.",
+			"comment": [
+				"Repeatedly writing the prime sequence backwards.",
+				"Sequence B is called a reverse reluctant sequence of sequence A, if B is triangle array read by rows: row number k lists first k elements of the sequence A in reverse order. Sequence A104887 is the reverse reluctant sequence of sequence the prime numbers (A000040). - _Boris Putievskiy_, Dec 13 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A104887/b104887.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e",
+				"Boris Putievskiy, \u003ca href=\"http://arxiv.org/abs/1212.2732\"\u003eTransformations Integer Sequences And Pairing Functions\u003c/a\u003e arXiv:1212.2732 [math.CO]"
+			],
+			"formula": [
+				"T(n,k) = A000040(n-k+1); a(n) = A000040(A004736(n)).",
+				"a(n)=A000040(m), where m=(t*t+3*t+4)/2-n, t=floor((-1+sqrt(8*n-7))/2). - _Boris Putievskiy_, Dec 13 2012"
+			],
+			"example": [
+				"Triangle begins:",
+				"   2;",
+				"   3,  2;",
+				"   5,  3,  2;",
+				"   7,  5,  3,  2;",
+				"  11,  7,  5,  3,  2;",
+				"  13, 11,  7,  5,  3,  2;",
+				"  17, 13, 11,  7,  5,  3,  2;"
+			],
+			"maple": [
+				"T:=(n,k)-\u003eithprime(n-k+1): seq(seq(T(n,k),k=1..n),n=1..13); # _Muniru A Asiru_, Mar 16 2019"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits)",
+				"a104887 n k = a104887_tabl !! (n-1) !! (k-1)",
+				"a104887_row n = a104887_tabl !! (n-1)",
+				"a104887_tabl = map reverse $ tail $ inits a000040_list",
+				"-- _Reinhard Zumkeller_, Oct 02 2014",
+				"(GAP) P:=Filtered([1..200],IsPrime);;",
+				"T:=Flat(List([1..13],n-\u003eList([1..n],k-\u003eP[n-k+1]))); # _Muniru A Asiru_, Mar 16 2019"
+			],
+			"xref": [
+				"Reflected triangle of A037126.",
+				"Cf. A098012 (partial products per row)."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,1",
+			"author": "_Gary W. Adamson_, Mar 29 2005",
+			"ext": [
+				"Edited by _Ralf Stephan_, Apr 05 2009"
+			],
+			"references": 4,
+			"revision": 19,
+			"time": "2019-03-16T18:47:39-04:00",
+			"created": "2005-04-09T03:00:00-04:00"
+		},
+		{
+			"number": 104895,
+			"data": "0,-1,-2,1,-4,3,2,-3,-8,7,6,-7,4,-5,-6,5,-16,15,14,-15,12,-13,-14,13,8,-9,-10,9,-12,11,10,-11,-32,31,30,-31,28,-29,-30,29,24,-25,-26,25,-28,27,26,-27,16,-17,-18,17,-20,19,18,-19,-24,23,22,-23,20,-21,-22,21,-64,63,62,-63,60,-61,-62,61,56,-57,-58,57,-60,59",
+			"name": "a(0)=0; thereafter a(2n) = -2a(n), a(2n+1) = 2a(n) - 1.",
+			"comment": [
+				"Columns of table in A104894 written in base 10.",
+				"Conjecture: the positions where 0, 1, 2, 3, ... appear are given by A048724; the positions where -1, -2, -3, ... appear are given by A065621."
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A104895/b104895.txt\"\u003eTable of n, a(n) for n = 0..20000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(0) = 0 and for k\u003e=0, 0\u003c= j \u003c2^k, a(2^k + j) = a(j) + 2^k if a(j)\u003c0, a(2^k + j) = a(j) - 2^k if a(j)\u003e=0.",
+				"Sum_{0 \u003c= n \u003c= 2^k - 1} a(n) = - 2^(k-1).",
+				"Sum_{0 \u003c= n \u003c= 2^k - 1} |a(n)| = 4^(k-1).",
+				"a(n) = -A065620(n). - _M. F. Hasler_, Apr 16 2018"
+			],
+			"maple": [
+				"f:=proc(n) option remember; if n=0 then RETURN(0); fi; if n mod 2 = 0 then RETURN(2*f(n/2)); else RETURN(-2*f((n-1)/2)-1); fi; end;"
+			],
+			"mathematica": [
+				"a[0] = 0;",
+				"a[n_] := a[n] = If[EvenQ[n], 2 a[n/2], -2 a[(n-1)/2] - 1];",
+				"Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Aug 03 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a104895 n = a104895_list !! n",
+				"a104895_list = 0 : concat (transpose [map (negate . (+ 1)) zs, tail zs])",
+				"               where zs = map (* 2) a104895_list",
+				"-- _Reinhard Zumkeller_, Mar 26 2014"
+			],
+			"xref": [
+				"Cf. A104894, A048724, A065621.",
+				"The negative of entry A065620."
+			],
+			"keyword": "sign,look,nice",
+			"offset": "0,3",
+			"author": "_Philippe Deléham_, Apr 24 2005",
+			"ext": [
+				"Corrected by _N. J. A. Sloane_, Nov 05 2005",
+				"Edited by _N. J. A. Sloane_, Apr 25 2018"
+			],
+			"references": 4,
+			"revision": 28,
+			"time": "2018-08-03T05:17:35-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 105154,
+			"data": "1,1,2,2,2,1,2,1,4,2,2,4,4,2,2,4,4,4,1,4,4,4,1,4,4,4,1,4,4,4,1,4,8,4,4,4,4,8,4,4,8,4,4,4,4,8,4,4,8,4,4,4,4,8,4,4,8,4,4,4,4,8,4,4,16,8,4,2,4,8,16,2,16,8,4,2,4,8,16,2,16,8,4,2,4,8,16,2,16,8,4,2,4,8,16,2,16,8,4,2,4",
+			"name": "Consider trajectory of n under repeated application of map k -\u003e A105027(k); a(n) = length of cycle.",
+			"comment": [
+				"Why is this always a power of 2?",
+				"a(n) is always a power of 2: If n is a k-bit number, then so are all numbers in the A105154-orbit of n. For m in the orbit, the i-th bit (i=1,..,k) of A105154(m) is the i-th bit of m-k+i and hence depends only on the lower i bits of m. By induction quickly follows that the lower i bits run through a cycle of length dividing 2^i. This also shows that a(n) \u003c= n for n \u003e 0."
+			],
+			"link": [
+				"Hagen von Eitzen, \u003ca href=\"/A105154/b105154.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"David Applegate, Benoit Cloitre, Philippe Deléham and N. J. A. Sloane, Sloping binary numbers: a new sequence related to the binary numbers [\u003ca href=\"http://neilsloane.com/doc/slopey.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/slopey.ps\"\u003eps\u003c/a\u003e]."
+			],
+			"program": [
+				"(Haskell)",
+				"a105154 n = t [n] where",
+				"   t xs@(x:_) | y `elem` xs = length xs",
+				"              | otherwise   = t (y : xs) where y = a105027 x",
+				"-- _Reinhard Zumkeller_, Jul 21 2012"
+			],
+			"xref": [
+				"Cf. A102370, A105025, A105027, A105153."
+			],
+			"keyword": "nonn,easy,base",
+			"offset": "0,3",
+			"author": "_Philippe Deléham_, Apr 30 2005",
+			"ext": [
+				"More terms taken from b-file by _Hagen von Eitzen_, Jun 24 2009"
+			],
+			"references": 4,
+			"revision": 17,
+			"time": "2018-03-04T17:01:37-05:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 106146,
+			"data": "4,6,9,0,4,5,1,2,5,6,3,4,5,8,9,6,9,1,5,7,8,2,5,9,4,7,2,5,6,7,1,3,4,5,6,1,5,8,9,1,2,3,9,3,4,1,2,3,5,6,5,8,9,1,6,9,7,8,3,5,7,4,1,2,3,5,6,9,3,4,5,7,8,9,1,6,5,7,7,9,3,4,9,2,5,7,4,8,7,9,1,5,8,9,1,2,3,5,9,4,9,1,3,6,7",
+			"name": "Semiprimes (mod 10).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A106146/b106146.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Mod[#,10]\u0026/@Select[Range[500],PrimeOmega[#]==2\u0026] (* _Harvey P. Dale_, Apr 04 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a106146 = flip mod 10 . a001358  -- _Reinhard Zumkeller_, Mar 23 2014"
+			],
+			"xref": [
+				"Cf. A001358.",
+				"Cf. A239634 (initial digits)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Shyam Sunder Gupta_, May 07 2005",
+			"references": 4,
+			"revision": 9,
+			"time": "2014-03-23T10:38:21-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 106370,
+			"data": "2,3,2,3,3,4,2,3,4,4,4,5,3,3,2,3,3,5,5,6,4,3,3,5,3,3,4,6,4,4,2,5,5,5,6,5,4,4,4,3,3,4,3,3,4,4,4,5,3,3,6,3,3,4,4,5,4,4,4,7,4,4,2,5,6,5,3,3,5,3,3,5,5,5,7,3,3,7,3,3,5,5,5,5,4,4,4,5,4,4,4,5,4,4,4,5,5,5,5,6,4,4,4,6,4",
+			"name": "Smallest b\u003e1 such that n contains no zeros in its base b representation.",
+			"comment": [
+				"a(n*a(n)+k) \u003c= a(n) for 1\u003c=k\u003ca(n);",
+				"a(A106372(n)) = n and a(m) \u003c\u003e n for m \u003c A106372(n);",
+				"a(A000225(n)) = 2; a(A032924(n)) = 3 for n \u003c\u003e 5."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A106370/b106370.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"n=20: 20[binary]='101001', 20[ternary]='202',",
+				"20[base-4]='110', 20[base-5]='40', all containing at least one zero,",
+				"but: 20[base-6]='32', containing no zero therefore a(20)=6."
+			],
+			"program": [
+				"(Haskell)",
+				"a106370 n = f 2 n where",
+				"   f b x = g x where",
+				"     g 0 = b",
+				"     g z = if r == 0 then f (b + 1) n else g z'",
+				"           where (z', r) = divMod z b",
+				"-- _Reinhard Zumkeller_, Apr 12 2015"
+			],
+			"xref": [
+				"Cf. A106371.",
+				"Cf. A000225, A032924, A106372, A119352."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 01 2005",
+			"ext": [
+				"Typo in comment fixed by _Reinhard Zumkeller_, Aug 06 2010"
+			],
+			"references": 4,
+			"revision": 8,
+			"time": "2015-04-12T18:50:13-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 107345,
+			"data": "1,1,1,1,2,1,1,1,3,2,1,1,2,1,1,1,4,3,3,2,3,1,1,1,3,2,1,1,2,1,1,1,5,4,6,3,6,3,3,2,6,3,1,1,3,1,1,1,4,3,3,2,3,1,1,1,3,2,1,1,2,1,1,1,6,5,10,4,10,6,6,3,10,6,4,3,6,3,3,2,10,6,4,3,4,1,1,1,6,3,1,1,3,1,1,1,5,4,6,3,6,3,3",
+			"name": "From the binary representation of n: binomial(number of zeros, number of blocks of contiguous zeros).",
+			"comment": [
+				"a(n) = binomial(A023416(n), A087116(n)); a(A003754(n)) = 1.",
+				"First occurrence of k: 1, 4, 8, 16, 32, 34, 128, 256, 512, 66, 2048, 4096, 8192, 16384, 130, 65536, 131072, 262144, 524288, 266, 258, ..., . k must occur by 2^k. - _Robert G. Wilson v_",
+				"Record values: 1, 4, 8, 16, 32, 34, 66, 130, 258, 514, 522, 1026, 1034, 2058, 4106, 4138, 8202, 8234, 16394, 16426, 32810, 65578, 65706, 131114, 131242, 262186, 262314, 524458, 1048746, 1049258, 2097322, 2097834, 4194474, 4194986, 8389290, 8391338, ..., . - _Robert G. Wilson v_"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A107345/b107345.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"mathematica": [
+				"f[n_] := Block[{id = IntegerDigits[n, 2]}, Binomial[ Count[id, 0], Floor[(Length@ Split@ id + 1)/2]]]; Table[f@n, {n, 0, 102}] (* _Robert G. Wilson v_, Apr 01 2008 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a107345 n = a007318' (a023416 n) (a087116 n)",
+				"-- _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"xref": [
+				"Cf. A007088, A107782, A136277.",
+				"Cf. A007318, A023416, A087116."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, May 23 2005",
+			"references": 4,
+			"revision": 14,
+			"time": "2015-03-31T16:47:36-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 107782,
+			"data": "0,0,0,0,1,0,0,0,2,1,0,0,1,0,0,0,3,2,1,1,1,0,0,0,2,1,0,0,1,0,0,0,4,3,2,2,2,1,1,1,2,1,0,0,1,0,0,0,3,2,1,1,1,0,0,0,2,1,0,0,1,0,0,0,5,4,3,3,3,2,2,2,3,2,1,1,2,1,1,1,3,2,1,1,1,0,0,0,2,1,0,0,1,0,0,0,4,3,2,2,2,1,1,1,2",
+			"name": "In binary representation of n: (number of zeros) minus (number of blocks of contiguous zeros).",
+			"comment": [
+				"a(n) = A023416(n) - A087116(n); a(A003754(n)) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A107782/b107782.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a107782 n = a023416 n - a087116 n  -- _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"xref": [
+				"Cf. A007088, A107345.",
+				"Cf. A056973. - _R. J. Mathar_, Aug 24 2008",
+				"Cf. A023416, A087116, A003754."
+			],
+			"keyword": "nonn",
+			"offset": "0,9",
+			"author": "_Reinhard Zumkeller_, May 25 2005",
+			"references": 4,
+			"revision": 11,
+			"time": "2015-03-31T17:18:29-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 108018,
+			"data": "1,3,4,5,9,12,16,19,25,31,37,43,51,59,66,75,84,95,103,115,127,137,150,162,177,191,205,218,233,250,267,282,299,319,338,359,376,399,421,440,461,481,508,531,556,578,602,629,653,683,707,737,765,793,824,853,883",
+			"name": "a(n) = the number of primes representable as the sum of some subset of the set of first n primes.",
+			"comment": [
+				"a(n) = length of n-th row in A256015; A066028(n) = A256015(n,a(n)). - _Reinhard Zumkeller_, Jun 01 2015"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A108018/b108018.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e"
+			],
+			"mathematica": [
+				"(* This program is not suitable to compute a large number of terms. *)",
+				"a[n_] := a[n] = Select[Total /@ Subsets[Table[Prime[i], {i, 1, n}]], PrimeQ] // Union // Length;",
+				"Table[Print[n, \" \", a[n]]; a[n], {n, 1, 25}] (* _Jean-François Alcover_, Mar 12 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (subsequences, nub)",
+				"a108018 = sum . map a010051' . nub . map sum .",
+				"          tail . subsequences . flip take a000040_list",
+				"-- _Reinhard Zumkeller_, Dec 16 2013"
+			],
+			"xref": [
+				"Cf. A071810 (same count but with multiplicities).",
+				"Cf. A010051, A000040.",
+				"Cf. A066028, A256015."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Max Alekseyev_, Sep 08 2006",
+			"ext": [
+				"More terms from _Alois P. Heinz_, Oct 24 2015"
+			],
+			"references": 4,
+			"revision": 15,
+			"time": "2019-03-12T09:20:35-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		}
+	]
+}

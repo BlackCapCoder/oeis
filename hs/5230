@@ -1,0 +1,373 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5230,
+	"results": [
+		{
+			"number": 30332,
+			"data": "4,10,16,17,19,22,26,35,43,44,46,49,53,62,70,71,72,74,75,78,79,82,84,86,90,94,96,98,102,107,108,111,115,120,132,143,144,147,151,156,168,178,179,180,182,183,186,187,190,192,194,198,202",
+			"name": "Position of n-th 0 in A003137.",
+			"comment": [
+				"A003137(a(n)) = 0. - _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A030332/b030332.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a030332 n = a030332_list !! (n-1)",
+				"a030332_list = map (+ 1) $ elemIndices 0 a003137_list",
+				"-- _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"xref": [
+				"Cf. A030333, A030334, A030336."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Clark Kimberling_",
+			"references": 4,
+			"revision": 9,
+			"time": "2013-07-13T12:01:54-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30333,
+			"data": "1,3,5,6,7,12,15,18,20,21,24,25,27,28,29,30,31,33,36,38,39,47,52,55,56,58,65,69,73,76,77,81,83,85,87,88,89,91,93,97,100,101,105,106,109,110,112,113,114,117,118,119,121,122,123,124,125",
+			"name": "Position of n-th 1 in A003137.",
+			"comment": [
+				"A003137(a(n)) = 1. - _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A030333/b030333.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a030333 n = a030333_list !! (n-1)",
+				"a030333_list = map (+ 1) $ elemIndices 1 a003137_list",
+				"-- _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"xref": [
+				"Cf. A030332, A030334, A030337."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 4,
+			"revision": 10,
+			"time": "2013-07-13T12:01:54-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30334,
+			"data": "2,8,9,11,13,14,23,32,34,37,40,41,42,45,48,50,51,54,57,59,60,61,63,64,66,67,68,80,92,95,99,103,104,116,128,131,135,139,140,142,146,150,152,154,158,162,164,166,167,170,171,174,175,176",
+			"name": "Position of n-th 2 in A003137.",
+			"comment": [
+				"A003137(a(n)) = 2. - _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A030334/b030334.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a030334 n = a030334_list !! (n-1)",
+				"a030334_list = map (+ 1) $ elemIndices 2 a003137_list",
+				"-- _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"xref": [
+				"Cf. A030332, A030333, A030338."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Clark Kimberling_",
+			"references": 4,
+			"revision": 9,
+			"time": "2013-07-13T12:01:54-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30336,
+			"data": "1,1,2,1,1,1,1,2,1,1,1,1,3,2,2,1,1,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,3,2,2,1,1,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,4,3,3,2,1,2,2,2,1,2,2,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1",
+			"name": "Length of n-th run of digit 0 in A003137.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A030336/b030336.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a030336 n = a030336_list !! (n-1)",
+				"a030336_list = map length $ filter ((== 0) . head) $ group a003137_list",
+				"-- _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"xref": [
+				"Cf. A030337, A030338, A030332."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,3",
+			"author": "_Clark Kimberling_",
+			"references": 4,
+			"revision": 12,
+			"time": "2013-07-13T12:01:54-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30337,
+			"data": "1,1,3,1,1,1,2,2,5,1,1,2,1,1,2,1,1,1,1,2,1,1,1,3,1,1,1,2,2,2,3,3,7,2,2,3,1,1,2,1,1,1,3,1,1,1,2,1,1,2,1,1,1,1,1,1,2,3,2,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,3,1,1,1,2,1,1,1,1,2,1,1,2,1,4,2",
+			"name": "Length of n-th run of digit 1 in A003137.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A030337/b030337.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a030337 n = a030337_list !! (n-1)",
+				"a030337_list = map length $ filter ((== 1) . head) $ group a003137_list",
+				"-- _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"xref": [
+				"Cf. A030336, A030338, A030333."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,3",
+			"author": "_Clark Kimberling_",
+			"references": 4,
+			"revision": 12,
+			"time": "2013-07-13T12:01:54-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30338,
+			"data": "1,2,1,2,1,1,1,1,3,1,1,2,1,1,3,2,3,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,1,1,2,2,4,1,1,2,1,1,2,1,1,1,1,3,1,1,2,1,1,2,1,1,1,1,4,2,2,3,2,2,4,3,4,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,1,1,2,2,3,1",
+			"name": "Length of n-th run of digit 2 in A003137.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A030338/b030338.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a030338 n = a030338_list !! (n-1)",
+				"a030338_list = map length $ filter ((== 2) . head) $ group a003137_list",
+				"-- _Reinhard Zumkeller_, Feb 21 2013"
+			],
+			"xref": [
+				"Cf. A030336, A030337, A030334."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 4,
+			"revision": 12,
+			"time": "2013-07-13T12:01:54-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33294,
+			"data": "1,4,9,121,144,169,441,484,676,961,1089,9801,10201,10404,10609,12321,12544,12769,14641,14884,40401,40804,44521,44944,48841,69696,90601,94249,96721,698896,1002001,1004004,1006009,1022121,1024144,1026169",
+			"name": "Squares which when written backwards remain square (final 0's excluded).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A033294/b033294.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/wiki/Index_to_OEIS:_Section_Sq#sqrev\"\u003eIndex entry for sequences related to reversing digits of squares\u003c/a\u003e"
+			],
+			"example": [
+				"144 = 12 * 12 is a term because 441 = 21 * 21"
+			],
+			"mathematica": [
+				"Select[Range[1100]^2,Mod[#,10]!=0\u0026\u0026IntegerQ[Sqrt[FromDigits[Reverse[ IntegerDigits[ #]]]]]\u0026] (* _Harvey P. Dale_, Oct 28 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033294 n = a033294_list !! (n-1)",
+				"a033294_list = filter chi a000290_list where",
+				"  chi m = m `mod` 10 \u003e 0 \u0026\u0026 head ds `elem` [1,4,5,6,9] \u0026\u0026",
+				"          a010052 (foldl (\\v d -\u003e 10 * v + d) 0 ds) == 1 where",
+				"    ds = unfoldr",
+				"         (\\x -\u003e if x == 0 then Nothing else Just $ swap $ divMod x 10) m",
+				"-- _Reinhard Zumkeller_, Jan 19 2012"
+			],
+			"xref": [
+				"Cf. A007488, A007500."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,2",
+			"author": "_Jeff Burch_",
+			"ext": [
+				"More terms from _Erich Friedman_.",
+				"Initial 0 removed and offset changed by _Reinhard Zumkeller_, Jan 19 2012"
+			],
+			"references": 4,
+			"revision": 17,
+			"time": "2013-10-28T10:18:44-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33538,
+			"data": "1,1,5,17,57,189,625,2065,6821,22529,74409,245757,811681,2680801,8854085,29243057,96583257,318992829,1053561745,3479678065,11492595941,37957465889,125364993609,414052446717,1367522333761,4516619448001,14917380677765,49268761481297",
+			"name": "a(0)=1, a(1)=1, a(n) = 3*a(n-1) + a(n-2) + 1.",
+			"comment": [
+				"Number of times certain simple recursive programs (such as the Lisp program shown) call themselves on an input of length n.",
+				"This is the sequence A(1,1;3,1;1) of the family of sequences [a,b:c,d:k] considered by G. Detlefs, and treated as A(a,b;c,d;k) in the W. Lang link given below. - _Wolfdieter Lang_, Oct 18 2010"
+			],
+			"reference": [
+				"E. Hyvönen and J. Seppänen, LISP-kurssi, Osa 6 (Funktionaalinen ohjelmointi), Prosessori 4/1983, pp. 48-50 (in Finnish)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A033538/b033538.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e",
+				"A. Karttunen, \u003ca href=\"http://www.iki.fi/~kartturi/software/stacks.lsp\"\u003eMore information\u003c/a\u003e",
+				"Wolfdieter Lang, \u003ca href=\"/A033538/a033538.pdf\"\u003eNotes on certain inhomogeneous three term recurrences.\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4,-2,-1)."
+			],
+			"formula": [
+				"From _R. J. Mathar_, Aug 22 2008: (Start)",
+				"O.g.f.: (1-3*x+3*x^2)/((1-x)*(1-3*x-x^2)).",
+				"a(n) = (4*A006190(n+1) - 8*A006190(n) - 1)/3. (End)",
+				"a(n) = 4*a(n-1) - 2*a(n-2) - a(n-3), a(0)=1=a(1), a(2)=5. Observed by G. Detlefs. See the W. Lang link. - _Wolfdieter Lang_, Oct 18 2010",
+				"a(n) = -1/3 + (2/39)*(3/2 - (1/2)*sqrt(13))^n*sqrt(13) - (2/39)*sqrt(13)*(3/2 + (1/2)*sqrt(13))^n + (2/3)*(3/2 - (1/2)*sqrt(13))^n + (2/3)*(3/2 + (1/2)*sqrt(13))^n, with n \u003e= 0. - _Paolo P. Lava_, Sep 01 2008",
+				"a(n) = (4*(F(n,3) + F(n-1,3)) -1)/3, where F(n,x) is the Fibonacci polynomial (see A102426). - _G. C. Greubel_, Oct 13 2019"
+			],
+			"maple": [
+				"a := proc(n) option remember; if(n \u003c 2) then RETURN(1); else RETURN(3*a(n-1)+a(n-2)+1); fi; end;"
+			],
+			"mathematica": [
+				"CoefficientList[ Series[(1-3x+3x^2)/(1-4x+2x^2+x^3), {x,0,40}], x](* _Jean-François Alcover_, Nov 30 2011 *)",
+				"RecurrenceTable[{a[0]==a[1]==1,a[n]==3a[n-1]+a[n-2]+1},a,{n,40}] (* or *) LinearRecurrence[{4,-2,-1},{1,1,5},41] (* _Harvey P. Dale_, Jan 05 2012 *)",
+				"Table[(4*(Fibonacci[n,3] +Fibonacci[n-1,3]) -1)/3, {n,0,30}] (* _G. C. Greubel_, Oct 13 2019 *)"
+			],
+			"program": [
+				"(Lisp) (defun rewerse (lista) (cond ((null (cdr lista)) lista) (t (cons (car (rewerse (cdr lista))) (rewerse (cons (car lista) (rewerse (cdr (rewerse (cdr lista))))))))))",
+				"(Haskell)",
+				"a033538 n = a033538_list !! n",
+				"a033538_list =",
+				"   1 : 1 : (map (+ 1) $ zipWith (+) a033538_list",
+				"                                    $ map (3 *) $ tail a033538_list)",
+				"-- _Reinhard Zumkeller_, Aug 14 2011",
+				"(PARI) a(n)=([0,1,0; 0,0,1; -1,-2,4]^n*[1;1;5])[1,1] \\\\ _Charles R Greathouse IV_, Feb 19 2017",
+				"(MAGMA) I:=[1,1]; [n le 2 select I[n] else 3*Self(n-1) +Self(n-2) +1: n in [1..40]]; // _G. C. Greubel_, Jul 10 2019",
+				"(Sage) ((1-3*x+3*x^2)/((1-x)*(1-3*x-x^2))).series(x, 40).coefficients(x, sparse=False) # _G. C. Greubel_, Jul 10 2019",
+				"(GAP) a:=[1,1];; for n in [3..40] do a[n]:=3*a[n-1]+a[n-2] +1; od; a; # _G. C. Greubel_, Jul 10 2019"
+			],
+			"xref": [
+				"Cf. A001595, A006190, A033539, A102426."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,3",
+			"author": "_Antti Karttunen_",
+			"references": 4,
+			"revision": 43,
+			"time": "2019-10-14T01:09:33-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33539,
+			"data": "1,1,1,4,10,25,61,148,358,865,2089,5044,12178,29401,70981,171364,413710,998785,2411281,5821348,14053978,33929305,81912589,197754484,477421558,1152597601,2782616761,6717831124,16218279010,39154389145",
+			"name": "a(0)=1, a(1)=1, a(2)=1, a(n) = 2*a(n-1) + a(n-2) + 1.",
+			"comment": [
+				"a(n) or a(n+1) gives the number of times certain simple recursive procedures are called to effect a reversal of a sequence of n elements (including both the top-level call and any subsequent recursive calls). See example and program lines."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A033539/b033539.txt\"\u003eTable of n, a(n) for n = 0..300\u003c/a\u003e",
+				"A. Karttunen, \u003ca href=\"http://www.iki.fi/~kartturi/software/stacks.lsp\"\u003eMore information\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-1,-1)."
+			],
+			"formula": [
+				"a(n) = (3/4)*(1+sqrt(2))^(n-1) + 3/4*(1-sqrt(2))^(n-1) - 1/2 + 3*0^n, with n \u003e= 0. - _Jaume Oliver Lafont_, Sep 10 2009",
+				"G.f.: (1 - 2*x - x^2 + 3*x^3)/((1-x)*(1-2*x-x^2)). - _Jaume Oliver Lafont_, Sep 09 2009",
+				"a(n) = 3*a(n-1) - a(n-2) - a(n-3), a(0)=1, a(1)=1, a(2)=1, a(3)=4. - _Harvey P. Dale_, Nov 20 2011",
+				"a(n) = (3*A001333(n-1) - 1)/2. - _R. J. Mathar_, Mar 04 2013",
+				"a(n) = -1/2 - (3/4)*(1+sqrt(2))^n - (3/4)*sqrt(2)*(1-sqrt(2))^n - (3/4)*(1-sqrt(2))^n + (3/4)*(1+sqrt(2))^n*sqrt(2) for n \u003e= 1. - _Alexander R. Povolotsky_, Mar 05 2013",
+				"E.g.f.: 3 + (1/2)*exp(x)*(-1 - 3*cosh(sqrt(2)*x) + 3*sqrt(2)*sinh(sqrt(2)*x)). - _Stefano Spezia_, Oct 13 2019"
+			],
+			"example": [
+				"See the Python, Erlang (myrev), Pari (rev) and Forth definitions (REV3) given at Program section.",
+				"Pari, Python and Erlang functions are called a(n+1) times for the list of length n, while Forth word REV3 is called a(n) times if there are n elements in the parameter stack."
+			],
+			"maple": [
+				"seq(coeff(series((1 -2*x -x^2 +3*x^3)/((1-x)*(1-2*x-x^2)), x, n+1), x, n), n = 0..30); # _G. C. Greubel_, Oct 13 2019"
+			],
+			"mathematica": [
+				"Join[{1},RecurrenceTable[{a[0]==a[1]==1,a[n]==2a[n-1]+a[n-2]+1},a,{n,30}]] (* or *) LinearRecurrence[{3,-1,-1},{1,1,1,4},30] (* _Harvey P. Dale_, Nov 20 2011 *)",
+				"Table[If[n==0, 1, (3*LucasL[n-1, 2] -2)/4], {n, 0, 30}] (* _G. C. Greubel_, Oct 13 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033539 n = a033539_list !! n",
+				"a033539_list =",
+				"   1 : 1 : 1 : (map (+ 1) $ zipWith (+) (tail a033539_list)",
+				"                                        (map (2 *) $ drop 2 a033539_list))",
+				"-- _Reinhard Zumkeller_, Aug 14 2011",
+				"(PARI)",
+				"/* needs version \u003e= 2.5 */",
+				"/* function demonstrating the reversal of the lists and counting the function calls: */",
+				"rev( L )={ cnt++; if( #L\u003e1, my(x,y); x=L[#L]; listpop(L); L=rev(L); y=L[#L]; listpop(L); L=rev(L); listput(L,x); L=rev(L); listput(L,y)); L }",
+				"for(n=0,50,cnt=0;print(n\": rev(\",L=List(vector(n,i,i)),\")=\",rev(L),\",  cnt=\"cnt)) \\\\ _Antti Karttunen_, Mar 05 2013, partially based on previous PARI code from _Michael Somos_, 1999. Edited by _M. F. Hasler_, Mar 05 2013",
+				"(Python)",
+				"# function, demonstrating the reversal of the lists:",
+				"def myrev(lista):",
+				"  '''Reverses a list, in cumbersome way.'''",
+				"  if(len(lista) \u003c 2): return(lista)",
+				"  else:",
+				"    tr = myrev(lista[1:])",
+				"    return([tr[0]]+myrev([lista[0]]+myrev(tr[1:])))",
+				"(Erlang)",
+				"# definition, demonstrating the reversal of the lists:",
+				"myrev([]) -\u003e [];",
+				"myrev([A]) -\u003e [A];",
+				"myrev([X|Y]) -\u003e",
+				"   [A|B] = myrev(Y),",
+				"   [A|myrev([X|myrev(B)])].",
+				"(Forth)",
+				"# definition, demonstrating how to turn a parameter stack upside down:",
+				": REV3 DEPTH 0= IF ELSE DEPTH 1 = IF ELSE DEPTH 2 = IF SWAP ELSE \u003eR RECURSE R\u003e SWAP \u003eR \u003eR RECURSE R\u003e RECURSE R\u003e THEN THEN THEN ;",
+				"-- _Antti Karttunen_, Mar 04 2013",
+				"(PARI) concat([1], vector(30, n, (3*sum(k=0,(n-1)\\2, binomial(n-1,2*k) * 2^k) - 1)/2 )) \\\\ _G. C. Greubel_, Oct 13 2019",
+				"(MAGMA) I:=[1,1,4]; [1] cat [n le 3 select I[n] else 3*Self(n-1) - Self(n-2) - Self(n-3): n in [1..30]]; // _G. C. Greubel_, Oct 13 2019",
+				"(Sage) [1]+[(3*lucas_number2(n-1,2,-1) -2)/4 for n in (1..30)] # _G. C. Greubel_, Oct 13 2019",
+				"(GAP) Concatenation([1], List([1..30], n-\u003e (3*Lucas(2,-1,n-1)[2] -2)/4 )); # _G. C. Greubel_, Oct 13 2019"
+			],
+			"xref": [
+				"Cf. A002203, A033538."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,4",
+			"author": "_Antti Karttunen_",
+			"references": 4,
+			"revision": 63,
+			"time": "2019-10-16T13:15:38-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33931,
+			"data": "6,12,60,60,210,168,504,360,990,660,1716,1092,2730,1680,4080,2448,5814,3420,7980,4620,10626,6072,13800,7800,17550,9828,21924,12180,26970,14880,32736,17952,39270,21420,46620,25308,54834,29640,63960,34440",
+			"name": "a(n) = lcm(n,n+1,n+2).",
+			"comment": [
+				"a(n) = 6 * A067046(n); A007947(a(n)) = A078637(n); also denominator of h(n+2) - h(n-1), where h(n) is the n-th harmonic number sum(1/k, k=1..n), the numerator is A188386. - _Reinhard Zumkeller_, Jul 04 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A033931/b033931.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Lc#lcm\"\u003eIndex entries for sequences related to lcm's\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_08\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,4,0,-6,0,4,0,-1)."
+			],
+			"formula": [
+				"a(n) = n*(n+1)*(n+2)*[3-(-1)^n]/4."
+			],
+			"mathematica": [
+				"LCM@@@Partition[Range[50],3,1] (* or *) LinearRecurrence[{0,4,0,-6,0,4,0,-1},{6,12,60,60,210,168,504,360},50] (* _Harvey P. Dale_, Jun 29 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033931 n = lcm n (lcm (n + 1) (n + 2))  -- _Reinhard Zumkeller_, Jul 04 2012",
+				"(MAGMA) [Numerator((n^3-n)/(n^2+1)): n in [2..50]]; // _Vincenzo Librandi_, Aug 19 2014",
+				"(PARI) a(n) = lcm(n^2+n,n+2) \\\\ _Charles R Greathouse IV_, Sep 30 2016"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Jeff Burch_",
+			"references": 4,
+			"revision": 23,
+			"time": "2019-06-29T20:22:03-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

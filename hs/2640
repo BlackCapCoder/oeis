@@ -1,0 +1,489 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2640,
+	"results": [
+		{
+			"number": 62813,
+			"data": "0,2,21,228,2930,44790,800667,16434824,381367044,9876543210,282458553905,8842413667692,300771807240918,11046255305880158,435659737878916215,18364758544493064720,824008854613343261192,39210261334551566857170,1972313422155189164466189,104567135734072022160664820",
+			"name": "a(n) = Sum_{i=0..n-1} i*n^i.",
+			"comment": [
+				"Largest Katadrome (number with digits in strict descending order) in base n.",
+				"The largest permutational number (A134640) of order n. These numbers are isomorphic with antidiagonal permutation matrices of order n. Where diagonal matrices are a[i,1+n-i]=1 {i=1,n} a[i\u003c\u003e1+n-i]=0 for smallest permutational numbers of order n see A023811. - _Artur Jasinski_, Nov 07 2007",
+				"Permutational numbers A134640 isomorphic with permutation matrix generators of cyclic groups, n-th root of unity matrices. - _Artur Jasinski_, Nov 07 2007",
+				"a(n) = A134640(n,A000142(n)). - _Reinhard Zumkeller_, Aug 29 2014",
+				"Rephrasing: Largest pandigital number in base n (in the sense of A050278, which is base 10); e.g., a(10) = A050278(3265920), its final term. With a(1) = 1 instead of 0, also accommodates unary (A000042). - _Rick L. Shepherd_, Jul 10 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A062813/b062813.txt\"\u003eTable of n, a(n) for n = 1..400\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n^n - (n^n-n)/(n-1)^2 for n\u003e1. - _Dean Hickerson_, Jun 26 2001"
+			],
+			"maple": [
+				"0,seq(n*((n-2)*n^n + 1)/(n-1)^2,n=2..100); # _Robert Israel_, Sep 03 2014"
+			],
+			"mathematica": [
+				"Table[Sum[i*n^i, {i, 0, -1 + n}], {n, 17}] (* _Olivier Gérard_, Jun 23 2001 *)",
+				"a[n_] := FromDigits[ Range[ n-1, 0, -1], n]; Array[a, 18] (* _Robert G. Wilson v_, Sep 03 2014 *)"
+			],
+			"program": [
+				"(PARI) a(n) = sum(i=0,n-1,i*n^i)",
+				"(PARI) a(n) = if (n==1,0, my(t=n^n); t-(t-n)/(n-1)^2); \\\\ _Joerg Arndt_, Sep 03 2014",
+				"(Haskell)",
+				"a062813 n = foldr (\\dig val -\u003e val * n + dig) 0 [0 .. n - 1]",
+				"-- _Reinhard Zumkeller_, Aug 29 2014"
+			],
+			"xref": [
+				"Cf. A134640, A134641, A134642, A134643, A134644, A023811, A062808.",
+				"Cf. A000142, A000042, A050278."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Olivier Gérard_, Jun 23 2001",
+			"references": 12,
+			"revision": 41,
+			"time": "2018-03-09T06:01:30-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64353,
+			"data": "1,3,3,3,1,1,1,3,3,3,1,3,1,3,3,3,1,1,1,3,3,3,1,3,3,3,1,3,3,3,1,1,1,3,3,3,1,3,1,3,3,3,1,1,1,3,3,3,1,3,3,3,1,1,1,3,3,3,1,3,3,3,1,1,1,3,3,3,1,3,1,3,3,3,1,1,1,3,3,3,1,3,3,3,1,3,3,3,1,1,1,3,3,3,1,3,1,3,3,3,1,1,1,3,3",
+			"name": "a(n) is length of n-th run in the Kolakoski-(1,3) sequence.",
+			"comment": [
+				"Historical note: the sequence (a(n)) was introduced (by me) in 1981 in a seminar in Bordeaux. It was remarked there that (a(n+1)) is a morphic sequence, i.e., a letter-to-letter projection of a fixed point of a morphism. The morphism is 1-\u003e3, 2-\u003e2, 3-\u003e343, 4-\u003e212. The letter-to-letter map is 1-\u003e1, 2-\u003e1, 3-\u003e3, 4-\u003e3. There it was also remarked that this allows one to compute the frequency of the letter 3, and an exact expression for this frequency involving sqrt(177) was given. - _Michel Dekking_, Jan 06 2018",
+				"The frequency of the number '3' is 0.6027847... See UWC link. - _Jaap Spies_, Dec 12 2004",
+				"13, 13331, 13331113331 are primes. - _Vincenzo Librandi_, Mar 02 2016",
+				"Consider the Kolakoski sequence generalized to the alphabet {A,B}, where A=2p+1, B=2q+1. The fraction of symbols that are A approaches f_A, calculated as follows: x=(p+q+1)/3; y=((p-q)^2)/2; lambda = x + (x^3+y+sqrt(y^2+2*x^3*y))^(1/3) + (x^3+y-sqrt(y^2+2*x^3*y))^(1/3); f_A=(lambda-2q-1)/(2p-2q). The technique is the \"simple computation\" mentioned by Dekking and repeated in the UWC link. - _Ed Wynn_, Jul 29 2019"
+			],
+			"reference": [
+				"F. M. Dekking: \"What is the long range order in the Kolakoski sequence?\" in: The Mathematics of Long-Range Aperiodic Order, ed. R. V. Moody, Kluwer, Dordrecht (1997), pp. 115-125.",
+				"E. Angelini, \"Jeux de suites\", in Dossier Pour La Science, pp. 32-35, Volume 59 (Jeux math'), April/June 2008, Paris."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A064353/b064353.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"F. M. Dekking, \u003ca href=\"http://www.digizeitschriften.de/dms/img/?PID=GDZPPN002544490\"\u003eOn the structure of self-generating sequences\u003c/a\u003e, Seminar on Number Theory, 1980-1981 (Talence, 1980-1981), Exp. No. 31, 6 pp., Univ. Bordeaux I, Talence, 1981. Math. Rev. 83e:10075.",
+				"F. M. Dekking, \u003ca href=\"http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.28.6839\"\u003eWhat Is the Long Range Order in the Kolakoski Sequence?\u003c/a\u003e, Report 95-100, Technische Universiteit Delft, 1995.",
+				"Michael Baake and Bernd Sing, \u003ca href=\"https://arxiv.org/abs/math/0206098\"\u003eKolakoski-(3,1) is a (deformed) model set\u003c/a\u003e, arXiv:math/0206098 [math.MG], 2002-2003.",
+				"UWC, \u003ca href=\"http://www.math.leidenuniv.nl/%7Enaw/serie5/deel05/jun2004/pdf/uwc.pdf\"\u003eOpgave A\u003c/a\u003e (\u003ca href=\"http://www.jaapspies.nl/mathfiles/opgave2004-2A.pdf\"\u003esolution\u003c/a\u003e)"
+			],
+			"mathematica": [
+				"A = {1, 3, 3, 3}; i = 3; next = 1; While[Length[A] \u003c 140, A = Join[A, next*Array[1\u0026, A[[i]]]]; i++; next = 4-next]; A (* _Jean-François Alcover_, Nov 12 2016, translated from MATLAB *)"
+			],
+			"program": [
+				"(MATLAB) A = [1 3 3 3]; i = 3; next = 1; while length(A) \u003c 140 A = [A next*ones(1, A(i))]; i = i + 1; next = 4 - next; end",
+				"(Haskell) -- from John Tromp's a000002.hs",
+				"a064353 n = a064353_list !! (n-1)",
+				"a064353_list = 1 : 3 : drop 2",
+				"   (concat . zipWith replicate a064353_list . cycle $ [1, 3])",
+				"-- _Reinhard Zumkeller_, Aug 02 2013"
+			],
+			"xref": [
+				"Cf. A000002, A071820, A071907, A071928, A071942."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _David Wasserman_, Jul 16 2002",
+				"Edited by _Charles R Greathouse IV_, Apr 20 2010"
+			],
+			"references": 12,
+			"revision": 52,
+			"time": "2019-08-09T01:55:36-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64476,
+			"data": "1,6,12,36,72,144,216,432,864,1296,1728,2592,5184,7776,10368,15552,20736,31104,46656,62208,93312,124416,186624,248832,279936,373248,559872,746496,1119744,1492992,1679616,2239488,2985984,3359232,4478976",
+			"name": "For an integer n with prime factorization p_1*p_2*p_3* ... *p_m let n* = (p_1+1)*(p_2+1)*(p_3+1)* ... *(p_m+1) (A064478); sequence gives n such that n* is divisible by n.",
+			"comment": [
+				"Could be generalized by defining x* = (p_1+v)*(p_2+v) .. (p_n+v) where v is any integer.",
+				"It is not difficult to show that these numbers have the form a(n) = 2^i*3^j with j \u003c= i \u003c= 2j. Hence 1 is the only odd term; also if n|n* then n*|n**. The values of i and j are given in A064514 and A064515. - _Vladeta Jovovic_ and _N. J. A. Sloane_, Oct 07 2001"
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A064476/b064476.txt\"\u003eTable of n, a(n) for n = 1..50\u003c/a\u003e"
+			],
+			"example": [
+				"12 is in the sequence because 12 = 2 * 2 * 3, so 12* is 3 * 3 * 4 = 36 and 36 is divisible by 12."
+			],
+			"maple": [
+				"with(numtheory); ListA064476:=proc(q) local a,b,i,n;",
+				"for n from 1 to q do a:=ifactors(n)[2]; b:=mul((a[i][1]+1)^a[i][2],i=1..nops(a)); if type(b/n,integer) then print(n); fi; od; end: ListA064476(10^6); # _Paolo P. Lava_, Jul 02 2013"
+			],
+			"mathematica": [
+				"diQ[n_]:=Divisible[Times@@(#+1\u0026/@Flatten[Table[First[#],{Last[#]}]\u0026/@ FactorInteger[n]]),n]; Select[Range[4500000],diQ] (* _Harvey P. Dale_, Aug 16 2011 *)"
+			],
+			"program": [
+				"(ARIBAS): function p2p3(stop:integer): array; var c,i,j,x: integer; b: boolean; ar: array; begin ar := alloc(array,stop); x := 0; c := 0; b := c \u003c stop; while b do i := x; j := x - i; while b and i \u003e= j do if i \u003c= 2*j then ar[c] := (2^i * 3^j,i,j); inc(c); b := c \u003c stop; end; dec(i); inc(j); end; inc(x); end; return sort(ar, comparefirst); end; function comparefirst(x,y: array): integer; begin return y[0] - x[0]; end; function a064476(maxarg: integer); var j: integer; ar: array; begin ar := p2p3(maxarg); for j := 0 to maxarg - 1 do write(ar[j][0],\" \"); end; end; a064476(35).",
+				"(PARI) ns(n)= { local(f,p=1); f=factor(n); for(i=1, matsize(f)[1], p*=(1 + f[i, 1])^f[i, 2]); return(p) } { n=0; for (m=1, 10^9, if (ns(m)%m == 0, write(\"b064476.txt\", n++, \" \", m); if (n==100, break)) ) } \\\\ _Harry J. Smith_, Sep 15 2009",
+				"(Haskell)",
+				"a064476 n = a064476_list !! (n-1)",
+				"a064476_list = filter (\\x -\u003e a003959 x `mod` x == 0) [1..]",
+				"-- _Reinhard Zumkeller_, Feb 28 2013"
+			],
+			"xref": [
+				"Cf. A064478, A064514, A064515, A064518, A064522, A003959."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "Jonathan Ayres (jonathan.ayres(AT)btinternet.com), Oct 06 2001",
+			"ext": [
+				"More terms from _Vladeta Jovovic_, Oct 07 2001"
+			],
+			"references": 12,
+			"revision": 24,
+			"time": "2015-02-16T17:14:46-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64614,
+			"data": "1,3,2,9,5,6,7,27,4,15,11,18,13,21,10,81,17,12,19,45,14,33,23,54,25,39,8,63,29,30,31,243,22,51,35,36,37,57,26,135,41,42,43,99,20,69,47,162,49,75,34,117,53,24,55,189,38,87,59,90,61,93,28,729,65,66,67,153,46",
+			"name": "Exchange 2 and 3 in the prime factorization of n.",
+			"comment": [
+				"A self-inverse permutation of the natural numbers.",
+				"a(1) = 1, a(2) = 3, a(3) = 2, a(p) = p for primes p \u003e 3 and a(u * v) = a(u) * a(v) for u, v \u003e 0.",
+				"A permutation of the natural numbers: a(a(n)) = n for all n and a(n) = n iff n = 6^k * m for k \u003e= 0 and m \u003e 0 with gcd(m, 6) = 1 (see A064615).",
+				"A000244 and A000079 give record values and where they occur. - _Reinhard Zumkeller_, Feb 08 2010",
+				"Completely multiplicative with a(2) = 3, a(3) = 2, and a(p) = p for primes p \u003e 3. - _Charles R Greathouse IV_, Jun 28 2015"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A064614/b064614.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"A. B. Frizell, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9904-1915-02686-8\"\u003eCertain non-enumerable sets of infinite permutations\u003c/a\u003e. Bull. Amer. Math. Soc. 21 (1915), no. 10, 495-499.",
+				"\u003ca href=\"/index/Di#divseq\"\u003eIndex to divisibility sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A065330(n) * (2 ^ A007949(n)) * (3 ^ A007814(n)). - _Reinhard Zumkeller_, Jan 03 2011"
+			],
+			"example": [
+				"a(15) = a(3*5) = a(3)*a(5) = 2*5 = 10;",
+				"a(16) = a(2^4) = a(2)^4 = 3^4 = 81;",
+				"a(17) = 17;",
+				"a(18) = a(2*3^2) = a(2)*a(3^2) = 3*a(3)^2 = 3*2^2 = 12."
+			],
+			"mathematica": [
+				"a[n_] := Times @@ Power @@@ (FactorInteger[n] /. {2, e2_} -\u003e {0, e2} /. {3, e3_} -\u003e {2, e3} /. {0, e2_} -\u003e {3, e2}); Table[a[n], {n, 1, 69}] (* _Jean-François Alcover_, Nov 20 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a064614 1 = 1",
+				"a064614 n = product $ map f $ a027746_row n where",
+				"   f 2 = 3; f 3 = 2; f p = p",
+				"-- _Reinhard Zumkeller_, Apr 09 2012, Jan 03 2011",
+				"(Python)",
+				"from operator import mul",
+				"from functools import reduce",
+				"from sympy import factorint",
+				"def A064614(n):",
+				"....return reduce(mul,((5-p if 2\u003c=p\u003c=3 else p)**e for p,e in factorint(n).items())) if n \u003e 1 else n",
+				"# _Chai Wah Wu_, Dec 27 2014",
+				"(PARI) a(n)=my(x=valuation(n, 2)-valuation(n, 3)); n*2^-x*3^x \\\\ _Charles R Greathouse IV_, Jun 28 2015"
+			],
+			"xref": [
+				"Cf. A064615, A000244, A000079, A253046, A253047, A027746."
+			],
+			"keyword": "nonn,mult,nice,easy",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 25 2001",
+			"references": 12,
+			"revision": 34,
+			"time": "2015-06-28T12:55:31-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65220,
+			"data": "0,0,-1,-1,-1,0,2,6,13,25,45,78,132,220,363,595,971,1580,2566,4162,6745,10925,17689,28634,46344,75000,121367,196391,317783,514200,832010,1346238,2178277,3524545,5702853,9227430,14930316,24157780,39088131,63245947,102334115,165580100,267914254",
+			"name": "a(n) = Fibonacci(n) - n.",
+			"comment": [
+				"E(n) = Fib(n+4)-(n+4): cost of maximum height Huffman tree of size n for Fibonacci sequence (Fibonacci sequence is minimizing absolutely ordered sequence of Huffman tree). - Alex Vinokur (alexvn(AT)barak-online.net), Oct 26 2004"
+			],
+			"reference": [
+				"Vinokur A.B, Huffman trees and Fibonacci numbers, Kibernetika Issue 6 (1986) 9-12 (in Russian); English translation in Cybernetics 21, Issue 6 (1986), 692-696."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A065220/b065220.txt\"\u003eTable of n, a(n) for n = 0..300\u003c/a\u003e",
+				"Albert Frank, \u003ca href=\"http://www.paulcooijmans.com/oth/intcont2003.html\"\u003eInternational Contest Of Logical Sequences\u003c/a\u003e, 2002 - 2003. Item 7",
+				"Albert Frank, \u003ca href=\"http://www.paulcooijmans.com/oth/intcont2003ans.html\"\u003eSolutions of International Contest Of Logical Sequences\u003c/a\u003e, 2002 - 2003.",
+				"A. B. Vinokur, \u003ca href=\"https://doi.org/10.1007/BF01068684\"\u003eHuffman trees and Fibonacci numbers\u003c/a\u003e, Cybernetics 21, Issue 6 (1986), 692-696; also at \u003ca href=\"https://www.researchgate.net/publication/245015293_Huffman_trees_and_fibonacci_numbers\"\u003eResearch Gate\u003c/a\u003e.",
+				"Alex Vinokur, \u003ca href=\"https://arxiv.org/abs/cs/0410013\"\u003eFibonacci connection between Huffman codes and Wythoff array\u003c/a\u003e, arXiv:cs/0410013 [cs.DM], 2004-2005.",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-2,-1,1)."
+			],
+			"formula": [
+				"a(n) = A000045(n) - A001477(n) = A000126(n-3) - 2 = A001924(n-4) - 1.",
+				"a(n) = a(n-1) + a(n-2) + n - 3 = a(n-1) + A000071(n-2).",
+				"G.f.: x^2*(2x-1)/((1-x-x^2)*(1-x)^2)."
+			],
+			"maple": [
+				"a[0]:=0:a[1]:=1:for n from 2 to 50 do a[n]:=a[n-1]+a[n-2] od: seq(a[n]-n, n=0..42); # _Zerinvary Lajos_, Mar 20 2008"
+			],
+			"mathematica": [
+				"lst={};Do[f=Fibonacci[n]-n;AppendTo[lst,f],{n,0,5!}];lst (* _Vladimir Joseph Stephan Orlovsky_, Mar 21 2009 *)",
+				"Table[Fibonacci[n]-n,{n,0,50}] (* or *) LinearRecurrence[{3,-2,-1,1},{0,0,-1,-1},50] (* _Harvey P. Dale_, May 29 2017 *)"
+			],
+			"program": [
+				"(PARI) { for (n=0, 300, write(\"b065220.txt\", n, \" \", fibonacci(n) - n) ) } \\\\ _Harry J. Smith_, Oct 14 2009",
+				"(Haskell)",
+				"a065220 n = a065220_list !! n",
+				"a065220_list = zipWith (-) a000045_list [0..]",
+				"-- _Reinhard Zumkeller_, Nov 06 2012",
+				"(MAGMA) [Fibonacci(n) - n: n in [0..50]]; // _G. C. Greubel_, Jul 09 2019",
+				"(Sage) [fibonacci(n) - n for n in (0..50)] # _G. C. Greubel_, Jul 09 2019",
+				"(GAP) List([0..50], n-\u003e Fibonacci(n) - n) # _G. C. Greubel_, Jul 09 2019"
+			],
+			"xref": [
+				"Cf. A002062, A045925."
+			],
+			"keyword": "easy,sign",
+			"offset": "0,7",
+			"author": "_Henry Bottomley_, Oct 22 2001",
+			"references": 12,
+			"revision": 39,
+			"time": "2019-07-09T05:55:56-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65330,
+			"data": "1,1,1,1,5,1,7,1,1,5,11,1,13,7,5,1,17,1,19,5,7,11,23,1,25,13,1,7,29,5,31,1,11,17,35,1,37,19,13,5,41,7,43,11,5,23,47,1,49,25,17,13,53,1,55,7,19,29,59,5,61,31,7,1,65,11,67,17,23,35,71,1,73,37,25,19,77,13,79,5,1",
+			"name": "a(n) = max { k | gcd(n, k) = k and gcd(k, 6) = 1 }.",
+			"comment": [
+				"a(n) * A065331(n) = n.",
+				"Bennett, Filaseta, \u0026 Trifonov show that if n \u003e 8 then a(n^2 + n) \u003e n^0.285. - _Charles R Greathouse IV_, May 21 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A065330/b065330.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. A. Bennett, M. Filaseta, and O. Trifonov, \u003ca href=\"http://www.math.ubc.ca/~bennett/BFTpaper0207.pdf\"\u003eOn the factorization of consecutive integers\u003c/a\u003e, J. Reine Angew. Math. 629 (2009), pp. 171-200."
+			],
+			"formula": [
+				"Multiplicative with a(2^e)=1, a(3^e)=1, a(p^e)=p^e, p\u003e3. - _Vladeta Jovovic_, Nov 02 2001",
+				"A106799(n) = A001222(a(n)). - _Reinhard Zumkeller_, May 19 2005",
+				"a(1)=1; then a(2n)=a(n), a(2n+1)=a((2n+1)/3) if 2n+1 is divisible by 3, a(2n+1)=2n+1 otherwise. - _Benoit Cloitre_, Jun 04 2007",
+				"Dirichlet g.f. zeta(s-1)*(1-2^(1-s))*(1-3^(1-s))/ ( (1-2^(-s))*(1-3^(-s)) ). - _R. J. Mathar_, Jul 04 2011",
+				"a(n) = A038502(A000265(n)). - _Reinhard Zumkeller_, Jul 06 2011",
+				"a(n) = n/GCD(n,6^n). - _Stanislav Sykora_, Feb 08 2016"
+			],
+			"example": [
+				"a(30) = 5."
+			],
+			"maple": [
+				"A065330 := proc(n)",
+				"    local a,f,p,e ;",
+				"    a := 1 ;",
+				"    for f in ifactors(n)[2] do",
+				"        p := op(1,f) ;",
+				"        e := op(2,f) ;",
+				"        if p \u003e 3 then",
+				"            a := a*p^e ;",
+				"        end if;",
+				"    end do:",
+				"    a ;",
+				"end proc: # _R. J. Mathar_, Jul 12 2012",
+				"with(padic): a := n -\u003e n/(2^ordp(n, 2)*3^ordp(n, 3));",
+				"seq(a(n), n=1..81); # _Peter Luschny_, Mar 25 2014"
+			],
+			"mathematica": [
+				"f[n_] := Times @@ (First@#^Last@# \u0026 /@ Select[FactorInteger@n, First@# != 2 \u0026\u0026 First@# != 3 \u0026]); Array[f, 81] (* _Robert G. Wilson v_, Aug 18 2006 *)",
+				"f[n_]:=Denominator[6^n/n];Array[f,100] (* _Vladimir Joseph Stephan Orlovsky_, Feb 16 2011 *)",
+				"Table[n / GCD[n, 6^n], {n, 100}] (* _Vincenzo Librandi_, Feb 09 2016 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c2,1,if(n%2,if(n%3,n,a(n/3)),a(n/2))) \\\\ _Benoit Cloitre_, Jun 04 2007",
+				"(PARI) a(n)=n\\gcd(n,6^n) \\\\ Not very efficient, but simple. _Stanislav Sykora_, Feb 08 2016",
+				"(PARI) a(n)=n\u003e\u003evaluation(n,2)/3^valuation(n,3) \\\\ _Charles R Greathouse IV_, Mar 31 2016",
+				"(Haskell)",
+				"a065330 = a038502 . a000265  -- _Reinhard Zumkeller_, Jul 06 2011",
+				"(MAGMA) [n div Gcd(n, 6^n): n in [1..100]]; // _Vincenzo Librandi_, Feb 09 2016"
+			],
+			"xref": [
+				"Cf. A065331, A000265, A038502, A165725."
+			],
+			"keyword": "mult,nonn",
+			"offset": "1,5",
+			"author": "_Reinhard Zumkeller_, Oct 29 2001",
+			"references": 12,
+			"revision": 51,
+			"time": "2017-07-17T02:23:10-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65381,
+			"data": "2,127,149,251,331,337,373,509,599,701,757,809,877,907,977,997,1019,1087,1259,1549,1597,1619,1657,1759,1777,1783,1867,1973,2203,2213,2293,2377,2503,2579,2683,2789,2843,2879,2909,2999,3119,3163,3181,3187,3299",
+			"name": "Primes not of the form p + 2^k, p prime and k \u003e= 0.",
+			"comment": [
+				"Sequence is infinite. For example, Pollack shows that numbers which are 1260327937 mod 2863311360 are not of the form p + 2^k for any prime p and k \u003e= 0, and there are infinitely many primes in this congruence class by Dirichlet's theorem. - _Charles R Greathouse IV_, Jul 20 2014"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A065381/b065381.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"P. Pollack, \u003ca href=\"http://www.math.dartmouth.edu/~ppollack/work.html\"\u003eNot Always Buried Deep: Selections from Analytic and Combinatorial Number Theory\u003c/a\u003e, p. 193, ex. 5.1.6, p. 216ff. [?Broken link]",
+				"P. Pollack, \u003ca href=\"http://alpha01.dm.unito.it/personalpages/cerruti/ac/notes.pdf\"\u003eNot Always Buried Deep: Selections from Analytic and Combinatorial Number Theory\u003c/a\u003e, p. 193, ex. 5.1.6, p. 216ff.",
+				"Lei Zhou, \u003ca href=\"http://www.bme.emory.edu/~lzhou/prime/\"\u003eBetween 2^n and primes\u003c/a\u003e."
+			],
+			"formula": [
+				"A078687(A049084(a(n))) = 0; subsequence of A118958. - _Reinhard Zumkeller_, May 07 2006"
+			],
+			"example": [
+				"127 is a prime, 127-2^0 through 127-2^6 are all nonprimes."
+			],
+			"mathematica": [
+				"fQ[n_] := Block[{k = Floor[Log[2, n]], p = n}, While[k \u003e -1 \u0026\u0026 ! PrimeQ[p - 2^k], k--]; If[k \u003e 0, True, False]]; Drop[Select[Prime[Range[536]], ! fQ[#] \u0026], {2}] (* _Robert G. Wilson v_, Feb 10 2005; corrected by _Arkadiusz Wesolowski_, May 05 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a065381 n = a065381_list !! (n-1)",
+				"a065381_list = filter f a000040_list where",
+				"   f p = all ((== 0) . a010051 . (p -)) $ takeWhile (\u003c= p) a000079_list",
+				"-- _Reinhard Zumkeller_, Nov 24 2011",
+				"(PARI) is(p)=my(k=1);while(k\u003cp\u0026\u0026!isprime(p-k),k*=2);if(k\u003ep,return(isprime(p)));0 \\\\ _Charles R Greathouse IV_, Jul 20 2014"
+			],
+			"xref": [
+				"Equals A000040 minus A065380.",
+				"Cf. A010051, A006285, A102630, A094076, A156695.",
+				"Cf. A098237."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Nov 03 2001",
+			"ext": [
+				"Link and cross-reference fixed by _Charles R Greathouse IV_, Nov 09 2008"
+			],
+			"references": 12,
+			"revision": 32,
+			"time": "2015-05-27T17:42:37-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 66400,
+			"data": "1,3,3,1,3,3,3,4,1,4,3,3,3,5,4,1,3,3,3,3,3,3,3,3,1,4,5,4,3,3,3,3,5,4,4,1,3,3,3,3,3,3,3,3,3,3,3,3,1,3,5,6,3,4,5,3,3,4,3,5,3,4,5,1,6,5,3,3,3,5,3,5,3,3,6,3,4,5,3,3,1,3,3,4,5,3,3,3,3,6,6,5,3,3,5,3,3,6,7,1,3,6,3,5,4",
+			"name": "Smallest values of t arising in R. L. Graham's sequence (A006255).",
+			"comment": [
+				"Length of n-th row in table A245499. - _Reinhard Zumkeller_, Jul 25 2014",
+				"Indices of records are 1, 2, 8, 14, 52, 99, 589, 594, 595... (A277649) - _Peter Kagey_, Oct 24 2016",
+				"It is conjectured that 2 never appears in this sequence. a(n) = 2 if and only if A006255(n) = A072905(n). - _Peter Kagey_, Oct 25 2016",
+				"a(n) is three most of the time, then 5, then 6, then 4 for the first 1000 and the first 10000 terms. At n = 72, 78 and 85, a(n) is 4 or 5 and 4 and 5 occured equally often so far. At 299, 301, 312, 322 and 403, a(n) is 4 or 6 and 4 and 6 occured equally often so far. This doesn't happen for the first 10000 terms for 5 and 6. - _David A. Corneth_, Oct 25 2016"
+			],
+			"reference": [
+				"R. L. Graham, D. E. Knuth and O. Patashnik, Concrete Mathematics. Addison-Wesley, Reading, MA, 1990, p. 147."
+			],
+			"link": [
+				"David A. Corneth, \u003ca href=\"/A066400/b066400.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from Reinhard Zumkeller and Peter Kagey)",
+				"R. L. Graham, \u003ca href=\"http://www.jstor.org/stable/2689569\"\u003eBijection between integers and composites\u003c/a\u003e, Problem 1242, Math. Mag., 60 (1987), p. 180."
+			],
+			"example": [
+				"a(2) = 3 because the best such sequence is 2,3,6 which has three terms."
+			],
+			"program": [
+				"(Haskell)",
+				"a066400 = length . a245499_row  -- _Reinhard Zumkeller_, Jul 25 2014"
+			],
+			"xref": [
+				"Cf. A006255, A066401.",
+				"Cf. A245499, A277649."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Dec 25 2001",
+			"ext": [
+				"More terms from _John W. Layman_, Jul 14 2003",
+				"More terms from _Joshua Zucker_, May 18 2006"
+			],
+			"references": 12,
+			"revision": 43,
+			"time": "2018-04-09T12:23:27-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 66680,
+			"data": "2,3,5,7,8,11,12,13,17,18,19,23,27,29,30,31,37,41,43,45,47,50,53,59,61,63,67,70,71,73,75,79,80,83,89,97,98,101,103,105,107,109,112,113,125,127,128,131,137,139,147,149,151,154,157,163",
+			"name": "Badly sieved numbers: as in the Sieve of Eratosthenes multiples of unmarked numbers p are marked, but only up to p^2.",
+			"comment": [
+				"A099104(a(n)) = 1.",
+				"a(A207432(n)) = A000040(n). [_Reinhard Zumkeller_, Feb 17 2012]",
+				"Obviously all primes and cubes of primes are in the sequence, while squares of primes are not. In fact, A000225 tells us which exponents prime powers in the sequence will exhibit.",
+				"But where it gets really interesting is in what happens to the Achilles numbers: the smallest badly sieved numbers that are also Achilles numbers are 864 and 972. - Alonso del Arte, Feb 21 2012",
+				"From _Peter Munn_, Aug 09 2019: (Start)",
+				"The factorization pattern of a number's divisors (as defined in A191743) determines whether a number is a term.",
+				"There are no semiprimes in the sequence, and a 3-almost prime is present if and only if its largest prime factor is less than its square root. The first term that is a 4-almost prime is 220.",
+				"The effect of this sieve can be compared against the A270877 trapezoidal sieve. Each unmarked number k marks k-1 numbers in both sieves; but the largest number marked by k in this sieve is k^2, about twice the largest number marked by k in A270877 (the triangular number T_k = k(k+1)/2). The relative densities early in the two sequences are illustrated by a(10) = 18 \u003c A270877(10) = 19, a(100) = 312 \u003e A270877(100) = 268, a(1000) = 4297 \u003e A270877(1000) = 2894.",
+				"(End)"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A066680/b066680.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Sieve.html\"\u003eSieve\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Sieve_theory\"\u003eSieve theory\u003c/a\u003e",
+				"\u003ca href=\"/index/Si#sieve\"\u003eIndex entries for sequences generated by sieves\u003c/a\u003e"
+			],
+			"example": [
+				"For 2, the first unmarked number, there is only one multiple \u003c= 4=2^2:",
+				"giving 2 3 [4] 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ...",
+				"for 3, the next unmarked number, we mark 6=2*3 and 9=3*3",
+				"giving 2 3 [4] 5 [6] 7 8 [9] 10 11 12 13 14 15 16 17 18 19 20 ...",
+				"for 5, the next unmarked number, we mark 10=2*5, 15=3*5, 20=4*5 and 25=5*5",
+				"giving 2 3 [4] 5 [6] 7 8 [9] [10] 11 12 13 14 [15] 16 17 18 19 [20] ... and so on."
+			],
+			"mathematica": [
+				"A099104[1] = 0; A099104[n_] := A099104[n] = Product[If[n \u003e d^2, 1, 1 - A099104[d]], {d, Select[ Range[n-1], Mod[n, #] == 0 \u0026]}]; Select[ Range[200], A099104[#] == 1 \u0026] (* _Jean-François Alcover_, Feb 15 2012 *)",
+				"max = 200; badPrimes = Range[2, max]; len = max; iter = 1; While[iter \u003c= len, curr = badPrimes[[iter]]; badPrimes = Complement[badPrimes, Range[2, curr]curr]; len = Length[badPrimes]; iter++]; badPrimes (* _Alonso del Arte_, Feb 21 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a066680 n = a066680_list !! (n-1)",
+				"a066680_list = s [2..] where",
+				"   s (b:bs) = b : s [x | x \u003c- bs, x \u003e b ^ 2 || mod x b \u003e 0]",
+				"-- _Reinhard Zumkeller_, Feb 17 2012"
+			],
+			"xref": [
+				"A066681, A066682, A066683, A099042, A099043, A207432 have analysis of this sequence.",
+				"Cf. A056875, A075362, A099104 (characteristic function), A191743.",
+				"Sequences generated by a closely related sieving process: A000040 (also a subsequence), A026424, A270877."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 31, 2001",
+			"references": 12,
+			"revision": 32,
+			"time": "2019-08-13T23:01:57-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 66853,
+			"data": "1,2,3,4,5,6,7,6,9,10,7,11,9,14,15,11,13,11,12,20,9,14,19,13,25,18,27,21,10,30,19,21,19,13,35,15,29,13,25,30,19,18,33,20,45,21,15,15,37,50,35,30,37,29,12,25,33,20,37,55,25,21,23,42,45,38,51,20,29,70,44,15,57",
+			"name": "Number of different remainders (or residues) for the Fibonacci numbers (A000045) when divided by n (i.e., the size of the set of F(i) mod n over all i).",
+			"comment": [
+				"The Fibonacci numbers mod n for any n are periodic - see A001175 for period lengths. - _Ron Knott_, Jan 05 2005",
+				"a(n) = number of nonzeros in n-th row of triangle A128924. - _Reinhard Zumkeller_, Jan 16 2014"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A066853/b066853.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Casey Mongoven, \u003ca href=\"http://ami.ektf.hu/uploads/papers/finalpdf/AMI_41_from175to192.pdf\"\u003eSonification of multiple Fibonacci-related sequences\u003c/a\u003e, Annales Mathematicae et Informaticae, 41 (2013) pp. 175-192."
+			],
+			"example": [
+				"a(8)=6 since the Fibonacci numbers, 0,1,1,2,3,5,8,13,21,34,55,89,144,... when divided by 8 have remainders 0,1,1,2,3,5,0,5,5,2,7,1 (repeatedly) which only contains the remainders 0,1,2,3,5 and 7, i.e., 6 remainders, so a(8)=6.",
+				"a(11)=7 since Fibonacci numbers reduced modulo 11 are {0, 1, 2, 3, 5, 8, 10}."
+			],
+			"mathematica": [
+				"a[n_] := Module[{v = {1, 2}}, If[n\u003c8, n, While[v[[-1]] != 1 || v[[-2]] != 0, AppendTo[v, Mod[v[[-1]] + v[[-2]], n]]]; v // Union // Length]]; Array[a, 100] (* _Jean-François Alcover_, Feb 15 2018, after _Charles R Greathouse IV_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a066853 1 = 1",
+				"a066853 n = f 1 ps [] where",
+				"   f 0 (1 : xs) ys = length ys",
+				"   f _ (x : xs) ys = if x `elem` ys then f x xs ys else f x xs (x:ys)",
+				"   ps = 1 : 1 : zipWith (\\u v -\u003e (u + v) `mod` n) (tail ps) ps",
+				"-- _Reinhard Zumkeller_, Jan 16 2014",
+				"(PARI) a(n)=if(n\u003c8, return(n)); my(v=List([1,2])); while(v[#v]!=1 || v[#v-1]!=0, listput(v, (v[#v]+v[#v-1])%n)); #Set(v) \\\\ _Charles R Greathouse IV_, Jun 19 2017"
+			],
+			"xref": [
+				"Cf. A001175, A079002."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "Reiner Martin (reinermartin(AT)hotmail.com), Jan 21 2002",
+			"references": 12,
+			"revision": 25,
+			"time": "2018-02-15T09:29:45-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

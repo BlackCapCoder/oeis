@@ -1,0 +1,394 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5020,
+	"results": [
+		{
+			"number": 220812,
+			"data": "10,100,10000,100000000,10000000000000000,100000000000000000000000000000000,10000000000000000000000000000000000000000000000000000000000000000",
+			"name": "Denominators of the Verhulst sequence x(n+1)=4*x(n)-3*x(n)^2, x(0)=1/10; see A220811 for numerators.",
+			"reference": [
+				"Peitgen, H.-O. and Richter, P. H., The Beauty of Fractals. Springer, 1986, p. 23f."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A220812/b220812.txt\"\u003eTable of n, a(n) for n = 0..9\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics,\u003ca href=\"http://mathworld.wolfram.com/LogisticEquation.html\"\u003eLogistic Equation\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Logistic_map\"\u003eLogistic map\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 10^(2^n)) = A011557(A000079(n)). - _Reinhard Zumkeller_, Dec 22 2012"
+			],
+			"program": [
+				"(Haskell)",
+				"a220812 = a011557 . a000079  -- _Reinhard Zumkeller_, Dec 22 2012"
+			],
+			"xref": [
+				"Cf. A051840."
+			],
+			"keyword": "nonn,frac",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Dec 22 2012",
+			"references": 5,
+			"revision": 6,
+			"time": "2013-07-13T12:04:35-04:00",
+			"created": "2012-12-22T17:46:44-05:00"
+		},
+		{
+			"number": 220894,
+			"data": "0,1,3,14,82,579,4741,43977,454283,5159441,63782411,851368766,12188927818,186132043831,3017325884473,51712139570022,933654684562038,17702959714232057,351535449888420187,7292626296788508624,157698798590301690864,3547597554377118966359",
+			"name": "Number of closed lambda-terms of size n with size 0 for the variables.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A220894/b220894.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e",
+				"Maciej Bendkowski, K Grygiel, P Tarau, \u003ca href=\"http://arxiv.org/abs/1612.07682\"\u003eRandom generation of closed simply-typed lambda-terms: a synergy between logic programming and Boltzmann samplers\u003c/a\u003e, arXiv preprint arXiv:1612.07682, 2016",
+				"Katarzyna Grygiel and Pierre Lescanne, \u003ca href=\"http://arxiv.org/abs/1210.2610\"\u003eCounting and generating lambda-terms\u003c/a\u003e, arXiv preprint arXiv:1210.2610 [cs.LO], 2012.",
+				"Katarzyna Grygiel, Pierre Lescanne, \u003ca href=\"https://hal-ens-lyon.archives-ouvertes.fr/ensl-01229794\"\u003eCounting and Generating Terms in the Binary Lambda Calculus (Extended version)\u003c/a\u003e, HAL Id: ensl-01229794, 2015.",
+				"Paul Tarau, \u003ca href=\"http://www.cse.unt.edu/~tarau/research/2015/dbt.pdf\"\u003eOn Type-directed Generation of Lambda Terms\u003c/a\u003e, preprint, 2015.",
+				"Paul Tarau, \u003ca href=\"http://www.cse.unt.edu/~tarau/research/2015/dbx.pdf\"\u003eOn logic programming representations of lambda terms: de Bruijn indices, compression, type inference, combinatorial generation, normalization\u003c/a\u003e, 2015.",
+				"P. Tarau, \u003ca href=\"http://arxiv.org/abs/1507.06944\"\u003eA Logic Programming Playground for Lambda Terms, Combinators, Types and Tree-based Arithmetic Computations\u003c/a\u003e, arXiv preprint arXiv:1507.06944 [cs.LO], 2015.",
+				"Paul Tarau, \u003ca href=\"https://arxiv.org/abs/1608.03912\"\u003eA Hiking Trip Through the Orders of Magnitude: Deriving Efficient Generators for Closed Simply-Typed Lambda Terms and Normal Forms\u003c/a\u003e, arXiv preprint arXiv:1608.03912 [cs.PL], 2016."
+			],
+			"formula": [
+				"T(n,0) where",
+				"    T(0,m) = m;",
+				"    T(n+1,m) = T(n,m+1) + sum_{i=0 to n} T(i,m) * T(n-i,m).",
+				"f(n,0) where f(0,1) = 1; f(0,k) = 0 if k!=1; f(n,k) = 0 if k\u003e2n-1; f(n,k) = f(n-1,k) + f(n-1,k+1) + sum_{p=1 to n-2} sum_{c=0 to k} sum_{l=0 to k - c} [C^c_k C^l_(k-c) f(p,l+c) f(n-p-1,k-l)], where C^p_n are binomial coefficients (the last term is for the application where \"c\" is the number of common variables in both subterms). f(n,k) can be computed only using f(n',k') with n' \u003c n and k' \u003c= k + n - n'. f(n,k) is the number of lambda terms of size n (with size 0 for the variables) having exactly k free variables.",
+				"c(n,0) where",
+				"  c(0,1) = 1; c(0,i) if i!=1;",
+				"  c(n+1,i) sum{j=i to n+1} binomial(j,i) * c(n,j) + sum{j=0 to i} sum{k=0..n} c(k,j)* c(n-k,i-j).",
+				"G.f.: L(z,0) where L(z,u) = u + z*L(z,u+1) + z*L(z,u)^2. - _Pierre Lescanne_, Mar 14 2013"
+			],
+			"maple": [
+				"a:= n-\u003e T(n, 0):",
+				"T:= proc(n, m) option remember; `if`(n=0, m,",
+				"      T(n-1, m+1) +add(T(i, m)*T(n-1-i, m), i=0..n-1))",
+				"    end:",
+				"seq(a(n), n=0..30);  # _Alois P. Heinz_, Mar 20 2013"
+			],
+			"mathematica": [
+				"Clear[t]; t[0, m_] := m; t[n_, m_] := t[n, m] = t[n-1, m+1] + Sum[t[i, m]*t[n-1-i, m], {i, 0, n-1}]; a[n_] := t[n, 0]; Table[a[n], {n, 0, 21}] (* _Jean-François Alcover_, Apr 04 2013 *)"
+			],
+			"program": [
+				"(Sage)",
+				"@CachedFunction",
+				"def T(n,m):",
+				"    if n==0: return m",
+				"    return T(n-1,m+1) + sum( T(i,m) * T(n-1-i,m) for i in xrange(0,n) )",
+				"def a(n):  return T(n,0)",
+				"[a(n) for n in xrange(0,66)]",
+				"# _Joerg Arndt_, Jan 01 2013",
+				"(Haskell)",
+				"t :: Int -\u003e Int -\u003e Integer",
+				"t 0 m = (fromIntegral m)",
+				"t n m = t (n-1) (m+1) + foldl (+) 0 (let tt = [t i m | i\u003c- [0..(n-1)]] in",
+				"                                      (map (uncurry (*)) (zip tt (reverse tt))))",
+				"# _Pierre Lescanne_, Mar 18 2013",
+				"# The following program is more efficient:",
+				"(Haskell)",
+				"with memoization",
+				"ttab :: [[Integer]]",
+				"ttab = [0..] : [[ttab !! (n-1) !! (m+1) + s n m | m \u003c- [0..]] | n \u003c- [1..]]",
+				"  where s n m  = let ti = [ttab !! i !! m | i \u003c- [0..(n-1)]] in foldl (+) 0 (map (uncurry (*)) (zip ti (reverse ti)))",
+				"t :: Int -\u003e Int -\u003e Integer",
+				"t n m = ttab !! n !! m",
+				"# _Pierre Lescanne_, Mar 20 2013"
+			],
+			"xref": [
+				"Cf. A135501, A114852.",
+				"Cf. A220895 (one free variable), A220896 (two free variables), A220897 (three free variables)."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Dec 31 2012",
+			"ext": [
+				"More terms from _Joerg Arndt_, Jan 01 2013"
+			],
+			"references": 5,
+			"revision": 81,
+			"time": "2018-01-20T11:40:29-05:00",
+			"created": "2012-12-31T23:35:48-05:00"
+		},
+		{
+			"number": 221056,
+			"data": "1,3,5,7,8,10,12,13,14,16,17,19,20,21,23,24,26,27,28,29,31,32,33,35,36,37,38,40,41,42,43,45,46,47,49,50,51,52,53,55,56,57,58,59,60,62,63,64,65,67,68,69,70,71,73,74,75,76,77,79,80,81,82,83,84,86",
+			"name": "Numbers k such that there is no square between prime(k) and prime(k+1).",
+			"comment": [
+				"A061265(a(n)) = 0;",
+				"a(n) = A049084(A224363(n)); A000040(a(n)) = A224363(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221056/b221056.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LegendresConjecture.html\"\u003eLegendre's Conjecture\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Legendre%27s_conjecture\"\u003eLegendre's conjecture\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[86], Ceiling[Sqrt[Prime[#]]]^2 \u003e Prime[# + 1] \u0026] (* _Zak Seidov_, Apr 16 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a221056 n = a221056_list !! (n-1)",
+				"a221056_list = map (+ 1) $ elemIndices 0 a061265_list",
+				"(PARI) {for (n = 1, 86, ceil (sqrt (prime (n)))^2 \u003e prime (n + 1) \u0026\u0026 print1 (n \",\"))} \\\\ _Zak Seidov_, Apr 16 2013"
+			],
+			"xref": [
+				"Cf. A038107, A014085."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 15 2013",
+			"references": 5,
+			"revision": 12,
+			"time": "2013-04-16T08:31:12-04:00",
+			"created": "2013-04-15T10:08:02-04:00"
+		},
+		{
+			"number": 221172,
+			"data": "-2,3,4,11,26,63,152,367,886,2139,5164,12467,30098,72663,175424,423511,1022446,2468403,5959252,14386907,34733066,83853039,202439144,488731327,1179901798,2848534923,6876971644,16602478211,40081928066,96766334343,233614596752",
+			"name": "a(0)=-2, a(1)=3; thereafter a(n) = 2*a(n-1) + a(n-2).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221172/b221172.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"José L. Ramírez, Gustavo N. Rubiano, and Rodrigo de Castro, \u003ca href=\"http://arxiv.org/abs/1212.1368\"\u003eA Generalization of the Fibonacci Word Fractal and the Fibonacci Snowflake\u003c/a\u003e, arXiv preprint arXiv:1212.1368, 2012",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,1)."
+			],
+			"formula": [
+				"a(n)=(1/4)*(5*sqrt(2)*((1+sqrt(2))^n-(1-sqrt(2))^n)-4*((1+sqrt(2))^n+(1-sqrt(2))^n)). [_Paolo P. Lava_, Jan 04 2013]",
+				"G.f. ( 2-7*x ) / ( -1+2*x+x^2 ). - _R. J. Mathar_, Jan 04 2013",
+				"a(n) = 7*Pell(n) - 2*Pell(n+1), where Pell = A000129. - _Vladimir Reshetnikov_, Sep 27 2016"
+			],
+			"mathematica": [
+				"LinearRecurrence[{2,1},{-2,3},40] (* _Harvey P. Dale_, May 30 2013 *)",
+				"Table[7 Fibonacci[n, 2] - 2 Fibonacci[n + 1, 2], {n, 0, 30}] (* _Vladimir Reshetnikov_, Sep 27 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a221172 n = a221172_list !! n",
+				"a221172_list = -2 : 3 : zipWith (+)",
+				"                        (map (* 2) $ tail a221172_list) a221172_list",
+				"-- _Reinhard Zumkeller_, Jan 04 2013"
+			],
+			"xref": [
+				"Cf. A000129, A078343, A221173, A221174, A221175."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Jan 04 2013",
+			"references": 5,
+			"revision": 21,
+			"time": "2016-09-27T18:30:54-04:00",
+			"created": "2013-01-04T00:45:16-05:00"
+		},
+		{
+			"number": 221173,
+			"data": "-3,4,5,14,33,80,193,466,1125,2716,6557,15830,38217,92264,222745,537754,1298253,3134260,7566773,18267806,44102385,106472576,257047537,620567650,1498182837,3616933324,8732049485,21081032294,50894114073,122869260440,296632634953",
+			"name": "a(0)=-3, a(1)=4; thereafter a(n) = 2*a(n-1) + a(n-2).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221173/b221173.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"José L. Ramírez, Gustavo N. Rubiano, and Rodrigo de Castro, \u003ca href=\"http://arxiv.org/abs/1212.1368\"\u003eA Generalization of the Fibonacci Word Fractal and the Fibonacci Snowflake\u003c/a\u003e, arXiv preprint arXiv:1212.1368, 2012",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,1)."
+			],
+			"formula": [
+				"a(n) = (1/4)*(7*sqrt(2)*((1+sqrt(2))^n-(1-sqrt(2))^n)-6*((1+sqrt(2))^n+(1-sqrt(2))^n)). - _Paolo P. Lava_, Jan 04 2013",
+				"a(n) = 10*A000129(n)-3*A000129(n+1). - _R. J. Mathar_, Jan 14 2013",
+				"G.f.: -(10*x-3) / (x^2+2*x-1). - _Colin Barker_, Jul 10 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a221173 n = a221173_list !! n",
+				"a221173_list = -3 : 4 : zipWith (+)",
+				"                        (map (* 2) $ tail a221173_list) a221173_list",
+				"-- _Reinhard Zumkeller_, Jan 04 2013",
+				"(PARI) Vec(-(10*x-3)/(x^2+2*x-1) + O(x^100)) \\\\ _Colin Barker_, Jul 10 2015"
+			],
+			"xref": [
+				"Cf. A000129, A078343, A221172, A221174, A221175."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Jan 04 2013",
+			"references": 5,
+			"revision": 26,
+			"time": "2015-07-10T12:43:37-04:00",
+			"created": "2013-01-04T00:47:50-05:00"
+		},
+		{
+			"number": 221174,
+			"data": "-4,5,6,17,40,97,234,565,1364,3293,7950,19193,46336,111865,270066,651997,1574060,3800117,9174294,22148705,53471704,129092113,311655930,752403973,1816463876,4385331725,10587127326,25559586377,61706300080,148972186537,359650673154",
+			"name": "a(0)=-4, a(1)=5; thereafter a(n) = 2*a(n-1) + a(n-2).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221174/b221174.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"José L. Ramírez, Gustavo N. Rubiano, and Rodrigo de Castro, \u003ca href=\"http://arxiv.org/abs/1212.1368\"\u003eA Generalization of the Fibonacci Word Fractal and the Fibonacci Snowflake\u003c/a\u003e, arXiv preprint arXiv:1212.1368, 2012",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,1)."
+			],
+			"formula": [
+				"a(n)=(1/4)*(9*sqrt(2)*((1+sqrt(2))^n-(1-sqrt(2))^n)-8*((1+sqrt(2))^n+(1-sqrt(2))^n)). - _Paolo P. Lava_, Jan 04 2013",
+				"a(n) = 13*A000129(n)-4*A000129(n+1). - _R. J. Mathar_, Jan 14 2013",
+				"G.f.: -(13*x-4) / (x^2+2*x-1). - _Colin Barker_, Jul 10 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a221174 n = a221174_list !! n",
+				"a221174_list = -4 : 5 : zipWith (+)",
+				"                        (map (* 2) $ tail a221174_list) a221174_list",
+				"-- _Reinhard Zumkeller_, Jan 04 2013",
+				"(PARI) Vec(-(13*x-4)/(x^2+2*x-1) + O(x^50)) \\\\ _Colin Barker_, Jul 10 2015"
+			],
+			"xref": [
+				"Cf. A000129, A078343, A221172, A221173, A221175."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Jan 04 2013",
+			"references": 5,
+			"revision": 23,
+			"time": "2015-07-10T12:43:17-04:00",
+			"created": "2013-01-04T00:48:09-05:00"
+		},
+		{
+			"number": 221175,
+			"data": "-5,6,7,20,47,114,275,664,1603,3870,9343,22556,54455,131466,317387,766240,1849867,4465974,10781815,26029604,62841023,151711650,366264323,884240296,2134744915,5153730126,12442205167,30038140460,72518486087,175075112634",
+			"name": "a(0)=-5, a(1)=6; thereafter a(n) = 2*a(n-1) + a(n-2).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221175/b221175.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"José L. Ramírez, Gustavo N. Rubiano, and Rodrigo de Castro, \u003ca href=\"http://arxiv.org/abs/1212.1368\"\u003eA Generalization of the Fibonacci Word Fractal and the Fibonacci Snowflake\u003c/a\u003e, arXiv preprint arXiv:1212.1368, 2012",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,1)."
+			],
+			"formula": [
+				"a(n)=(1/4)*(11*sqrt(2)*((1+sqrt(2))^n-(1-sqrt(2))^n)-10*((1+sqrt(2))^n+(1-sqrt(2))^n)). - _Paolo P. Lava_, Jan 04 2013",
+				"a(n) = 16*A000129(n)-5*A000129(n+1). - _R. J. Mathar_, Jan 14 2013",
+				"G.f.: -(16*x-5) / (x^2+2*x-1). - _Colin Barker_, Jul 10 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a221175 n = a221175_list !! n",
+				"a221175_list = -5 : 6 : zipWith (+)",
+				"                        (map (* 2) $ tail a221175_list) a221175_list",
+				"-- _Reinhard Zumkeller_, Jan 04 2013",
+				"(PARI) Vec(-(16*x-5)/(x^2+2*x-1) + O(x^50)) \\\\ _Colin Barker_, Jul 10 2015"
+			],
+			"xref": [
+				"Cf. A000129, A078343, A221172, A221173, A221174."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Jan 04 2013",
+			"references": 5,
+			"revision": 23,
+			"time": "2015-07-10T12:43:24-04:00",
+			"created": "2013-01-04T00:48:29-05:00"
+		},
+		{
+			"number": 221221,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,11,22,24,33,42,44,55,66,77,88,99,101,111,112,113,114,115,116,117,118,119,121,131,141,151,161,171,181,191,202,211,212,213,214,215,216,217,218,219,222,232,242,252,262,272,282,292",
+			"name": "Where powerbacks and powertrains coincide.",
+			"comment": [
+				"Numbers m such that A133048(m) = A133500(m);",
+				"A133500(a(n)) = A133048(a(n)) = A222493(n);",
+				"if m is a term then also its reversal in decimal representation, palindromes are a subsequence, cf. A004086, A002113."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221221/b221221.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"Some non-palindromic terms:",
+				"a(11) = 10: A133500(10) = 1^0 = 1 = A133048(10) = A133048(1) = 1;",
+				"a(14) = 24: A133500(24) = 2^4 = 16 = A133048(24) = 4^2;",
+				"a(16) = 42: A133500(42) = 4^2 = 16 = A133048(42) = 2^4;",
+				"a(25) = 112: A133500(112) = 1^1 * 2 = 2 = A133048(112) = 2^1 * 1;",
+				"a(26) = 113: A133500(113) = 1^1 * 3 = 3 = A133048(113) = 3^1 * 1;",
+				"a(44) = 213: A133500(213) = 2^1 * 3 = 6 = A133048(213) = 3^1 * 2."
+			],
+			"program": [
+				"(Haskell)",
+				"a221221 n = a221221_list !! (n-1)",
+				"a221221_list = filter (\\x -\u003e a133500 x == a133048 x) [0..]"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, May 27 2013",
+			"references": 5,
+			"revision": 12,
+			"time": "2013-05-27T10:35:36-04:00",
+			"created": "2013-05-27T10:35:36-04:00"
+		},
+		{
+			"number": 221265,
+			"data": "5,10,13,17,20,25,26,29,34,37,40,41,50,52,53,58,61,65,68,73,74,80,82,85,89,97,100,101,104,106,109,113,116,122,125,130,136,137,145,146,148,149,157,160,164,169,170,173,178,181,185,193,194,195,197,200,202",
+			"name": "Numbers having more distinct prime factors of form 4*k+1 than of 4*k+3.",
+			"comment": [
+				"A005089(a(n)) \u003e A005091(a(n)); a005094(a(n)) \u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221265/b221265.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"mdpf1Q[n_]:=Module[{f=Transpose[FactorInteger[n]][[1]]},Count[f,_?(Mod[ #,4] == 1\u0026)]\u003eCount[f,_?(Mod[#,4]==3\u0026)]]; Select[Range[2,250],mdpf1Q] (* _Harvey P. Dale_, Mar 03 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a221265 n = a221265_list !! (n-1)",
+				"a221265_list = filter ((\u003e 0) . a005094) [1..]"
+			],
+			"xref": [
+				"Cf. A078613, A221264."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jan 07 2013",
+			"references": 5,
+			"revision": 8,
+			"time": "2016-03-03T16:30:30-05:00",
+			"created": "2013-01-07T17:00:30-05:00"
+		},
+		{
+			"number": 222209,
+			"data": "1,3,2,5,7,4,11,9,13,17,19,6,23,29,14,15,31,8,37,21,22,41,43,10,47,53,26,25,59,28,61,27,38,67,49,12,71,73,46,35,79,33,83,57,89,97,101,18,103,51,62,69,107,16,109,55,74,113,127,34,131,137,121,45,139",
+			"name": "Inverse of permutation in A222208.",
+			"comment": [
+				"Permutation of the natural numbers A000027 with inverse permutation A222208."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A222209/b222209.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"maple": [
+				"b:= proc(n) false end:",
+				"g:= proc(n) option remember; local h, i;",
+				"      if n\u003c3 then h:= 2*n-1 else g(n-1); h:= ilcm(map(g,",
+				"         numtheory[divisors](n) minus {1, n})[]) fi;",
+				"      for i while b(i*h) do od;",
+				"      b(i*h):= true; i*h",
+				"    end:",
+				"a:= proc() local t, a; t, a:= -1, proc() -1 end;",
+				"      proc(n) local h;",
+				"        while a(n) = -1 do",
+				"          t:= t+1; h:= g(t);",
+				"          if a(h) = -1 then a(h):= t fi",
+				"        od; a(n)",
+				"      end",
+				"    end():",
+				"seq(a(n), n=1..100);"
+			],
+			"mathematica": [
+				"terms = 100; b[1] = 1; b[2] = 3; b[n_] := b[n] = Module[{d, s, c, k}, d = Divisors[n] ~Complement~ {1, n}; For[s = Sort[Array[b, n - 1]]; c = Complement[ Range[ Last[s]], s]; k = If[c == {}, Last[s] + 1, First[c]], True, k++, If[FreeQ[s, k], If[AllTrue[d, Divisible[k, b[#]] \u0026], Return[k]]]]]; a[n_] := a[n] = For[k = 1, True, k++, If[b[k] == n, Return[k]]]; Array[a, terms] (* _Jean-François Alcover_, Feb 22 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a222209 = (+ 1) . fromJust . (`elemIndex` a222208_list)",
+				"-- _Reinhard Zumkeller_, Feb 13 2013"
+			],
+			"xref": [
+				"Cf. A000027, A211384, A222208."
+			],
+			"keyword": "nonn,look",
+			"offset": "1,2",
+			"author": "_Alois P. Heinz_, Feb 12 2013",
+			"references": 5,
+			"revision": 15,
+			"time": "2018-02-22T11:11:33-05:00",
+			"created": "2013-02-12T20:01:40-05:00"
+		}
+	]
+}

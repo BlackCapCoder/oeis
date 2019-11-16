@@ -1,0 +1,551 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1600,
+	"results": [
+		{
+			"number": 68346,
+			"data": "0,0,0,0,4,0,1,0,16,5,1,0,32,0,6,12,80,0,10,0,44,7,1,0,48,7,8,27,80,0,1,0,176,9,1,16,92,0,10,32,72,0,1,0,112,16,10,0,240,9,39,24,92,0,108,32,96,13,1,0,96,0,14,20,640,21,1,0,156,15,1,0,220,0,16,16,176,21,1,0,368,216",
+			"name": "a(n) = n'' = second arithmetic derivative of n.",
+			"comment": [
+				"a(A000040(n)) = 0; a(A157037(n)) = 1. - _Reinhard Zumkeller_, Feb 22 2009",
+				"a(2p) = 1 for any prime p implies p,p+2 form a twin prime pair. - _Kevin J. Gomez_, Aug 29 2017"
+			],
+			"link": [
+				"T. D. Noe and Alois P. Heinz, \u003ca href=\"/A068346/b068346.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (first 2000 terms from T. D. Noe)",
+				"Victor Ufnarovski and Bo Åhlander, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL6/Ufnarovski/ufnarovski.html\"\u003eHow to Differentiate a Number\u003c/a\u003e, J. Integer Seqs., Vol. 6, 2003."
+			],
+			"formula": [
+				"a(n) = A003415(A003415(n))."
+			],
+			"maple": [
+				"d:= n-\u003e n*add(i[2]/i[1], i=ifactors(n)[2]):",
+				"a:= n-\u003e d(d(n));",
+				"seq(a(n), n=0..100);  # _Alois P. Heinz_, Aug 29 2017"
+			],
+			"mathematica": [
+				"dn[0]=0; dn[1]=0; dn[n_]:=Module[{f=Transpose[FactorInteger[n]]}, If[PrimeQ[n], 1, Plus@@(n*f[[2]]/f[[1]])]]; Table[dn[dn[n]], {n, 100}] (T. D. Noe)",
+				"f[n_] := If[ Abs@ n \u003c 2, 0, n*Total[#2/#1 \u0026 @@@ FactorInteger[Abs@ n]]]; Table[ f[ f[ n]], {n, 81}] (* _Robert G. Wilson v_, May 12 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a068346 = a003415 . a003415  -- _Reinhard Zumkeller_, Nov 10 2013"
+			],
+			"xref": [
+				"Cf. A003415 (arithmetic derivative of n), A099306 (third arithmetic derivative of n).",
+				"Column k=2 of A258651."
+			],
+			"keyword": "nonn,look",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Feb 28 2002",
+			"ext": [
+				"More terms from _T. D. Noe_, Oct 12 2004"
+			],
+			"references": 22,
+			"revision": 37,
+			"time": "2017-08-29T14:43:29-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 69567,
+			"data": "1913,18379,19013,25013,34613,35617,35879,36979,37379,37813,40013,40213,40639,45613,48091,49279,51613,55313,56179,56713,58613,63079,63179,64091,65479,66413,74779,75913,76213,76579,76679,85313,88379",
+			"name": "Smaller of two consecutive primes which are anagrams of each other.",
+			"comment": [
+				"Smaller members of Ormiston prime pairs.",
+				"Given the n-th prime, it is occasionally possible to form the (n+1)th prime using the same digits in a different order. Such a pair is called an Ormiston pair.",
+				"Ormiston pairs occur rarely but randomly. It is thought that there are infinitely many but this has not been proved. They always differ by a multiple of 18. Ormiston triples also exist - see A075093.",
+				"\"Anagram\" means that both primes must not only use the same digits but must use each digit the same number of times.  [From _Harvey P. Dale_, Mar 06 2012]",
+				"Dickson's conjecture would imply that the sequence is infinite, e.g. that there are infinitely many k for which 1913+3972900*k and 1931+3972900*k form an Ormiston pair. - _Robert Israel_, Feb 23 2017"
+			],
+			"reference": [
+				"A. Edwards, Ormiston Pairs, Australian Mathematics Teacher, Vol. 58, No. 2 (2002), pp 12-13."
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A069567/b069567.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Jens Kruse Andersen, \u003ca href=\"http://primerecords.dk/ormiston_tuples.htm\"\u003eOrmiston Tuples\u003c/a\u003e",
+				"A. Edwards, \u003ca href=\"http://www.aamt.edu.au/content/download/742/19588/file/amt-s.pdf\"\u003eOrmiston Pairs\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RearrangementPrimePair.html\"\u003eRearrangement Prime Pair\u003c/a\u003e"
+			],
+			"example": [
+				"1913 and 1931 are two successive primes.",
+				"Although 179 and 197 are composed of the same digits, they do not form an Ormiston pair as several other primes intervene (i.e. 181, 191, 193)."
+			],
+			"maple": [
+				"N:= 10^6: # to get all terms \u003c= N",
+				"R:= NULL: p:= 3: q:= 5:",
+				"while p \u003c= N do",
+				"  p:= q;",
+				"  q:= nextprime(q);",
+				"  if q-p mod 18 = 0 and sort(convert(p,base,10)) = sort(convert(q,base,10)) then",
+				"    R:= R, p",
+				"  fi",
+				"od:",
+				"R; # _Robert Israel_, Feb 23 2017"
+			],
+			"mathematica": [
+				"Prime[ Select[ Range[10^4], Sort[ IntegerDigits[ Prime[ # ]]] == Sort[ IntegerDigits[ Prime[ # + 1]]] \u0026 ]]",
+				"a = {1}; b = {2}; Do[b = Sort[ IntegerDigits[ Prime[n]]]; If[a == b, Print[ Prime[n - 1], \", \", Prime[n]]]; a = b, {n, 1, 10^4}]",
+				"Transpose[Select[Partition[Prime[Range[8600]],2,1],Sort[IntegerDigits[ First[#]]] == Sort[ IntegerDigits[Last[#]]]\u0026]][[1]] (* _Harvey P. Dale_, Mar 06 2012 *)"
+			],
+			"program": [
+				"(PARI) is(n)=isprime(n)\u0026\u0026vecsort(Vec(Str(n)))==vecsort(Vec(Str(nextprime(n+1)))) \\\\ _Charles R Greathouse IV_, Aug 09 2011",
+				"(PARI) p=2;forprime(q=3,1e5,if((q-p)%18==0\u0026\u0026vecsort(Vec(Str(p)))==vecsort(Vec(Str(q))),print1(p\", \"));p=q) \\\\ _Charles R Greathouse IV_, Aug 09 2011, minor edits by _M. F. Hasler_, Oct 11 2012",
+				"(Haskell)",
+				"import Data.List (sort)",
+				"a069567 n = a069567_list !! (n-1)",
+				"a069567_list = f a000040_list where",
+				"   f (p:ps@(p':_)) = if sort (show p) == sort (show p')",
+				"                     then p : f ps else f ps",
+				"-- _Reinhard Zumkeller_, Apr 03 2015"
+			],
+			"xref": [
+				"Cf. A072274, A075093, A161160, A066540.",
+				"Cf. A000040, A028906."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, Mar 24 2002",
+			"ext": [
+				"Comments and references from Andy Edwards (AndynGen(AT)aol.com), Jul 09 2002",
+				"Edited by _Robert G. Wilson v_, Jul 15 2002 and Aug 29 2002",
+				"Minor edits by _Ray Chandler_, Jul 16 2009"
+			],
+			"references": 22,
+			"revision": 43,
+			"time": "2017-02-23T22:20:32-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 69720,
+			"data": "1,6,40,280,2016,14784,109824,823680,6223360,47297536,361181184,2769055744,21300428800,164317593600,1270722723840,9848101109760,76467608616960,594748067020800,4632774416793600,36135640450990080,282202144474398720,2206307674981662720,17266755717247795200",
+			"name": "a(n) = 2^(n-1)*binomial(2n-1, n).",
+			"comment": [
+				"Number of rooted unicursal planar maps with n edges (unicursal means that exactly two nodes are of odd valency; there is an Eulerian path).",
+				"a(n) = A000079(n-1) * A001700(n-1); for n \u003e 1: a(n) = 2*A082143(n-1). - _Reinhard Zumkeller_, Jan 15 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A069720/b069720.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"H. J. Brothers, \u003ca href=\"http://www.brotherstechnology.com/docs/Pascal\u0026#39;s_Prism_(supplement).pdf\"\u003ePascal's Prism: Supplementary Material\u003c/a\u003e.",
+				"V. A. Liskovets and T. R. S. Walsh, \u003ca href=\"http://dx.doi.org/10.1016/j.disc.2003.09.015\"\u003eEnumeration of Eulerian and unicursal planar maps\u003c/a\u003e, Discr. Math., 282 (2004), 209-221.",
+				"Sheng-Liang Yang, Yan-Ni Dong, and Tian-Xiao He, \u003ca href=\"http://dx.doi.org/10.1016/j.disc.2017.07.006\"\u003eSome matrix identities on colored Motzkin paths\u003c/a\u003e, Discrete Mathematics 340.12 (2017): 3081-3091."
+			],
+			"formula": [
+				"a(n) = 2^(n-2)*binomial(2n, n).",
+				"G.f.: (1-sqrt(1-8x))/(4x*sqrt(1-8x)) = 2/(sqrt(1-8x)(1-sqrt(1-8x)))-1/(2x). - _Paul Barry_, Sep 06 2004",
+				"Conjecture: n*a(n) + 4*(1-2n)*a(n-1) = 0. - _R. J. Mathar_, Apr 01 2012",
+				"E.g.f.: a(n) = n! * [x^n] (exp(4*x)*BesselI(0, 4*x) - 1)/4. - _Peter Luschny_, Aug 25 2012"
+			],
+			"maple": [
+				"Z:=(1-sqrt(1-2*z))*4^(n-1)/sqrt(1-2*z): Zser:=series(Z, z=0, 32): seq(coeff(Zser, z, n), n=1..20); # _Zerinvary Lajos_, Jan 01 2007"
+			],
+			"mathematica": [
+				"Table[2^(n-1) Binomial[2n-1,n],{n,20}] (* _Harvey P. Dale_, Jan 20 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a069720 n = (a000079 $ n - 1) * (a001700 $ n - 1)",
+				"-- _Reinhard Zumkeller_, Jan 15 2015",
+				"(PARI) a(n) = binomial(2*n-1,n)\u003c\u003c(n-1) \\\\ _Charles R Greathouse IV_, Feb 06 2017",
+				"(MAGMA) [2^(n-2)*Binomial(2*n, n): n in [1..25]]; // _Vincenzo Librandi_, Apr 14 2018"
+			],
+			"xref": [
+				"First superdiagonal of number array A082137.",
+				"Cf. A069724, A003584, A069723, A082143, A000079, A001700."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "1,2",
+			"author": "_Valery A. Liskovets_, Apr 07 2002",
+			"references": 22,
+			"revision": 39,
+			"time": "2018-04-15T13:36:08-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 74940,
+			"data": "2,5,6,7,8,11,14,15,16,17,18,19,20,21,22,23,24,25,26,29,32,33,34,35,38,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,83,86,87,88,89,92",
+			"name": "Numbers having at least one 2 in their ternary representation.",
+			"comment": [
+				"Also, numbers n such that 3 divides C(2n,n).",
+				"Also, numbers n such that central trinomial coefficient A002426(n) == 0 (mod 3). - _Emeric Deutsch_ and _Bruce E. Sagan_, Dec 04 2003",
+				"Also, numbers n such that A092255(n)==0 mod (3) - _Benoit Cloitre_, Mar 22 2004",
+				"Also, numbers n such that coefficient of x^n equals 0 in prod(k\u003e=0, 1-x^(3^k))"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A074940/b074940.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"E. Deutsch and B. E. Sagan, \u003ca href=\"http://arxiv.org/abs/math.CO/0407326\"\u003eCongruences for Catalan and Motzkin numbers and related sequences\u003c/a\u003e, arXiv:math/0407326 [math.CO], 2004.",
+				"E. Deutsch and B. E. Sagan, \u003ca href=\"http://dx.doi.org/10.1016/j.jnt.2005.06.005\"\u003eCongruences for Catalan and Motzkin numbers and related sequences\u003c/a\u003e, J. Num. Theory 117 (2006), 191-215."
+			],
+			"formula": [
+				"a(n) = n + O(n^0.631). [_Charles R Greathouse IV_, Aug 21 2011]"
+			],
+			"example": [
+				"12 is not in the sequence since it is 110 in base 3, but 11 is in the sequence since it is 102 in base 3 - _Michael B. Porter_, Jun 30 2016"
+			],
+			"mathematica": [
+				"Select[Range@ 120, MemberQ[IntegerDigits[#, 3], 2] \u0026] (* or *)",
+				"Select[Range@ 120, Divisible[Binomial[2 #, #], 3] \u0026] (* _Michael De Vlieger_, Jun 29 2016 *)",
+				"Select[Range[100],DigitCount[#,3,2]\u003e0\u0026] (* _Harvey P. Dale_, Aug 25 2019 *)"
+			],
+			"program": [
+				"(PARI) is(n)=while(n,if(n%3==2,return(1));n\\=3);0 \\\\ _Charles R Greathouse IV_, Aug 21 2011",
+				"(Haskell)",
+				"a074940 n = a074940_list !! (n-1)",
+				"a074940_list = filter ((== 0) . a039966) [0..]",
+				"-- _Reinhard Zumkeller_, Jun 06 2012, Sep 29 2011"
+			],
+			"xref": [
+				"Complement of A005836.",
+				"Cf. A006996, A007089, A081603, A081610, A081605, A081606.",
+				"A039966(a(n)) = 0."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Benoit Cloitre_ and _Reinhard Zumkeller_, Oct 04 2002; revised Dec 03 2003",
+			"ext": [
+				"More terms from _Emeric Deutsch_ and _Bruce E. Sagan_, Dec 04 2003"
+			],
+			"references": 22,
+			"revision": 43,
+			"time": "2019-08-25T10:42:40-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 78649,
+			"data": "2,4,8,11,13,16,18,22,26,28,31,35,38,40,44,48,51,53,56,58,62,65,67,70,74,78,80,83,85,89,92,94,97,99,103,107,110,112,115,119,121,124,126,130,133,135,138,140,144,148,150,153,157,160,162,165,167,171,175,178,180",
+			"name": "Numbers n such that A000002(n)=A000002(n+1) where A000002 is the Kolakoski sequence.",
+			"comment": [
+				"Complement sequence of A054353. - _Benoit Cloitre_, Feb 07 2009",
+				"This sequence is the union of A074262 and A074263. - _Nathaniel Johnston_, May 02 2011",
+				"A054354(a(n)-1) = 0. - _Reinhard Zumkeller_, Aug 03 2013",
+				"This is a subsequence of A216345. In particular, this consists of A216345(i) such that A000002(i) = A216345(i+1)-A216345(i) = 2. A013948 is the sequence of all such i. - _Danny Rorabaugh_, Mar 13 2015"
+			],
+			"link": [
+				"Nathaniel Johnston, \u003ca href=\"/A078649/b078649.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) is probably asymptotic to 3*n.",
+				"a(n) = A216345(A013948(n)). - _Danny Rorabaugh_, Mar 13 2015"
+			],
+			"maple": [
+				"isA078649 := proc(n)",
+				"    if A000002(n) = A000002(n+1) then",
+				"        true;",
+				"    else",
+				"        false;",
+				"    end if;",
+				"end proc:",
+				"A078649 := proc(n)",
+				"    option remember;",
+				"    if n = 1 then",
+				"        2;",
+				"    else",
+				"        for a from procname(n-1)+1 do",
+				"            if isA078649(a) then",
+				"                return a;",
+				"            end if;",
+				"        end do:",
+				"    end if;",
+				"end proc:",
+				"seq(A078649(n),n=1..50) ; # _R. J. Mathar_, Nov 15 2014"
+			],
+			"mathematica": [
+				"a2 = {1, 2, 2}; Do[ a2 = Join[a2, {1+Mod[n-1, 2]}], {n, 3, 80}, {a2[[n]]}]; a3 = Accumulate[a2]; Complement[ Range[ Last[a3]], a3] (* _Jean-François Alcover_, Jun 18 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a078649 n = a078649_list !! (n-1)",
+				"a078649_list = map (+ 1) $ filter ((== 0) . a054354) [1..]",
+				"-- _Reinhard Zumkeller_, Aug 03 2013"
+			],
+			"xref": [
+				"Cf. A054353, A074262, A074263, A013948, A216345."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Benoit Cloitre_, Dec 14 2002",
+			"references": 22,
+			"revision": 26,
+			"time": "2015-03-13T15:43:38-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 82784,
+			"data": "1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0",
+			"name": "Characteristic function of multiples of 7.",
+			"comment": [
+				"a(0)=1, a(n)=0 for 1\u003c=n\u003c7, a(n+7)=a(n).",
+				"a(n) = 1-A109720(n); a(A008589(n))=1; a(A047304(n))=0. - _Reinhard Zumkeller_, Nov 30 2009",
+				"This sequence is the Euler transformation of A185017. - _Jason Kimberley_, Oct 14 2011"
+			],
+			"link": [
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_07\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,0,0,0,0,0,1)."
+			],
+			"formula": [
+				"a(n) = 0^(n mod 7).",
+				"a(n) = (1/147)*(-20*(n mod 7)+((n+1) mod 7)+((n+2) mod 7)+((n+3) mod 7)+((n+4) mod 7)+((n+5) mod 7)+22*((n+6) mod 7)). - _Paolo P. Lava_, Sep 29 2006",
+				"a(n) = 1-(n^6 mod 7). - _Paolo P. Lava_, Oct 02 2006",
+				"Multiplicative with a(p) = (if p=7 then 1 else 0), p prime. - _Reinhard Zumkeller_, Nov 30 2009",
+				"a(n) = floor(n/7)-floor((n-1)/7). - _Tani Akinari_, Oct 26 2012",
+				"a(n) = C(n-1,6) mod 7. - _Wesley Ivan Hurt_, Oct 07 2014",
+				"From _Wesley Ivan Hurt_, Jul 11 2016: (Start)",
+				"G.f.: 1/(1-x^7).",
+				"a(n) = a(n-7) for n\u003e6.",
+				"a(n) = (gcd(n,7) - 1)/6. (End)"
+			],
+			"example": [
+				"a(14) = a(2*7) = 1; a(41) = a(5*7+6) = 0."
+			],
+			"maple": [
+				"A082784:=n-\u003e0^(n mod 7): seq(A082784(n), n=0..100); # _Wesley Ivan Hurt_, Oct 07 2014"
+			],
+			"mathematica": [
+				"Table[Mod[Binomial[n - 1, 6], 7], {n, 0, 100}] (* _Wesley Ivan Hurt_, Oct 07 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a082784 = a000007 . (`mod` 7)",
+				"a082784_list = cycle [1,0,0,0,0,0,0]",
+				"-- _Reinhard Zumkeller_, Oct 27 2012",
+				"(PARI) a(n)=!(n%7) \\\\ _Charles R Greathouse IV_, Dec 03 2012",
+				"(MAGMA) [Binomial(n-1,6) mod 7 : n in [0..100]]; // _Wesley Ivan Hurt_, Oct 07 2014"
+			],
+			"xref": [
+				"Cf. A008589, A076309.",
+				"Characteristic function of multiples of g: A000007 (g=0), A000012 (g=1), A059841 (g=2), A079978 (g=3), A121262 (g=4), A079998 (g=5), A079979 (g=6), this sequence (g=7). - _Jason Kimberley_, Oct 14 2011",
+				"Cf. A000007."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, May 22 2003",
+			"references": 22,
+			"revision": 37,
+			"time": "2016-07-12T12:18:01-04:00",
+			"created": "2003-09-13T03:00:00-04:00"
+		},
+		{
+			"number": 84663,
+			"data": "8,10,11,12,13,14,21,22,23,24,25,26,39,40,45,46,47,48,49,50,51,52,53,54,55,56,57,58,87,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,177,180,181,182,189,190",
+			"name": "a(1) = 8; a(n) = a(n-1) + gcd(a(n-1), n).",
+			"comment": [
+				"The first 150000000 differences are all primes or 1. Is this true in general?"
+			],
+			"reference": [
+				"Eric S. Rowland, A simple prime-generating recurrence, Abstracts Amer. Math. Soc., 29 (No. 1, 2008), p. 50 (Abstract 1035-11-986)."
+			],
+			"link": [
+				"Indranil Ghosh, \u003ca href=\"/A084663/b084663.txt\"\u003eTable of n, a(n) for n = 1..50000\u003c/a\u003e",
+				"Eric S. Rowland, \u003ca href=\"http://arXiv.org/abs/0710.3217\"\u003eA simple prime-generating recurrence\u003c/a\u003e.",
+				"E. S. Rowland, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL11/Rowland/rowland21.html\"\u003eA natural prime-generating recurrence\u003c/a\u003e, JIS 11 (2008) 08.2.8"
+			],
+			"maple": [
+				"S := 8; f := proc(n) option remember; global S; if n=1 then S else f(n-1)+igcd(n,f(n-1)); fi; end;"
+			],
+			"mathematica": [
+				"f[n_] := f[n-1] + GCD[n, f[n-1]]; f[1]=8",
+				"RecurrenceTable[{a[1]==8,a[n]==a[n-1]+GCD[a[n-1],n]},a,{n,70}] (* _Harvey P. Dale_, Apr 12 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a084663 n = a084663_list !! (n-1)",
+				"a084663_list =",
+				"   8 : zipWith (+) a084663_list (zipWith gcd a084663_list [2..])",
+				"-- _Reinhard Zumkeller_, Nov 15 2013"
+			],
+			"xref": [
+				"Cf. A084662, A106108.",
+				"Cf. A230504, A134744 (first differences), A134736."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "Matthew Frank (mfrank(AT)wopr.wolfram.com) on behalf of the 2003 New Kind of Science Summer School, Jul 15 2003",
+			"references": 22,
+			"revision": 16,
+			"time": "2017-02-09T10:32:25-05:00",
+			"created": "2003-09-13T03:00:00-04:00"
+		},
+		{
+			"number": 87897,
+			"data": "1,0,0,1,0,1,1,1,1,2,2,2,3,3,4,5,5,6,8,8,10,12,13,15,18,20,23,27,30,34,40,44,50,58,64,73,83,92,104,118,131,147,166,184,206,232,256,286,320,354,394,439,485,538,598,660,730,809,891,984,1088,1196,1318,1454,1596,1756",
+			"name": "Number of partitions of n into odd parts greater than 1.",
+			"comment": [
+				"Also number of partitions of n into distinct parts which are not powers of 2.",
+				"Also number of partitions of n into distinct parts such that the two largest parts differ by 1.",
+				"Also number of partitions of n such that the largest part occurs an odd number of times that is at least 3 and every other part occurs an even number of times. Example: a(10) = 2 because we have [2,2,2,1,1,1,1] and [2,2,2,2,2]. - _Emeric Deutsch_, Mar 30 2006",
+				"Also difference between number of partitions of 1+n into distinct parts and number of partitions of n into distinct parts. - Philippe LALLOUET, May 08 2007",
+				"In the Berndt reference replace {a -\u003e -x, q -\u003e x} in equation (3.1) to get f(x). G.f. is 1 - x * (1 - f(x)).",
+				"Ramanujan theta functions: f(q) (see A121373), phi(q) (A000122), psi(q) (A010054), chi(q) (A000700).",
+				"Also number of symmetric unimodal compositions of n+3 where the maximal part appears three times. - _Joerg Arndt_, Jun 11 2013",
+				"Let c(n) = number of palindromic partitions of n whose greatest part has multiplicity 3; then c(n) = a(n-3) for n\u003e=3. - _Clark Kimberling_, Mar 05 2014"
+			],
+			"reference": [
+				"J. W. L. Glaisher, Identities, Messenger of Mathematics, 5 (1876), pp. 111-112. see Eq. I"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A087897/b087897.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"C. Ballantine, M. Merca, \u003ca href=\"https://www.researchgate.net/publication/289250007_Padovan_numbers_as_sums_over_partitions_into_odd_parts\"\u003ePadovan numbers as sums over partitions into odd parts\u003c/a\u003e, Journal of Inequalities and Applications, (2016) 2016:1; \u003ca href=\"https://doi.org/10.1186/s13660-015-0952-5\"\u003edoi\u003c/a\u003e.",
+				"B. C. Berndt, B. Kim, and A. J. Yee, \u003ca href=\"http://dx.doi.org/10.1016/j.jcta.2009.07.005\"\u003eRamanujan's lost notebook: Combinatorial proofs of identities associated with Heine's transformation or partial theta functions\u003c/a\u003e, J. Comb. Thy. Ser. A, 117 (2010), 957-973.",
+				"Howard D. Grossman, \u003ca href=\"https://www.jstor.org/stable/3029861\"\u003eProblem 228\u003c/a\u003e, Mathematics Magazine, 28 (1955), p. 160.",
+				"R. K. Guy, \u003ca href=\"http://www.jstor.org/stable/3609388\"\u003eTwo theorems on partitions\u003c/a\u003e, Math. Gaz., 42 (1958), 84-86. Math. Rev. 20 #3110.",
+				"Cristiano Husu, \u003ca href=\"https://arxiv.org/abs/1804.09883\"\u003eThe butterfly sequence: the second difference sequence of the numbers of integer partitions with distinct parts, its pentagonal number structure, its combinatorial identities and the cyclotomic polynomials 1-x and 1+x+x^2\u003c/a\u003e, arXiv:1804.09883 [math.NT], 2018.",
+				"M. Somos, \u003ca href=\"/A010815/a010815.txt\"\u003eIntroduction to Ramanujan theta functions\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RamanujanThetaFunctions.html\"\u003eRamanujan Theta Functions\u003c/a\u003e"
+			],
+			"formula": [
+				"Expansion of q^(-1/24) * (1 - q) * eta(q^2) / eta(q) in powers of q.",
+				"Expansion of (1 - x) / chi(-x) in powers of x where chi() is a Ramanujan theta function.",
+				"G.f.: 1 + x^3 + x^5*(1 + x) + x^7*(1 + x)*(1 + x^2) + x^9*(1 + x)*(1 + x^2)*(1 + x^3) + ... [Glaisher 1876]. - _Michael Somos_, Jun 20 2012",
+				"G.f.: Product_{k \u003e= 1} 1/(1-x^(2*k+1)).",
+				"G.f.: Product_{k \u003e= 1, k not a power of 2} (1+x^k).",
+				"G.f.: sum(x^(3k)/product(1-x^(2j), j=1..k), k=1..infinity). - _Emeric Deutsch_, Mar 30 2006",
+				"a(n) ~ exp(Pi*sqrt(n/3)) * Pi / (8 * 3^(3/4) * n^(5/4)) * (1 - (15*sqrt(3)/(8*Pi) + 11*Pi/(48*sqrt(3)))/sqrt(n) + (169*Pi^2/13824 + 385/384 + 315/(128*Pi^2))/n). - _Vaclav Kotesovec_, Aug 30 2015, extended Nov 04 2016"
+			],
+			"example": [
+				"1 + x^3 + x^5 + x^6 + x^7 + x^8 + 2*x^9 + 2*x^10 + 2*x^11 + 3*x^12 + 3*x^13 + ...",
+				"q + q^73 + q^121 + q^145 + q^169 + q^193 + 2*q^217 + 2*q^241 + 2*q^265 + ...",
+				"a(10)=2 because we have [7,3] and [5,5].",
+				"From _Joerg Arndt_, Jun 11 2013: (Start)",
+				"There are a(22)=13 symmetric unimodal compositions of 22+3=25 where the maximal part appears three times:",
+				"01:  [ 1 1 1 1 1 1 1 1 3 3 3 1 1 1 1 1 1 1 1 ]",
+				"02:  [ 1 1 1 1 1 1 2 3 3 3 2 1 1 1 1 1 1 ]",
+				"03:  [ 1 1 1 1 1 5 5 5 1 1 1 1 1 ]",
+				"04:  [ 1 1 1 1 2 2 3 3 3 2 2 1 1 1 1 ]",
+				"05:  [ 1 1 1 2 5 5 5 2 1 1 1 ]",
+				"06:  [ 1 1 2 2 2 3 3 3 2 2 2 1 1 ]",
+				"07:  [ 1 1 3 5 5 5 3 1 1 ]",
+				"08:  [ 1 1 7 7 7 1 1 ]",
+				"09:  [ 1 2 2 5 5 5 2 2 1 ]",
+				"10:  [ 1 4 5 5 5 4 1 ]",
+				"11:  [ 2 2 2 2 3 3 3 2 2 2 2 ]",
+				"12:  [ 2 3 5 5 5 3 2 ]",
+				"13:  [ 2 7 7 7 2 ]",
+				"(End)"
+			],
+			"maple": [
+				"To get 128 terms: t4 := mul((1+x^(2^n)),n=0..7); t5 := mul((1+x^k),k=1..128): t6 := series(t5/t4,x,100); t7 := seriestolist(t6);",
+				"# second Maple program:",
+				"b:= proc(n, i) option remember; `if`(n=0, 1,",
+				"      `if`(i\u003c3, 0, b(n, i-2)+`if`(i\u003en, 0, b(n-i, i))))",
+				"    end:",
+				"a:= n-\u003e b(n, n-1+irem(n, 2)):",
+				"seq(a(n), n=0..80);  # _Alois P. Heinz_, Jun 11 2013"
+			],
+			"mathematica": [
+				"max = 65; f[x_] := Product[ 1/(1 - x^(2k+1)), {k, 1, max}]; CoefficientList[ Series[f[x], {x, 0, max}], x] (* _Jean-François Alcover_, Dec 16 2011, after _Emeric Deutsch_ *)",
+				"b[n_, i_] := b[n, i] = If[n==0, 1, If[i\u003c3, 0, b[n, i-2]+If[i\u003en, 0, b[n-i, i]]] ]; a[n_] := b[n, n-1+Mod[n, 2]]; Table[a[n], {n, 0, 80}] (* _Jean-François Alcover_, Apr 01 2015, after _Alois P. Heinz_ *)",
+				"Flatten[{1, Table[PartitionsQ[n+1] - PartitionsQ[n], {n, 0, 80}]}] (* _Vaclav Kotesovec_, Dec 01 2015 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = local(A); if( n\u003c0, 0, A = x * O(x^n); polcoeff( (1 - x) * eta(x^2 + A) / eta(x + A), n))} /* _Michael Somos_, Nov 13 2011 */",
+				"(Haskell)",
+				"a087897 = p [3,5..] where",
+				"   p [] _ = 0",
+				"   p _  0 = 1",
+				"   p ks'@(k:ks) m | m \u003c k     = 0",
+				"                  | otherwise = p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Aug 12 2011"
+			],
+			"xref": [
+				"Cf. A000009, A002865."
+			],
+			"keyword": "nonn,changed",
+			"offset": "0,10",
+			"author": "_N. J. A. Sloane_, Dec 04 2003",
+			"references": 22,
+			"revision": 63,
+			"time": "2019-11-13T21:54:13-05:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 90771,
+			"data": "1,9,11,19,21,29,31,39,41,49,51,59,61,69,71,79,81,89,91,99,101,109,111,119,121,129,131,139,141,149,151,159,161,169,171,179,181,189,191,199,201,209,211,219,221,229,231,239,241,249,251,259,261,269,271,279,281",
+			"name": "Numbers that are congruent to {1, 9} mod 10.",
+			"comment": [
+				"Cf. property described by Gary Detlefs in A113801: more generally, these numbers are of the form (2*h*n + (h-4)*(-1)^n - h)/4 (h, n natural numbers), therefore ((2*h*n + (h-4)*(-1)^n - h)/4)^2-1 == 0 (mod h); in this case, a(n)^2 - 1 == 0 (mod 10). - _Bruno Berselli_, Nov 17 2010"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A090771/b090771.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,1,-1)."
+			],
+			"formula": [
+				"a(n) = (40* A057569(n) + 1)^(1/2). - _Gary Detlefs_, Feb 22 2010",
+				"From _Bruno Berselli_, Sep 16 2010 - Nov 17 2010: (Start)",
+				"  G.f.: x*(1 + 8*x + x^2)/((1 + x)*(1 - x)^2).",
+				"  a(n) = (10*n + 3*(-1)^n - 5)/2.",
+				"  a(n) = -a(-n + 1) = a(n-1) + a(n-2) - a(n-3) = a(n-2) + 10.",
+				"  a(n) = 10*A000217(n-1) + 1 - 2*sum(a(i), i = 1..n - 1) for n \u003e 1. (End)",
+				"a(n) = 10*n - a(n-1) - 10 (with a(1) = 1). - _Vincenzo Librandi_, Nov 16 2010",
+				"a(n) = sqrt(10*A132356(n-1) + 1). - _Ivan N. Ianakiev_, Nov 09 2012"
+			],
+			"mathematica": [
+				"Flatten[Table[10n - {9, 1}, {n, 30}]] (* _Alonso del Arte_, Sep 02 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a090771 n = a090771_list !! (n-1)",
+				"a090771_list = 1 : 9 : map (+ 10) a090771_list",
+				"-- _Reinhard Zumkeller_, Jan 07 2012",
+				"(PARI) a(n)=n\\2*10-(-1)^n \\\\ _Charles R Greathouse IV_, Sep 24 2015"
+			],
+			"xref": [
+				"Cf. A090298, A005408, A047209, A007310, A047336, A047522, A091998, A175886, A175887.",
+				"Cf. A056020 (n = 1 or 8 mod 9), A175885 (n = 1 or 10 mod 11).",
+				"Cf. A045468 (primes), A195142 (partial sums)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Giovanni Teofilatto_, Feb 07 2004",
+			"ext": [
+				"Edited and extended by _Ray Chandler_, Feb 10 2004"
+			],
+			"references": 22,
+			"revision": 43,
+			"time": "2015-09-24T11:40:19-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 91050,
+			"data": "1,1,1,2,1,1,1,3,2,1,1,2,1,1,1,4,1,2,1,2,1,1,1,3,2,1,3,2,1,1,1,5,1,1,1,4,1,1,1,3,1,1,1,2,2,1,1,4,2,2,1,2,1,3,1,3,1,1,1,2,1,1,2,6,1,1,1,2,1,1,1,5,1,1,2,2,1,1,1,4,4,1,1,2,1,1,1,3,1,2,1,2,1,1,1,5,1,2,2,4,1,1",
+			"name": "Number of divisors of n that are perfect powers.",
+			"comment": [
+				"a(n)=1 iff n is squarefree: a(A005117(n))=1, a(A013929(n))\u003e1;",
+				"a(p^k)=k for p prime, k\u003e0: a(A000961(n))=A025474(n);",
+				"not the same as A005361: a(72)=5 \u003c\u003e A005361(72)=6."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A091050/b091050.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PerfectPower.html\"\u003ePerfect Power\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/DivisorFunction.html\"\u003eDivisor Function\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A073093(n)-A001221(n) = A001222(n)-A001221(n)+1. - _David W. Wilson_, Aug 28 2007",
+				"a(n) = sum (A075802(A027750(n,k)): k=1..A000005(n)). - _Reinhard Zumkeller_, Dec 13 2012",
+				"G.f.: Sum_{k=i^j, i\u003e=1, j\u003e=2, excluding duplicates} x^k/(1 - x^k). - _Ilya Gutkovskiy_, Mar 20 2017"
+			],
+			"example": [
+				"Divisors of n=108: {1,2,3,4,6,9,12,18,27,36,54,108},",
+				"a(108) = #{1^2, 2^2, 3^2, 3^3, 6^2} = 5."
+			],
+			"mathematica": [
+				"ppQ[n_] := GCD @@ Last /@ FactorInteger@ n \u003e 1; ppQ[1] = True; f[n_] := Length@ Select[ Divisors@ n, ppQ]; Array[f, 105] (* _Robert G. Wilson v_, Dec 12 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a091050 = sum . map a075802 . a027750_row",
+				"-- _Reinhard Zumkeller_, Dec 13 2012",
+				"(PARI) a(n) = 1+ sumdiv(n, d, ispower(d)\u003e1); \\\\ _Michel Marcus_, Sep 21 2014"
+			],
+			"xref": [
+				"Cf. A091051, A001597, A000005."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, Dec 15 2003",
+			"references": 22,
+			"revision": 28,
+			"time": "2017-03-28T14:57:32-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		}
+	]
+}

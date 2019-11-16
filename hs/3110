@@ -1,0 +1,517 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3110,
+	"results": [
+		{
+			"number": 230091,
+			"data": "5,14,17,19,22,31,33,36,38,47,50,52,55,64,67,70,79,82,84,87,96,98,101,103,112,115,117,120,131,132,143,146,148,151,160,162,165,167,176,179,181,184,193,196,199,208,211,213,216,225,227,230,232,241,244,246,249,258,260,262,271,274,276,279,288,290,293,295",
+			"name": "Numbers of the form k + wt(k) for exactly two distinct k, where wt(k) = A000120(k) is the binary weight of k.",
+			"comment": [
+				"The positions of entries equal to 2 in A228085, or numbers that appear exactly twice in A092391.",
+				"Numbers that can be expressed as the sum of distinct terms of the form 2^n+1, n=0,1,... in exactly two ways."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A230091/b230091.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Coi#Colombian\"\u003eIndex entries for Colombian or self numbers and related sequences\u003c/a\u003e"
+			],
+			"example": [
+				"5 = 3 + 2 = 4 + 1, so 5 is in this list."
+			],
+			"maple": [
+				"# Maple code for A000120, A092391, A228085, A010061, A228088, A230091, A230092",
+				"with(LinearAlgebra):",
+				"read transforms;",
+				"wt := proc(n) local w, m, i; w := 0; m := n; while m \u003e 0 do i := m mod 2; w := w+i; m := (m-i)/2; od; w; end: # A000120",
+				"M:=1000;",
+				"lis1:=Array(0..M);",
+				"lis2:=Array(0..M);",
+				"ctmax:=4;",
+				"for i from 0 to ctmax do ct[i]:=Array(0..M); od:",
+				"for n from 0 to M do",
+				"m:=n+wt(n);",
+				"lis1[n]:=m;",
+				"if (m \u003c= M) then lis2[m]:=lis2[m]+1; fi;",
+				"od:",
+				"t1:=[seq(lis1[i],i=0..M)]; # A092391",
+				"t2:=[seq(lis2[i],i=0..M)]; # A228085",
+				"COMPl(t1); # A010061",
+				"for i from 1 to M do h:=lis2[i];",
+				"if h \u003c= ctmax then ct[h]:=[op(ct[h]),i]; fi; od:",
+				"len:=nops(ct[0]); [seq(ct[0][i],i=1..len)]; # A010061 again",
+				"len:=nops(ct[1]); [seq(ct[1][i],i=1..len)]; # A228088",
+				"len:=nops(ct[2]); [seq(ct[2][i],i=1..len)]; # A230091",
+				"len:=nops(ct[3]); [seq(ct[3][i],i=1..len)]; # A230092"
+			],
+			"program": [
+				"(Haskell)",
+				"a230091 n = a230091_list !! (n-1)",
+				"a230091_list = filter ((== 2) . a228085) [1..]",
+				"-- _Reinhard Zumkeller_, Oct 13 2013"
+			],
+			"xref": [
+				"Cf. A000120, A010061, A092391, A228088, A228085, A230058, A230092.",
+				"Cf. A227915."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Oct 10 2013",
+			"references": 10,
+			"revision": 20,
+			"time": "2013-10-18T12:03:04-04:00",
+			"created": "2013-10-10T22:27:30-04:00"
+		},
+		{
+			"number": 239968,
+			"data": "1,0,0,2,0,3,0,4,5,6,0,7,0,8,9,10,0,11,0,12,13,14,0,15,16,17,18,19,0,20,0,21,22,23,24,25,0,26,27,28,0,29,0,30,31,32,0,33,34,35,36,37,0,38,39,40,41,42,0,43,0,44,45,46,47,48,0,49,50,51,0,52",
+			"name": "0 unless n is a nonprime A018252(k) when a(n) = k.",
+			"comment": [
+				"a(n) = A026233(n) - A049084(n);",
+				"A057427(a(n)) = A005171(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239968/b239968.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A066246(n) - A010051(n) + 1."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (unfoldr, genericIndex)",
+				"a239968 n = genericIndex a239968_list (n - 1)",
+				"a239968_list = unfoldr c (1, 1, a018252_list) where",
+				"   c (i, z, xs'@(x:xs)) | i == x = Just (z, (i + 1, z + 1, xs))",
+				"                        | i /= x = Just (0, (i + 1, z, xs'))"
+			],
+			"xref": [
+				"Cf. A066246, A049084."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, Mar 30 2014",
+			"references": 10,
+			"revision": 4,
+			"time": "2014-03-30T20:02:29-04:00",
+			"created": "2014-03-30T20:02:29-04:00"
+		},
+		{
+			"number": 241919,
+			"data": "0,1,2,1,3,1,4,1,2,2,5,1,6,3,1,1,7,1,8,2,2,4,9,1,3,5,2,3,10,1,11,1,3,6,1,1,12,7,4,2,13,2,14,4,1,8,15,1,4,2,5,5,16,1,2,3,6,9,17,1,18,10,2,1,3,3,19,6,7,1,20,1,21,11,1,7,1,4,22,2,2,12,23",
+			"name": "If n is a prime power, p_i^e, a(n) = i, (with a(1)=0), otherwise difference (i-j) of the indices of the two largest distinct primes p_i, p_j, i \u003e j in the prime factorization of n: a(n) = A061395(n) - A061395(A051119(n)).",
+			"comment": [
+				"See A242411 and A241917 for other variants."
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A241919/b241919.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A061395(n) - A061395(A051119(n))."
+			],
+			"program": [
+				"(Scheme) (define (A241919 n) (- (A061395 n) (A061395 (A051119 n))))",
+				"(Haskell)",
+				"a241919 1 = 0",
+				"a241919 n = i - j where",
+				"            (i:j:_) = map a049084 $ reverse (1 : a027748_row n)",
+				"-- _Reinhard Zumkeller_, May 15 2014",
+				"(Python)",
+				"from sympy import factorint, primefactors, primepi",
+				"def a061395(n): return 0 if n==1 else primepi(primefactors(n)[-1])",
+				"def a053585(n):",
+				"    if n==1: return 1",
+				"    p = primefactors(n)[-1]",
+				"    return p**factorint(n)[p]",
+				"def a051119(n): return n/a053585(n)",
+				"def a(n): return a061395(n) - a061395(a051119(n)) # _Indranil Ghosh_, May 19 2017"
+			],
+			"xref": [
+				"Cf. A241917, A242411, A051119, A061395, A122111.",
+				"Cf. A049084, A027748."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Antti Karttunen_, May 13 2014",
+			"references": 10,
+			"revision": 17,
+			"time": "2017-05-20T10:22:31-04:00",
+			"created": "2014-05-15T05:50:15-04:00"
+		},
+		{
+			"number": 248953,
+			"data": "0,1,2,3,21,26,6,6843,8,14,10,72,365,366,14,15,352,4674389,18,22,891114,21,102,23,31,7856204,26,27,28,1700,61960674,3702823,3702824,3702825,3702826,35,36,370,1047903,1047904,596,41,42,43,2976,45,341,260,261,123",
+			"name": "Largest term in wrecker ball sequence starting with n.",
+			"comment": [
+				"Starting at n, a(n) is the maximum reached according to the following rules: Unless 0 has been reached, on the k-th step (k = 1, 2, 3, ...) move a distance of k in the direction of zero. If the result has already occurred before, move a distance of k away from zero instead. See A228474 and A248939. - _David Nacin_, Mar 15 2019",
+				"It is currently unproved that all orbits are finite, and therefore unclear whether all a(n) are well defined. In particular, the orbit of n = 11281 is of unknown length \u003e 32*10^9 steps. - _M. F. Hasler_, Mar 18 2019"
+			],
+			"link": [
+				"M. F. Hasler, \u003ca href=\"/A248953/b248953.txt\"\u003eTable of n, a(n) for n = 0..5000\u003c/a\u003e (terms up to n = 1000 from Reinhard Zumkeller), Mar 18 2019",
+				"Gordon Hamilton, \u003ca href=\"http://www.youtube.com/watch?v=mQdNaofLqVc\"\u003eWrecker Ball Sequences\u003c/a\u003e, Video, 2013"
+			],
+			"formula": [
+				"a(n) = largest term in row n of triangle A248939.",
+				"a(A000217(n)) = A000217(n)."
+			],
+			"example": [
+				"a(0) = max {0} = 0;",
+				"a(1) = max {1,0} = 1;",
+				"a(2) = max {2,1,-1,-4,0} = 2;",
+				"a(3) = max {3,2,0} = 3;",
+				"a(4) = max {4,3,1,-2,2,-3,-9,-16,-8,-17,-7,-18,-6,7,21,6,-10,-27,...} = 21;",
+				"a(5) = max {5,4,2,-1,3,-2,-8,-15,-7,-16,-6,-17,-5,8,22,7,-9,-26,...} = 26;",
+				"a(6) = max {6,5,3,0} = 6;",
+				"a(7) = max {7,6,4,1,-3,2,-4,3,-5,-14,-24,-13,-1,12,-2,13,29,46,...} = 6843;",
+				"a(8) = max {8,7,5,2,-2,3,-3,4,-4,-13,-23,-12,0} = 8;",
+				"a(9) = max {9,8,6,3,-1,4,-2,5,-3,-12,-22,-11,1,14,0} = 14."
+			],
+			"program": [
+				"(Haskell)",
+				"a248953 n = a248953_list !! n",
+				"-- See A248952 for definition of a248953_list.",
+				"(Python)",
+				"#This and sequences A324660-A324692 generated by manipulating this trip function",
+				"#spots - positions in order with possible repetition",
+				"#flee - positions from which we move away from zero with possible repetition",
+				"#stuck - positions from which we move to a spot already visited with possible repetition",
+				"def trip(n):",
+				"    stucklist = list()",
+				"    spotsvisited = [n]",
+				"    leavingspots = list()",
+				"    turn = 0",
+				"    forbidden = {n}",
+				"    while n != 0:",
+				"        turn += 1",
+				"        sign = n // abs(n)",
+				"        st = sign * turn",
+				"        if n - st not in forbidden:",
+				"            n = n - st",
+				"        else:",
+				"            leavingspots.append(n)",
+				"            if n + st in forbidden:",
+				"                stucklist.append(n)",
+				"            n = n + st",
+				"        spotsvisited.append(n)",
+				"        forbidden.add(n)",
+				"    return {'stuck':stucklist, 'spots':spotsvisited,",
+				"            'turns':turn, 'flee':leavingspots}",
+				"#Actual sequence",
+				"def a(n):",
+				"    d = trip(n)",
+				"    return max(d['spots'])",
+				"# _David Nacin_, Mar 15 2019",
+				"(C++) #include\u003cmap\u003e",
+				"long A248953(long n) { long c=0, s, m=n; for(std::map\u003clong, bool\u003e seen; n; n += seen[n-(s=n\u003e0?c:-c)] ? s:-s) { if(n\u003em) m=n; seen[n]=true; ++c; } return m; } // _M. F. Hasler_, Mar 18 2019"
+			],
+			"xref": [
+				"Cf. A248939 (entire orbit of n), A248952 (minimum of the orbit), A000217, A228474 (length of orbits - 1: main entry for wrecker ball sequences)."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Oct 18 2014",
+			"ext": [
+				"Edited by _M. F. Hasler_, Mar 18 2019"
+			],
+			"references": 10,
+			"revision": 24,
+			"time": "2019-05-16T01:32:32-04:00",
+			"created": "2014-10-20T14:09:16-04:00"
+		},
+		{
+			"number": 254858,
+			"data": "2,2,3,2,5,5,2,7,10,7,2,9,17,17,11,2,11,26,34,28,13,2,13,37,60,62,41,17,2,15,50,97,122,103,58,19,2,17,65,147,219,225,161,77,23,2,19,82,212,366,444,386,238,100,29,2,21,101,294,578,810,830,624,338",
+			"name": "Iterated partial sums of prime numbers, square array read by diagonals.",
+			"comment": [
+				"Row n+1 = partial sums of row n.",
+				"T(n,1) = A002522(n+1); T(n,2) = A144396(n+1); T(n,3) = A002522(n+2)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254858/b254858.txt\"\u003eTable of n, a(n) for n = 0..7259\u003c/a\u003e, first 120 diagonals."
+			],
+			"example": [
+				". n\\k | 1  2  3   4   5    6    7     8     9    10    11     12     13",
+				". ----+------------------------------------------------------------------",
+				".  0  | 2  3  5   7  11   13   17    19    23    29    31     37     41 ..",
+				".  1  | 2  5 10  17  28   41   58    77   100   129   160    197    238 ..",
+				".  2  | 2  7 17  34  62  103  161   238   338   467   627    824   1062 ..",
+				".  3  | 2  9 26  60 122  225  386   624   962  1429  2056   2880   3942 ..",
+				".  4  | 2 11 37  97 219  444  830  1454  2416  3845  5901   8781  12723 ..",
+				".  5  | 2 13 50 147 366  810 1640  3094  5510  9355 15256  24037  36760 ..",
+				".  6  | 2 15 65 212 578 1388 3028  6122 11632 20987 36243  60280  97040 ..",
+				".  7  | 2 17 82 294 872 2260 5288 11410 23042 44029 80272 140552 237592 ..."
+			],
+			"program": [
+				"(Haskell)",
+				"a254858_tabl = diags [] $ iterate (scanl1 (+)) a000040_list where",
+				"   diags uss (vs:vss) = (map head wss) : diags (map tail wss) vss",
+				"                        where wss = vs : uss",
+				"a254858_list = concat a254858_tabl"
+			],
+			"xref": [
+				"Cf. A000040 (row 0), A007504 (row 1), A014148 (row 2), A014150 (row 3), A178138 (row 4), A254784 (row 5).",
+				"Cf. A007395 (column 1), A144396 (column 2), A002522 (column 3)."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Feb 08 2015",
+			"references": 10,
+			"revision": 6,
+			"time": "2015-02-09T13:23:44-05:00",
+			"created": "2015-02-08T17:44:24-05:00"
+		},
+		{
+			"number": 258993,
+			"data": "1,1,3,1,6,5,1,10,15,7,1,15,35,28,9,1,21,70,84,45,11,1,28,126,210,165,66,13,1,36,210,462,495,286,91,15,1,45,330,924,1287,1001,455,120,17,1,55,495,1716,3003,3003,1820,680,153,19,1,66,715,3003,6435,8008,6188,3060,969,190,21",
+			"name": "Triangle read by rows: T(n,k) = binomial(n+k,n-k), k = 0..n-1.",
+			"comment": [
+				"T(n,k) = A085478(n,k) = A007318(A094727(n),A004736(k)), k = 0..n-1;",
+				"rounded(T(n,k)/(2*k+1)) = A258708(n,k);",
+				"rounded(sum(T(n,k)/(2*k+1)): k = 0..n-1) = A000967(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258993/b258993.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".  n\\k |  0  1    2    3     4     5     6     7    8    9  10 11",
+				". -----+-----------------------------------------------------------",
+				".   1  |  1",
+				".   2  |  1  3",
+				".   3  |  1  6    5",
+				".   4  |  1 10   15    7",
+				".   5  |  1 15   35   28     9",
+				".   6  |  1 21   70   84    45    11",
+				".   7  |  1 28  126  210   165    66    13",
+				".   8  |  1 36  210  462   495   286    91    15",
+				".   9  |  1 45  330  924  1287  1001   455   120   17",
+				".  10  |  1 55  495 1716  3003  3003  1820   680  153   19",
+				".  11  |  1 66  715 3003  6435  8008  6188  3060  969  190  21",
+				".  12  |  1 78 1001 5005 12870 19448 18564 11628 4845 1330 231 23  ."
+			],
+			"mathematica": [
+				"Table[Binomial[n+k,n-k], {n,1,12}, {k,0,n-1}]//Flatten (* _G. C. Greubel_, Aug 01 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a258993 n k = a258993_tabl !! (n-1) !! k",
+				"a258993_row n = a258993_tabl !! (n-1)",
+				"a258993_tabl = zipWith (zipWith a007318) a094727_tabl a004736_tabl",
+				"(PARI) T(n,k) = binomial(n+k,n-k);",
+				"for(n=1, 12, for(k=0,n-1, print1(T(n,k), \", \"))) \\\\ _G. C. Greubel_, Aug 01 2019",
+				"(MAGMA) [Binomial(n+k,n-k): k in [0..n-1], n in [1..12]]; // _G. C. Greubel_, Aug 01 2019",
+				"(Sage) [[binomial(n+k,n-k) for k in (0..n-1)] for n in (1..12)] # _G. C. Greubel_, Aug 01 2019",
+				"(GAP) Flat(List([1..12], n-\u003e List([0..n-1], k-\u003e Binomial(n+k,n-k) ))); # _G. C. Greubel_, Aug 01 2019"
+			],
+			"xref": [
+				"If a diagonal of 1's is added on the right, this becomes A085478.",
+				"Cf. A007318, A004736, A094727.",
+				"Cf. A027941 (row sums), A117671 (central terms), A143858, A000967, A258708.",
+				"T(n,k): A000217 (k=1), A000332 (k=2), A000579 (k=3), A000581 (k=4), A001287 (k=5), A010965 (k=6), A010967 (k=7), A010969 (k=8), A010971 (k=9), A010973 (k=10), A010975 (k=11), A010977 (k=12), A010979 (k=13), A010981 (k=14), A010983 (k=15), A010985 (k=16), A010987 (k=17), A010989 (k=18), A010991 (k=19), A010993 (k=20), A010995 (k=21), A010997 (k=22), A010999 (k=23), A011001 (k=24), A017714 (k=25), A017716 (k=26), A017718 (k=27), A017720 (k=28), A017722 (k=29), A017724 (k=30), A017726 (k=31), A017728 (k=32), A017730 (k=33), A017732 (k=34), A017734 (k=35), A017736 (k=36), A017738 (k=37), A017740 (k=38), A017742 (k=39), A017744 (k=40), A017746 (k=41), A017748 (k=42), A017750 (k=43), A017752 (k=44), A017754 (k=45), A017756 (k=46), A017758 (k=47), A017760 (k=48), A017762 (k=49), A017764 (k=50).",
+				"T(n+k,n): A005408 (k=1), A000384 (k=2), A000447 (k=3), A053134 (k=4), A002299 (k=5), A053135 (k=6), A053136 (k=7), A053137 (k=8), A053138 (k=9), A196789 (k=10).",
+				"Cf. A165253."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Jun 22 2015",
+			"references": 10,
+			"revision": 18,
+			"time": "2019-08-02T00:03:05-04:00",
+			"created": "2015-06-22T22:16:51-04:00"
+		},
+		{
+			"number": 260254,
+			"data": "1,1,2,2,3,3,4,4,5,5,5,5,5,4,4,3,3,2,2,1,1,0,2,1,1,1,1,1,1,1,1,1,0,2,1,1,1,1,1,1,1,1,1,0,3,1,1,1,1,1,1,1,1,1,0,3,1,1,1,1,1,1,1,1,1,0,4,1,1,1,1,1,1,1,1,1,0,4,1,1,1,1,1,1,1,1",
+			"name": "Number of ways to write n as sum of two palindromes in decimal representation.",
+			"comment": [
+				"a(A035137(n)) = 0; a(A260255(n)) \u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A260254/b260254.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Hugo Pfoertner, \u003ca href=\"/A260254/a260254_2.png\"\u003ePlot of first 10^6 terms\u003c/a\u003e",
+				"Hugo Pfoertner, \u003ca href=\"/A260254/a260254_1.png\"\u003ePlot of first 3*10^7 terms\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum{A136522(n - A002113(k)): k = 1..floor(n/2)}."
+			],
+			"example": [
+				".   n | a(n) |                                n | a(n) |",
+				". ----+------+--------------------------    ----+------+--------------",
+				".   0 |    1 |  0                            21 |    0 |  ./.",
+				".   1 |    1 |  1                            22 |    2 |  22, 11+11",
+				".   2 |    2 |  2, 1+1                       23 |    1 |  22+1",
+				".   3 |    2 |  3, 2+1                       24 |    1 |  22+2",
+				".   4 |    3 |  4, 3+1, 2+2                  25 |    1 |  22+3",
+				".   5 |    3 |  5, 4+1, 3+2                  26 |    1 |  22+4",
+				".   6 |    4 |  6, 5+1, 4+2, 3+3             27 |    1 |  22+5",
+				".   7 |    4 |  7, 6+1, 5+2, 4+3             28 |    1 |  22+6",
+				".   8 |    5 |  8, 7+1, 6+2, 5+3, 4+4        29 |    1 |  22+7",
+				".   9 |    5 |  9, 8+1, 7+2, 6+3, 5+4        30 |    1 |  22+8",
+				".  10 |    5 |  9+1, 8+2, 7+3, 6+4, 5+5      31 |    1 |  22+9",
+				".  11 |    5 |  11, 9+2, 8+3, 7+4, 6+5       32 |    0 |  ./.",
+				".  12 |    5 |  11+1, 9+3, 8+4, 7+5, 6+6     33 |    2 |  33, 22+11",
+				".  13 |    4 |  11+2, 9+4, 8+5, 7+6          34 |    1 |  33+1",
+				".  14 |    4 |  11+3, 9+5, 8+6, 7+7          35 |    1 |  33+2",
+				".  15 |    3 |  11+4, 9+6, 8+7               36 |    1 |  33+3",
+				".  16 |    3 |  11+5, 9+7, 8+8               37 |    1 |  33+4",
+				".  17 |    2 |  11+6, 9+8                    38 |    1 |  33+5",
+				".  18 |    2 |  11+7, 9+9                    39 |    1 |  33+6",
+				".  19 |    1 |  11+8                         40 |    1 |  33+7",
+				".  20 |    1 |  11+9                         41 |    1 |  33+8  ."
+			],
+			"program": [
+				"(Haskell)",
+				"a260254 n = sum $ map (a136522 . (n -)) $",
+				"               takeWhile (\u003c= n `div` 2) a002113_list"
+			],
+			"xref": [
+				"Cf. A002113, A136522, A035137, A260255."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 21 2015",
+			"references": 10,
+			"revision": 23,
+			"time": "2015-08-15T08:04:18-04:00",
+			"created": "2015-07-21T03:00:50-04:00"
+		},
+		{
+			"number": 265668,
+			"data": "1,2,3,5,2,3,7,2,5,11,13,2,7,3,5,17,19,3,7,2,11,23,2,13,29,2,3,5,31,3,11,2,17,5,7,37,2,19,3,13,41,2,3,7,43,2,23,47,3,17,53,5,11,3,19,2,29,59,61,2,31,5,13,2,3,11,67,3,23,2,5,7,71,73,2",
+			"name": "Table read by rows: prime factors of squarefree numbers; a(1) = 1 by convention.",
+			"comment": [
+				"For n \u003e 1: A072047(n) = length of row n;",
+				"T(n,1) = A073481(n); T(n,A001221(n)) = A073482(n);",
+				"for n \u003e 1: A111060(n) = sum of row n;",
+				"A005117(n) = product of row n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A265668/b265668.txt\"\u003eRows n = 1..1000 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".   n | T(n,*)  A5117(n)    n | T(n,*)  A5117(n)    n | T(n,*)   A5117(n)",
+				". ----+---------+------   ----+---------+------   ----+----------+------",
+				".   1 | [1]     |  1       21 | [3,11]  | 33       41 | [2,3,11] | 66",
+				".   2 | [2]     |  2       22 | [2,17]  | 34       42 | [67]     | 67",
+				".   3 | [3]     |  3       23 | [5,7]   | 35       43 | [3,23]   | 69",
+				".   4 | [5]     |  5       24 | [37]    | 37       44 | [2,5,7]  | 70",
+				".   5 | [2,3]   |  6       25 | [2,19]  | 38       45 | [71]     | 71",
+				".   6 | [7]     |  7       26 | [3,13]  | 39       46 | [73]     | 73",
+				".   7 | [2,5]   | 10       27 | [41]    | 41       47 | [2,37]   | 74",
+				".   8 | [11]    | 11       28 | [2,3,7] | 42       48 | [7,11]   | 77",
+				".   9 | [13]    | 13       29 | [43]    | 43       49 | [2,3,13] | 78",
+				".  10 | [2,7]   | 14       30 | [2,23]  | 46       50 | [79]     | 79",
+				".  11 | [3,5]   | 15       31 | [47]    | 47       51 | [2,41]   | 82",
+				".  12 | [17]    | 17       32 | [3,17]  | 51       52 | [83]     | 83",
+				".  13 | [19]    | 19       33 | [53]    | 53       53 | [5,17]   | 85",
+				".  14 | [3,7]   | 21       34 | [5,11]  | 55       54 | [2,43]   | 86",
+				".  15 | [2,11]  | 22       35 | [3,19]  | 57       55 | [3,29]   | 87",
+				".  16 | [23]    | 23       36 | [2,29]  | 58       56 | [89]     | 89",
+				".  17 | [2,13]  | 26       37 | [59]    | 59       57 | [7,13]   | 91",
+				".  18 | [29]    | 29       38 | [61]    | 61       58 | [3,31]   | 93",
+				".  19 | [2,3,5] | 30       39 | [2,31]  | 62       59 | [2,47]   | 94",
+				".  20 | [31]    | 31       40 | [5,13]  | 65       60 | [5,19]   | 95  ."
+			],
+			"mathematica": [
+				"FactorInteger[#][[All,1]]\u0026/@Select[Range[100],SquareFreeQ]//Flatten (* _Harvey P. Dale_, Apr 27 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Math.NumberTheory.Primes.Factorisation (factorise)",
+				"import Data.Maybe (mapMaybe)",
+				"a265668 n k = a265668_tabf !! (n-1) !! (k-1)",
+				"a265668_row n = a265668_tabf !! (n-1)",
+				"a265668_tabf = [1] : mapMaybe f [2..] where",
+				"   f x = if all (== 1) es then Just ps else Nothing",
+				"         where (ps, es) = unzip $ factorise x"
+			],
+			"xref": [
+				"Cf. A005117, A027748, A124010, A072047 (row lengths), A073481, A073482, A001221, A111060, A049200, A062822."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 13 2015",
+			"references": 10,
+			"revision": 6,
+			"time": "2018-04-27T10:38:27-04:00",
+			"created": "2015-12-13T15:49:56-05:00"
+		},
+		{
+			"number": 15,
+			"data": "1,2,3,4,5,7,7,8,9,11,11,13,13,16,16,16,17,19,19,23,23,23,23,25,25,27,27,29,29,31,31,32,37,37,37,37,37,41,41,41,41,43,43,47,47,47,47,49,49,53,53,53,53,59,59,59,59,59,59,61,61,64,64,64,67,67,67,71,71,71,71,73",
+			"name": "Smallest prime power \u003e= n.",
+			"link": [
+				"David W. Wilson, \u003ca href=\"/A000015/b000015.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimePower.html\"\u003ePrime Power\u003c/a\u003e"
+			],
+			"formula": [
+				"a(A110654(n+1)) = A188666(n). - _Reinhard Zumkeller_, Apr 25 2011, corrected by _M. F. Hasler_, Jul 25 2015",
+				"a(n) = A188666(2n-1). - _M. F. Hasler_, Jul 25 2015"
+			],
+			"maple": [
+				"N:= 1000: # to get all terms \u003c= N",
+				"Primes:= select(isprime,{$1..N}):",
+				"PPs:= {1} union Primes:",
+				"for k from 1 to ilog2(N) do",
+				"   PPs:= PPs union map(`^`, select(`\u003c=`,Primes, floor(N^(1/k))),k)",
+				"od:",
+				"PPs:= sort(convert(PPs,list)):",
+				"1, seq(PPs[i]$(PPs[i]-PPs[i-1]), i=2..nops(PPs)); # _Robert Israel_, Jul 23 2015"
+			],
+			"mathematica": [
+				"Insert[Table[m:=n;While[Not[Length[FactorInteger[m]]==1],m++ ];m,{n,2,100}], 1, 1] (* _Stefan Steinerberger_, Apr 17 2006 *)",
+				"a[n_] := NestWhile[# + 1 \u0026, n, Not@*PrimePowerQ]; (* _Matthew House_, Jul 14 2015, v6.0+ *)",
+				"a[ n_] := If[ n \u003c 2, Boole[n == 1], Module[{m = n}, While[ ! PrimePowerQ[ m], m++]; m]]; (* _Michael Somos_, Mar 06 2018 *)",
+				"a[ n_] := If[ n \u003c 1, 0, Module[{m = n}, While[ Length[ FactorInteger @ m ] != 1, m++]; m]]; (* _Michael Somos_, Mar 06 2018 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c1, 0, while(matsize(factor(n))[1]\u003e1, n++); n)}; /* _Michael Somos_, Jul 16 2002 */",
+				"(PARI) a(n)=if(n\u003e1,while(!isprimepower(n),n++));n \\\\ _Charles R Greathouse IV_, Feb 01 2013",
+				"(Sage) [next_prime_power(n) for n in xrange(0, 72)] # _Zerinvary Lajos_, Jun 13 2009",
+				"(Haskell)",
+				"a000015 n = a000015_list !! (n-1)",
+				"a000015_list = 1 : concat",
+				"   (zipWith(\\pp qq -\u003e replicate (fromInteger (pp - qq)) pp)",
+				"           (tail a000961_list) a000961_list)",
+				"-- _Reinhard Zumkeller_, Nov 17 2011, Apr 25 2011"
+			],
+			"xref": [
+				"Cf. A000961, A031218."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Michael Somos_, Jul 16 2002"
+			],
+			"references": 9,
+			"revision": 59,
+			"time": "2018-03-06T17:39:49-05:00",
+			"created": "1994-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 193,
+			"data": "0,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+			"name": "Nearest integer to log n.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A000193/b000193.txt\"\u003eTable of n, a(n) for n=1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"Digits := 100; f := n-\u003eround(evalf(log(n))); [ seq(f(n), n=1..100) ];"
+			],
+			"program": [
+				"(PARI) a(n)=round(log(n))",
+				"(Haskell)",
+				"a000193 = round . log . fromIntegral  -- _Reinhard Zumkeller_, Mar 17 2015"
+			],
+			"xref": [
+				"Cf. A000195, A004233."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,5",
+			"author": "_N. J. A. Sloane_",
+			"references": 9,
+			"revision": 16,
+			"time": "2015-03-27T03:40:48-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

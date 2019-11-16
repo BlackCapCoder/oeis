@@ -1,0 +1,401 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5240,
+	"results": [
+		{
+			"number": 33959,
+			"data": "0,2,5,6,7,41,42,43,44,45,46,47,52,62,65,66,76,79,87,96,98,101,102,103,113,114,119,125,129,130,138,141,142,164,166,174,189,195,196,197,207,208,209,217,222,228,248,256,257,258,263,278,357,358,359,362,370",
+			"name": "Record number of steps to reach 1 in '3x+1' problem, corresponding to starting values in A033958.",
+			"comment": [
+				"Only the 3x+1 steps, not the halving steps, are counted."
+			],
+			"reference": [
+				"D. R. Hofstadter, Goedel, Escher, Bach: an Eternal Golden Braid, Random House, 1980, p. 400.",
+				"B. Hayes, Computer Recreations: On the ups and downs of hailstone numbers, Scientific American, 250 (No. 1, 1984), pp. 10-16.",
+				"G. T. Leavens and M. Vermeulen, 3x+1 search problems, Computers and Mathematics with Applications, 24 (1992), 79-99."
+			],
+			"link": [
+				"\u003ca href=\"/index/Go#GEB\"\u003eIndex entries for sequences from \"Goedel, Escher, Bach\"\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"maple": [
+				"A033959 := proc(n) local a,L; L := 0; a := n; while a \u003c\u003e 1 do if a mod 2 = 0 then a := a/2; else a := 3*a+1; L := L+1; fi; od: RETURN(L); end;"
+			],
+			"mathematica": [
+				"f[ nn_ ] := Module[ {c, n}, c = 0; n = nn; While[ n != 1, If[ Mod[ n, 2 ] == 0, n /= 2, n = 3*n + 1; c++ ] ]; Return[ c ] ] maxx = -1; For[ n = 1, n \u003c= 10^8, n++, Module[ {val}, val = f[ n ]; If[ val \u003e maxx, maxx = val; Print[ n, \" \", val ] ] ] ]"
+			],
+			"program": [
+				"(Haskell)",
+				"a033959 n = a033959_list !! (n-1)",
+				"(a033959_list, a033958_list) = unzip $ (0, 1) : f 1 1 where",
+				"   f i x | y \u003e x     = (y, 2 * i - 1) : f (i + 1) y",
+				"         | otherwise = f (i + 1) x",
+				"         where y = a075680 i",
+				"-- _Reinhard Zumkeller_, Jan 08 2014"
+			],
+			"xref": [
+				"Cf. A006884, A006885, A006877, A006878, A033492, A033958.",
+				"Cf. A075680."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Winston C. Yang (winston(AT)cs.wisc.edu), Aug 27 2000",
+				"More terms from Larry Reeves (larryr(AT)acm.org), Sep 27 2000",
+				"Offset corrected by _Reinhard Zumkeller_, Jan 08 2014"
+			],
+			"references": 4,
+			"revision": 15,
+			"time": "2019-10-20T22:03:43-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34794,
+			"data": "2,7,19,31,41,43,53,59,67,73,79,89,97,101,107,127,139,151,163,173,179,193,197,223,241,251,283,293,307,313,317,353,383,389,409,419,443,457,461,467,487,499,521,523,571,577,593,601,607,619,631,641,643,653,659",
+			"name": "a(n) is the least prime p \u003e a(n-1) such that a(n-1) is a quadratic residue mod p.",
+			"comment": [
+				"a(n-1) is a term in row a(n) of A046071. - _Reinhard Zumkeller_, May 10 2015"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A034794/b034794.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e"
+			],
+			"maple": [
+				"f:= proc(t) local i,p;",
+				"  p:= t;",
+				"  do",
+				"    p:= nextprime(p);",
+				"    if numtheory:-jacobi(t,p) = 1 then return p fi",
+				"  od",
+				"end proc:",
+				"A[1]:= 2:",
+				"for n from 2 to 100 do A[n]:= f(A[n-1]) od:",
+				"seq(A[i],i=1..100); # _Robert Israel_, Sep 04 2016"
+			],
+			"mathematica": [
+				"f[n_] := Block[{k = PrimePi[n] + 1}, While[ JacobiSymbol[n, Prime[k]] == -1, k++ ]; Prime[k]]; NestList[f, 2, 54] (* _Robert G. Wilson v_, Mar 16 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034794 n = a034794_list !! (n-1)",
+				"a034794_list = 2 : f 2 (tail  a000040_list) where",
+				"   f x (p:ps) = if elem x $ a046071_row p then p : f p ps else f x ps",
+				"-- _Reinhard Zumkeller_, May 10 2015"
+			],
+			"xref": [
+				"Cf. A092581.",
+				"Cf. A046071, A000040."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"ext": [
+				"Mathematica updated by _Jean-François Alcover_, Jul 04 2013",
+				"Name corrected by _Robert Israel_, Sep 04 2016"
+			],
+			"references": 4,
+			"revision": 24,
+			"time": "2016-09-04T22:52:10-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36241,
+			"data": "1,2,3,5,8,14,25,45,82,140,235,388,559,839,1286,1582,2221,3144,4071,5795,6872,9204,11524,13796,17686,21489,26019,31080,37742,45067,53144,58365,67917,78484,91767,106513,118600,133486,147633,166034,174717",
+			"name": "a(1)=1, a(2)=2, a(3)=3; for n \u003e= 3, a(n) is smallest number such that all a(i) for 1 \u003c= i \u003c= n are distinct, all a(i)+a(j) for 1 \u003c= i \u003c j \u003c= n are distinct and all a(i)+a(j)+a(k) for 1 \u003c= i \u003c j \u003c k \u003c= n are distinct.",
+			"reference": [
+				"Letter from V. Jooste, Pretoria, South Africa, Sep. 8, 1975."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A036241/b036241.txt\"\u003eTable of n, a(n) for n = 1..75\u003c/a\u003e"
+			],
+			"example": [
+				"For {1,2,3,4} we have 1+4 = 2+3, so a(4) is not 4. For {1,2,3,5} the terms 1, 2, 3, 5 are distinct, the sums 1+2, 1+3, 1+5, 2+3, 2+5, 3+5 are distinct and the sums 1+2+3, 1+2+5, 1+3+5, 2+3+5 are distinct, so a(4) = 5."
+			],
+			"mathematica": [
+				"a[1]=1; a[2]=2; a[3]=3; a[n_] := a[n] = Catch[For[an = a[n-1] + 1, True, an++, a[n] = an; t2 = Flatten[Table[a[i] + a[j], {i, 1, n}, {j, i+1, n}]]; If[n*(n-1)/2 == Length[Union[t2]], t3 = Flatten[Table[a[i] + a[j] + a[k], {i, 1, n}, {j, i+1, n}, {k, j+1, n}]]; If[ n*(n-1)*(n-2)/6 == Length[Union[t3]], Throw[an]]]]]; Table[Print[a[n]]; a[n], {n, 1, 41}] (* _Jean-François Alcover_, Jul 24 2012 *)"
+			],
+			"program": [
+				"(PARI) {unique(v)=local(b); b=1; for(j=2,length(v),if(v[j-1]==v[j],b=0)); b}",
+				"{newsort(u,v,q)=local(s); s=[]; for(i=1,length(v),s=concat(s,v[i]+q)); vecsort(concat(u,s))}",
+				"{m=175000; print1(1,\",\",2,\",\",3,\",\"); w1=[1,2,3]; w2=[3,4,5]; w3=[6]; q=4; while(q\u003cm,y1=concat(w1,q); y2=newsort(w2,w1,q); y3=newsort(w3,w2,q); if(unique(y1)\u0026\u0026unique(y2)\u0026\u0026unique(y3),w1=y1; w2=y2; w3=y3; print1(q,\",\")); q=q+1)}",
+				"(Haskell)",
+				"import qualified Data.Set as Set (null, map)",
+				"import Data.Set (empty, fromList, toList, intersect, union)",
+				"a036241 n = a036241_list !! (n-1)",
+				"a036241_list = f [1..] [] empty empty where",
+				"   f (x:xs) ys s2 s3",
+				"    | null (s2' `intersect` y2s) \u0026\u0026 null (s3' `intersect` y3s)",
+				"      = x : f xs (x:ys) (fromList s2' `union` s2) (fromList s3' `union` s3)",
+				"    | otherwise = f xs ys s2 s3",
+				"    where s2' = sort $ map (x +) ys",
+				"          s3' = sort $ map (x +) y2s",
+				"          y2s = toList s2",
+				"          y3s = toList s3",
+				"-- _Reinhard Zumkeller_, Oct 02 2011"
+			],
+			"xref": [
+				"Cf. A062065, A051912, A060276."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Better description and more terms from _Naohiro Nomoto_, Jul 02 2001",
+				"Edited by and terms a(30) to a(41) from _Klaus Brockhaus_, May 21 2003"
+			],
+			"references": 4,
+			"revision": 17,
+			"time": "2013-07-13T12:02:00-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36391,
+			"data": "0,1,3,3,11,3,21,7,21,11,63,7,77,21,23,23,171,21,183,23,49,63,333,15,231,77,183,49,473,23,441,87,147,171,161,49,671,183,161,47,903,49,903,147,161,333,1521,47,903,231,343,161,1727,183,483,105,427,473,2439,47",
+			"name": "a(n) = sum of order of a mod n, 0 \u003c a \u003c n, gcd(a, n) = 1.",
+			"comment": [
+				"Related to a problem of Arnold.",
+				"Row sums of triangle A139366. - _Wolfdieter Lang_, Sep 09 2008"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A036391/b036391.txt\"\u003eTable of n, a(n) for n = 1..2000\u003c/a\u003e",
+				"Pär Kurlberg and Carl Pomerance, \u003ca href=\"http://arxiv.org/abs/1108.5209\"\u003eOn a problem of Arnold: the average multiplicative order of a given integer\u003c/a\u003e, arXiv:1108.5209 [math.NT], 2012."
+			],
+			"formula": [
+				"On the GRH, Kurlberg \u0026 Pomerance show that a(n) = n^2/log n exp(B log log n/log log log n (1 + o(1))), where B = A218342 = 0.345372.... - _Charles R Greathouse IV_, Oct 26 2012",
+				"If n is in A033948 then a(n)= Sum_{divisors d of phi(n)} phi(d)*d. - _Geoffrey Critzer_, Jan 24 2015"
+			],
+			"maple": [
+				"with(numtheory):",
+				"a:= n-\u003e add(`if`(igcd(n, k)=1, order(k, n), 0), k=1..n-1):",
+				"seq(a(n), n=1..60);  # _Alois P. Heinz_, Oct 28 2012"
+			],
+			"mathematica": [
+				"a[n_] := Sum[ If[ CoprimeQ[k, n], MultiplicativeOrder[k, n], 0], {k, 1, n-1}]; Table[a[n], {n, 1, 60}] (* _Jean-François Alcover_, Aug 19 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a036391 = sum . a139366_row  -- _Reinhard Zumkeller_, May 01 2013"
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,3",
+			"author": "_David W. Wilson_",
+			"ext": [
+				"Adapted to the definition: a(1)=0 by _Alois P. Heinz_, Oct 28 2012"
+			],
+			"references": 4,
+			"revision": 32,
+			"time": "2015-02-04T14:57:29-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36667,
+			"data": "1,4,6,9,16,24,36,54,64,81,96,144,216,256,324,384,486,576,729,864,1024,1296,1536,1944,2304,2916,3456,4096,4374,5184,6144,6561,7776,9216,11664,13824,16384,17496,20736,24576,26244,31104,36864,39366",
+			"name": "Numbers of the form 2^i*3^j, i+j even.",
+			"comment": [
+				"A069352(a(n)) mod 2 = 0. - _Reinhard Zumkeller_, May 16 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A036667/b036667.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"max = 40000;",
+				"Reap[Do[k = 2^i 3^j; If[k \u003c= max \u0026\u0026 EvenQ[i+j], Sow[k]], {i, 0, Log[2, max] // Ceiling}, {j, 0, Log[3, max] // Ceiling}]][[2, 1]] // Union (* _Jean-François Alcover_, Aug 04 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a036667 n = a036667_list !! (n-1)",
+				"a036667_list = filter (even . flip mod 2 . a001222) a003586_list",
+				"-- _Reinhard Zumkeller_, May 16 2015"
+			],
+			"xref": [
+				"Complement of A257999 with respect to A003586; intersection of A005843 and A003586; A025620 (subsequence); A069352, A022328, A022329."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, May 16 2015"
+			],
+			"references": 4,
+			"revision": 14,
+			"time": "2018-08-04T14:33:38-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37014,
+			"data": "0,1,2,3,4,5,7,8,10,11,12,15,16,19,20,21,23,24,31,32,39,40,42,43,44,47,48,51,56,63,64,71,76,79,80,83,84,85,87,88,95,96,103,112,127,128,143,152,159,160,167,168,170,171,172,175,176,179,184,191,192,199,204,207",
+			"name": "Numbers n with property that reading binary expansion from right to left (from least significant to most significant), run lengths do not increase.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037014/b037014.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[0,250],Min[Differences[Length/@Split[IntegerDigits[ #,2]]]]\u003e= 0\u0026] (* _Harvey P. Dale_, Jan 30 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (unfoldr, group)",
+				"a037014 n = a037014_list !! (n-1)",
+				"a037014_list = 0 : filter",
+				"   (all (\u003c= 0) . (\\x -\u003e zipWith (-) (tail $ rls x) $ rls x)) [1..] where",
+				"       rls = map length . group . unfoldr",
+				"             (\\x -\u003e if x == 0 then Nothing else Just $ swap $ divMod x 2)",
+				"-- _Reinhard Zumkeller_, Mar 10 2012"
+			],
+			"xref": [
+				"Cf. A037013 (subsequence), A037016, A037015."
+			],
+			"keyword": "nonn,easy,base,nice",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Patrick De Geest_, Feb 15 1999",
+				"Offset fixed by _Reinhard Zumkeller_, Mar 10 2012"
+			],
+			"references": 4,
+			"revision": 21,
+			"time": "2019-10-10T03:55:28-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37161,
+			"data": "0,-1,1,-2,-1,1,2,-3,-1,1,3,-4,-3,-2,-1,1,2,3,4,-5,-1,1,5,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,-7,-5,-3,-1,1,3,5,7,-8,-7,-5,-4,-2,-1,1,2,4,5,7,8,-9,-7,-3,-1,1,3,7,9,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1",
+			"name": "Well-order the rational numbers; take numerators.",
+			"reference": [
+				"W. Sierpiński, Cardinal and Ordinal Numbers, Warsaw 1965, 2nd ed., p. 40."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037161/b037161.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"order[n_] := Join[-Reverse[ pos = Select[(r = Range[n])/Reverse[r], Numerator[#] + Denominator[#] == n + 1 \u0026 ] ], pos]; order[0] = 0; Numerator[ Flatten[ Table[ order[n], {n, 0, 10}]]] (* _Jean-François Alcover_, Jun 27 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"import Data.Ratio ((%), numerator)",
+				"a037161 n = a037161_list !! n",
+				"a037161_list = 0 : map numerator",
+				"  (concat $ concat $ transpose [map (map negate) qss, map reverse qss])",
+				"  where qss = map q [1..]",
+				"        q x = map (uncurry (%)) $ filter ((== 1) . uncurry gcd) $",
+				"                  zip (reverse zs) zs where zs = [1..x]",
+				"-- _Reinhard Zumkeller_, Mar 08 2013"
+			],
+			"xref": [
+				"Cf. A037162.",
+				"Cf. A020652."
+			],
+			"keyword": "sign,easy,nice,frac",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_",
+			"references": 4,
+			"revision": 14,
+			"time": "2014-12-20T03:03:44-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37162,
+			"data": "1,1,1,1,2,2,1,1,3,3,1,1,2,3,4,4,3,2,1,1,5,5,1,1,2,3,4,5,6,6,5,4,3,2,1,1,3,5,7,7,5,3,1,1,2,4,5,7,8,8,7,5,4,2,1,1,3,7,9,9,7,3,1,1,2,3,4,5,6,7,8,9,10,10,9,8,7,6,5,4,3,2,1",
+			"name": "Well-order the rational numbers; take denominators.",
+			"reference": [
+				"Sierpiński, Cardinal and Ordinal Numbers, Warsaw 1965, 2nd ed., p. 40."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037162/b037162.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"order[n_] := Join[-Reverse[ pos = Select[(r = Range[n])/Reverse[r], Numerator[#] + Denominator[#] == n + 1 \u0026 ] ], pos]; order[0] = 0; Denominator[ Flatten[ Table[ order[n], {n, 0, 10}]]] (* _Jean-François Alcover_, Jun 27 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"import Data.Ratio ((%), denominator)",
+				"a037162 n = a037162_list !! n",
+				"a037162_list = 1 : map denominator",
+				"  (concat $ concat $ transpose [map (map negate) qss, map reverse qss])",
+				"  where qss = map q [1..]",
+				"        q x = map (uncurry (%)) $ filter ((== 1) . uncurry gcd) $",
+				"                  zip (reverse zs) zs where zs = [1..x]",
+				"-- _Reinhard Zumkeller_, Mar 08 2013"
+			],
+			"xref": [
+				"Cf. A037161.",
+				"Cf. A038567."
+			],
+			"keyword": "nonn,easy,nice,frac",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_",
+			"references": 4,
+			"revision": 11,
+			"time": "2015-03-06T22:49:39-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37201,
+			"data": "1,2,4,2,4,2,4,6,2,6,4,2,4,6,2,6,4,2,6,4,6,8,4,2,4,2,4,14,4,6,2,10,2,6,4,6,2,10,2,4,2,12,4,2,4,6,2,10,6,2,6,4,2,10,14,4,2,4,14,6,10,2,4,6,8,6,4,6,8,4,8,10,2,10,2,6,4,6,8,4",
+			"name": "Differences between consecutive primes (A001223) but with repeats omitted.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037201/b037201.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Pri#gaps\"\u003eIndex entries for primes, gaps between\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Flatten[Split[Differences[Prime[Range[150]]]]/.{{a_,b_}-\u003ea, {a_,b_,c_}-\u003ea}] (* _Harvey P. Dale_, Jun 21 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a037201 n = a037201_list !! (n-1)",
+				"a037201_list = f a001223_list where",
+				"   f (x:xs@(x':_)) | x == x'   = f xs",
+				"                   | otherwise = x : f xs",
+				"-- _Reinhard Zumkeller_, Feb 27 2012",
+				"(PARI) t=0;p=2;forprime(q=3,1e3,if(q-p!=t,print1(q-p\", \"));t=q-p;p=q) \\\\ _Charles R Greathouse IV_, Feb 27 2012"
+			],
+			"xref": [
+				"Cf. A000040, A001223, A007921, A030173."
+			],
+			"keyword": "easy,nonn,nice",
+			"offset": "1,2",
+			"author": "_Naohiro Nomoto_",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, Feb 27 2012"
+			],
+			"references": 4,
+			"revision": 20,
+			"time": "2013-07-13T12:02:01-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37277,
+			"data": "0,2,3,24,5,236,7,248,39,2510,11,234612,13,2714,3515,24816,17,236918,19,2451020,3721,21122,23,234681224,525,21326,3927,2471428,29,2356101530,31,2481632,31133,21734,5735,23469121836,37,21938,31339",
+			"name": "Replace n with concatenation of its divisors \u003e1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037277/b037277.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"FromDigits[Flatten[IntegerDigits/@Rest[Divisors[#]]]]\u0026/@Range[40] (* _Harvey P. Dale_, Nov 06 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a037277 1 = 0",
+				"a037277 n = read $ concat $ map show $ tail $ a027750_row n",
+				"-- _Reinhard Zumkeller_, May 01 2012, Feb 07 2011"
+			],
+			"xref": [
+				"Cf. A027750, A037284, A037278, A106708."
+			],
+			"keyword": "nonn,easy,base,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Erich Friedman_"
+			],
+			"references": 4,
+			"revision": 19,
+			"time": "2017-03-31T22:45:37-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

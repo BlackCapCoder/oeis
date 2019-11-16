@@ -1,0 +1,489 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2180,
+	"results": [
+		{
+			"number": 18834,
+			"data": "0,1,5,6,10,25,50,60,76,100,250,376,500,600,625,760,1000,2500,3760,3792,5000,6000,6250,7600,9376,10000,14651,25000,37600,50000,60000,62500,76000,90625,93760,100000,109376,250000,376000,495475,500000,505025",
+			"name": "Numbers k such that decimal expansion of k^2 contains k as a substring.",
+			"link": [
+				"David W. Wilson and Giovanni Resta, \u003ca href=\"/A018834/b018834.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e (first 126 terms from David W. Wilson)"
+			],
+			"example": [
+				"25^2 = 625 which contains 25.",
+				"3792^2 = 14_3792_64, 14651^2 = 2_14651_801."
+			],
+			"maple": [
+				"select(n-\u003esearchtext(convert(n,string),convert(n^2,string))\u003e0,[$0..10^5]); # _Paolo P. Lava_, Apr 18 2018"
+			],
+			"mathematica": [
+				"Select[Range[510000], MemberQ[FromDigits /@ Partition[IntegerDigits[#^2], IntegerLength[#], 1], #] \u0026] (* _Jayanta Basu_, Jun 29 2013 *)",
+				"Select[Range[0,510000],StringPosition[ToString[#^2],ToString[#]]!={}\u0026] (* _Ivan N. Ianakiev_, Oct 02 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a018834 n = a018834_list !! (n-1)",
+				"a018834_list = filter (\\x -\u003e show x `isInfixOf` show (x^2)) [0..]",
+				"-- _Reinhard Zumkeller_, Jul 27 2011"
+			],
+			"xref": [
+				"Cf. A029942, A003226, A046831, A046851, A045953.",
+				"Cf. A000290. Supersequence of A029943."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,3",
+			"author": "_David W. Wilson_",
+			"references": 15,
+			"revision": 36,
+			"time": "2018-04-20T04:57:46-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 19446,
+			"data": "1,2,2,3,4,4,5,5,6,7,7,8,9,9,10,10,11,12,12,13,13,14,15,15,16,17,17,18,18,19,20,20,21,22,22,23,23,24,25,25,26,26,27,28,28,29,30,30,31,31,32,33,33,34,34,35,36,36,37,38,38,39,39,40,41,41,42,43,43,44,44,45,46,46",
+			"name": "a(n) = ceiling(n/tau), where tau = (1+sqrt(5))/2.",
+			"comment": [
+				"Average of first n terms of A019444, which is defined to be a permutation of the positive integers, p_1, p_2, ..., such that the average of each initial segment is an integer, using the greedy algorithm to define p_n.",
+				"Number of pairs (i,j) of nonnegative integers such that n-1=floor(i+j*tau). - _Clark Kimberling_, Jun 18 2002",
+				"The terms that occur exactly once are 1,3,6,8,..., given by A026352(n)=n+1+floor(n*tau). - _Clark Kimberling_, Jun 18 2002",
+				"The number n appears A001468(n) times. - _Reinhard Zumkeller_, Feb 02 2012",
+				"It seems that the indices of the terms that occur exactly once are listed in A276885. - _Ivan N. Ianakiev_, Aug 30 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A019446/b019446.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Problem of the week, \u003ca href=\"http://mathforum.org/wagon\"\u003eProblem 818\u003c/a\u003e",
+				"J. Rickard, \u003ca href=\"http://mathforum.org/epigone/sci.math/crorquusnand/v2j*WWuJo%40news.cam.virata.com\"\u003eRearrangement of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=1; a(n) = n+1 - a(a(n-1)). - _Benoit Cloitre_, Nov 06 2002",
+				"a(n) = A005206(n) + 1. - _Reinhard Zumkeller_, Feb 02 2012",
+				"a(n) = A019445(n) / n. - _Sean A. Irvine_, Mar 17 2019"
+			],
+			"example": [
+				"a(6)=4 since 6-1=[i+j*tau] for these (i,j): (5,0), (4,1), (2,2), (1,3). - _Clark Kimberling_, Jun 18 2002"
+			],
+			"maple": [
+				"A019446:=n-\u003eceil(2*n/(1+sqrt(5))); seq(A019446(n), 1..100); # _Wesley Ivan Hurt_, Jan 19 2014"
+			],
+			"mathematica": [
+				"Ceiling[Range[80]/GoldenRatio] (* _Harvey P. Dale_, Aug 02 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a019446 n = a019446_list !! (n-1)",
+				"a019446_list = 1 : zipWith (-) [3..] (map a019446 a019446_list)",
+				"-- _Reinhard Zumkeller_, Feb 02 2012",
+				"(GAP) a:=[1];; for n in [2..80] do a[n]:=n+1-a[a[n-1]]; od; a; # _Muniru A Asiru_, Aug 30 2018"
+			],
+			"xref": [
+				"Cf. A001622, A019444, A019445, A026352, A005206."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_R. K. Guy_, Tom Halverson (halverson(AT)macalester.edu)",
+			"ext": [
+				"Better name from _David Radcliffe_ and John Rickard, Dec 12 2000",
+				"Edited by _Dean Hickerson_, Nov 09 2002"
+			],
+			"references": 15,
+			"revision": 48,
+			"time": "2019-03-17T18:04:24-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 22840,
+			"data": "2,4,7,9,12,14,17,19,22,24,26,29,31,34,36,39,41,44,46,48,51,53,56,58,61,63,66,68,71,73,75,78,80,83,85,88,90,93,95,97,100,102,105,107,110,112,115,117,120,122,124,127,129,132,134,137,139,142,144,146",
+			"name": "Beatty sequence for sqrt(6).",
+			"comment": [
+				"Complement of A138235; a(n) = A138236(A138235(n)) and A138236(a(n)) = A138235(n). - _Reinhard Zumkeller_, Mar 07 2008",
+				"Numbers k such that A248515(k+1) = A248515(k) + 1 = 1 + least number h such that 1 - h*sin(1/h) \u003c 1/n^2. The difference sequence of A248515 is (0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, ...), so that A138235 = (1, 3, 5, 6, 8, ...) and A022840 = (2, 4, 7, 9, 12, 14, ...). - _Clark Kimberling_, Jun 16 2015"
+			],
+			"link": [
+				"Iain Fox, \u003ca href=\"/A022840/b022840.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from Reinhard Zumkeller)",
+				"Clark Kimberling, \u003ca href=\"https://www.emis.de/journals/INTEGERS/papers/q15/q15.Abstract.html\"\u003eBeatty sequences and trigonometric functions\u003c/a\u003e, Integers 16 (2016), #A15.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/BeattySequence.html\"\u003eBeatty Sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Be#Beatty\"\u003eIndex entries for sequences related to Beatty sequences\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[Floor[n Sqrt[6]], {n, 70}] (* _Vincenzo Librandi_, Jun 17 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a022840 = floor . (* sqrt 6) . fromIntegral",
+				"-- _Reinhard Zumkeller_, Sep 14 2014",
+				"(MAGMA) [Floor(n*Sqrt(6)): n in [1..60]]; // _Vincenzo Librandi_, Jun 17 2015",
+				"(PARI) a(n) = floor(n*sqrt(6)) \\\\ _Iain Fox_, Nov 20 2017"
+			],
+			"xref": [
+				"Cf. A010464 (sqrt(6)), A138235 (complement), A248515."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Clark Kimberling_",
+			"references": 15,
+			"revision": 36,
+			"time": "2019-04-25T03:56:56-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 23705,
+			"data": "1,2,3,5,6,7,9,10,11,13,14,15,21,22,23,25,26,27,29,30,31,37,38,39,41,42,43,45,46,47,53,54,55,57,58,59,61,62,63,85,86,87,89,90,91,93,94,95,101,102,103,105,106,107,109,110,111,117,118,119,121,122,123",
+			"name": "Numbers with no 0's in base 4 expansion.",
+			"comment": [
+				"A032925 is the intersection of this sequence and A023717; cf. A179888. - _Reinhard Zumkeller_, Jul 31 2010"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A023705/b023705.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"formula": [
+				"G.f. g(x) satisfies g(x) = (x+2*x^2+3*x^3)/(1-x^3) + 4*(x+x^2+x^3)*g(x^3). - _Robert Israel_, Oct 04 2018"
+			],
+			"maple": [
+				"R:= [1,2,3]: A:= 1,2,3:",
+				"for i from 1 to 4 do",
+				"  R:= map(t -\u003e (4*t+1,4*t+2,4*t+3), R);",
+				"  A:= A, op(R);",
+				"od:",
+				"A; # _Robert Israel_, Oct 04 2018"
+			],
+			"mathematica": [
+				"Select[ Range[ 120 ], (Count[ IntegerDigits[ #, 4 ], 0 ]==0)\u0026 ]",
+				"Select[Range[200],DigitCount[#,4,0]==0\u0026] (* _Harvey P. Dale_, Dec 23 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a023705 n = a023705_list !! (n-1)",
+				"a023705_list = iterate f 1 where",
+				"   f x = 1 + if r \u003c 3 then x else 4 * f x'",
+				"         where (x', r) = divMod x 4",
+				"-- _Reinhard Zumkeller_, Mar 06 2015, Oct 19 2011",
+				"(PARI) isok(n) = vecmin(digits(n, 4)); \\\\ _Michel Marcus_, Jul 04 2015",
+				"(MAGMA) [n: n in [1..130] | not 0 in Intseq(n,4)]; // _Vincenzo Librandi_, Oct 04 2018"
+			],
+			"xref": [
+				"Cf. A003754, A007090.",
+				"Zeroless numbers in some other bases \u003c= 10: A000042 (base 2), A032924 (base 3), A248910 (base 6), A255805 (base 8), A255808 (base 9), A052382 (base 10).",
+				"Cf. A100968 (subsequence)."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_Olivier Gérard_",
+			"references": 15,
+			"revision": 34,
+			"time": "2018-10-04T10:43:37-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 23855,
+			"data": "1,2,7,10,22,28,50,60,95,110,161,182,252,280,372,408,525,570,715,770,946,1012,1222,1300,1547,1638,1925,2030,2360,2480,2856,2992,3417,3570,4047,4218,4750,4940,5530,5740,6391,6622,7337,7590,8372,8648,9500,9800,10725,11050",
+			"name": "a(n) = 1*(n) + 2*(n-1) + 3*(n-2) + ... + (n+1-k)*k, where k = floor((n+1)/2).",
+			"comment": [
+				"Given a rectangle of perimeter 2*n one can form rectangles having this perimeter for a number of different rectangles or squares depending on how large 2*n is.  The sequence lists the total areas of all such rectangles for each 2*n. - _J. M. Bergot_, Sep 14 2011",
+				"Conjecture: Antidiagonal sums of triangle A075462. - _L. Edson Jeffery_, Jan 20 2012"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A023855/b023855.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_07\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,3,-3,-3,3,1,-1)"
+			],
+			"formula": [
+				"a(n) = (n+1)*(n+3)*(2*n+1)/24 if n is odd, or n*(n+1)*(n+2)/12 if n is even.",
+				"G.f.: x*(1+x+2*x^2)/((1-x)^4*(1+x)^3). - _Ralf Stephan_, Apr 28 2004",
+				"a(n) = Sum_{i=1..ceiling(n/2)} i*(n-i+1) = -ceiling(n/2)*(ceiling(n/2)+1)*(2*ceiling(n/2)-3n-2)/6. - _Wesley Ivan Hurt_, Sep 19 2013",
+				"a(n) = (4*n^3 + 15*n^2 + 14*n + 3 - 3*(n+1)^2*(-1)^n)/48. - _Luce ETIENNE_, Oct 22 2014",
+				"a(n) = (A000292(n) + (n mod 2)*(ceiling(n/2))^2)/2. - _Luc Rousseau_, Feb 25 2018"
+			],
+			"maple": [
+				"seq(-(1/3)*floor((k+1)/2)^3 + (k/2)*floor((k+1)/2)^2 + ((3*k+2)/6)*floor((k+1)/2), k=1..100); # _Wesley Ivan Hurt_, Sep 18 2013"
+			],
+			"mathematica": [
+				"LinearRecurrence[{1, 3, -3, -3, 3, 1, -1}, {1, 2, 7, 10, 22, 28, 50}, 50] (* _Vincenzo Librandi_, Jan 23 2012 *)",
+				"Table[-Ceiling[n/2] (Ceiling[n/2] + 1) (2 Ceiling[n/2] - 3 n - 2)/6, {n, 100}] (* _Wesley Ivan Hurt_, Sep 20 2013 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n%2,(n+1)*(n+3)*(2*n+1)/24,n*(n+1)*(n+2)/12)",
+				"(PARI) x='x+O('x^99); Vec(x*(1+x+2*x^2)/((1-x)^4*(1+x)^3)) \\\\ _Altug Alkan_, Mar 03 2018",
+				"(Haskell)",
+				"a023855 n = sum $ zipWith (*) [1 .. div (n+1) 2] [n, n-1 ..]",
+				"-- _Reinhard Zumkeller_, Jan 23 2012"
+			],
+			"xref": [
+				"Cf. A023856, A023857, A024305, A024854."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"Formula, program, and slight revision by _Charles R Greathouse IV_, Feb 23 2010"
+			],
+			"references": 15,
+			"revision": 71,
+			"time": "2018-03-13T11:29:49-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 28326,
+			"data": "2,2,2,2,4,2,2,6,6,2,2,8,12,8,2,2,10,20,20,10,2,2,12,30,40,30,12,2,2,14,42,70,70,42,14,2,2,16,56,112,140,112,56,16,2,2,18,72,168,252,252,168,72,18,2,2,20,90,240,420,504,420,240,90,20,2,2,22,110,330,660,924",
+			"name": "Twice Pascal's triangle A007318: T(n,k) = 2*C(n,k).",
+			"comment": [
+				"Also number of binary vectors of length n+1 with k+1 runs (1\u003c=k\u003c=n).",
+				"If the last two entries in each row are removed and 0 replaces the entries in a checkerboard pattern, we obtain",
+				"  2;",
+				"  0,  6;",
+				"  2,  0, 12;",
+				"  0, 10,  0,  20;",
+				"  2,  0, 30,   0,  30;",
+				"  0, 14,  0,  70,   0,  42;",
+				"  2,  0, 56,   0, 140,   0, 56;",
+				"  0, 18,  0, 168,   0, 252,  0, 72;",
+				"  ...",
+				"This plays the same role of recurrence coefficients for second differences of polynomials as triangle A074909 plays for the first differences. - _R. J. Mathar_, Jul 03 2013"
+			],
+			"reference": [
+				"I. Goulden and D. Jackson, Combinatorial Enumeration, John Wiley and Sons, 1983, page 76."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A028326/b028326.txt\"\u003eRows n=0..150 of triangle, flattened\u003c/a\u003e",
+				"R. J. Mathar, \u003ca href=\"http://arxiv.org/abs/1311.6135\"\u003ePaving rectangular regions with rectangular tiles: tatami and non-tatami tilings\u003c/a\u003e, arXiv:1311.6135 [math.CO], 2013, Table 48.",
+				"Franck Ramaharo, \u003ca href=\"https://arxiv.org/abs/1802.07701\"\u003eStatistics on some classes of knot shadows\u003c/a\u003e, arXiv:1802.07701 [math.CO], 2018.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f. for the number of length n binary words with k runs: (1-x+x*y)/(1-x-x*y) [Goulden and Jackson]. - _Geoffrey Critzer_, Mar 04 2012"
+			],
+			"example": [
+				"Triangle begins:",
+				"2",
+				"2,  2",
+				"2,  4,   2",
+				"2,  6,   6,   2",
+				"2,  8,  12,   8,   2",
+				"2, 10,  20,  20,  10,    2",
+				"2, 12,  30,  40,  30,   12,    2",
+				"2, 14,  42,  70,  70,   42,   14,    2",
+				"2, 16,  56, 112, 140,  112,   56,   16,   2",
+				"2, 18,  72, 168, 252,  252,  168,   72,  18,   2",
+				"2, 20,  90, 240, 420,  504,  420,  240,  90,  20,   2",
+				"2, 22, 110, 330, 660,  924,  924,  660, 330, 110,  22,  2",
+				"2, 24, 132, 440, 990, 1584, 1848, 1584, 990, 440, 132, 24, 2"
+			],
+			"maple": [
+				"T := proc(n, k) if k=0 then 2 elif k\u003en then 0 else T(n-1, k)+T(n-1, k-1) fi end:",
+				"for n from 0 to 13 do seq(T(n, k), k=0..n) od; # _Zerinvary Lajos_, Dec 16 2006"
+			],
+			"mathematica": [
+				"Table[2*Binomial[n, k], {n, 0, 11}, {k, 0, n}] // Flatten (* _Robert G. Wilson v_, Mar 05 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a028326 n k = a028326_tabl !! n !! k",
+				"a028326_row n = a028326_tabl !! n",
+				"a028326_tabl = iterate",
+				"   (\\row -\u003e zipWith (+) ([0] ++ row) (row ++ [0])) [2]",
+				"-- _Reinhard Zumkeller_, Mar 12 2012",
+				"(PARI) T(n,k) = 2*binomial(n,k) \\\\ _Charles R Greathouse IV_, Feb 07 2017",
+				"(Python)",
+				"from sympy import binomial",
+				"def T(n, k): return 2*binomial(n, k)",
+				"for n in xrange(21): print [T(n, k) for k in xrange(n + 1)] # _Indranil Ghosh_, Apr 29 2017"
+			],
+			"xref": [
+				"Cf. A028327, A007318."
+			],
+			"keyword": "nonn,tabl,easy,nice",
+			"offset": "0,1",
+			"author": "_Mohammad K. Azarian_",
+			"ext": [
+				"More terms from Donald Manchester, Jr. (s1199170(AT)cedarnet.cedarville.edu)"
+			],
+			"references": 15,
+			"revision": 48,
+			"time": "2018-05-21T02:35:17-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33493,
+			"data": "1,3,49,7,36,55,288,15,339,46,259,67,119,302,694,31,214,357,519,66,148,281,633,91,658,145,101440,330,442,724,101104,63,841,248,540,393,535,557,2344,106,101331,190,1338,325,497,679,100979,139,806,708,1130,197",
+			"name": "Sum of numbers in trajectory of 3x+1 problem; first number n.",
+			"comment": [
+				"Given a power of two, the value in this sequence is the next higher Mersenne number, or a(2^m) = 2^(m + 1) - 1. - _Alonso del Arte_, Apr 10 2009",
+				"a(n) = sum (A070165(k): 1 \u003c= k \u003c= A006577(n)). - _Reinhard Zumkeller_, Oct 08 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A033493/b033493.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/CollatzProblem.html\"\u003eCollatz Problem\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Collatz_conjecture\"\u003eCollatz conjecture\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"example": [
+				"a(5) = 36 because the Ulam's conjecture trajectory sequence starting on 5 runs 5, 16, 8, 4, 2, 1 and therefore 5 + 16 + 8 + 4 + 2 + 1 = 36. - _Alonso del Arte_, Apr 10 2009"
+			],
+			"mathematica": [
+				"collatz[1] = 1; collatz[n_Integer?OddQ] := 3n + 1; collatz[n_Integer?EvenQ] := n/2; Table[-1 + Plus @@ FixedPointList[collatz, n], {n, 60}] (* _Alonso del Arte_, Apr 10 2009 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033493 = sum . a070165_row  -- _Reinhard Zumkeller_, Oct 08 2011",
+				"(Python)",
+				"def a(n):",
+				"....if n==1: return 1",
+				"....l=[n, ]",
+				"....while True:",
+				"........if n%2==0: n/=2",
+				"........else: n = 3*n + 1",
+				"........l+=[n, ]",
+				"........if n\u003c2: break",
+				"....return sum(l)",
+				"print [a(n) for n in xrange(1, 101)] # _Indranil Ghosh_, Apr 14 2017"
+			],
+			"xref": [
+				"Apart from initial term, exactly the same as A049074. - _Alonso del Arte_, Apr 10 2009",
+				"Cf. A006370."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Jeff Burch_",
+			"ext": [
+				"Corrected a(16) to 31 to match other powers of 2; removed duplicate value of a(48) = 139 because a(49) = 806 and not 139. - _Alonso del Arte_, Apr 10 2009"
+			],
+			"references": 15,
+			"revision": 30,
+			"time": "2018-10-15T14:07:07-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33496,
+			"data": "1,2,4,8,16,20,24,32,40,48,52,56,64,68,72,80,84,88,96,100,104,112,116,128,132,136,144,148,152,160,168,176,180,184,192,196,200,208,212,224,228,232,240,244,256,260,264,272,276,280,288,296,304,308,312,320,324",
+			"name": "Numbers n such that initial number is largest number in trajectory of Collatz (3x+1) problem.",
+			"comment": [
+				"Or, possible peak values in 3x+1 trajectories: 1,2 and n=16k+4,16k+8,16k but not for all k; those 4k numbers [like n=16k+12 and others] which cannot be such peaks are listed in A087252.",
+				"A008908(a(n)) = A159999(a(n)). - _Reinhard Zumkeller_, May 04 2009",
+				"Max(A070165(a(n),k): k=1..A008908(a(n))) = A070165(a(n),1) = a(n). - _Reinhard Zumkeller_, Oct 22 2015",
+				"a(n) = possible values of A025586(m) in increasing order. See A275109 (number of times each value of a(n) occurs in A025586). - _Jaroslav Krizek_, Jul 17 2016"
+			],
+			"link": [
+				"T. D. Noe and Reinhard Zumkeller, \u003ca href=\"/A033496/b033496.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e, first 2000 terms from T. D. Noe",
+				"Hartmut F. W. Hoft, \u003ca href=\"/A033496/a033496.pdf\"\u003einitial Collatz fans\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"example": [
+				"These peak values occur in 1, 3, 6, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 27, 30, 39, 44, 71, 75, 1579 [3x+1]-iteration trajectories started with different initial values. This list most probably is incomplete.",
+				"From _Hartmut F. W. Hoft_, Jun 24 2016: (Start)",
+				"Let n be the maximum in some Collatz trajectory and let F(n), the initial fan of n, be the set of all initial values less than or equal to n whose Collatz trajectories lead to n as their maximum. Then the size of F(n) never equals 2, 4, 5, 7 or 10 (see the link).",
+				"Conjecture: Every number k \u003e 10 occurs as the size of F(n) for some n.",
+				"Fans F(n) of size k, for all 10 \u003c k \u003c 355, exist for 4 \u003c= n \u003c= 50,000,000. The largest fan in this range, F(41163712), has size 7450.",
+				"(End)"
+			],
+			"mathematica": [
+				"Collatz[a0_Integer, maxits_:1000] := NestWhileList[If[EvenQ[ # ], #/2, 3# + 1] \u0026, a0, Unequal[ #, 1, -1, -10, -34] \u0026, 1, maxits]; (* Collatz[n] function definition by Eric Weisstein *)",
+				"Select[Range[324], Max[Collatz[#]] == # \u0026] (* _T. D. Noe_, Feb 28 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033496 n = a033496_list !! (n-1)",
+				"a033496_list = 1 : filter f [2, 4 ..] where",
+				"   f x = x == maximum (takeWhile (/= 1) $ iterate a006370 x)",
+				"-- _Reinhard Zumkeller_, Oct 22 2015",
+				"(MAGMA) Set(Sort([Max([k eq 1 select n else IsOdd(Self(k-1)) and not IsOne(Self(k-1)) select 3*Self(k-1)+1 else Self(k-1) div 2: k in [1..5*n]]): n in [1..2^10] | Max([k eq 1 select n else IsOdd(Self(k-1)) and not IsOne(Self(k-1)) select 3*Self(k-1)+1 else Self(k-1) div 2: k in [1..5*n]]) le 2^10])) - _Jaroslav Krizek_, Jul 17 2016",
+				"(Python)",
+				"def a(n):",
+				"    if n\u003c2: return [1]",
+				"    l=[n, ]",
+				"    while True:",
+				"        if n%2==0: n/=2",
+				"        else: n = 3*n + 1",
+				"        if not n in l:",
+				"            l+=[n, ]",
+				"            if n\u003c2: break",
+				"        else: break",
+				"    return l",
+				"print [n for n in xrange(1, 501) if max(a(n)) == n] # _Indranil Ghosh_, Apr 14 2017"
+			],
+			"xref": [
+				"Cf. A025586, A087251-A087256, A015999, A275109.",
+				"Cf. A006370, A008908, A070165.",
+				"Cf. A095384 (contains a definition of Collatz[]).",
+				"Cf. A105730, A233293."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_Jeff Burch_",
+			"references": 15,
+			"revision": 44,
+			"time": "2018-01-08T02:11:48-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34302,
+			"data": "23,37,53,73,113,131,137,173,179,197,311,317,431,617,719,1499,1997,2239,2293,3137,4919,6173,7433,9677,19973,23833,26833,47933,73331,74177,91733,93491,94397,111731,166931,333911,355933,477797,477977",
+			"name": "Primes which remains prime if any digit is deleted (zeros not allowed).",
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A034302/b034302.txt\"\u003eTable of n, a(n) for n = 1..103\u003c/a\u003e (first 79 from T. D. Noe)",
+				"StackExchange, \u003ca href=\"http://math.stackexchange.com/questions/33094\"\u003eDeleting any digit yields a prime\u003c/a\u003e"
+			],
+			"mathematica": [
+				"rpnzQ[n_]:=Module[{idn=IntegerDigits[n]},Count[idn,0]==0 \u0026\u0026 And@@ PrimeQ[FromDigits/@Subsets[IntegerDigits[n], {Length[idn]-1}]]]; Select[Prime[Range[40000]],rpnzQ]  (* _Harvey P. Dale_, Mar 24 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, tails)",
+				"a034302 n = a034302_list !! (n-1)",
+				"a034302_list = filter f $ drop 4 a038618_list where",
+				"   f x = all (== 1) $ map (a010051 . read) $",
+				"             zipWith (++) (inits $ show x) (tail $ tails $ show x)",
+				"-- _Reinhard Zumkeller_, Dec 17 2011",
+				"(PARI) is(n)=my(d=digits(n),t=2^#d-1); if(vecmin(d)==0, return(0)); for(i=0,#d-1, if(!isprime(fromdigits(vecextract(d,t-2^i))), return(0))); isprime(n) \\\\ _Charles R Greathouse IV_, Jun 23 2017"
+			],
+			"xref": [
+				"Cf. A034303, A034304, A034305, A051362, A010051, A038618."
+			],
+			"keyword": "base,nonn,nice",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 15,
+			"revision": 26,
+			"time": "2017-06-24T12:35:49-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34930,
+			"data": "1,1,1,1,2,1,1,3,3,1,1,4,6,4,1,1,5,2,2,5,1,1,6,7,4,7,6,1,1,7,5,3,3,5,7,1,1,0,4,0,6,0,4,0,1,1,1,4,4,6,6,4,4,1,1,1,2,5,0,2,4,2,0,5,2,1,1,3,7,5,2,6,6,2,5,7,3,1,1,4,2,4,7,0,4,0,7,4,2,4,1,1,5,6,6,3,7,4,4,7,3,6,6,5,1",
+			"name": "Pascal's triangle read modulo 8.",
+			"reference": [
+				"Huard et al., Europ. J. Combin., 19 (1998), 45-62."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A034930/b034930.txt\"\u003eRows n = 0..120 of triangle, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n+1,k) = (T(n,k) + T(n,k-1)) mod 8. - _Reinhard Zumkeller_, Jul 12 2013"
+			],
+			"mathematica": [
+				"Mod[ Flatten[ Table[ Binomial[n, k], {n, 0, 13}, {k, 0, n}]], 8] (* _Robert G. Wilson v_, May 26 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034930 n k = a034930_tabl !! n !! k",
+				"a034930_row n = a034930_tabl !! n",
+				"a034930_tabl = iterate",
+				"   (\\ws -\u003e zipWith (\\u v -\u003e mod (u + v) 8) ([0] ++ ws) (ws ++ [0])) [1]",
+				"-- _Reinhard Zumkeller_, Jul 12 2013, Jun 21 2013"
+			],
+			"xref": [
+				"Cf. A007318, A047999, A083093, A034931, A008975, A034932.",
+				"Sequences based on the triangles formed by reading Pascal's triangle mod m: A047999 (m = 2), A083093 (m = 3), A034931 (m = 4), A095140 (m = 5), A095141 (m = 6), A095142 (m = 7), A034930 (m = 8), A095143 (m = 9), A008975 (m = 10), A095144 (m = 11), A095145 (m = 12), A275198 (m = 14), A034932 (m = 16)."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_",
+			"references": 15,
+			"revision": 17,
+			"time": "2018-02-16T13:35:31-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

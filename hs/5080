@@ -1,0 +1,429 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5080,
+	"results": [
+		{
+			"number": 245677,
+			"data": "1,1,11,1,79,26,339,34,5297,62,69071,1165,11723,9844,471181,2625,8960447,73244,8231001,243757,1031626241,151100,4178462515,2651758,10396147563,11843614,64166447971,362476,1989542332021,97275764008,1830230212061,57286319768",
+			"name": "Numerator of sum of fractions A182972(k) / A182973(k) such that A182972(k) + A182973(k) = n.",
+			"comment": [
+				"A182972(n) and A182973(n) provide an enumeration of positive rationals \u003c 1 arranged by increasing sum of numerator and denominator then by increasing numerator;",
+				"a(n) = numerator(sum(A182972(k)/A182973(k): k such that A182972(k)+A182973(k)=n));",
+				"A245718(n) = floor(a(n)/A245678(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A245677/b245677.txt\"\u003eTable of n, a(n) for n = 3..1000\u003c/a\u003e",
+				"Paul Yiu, \u003ca href=\"http://math.fau.edu/Yiu/RecreationalMathematics2003.pdf\"\u003eRecreational Mathematics\u003c/a\u003e, 24.3.1 Appendix: Two enumerations of the rational numbers in (0,1), page 633."
+			],
+			"example": [
+				".     |  (num, den) = (A182973, A182973) | num(sum)| den(sum)|   [sum]",
+				".   n |  num/den,   num + den = n        | A245677 | A245678 | A245718",
+				". ----+----------------------------------+---------+---------+--------",
+				".   3 |  1/2                             |       1 |       2 |       0",
+				".   4 |  1/3                             |       1 |       3 |       0",
+				".   5 |  1/4, 2/3                        |      11 |      12 |       0",
+				".   6 |  1/5                             |       1 |       5 |       0",
+				".   7 |  1/6, 2/5, 3/4                   |      79 |      60 |       1",
+				".   8 |  1/7, 3/5                        |      26 |      35 |       0",
+				".   9 |  1/8, 2/7, 4/5                   |     339 |     280 |       1",
+				".  10 |  1/9, 3/7                        |      34 |      63 |       0",
+				".  11 |  1/10, 2/9, 3/8, 4/7, 5/6        |    5297 |    2520 |       2",
+				".  12 |  1/11, 5/7                       |      62 |      77 |       0",
+				".  13 |  1/12, 2/11, 3/10, 4/9, 5/8, 6/7 |   69071 |   27720 |       2",
+				".  14 |  1/13, 3/11, 5/9                 |    1165 |    1287 |       0",
+				".  15 |  1/14, 2/13, 4/11, 7/8           |   11723 |    8008 |       1",
+				".  16 |  1/15, 3/13, 5/11, 7/9           |    9844 |    6435 |       1 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator)",
+				"a245677 n = numerator $ sum",
+				"   [num % den | num \u003c- [1 .. div n 2], let den = n - num, gcd num den == 1]"
+			],
+			"xref": [
+				" Cf. A245678 (denominator), A182972, A182973, A245718."
+			],
+			"keyword": "nonn,frac",
+			"offset": "3,3",
+			"author": "_Reinhard Zumkeller_, Jul 30 2014",
+			"references": 5,
+			"revision": 5,
+			"time": "2014-07-30T16:58:59-04:00",
+			"created": "2014-07-30T16:58:59-04:00"
+		},
+		{
+			"number": 245678,
+			"data": "2,3,12,5,60,35,280,63,2520,77,27720,1287,8008,6435,144144,2431,2450448,46189,3695120,146965,232792560,96577,1070845776,1300075,2974571600,5014575,11473347600,215441,332727080400,31556720475,486207248800,20419054425",
+			"name": "Denominator of sum of fractions A182972(k) / A182973(k) such that A182972(k) + A182973(k) = n.",
+			"comment": [
+				"A182972(n) and A182973(n) provide an enumeration of positive rationals \u003c 1 arranged by increasing sum of numerator and denominator then by increasing numerator;",
+				"a(n) = denominator(sum(A182972(k)/A182973(k): k such that A182972(k)+A182973(k)=n));",
+				"A245718(n) = floor(A245677(n)/a(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A245678/b245678.txt\"\u003eTable of n, a(n) for n = 3..1000\u003c/a\u003e",
+				"Paul Yiu, \u003ca href=\"http://math.fau.edu/Yiu/RecreationalMathematics2003.pdf\"\u003eRecreational Mathematics\u003c/a\u003e, 24.3.1 Appendix: Two enumerations of the rational numbers in (0,1), page 633."
+			],
+			"example": [
+				"See A245677."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), denominator)",
+				"a245678 n = denominator $ sum",
+				"   [num % den | num \u003c- [1 .. div n 2], let den = n - num, gcd num den == 1]"
+			],
+			"xref": [
+				"Cf. A245677 (numerator), A182972, A182973, A245718."
+			],
+			"keyword": "nonn,frac",
+			"offset": "3,1",
+			"author": "_Reinhard Zumkeller_, Jul 30 2014",
+			"references": 5,
+			"revision": 4,
+			"time": "2014-07-30T16:58:45-04:00",
+			"created": "2014-07-30T16:58:45-04:00"
+		},
+		{
+			"number": 246558,
+			"data": "0,1,1,2,3,5,8,3,2,12,25,72,16,18,147,0,504,315,320,32,1260,0,49,3360,3456,0,162,1728,168,720,0,7776,0,33600,0,30240,0,15680,0,311040,0,0,326592,435456,0,0,0,0,0,0,0,0,0,102060,3951360,24883200,1411200",
+			"name": "Product of the digits of the n-th Fibonacci number.",
+			"comment": [
+				"a(n) \u003e 0 iff n in A076564.",
+				"Probably, the last nonzero term is a(184). - _Giovanni Resta_, Jul 14 2015"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A246558/b246558.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A007954(A000045(n)). - _Reinhard Zumkeller_, Nov 17 2014"
+			],
+			"example": [
+				"Fibonacci(7) = 13, thus a(7) = 1*3 = 3."
+			],
+			"program": [
+				"(Haskell)",
+				"a246558 = a007954 . a000045 -- _Reinhard Zumkeller_, Nov 17 2014"
+			],
+			"xref": [
+				"Cf. A000045, A004090, A076564.",
+				"Cf. A007954, A259773.",
+				" Cf. A261598."
+			],
+			"keyword": "nonn,base,easy,less",
+			"offset": "0,4",
+			"author": "_Indrani Das_, Nov 12 2014",
+			"references": 5,
+			"revision": 26,
+			"time": "2015-09-09T16:50:58-04:00",
+			"created": "2014-11-16T14:43:49-05:00"
+		},
+		{
+			"number": 246830,
+			"data": "0,3,2,10,7,4,15,20,13,6,36,29,22,15,8,45,38,31,40,25,10,54,47,72,57,42,27,12,63,104,89,74,59,44,29,14,136,121,106,91,76,61,46,31,16,153,138,123,108,93,78,63,80,49,18,170,155,140,125,110,95,144,113,82,51,20",
+			"name": "T(n,k) is the concatenation of n-k and n+k in binary; triangle T(n,k), n\u003e=0, 0\u003c=k\u003c=n, read by rows.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A246830/b246830.txt\"\u003eRows n = 0..127, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"Triangle T(n,k) begins:",
+				"   0",
+				"   3  2",
+				"  10  7  4",
+				"  15 20 13  6",
+				"  36 29 22 15  8",
+				"  45 38 31 40 25 10",
+				"  54 47 72 57 42 27 12",
+				"Triangle T(n,k) written in binary (with | denoting the concat operation) begins:",
+				"     |0",
+				"    1|1      |10",
+				"   10|10    1|11     |100",
+				"   11|11   10|100   1|101    |110",
+				"  100|100  11|101  10|110   1|111    |1000",
+				"  101|101 100|110  11|111  10|1000  1|1001  |1010",
+				"  110|110 101|111 100|1000 11|1001 10|1010 1|1011 |1100"
+			],
+			"maple": [
+				"f:= proc(i, j) local r, h, k; r:=0; h:=0; k:=j;",
+				"      while k\u003e0 do r:=r+2^h*irem(k, 2, 'k'); h:=h+1 od; k:=i;",
+				"      while k\u003e0 do r:=r+2^h*irem(k, 2, 'k'); h:=h+1 od; r",
+				"    end:",
+				"T:= (n, k)-\u003e f(n-k, n+k):",
+				"seq(seq(T(n, k), k=0..n), n=0..14);"
+			],
+			"mathematica": [
+				"f[i_, j_] := Module[{r, h, k, m}, r=0; h=0; k=j; While[k\u003e0, {k, m} = QuotientRemainder[k, 2]; r = r+2^h*m; h = h+1]; k=i; While[k\u003e0, {k, m} = QuotientRemainder[k, 2]; r = r+2^h*m; h = h+1]; r]; T[n_, k_] := f[n-k, n+k]; Table[Table[T[n, k], {k, 0, n}], {n, 0, 14}] // Flatten (* _Jean-François Alcover_, Oct 03 2016, adapted from Maple *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Function (on)",
+				"a246830 n k = a246830_tabl !! n !! k",
+				"a246830_row n = a246830_tabl !! n",
+				"a246830_tabl = zipWith (zipWith f) a051162_tabl a025581_tabl where",
+				"   f x y = foldr (\\b v -\u003e 2 * v + b) 0 $ x |+| y",
+				"   (|+|) = (++) `on` a030308_row",
+				"-- _Reinhard Zumkeller_, Sep 04 2014",
+				"(Python)",
+				"A246830 = []",
+				"for n in range(10**2):",
+				"....for k in range(n):",
+				"........A246830.append(int(bin(n-k)[2:]+bin(n+k)[2:],2))",
+				"....A246830.append(2*n) # _Chai Wah Wu_, Sep 05 2014"
+			],
+			"xref": [
+				"Column k=0 gives A020330.",
+				"T(n+1,n) gives A080565(n+1).",
+				"T(2n,n) gives A246831.",
+				"Main diagonal gives A005843.",
+				"Cf. A007088, A030308, A051162, A025581, A246520 (row maxima)."
+			],
+			"keyword": "nonn,tabl,base,look,nice",
+			"offset": "0,2",
+			"author": "_Alois P. Heinz_, Sep 04 2014",
+			"references": 5,
+			"revision": 28,
+			"time": "2016-10-03T16:04:16-04:00",
+			"created": "2014-09-04T13:04:56-04:00"
+		},
+		{
+			"number": 247358,
+			"data": "1,1,2,1,3,4,1,4,8,9,1,5,16,16,27,1,6,25,32,64,81,1,7,36,64,125,243,256,1,8,49,128,216,625,729,1024,1,9,64,256,343,1296,2187,3125,4096,1,10,81,512,512,2401,6561,7776,15625,16384,1,11,100,729,1024",
+			"name": "Triangle read by rows: n-th row contains powers b^e with b + e = n + 1 in natural order.",
+			"comment": [
+				"Sorted rows of triangle A051129."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247358/b247358.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".  1  |  1                            |  1^1",
+				".  2  |  1 2                          |  1^2 2^1",
+				".  3  |  1 3  4                       |  1^3 3^1 2^2",
+				".  4  |  1 4  8   9                   |  1^4 4^1 2^3 3^2",
+				".  5  |  1 5 16  16  27               |  1^5 5^1 2^4 4^2 3^3",
+				".  6  |  1 6 25  32  64  81           |  1^6 6^1 5^2 2^5 4^3 3^4",
+				".  7  |  1 7 36  64 125 243 256       |  1^7 7^1 6^2 2^6 5^3 3^5 4^4",
+				".  8  |  1 8 49 128 216 625 729 1024  |  1^8 8^1 7^2 2^7 6^3 5^4 3^6 4^5 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (sort)",
+				"a247358 n k = a247358_tabl !! (n-1) !! (k-1)",
+				"a247358_row n = a247358_tabl !! (n-1)",
+				"a247358_tabl = map sort a051129_tabl",
+				"(Python)",
+				"from itertools import chain",
+				"A247358_list = list(chain.from_iterable(sorted((b+1)**(n-b) for b in range(n)) for n in range(1,8))) # _Chai Wah Wu_, Sep 14 2014"
+			],
+			"xref": [
+				"Cf. A051129, A003101 (row sums), A247363 (central terms), A003320 (row maxima)."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Sep 14 2014",
+			"references": 5,
+			"revision": 8,
+			"time": "2014-09-15T04:07:47-04:00",
+			"created": "2014-09-14T14:09:32-04:00"
+		},
+		{
+			"number": 247503,
+			"data": "1,2,1,4,5,2,1,8,1,10,11,4,1,2,5,16,17,2,1,20,1,22,23,8,25,2,1,4,1,10,31,32,11,34,5,4,1,2,1,40,41,2,1,44,5,46,47,16,1,50,17,4,1,2,55,8,1,2,59,20,1,62,1,64,5,22,67,68,23,10,1,8,73,2,25,4",
+			"name": "Completely multiplicative with a(prime(n)) = prime(n)^(n mod 2).",
+			"comment": [
+				"To compute a(n) replace even-indexed primes in the prime factorization of n by 1.",
+				"a(p) = p if p is in A031368.",
+				"a(p) = 1 if p is in A031215."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247503/b247503.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Di#divseq\"\u003eIndex to divisibility sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"When n = Product_{k\u003e=1}prime(k)^r_k, a(n) = Product_{k\u003e=1}prime(k)^(r_k*(k mod 2)).",
+				"a(n) = n/A248101(n).",
+				"a(n) = Product(A027746(n,k): k = 1 .. A001222(n) and A049084(A027746(n,k)) is odd). - _Reinhard Zumkeller_, Mar 06 2015"
+			],
+			"example": [
+				"Since 10 = 2*5, 2 = prime(1), and 5 = prime(3), a(10) = 2*5 = 10.",
+				"Since 9 = 3^2 and 3 is an even-indexed prime, 3 = prime(2), then a(9) = 1^2 = 1.",
+				"Since 30 = 2*3*5, 2 = prime(1), 3 = prime(2), and 5 = prime(3), we see that a(30) = 2*1*5 = 10."
+			],
+			"mathematica": [
+				"f[n_] := Block[{a, g, pf = FactorInteger@ n}, a = PrimePi[First /@ pf]; g[x_] := If[EvenQ@ x, 1, Prime@ x]; Times @@ Power @@@ Transpose@ {g /@ a, Last /@ pf}]; Array[f, 120] (* _Michael De Vlieger_, Mar 03 2015 *)",
+				"Array[Times @@ (FactorInteger[#] /. {p_, e_} /; e \u003e 0 :\u003e (p^Mod[PrimePi@ p, 2])^e) \u0026, 76] (* _Michael De Vlieger_, Apr 05 2017 *)"
+			],
+			"program": [
+				"(Sage)",
+				"n=100; oddIndexPrimes=[primes_first_n(2*n+1)[2*i] for i in [0..n]]",
+				"[prod([(x[0]^(x[0] in oddIndexPrimes))^x[1] for x in factor(n)]) for n in [1..n]]",
+				"(PARI) a(n) = {f = factor(n); for (i=1, #f~, f[i,2] *= (primepi(f[i,1]) % 2);); factorback(f);} \\\\ _Michel Marcus_, Mar 03 2015",
+				"(Haskell)",
+				"a247503 = product . filter (odd . a049084) . a027746_row",
+				"-- _Reinhard Zumkeller_, Mar 06 2015"
+			],
+			"xref": [
+				"Cf. A031368, A031215, A248101, A001222, A027746, A049084."
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,2",
+			"author": "_Tom Edgar_, Mar 03 2015",
+			"references": 5,
+			"revision": 36,
+			"time": "2017-04-06T02:34:11-04:00",
+			"created": "2015-03-05T12:29:27-05:00"
+		},
+		{
+			"number": 248013,
+			"data": "0,1,2,3,4,5,6,7,8,9,19,28,29,37,38,39,46,47,48,49,55,56,57,58,59,64,65,66,67,68,69,73,74,75,76,77,78,79,82,83,84,85,86,87,88,89,91,92,93,94,95,96,97,98,99,191,192,193,194,195,196,197,198,199,282",
+			"name": "Numbers m such that A247796(m) = m.",
+			"comment": [
+				"A247796(a(n)) = a(n);",
+				"numbers, containing no pair of adjacent digits with sum \u003c= 9 in decimal representation."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248013/b248013.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a248013 n = a248013_list !! (n-1)",
+				"a248013_list = filter (\\x -\u003e a247796 x == x) [0..]"
+			],
+			"xref": [
+				"Cf. A248014 (complement)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 08 2014",
+			"references": 5,
+			"revision": 5,
+			"time": "2014-10-08T10:47:20-04:00",
+			"created": "2014-10-08T10:47:20-04:00"
+		},
+		{
+			"number": 248024,
+			"data": "1,10,2,11,12,3,13,14,7,15,5,16,4,17,18,6,19,100,20,21,30,22,23,101,102,24,8,25,50,26,27,9,31,103,104,28,29,105,32,40,41,106,107,108,33,34,109,110,51,35,52,42,36,37,111,38,112,43,113,114,39,115,53,116,44,45,54,60",
+			"name": "Lexicographically earliest permutation of the positive integers such that the first digit of a(n+1) divides a(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248024/b248024.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"E. Angelini, \u003ca href=\"http://list.seqfan.eu/pipermail/seqfan/2014-September/013710.html\"\u003eQuick and fun permutation\u003c/a\u003e, SeqFan list, Sep 29 2014",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(PARI) a(n,S=1,u=2)=for(i=1,n,print1(S\",\");for(k=1,9e9,bittest(u,k)\u0026\u0026next;S%digits(k)[1]\u0026\u0026next;u+=1\u003c\u003cS=k;break));S",
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a248024 n = a248024_list !! (n-1)",
+				"a248024_list = 1 : f 1 [2..] where",
+				"  f x zs = g zs where",
+				"    g (y:ys) = if x `mod` (a000030 y) == 0",
+				"               then y : f y (delete y zs) else g ys",
+				"-- _Reinhard Zumkeller_, Sep 30 2014"
+			],
+			"xref": [
+				"Cf. A248043 (inverse), A000030."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "1,2",
+			"author": "_Eric Angelini_ and _M. F. Hasler_, Sep 29 2014",
+			"references": 5,
+			"revision": 15,
+			"time": "2015-04-04T22:00:22-04:00",
+			"created": "2014-09-29T18:37:18-04:00"
+		},
+		{
+			"number": 248101,
+			"data": "1,1,3,1,1,3,7,1,9,1,1,3,13,7,3,1,1,9,19,1,21,1,1,3,1,13,27,7,29,3,1,1,3,1,7,9,37,19,39,1,1,21,43,1,9,1,1,3,49,1,3,13,53,27,1,7,57,29,1,3,61,1,63,1,13,3,1,1,3,7,71,9,1,37,3,19,7,39,79",
+			"name": "Completely multiplicative with a(prime(n)) = prime(n)^((n+1) mod 2).",
+			"comment": [
+				"To compute a(n) replace odd-indexed primes in the prime factorization of n by 1.",
+				"a(p) = p if p is in A031215.",
+				"a(p) = 1 if p is in A031368."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248101/b248101.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Di#divseq\"\u003eIndex to divisibility sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"When n = Product_{k\u003e=1} prime(k)^r_k, a(n) = Product_{k\u003e=1} prime(k)^(r_k*((k+1) mod 2)).",
+				"a(n) = n / A247503(n).",
+				"a(n) = Product(A027746(n,k): k = 1 .. A001222(n) and A049084(A027746(n,k)) is even). - _Reinhard Zumkeller_, Mar 06 2015"
+			],
+			"example": [
+				"Since 10 = 2*5, 2 = prime(1), and 5 = prime(3), a(10) = 1*1 = 1.",
+				"Since 9 = 3^2 and 3 is an even-indexed prime, 3 = prime(2), then a(9) = 3^2 = 9.",
+				"Since 35 = 5*7, 5 = prime(3), and 7 = prime(4), we see that a(35) = 1*7 = 7."
+			],
+			"mathematica": [
+				"f[n_] := Block[{a, g, pf = FactorInteger@ n}, a = PrimePi[First /@ pf]; g[x_] := If[Or[OddQ@ x, x == 0], 1, Prime@ x]; Times @@ Power @@@ Transpose@ {g /@ a, Last /@ pf}]; Array[f, 120] (* _Michael De Vlieger_, Mar 03 2015 *)",
+				"Array[Times @@ (FactorInteger[#] /. {p_, e_} /; e \u003e 0 :\u003e (p^Mod[PrimePi@ p + 1, 2])^e) \u0026, 79] (* _Michael De Vlieger_, Apr 05 2017 *)"
+			],
+			"program": [
+				"(Sage)",
+				"n=100; evenIndexPrimes=[primes_first_n(2*n+2)[2*i+1] for i in [0..n]]",
+				"[prod([(x[0]^(x[0] in evenIndexPrimes))^x[1] for x in factor(n)]) for n in [1..n]]",
+				"(PARI) a(n) = {f = factor(n); for (i=1, #f~, f[i,2] *= (primepi(f[i,1])+1) % 2;); factorback(f);} \\\\ _Michel Marcus_, Mar 03 2015",
+				"(Haskell)",
+				"a248101 = product . filter (even . a049084) . a027746_row",
+				"-- _Reinhard Zumkeller_, Mar 06 2015"
+			],
+			"xref": [
+				"Cf. A031368, A031215, A247503, A001222, A027746, A049084."
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,3",
+			"author": "_Tom Edgar_, Mar 03 2015",
+			"references": 5,
+			"revision": 35,
+			"time": "2017-04-06T02:34:17-04:00",
+			"created": "2015-03-05T12:29:36-05:00"
+		},
+		{
+			"number": 248147,
+			"data": "2,2,3,2,3,2,3,5,2,3,3,5,2,3,5,2,3,5,7,2,3,3,5,5,7,2,3,5,3,5,7,2,3,5,7,2,3,5,7,11,2,3,3,5,5,7,7,11,2,3,5,3,5,7,5,7,11,2,3,5,7,3,5,7,11,2,3,5,7,11,2,3,5,7,11,13,2,3,3,5,5,7,7,11",
+			"name": "Table read by rows: n-th row contains all consecutive subsets of the first n primes in their natural order.",
+			"comment": [
+				"A000292(n) = length of n-th row, whereas A000217(n) = number of all consecutive subsets of numbers 1..n;",
+				"T(n,k) = A000040(A248141(n,k)), 1 \u003c= k \u003c= A000292(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248147/b248147.txt\"\u003eRows n = 1..20 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".  1: 2",
+				".  2: 2,3,2,3",
+				".  3: 2,3,5,2,3,3,5,2,3,5",
+				".  4: 2,3,5,7,2,3,3,5,5,7,2,3,5,3,5,7,2,3,5,7",
+				".  5: 2,3,5,7,11,2,3,3,5,5,7,7,11,2,3,5,3,5,7,5,7,11,2,3,5,7,3,5,7,11,...",
+				"rows concatenated from:",
+				".  1: [2]",
+				".  2: [2] [3] [2,3]",
+				".  3: [2] [3] [5] [2,3] [3,5] [2,3,5]",
+				".  4: [2] [3] [5] [7] [2,3] [3,5] [5,7] [2,3,5] [3,5,7] [2,3,5,7]",
+				".  5: [2] [3] [5] [7] [11] [2,3] [3,5] [5,7] [7,11] [2,3,5] [3,5,7] ..."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a248147 n k = a248147_tabf !! (n-1) !! (k-1)",
+				"a248147_row n = a248147_tabf !! (n-1)",
+				"a248147_tabf = map concat psss where",
+				"   psss = iterate f [[2]] where",
+				"      f pss = group (h $ last pss) ++ map h pss",
+				"      h ws = ws ++ [a151800 $ last ws]"
+			],
+			"xref": [
+				"Cf. A151800, A000292, A000217, A248164, A248141."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 02 2014",
+			"references": 5,
+			"revision": 5,
+			"time": "2014-10-05T09:28:40-04:00",
+			"created": "2014-10-05T09:28:40-04:00"
+		}
+	]
+}

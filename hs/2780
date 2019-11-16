@@ -1,0 +1,459 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2780,
+	"results": [
+		{
+			"number": 47273,
+			"data": "0,1,3,5,6,7,9,11,12,13,15,17,18,19,21,23,24,25,27,29,30,31,33,35,36,37,39,41,42,43,45,47,48,49,51,53,54,55,57,59,60,61,63,65,66,67,69,71,72,73,75,77,78,79,81,83,84,85,87,89,90,91,93,95,96,97,99,101,102,103",
+			"name": "Numbers that are congruent to {0, 1, 3, 5} mod 6.",
+			"comment": [
+				"Complement of A047235; A093719(a(n)) = 1. - _Reinhard Zumkeller_, Oct 01 2008"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A047273/b047273.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Tu#2wis\"\u003eIndex entries for two-way infinite sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-2,2,-1)."
+			],
+			"formula": [
+				"G.f.: x*(1+x+x^2)/((1-x)^2*(1+x^2)) = x*(1-x^2)*(1-x^3)/((1-x)^3*(1-x^4)).",
+				"a(n) = n + A004524(n+1) = -a(-n) for all n in Z.",
+				"Starting (1, 3, 5, ...) = partial sums of (1, 2, 2, 1, 1, 2, 2, 1, 1, ...). - _Gary W. Adamson_, Jun 19 2008",
+				"a(n) = 2*(n-floor(n/4)) - (3-I^n-(-I)^n-(-1)^n)/4, with offset 0..a(0)=0. - _Gary Detlefs_, Mar 19 2010",
+				"a(n) = (3*n-3+cos(Pi*n/2))/2. - _R. J. Mathar_, Oct 08 2010",
+				"From _Wesley Ivan Hurt_, May 20 2016: (Start)",
+				"a(n) = 2*a(n-1)-2*a(n-2)+2*a(n-3)-a(n-4) for n\u003e4.",
+				"a(n) = (6*n-6+(-1)^(n/2)+(-1)^(-n/2))/4. (End)",
+				"Euler transform of length 4 sequence [3, -1, -1, 1]. - _Michael Somos_, Jun 24 2017"
+			],
+			"maple": [
+				"seq(2*(n-floor(n/4)) - (3-I^n-(-I)^n-(-1)^n)/4, n = 0..69); # _Gary Detlefs_, Mar 19 2010"
+			],
+			"mathematica": [
+				"LinearRecurrence[{2,-2,2,-1},{0,1,3,5},80] (* _Harvey P. Dale_, Jan 04 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n)=n+(n+1)\\4+(n+2)\\4",
+				"(Sage) [(lucas_number1(n+2, 0, 1)+3*n)/2 for n in xrange(0, 70)] # _Zerinvary Lajos_, Mar 09 2009",
+				"(Haskell)",
+				"a047273 n = a047273_list !! (n-1)",
+				"a047273_list = 0 : 1 : 3 : 5 : map (+ 6) a047273_list",
+				"-- _Reinhard Zumkeller_, Feb 19 2013",
+				"(MAGMA) [[(6*n-6+(-1)^(n div 2)+(-1)^(-n div 2))/4: n in [1..100]]; // _Wesley Ivan Hurt_, May 20 2016"
+			],
+			"xref": [
+				"Cf. A004524, A007310, A047228, A047235, A047241, A047261, A093719, A096981.",
+				"First differences of A281026.",
+				"See A301729 for an essentially identical sequence."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 11,
+			"revision": 41,
+			"time": "2018-03-30T14:25:46-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 47897,
+			"data": "5,25,175,2275,36400,473200,7571200,166566400,5663257600,226530304000,5663257600000,226530304000000,5663257600000000,226530304000000000,5663257600000000000,226530304000000000000,5663257600000000000000",
+			"name": "a(1) = 5; for n \u003e 0, a(n+1) = a(n) * sum of digits of a(n).",
+			"comment": [
+				"After a(9), every second element has the same beginning. a(11+2k) = 40 * a(10+2k) = 40 * 25 * a(9+2k)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A047897/b047897.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A057147(a(n)). - _Reinhard Zumkeller_, Mar 19 2014"
+			],
+			"maple": [
+				"P:=proc(n) local a,i,k,w; a:=5; print(a); for i from 1 by 1 to n do w:=0;k:=a; while k\u003e0 do w:=w+k-(trunc(k/10)*10); k:=trunc(k/10); od; a:=a*w; print(a); od; end: P(1000); # _Paolo P. Lava_, Apr 27 2007"
+			],
+			"mathematica": [
+				"NestList[#*Total[IntegerDigits[#]]\u0026,5,20] (* _Harvey P. Dale_, Jan 25 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a047897 n = a047897_list !! (n-1)",
+				"a047897_list = iterate a057147 5  -- _Reinhard Zumkeller_, Mar 19 2014"
+			],
+			"xref": [
+				"Cf. A047892 (start=2), A047912 (start=3), A047898 (start=6), A047899 (start=7), A047900 (start=8), A047901 (start=9), A047902 (start=11)."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "1,1",
+			"author": "Miklos SZABO (mike(AT)ludens.elte.hu)",
+			"references": 11,
+			"revision": 17,
+			"time": "2017-08-11T03:22:45-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 47900,
+			"data": "8,64,640,6400,64000,640000,6400000,64000000,640000000,6400000000,64000000000,640000000000,6400000000000,64000000000000,640000000000000,6400000000000000,64000000000000000,640000000000000000",
+			"name": "a(1) = 8; for n \u003e 0, a(n+1) = a(n) * sum of digits of a(n).",
+			"comment": [
+				"After the 2nd element, every element has the same beginning.",
+				"a(3+k) = 10 * a(2+k)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A047900/b047900.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A057147(a(n)). - _Reinhard Zumkeller_, Mar 19 2014"
+			],
+			"maple": [
+				"P:=proc(n) local a,i,k,w; a:=8; print(a); for i from 1 by 1 to n do w:=0;k:=a; while k\u003e0 do w:=w+k-(trunc(k/10)*10); k:=trunc(k/10); od; a:=a*w; print(a); od; end: P(1000); # _Paolo P. Lava_, Apr 27 2007"
+			],
+			"program": [
+				"(Haskell)",
+				"a047900 n = a047900_list !! (n-1)",
+				"a047900_list = iterate a057147 8  -- _Reinhard Zumkeller_, Mar 19 2014"
+			],
+			"xref": [
+				"Cf. A047892 (start=2), A047912 (start=3), A047897 (start=5), A047898 (start=6), A047899 (start=7), A047901 (start=9), A047902 (start=11)."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "1,1",
+			"author": "Miklos SZABO (mike(AT)ludens.elte.hu)",
+			"references": 11,
+			"revision": 13,
+			"time": "2017-08-11T03:23:10-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 47902,
+			"data": "11,22,88,1408,18304,292864,9078784,390387712,15615508480,671466864640,38945078149120,2375649767096320,180549382299320320,12638456760952422400,960522713832384102400,67236589968266887168000",
+			"name": "a(1) = 11; for n \u003e 0, a(n+1) = a(n) * sum of digits of a(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A047902/b047902.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A057147(a(n)). - _Reinhard Zumkeller_, Mar 19 2014"
+			],
+			"maple": [
+				"P:=proc(n) local a,i,k,w; a:=11; print(a); for i from 1 by 1 to n do w:=0;k:=a; while k\u003e0 do w:=w+k-(trunc(k/10)*10); k:=trunc(k/10); od; a:=a*w; print(a); od; end: P(1000); # _Paolo P. Lava_, Apr 27 2007"
+			],
+			"program": [
+				"(Haskell)",
+				"a047902 n = a047902_list !! (n-1)",
+				"a047902_list = iterate a057147 11  -- _Reinhard Zumkeller_, Mar 19 2014"
+			],
+			"xref": [
+				"Cf. A047892 (start=2), A047912 (start=3), A047897 (start=5), A047898 (start=6), A047899 (start=7), A047900 (start=8), A047901 (start=9)."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "1,1",
+			"author": "Miklos SZABO (mike(AT)ludens.elte.hu)",
+			"references": 11,
+			"revision": 15,
+			"time": "2017-08-11T03:23:17-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 48803,
+			"data": "1,1,2,6,12,60,360,2520,5040,15120,151200,1663200,9979200,129729600,1816214400,27243216000,54486432000,926269344000,5557616064000,105594705216000,1055947052160000,22174888095360000,487847538097920000",
+			"name": "a(0) = 1, a(1) = 1; for n \u003e 1, a(n) = lcm( 1, 2, ..., n, a(1)*a(n-1), a(2)*a(n-2), ..., a(n-1)*a(1) ).",
+			"comment": [
+				"Squarefree factorials: a(1) = 1, a(n+1) = a(n)* largest squarefree divisor of (n+1). - _Amarnath Murthy_, Nov 28 2004",
+				"LCM over all partitions of n of the product of the part sizes in the partition. - _Franklin T. Adams-Watters_, May 04 2010",
+				"a(n) is the product of the lcm of the set of prime factors of k over the range k = 1..n. - _Peter Luschny_, Jun 10 2011"
+			],
+			"reference": [
+				"Paul-Jean Cahen and Jean-Luc Chabert, Integer-valued Polynomials, AMS, Providence, RI, 1997. Math. Rev. 98a:13002. See p. 246."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A048803/b048803.txt\"\u003eTable of n, a(n) for n = 0..500\u003c/a\u003e",
+				"Bakir Farhi, \u003ca href=\"https://arxiv.org/abs/1810.07560\"\u003eOn the derivatives of the integer-valued polynomials\u003c/a\u003e, arXiv:1810.07560 [math.NT], 2018.",
+				"\u003ca href=\"/index/Lc#lcm\"\u003eIndex entries for sequences related to lcm's\u003c/a\u003e"
+			],
+			"formula": [
+				"Partial products of A007947.",
+				"a(n) = Prod_{p prime} p^floor(n/p). See Farhi link p. 16. - _Michel Marcus_, Oct 18 2018"
+			],
+			"maple": [
+				"A048803 := proc(n) local i; mul(ilcm(op(numtheory[factorset](i))), i=1..n) end; seq(A048803(i),i=0..22); # _Peter Luschny_, Jun 10 2011"
+			],
+			"mathematica": [
+				"a[0] = 1; a[n_] := a[n] = a[n-1] First @ Select[Reverse @ Divisors[n], SquareFreeQ, 1]; Array[a,22,0] (* _Jean-François Alcover_, May 04 2011 *)"
+			],
+			"program": [
+				"(PARI) a(n)=local(f); f=n\u003e=0; if(n\u003e1, forprime(p=2,n,f*=p^(n\\p))); f",
+				"(Haskell)",
+				"a048803 n = a048803_list !! n",
+				"a048803_list = scanl (*) 1 a007947_list",
+				"-- _Reinhard Zumkeller_, Jul 01 2013"
+			],
+			"keyword": "nonn,nice",
+			"offset": "0,3",
+			"author": "_Christian G. Bower_, Apr 15 1999",
+			"ext": [
+				"Entry improved by comments from _Michael Somos_, Nov 24 2001"
+			],
+			"references": 11,
+			"revision": 28,
+			"time": "2018-10-18T03:05:39-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49354,
+			"data": "11,15,19,21,260,266,268,278,290,294,302,304,308,312,316,318,332,344,348,380,384,396,410,412,416,420,424,426,434,438,450,460,462,468,500,502,508,518,520,524,528,532,534,544,550,552,572,574,578",
+			"name": "Digitally balanced numbers in base 3: equal numbers of 0's, 1's, 2's.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A049354/b049354.txt\"\u003eTable of n, a(n) for n = 1..2000\u003c/a\u003e"
+			],
+			"formula": [
+				"A062756(a(n)) = A077267(a(n)) and A081603(a(n)) = A077267(a(n)). - _Reinhard Zumkeller_, Aug 09 2014"
+			],
+			"mathematica": [
+				"Select[Range[600],Length[Union[DigitCount[#,3]]]== 1\u0026]",
+				"FromDigits[#,3]\u0026/@DeleteCases[Flatten[Permutations/@Table[PadRight[{},3n,{1,0,2}],{n,3}],1],_?(#[[1]]==0\u0026)]//Sort (* _Harvey P. Dale_, May 30 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a049354 n = a049354_list !! (n-1)",
+				"a049354_list = filter f [1..] where",
+				"   f n = t0 == a062756 n \u0026\u0026 t0 == a081603 n where t0 = a077267 n",
+				"-- _Reinhard Zumkeller_, Aug 09 2014"
+			],
+			"xref": [
+				"Cf. A031443.",
+				"Cf. A049354-A049360. See also A061854, A037861.",
+				"Cf. A062756, A077267, A081603."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_",
+			"references": 11,
+			"revision": 15,
+			"time": "2016-05-30T15:16:32-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49455,
+			"data": "0,1,0,1,1,0,1,1,2,1,0,1,1,2,1,3,2,3,1,0,1,1,2,1,3,2,3,1,4,3,5,2,5,3,4,1,0,1,1,2,1,3,2,3,1,4,3,5,2,5,3,4,1,5,4,7,3,8,5,7,2,7,5,8,3,7,4,5,1,0,1,1,2,1,3,2,3,1,4,3,5,2,5,3,4,1,5,4,7,3,8,5,7,2,7,5,8,3,7,4,5,1,6,5,9",
+			"name": "Triangle read by rows: T(n,k) = numerator of fraction in k-th term of n-th row of variant of Farey series.",
+			"comment": [
+				"Stern's diatomic array read by rows (version 4, the 0,1 version).",
+				"This sequence divided by A049456 gives another version of the Stern-Brocot tree.",
+				"Row n has length 2^n + 1.",
+				"Define mediant of a/b and c/d to be (a+c)/(b+d). We get A006842/A006843 if we omit terms from n-th row in which denominator exceeds n.",
+				"Largest term of n-th row = A000045(n), Fibonacci numbers. - _Reinhard Zumkeller_, Apr 02 2014"
+			],
+			"reference": [
+				"Martin Gardner, Colossal Book of Mathematics, Classic Puzzles, Paradoxes, and Problems, Chapter 25, Aleph-Null and Aleph-One, p. 328, W. W. Norton \u0026 Company, NY, 2001.",
+				"J. C. Lagarias, Number Theory and Dynamical Systems, pp. 35-72 of S. A. Burr, ed., The Unreasonable Effectiveness of Number Theory, Proc. Sympos. Appl. Math., 46 (1992). Amer. Math. Soc.",
+				"W. J. LeVeque, Topics in Number Theory. Addison-Wesley, Reading, MA, 2 vols., 1956, Vol. 1, p. 154."
+			],
+			"link": [
+				"Robert G. Wilson v, \u003ca href=\"/A049455/b049455.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 8204 terms from Reinhard Zumkeller)",
+				"C. Giuli and R. Giuli, \u003ca href=\"http://www.fq.math.ca/Scanned/17-2/giuli.pdf\"\u003eA primer on Stern's diatomic sequence\u003c/a\u003e, Fib. Quart., 17 (1979), 103-108, 246-248 and 318-320 (but beware errors).",
+				"Jennifer Lansing, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL17/Lansing/lansing2.html\"\u003eLargest Values for the Stern Sequence\u003c/a\u003e, J. Integer Seqs., 17 (2014), #14.7.5.",
+				"M. Shrader-Frechette, \u003ca href=\"http://www.jstor.org/stable/2690435\"\u003eModified Farey sequences and continued fractions\u003c/a\u003e, Math. Mag., 54 (1981), 60-63.",
+				"N. J. A. Sloane, \u003ca href=\"/stern_brocot.html\"\u003eStern-Brocot or Farey Tree\u003c/a\u003e",
+				"\u003ca href=\"/index/St#Stern\"\u003eIndex entries for sequences related to Stern's sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"Row 1 is 0/1, 1/1. Obtain row n from row n-1 by inserting mediants between each pair of terms."
+			],
+			"example": [
+				"0/1, 1/1; 0/1, 1/2, 1/1; 0/1, 1/3, 1/2, 2/3, 1/1; 0/1, 1/4, 1/3, 2/5, 1/2, 3/5, 2/3, 3/4, 1/1; 0/1, 1/5, 1/4, 2/7, 1/3, 3/8, 2/5, 3/7, 1/2, ... = A049455/A049456",
+				"The 0,1 version of Stern's diatomic array (cf. A002487) begins:",
+				"0,1,",
+				"0,1,1,",
+				"0,1,1,2,1,",
+				"0,1,1,2,1,3,2,3,1,",
+				"0,1,1,2,1,3,2,3,1,4,3,5,2,5,3,4,1,",
+				"0,1,1,2,1,3,2,3,1,4,3,5,2,5,3,4,1,5,4,7,3,8,5,7,2,7,5,3,3,7,4,5,1,",
+				"..."
+			],
+			"mathematica": [
+				"f[l_List] := Block[{k = Length@l, j = l}, While[k \u003e 1, j = Insert[j, j[[k]] + j[[k - 1]], k]; k--]; j]; NestList[f, {0, 1}, 6] // Flatten (* _Robert G. Wilson v_, Nov 10 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"a049455 n k = a049455_tabf !! (n-1) !! (k-1)",
+				"a049455_row n = a049455_tabf !! (n-1)",
+				"a049455_tabf = map (map numerator) $ iterate",
+				"   (\\row -\u003e concat $ transpose [row, zipWith (+/+) row $ tail row]) [0, 1]",
+				"   where u +/+ v = (numerator u + numerator v) %",
+				"                   (denominator u + denominator v)",
+				"-- _Reinhard Zumkeller_, Apr 02 2014",
+				"(PARI) mediant(x, y) = (numerator(x)+numerator(y))/(denominator(x)+denominator(y));",
+				"newrow(rowa) = {my(rowb = []); for (i=1, #rowa-1, rowb = concat(rowb, rowa[i]); rowb = concat(rowb, mediant(rowa[i], rowa[i+1]));); concat(rowb, rowa[#rowa]);}",
+				"rows(nn) = {my(rowa); for (n=1, nn, if (n==1, rowa = [0, 1], rowa = newrow(rowa)); print(apply(x-\u003enumerator(x), rowa)););} \\\\ _Michel Marcus_, Apr 03 2019"
+			],
+			"xref": [
+				"Cf. A049456. Also A007305, A007306, A006842, A006843, A070878, A070879.",
+				"Row sums are A007051.",
+				"Cf. A000051 (row lengths), A293165 (distinct terms)."
+			],
+			"keyword": "nonn,easy,tabf,frac,look,changed",
+			"offset": "1,9",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Apr 12 2000"
+			],
+			"references": 11,
+			"revision": 39,
+			"time": "2019-11-11T02:49:30-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49458,
+			"data": "1,-3,1,12,-7,1,-60,47,-12,1,360,-342,119,-18,1,-2520,2754,-1175,245,-25,1,20160,-24552,12154,-3135,445,-33,1,-181440,241128,-133938,40369,-7140,742,-42,1,1814400,-2592720,1580508,-537628",
+			"name": "Generalized Stirling number triangle of first kind.",
+			"comment": [
+				"a(n,m)= ^3P_n^m in the notation of the given reference with a(0,0) := 1. The monic row polynomials s(n,x) := sum(a(n,m)*x^m,m=0..n) which are s(n,x)= product(x-(3+k),k=0..n-1), n \u003e= 1 and s(0,x)=1 satisfy s(n,x+y) = sum(binomial(n,k)*s(k,x)*S1(n-k,y),k=0..n), with the Stirling1 polynomials S1(n,x)=sum(A008275(n,m)*x^m, m=1..n) and S1(0,x)=1.",
+				"In the umbral calculus (see the S. Roman reference given in A048854) the s(n,x) polynomials are called Sheffer polynomials for (exp(3*t),exp(t)-1).",
+				"See A143492 for the unsigned version of this array and A143495 for the inverse. - _Peter Bala_, Aug 25 2008"
+			],
+			"reference": [
+				"Mitrinovic, D. S.; Mitrinovic, R. S.; Tableaux d'une classe de nombres relies aux nombres de Stirling. Univ. Beograd. Pubi. Elektrotehn. Fak. Ser. Mat. Fiz. No. 77 1962, 77 pp."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A049458/b049458.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n, m)= a(n-1, m-1) - (n+2)*a(n-1, m), n \u003e= m \u003e= 0; a(n, m) := 0, n\u003cm; a(n, -1) := 0, a(0, 0)=1. E.g.f. for m-th column of signed triangle: ((log(1+x))^m)/(m!*(1+x)^3).",
+				"Triangle (signed) = [ -3, -1, -4, -2, -5, -3, -6, -4, -7, ...] DELTA [1, 0, 1, 0, 1, 0, 1, 0, ...]; triangle (unsigned) = [3, 1, 4, 2, 5, 3, 6, 4, 7, 5, ...] DELTA [1, 0, 1, 0, 1, 0, 1, 0, ...]; where DELTA is Deléham's operator defined in A084938 (unsigned version in A143492).",
+				"E.g.f.: (1+y)^(x-3). - _Vladeta Jovovic_, May 17 2004",
+				"If we define f(n,i,a)=sum(binomial(n,k)*stirling1(n-k,i)*product(-a-j,j=0..k-1),k=0..n-i), then T(n,i) = f(n,i,3), for n=1,2,...;i=0...n. - _Milan Janjic_, Dec 21 2008"
+			],
+			"example": [
+				"1;",
+				"-3, 1;",
+				"12, -7, 1;",
+				"-60, 47, -12, 1;",
+				"360, -342, 119, -18, 1;",
+				"s(2,x) = 12-7*x+x^2. S1(2,x) = -x+x^2 (Stirling1 polynomial)."
+			],
+			"maple": [
+				"A049458_row := n -\u003e seq((-1)^(n-k)*coeff(expand(pochhammer(x+3, n)), x, k), k=0..n): seq(print(A049458_row(n)),n=0..8); # _Peter Luschny_, May 16 2013"
+			],
+			"mathematica": [
+				"t[n_, k_] := (-1)^(n - k)*Coefficient[ Pochhammer[x + 3, n], x, k]; Table[t[n, k], {n, 0, 8}, {k, 0, n}] // Flatten (* _Jean-François Alcover_, Jul 17 2013, after _Peter Luschny_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a049458 n k = a049458_tabl !! n !! k",
+				"a049458_row n = a049458_tabl !! n",
+				"a049458_tabl = map fst $ iterate (\\(row, i) -\u003e",
+				"   (zipWith (-) ([0] ++ row) $ map (* i) (row ++ [0]), i + 1)) ([1], 3)",
+				"-- _Reinhard Zumkeller_, Mar 11 2014"
+			],
+			"xref": [
+				"Unsigned column sequences are: A001710-A001714. Row sums (signed triangle): (n+1)!*(-1)^n. Row sums (unsigned triangle): A001715(n+3).",
+				"Cf. A000035 A084938.",
+				"Cf. A094645, A094646.",
+				"A143492, A143495. - _Peter Bala_, Aug 25 2008"
+			],
+			"keyword": "sign,easy,tabl",
+			"offset": "0,2",
+			"author": "_Wolfdieter Lang_",
+			"ext": [
+				"Second formula corrected by _Philippe Deléham_, Nov 09 2008"
+			],
+			"references": 11,
+			"revision": 28,
+			"time": "2015-06-28T14:29:10-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49599,
+			"data": "1,2,2,3,2,4,2,3,3,4,2,6,2,4,4,4,2,6,2,6,4,4,2,6,3,4,3,6,2,8,2,3,4,4,4,9,2,4,4,6,2,8,2,6,6,4,2,8,3,6,4,6,2,6,4,6,4,4,2,12,2,4,6,5,4,8,2,6,4,8,2,9,2,4,6,6,4,8,2,8,4,4,2,12,4,4,4,6,2,12,4,6,4,4,4,6,2,6,6,9,2,8,2",
+			"name": "Number of (1+e)-divisors of n: if n = Product p(i)^r(i), d = Product p(i)^s(i) and s(i) = 0 or s(i) divides r(i), then d is a (1+e)-divisor of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A049599/b049599.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"If n = Product p(i)^r(i) then a(n) = Product (tau(r(i))+1), where tau(n) = number of divisors of n, cf. A000005. - _Vladeta Jovovic_, Apr 29 2001"
+			],
+			"mathematica": [
+				"a[n_] := Times @@ (DivisorSigma[0, #] + 1 \u0026)  /@ FactorInteger[n][[All, 2]]; a[1] = 1; Table[a[n], {n, 1, 103}] (* _Jean-François Alcover_, Oct 10 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a049599 = product . map ((+ 1) . a000005 . fromIntegral) . a124010_row",
+				"-- _Reinhard Zumkeller_, Mar 13 2012"
+			],
+			"xref": [
+				"Cf. A049603, A051378.",
+				"Cf. A124010, A000005, A049419."
+			],
+			"keyword": "nonn,easy,nice,mult",
+			"offset": "1,2",
+			"author": "_Yasutoshi Kohmoto_",
+			"ext": [
+				"More terms from _Naohiro Nomoto_, Apr 12 2001"
+			],
+			"references": 11,
+			"revision": 20,
+			"time": "2016-04-19T01:07:32-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49773,
+			"data": "1,1,2,1,3,2,4,1,5,3,7,2,6,4,8,1,9,5,13,3,11,7,15,2,10,6,14,4,12,8,16,1,17,9,25,5,21,13,29,3,19,11,27,7,23,15,31,2,18,10,26,6,22,14,30,4,20,12,28,8,24,16,32,1,33,17,49,9,41,25,57,5,37,21,53,13,45,29,61,3,35,19",
+			"name": "Triangular array T read by rows: if row n is r(1),...,r(m), then row n+1 is 2r(1)-1,...,2r(m)-1,2r(1),...,2r(m).",
+			"comment": [
+				"n-th row = (r(1),r(2),...,r(m)), where m=2^(n-1), satisfies r(r(k))=k for k=1,2,...,m and has exactly 2^[ n/2 ] solutions of r(k)=k. (The function r(k) reverses bits. Or rather, r(k)=revbits(k-1)+1.",
+				"In a knockout competition with m players, arranging the competition brackets (see links) in r(k) order, where k is the rank of the player, ensures that highest ranked players cannot meet until the later stages of the competition.  None of the top 2^p ranked players can meet earlier than the p-th from last round of the competition.  At the same time the top ranked players in each match meet the highest ranked player possible consistent with this rule.  The sequence for the top ranked players meeting the lowest ranked player possible is A208569.  See also A131271. - _Colin Hall_, Jul 31 2011, Feb 29 2012",
+				"Row n contains one of A003407(2^(n-1)) non-averaging permutations of [2^(n-1)], i.e., a permutation of [2^(n-1)] without 3-term arithmetic progressions. - _Alois P. Heinz_, Dec 05 2017"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A049773/b049773.txt\"\u003eRows n = 1..13, flattened\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/NonaveragingSequence.html\"\u003eNonaveraging Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Arithmetic_progression\"\u003eArithmetic progression\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Bracket_%28tournament%29\"\u003eBracket (tournament)\u003c/a\u003e",
+				"\u003ca href=\"/index/No#non_averaging\"\u003eIndex entries related to non-averaging sequences\u003c/a\u003e"
+			],
+			"example": [
+				"Triangle begins:",
+				"1;",
+				"1,  2;",
+				"1,  3, 2,  4;",
+				"1,  5, 3,  7, 2,  6,  4,  8;",
+				"1,  9, 5, 13, 3, 11,  7, 15, 2, 10,  6, 14, 4, 12,  8, 16;",
+				"1, 17, 9, 25, 5, 21, 13, 29, 3, 19, 11, 27, 7, 23, 15, 31, 2, 18, 10, 26, ..."
+			],
+			"maple": [
+				"T:= proc(n) option remember; `if`(n=1, 1,",
+				"      [map(x-\u003e2*x-1, [T(n-1)])[], map(x-\u003e2*x, [T(n-1)])[]][])",
+				"    end:",
+				"seq(T(n), n=1..7);  # _Alois P. Heinz_, Oct 28 2011"
+			],
+			"mathematica": [
+				"row[1] = {1}; row[n_] := row[n] = Join[ 2*row[n-1] - 1, 2*row[n-1] ]; Flatten[ Table[ row[n], {n, 1, 7}]] (* _Jean-François Alcover_, May 03 2012 *)"
+			],
+			"program": [
+				"(PARI) (a(n, k) = if( k\u003c=0 || k\u003e=n, 0, if( k%2, n\\2) + a(n\\2, k\\2))); {T(n, k) = if( k\u003c=0 || k\u003e2^n/2, 0, 1 + a(2^n/2, k-1))}; /* _Michael Somos_, Oct 13 1999 */",
+				"(Haskell)",
+				"a049773 n k = a049773_tabf !! (n-1) !! (k-1)",
+				"a049773_row n = a049773_tabf !! (n-1)",
+				"a049773_tabf = iterate f [1] where",
+				"   f vs = (map (subtract 1) ws) ++ ws where ws = map (* 2) vs",
+				"-- _Reinhard Zumkeller_, Mar 14 2015"
+			],
+			"xref": [
+				"Sum of odd-indexed terms of n-th row gives A007582. Sum of even-indexed terms gives A049775.",
+				"A030109 is another version.",
+				"Cf. A131271.",
+				"Cf. A088370. - _Alois P. Heinz_, Oct 28 2011",
+				"Cf. A208569. - _Colin Hall_, Feb 29 2012",
+				"Cf. A003407, A088208."
+			],
+			"keyword": "nonn,tabf,nice,look",
+			"offset": "1,3",
+			"author": "_Clark Kimberling_",
+			"references": 11,
+			"revision": 45,
+			"time": "2017-12-05T17:20:54-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

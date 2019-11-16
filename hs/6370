@@ -1,0 +1,332 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6370,
+	"results": [
+		{
+			"number": 99249,
+			"data": "1,2,2,3,4,5,5,6,6,6,7,7,8,9,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,24,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,26,26,26,26,26,26,26,26,27,27,27,27,28,28,29,30,30,31,32,33,34,35,36,37,38,39,40,41",
+			"name": "Number of numbers not greater than n such that length in binary representation and number of ones are coprime.",
+			"comment": [
+				"Number of numbers m\u003c=n such that A099244(m) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A099249/b099249.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum(A063524(A099244(k)): k=1..n). - _Reinhard Zumkeller_, Oct 10 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a099249 n = a099249_list !! (n-1)",
+				"a099249_list = scanl1 (+) $ map ((0 ^) . (subtract 1)) a099244_list",
+				"-- _Reinhard Zumkeller_, Oct 10 2013"
+			],
+			"xref": [
+				"Cf. A099247, A070939, A000120, A007088."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 08 2004",
+			"references": 3,
+			"revision": 10,
+			"time": "2013-10-10T16:22:39-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 99427,
+			"data": "1,2,2,3,2,3,2,3,4,3,2,3,2,3,4,5,2,3,2,3,4,3,2,3,2,3,4,5,2,3,2,3,4,3,2,3,2,3,4,5,2,3,2,3,4,3,2,3,2,3,4,5,2,3,2,3,4,3,2,3,2,3,4,5,6,7,2,3,4,3,2,3,2,3,4,5,2,3,2,3,4,3,2,3,2,3,4,5,2,3,2,3,4,3,2,3,2,3,4,5,2,3,2,3,4",
+			"name": "a(1) = 1; for n \u003e 1, a(n) = 1 + greatest common divisor of n and a(n-1).",
+			"comment": [
+				"a(A060401(n)) = n + 1; a(A192489(n)) = 2. - _Reinhard Zumkeller_, Jul 02 2011",
+				"For n \u003e= 3, a(n) == n+1 (mod 2). - _Robert Israel_, Jan 10 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A099427/b099427.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(9)=4 because 1+gcd(a(8),9)=1+gcd(3,9)=1+3."
+			],
+			"maple": [
+				"f:= proc(n) option remember; 1 + igcd(n,procname(n-1)) end proc:",
+				"f(1):= 1:",
+				"map(f, [$1..1000]); # _Robert Israel_, Jan 10 2017"
+			],
+			"mathematica": [
+				"a[1] = 1; a[n_] := a[n] = GCD[n, a[n - 1]] + 1; Table[ a[n], {n, 105}] (* _Robert G. Wilson v_, Nov 18 2004 *)",
+				"nxt[{n_,a_}]:={n+1,GCD[n+1,a]+1}; Transpose[NestList[nxt,{1,1},110]] [[2]] (* _Harvey P. Dale_, Nov 22 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a099427 n = a099427_list !! (n-1)",
+				"a099427_list = 1 : map (+ 1) (zipWith gcd [2..] a099427_list)",
+				"-- _Reinhard Zumkeller_, Jun 23 2015, Jul 02 2011"
+			],
+			"xref": [
+				"For position of first occurrence of n see A060401."
+			],
+			"keyword": "easy,nonn,nice",
+			"offset": "1,2",
+			"author": "Gaetan Polard (gaetan27(AT)hotmail.com), Nov 18 2004",
+			"ext": [
+				"Edited and extended by _Robert G. Wilson v_, Nov 18 2004"
+			],
+			"references": 3,
+			"revision": 20,
+			"time": "2017-01-10T19:15:55-05:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 99619,
+			"data": "2,3,4,6,7,8,10,11,12,14,15,17,18,19,20,22,23,24,25,26,27,29,30,31,33,34,35,36,37,38,41,42,43,44,46,47,48,49,50,52,53,54,56,57,58,59,61,63,64,65,66,67,68,70,72,73,74,75,76,77,78,80,82,83,84,85,88,89,91,92,93",
+			"name": "Occurrence of the n-th prime in A098962.",
+			"comment": [
+				"A098962(a(n)) = A000040(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A099619/b099619.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a099619 = (+ 1) . fromJust . (`elemIndex` a098962_list) . a000040",
+				"-- _Reinhard Zumkeller_, Feb 18 2013"
+			],
+			"xref": [
+				"Cf. A099620."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 26 2004",
+			"references": 3,
+			"revision": 8,
+			"time": "2013-07-13T12:03:16-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 99620,
+			"data": "6,15,35,119,407,559,1037,1387,2231,3683,4247,6179,7913,8557,10951,14257,18113,19093,24053,27193,28981,34681,38263,44411,54611,59893,61903,66233,69869,74467,96139,104407,113573,119123,138421,142091",
+			"name": "Greatest multiple of the n-th prime in A098962.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A099620/b099620.txt\"\u003eTable of n, a(n) for n = 1..99\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a099620 n = f (p - 1) $ drop (a099619 n) a098962_list where",
+				"   f c (x:xs) | c == 1 = if m == 0 then x else f 1 xs",
+				"              | m /= 0 = f c xs",
+				"              | m == 0 = f (c - if x' == p then 2 else 1) xs",
+				"              where (x',m) = divMod x p",
+				"   p = a000040 n",
+				"-- _Reinhard Zumkeller_, Feb 18 2013"
+			],
+			"xref": [
+				"Cf. A099619."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 26 2004",
+			"references": 3,
+			"revision": 8,
+			"time": "2013-07-13T12:03:16-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 99848,
+			"data": "1,2,3,4,5,6,6,7,8,9,10,10,11,12,12,12,13,14,14,15,15,16,17,18,18,18,19,20,20,20,21,21,22,22,23,24,24,24,24,25,26,26,27,28,28,28,29,30,30,30,30,30,30,31,32,33,33,34,34,35,35,36,36,36,36,36,36,37,38,38,39,39,40",
+			"name": "All natural numbers occur in their order as many times as they have ordered prime factorizations.",
+			"comment": [
+				"n occurs exactly once iff n is a prime power (A000961);",
+				"n occurs exactly twice iff n is a semiprime with distinct factors (A006881);",
+				"a(A099849(n) - k) = n for 0 \u003c= k \u003c A008480(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A099848/b099848.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimeFactorization.html\"\u003ePrime Factorization\u003c/a\u003e"
+			],
+			"example": [
+				"n = 12: A008480(12) = #{3*2*2, 2*3*2, 2*2*3} = 3, therefore 12 occurs three times."
+			],
+			"program": [
+				"(Haskell)",
+				"a099848 n = a099848_list !! (n-1)",
+				"a099848_list = concat $ zipWith replicate a008480_list [1..]",
+				"-- _Reinhard Zumkeller_, Nov 19 2015"
+			],
+			"xref": [
+				"Cf. A008480."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 27 2004",
+			"references": 3,
+			"revision": 7,
+			"time": "2015-11-19T01:39:34-05:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 99849,
+			"data": "1,2,3,4,5,7,8,9,10,12,13,16,17,19,21,22,23,26,27,30,32,34,35,39,40,42,43,46,47,53,54,55,57,59,61,67,68,70,72,76,77,83,84,87,90,92,93,98,99,102,104,107,108,112,114,118,120,122,123,135,136,138,141,142,144,150",
+			"name": "Partial sums of A008480.",
+			"comment": [
+				"A099848(a(n) - k) = n for 0 \u003c= k \u003c A008480(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A099849/b099849.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1) = A008480(1) and for n\u003e1: a(n) = a(n-1) + A008480(n);"
+			],
+			"program": [
+				"(Haskell)",
+				"a099849 n = a099849_list !! (n-1)",
+				"a099849_list = scanl1 (+) a008480_list -- _Reinhard Zumkeller_, Nov 19 2015"
+			],
+			"xref": [
+				"Cf. A008480."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 27 2004",
+			"references": 3,
+			"revision": 6,
+			"time": "2015-11-19T01:41:45-05:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 99909,
+			"data": "11,29,68,131,206,305,416,641,869,1113,1478,1721,1976,2441,3071,3539,4023,4688,5111,5691,6476,7301,8540,9698,10301,10916,11555,12206,14231,16508,17813,18905,20567,22349,23553,25431,27056,28721,30791,32219",
+			"name": "(prime(n)*(prime(n+1)-1) + (prime(n)-1)*prime(n+1)) / 2.",
+			"comment": [
+				"See A099911 for primes; A099910(n)=A001222(a(n))."
+			],
+			"link": [
+				"Harvey P. Dale, \u003ca href=\"/A099909/b099909.txt\"\u003eTable of n, a(n) for n = 2..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"pn[{a_,b_}]:=(a(b-1)+b(a-1))/2; pn/@Partition[Prime[Range[2,50]],2,1] (* _Harvey P. Dale_, Nov 08 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a099909 n = a099909_list !! (n-2)",
+				"a099909_list = map (flip div 2) $ tail $ zipWith (+)",
+				"   (zipWith (*) a000040_list $ map (subtract 1) $ tail a000040_list)",
+				"   (zipWith (*) (map (subtract 1) a000040_list) $ tail a000040_list)",
+				"-- _Reinhard Zumkeller_, Nov 10 2013"
+			],
+			"keyword": "nonn",
+			"offset": "2,1",
+			"author": "_Reinhard Zumkeller_, Oct 29 2004",
+			"references": 3,
+			"revision": 10,
+			"time": "2013-11-10T07:19:46-05:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 99966,
+			"data": "1,1,3,6,14,39,109,313,900,2943,10403,36195,127474,447352,1711141,7234223,29672119,123515469,511672779,2123410053,9349845765,45883313142,216991244323,1041956760633,4977352149113,23819499579914",
+			"name": "Sequence of the next-to-last entries in the rows of A099964.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A099966/b099966.txt\"\u003eTable of n, a(n) for n = 1..750\u003c/a\u003e"
+			],
+			"maple": [
+				"with(linalg):rev:=proc(a) local n, p; n:=vectdim(a): p:=i-\u003ea[n+1-i]: vector(n,p) end: ps:=proc(a) local n, q; n:=vectdim(a): q:=i-\u003esum(a[j],j=1..i): vector(n,q) end: pss:=proc(a) local n, q; n:=vectdim(a): q:=proc(i) if i\u003c=n then sum(a[j],j=1..i) else sum(a[j],j=1..n) fi end: vector(n+1,q) end: tr:={seq(n*(n+1)/2,n=1..30)}: R[0]:=vector(1,1): for n from 1 to 30 do if member(n,tr)=false then R[n]:=ps(rev(R[n-1])) else R[n]:=pss(rev(R[n-1])) fi od: seq(R[n][vectdim(R[n])-1],n=1..30); # _Emeric Deutsch_, Nov 16 2004"
+			],
+			"mathematica": [
+				"triQ[n_] := Module[{k}, Reduce[n == k (k + 1)/2, k, Integers] =!= False];",
+				"row[0] = {1}; row[1] = {1, 1}; row[n_] := row[n] = (ro = Accumulate[ Reverse[ row[n - 1]]]; If[triQ[n], Append[ro, Last[ro]], ro]); a[n_] := row[n][[-2]]; Array[a, 26] (* _Jean-François Alcover_, Feb 13 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a099966 n = a099966_list !! (n-1)",
+				"a099966_list = map (last . init) $ tail a099964_tabf",
+				"-- _Reinhard Zumkeller_, May 02 2012"
+			],
+			"xref": [
+				"Cf. A099964, A099965."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, Nov 13 2004, following a suggestion made by Douglas G. Rogers, Mar 10 2003",
+			"ext": [
+				"More terms from _Emeric Deutsch_, Nov 16 2004",
+				"Offset corrected by _Reinhard Zumkeller_, May 02 2012"
+			],
+			"references": 3,
+			"revision": 17,
+			"time": "2018-02-13T04:12:01-05:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 100962,
+			"data": "1,2,3,11,17,23,27,29,37,41,47,53,59,67,71,79,83,89,97,101,107,113,117,125,127,131,135,137,147,149,157,163,167,171,173,179,189,191,197,207,211,223,227,233,239,245,251,255,257,261,263,269,275,277,281,293,297",
+			"name": "Numbers that can neither be written as the sum nor as the product of two primes.",
+			"comment": [
+				"Intersection of A014092 and A100959."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A100962/b100962.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a100962 n = a100962_list !! (n-1)",
+				"a100962_list = filter ((== 0) . a064911) a014092_list",
+				"-- _Reinhard Zumkeller_, Oct 15 2014"
+			],
+			"xref": [
+				"Cf. A084997.",
+				"Cf. A064911, A014092, A157931, A100959."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Nov 24 2004",
+			"references": 3,
+			"revision": 8,
+			"time": "2014-10-20T16:04:16-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 101369,
+			"data": "1,2,3,6,4,9,5,12,7,16,8,19,10,23,11,26,13,30,14,33,15,36,17,40,18,43,20,47,21,50,22,53,24,57,25,60,27,64,28,67,29,70,31,74,32,77,34,81,35,84,37,88,38,91,39,94,41,98,42,101,44,105,45,108,46,111,48,115,49,118",
+			"name": "a(2n-1) = the smallest positive integer not occurring earlier in the sequence. a(2n) = the a(2n-1)th smallest positive integer among those not occurring earlier in the sequence.",
+			"comment": [
+				"A permutation of the positive integers."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A101369/b101369.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)\u003ca(n+2). - _Robert G. Wilson v_, Feb 11 2005",
+				"For n\u003e0, a(2n-1)=1+floor((2n-1)/sqrt(2)) and a(2n)=2n+floor((2n)/sqrt(2)-1/sqrt(2)) - _Benoit Cloitre_, Feb 22 2005"
+			],
+			"mathematica": [
+				"lst = Range[150]; a[n_] := a[n] = If[ OddQ[n], b = First[lst]; lst = Rest[lst]; b, b = lst[[ a[n - 1]]]; lst = Drop[lst, {a[n - 1]}]; b]; Table[ a[n], {n, 70}]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a101369 n = a101369_list !! (n-1)",
+				"a101369_list = f [1..] where",
+				"   f (x:xs) = x : y : f (delete y xs) where y = xs !! (x - 1)",
+				"-- _Reinhard Zumkeller_, Jul 01 2013"
+			],
+			"xref": [
+				"Cf. A101438 (inverse)."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Jan 13 2005",
+			"ext": [
+				"More terms from _Robert G. Wilson v_, Feb 11 2005"
+			],
+			"references": 3,
+			"revision": 14,
+			"time": "2014-04-09T10:12:20-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		}
+	]
+}

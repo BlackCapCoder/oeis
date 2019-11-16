@@ -1,0 +1,331 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6840,
+	"results": [
+		{
+			"number": 248918,
+			"data": "1,2,3,4,5,7,6,8,9,31,10,11,12,27,28,14,16,63,17,18,19,20,32,21,22,23,127,24,25,26,29,115,30,33,34,35,36,37,38,39,40,111,41,255,42,43,44,45,46,47,48,49,50,51,52,53,54,56,58,59,60,61,62,64,66,67",
+			"name": "a(n) = index of (n+1)-th prime power in A247665.",
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a248918 = (+ 1) . fromJust . (`elemIndex` a247665_list) . a000961 . (+ 1)"
+			],
+			"xref": [
+				"Cf. A248387 (subsequence), A000961."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 16 2014",
+			"references": 3,
+			"revision": 5,
+			"time": "2014-10-20T14:44:35-04:00",
+			"created": "2014-10-20T14:44:35-04:00"
+		},
+		{
+			"number": 249039,
+			"data": "1,2,4,7,11,17,26,37,52,70,92,120,157,200,254,323,401,490,597,719,859,1021,1211,1438,1687,1979,2325,2740,3183,3704,4262,4863,5553,6350,7201,8174,9216,10336,11545,12894,14350,15928,17646,19526,21596,23893,26352,29060,32060,35406,39167",
+			"name": "a(1)=1, a(2)=2; thereafter a(n) = a(n-1) + a(n-1-(number of even terms so far)) + a(n-1-(number of odd terms so far)).",
+			"comment": [
+				"Suggested by A006336, A007604 and A249036-A249038."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249039/b249039.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"For n \u003e 1: a(n+1) = a(n) + a(n - A249040(n)) + a(n - A249041(n)) by mutual recursion. - _Reinhard Zumkeller_, Nov 11 2014"
+			],
+			"maple": [
+				"M:=100;",
+				"v[1]:=1; v[2]:=2; w[1]:=0; w[2]:=1; x[1]:=1; x[2]:=1;",
+				"for n from 3 to M do",
+				"v[n]:=v[n-1]+v[n-1-w[n-1]]+v[n-1-x[n-1]];",
+				"if v[n] mod 2 = 0 then w[n]:=w[n-1]+1; x[n]:=x[n-1];",
+				"else w[n]:=w[n-1]; x[n]:=x[n-1]+1; fi;",
+				"od:",
+				"[seq(v[n], n=1..M)]; # A249039",
+				"[seq(w[n], n=1..M)]; # A249040",
+				"[seq(x[n], n=1..M)]; # A249041"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a249039 n = genericIndex a249039_list (n - 1)",
+				"a249039_list = 1 : 2 : f 2 2 1 1 where",
+				"   f x u v w = y : f (x + 1) y (v + 1 - mod y 2) (w + mod y 2)",
+				"               where y = u + a249039 (x - v) + a249039 (x - w)",
+				"-- _Reinhard Zumkeller_, Nov 11 2014"
+			],
+			"xref": [
+				"Cf. A006336, A007604, A249036, A249037, A249038.",
+				"A249040 and A249041 give numbers of even and odd terms so far."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Oct 26 2014",
+			"references": 3,
+			"revision": 10,
+			"time": "2014-11-11T10:57:40-05:00",
+			"created": "2014-10-26T18:15:26-04:00"
+		},
+		{
+			"number": 249040,
+			"data": "0,1,2,2,2,2,3,3,4,5,6,7,7,8,9,9,9,10,10,10,10,10,10,11,11,11,11,12,12,13,14,14,14,15,15,16,17,18,18,19,20,21,22,23,24,24,25,26,27,28,28,29,30,30,30,31,31,32,33,34,34,35,36,36,36,37,37,37,37,38,38,39,40,40,40,41,41",
+			"name": "Number of even terms in first n terms of A249039.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249040/b249040.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"For n \u003e 1: a(n) = a(n-1) + 1 - A249039(n) mod 2. - _Reinhard Zumkeller_, Nov 11 2014"
+			],
+			"maple": [
+				"See A249039."
+			],
+			"program": [
+				"(Haskell)",
+				"a249040 n = a249040_list !! (n-1)",
+				"a249040_list = tail $ scanl (\\i j -\u003e i + 1 - mod j 2) 0 a249039_list",
+				"-- _Reinhard Zumkeller_, Nov 11 2014"
+			],
+			"xref": [
+				"Cf. A249039, A249041."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, Oct 26 2014",
+			"references": 3,
+			"revision": 7,
+			"time": "2014-11-11T10:58:28-05:00",
+			"created": "2014-10-26T18:18:21-04:00"
+		},
+		{
+			"number": 249041,
+			"data": "1,1,1,2,3,4,4,5,5,5,5,5,6,6,6,7,8,8,9,10,11,12,13,13,14,15,16,16,17,17,17,18,19,19,20,20,20,20,21,21,21,21,21,21,21,22,22,22,22,22,23,23,23,24,25,25,26,26,26,26,27,27,27,28,29,29,30,31,32,32,33,33,33,34,35,35,36",
+			"name": "Number of odd terms in first n terms of A249039.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249041/b249041.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Rémy Sigrist, \u003ca href=\"/A249041/a249041.png\"\u003eColored scatterplot of (a(n-1-a(n-1))/n, a(a(n-1))/n) for n \u003c= 500000000\u003c/a\u003e (where the hue is function of n)"
+			],
+			"formula": [
+				"For n \u003e 2: a(n) = a(n-1) + A249039(n) mod 2. - _Reinhard Zumkeller_, Nov 11 2014",
+				"a(n) = n - a(a(n-1)) - a(n-1-a(n-1)) with a(1) = a(2) = 1. - _Altug Alkan_, May 01 2019"
+			],
+			"maple": [
+				"See A249039."
+			],
+			"program": [
+				"(Haskell)",
+				"a249041 n = a249041_list !! (n-1)",
+				"a249041_list = tail $ scanl (\\i j -\u003e i + mod j 2) 0 a249039_list",
+				"-- _Reinhard Zumkeller_, Nov 11 2014"
+			],
+			"xref": [
+				"Cf. A249039, A249040, A287422."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_N. J. A. Sloane_, Oct 26 2014",
+			"references": 3,
+			"revision": 12,
+			"time": "2019-05-02T09:50:57-04:00",
+			"created": "2014-10-26T18:19:04-04:00"
+		},
+		{
+			"number": 249357,
+			"data": "1,2,3,8,15,26,45,74,123,200,327,530,861,1396,2259,3656,5919,9578,15501,25082,40587,65672,106263,171938,278211,450151,728367,1178527,1906896,3085439,4992336,8077783,13070121,21147910,34218033,55365944,89583981,144949928,234533913,379483844,614017761,993501608",
+			"name": "Fibonacci-Zumkeller numbers: a(n)=n if n\u003c=3, otherwise the smallest number \u003e= a(n-2) + a(n-1) having at least one common factor with a(n-2), but none with a(n-1).",
+			"comment": [
+				"To construct Fibonacci-like sequence, we use a rule from the definition of A098550."
+			],
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A249357/b249357.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e"
+			],
+			"example": [
+				"a(3)+a(4)=3+8=11. However, gcd(11,3)=1, further, gcd(12,8)\u003e1, gcd(13,3)=1, gcd(14,8)\u003e1, finally, gcd(15,3)\u003e1 and gcd(15,8)=1. Thus 15 is the smallest number \u003e11 which satisfies the definition. So a(5)=15."
+			],
+			"maple": [
+				"for n from 1 to 3 do a[n]:= n od:",
+				"for n from 4 to 100 do",
+				"  for k from a[n-1]+a[n-2] do",
+				"    if igcd(k,a[n-2]) \u003e 1 and igcd(k,a[n-1]) = 1 then",
+				"       a[n]:= k;",
+				"       break",
+				"    fi",
+				"  od",
+				"od:",
+				"seq(a[n],n=1..100); # _Robert Israel_, Dec 03 2014"
+			],
+			"mathematica": [
+				"A249357={1,2,3};Do[AppendTo[A249357,NestWhile[#+1\u0026,A249357[[-1]]+A249357[[-2]],!(GCD[#,A249357[[-1]]]==1\u0026\u0026GCD[#,A249357[[-2]]]\u003e1)\u0026]],{50}];A249357 (* _Peter J. C. Moses_, Dec 03 2014 *)"
+			],
+			"program": [
+				"(PARI) a(n, show=1, a=3, o=2)={n\u003c3\u0026\u0026return(n); show\u0026\u0026print1(\"1,2\"); for(i=4,n, show\u0026\u0026print1(\",\"a); k=a+o; until(gcd(k,o)\u003e1 \u0026\u0026 gcd(k,a)==1,k++); o=a; a=k); a} \\\\ _M. F. Hasler_, Dec 03 2014",
+				"(Python)",
+				"from fractions import gcd",
+				"A249357_list, l1, l2 = [1,2,3], 3, 2",
+				"for _ in range(100):",
+				"....i = l1+l2",
+				"....while True:",
+				"........if gcd(i,l1) == 1 and gcd(i,l2) \u003e 1:",
+				"............A249357_list.append(i)",
+				"............l2, l1 = l1, i",
+				"............break",
+				"........i += 1 # _Chai Wah Wu_, Dec 04 2014",
+				"(Haskell)",
+				"a249357 n = a249357_list",
+				"a249357_list = 1 : 2 : 3 : f 2 3 where",
+				"   f u v = y : f v y where",
+				"     y = head [x | x \u003c- [u + v ..], gcd x u \u003e 1, gcd x v == 1]",
+				"-- _Reinhard Zumkeller_, Dec 04 2014"
+			],
+			"xref": [
+				"Cf. A000045, A098550.",
+				"Cf. A251608."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Vladimir Shevelev_, Dec 03 2014",
+			"ext": [
+				"More terms from _M. F. Hasler_, Dec 03 2014"
+			],
+			"references": 3,
+			"revision": 45,
+			"time": "2014-12-05T16:18:31-05:00",
+			"created": "2014-12-03T16:20:49-05:00"
+		},
+		{
+			"number": 249407,
+			"data": "2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,57,58,59,60,61,62,63,64,65,66,67,68,69,70",
+			"name": "Numbers not in A249406.",
+			"comment": [
+				"Primes are a subsequence, but semiprimes (cf. A001358) are not: first missing: A249406(1)=6=2*3, A249406(732)=2196323=1481*1483, A249406(1263)=6502499=2549*2551, A249406(1472)=8820899=2969*2971, A249406(1756)=12531599=3539*3541, ... ;",
+				"see A249411 for numbers of the form m*(m+1)."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\))",
+				"a249407 n = a249407_list !! (n-1)",
+				"a249407_list = f [2..] where",
+				"   f ws@(u:v:_) = u : v : f (ws \\\\ [u, v, u * v])"
+			],
+			"xref": [
+				"Cf. A249406 (complement), A000040 (subsequence), A001358."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 31 2014",
+			"references": 3,
+			"revision": 8,
+			"time": "2017-05-14T11:56:06-04:00",
+			"created": "2014-11-01T10:53:57-04:00"
+		},
+		{
+			"number": 249575,
+			"data": "1,2,3,4,5,6,7,8,9,10,12,13,16,17,19,21,22,24,27,28,30,31,34,37,41,43,45,51,54,55,58,60,61,67,69,73,76,79,82,83,85,91,93,94,96,97,100,103,106,115,121,124,127,130,133,136,139,142,144,145,151,160,163",
+			"name": "Indices of prime powers in A084937.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249575/b249575.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a249575 n = a249575_list !! (n-1)",
+				"a249575_list = filter ((== 1) . a010055 . a084937) [1..]"
+			],
+			"xref": [
+				"Cf. A084937, A249602, A010055."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Nov 04 2014",
+			"references": 3,
+			"revision": 17,
+			"time": "2014-11-04T06:15:02-05:00",
+			"created": "2014-11-04T06:15:02-05:00"
+		},
+		{
+			"number": 249591,
+			"data": "1,10,9,8,7,6,5,4,3,2,11,12,13,14,15,16,17,18,19,21,20,29,22,23,24,25,26,27,28,32,30,39,31,33,34,35,36,37,38,43,40,49,41,42,44,45,46,47,48,54,50,59,51,52,53,55,56,57,58,65,60,69,61,62,63,64,66,67,68,70,76,71",
+			"name": "Lexicographically earliest permutation of the integers such that a(n+1) shares at least one digit with a(n)-1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249591/b249591.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"E. Angelini, \u003ca href=\"http://list.seqfan.eu/pipermail/seqfan/2014-November/013904.html\"\u003ea(n) shows one of the digits of a(n-1)-1\u003c/a\u003e, Nov 02 2014."
+			],
+			"program": [
+				"(PARI) {u=0; a=1; for(n=1, 99, print1(a\",\"); u+=1\u003c\u003ca; D=Set(if(a\u003e1,digits(a-1))); for(k=2, 9e9, bittest(u, k)\u0026\u0026next; #setintersect(D, Set(digits(k)))||next; a=k; break))}",
+				"(Haskell)",
+				"import Data.List (intersect, delete)",
+				"a249591 n = a249591_list !! (n-1)",
+				"a249591_list = 1 : f 1 [2..] where",
+				"   f x zs = g zs where",
+				"     g (y:ys) = if null $ show y `intersect` show (x - 1)",
+				"                   then g ys else y : f y (delete y zs)",
+				"-- _Reinhard Zumkeller_, Nov 02 2014"
+			],
+			"xref": [
+				"Cf. A249585.",
+				"Cf. A184992."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Eric Angelini_ and _M. F. Hasler_, Nov 01 2014",
+			"references": 3,
+			"revision": 12,
+			"time": "2015-04-04T21:46:57-04:00",
+			"created": "2014-11-02T00:28:13-04:00"
+		},
+		{
+			"number": 249594,
+			"data": "2,4,7,11,12,14,17,18,19,22,23,27,30,32,34,37,38,41,42,45,47,50,51,53,54,55,58,61,64,65,68,71,72,74,75,78,80,81,84,87,89,90,94,97,100,102,105,108,109,111,113,116,117,119,120,123,125,129,133,134,135",
+			"name": "Positions of primes in A249054.",
+			"comment": [
+				" A249054(a(n)) = A000040(n); sequence is strictly increasing, i.e. all primes occur in A249054 in natural order, see also A249595."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249594/b249594.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a249594 = (+ 1) . fromJust . (`elemIndex` a249054_list) . a000040"
+			],
+			"xref": [
+				" Cf. A000040, A026233, A049084, A239968, A249054, A249595 (complement)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Nov 03 2014",
+			"references": 3,
+			"revision": 5,
+			"time": "2014-11-04T05:56:53-05:00",
+			"created": "2014-11-04T05:56:53-05:00"
+		},
+		{
+			"number": 249595,
+			"data": "1,3,5,6,8,9,10,13,15,16,20,21,24,25,26,28,29,31,33,35,36,39,40,43,44,46,48,49,52,56,57,59,60,62,63,66,67,69,70,73,76,77,79,82,83,85,86,88,91,92,93,95,96,98,99,101,103,104,106,107,110,112,114,115",
+			"name": "Positions of nonprimes in A249054.",
+			"comment": [
+				" A249054(a(n)) = A018252(n); sequence is strictly increasing, i.e. all nonprimes occur in A249054 in natural order, see also A249594."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249595/b249595.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a249595 = (+ 1) . fromJust . (`elemIndex` a249054_list) . a018252"
+			],
+			"xref": [
+				" Cf. A018252, A026233, A049084, A239968, A249054, A249594 (complement)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Nov 03 2014",
+			"references": 3,
+			"revision": 4,
+			"time": "2014-11-04T05:57:20-05:00",
+			"created": "2014-11-04T05:57:20-05:00"
+		}
+	]
+}

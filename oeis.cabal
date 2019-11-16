@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 43c2ed39a55d9440e23a64be30bf164b4f630c57572f78f70dc4283791c1f399
+-- hash: 15fa6c4de074c4591a7970a6950f9210fa2032deb5394f49a6866208f992cc64
 
 name:           oeis
 version:        0.1.0.0
@@ -61,8 +61,6 @@ test-suite oeis-test
   main-is: Spec.hs
   other-modules:
       Implemented
-      Instances
-      Type
       Paths_oeis
   hs-source-dirs:
       test
@@ -71,6 +69,7 @@ test-suite oeis-test
   build-depends:
       arithmoi >=0.8.0.0
     , base >=4.7 && <5
+    , bytestring
     , containers
     , oeis
     , primes >=0.2.1.0

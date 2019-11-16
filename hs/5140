@@ -1,0 +1,393 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5140,
+	"results": [
+		{
+			"number": 261009,
+			"data": "1,2,2,4,4,4,4,6,4,8,8,10,10,8,10,16,12,14,12,16,14,18,16,12,10,12,14,20,20,22,24,26,24,22,22,22,18,20,26,28,28,28,26,30,30,30,26,26,26,32,38,40,38,38,28,34,40,42,38,40,46,40,38,42,48,44,42,40,42,48,48,44",
+			"name": "Write 2^n in base 3, add up the \"digits\".",
+			"comment": [
+				"Comment from _Jean-Paul Allouche_, Oct 25 2015: As mentioned by Holdum et al. (2015) the following problem, cited in \"Concrete Mathematics\" by Graham, Knuth, and Patashnik (1994), is still open: prove that for all n \u003e 256, binomial(2n,n) is either divisible by 4 or by 9 (cf. A000984).  This can be easily reduced to show that, for all k \u003e= 9, 2*a(k) - a(k+1) \u003e= 4.  This has been proved up to huge values of k (Holdum et al. mention k = 10^{13}).",
+				"For additional information about the divisibility of binomial(2n,n) by squares see the comments and references in A000984, - _N. J. A. Sloane_, Oct 29 2015"
+			],
+			"link": [
+				"Giovanni Resta, \u003ca href=\"/A261009/b261009.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Cernenoks J., Iraids J., Opmanis M., Opmanis R., Podnieks K., \u003ca href=\"http://arxiv.org/abs/1409.0446\"\u003eInteger complexity: experimental and analytical results II\u003c/a\u003e, arXiv:1409.0446 [math.NT] (September 2014)",
+				"Ronald L. Graham, Donald E. Knuth and Oren Patashnik, Concrete Math., 2n-d ed.; Addison-Wesley, 1994",
+				"Sebastian Tim Holdum, Frederik Ravn Klausen, Peter Michael Reichstein Rasmussen, \u003ca href=\"http://www.integers-ejcnt.org/p43/p43.mail.html\"\u003ePowers in prime bases and a problem on central coefficients\u003c/a\u003e, Integers 15 (2015), #A43",
+				"K. Podnieks, \u003ca href=\"http://arxiv.org/abs/1411.3911\"\u003eDigits of pi: limits to the seeming randomness\u003c/a\u003e, arXiv:1411.3911 [math.NT], 2014."
+			],
+			"formula": [
+				"a(n) = A053735(A000079(n)). - _Michel Marcus_, Aug 14 2015"
+			],
+			"example": [
+				"2^7 = 128_10 = 11202_3, so a(7) = 1+1+2+0+2 = 6."
+			],
+			"maple": [
+				"S:=n-\u003eadd(i,i in convert(2^n,base,3)); [seq(S(n),n=0..100)];"
+			],
+			"mathematica": [
+				"Table[Total@ IntegerDigits[2^n, 3], {n, 0, 100}] (* _Giovanni Resta_, Aug 14 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n) = vecsum(digits(2^n, 3)); \\\\ _Michel Marcus_, Aug 14 2015",
+				"(Haskell)",
+				"a261009 = a053735 . a000079  -- _Reinhard Zumkeller_, Aug 14 2015"
+			],
+			"xref": [
+				"Cf. A000079, A000984, A053735, A007089.",
+				"Sum of digits of k^n in base b for various pairs (k,b): A001370 (2,10), A011754 (3,2), A261009 (2,3), A261010 (5,3)."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Aug 14 2015",
+			"references": 5,
+			"revision": 30,
+			"time": "2018-05-03T05:11:45-04:00",
+			"created": "2015-08-14T01:51:10-04:00"
+		},
+		{
+			"number": 261016,
+			"data": "1,6,18,46,107,241,535,1178,2569,5546,11859,25156,53058,111379,232966,486023,1012185,2104729,4370644,9064924,18778766,38856079,80307630,165790125,341872016,704171185,1448812630,2977673003,6113469501,12538958895,25693167881,52598980642",
+			"name": "a(n) = Sum_{k=0..2^n-1} k*A261015(n,k).",
+			"comment": [
+				"The scaled values a(n)/2^n are (to nine decimal places) 0.5000000000, 1.500000000, 2.250000000, 2.875000000, 3.343750000, 3.765625000, 4.179687500, 4.601562500, 5.017578125, 5.416015625, 5.790527344, 6.141601562, 6.476806641, 6.798034668, 7.109558105, 7.416122437, 7.722358704, 8.028903961, 8.336341858, 8.644985199, 8.954413414, 9.264011145, 9.573415518, 9.881861508, 10.18858004, 10.49296834, 10.79449527, 11.09269635, 11.38722431, 11.67781548, 11.96431363, 12.24665452, ..."
+			],
+			"link": [
+				"Alois P. Heinz and Hiroaki Yamanouchi, \u003ca href=\"/A261016/b261016.txt\"\u003eTable of n, a(n) for n = 1..58\u003c/a\u003e (a(1)-a(36) from Alois P. Heinz)"
+			],
+			"mathematica": [
+				"(* This program is not suitable to compute more than a dozen terms. *)",
+				"notVis[bits_] := For[i = 0, True, i++, If[SequencePosition[bits, IntegerDigits[i, 2]] == {}, Return[i]]];",
+				"T[n_, k_] := Select[Rest[IntegerDigits[#, 2]] \u0026 /@ Range[2^n, 2^(n+1) - 1], notVis[#] == k \u0026] // Length;",
+				"a[n_] := Sum[k*T[n, k], {k, 0, 2^n - 1}];",
+				"Table[an = a[n]; Print[\"a(\", n, \") = \", an]; an, {n, 1, 12}] (* _Jean-François Alcover_, Aug 02 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a261016 = sum . zipWith (*) [0..] . a261019_row'",
+				"-- _Reinhard Zumkeller_, Aug 18 2015"
+			],
+			"xref": [
+				"Cf. A261019, A261015, A260273."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Aug 16 2015",
+			"ext": [
+				"a(5)-a(16) from _Alois P. Heinz_, Aug 17 2015",
+				"a(17)-a(25) from _Reinhard Zumkeller_, Aug 18 2015",
+				"a(26)-a(32) from _Alois P. Heinz_, Aug 19 2015"
+			],
+			"references": 5,
+			"revision": 28,
+			"time": "2018-08-02T15:44:12-04:00",
+			"created": "2015-08-16T19:53:59-04:00"
+		},
+		{
+			"number": 261017,
+			"data": "1,3,4,5,5,7,8,9,9,9,11,11,13,15,16,17,17,17,17,19,19,19,21,21,23,23,23,27,29,31,32,33,33,33,33,33,35,35,35,35,37,37,37,39,39,39,39,41,41,43,43,45,45,45,47,47,47,47",
+			"name": "a(n) = max k such that A261015(n,k) is not zero.",
+			"mathematica": [
+				"(* This program is not suitable to compute more than a dozen terms. *)",
+				"notVis[bits_] := For[i = 0, True, i++, If[SequencePosition[bits, IntegerDigits[i, 2]] == {}, Return[i]]];",
+				"T[n_, k_] := Select[Rest[IntegerDigits[#, 2]] \u0026 /@ Range[2^n, 2^(n+1) - 1], notVis[#] == k \u0026] // Length;",
+				"a[n_] := Do[If[T[n, k] \u003e 0, Return[k]], {k, 2^n - 1, 0, -1}];",
+				"Table[an = a[n]; Print[\"a(\", n, \") = \", an]; an, {n, 1, 12}] (* _Jean-François Alcover_, Aug 02 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a261017 = subtract 1 . length . a261019_row",
+				"-- _Reinhard Zumkeller_, Aug 18 2015"
+			],
+			"xref": [
+				"Cf. A261019, A261015, A261016, A260273."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Aug 17 2015",
+			"ext": [
+				"a(5)-a(17) from _Alois P. Heinz_, Aug 17 2015",
+				"a(18)-a(25) from _Reinhard Zumkeller_, Aug 18 2015",
+				"a(26)-a(36) from _Alois P. Heinz_, Aug 19 2015",
+				"a(37)-a(58) from _Hiroaki Yamanouchi_, Aug 23 2015"
+			],
+			"references": 5,
+			"revision": 29,
+			"time": "2018-08-02T17:08:12-04:00",
+			"created": "2015-08-17T10:20:17-04:00"
+		},
+		{
+			"number": 261363,
+			"data": "1,1,2,1,1,2,1,2,3,4,1,1,1,1,2,1,2,2,2,3,4,1,1,2,2,3,3,4,1,2,3,4,5,6,7,8,1,1,1,1,1,1,1,1,2,1,2,2,2,2,2,2,2,3,4,1,1,2,2,2,2,2,2,3,3,4,1,2,3,4,4,4,4,4,5,6,7,8,1,1,1,1,2,2,2,2",
+			"name": "Triangle read by rows: partial row sums of Sierpinski's triangle.",
+			"comment": [
+				"T(n,n) = number of distinct terms in row n = number of odd terms in row n+1 = A001316(n);",
+				"central terms, for n \u003e 0: T(2*n,n) = A048896(n-1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261363/b261363.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".   n |  Sierpinski: A047999(n,*)  |  Partial row sums: T(n,*)",
+				". ----+----------------------------+----------------------------",
+				".   0 |              1             |              1",
+				".   1 |             1 1            |             1 2",
+				".   2 |            1 0 1           |            1 1 2",
+				".   3 |           1 1 1 1          |           1 2 3 4",
+				".   4 |          1 0 0 0 1         |          1 1 1 1 2",
+				".   5 |         1 1 0 0 1 1        |         1 2 2 2 3 4",
+				".   6 |        1 0 1 0 1 0 1       |        1 1 2 2 3 3 4",
+				".   7 |       1 1 1 1 1 1 1 1      |       1 2 3 4 5 6 7 8",
+				".   8 |      1 0 0 0 0 0 0 0 1     |      1 1 1 1 1 1 1 1 2",
+				".   9 |     1 1 0 0 0 0 0 0 1 1    |     1 2 2 2 2 2 2 2 3 4",
+				".  10 |    1 0 1 0 0 0 0 0 1 0 1   |    1 1 2 2 2 2 2 2 3 3 4",
+				".  11 |   1 1 1 1 0 0 0 0 1 1 1 1  |   1 2 3 4 4 4 4 4 5 6 7 8",
+				".  12 |  1 0 0 0 1 0 0 0 1 0 0 0 1 |  1 1 1 1 2 2 2 2 3 3 3 3 4  ."
+			],
+			"program": [
+				"(Haskell)",
+				"a261363 n k = a261363_tabl !! n !! k",
+				"a261363_row n = a261363_tabl !! n",
+				"a261363_tabl = map (scanl1 (+)) a047999_tabl"
+			],
+			"xref": [
+				"Cf. A047999, A008949, A048896 (central terms), A001316 (right edge), A261366."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Aug 16 2015",
+			"references": 5,
+			"revision": 6,
+			"time": "2015-08-16T17:28:23-04:00",
+			"created": "2015-08-16T17:28:23-04:00"
+		},
+		{
+			"number": 261646,
+			"data": "1,1,1,3,5,7,15,27,49,90,171,326,613,1174,2255,4333,8386,16213,31457,61097,118577,230322,447767,870570,1693887,3297343,6423347,12523562,24435171,47707012,93215393,182260604,356622869,698284551,1368195878,2682527954,5262729874,10330704931",
+			"name": "Row lengths in A261644.",
+			"comment": [
+				"First differences of A261396;",
+				"also row lengths in A261712."
+			],
+			"formula": [
+				"a(n) = A261396(n) - A261396(n-1)."
+			],
+			"program": [
+				"(Haskell)",
+				"a261646 = length . a261644_row"
+			],
+			"xref": [
+				"Cf. A261644, A261712, A261396."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, Aug 31 2015",
+			"ext": [
+				"a(21)-a(38) from _Chai Wah Wu_, Aug 31 2015"
+			],
+			"references": 5,
+			"revision": 7,
+			"time": "2015-08-31T21:37:32-04:00",
+			"created": "2015-08-31T02:53:48-04:00"
+		},
+		{
+			"number": 261712,
+			"data": "1,1,3,1,5,8,1,5,9,12,15,3,8,13,20,25,28,31,3,8,13,17,24,29,33,37,41,44,47,52,57,60,63,2,6,10,15,24,29,33,40,47,52,57,62,66,70,77,81,85,88,91,99,105,108,111,116,121,124,127,4,12,20,25,30,34,38",
+			"name": "Reversed rows of A261644, seen as table read by rows.",
+			"comment": [
+				"T(n+1,k) = T(n,k) for k = 1 .. A261727(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261712/b261712.txt\"\u003eRows n = 1..20 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".   n |    T(n,*)                                            | A261646(n)",
+				". ----+------------------------------------------------------+-----------",
+				".   1 | 1                                                    |         1",
+				".   2 | 1                                                    |         1",
+				".   3 | 3                                                    |         1",
+				".   4 | 1,5,8                                                |         3",
+				".   5 | 1,5,9,12,15                                          |         5",
+				".   6 | 3,8,13,20,25,28,31                                   |         7",
+				".   7 | 3,8,13,17,24,29,33,37,41,44,47,52,57,60,63           |        15",
+				".   8 | 2,6,10,15,24,29,33,40,47,52,57,62,66,70,77,81,85,... |        27",
+				".   9 | 4,12,20,25,30,34,38,47,52,57,62,66,70,77,84,91,...   |        49",
+				".  10 | 2,6,10,15,24,29,33,37,45,50,55,60,68,76,84,93,98,... |        90",
+				".  11 | 2,6,10,15,24,29,33,37,45,50,55,60,68,76,84,93,98,... |       171",
+				".  12 | 2,6,10,15,24,29,33,37,45,50,55,60,68,76,84,93,98,... |       326",
+				".  13 | 2,6,10,15,24,29,33,37,45,50,55,60,68,76,84,93,98,... |       613",
+				".  14 | 2,6,10,15,24,29,33,37,45,50,55,60,68,76,84,93,98,... |      1174",
+				".  15 | 2,6,10,15,24,29,33,37,45,50,55,60,68,76,84,93,98,... |      2255",
+				".  16 | 2,6,10,15,24,29,33,37,45,50,55,60,68,76,84,93,98,... |      4333 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a261712 n k = a261712_tabf !! (n-1) !! (k-1)",
+				"a261712_row n = a261712_tabf !! (n-1)",
+				"a261712_tabf = map reverse a261644_tabf"
+			],
+			"xref": [
+				"Cf. A261644, A261646 (row lengths), A261727."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Aug 31 2015",
+			"references": 5,
+			"revision": 4,
+			"time": "2015-08-31T02:52:16-04:00",
+			"created": "2015-08-31T02:52:16-04:00"
+		},
+		{
+			"number": 261786,
+			"data": "1,3,5,8,9,11,15,18,19,22,25,28,30,32,36,38,43,46,49,52,55,58,61,64,68,71,74,75,79,82,84,86,90,92,96,100,104,108,110,115,120,122,125,128,131,134,137,140,143,146,150,153,156,160,163,166,169,172,176,179",
+			"name": "Successively add the smallest ternary number that is not a substring.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261786/b261786.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a261786 n = a261786_list !! (n-1)",
+				"a261786_list = iterate (\\x -\u003e x + a261787 x) 1"
+			],
+			"xref": [
+				"Cf. A030341, A261787, A261789 (first differences), A261788, A260273, A261793."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 01 2015",
+			"references": 5,
+			"revision": 6,
+			"time": "2016-02-15T12:20:08-05:00",
+			"created": "2016-02-15T12:20:08-05:00"
+		},
+		{
+			"number": 261793,
+			"data": "1,3,4,5,6,7,8,9,10,12,15,17,19,21,24,25,26,27,28,29,30,31,33,34,35,36,37,38,39,40,41,43,44,45,46,47,48,49,50,51,53,54,55,56,57,58,59,60,61,63,64,65,66,67,68,69,70,71,73,74,75,76,77,78,79,80,81",
+			"name": "Successively add the smallest number that is not a substring in decimal representation.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261793/b261793.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a261793 n = a261793_list !! (n-1)",
+				"a261793_list = iterate (\\x -\u003e x + a261794 x) 1"
+			],
+			"xref": [
+				"Cf. A031298, A261794, A261795 (first differences), A261806, A260273, A261786"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 01 2015",
+			"references": 5,
+			"revision": 7,
+			"time": "2016-02-15T12:20:51-05:00",
+			"created": "2016-02-15T12:20:51-05:00"
+		},
+		{
+			"number": 262065,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,61,122,183,244,305,366",
+			"name": "Numbers that are palindromes in base-60 representation.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A262065/b262065.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PalindromicNumber.html\"\u003ePalindromic Number\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Sexagesimal.html\"\u003eSexagesimal\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Palindromic_number\"\u003ePalindromic number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Sexagesimal\"\u003eSexagesimal\u003c/a\u003e",
+				"\u003ca href=\"/index/Pac#palindromes\"\u003eIndex entries for sequences related to palindromes\u003c/a\u003e"
+			],
+			"example": [
+				".      n | a(n) |  base 60          n |  a(n) |  base 60",
+				".   -----+------+-----------    ------+-------+--------------",
+				".    100 | 2440 | [40, 40]       1000 | 56355 | [15, 39, 15]",
+				".    101 | 2501 | [41, 41]       1001 | 56415 | [15, 40, 15]",
+				".    102 | 2562 | [42, 42]       1002 | 56475 | [15, 41, 15]",
+				".    103 | 2623 | [43, 43]       1003 | 56535 | [15, 42, 15]",
+				".    104 | 2684 | [44, 44]       1004 | 56595 | [15, 43, 15]",
+				".    105 | 2745 | [45, 45]       1005 | 56655 | [15, 44, 15]",
+				".    106 | 2806 | [46, 46]       1006 | 56715 | [15, 45, 15]",
+				".    107 | 2867 | [47, 47]       1007 | 56775 | [15, 46, 15]",
+				".    108 | 2928 | [48, 48]       1008 | 56835 | [15, 47, 15]",
+				".    109 | 2989 | [49, 49]       1009 | 56895 | [15, 48, 15]",
+				".    110 | 3050 | [50, 50]       1010 | 56955 | [15, 49, 15]",
+				".    111 | 3111 | [51, 51]       1011 | 57015 | [15, 50, 15]",
+				".    112 | 3172 | [52, 52]       1012 | 57075 | [15, 51, 15]",
+				".    113 | 3233 | [53, 53]       1013 | 57135 | [15, 52, 15]",
+				".    114 | 3294 | [54, 54]       1014 | 57195 | [15, 53, 15]",
+				".    115 | 3355 | [55, 55]       1015 | 57255 | [15, 54, 15]",
+				".    116 | 3416 | [56, 56]       1016 | 57315 | [15, 55, 15]",
+				".    117 | 3477 | [57, 57]       1017 | 57375 | [15, 56, 15]",
+				".    118 | 3538 | [58, 58]       1018 | 57435 | [15, 57, 15]",
+				".    119 | 3599 | [59, 59]       1019 | 57495 | [15, 58, 15]",
+				".    120 | 3601 | [1, 0, 1]      1020 | 57555 | [15, 59, 15]",
+				".    121 | 3660 | [1, 1, 0]      1021 | 57616 | [16, 0, 16]",
+				".    122 | 3661 | [1, 1, 1]      1022 | 57676 | [16, 1, 16]",
+				".    123 | 3721 | [1, 2, 1]      1023 | 57736 | [16, 2, 16]",
+				".    124 | 3781 | [1, 3, 1]      1024 | 57796 | [16, 3, 16]",
+				".    125 | 3841 | [1, 4, 1]      1025 | 57856 | [16, 4, 16]  ."
+			],
+			"mathematica": [
+				"f[n_, b_]:=Module[{i=IntegerDigits[n, b]}, i==Reverse[i]]; lst={}; Do[If[f[n, 60], AppendTo[lst, n]], {n, 400}]; lst (* _Vincenzo Librandi_, Aug 24 2016 *)",
+				"pal60Q[n_]:=Module[{idn60=IntegerDigits[n,60]},idn60==Reverse[idn60]]; Select[Range[0,400],pal60Q] (* _Harvey P. Dale_, Nov 04 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List.Ordered (union)",
+				"a262065 n = a262065_list !! (n-1)",
+				"a262065_list = union us vs where",
+				"   us = [val60 $ bs ++ reverse bs | bs \u003c- bss]",
+				"   vs = [0..59] ++ [val60 $ bs ++ cs ++ reverse bs |",
+				"          bs \u003c- tail bss, cs \u003c- take 60 bss]",
+				"   bss = iterate s [0] where",
+				"         s [] = [1]; s (59:ds) = 0 : s ds; s (d:ds) = (d + 1) : ds",
+				"   val60 = foldr (\\b v -\u003e 60 * v + b) 0",
+				"(MAGMA) [n: n in [0..600] | Intseq(n, 60) eq Reverse(Intseq(n, 60))]; // _Vincenzo Librandi_, Aug 24 2016"
+			],
+			"xref": [
+				"Cf. A262079 (first differences).",
+				"Intersection with A002113: A262069.",
+				"Corresponding sequences for bases 2 through 12: A006995, A014190, A014192, A029952, A029953, A029954, A029803, A029955, A002113, A029956, A029957."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Sep 10 2015",
+			"references": 5,
+			"revision": 20,
+			"time": "2019-10-10T08:14:16-04:00",
+			"created": "2015-09-10T18:06:56-04:00"
+		},
+		{
+			"number": 262190,
+			"data": "1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3",
+			"name": "Number of distinct palindromes contained as substrings in the decimal representation of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A262190/b262190.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Pac#palindromes\"\u003eIndex entries for sequences related to palindromes\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A055642(n) for n \u003c 100 = A262198(1);",
+				"a(n) != A055642(n) iff n is in A262198."
+			],
+			"program": [
+				"(Haskell) a262190 = length . a262188_row",
+				"(PARI) A262190(n)=#A262188_row(n) \\\\ _M. F. Hasler_, Jun 19 2018"
+			],
+			"xref": [
+				"Length of row n in table A262188.",
+				"Cf. A055642, A262198."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,11",
+			"author": "_Reinhard Zumkeller_, Sep 14 2015",
+			"ext": [
+				"Edited by _M. F. Hasler_, Jun 19 2018"
+			],
+			"references": 5,
+			"revision": 11,
+			"time": "2018-06-20T06:54:01-04:00",
+			"created": "2015-09-14T19:07:31-04:00"
+		}
+	]
+}

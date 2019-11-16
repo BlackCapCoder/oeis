@@ -1,0 +1,449 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2040,
+	"results": [
+		{
+			"number": 247807,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,20,21,23,24,26,27,28,29,30,31,40,41,43,46,47,50,51,52,53,54,56,57,58,59,60,61,63,67,70,71,73,80,81,83,84,86,87,90,91,93,94,96,97,98,210,230,231,240,241,243,246,247,260,261",
+			"name": "Numbers in decimal representation with distinct digits, such that in Italian and Portuguese their digits are in alphabetic order.",
+			"comment": [
+				" List of decimal digits, alphabetically sorted by their names in Italian resp. Portuguese:  5 _ cinque _ cinco, 2 _ due _ dois/duas, 9 _ nove _ nove, 8 _ otto _ oito, 4 _ quattro _ quatro, 6 _ sei _ seis, 7 _ sette _ sete, 3 _ tre _ tres, 1 _ uno _ um, 0 _ zero _ zero;",
+				"finite sequence with last and largest term a(1023) = 5298467310."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247807/b247807.txt\"\u003eTable of n, a(n) for n = 1..1023\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://de.wikipedia.org/wiki/Zahlen_in_unterschiedlichen_Sprachen#0_bis_10\"\u003eZahlen in unterschiedlichen Sprachen\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/List_of_numbers_in_various_languages\"\u003eList of numbers in various languages\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.IntSet (fromList, deleteFindMin, union)",
+				"import qualified Data.IntSet as Set (null)",
+				"a247807 n = a247807_list !! (n-1)",
+				"a247807_list = 0 : f (fromList [1..9]) where",
+				"   f s | Set.null s = []",
+				"       | otherwise  = x : f (s' `union`",
+				"         fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))",
+				"       where (x, s') = deleteFindMin s",
+				"   digs = [5, 2, 9, 8, 4, 6, 7, 3, 1, 0]"
+			],
+			"xref": [
+				"Intersection of A010784 and A247757.",
+				"Cf. A247800 (Czech), A247801 (Danish), A247802 (Dutch), A053433 (English), A247803 (Finnish), A247804 (French), A247805 (German), A247806 (Hungarian), A247808 (Latin), A247809 (Norwegian), A247810 (Polish), A247811 (Russian), A247812 (Slovak), A247813 (Spanish), A247809 (Swedish), A247814 (Turkish)."
+			],
+			"keyword": "nonn,base,word,fini,full",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"references": 17,
+			"revision": 4,
+			"time": "2014-10-05T19:12:31-04:00",
+			"created": "2014-10-05T19:12:31-04:00"
+		},
+		{
+			"number": 247808,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,20,21,23,24,25,26,27,28,29,30,31,40,41,43,45,46,47,50,51,53,56,57,60,61,63,67,70,71,73,80,81,83,84,85,86,87,90,91,93,94,95,96,97,98,210,230,231,240,241,243,245,246,247,250",
+			"name": "Numbers in decimal representation with distinct digits, such that in Latin their digits are in alphabetic order.",
+			"comment": [
+				"List of decimal digits, alphabetically sorted by their names in Latin:",
+				"2 _ duo/duae/duo, 9 _ novem, 8 _ octo, 4 _ quattuor, 5 _ quinque, 6 _ sex, 7 _ septem, 3 _ tres/tria, 1 _ unus/una/unum, 0 _ zipherum;",
+				"finite sequence with last and largest term a(1023) = 2984567310."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247808/b247808.txt\"\u003eTable of n, a(n) for n = 1..1023\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://de.wikipedia.org/wiki/Zahlen_in_unterschiedlichen_Sprachen#0_bis_10\"\u003eZahlen in unterschiedlichen Sprachen\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/List_of_numbers_in_various_languages\"\u003eList of numbers in various languages\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.IntSet (fromList, deleteFindMin, union)",
+				"import qualified Data.IntSet as Set (null)",
+				"a247808 n = a247808_list !! (n-1)",
+				"a247808_list = 0 : f (fromList [1..9]) where",
+				"   f s | Set.null s = []",
+				"       | otherwise  = x : f (s' `union`",
+				"         fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))",
+				"       where (x, s') = deleteFindMin s",
+				"   digs = [2, 9, 8, 4, 5, 6, 7, 3, 1, 0]"
+			],
+			"xref": [
+				"Intersection of A010784 and A247758.",
+				"Cf. A247800 (Czech), A247801 (Danish), A247802 (Dutch), A053433 (English), A247803 (Finnish), A247804 (French), A247805 (German), A247806 (Hungarian), A247807 (Italian), A247809 (Norwegian), A247810 (Polish), A247807 (Portuguese), A247811 (Russian), A247812 (Slovak), A247813 (Spanish), A247809 (Swedish), A247814 (Turkish)."
+			],
+			"keyword": "nonn,base,word,fini,full",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"references": 17,
+			"revision": 6,
+			"time": "2014-12-14T14:18:24-05:00",
+			"created": "2014-10-05T19:13:33-04:00"
+		},
+		{
+			"number": 247809,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,19,23,40,42,43,46,47,49,50,52,53,54,56,57,59,62,63,67,69,72,73,79,80,81,82,83,84,85,86,87,89,92,93,102,103,106,107,109,123,140,142,143,146,147,149,150,152",
+			"name": "Numbers in decimal representation with distinct digits, such that in Norwegian and Swedish their digits are in alphabetic order.",
+			"comment": [
+				"List of decimal digits, alphabetically sorted by their names in Norwegian resp. Swedish:  8 _ åtte _ åtta, 1 _ en/ett _ en/ett, 5 _ fem _ fem, 4 _ fire _ fyra, 0 _ null _ noll, 6 _ seks _ sex, 7 _ syv/sju _ sju, 9 _ ti _ tio, 2 _ to _ två, 3 _ tre _ tre;",
+				"Finite sequence with last and largest term a(992) = 8154067923.",
+				"From _Charles Coker_, Jul 18 2019: (Start)",
+				"The word tio (10) should probably be nio (9). Sources: 1) Wikipedia, List of numbers in various languages: Germanic languages, 2) Swedish Language Blog, Swedish numbers 1-100.",
+				"The names are sorted using English sorting rules. In Swedish, the letter Å/å, like in åtta (8), comes after z. Alphabetical order is a, ..., z, å, ä, ö. Using Swedish sorting rules and nio for 9, the sequence for 0-9 would be 1, 5, 4, 9, 0, 6, 7, 3, 2, 8. Sources: 1) Swedish speaker (not me), 2) Wikipedia: Swedish alphabet.",
+				"(End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247809/b247809.txt\"\u003eTable of n, a(n) for n = 1..992\u003c/a\u003e",
+				"Swedish Language Blog, \u003ca href=\"https://blogs.transparent.com/swedish/swedish-numbers-1-100/\"\u003eSwedish numbers 1-100\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://de.wikipedia.org/wiki/Zahlen_in_unterschiedlichen_Sprachen#0_bis_10\"\u003eZahlen in unterschiedlichen Sprachen\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/List_of_numbers_in_various_languages\"\u003eList of numbers in various languages\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/List_of_numbers_in_various_languages#Germanic_languages\"\u003eList of numbers in various languages: Germanic languages\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Swedish_alphabet\"\u003eSwedish alphabet\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.IntSet (fromList, deleteFindMin, union)",
+				"import qualified Data.IntSet as Set (null)",
+				"a247809 n = a247809_list !! (n-1)",
+				"a247809_list = 0 : f (fromList [1..9]) where",
+				"   f s | Set.null s = []",
+				"       | otherwise  = x : f (s' `union`",
+				"         fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))",
+				"       where (x, s') = deleteFindMin s",
+				"   digs = [8, 1, 5, 4, 0, 6, 7, 9, 2, 3]"
+			],
+			"xref": [
+				"Intersection of A010784 and A247759.",
+				"Cf. A247800 (Czech), A247801 (Danish), A247802 (Dutch), A053433 (English), A247803 (Finnish), A247804 (French), A247805 (German), A247806 (Hungarian), A247807 (Italian), A247808 (Latin), A247810 (Polish), A247807 (Portuguese), A247811 (Russian), A247812 (Slovak), A247813 (Spanish), A247814 (Turkish)."
+			],
+			"keyword": "nonn,base,word,fini,full",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"references": 17,
+			"revision": 20,
+			"time": "2019-08-23T14:00:18-04:00",
+			"created": "2014-10-05T19:14:46-04:00"
+		},
+		{
+			"number": 247810,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,13,15,16,17,18,20,21,23,25,26,27,28,29,30,40,41,42,43,45,46,47,48,49,50,53,56,57,60,63,67,70,73,80,83,85,86,87,90,91,93,95,96,97,98,130,150,153,156,157,160,163,167,170,173",
+			"name": "Numbers in decimal representation with distinct digits, such that in Polish their digits are in alphabetic order.",
+			"comment": [
+				"List of decimal digits, alphabetically sorted by their names in Polish:",
+				"4 _ cztery, 2 _ dwa/dwie, 9 _ dziewięć, 1 _ jeden/jedna/jedno, 8 _ osiem, 5 _ pięć, 6 _ sześć, 7 _ siedem, 3 _ trzy, 0 _ zero;",
+				"finite sequence with last and largest term a(1023) = 4291856730."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247810/b247810.txt\"\u003eTable of n, a(n) for n = 1..1023\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.IntSet (fromList, deleteFindMin, union)",
+				"import qualified Data.IntSet as Set (null)",
+				"a247810 n = a247810_list !! (n-1)",
+				"a247810_list = 0 : f (fromList [1..9]) where",
+				"   f s | Set.null s = []",
+				"       | otherwise  = x : f (s' `union`",
+				"         fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))",
+				"       where (x, s') = deleteFindMin s",
+				"   digs = [4, 2, 9, 1, 8, 5, 6, 7, 3, 0]"
+			],
+			"xref": [
+				"Intersection of A010784 and A247760.",
+				"Cf. A247800 (Czech), A247801 (Danish), A247802 (Dutch), A053433 (English), A247803 (Finnish), A247804 (French), A247805 (German), A247806 (Hungarian), A247807 (Italian), A247808 (Latin), A247809 (Norwegian), A247807 (Portuguese), A247811 (Russian), A247812 (Slovak), A247813 (Spanish), A247809 (Swedish), A247814 (Turkish)."
+			],
+			"keyword": "nonn,base,word,fini,full",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"references": 17,
+			"revision": 4,
+			"time": "2014-10-05T19:16:23-04:00",
+			"created": "2014-10-05T19:16:23-04:00"
+		},
+		{
+			"number": 247811,
+			"data": "0,1,2,3,4,5,6,7,8,9,13,14,15,16,17,20,21,23,24,25,26,27,29,34,36,46,53,54,56,57,73,74,76,80,81,82,83,84,85,86,87,89,90,91,93,94,95,96,97,134,136,146,153,154,156,157,173,174,176,201,203,204,205,206",
+			"name": "Numbers in decimal representation with distinct digits, such that in Russian their digits are in alphabetic order.",
+			"comment": [
+				"List of decimal digits and their transliterated names in Russian, sorted according to the Cyrillic alphabet:",
+				"8 _ vosem' [восемь], 2 _ dva/dve [два/две], 9 _ devjat' [девять], 0 _ nol'/nul' [ноль/нуль], 1 _ odin/odna/odno [один/одна/одно], 5 _ pjat' [пять],  7 _ sem' [семь], 3 _ tri [три], 4 _ četyre [четыре]; 6 _ šest’ [шесть];",
+				"finite sequence with last and largest term a(960) = 8290157346."
+			],
+			"link": [
+				"Andrey Zabolotskiy, \u003ca href=\"/A247811/b247811.txt\"\u003eTable of n, a(n) for n = 1..960\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://de.wikipedia.org/wiki/Zahlen_in_unterschiedlichen_Sprachen#0_bis_10\"\u003eZahlen in unterschiedlichen Sprachen\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/List_of_numbers_in_various_languages\"\u003eList of numbers in various languages\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Russian_alphabet\"\u003eRussian alphabet\u003c/a\u003e."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.IntSet (fromList, deleteFindMin, union)",
+				"import qualified Data.IntSet as Set (null)",
+				"a247811 n = a247811_list !! (n-1)",
+				"a247811_list = 0 : f (fromList [1..9]) where",
+				"   f s | Set.null s = []",
+				"       | otherwise  = x : f (s' `union`",
+				"         fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))",
+				"       where (x, s') = deleteFindMin s",
+				"   digs = [8, 2, 9, 0, 1, 5, 7, 3, 4, 6]"
+			],
+			"xref": [
+				"Intersection of A010784 and A247761.",
+				"Cf. A247800 (Czech), A247801 (Danish), A247802 (Dutch), A053433 (English), A247803 (Finnish), A247804 (French), A247805 (German), A247806 (Hungarian), A247807 (Italian), A247808 (Latin), A247809 (Norwegian), A247810 (Polish), A247807 (Portuguese), A247812 (Slovak), A247813 (Spanish), A247809 (Swedish), A247814 (Turkish)."
+			],
+			"keyword": "nonn,base,word,fini,full",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"ext": [
+				"Corrected by _Andrey Zabolotskiy_, Dec 17 2016"
+			],
+			"references": 17,
+			"revision": 12,
+			"time": "2016-12-17T16:22:46-05:00",
+			"created": "2014-10-05T19:17:51-04:00"
+		},
+		{
+			"number": 247812,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,20,21,23,24,25,26,27,28,43,53,54,56,57,63,64,73,74,76,83,84,85,86,87,90,91,92,93,94,95,96,97,98,103,104,105,106,107,108,143,153,154,156,157,163,164,173",
+			"name": "Numbers in decimal representation with distinct digits, such that in Slovak their digits are in alphabetic order.",
+			"comment": [
+				"List of decimal digits, alphabetically sorted by their names in Slovak:",
+				"9 _ deväť, 2 _ dva/dvaja/dve, 1 _ jeden/jedna/jedno, 0 _ nula, 8 _ osem, 5 _ päť, 7 _ sedem, 6 _ šesť, 4 _ štyri /štyria, 3 _ tri/traja;",
+				"finite sequence with last and largest term a(960) = 9210857643."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247812/b247812.txt\"\u003eTable of n, a(n) for n = 1..960\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://de.wikipedia.org/wiki/Zahlen_in_unterschiedlichen_Sprachen#0_bis_10\"\u003eZahlen in unterschiedlichen Sprachen\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/List_of_numbers_in_various_languages\"\u003eList of numbers in various languages\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.IntSet (fromList, deleteFindMin, union)",
+				"import qualified Data.IntSet as Set (null)",
+				"a247812 n = a247812_list !! (n-1)",
+				"a247812_list = 0 : f (fromList [1..9]) where",
+				"   f s | Set.null s = []",
+				"       | otherwise  = x : f (s' `union`",
+				"         fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))",
+				"       where (x, s') = deleteFindMin s",
+				"   digs = [9, 2, 1, 0, 8, 5, 7, 6, 4, 3]"
+			],
+			"xref": [
+				"Intersection of A010784 and A247762.",
+				"Cf. A247800 (Czech), A247801 (Danish), A247802 (Dutch), A053433 (English), A247803 (Finnish), A247804 (French), A247805 (German), A247806 (Hungarian), A247807 (Italian), A247808 (Latin), A247809 (Norwegian), A247810 (Polish), A247807 (Portuguese), A247811 (Russian), A247813 (Spanish), A247809 (Swedish), A247814 (Turkish)."
+			],
+			"keyword": "nonn,base,word,fini,full",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"references": 17,
+			"revision": 4,
+			"time": "2014-10-05T19:19:39-04:00",
+			"created": "2014-10-05T19:19:39-04:00"
+		},
+		{
+			"number": 247813,
+			"data": "0,1,2,3,4,5,6,7,8,9,21,23,26,27,28,29,31,41,42,43,46,47,48,49,51,52,53,54,56,57,58,59,61,63,67,71,73,81,83,86,87,91,93,96,97,98,231,261,263,267,271,273,281,283,286,287,291,293,296,297,298,421,423",
+			"name": "Numbers in decimal representation with distinct digits, such that in Spanish their digits are in alphabetic order.",
+			"comment": [
+				"List of decimal digits, alphabetically sorted by their names in Spanish:",
+				"0 _ cero, 5 _ cinco, 4 _ cuatro, 2 _ dos, 9 _ nueve, 8 _ ocho, 6 _ seis, 7 _ siete, 3 _ tres, 1 _ uno/una;",
+				"finite sequence with last and largest term a(512) = 542986731."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247813/b247813.txt\"\u003eTable of n, a(n) for n = 1..512\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://de.wikipedia.org/wiki/Zahlen_in_unterschiedlichen_Sprachen#0_bis_10\"\u003eZahlen in unterschiedlichen Sprachen\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/List_of_numbers_in_various_languages\"\u003eList of numbers in various languages\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.IntSet (fromList, deleteFindMin, union)",
+				"import qualified Data.IntSet as Set (null)",
+				"a247813 n = a247813_list !! (n-1)",
+				"a247813_list = 0 : f (fromList [1..9]) where",
+				"   f s | Set.null s = []",
+				"       | otherwise  = x : f (s' `union`",
+				"         fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))",
+				"       where (x, s') = deleteFindMin s",
+				"   digs = [0, 5, 4, 2, 9, 8, 6, 7, 3, 1]"
+			],
+			"xref": [
+				"Intersection of A010784 and A161390 .",
+				"Cf. A247800 (Czech), A247801 (Danish), A247802 (Dutch), A053433 (English), A247803 (Finnish), A247804 (French), A247805 (German), A247806 (Hungarian), A247807 (Italian), A247808 (Latin), A247809 (Norwegian), A247810 (Polish), A247807 (Portuguese), A247811 (Russian), A247812 (Slovak), A247809 (Swedish), A247814 (Turkish)."
+			],
+			"keyword": "nonn,base,word,fini,full",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"references": 17,
+			"revision": 6,
+			"time": "2014-10-18T07:40:47-04:00",
+			"created": "2014-10-05T19:20:51-04:00"
+		},
+		{
+			"number": 247814,
+			"data": "0,1,2,3,4,5,6,7,8,9,10,12,13,14,17,18,19,20,23,27,28,37,40,42,43,47,48,50,51,52,53,54,57,58,59,60,61,62,63,64,65,67,68,69,80,83,87,90,92,93,94,97,98,103,107,120,123,127,128,137,140,142,143,147",
+			"name": "Numbers in decimal representation with distinct digits, such that in Turkish their digits are in alphabetic order.",
+			"comment": [
+				"List of decimal digits, alphabetically sorted by their names in Turkish:",
+				"6 _ altı, 5 _ beş, 1 _ bir, 9 _ dokuz, 4 _ dört, 2 _ iki, 8 _ sekiz, 0 _ sıfır, 3 _ üç, 7 _ yedi;",
+				"finite sequence with last and largest term a(1020) = 6519428037."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247814/b247814.txt\"\u003eTable of n, a(n) for n = 1..1020\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://de.wikipedia.org/wiki/Zahlen_in_unterschiedlichen_Sprachen#0_bis_10\"\u003eZahlen in unterschiedlichen Sprachen\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/List_of_numbers_in_various_languages\"\u003eList of numbers in various languages\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.IntSet (fromList, deleteFindMin, union)",
+				"import qualified Data.IntSet as Set (null)",
+				"a247814 n = a247814_list !! (n-1)",
+				"a247814_list = 0 : f (fromList [1..9]) where",
+				"   f s | Set.null s = []",
+				"       | otherwise  = x : f (s' `union`",
+				"         fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))",
+				"       where (x, s') = deleteFindMin s",
+				"   digs = [6, 5, 1, 9, 4, 2, 8, 0, 3, 7]"
+			],
+			"xref": [
+				"Intersection of A010784 and A247764.",
+				"Cf. A247800 (Czech), A247801 (Danish), A247802 (Dutch), A053433 (English), A247803 (Finnish), A247804 (French), A247805 (German), A247806 (Hungarian), A247807 (Italian), A247808 (Latin), A247809 (Norwegian), A247810 (Polish), A247807 (Portuguese), A247811 (Russian), A247812 (Slovak), A247813 (Spanish), A247809 (Swedish)."
+			],
+			"keyword": "nonn,base,word,fini,full",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"references": 17,
+			"revision": 4,
+			"time": "2014-10-05T19:22:27-04:00",
+			"created": "2014-10-05T19:22:27-04:00"
+		},
+		{
+			"number": 257770,
+			"data": "0,0,1,0,2,0,3,0,4,0,5,0,6,0,7,0,8,0,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,2,3,5,6,8,9,0,1,4,5,8,9,3,4,8,9,2,3,8,9,1,2,8,9,0,1,8,9,0,8,9,8,9,0,2,4,6,8,0,1,3,4,6,7,9,0",
+			"name": "Table read by rows: numbers k, 0\u003c=k\u003c=9, such that n is a Belgian-k number.",
+			"comment": [
+				"See A106039 for definition of Belgian-k numbers;",
+				"T(n,0) = A257778(n); T(n,A257773(n)) = A257779(n);",
+				"m is a Belgian-0 number iff T(m,0) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257770/b257770.txt\"\u003eRows n = 0..1000 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"The first 100 rows:",
+				".   0 | 0                     25 | 2,4,9       50 | 0,5     75 | 3,8",
+				".   1 | 0,1                   26 | 0,2,8       51 | 3,4,9   76 | 4",
+				".   2 | 0,2                   27 | 0,7,9       52 | 3,5     77 | 0,7",
+				".   3 | 0,3                   28 | 6,8         53 | 0,5,8   78 | 3",
+				".   4 | 0,4                   29 | 5,7         54 | 0,4,9   79 | 8",
+				".   5 | 0,5                   30 | 0,3,6,9     55 | 0,5     80 | 0,8",
+				".   6 | 0,6                   31 | 0,3,4,7,8   56 | 1,7     81 | 0,1,9",
+				".   7 | 0,7                   32 | 2,4,7,9     57 | 4,9     82 | 2,4",
+				".   8 | 0,8                   33 | 0,3,6,9     58 | 1,6     83 | 6,9",
+				".   9 | 0,9                   34 | 3,6         59 | 3       84 | 0,4",
+				".  10 | 0,1,2,3,4,5,6,7,8,9   35 | 0,3,8       60 | 0,6     85 | 7",
+				".  11 | 0,1,2,3,4,5,6,7,8,9   36 | 0,6,9       61 | 5,6     86 | 2,8",
+				".  12 | 0,2,3,5,6,8,9         37 | 4,7         62 | 0,6,8   87 | 4",
+				".  13 | 0,1,4,5,8,9           38 | 2,5         63 | 0,3,9   88 | 0,8",
+				".  14 | 3,4,8,9               39 | 0,3         64 | 4,8     89 | 4",
+				".  15 | 2,3,8,9               40 | 0,4,8       65 | 4       90 | 0,9",
+				".  16 | 1,2,8,9               41 | 1,2,6,7     66 | 0,6     91 | 1,2",
+				".  17 | 0,1,8,9               42 | 0,2,6,8     67 | 2,9     92 | 4,6",
+				".  18 | 0,8,9                 43 | 1,4,8       68 | 6       93 | 0,9",
+				".  19 | 8,9                   44 | 0,4,8       69 | 3,9     94 | 3,7",
+				".  20 | 0,2,4,6,8             45 | 0,5,9       70 | 0,7     95 | 2",
+				".  21 | 0,1,3,4,6,7,9         46 | 2,6         71 | 0,7,8   96 | 6",
+				".  22 | 0,2,4,6,8             47 | 3           72 | 0,2,9   97 | 1,8",
+				".  23 | 1,3,6,8               48 | 0,8         73 | 3,6     98 | 4",
+				".  24 | 0,4,6                 49 | 6           74 | 1,8     99 | 0,9  ."
+			],
+			"program": [
+				"(Haskell)",
+				"a257770 n k = a257770_tabf !! n !! k",
+				"a257770_row n = filter belge [0..9] where",
+				"   belge k = n == (head $ dropWhile (\u003c n) $",
+				"                  scanl (+) k $ cycle $ (map (read . return) . show) n)",
+				"a257770_tabf = map a257770_row [0..]"
+			],
+			"xref": [
+				"Cf. A257773 (row lengths), A257778 (min per row), A257778 (max per row),",
+				"Belgian-k numbers, k=0..9: A106039, A106439, A106518, A106596, A106631, A106792, A107014, A107018, A107032, A107043."
+			],
+			"keyword": "nonn,tabf,base",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, May 08 2015",
+			"references": 17,
+			"revision": 5,
+			"time": "2015-05-08T16:54:45-04:00",
+			"created": "2015-05-08T16:54:45-04:00"
+		},
+		{
+			"number": 257905,
+			"data": "0,1,3,2,5,11,4,9,6,13,7,15,10,8,17,35,12,25,14,29,16,33,18,37,19,39,20,41,21,43,22,45,23,47,30,26,53,24,49,40,28,57,27,55,31,63,32,65,38,42,34,69,36,73,48,97,44,89,46,93,51,103,52,105,50,101",
+			"name": "Sequence (a(n)) generated by Rule 3 (in Comments) with a(1) = 0 and d(1) = 0.",
+			"comment": [
+				"Rule 3 follows.  For k \u003e= 1, let  A(k) = {a(1), …, a(k)} and D(k) = {d(1), …, d(k)}.  Begin with k = 1 and nonnegative integers a(1) and d(1).",
+				"Step 1:   If there is an integer h such that 1 - a(k) \u003c h \u003c 0 and h is not in D(k) and a(k) + h is not in A(k), let d(k+1) be the least such h, let a(k+1) = a(k) + h, replace k by k + 1, and repeat Step 1; otherwise do Step 2.",
+				"Step 2:  Let h be the least positive integer not in D(k) such that a(k) - h is not in A(k).  Let a(k+1) = a(k) + h and d(k+1) = h.  Replace k by k+1 and do Step 1.",
+				"Conjecture:  suppose that a(1) is an nonnegative integer and d(1) is an integer.",
+				"If a(1) = 0 and d(1) != 1, then (a(n)) is a permutation of the nonnegative integers;",
+				"if a(1) = 0 and d(1) = 1, then (a(n)) is a permutation of the nonnegative integers excluding 1;",
+				"if a(1) = 1, then (a(n)) is a permutation of the positive integers;",
+				"if a(1) \u003e 1, then (a(n)) is a permutation of the integers \u003e1;",
+				"if d(1) = 0, then (d(n)) is a permutation of the integers;",
+				"if d(1) !=0, then (d(n)) is a permutation of the nonzero integers.",
+				"Guide to related sequences:",
+				"a(1)  d(1)      (a(n))       (d(n))",
+				"0       0      A257905      A258047",
+				"0       1      A257906      A257907",
+				"0       2      A257908      A257909",
+				"0       3      A257910      A257980",
+				"1       0      A258046      A258047",
+				"1       1      A257981      A257982",
+				"1       2      A257983      A257909",
+				"2       0      A257985      A257047",
+				"2       1      A257986      A257982",
+				"2       2      A257987      A257909"
+			],
+			"link": [
+				"Clark Kimberling, \u003ca href=\"/A257905/b257905.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A258046(n) - 1 for n \u003e= 1."
+			],
+			"example": [
+				"a(1) = 0, d(1) = 0;",
+				"a(2) = 1, d(2) = 1;",
+				"a(3) = 3, d(3) = 2;",
+				"a(4) = 2, d(4) = -1."
+			],
+			"mathematica": [
+				"{a, f} = {{0}, {0}}; Do[tmp = {#, # - Last[a]} \u0026[Min[Complement[#, Intersection[a, #]]\u0026[Last[a] + Complement[#, Intersection[f, #]] \u0026[Range[2 - Last[a], -1]]]]];",
+				"If[! IntegerQ[tmp[[1]]], tmp = {Last[a] + #, #} \u0026[NestWhile[# + 1 \u0026, 1, ! (! MemberQ[f, #] \u0026\u0026 ! MemberQ[a, Last[a] - #]) \u0026]]]; AppendTo[a, tmp[[1]]]; AppendTo[f, tmp[[2]]], {120}]; {a, f} (* _Peter J. C. Moses_, May 14 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\))",
+				"a257905 n = a257905_list !! (n-1)",
+				"a257905_list = 0 : f [0] [0] where",
+				"   f xs@(x:_) ds = g [2 - x .. -1] where",
+				"     g [] = y : f (y:xs) (h:ds) where",
+				"                  y = x + h",
+				"                  (h:_) = [z | z \u003c- [1..] \\\\ ds, x - z `notElem` xs]",
+				"     g (h:hs) | h `notElem` ds \u0026\u0026 y `notElem` xs = y : f (y:xs) (h:ds)",
+				"              | otherwise = g hs",
+				"              where y = x + h",
+				"-- _Reinhard Zumkeller_, Jun 03 2015"
+			],
+			"xref": [
+				"Cf. A258047, A257705, A257883, A175498.",
+				"Cf. A256283 (putative inverse)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,3",
+			"author": "_Clark Kimberling_, May 16 2015",
+			"references": 17,
+			"revision": 20,
+			"time": "2015-06-16T13:53:23-04:00",
+			"created": "2015-06-02T03:36:56-04:00"
+		}
+	]
+}

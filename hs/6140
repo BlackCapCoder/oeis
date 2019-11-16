@@ -1,0 +1,327 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6140,
+	"results": [
+		{
+			"number": 50450,
+			"data": "1,1,1,1,26,1,1,1,82,26,1,1,170,1,26,1,290,82,1,26,442,1,1,1,651,170,82,1,842,26,1,1,1090,290,26,82,1370,1,170,26,1682,442,1,1,2132,1,1,1,2402,651,290,170,2810,82,26,1,3250,842,1,26,3722,1",
+			"name": "Sum_{d|n, d=1 mod 4} d^2.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050450/b050450.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a050450 = sum . map (^ 2) . filter ((== 1) . (`mod` 4)) . a027750_row",
+				"-- _Reinhard Zumkeller_, Jun 17 2013"
+			],
+			"xref": [
+				"Cf. A027750, A050453."
+			],
+			"keyword": "nonn",
+			"offset": "1,5",
+			"author": "_N. J. A. Sloane_, Dec 23 1999",
+			"references": 3,
+			"revision": 6,
+			"time": "2013-06-17T18:35:46-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 50453,
+			"data": "0,0,9,0,0,9,49,0,9,0,121,9,0,49,234,0,0,9,361,0,58,121,529,9,0,0,738,49,0,234,961,0,130,0,1274,9,0,361,1530,0,0,58,1849,121,234,529,2209,9,49,0,2610,0,0,738,3146,49,370,0,3481,234,0,961,4027",
+			"name": "Sum_{d|n, d=3 mod 4} d^2.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050453/b050453.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a050453 = sum . map (^ 2) . filter ((== 3) . (`mod` 4)) . a027750_row",
+				"-- _Reinhard Zumkeller_, Jun 17 2013"
+			],
+			"xref": [
+				"Cf. A027750, A050450."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, Dec 23 1999",
+			"references": 3,
+			"revision": 6,
+			"time": "2013-06-17T18:36:33-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 50461,
+			"data": "1,4,9,16,26,36,49,64,82,104,121,144,170,196,234,256,290,328,361,416,442,484,529,576,651,680,738,784,842,936,961,1024,1090,1160,1274,1312,1370,1444,1530,1664,1682,1768,1849,1936,2132,2116,2209",
+			"name": "a(n) = Sum_{d|n, n/d=1 mod 4} d^2.",
+			"comment": [
+				"Not multiplicative: a(3)*a(7) \u003c\u003e a(21), for example. - _R. J. Mathar_, Dec 20 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050461/b050461.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A050470(n) + A050465(n). - _Reinhard Zumkeller_, Mar 06 2012"
+			],
+			"maple": [
+				"A050461 := proc(n)",
+				"        a := 0 ;",
+				"        for d in numtheory[divisors](n) do",
+				"                if (n/d) mod 4 = 1 then",
+				"                        a := a+d^2 ;",
+				"                end if;",
+				"        end do:",
+				"        a;",
+				"end proc:",
+				"seq(A050461(n),n=1..40) ; # _R. J. Mathar_, Dec 20 2011"
+			],
+			"mathematica": [
+				"a[n_] := DivisorSum[n, Boole[Mod[n/#, 4] == 1]*#^2\u0026]; Array[a, 50] (* _Jean-François Alcover_, Feb 12 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a050461 n = sum [d ^ 2 | d \u003c- a027750_row n, mod (div n d) 4 == 1]",
+				"-- _Reinhard Zumkeller_, Mar 06 2012"
+			],
+			"xref": [
+				"Cf. A027750."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Dec 23 1999",
+			"references": 3,
+			"revision": 18,
+			"time": "2018-02-12T10:24:47-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 50465,
+			"data": "0,0,1,0,0,4,1,0,9,0,1,16,0,4,26,0,0,36,1,0,58,4,1,64,0,0,82,16,0,104,1,0,130,0,26,144,0,4,170,0,0,232,1,16,234,4,1,256,49,0,290,0,0,328,26,64,370,0,1,416,0,4,523,0,0,520,1,0,538,104,1,576,0",
+			"name": "Sum_{d|n, n/d=3 mod 4} d^2.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050465/b050465.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A050461(n) - A050470(n). [_Reinhard Zumkeller_, Mar 06 2012]"
+			],
+			"program": [
+				"(Haskell)",
+				"a050465 n = sum [d ^ 2 | d \u003c- a027750_row n, mod (div n d) 4 == 3]",
+				"-- _Reinhard Zumkeller_, Mar 06 2012"
+			],
+			"xref": [
+				"Cf. A027750."
+			],
+			"keyword": "nonn",
+			"offset": "1,6",
+			"author": "_N. J. A. Sloane_, Dec 23 1999",
+			"ext": [
+				"Offset fixed by _Reinhard Zumkeller_, Mar 06 2012"
+			],
+			"references": 3,
+			"revision": 12,
+			"time": "2013-07-13T12:02:15-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 50805,
+			"data": "439,853,1013,1061,1109,1117,1153,1187,1213,1249,1259,1283,1291,1301,1303,1361,1427,1451,1489,1511,1523,1531,1583,1597,1607,1657,1733,1747,1753,1801,1873,1879,1913,1951,2069,2083,2137,2243,2251,2267,2293,2297",
+			"name": "Inserting any digit between adjacent digits of prime p never yields another prime.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050805/b050805.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"E.g. 437 yields these ten composites -\u003e 40307, 41317, 42327, 43337, 44347, 45357, 46367, 47377, 48387, 49397."
+			],
+			"mathematica": [
+				"a[n_]:=Or@@PrimeQ[Table[FromDigits[Riffle[IntegerDigits[n],k]],{k,0,9}]]; Select[Prime[Range[5,350]],a[#]==False\u0026] (* _Jayanta Basu_, May 30 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersperse)",
+				"a050805 n = a050805_list !! (n-1)",
+				"a050805_list = filter ((all (== 0)) . f) a000040_list where",
+				"   f p = map (i $ show p) \"0123456789\"",
+				"   i ps d = a010051' (read $ intersperse d ps :: Integer)",
+				"-- _Reinhard Zumkeller_, May 07 2013"
+			],
+			"xref": [
+				"Cf. A050674-A050719, A050806.",
+				"Cf. A010051, A000040."
+			],
+			"keyword": "nonn,nice,base",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_, Oct 15 1999",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, May 07 2013"
+			],
+			"references": 3,
+			"revision": 11,
+			"time": "2017-07-03T01:23:18-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 50806,
+			"data": "101,149,163,241,269,271,317,347,367,397,409,419,443,487,509,541,587,601,641,761,787,811,821,863,907,919,1439,1481,1663,1877,2089,2111,2579,2593,2671,2819,2971,3121,3457,3463,3571,3643,3659,3769,3917,4001",
+			"name": "Inserting any digit between adjacent digits of prime p produces exactly 1 new prime.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050806/b050806.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"101 yields only one prime using digit '6' -\u003e 1(6)0(6)1 -\u003e prime 16061."
+			],
+			"mathematica": [
+				"aQ[n_]:=Plus@@Boole[PrimeQ[Table[FromDigits[Riffle[IntegerDigits[n],k]],{k,0,9}]]]==1; Select[Prime[Range[5,555]],aQ[#]\u0026] (* _Jayanta Basu_, May 30 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersperse)",
+				"a050806 n = a050806_list !! (n-1)",
+				"a050806_list = filter ((== 1) . sum . f) a000040_list where",
+				"   f p = map (i $ show p) \"0123456789\"",
+				"   i ps d = a010051' (read $ intersperse d ps :: Integer)",
+				"-- _Reinhard Zumkeller_, May 07 2013"
+			],
+			"xref": [
+				"Cf. A050674-A050719, A050805.",
+				"Cf. A010051, A000040."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_, Oct 15 1999",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, May 07 2013"
+			],
+			"references": 3,
+			"revision": 12,
+			"time": "2019-10-17T22:54:58-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51011,
+			"data": "0,1,1,1,8,7,13,7,16,17,27,5,32,31,31,17,46,41,55,11,50,5,73,9,68,73,25,18,96,71,101,45,32,105,101,23,124,119,41,11,146,113,155,3,44,151,177,23,164,161,169,41,204,167,183,83,64,201,231,44,240,223,209,109",
+			"name": "Numerator of average of number of steps in Euclidean algorithm for all gcd(m,n) with 0\u003c=m\u003cn.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051011/b051011.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/EuclideanAlgorithm.html\"\u003eEuclidean Algorithm.\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator)",
+				"a051011 n = numerator $ (sum $ a051010_row n) % n",
+				"-- _Reinhard Zumkeller_, Jun 27 2013"
+			],
+			"xref": [
+				"Cf. A034883, A051010, A051012."
+			],
+			"keyword": "nonn,frac",
+			"offset": "1,5",
+			"author": "_Eric W. Weisstein_",
+			"references": 3,
+			"revision": 11,
+			"time": "2013-06-27T16:19:40-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51012,
+			"data": "1,2,1,1,5,6,7,4,9,10,11,3,13,14,15,8,17,18,19,5,21,2,23,4,25,26,9,7,29,30,31,16,11,34,35,9,37,38,13,4,41,42,43,1,15,46,47,8,49,50,51,13,53,54,55,28,19,58,59,15,61,62,63,32,65,6,67,17,69,70,71,36,73,74,75",
+			"name": "Denominator of average of number of steps in Euclidean algorithm for all gcd(m,n) with 0 \u003c= m \u003c n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051012/b051012.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/EuclideanAlgorithm.html\"\u003eEuclidean Algorithm.\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), denominator)",
+				"a051012 n = denominator $ (sum $ a051010_row n) % n",
+				"-- _Reinhard Zumkeller_, Jun 27 2013"
+			],
+			"xref": [
+				"Cf. A034883, A051010, A051011."
+			],
+			"keyword": "nonn,frac",
+			"offset": "1,2",
+			"author": "_Eric W. Weisstein_",
+			"references": 3,
+			"revision": 13,
+			"time": "2019-10-18T23:15:24-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51139,
+			"data": "1,0,0,1,3,7,19,64,236,893,3489,14347,62429,285580,1362372,6749337,34683211,184774851,1019351071,5813020060,34206071992,207391313189,1294092695729,8302365433863,54713262186745,370027343460584,2565874205681368",
+			"name": "A000994-A000995.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051139/b051139.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e"
+			],
+			"formula": [
+				"For recurrence see A000994 and A000995."
+			],
+			"example": [
+				"a(7) = 359 - 295 = 64."
+			],
+			"mathematica": [
+				"a4[_?Negative] = 0; a4[n_] := a4[n] = 1 + Sum[ Binomial[n, k]*a4[k-2], {k, 2, n}]; a5[_?Negative] = 0; a5[n_] := a5[n] = n + Sum[ Binomial[n, k]*a5[k-2], {k, 2, n}]; a[n_] := a4[n] - a5[n]; Table[a[n], {n, 0, 26}] (* _Jean-François Alcover_, Oct 11 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a051139 n = a000994 (n + 2) - a000995 (n + 2)",
+				"-- _Reinhard Zumkeller_, Jun 02 2013"
+			],
+			"keyword": "nonn,easy,eigen,nice",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_",
+			"references": 3,
+			"revision": 11,
+			"time": "2017-06-24T00:16:35-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51144,
+			"data": "8,12,18,20,24,27,28,32,40,44,45,48,50,52,54,56,60,63,68,72,75,76,80,84,88,90,92,96,98,99,104,108,112,116,117,120,124,125,126,128,132,135,136,140,147,148,150,152,153,156,160,162,164,168,171,172,175,176,180",
+			"name": "Nonsquarefree nonsquares: each entry has a square factor but is not a perfect square itself.",
+			"comment": [
+				"At least one exponent in canonical prime factorization (cf. A124010) is odd and greater than 1. - _Reinhard Zumkeller_, Jan 24 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051144/b051144.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/SquareNumber.html\"\u003eSquare Number\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Squarefree.html\"\u003eSquarefree\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Squarefree_integer\"\u003eSquarefree integer\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Square_number\"\u003eSquare number\u003c/a\u003e"
+			],
+			"formula": [
+				"(1-A008966(a(n)))*(1-A010052(a(n))) = 1; A008966(a(n))+A010052(a(n)) = 0. - _Reinhard Zumkeller_, Jan 24 2013"
+			],
+			"example": [
+				"65 is not included because it is squarefree. 64 is not included because it is a perfect square. 63 is included because 63 = 3^2 * 7"
+			],
+			"maple": [
+				"N:= 10000;  # to get all entries up to N",
+				"A051144:= remove(numtheory:-issqrfree,{$1..N}) minus {seq(i^2,i=1..floor(sqrt(N)))}:",
+				"# _Robert Israel_, Mar 30 2014"
+			],
+			"program": [
+				"(Haskell)",
+				"a051144 n = a051144_list !! (n-1)",
+				"a051144_list = filter ((== 0) . a008966) a000037_list",
+				"-- _Reinhard Zumkeller_, Sep 02 2013, Jan 24 2013",
+				"(PARI) is(n)=!issquare(n) \u0026\u0026 !issquarefree(n) \\\\ _Charles R Greathouse IV_, Sep 18 2015"
+			],
+			"xref": [
+				"Cf. A210490 (complement), intersection of A013929 and A000037."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "Michael Minic (Rassilon6(AT)aol.com)",
+			"ext": [
+				"Incorrect comment removed by _Charles R Greathouse IV_, Mar 19 2010",
+				"Offset corrected by _Reinhard Zumkeller_, Jan 24 2013"
+			],
+			"references": 3,
+			"revision": 22,
+			"time": "2015-09-18T12:44:49-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

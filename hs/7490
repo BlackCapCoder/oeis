@@ -1,0 +1,421 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7490,
+	"results": [
+		{
+			"number": 205217,
+			"data": "1,1,0,1,2,1,0,1,1,1,2,1,2,5,4,2,4,5,2,2,3,2,4,5,3,5,8,6,5,6,6,7,7,4,6,10,8,8,10,12,17,17,13,18,24,17,14,20,19,21,26,23,28,40,34,27,36,35,28,32,30,29,42,41,33,44,50,44,46,46,46,57,54,44",
+			"name": "Number of partitions of n into distinct parts having no 2 in ternary representation.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A205217/b205217.txt\"\u003eTable of n, a(n) for n = 0..500\u003c/a\u003e"
+			],
+			"example": [
+				"a(20) = #{13+4+3, 12+4+3+1, 10+9+1} = 3;",
+				"a(21) = #{13+4+3+1, 12+9} = 2;",
+				"a(22) = #{13+9, 12+10, 12+9+1, 10+9+3} = 4;",
+				"a(23) = #{13+10, 13+9+1, 12+10+1, 10+9+4, 10+9+3+1} = 5;",
+				"a(24) = #{13+10+1, 12+9+3, 10+9+4+1} = 3."
+			],
+			"program": [
+				"(Haskell)",
+				"a205217 = p $ tail a005836_list where",
+				"   p _ 0 = 1",
+				"   p (k:ks) m = if m \u003c k then 0 else p ks (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A205216, A007088, A005836."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Jan 25 2012",
+			"references": 2,
+			"revision": 12,
+			"time": "2013-07-13T12:04:21-04:00",
+			"created": "2012-01-26T13:07:53-05:00"
+		},
+		{
+			"number": 205565,
+			"data": "1,1,1,1,2,1,1,1,1,1,2,1,2,4,2,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,2,4,2,1,2,1,2,4,2,4,8,4,2,4,2,1,2,1,2,4,2,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,2,4,2,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,2,4",
+			"name": "Number of ways of writing n = u + v with u \u003c= v, and u,v having in ternary representation no 3.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A205565/b205565.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(30) = #{0+30, 3+27} = 2;",
+				"a(31) = #{0+31, 1+30, 3+28, 4+27} = 4;",
+				"a(32) = #{1+31, 4+28} = 2;",
+				"a(33) = #{3+30} = 1;",
+				"a(34) = #{3+31, 4+30} = 2;",
+				"a(35) = #{4+31} = 1;",
+				"a(36) = #{0+36, 9+27} = 2;",
+				"a(37) = #{0+37, 1+36, 9+28, 10+27} = 4;",
+				"a(38) = #{1+37, 10+28} = 2;",
+				"a(39) = #{0+39, 3+36, 9+30, 12+27} = 4;",
+				"a(40) = #{0+40, 1+39, 3+37, 4+36, 9+31, 10+30, 12+28, 13+27} = 8."
+			],
+			"program": [
+				"(Haskell)",
+				"a205565 n = sum $ map (a039966 . (n -)) $",
+				"                  takeWhile (\u003c= n `div` 2) a005836_list"
+			],
+			"xref": [
+				"Cf. A039966, A005836, A120880."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Jan 28 2012",
+			"references": 2,
+			"revision": 9,
+			"time": "2013-07-13T12:04:21-04:00",
+			"created": "2012-01-30T06:04:40-05:00"
+		},
+		{
+			"number": 206497,
+			"data": "1,1,1,2,1,1,2,6,2,1,1,2,1,2,1,24,2,2,6,2,2,1,2,6,2,1,6,4,1,1,1,120,1,2,2,4,2,6,1,6,1,2,2,2,2,2,1,24,8,2,2,2,24,6,1,12,6,1,2,2,2,1,4,720,1,1,6,4,2,2,2,12,2,2,2,12,2,1,1,24,24,1,2,4,2,2,1,6,6,2,2,4,1,1,6,120",
+			"name": "The symmetry factor of the rooted tree with Matula-Goebel number n.",
+			"comment": [
+				"The symmetry factor of a rooted tree T is defined to be the number of indistinguishable permutations of the branches of T. For example, for the rooted tree obtained by identifying the roots of two copies of Y, the symmetry factor is 8; indeed the two branches of the first Y admit 2 indistinguishable permutations, the two branches of the second Y admit 2 indistinguishable permutations, and the 2 Y's admit 2 indistinguishable permutations (2*2*2=8).",
+				"The Matula-Goebel number of a rooted tree can be defined in the following recursive manner: to the one-vertex tree there corresponds the number 1; to a tree T with root degree 1 there corresponds the t-th prime number, where t is the Matula-Goebel number of the tree obtained from T by deleting the edge emanating from the root; to a tree T with root degree m\u003e=2 there corresponds the product of the Matula-Goebel numbers of the m branches of T (rooted at the root of T)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A206497/b206497.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Ch. Brouder, \u003ca href=\"https://arxiv.org/abs/hep-th/9904014\"\u003eRunge-Kutta methods and renormalization\u003c/a\u003e, arXiv:hep-th/9904014, 1999; Eur. Phys. J. C 12, 2000, 521-534.",
+				"D. J. Broadhurst and D. Kreimer, \u003ca href=\"https://arxiv.org/abs/hep-th/9810087\"\u003eRenormalization automated by Hopf algebra\u003c/a\u003e, arXiv:hep-th/9810087, 1998; J. Symbolic Computation, 27, 1999, 581-600.",
+				"E. Deutsch, \u003ca href=\"http://arxiv.org/abs/1111.4288\"\u003eRooted tree statistics from Matula numbers\u003c/a\u003e, arXiv:1111.4288 [math.CO], 2011.",
+				"F. Goebel, \u003ca href=\"https://dx.doi.org/10.1016/0095-8956(80)90049-0\"\u003eOn a 1-1-correspondence between rooted trees and natural numbers\u003c/a\u003e, J. Combin. Theory, B 29 (1980), 141-143.",
+				"I. Gutman and A. Ivic, \u003ca href=\"http://dx.doi.org/10.1016/0012-365X(95)00182-V\"\u003eOn Matula numbers\u003c/a\u003e, Discrete Math., 150, 1996, 131-142.",
+				"I. Gutman and Yeong-Nan Yeh, \u003ca href=\"http://www.emis.de/journals/PIMB/067/3.html\"\u003eDeducing properties of trees from their Matula numbers\u003c/a\u003e, Publ. Inst. Math., 53 (67), 1993, 17-22.",
+				"M. E. Hoffman, \u003ca href=\"http://www.combinatorics.org/ojs/index.php/eljc/article/view/v8i1r32\"\u003eAn analogue of covering space theory for ranked posets\u003c/a\u003e, The Electronic J. of Combinatorics, 8, 2001, #R32.",
+				"D. Matula, \u003ca href=\"http://www.jstor.org/stable/2027327?seq=30\"\u003eA natural rooted tree enumeration by prime factorization\u003c/a\u003e, SIAM Rev. 10 (1968) 273.",
+				"\u003ca href=\"/index/Mat#matula\"\u003eIndex entries for sequences related to Matula-Goebel numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=1; if n=p(t) (= the t-th prime), then a(n) = a(t); if n = p^u q^v ... is the prime factorization of n, then a(n) =(u!a(p)^u)(v!a(q)^v)... .  (see Eq (2) in the Brouder reference).",
+				"If m and n are relatively prime, then a(mn) = a(m)a(n).",
+				"a(1)=1;  if n=p^u where p is the t-th prime), then a(n) = u! a(t)^u;  if n=rs, r,s\u003e=2, gcd(r,s)=1, then a(n)=a(r)a(s). Both Maple programs are based on these recurrence relations."
+			],
+			"example": [
+				"a(2)=1 because the rooted tree with Matula-Goebel number 2 is the 1-edge tree I; a(4)=2 because the rooted tree with Matula-Goebel number 4 is V and there are 2 indistinguishable permutations of the branches."
+			],
+			"maple": [
+				"with(numtheory): a := proc (n) if n = 1 then 1 elif nops(factorset(n)) = 1 then factorial(log[factorset(n)[1]](n))*a(pi(factorset(n)[1]))^log[factorset(n)[1]](n) else a(expand(op(1, ifactor(n))))*a(expand(n/op(1, ifactor(n)))) end if end proc: seq(a(n), n = 1 .. 160);",
+				"with(numtheory): SF := proc (n) local IF, A, FIF, FP, EFP: IF := proc (n) options operator, arrow: ifactors(n) end proc: A := proc (n) options operator, arrow: op(2, IF(n)) end proc: FIF := proc (n) options operator, arrow: op(1, A(n)) end proc: FP := proc (n) options operator, arrow: op(1, FIF(n)) end proc: EFP := proc (n) options operator, arrow: op(2, FIF(n)) end proc: if n = 1 then 1 elif bigomega(n) = 1 then SF(pi(n)) elif nops(A(n)) = 1 then factorial(EFP(n))*SF(pi(FP(n)))^EFP(n) else SF(FP(n)^EFP(n))*SF(n/FP(n)^EFP(n)) end if end proc: seq(SF(n), n = 1 .. 160); # _Emeric Deutsch_, Apr 30, 2015"
+			],
+			"mathematica": [
+				"a[n_] := a[n] = If[n==1, 1, If[PrimeQ[n], a[PrimePi[n]], Product[{p, e} = pe; e! a[p]^e, {pe, FactorInteger[n]}]]];",
+				"a /@ Range[1, 100] (* _Jean-François Alcover_, Sep 25 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a206497 n = genericIndex a206497_list (n - 1)",
+				"a206497_list = 1 : g 2 where",
+				"  g x = y : g (x + 1) where",
+				"    y | t \u003e 0     = a206497 t",
+				"      | otherwise = product $ zipWith (\\p e -\u003e a000142 e * a206497 p ^ e)",
+				"                                      (a027748_row x) (a124010_row x)",
+				"      where t = a049084 x",
+				"-- _Reinhard Zumkeller_, Sep 03 2013",
+				"(PARI) a(n)={my(f=factor(n)); prod(i=1, #f~, my([p,e]=f[i,]); e!*a(primepi(p))^e)} \\\\ _Andrew Howroyd_, Aug 01 2018"
+			],
+			"xref": [
+				"Cf. A049084, A027748, A124010, A000142."
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,4",
+			"author": "_Emeric Deutsch_, May 29 2012",
+			"ext": [
+				"Keyword:mult added by _Andrew Howroyd_, Aug 01 2018"
+			],
+			"references": 2,
+			"revision": 38,
+			"time": "2019-09-25T07:47:31-04:00",
+			"created": "2012-05-29T11:46:22-04:00"
+		},
+		{
+			"number": 206553,
+			"data": "5,5,13,7,5,5,7,7,11,13,13,11,5,11,37,11,5,23,13,47,89,13,19,19,11,7,19,23,17,13,19,43,29,79,61,17,191,43,337,53,29,17,13,13,29,11,19,11,11,13,43,163,29,13,7,53,23,97,31,29,41,83,79,23,191,97",
+			"name": "Least prime p \u003e 3 such that 2^n + p*2^floor((n+1)/2) - 1 is prime.",
+			"link": [
+				"Pierre CAMI, \u003ca href=\"/A206553/b206553.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"2^1+5*2^1-1 = 11 prime so a(1) = 5.",
+				"2^2+5*2^1-1 = 13 prime so a(2) = 5."
+			],
+			"program": [
+				"PFGW64 from Primeform group and SRYPTIFY",
+				"command : pfgw64 -f in.txt",
+				"in.txt file :",
+				"SCRIPT",
+				"DIM kk",
+				"DIM nn,0",
+				"DIM mm",
+				"DIMS tt",
+				"OPENFILEOUT myfil,prem.txt",
+				"LABEL loopn",
+				"SET nn,nn+1",
+				"IF nn\u003e10000 THEN END",
+				"IF nn%2==0 THEN SET mm,nn/2",
+				"IF nn%2==1 THEN SET mm,nn/2+1",
+				"SET kk,2",
+				"LABEL loopk",
+				"SET kk,kk+1",
+				"SETS tt,%d,%d,%d,%d\\ ;nn;kk;p(kk);mm",
+				"PRP (2^(nn-mm)+p(kk))*2^mm-1,tt",
+				"IF ISPRP THEN GOTO a",
+				"IF ISPRIME THEN GOTO a",
+				"GOTO loopk",
+				"LABEL a",
+				"WRITE myfil,tt",
+				"GOTO loopn",
+				"(Haskell)",
+				"a206553 n = head [p | p \u003c- drop 2 a000040_list,",
+				"                      a010051 (2^n + p*2^(div (n+1) 2) - 1) == 1]",
+				"-- _Reinhard Zumkeller_, Feb 10 2012"
+			],
+			"xref": [
+				"Cf. A206554.",
+				"Cf. A010051, A000040."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Pierre CAMI_, Feb 09 2012",
+			"references": 2,
+			"revision": 14,
+			"time": "2013-02-22T21:39:12-05:00",
+			"created": "2012-02-10T12:06:49-05:00"
+		},
+		{
+			"number": 207432,
+			"data": "1,2,3,4,6,8,9,11,12,14,16,17,18,19,21,23,24,25,27,29,30,32,34,35,36,38,39,41,42,44,46,48,49,50,52,53,55,56,58,60,63,64,66,68,70,71,73,75,76,77,79,80,81,84,85,87,89,90,93,94,95,97,98,99,101,102",
+			"name": "Positions of primes in A066680, the badly sieved numbers.",
+			"comment": [
+				"A066680(a(n)) = A000040(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A207432/b207432.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Si#sieve\"\u003eIndex entries for sequences generated by sieves\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a207432 n = (fromJust $ elemIndex (a000040 n) a066680_list) + 1"
+			],
+			"xref": [
+				"Cf. A000040."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Feb 17 2012",
+			"references": 2,
+			"revision": 10,
+			"time": "2013-07-13T12:04:22-04:00",
+			"created": "2012-02-18T21:06:22-05:00"
+		},
+		{
+			"number": 207954,
+			"data": "1,2,3,4,5,6,7,8,9,101,121,212,232,323,343,434,454,545,565,656,676,767,787,878,898,989,10101,12121,12321,21012,21212,23232,23432,32123,32323,34343,34543,43234,43434,45454,45654,54345,54545,56565,56765,65456,65656",
+			"name": "Palindromes with consecutive digits that differ exactly by 1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A207954/b207954.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a207954 n = a207954_list !! (n-1)",
+				"a207954_list = filter ((== 1) . a136522) a033075_list"
+			],
+			"xref": [
+				"Cf. A136522; intersection of A033075 and A002113."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Feb 21 2012",
+			"references": 2,
+			"revision": 8,
+			"time": "2013-07-13T12:04:22-04:00",
+			"created": "2012-02-23T16:52:02-05:00"
+		},
+		{
+			"number": 208091,
+			"data": "1,11,3,4,6,8,38,24,32,18,48,138,20,588,144,252,5520,168,7200,2400,2850",
+			"name": "Smallest number m such that exactly n primes of the form 2^m - 2^k - 1 exist, 1 \u003c= k \u003c m.",
+			"comment": [
+				"A208083(a(n)) = n and A208083(m) \u003c\u003e n for m \u003c a(n).",
+				"a(21) \u003e 7600, if it exists. - _Giovanni Resta_, Jun 14 2018"
+			],
+			"example": [
+				"a(3) = 4 because for m = 4 there are exactly three primes of the given form: 13 = 2^4 - 2^1 - 1, 11 = 2^4 - 2^2 - 1, 7 = 2^4 - 2^3 - 1 and no smaller m satisfies this requirement."
+			],
+			"maple": [
+				"f:= n -\u003e nops(select(k -\u003e isprime(2^n-2^k-1), [$1..n-1])):",
+				"for n from 1 to 300 do",
+				"v:= f(n);",
+				"if not assigned(A[v]) then A[v]:= n fi;",
+				"od:",
+				"seq(A[m],m=0..15); # _Robert Israel_, Jun 13 2018"
+			],
+			"mathematica": [
+				"A = \u003c||\u003e; Do[c = Length@Select[Range[n-1], PrimeQ[2^n - 2^# - 1] \u0026]; If[! KeyExistsQ[A, c], A[c]=n], {n, 140}]; Array[A, 13, 0] (* _Giovanni Resta_, Jun 13 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices, elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a208091 = (+ 1) . fromJust . (`elemIndex` a208083_list)",
+				"(PARI) a(n) = {my(m=1); while(sum(k=1, m, isprime(2^m-2^k-1)) != n, m++); m;} \\\\ _Michel Marcus_, Jun 13 2018"
+			],
+			"xref": [
+				"Cf. A208083."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Feb 23 2012",
+			"ext": [
+				"Corrected by _Robert Israel_, Jun 13 2018",
+				"a(17), a(19)-a(20) from _Robert Israel_, Jun 13 2018",
+				"a(16), a(18) from _Giovanni Resta_, Jun 14 2018"
+			],
+			"references": 2,
+			"revision": 24,
+			"time": "2018-06-14T01:39:24-04:00",
+			"created": "2012-02-26T00:40:53-05:00"
+		},
+		{
+			"number": 208134,
+			"data": "0,0,0,0,0,2,1,0,1,0,6,2,2,0,0,0,9,6,3,0,14,10,6,2,0,18,17,12,15,10,13,0,21,18,15,24,23,18,13,10,31,22,17,10,5,24,17,6,9,0,42,34,38,30,30,22,39,30,27,16,38,20,18,0,20,52,41,30,19,10,50,34",
+			"name": "Number of zeros in n-th row of Pascal's triangle mod 10 (A008975).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A208134/b208134.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum (0 ^ A008975(n,k): k = 0..n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a208134 = length . filter (== 0) . a008975_row"
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_Reinhard Zumkeller_, Feb 25 2012",
+			"references": 2,
+			"revision": 11,
+			"time": "2013-07-13T12:04:22-04:00",
+			"created": "2012-02-25T13:48:29-05:00"
+		},
+		{
+			"number": 208239,
+			"data": "1,1,3,1,5,1,4,7,1,9,1,5,7,11,1,13,1,6,10,15,1,9,17,1,7,13,19,1,21,1,8,11,13,16,23,1,25,1,9,19,27,1,13,17,29,1,10,16,22,31,1,33,1,11,15,21,25,35,1,37,1,12,19,21,28,39,1,17,25,41,1,13,31,43,1,45,1,14,19,22,26",
+			"name": "Triangle read by rows: T(n,m) = n + k - n/k, where k is the m-th divisor of n; 1 \u003c= m \u003c= tau(n).",
+			"comment": [
+				"n-th row sum is equal to A038040(n) = d(n)*n, where d = A000005.",
+				"Numbers n such that n + k - n/k is noncomposite number for all divisors k of n: 1, 2, 3, 6, 7, 10, 15, 19, 22, 30, 31, 37, 42, 57, 70, 79, 87, 97,...",
+				"Numbers n such that n + k - n/k is nonprime number for all divisor k of n: 1, 5, 8, 11, 13, 17, 23, 25, 29, 32, 38, 41, 43, 47, 53, 56, 59, 61, 62, 67, 68, 71, 73, 80, 81, 83, 88, 89, 93, 98, 101, 103, 107, 109, 111, 113, 121, 123, 125, 127,...",
+				"Smallest m such that n = m + k - m/k for all k is divisor of n, or 0 if no such m exists : 1, 0, 2, 4, 3, 8, 4, 12, 5, 8, 6, 20, 7, 24, 8, 12, 9, 32, 10, 36, 11, 16, 12, 44, 13, 24, 14, 20, 15, 56, 16, 60, 17, 24,..",
+				"Number of ways to write n as (p - q)/(1 - 1/q), where p is prime and q is a prime divisor of n: 0, 1, 1, 0, 0, 2, 1, 0, 0, 2, 0, 1, 0, 1, 2, 0, 0, 1, 1, 0, 1, 2, 0, 1, 0, 1, 0, 1, 0, 3, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 3, 0, 0, 1, 1, 0,...",
+				"Numbers n of the form (s - r)(1/s - 1) where s is divisor of n and r is anti-divisor of n:  10, 12, 14,...",
+				"The n-th row starts with 1 and ends with 2n-1; the first differences are symmetric w.r.t. reversal of the row (which corresponds to exchange of k and n/k). The second term in even lines is n/2+2. - _M. F. Hasler_, Jan 26 2013",
+				"If n is prime then n-th row is 1, 2n-1. - _Zak Seidov_, Feb 22 2013",
+				"T(n,A000005(n)) = A005408(n-1). - _Reinhard Zumkeller_, Feb 25 2013"
+			],
+			"link": [
+				"Zak Seidov, \u003ca href=\"/A208239/b208239.txt\"\u003eRows n = 1..200 of irregular triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = n + A027750(n,k) + A027750(n,A000005(n)+1-k), 1\u003c=k\u003c=A000005(n). - _Reinhard Zumkeller_, Feb 25 2013"
+			],
+			"example": [
+				"Triangle begins:",
+				"1,",
+				"1, 3,",
+				"1, 5,",
+				"1, 4, 7,",
+				"1, 9,",
+				"1, 5, 7, 11,",
+				"1, 13,",
+				"1, 6, 10, 15,",
+				"1, 9, 17,",
+				"1, 7, 13, 19,",
+				"1, 21,",
+				"1, 8, 11, 13, 16, 23.",
+				"In this last, 12th line (ending with 2*12-1), the first differences are (7,3,2,3,7)."
+			],
+			"mathematica": [
+				"row[n_] := Table[n + k - n/k, {k, Divisors[n]}]; Table[row[n], {n, 1, 24}] // Flatten (* _Jean-François Alcover_, Jan 21 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a208239 n k = a208239_row n !! k",
+				"a208239_row n = map (+ n) $ zipWith (-) divs $ reverse divs",
+				"                where divs = a027750_row n",
+				"a208239_tabl = map a208239_row [1..]",
+				"-- _Reinhard Zumkeller_, Feb 25 2013"
+			],
+			"xref": [
+				"Row lengths are A000005.",
+				"Cf. A027750, A038040, A087909."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,3",
+			"author": "_Gerasimov Sergey_, Jan 11 2013",
+			"references": 2,
+			"revision": 32,
+			"time": "2015-03-13T23:49:58-04:00",
+			"created": "2013-02-22T16:32:26-05:00"
+		},
+		{
+			"number": 208245,
+			"data": "1,1,1,1,1,1,1,2,1,1,1,2,2,1,1,1,3,3,2,1,1,1,3,4,3,2,1,1,1,4,6,5,3,2,1,1,1,4,7,7,5,3,2,1,1,1,5,10,11,8,5,3,2,1,1,1,5,11,14,12,8,5,3,2,1,1,1,6,15,21,19,13,8,5,3,2,1,1,1,6,16,25,26,20,13,8,5,3,2,1,1",
+			"name": "Triangle read by rows: a(n,k) = a(n-2,k) + a(n-2,k-1).",
+			"comment": [
+				"Sum of terms in each row are given by sequence A052955.",
+				"Columns (at constant k) converge toward Fibonacci starting first from high value of k).",
+				"First seven rows are same as A008242. The odd numbered rows of this sequence equal the rows of A123736.  Also it has some similarities to A162741.",
+				"Columns (constant k), prior to convergence to Fibonacci, appear as various other sequences (e.g. k = 4, is sequence A055803, with other columns in same referenced family)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A208245/b208245.txt\"\u003eRows n = 1..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n,k) = a(n-2,k) + a(n-2,k-1); if n=k or k=1 then a(n,k)=1; if n\u003ck or n=0 then a(n,k)=0"
+			],
+			"example": [
+				"The first 13 rows are (as above) where n is the row index:",
+				"1",
+				"1, 1",
+				"1, 1, 1",
+				"1, 2, 1, 1",
+				"1, 2, 2, 1, 1",
+				"1, 3, 3, 2, 1, 1",
+				"1, 3, 4, 3, 2, 1, 1",
+				"1, 4, 6, 5, 3, 2, 1, 1",
+				"1, 4, 7, 7, 5, 3, 2, 1, 1",
+				"1, 5, 10, 11, 8, 5, 3, 2, 1, 1",
+				"1, 5, 11, 14, 12, 8, 5, 3, 2, 1, 1",
+				"1, 6, 15, 21, 19, 13, 8, 5, 3, 2, 1, 1",
+				"1, 6, 16, 25, 26, 20, 13, 8, 5, 3, 2, 1, 1,"
+			],
+			"program": [
+				"(Haskell)",
+				"a208245 n k = a208245_tabl !! (n-1) !! (k-1)",
+				"a208245_row n = a208245_tabl !! (n-1)",
+				"a208245_tabl = map fst $ iterate f ([1], [1, 1]) where",
+				"   f (us, vs) = (vs, zipWith (+) ([0] ++ us ++ [0]) (us ++ [0, 1]))",
+				"-- _Reinhard Zumkeller_, Jul 28 2013"
+			],
+			"xref": [
+				"Cf. A000045 (central terms)."
+			],
+			"keyword": "nonn,easy,tabl",
+			"offset": "1,8",
+			"author": "_Richard R. Forberg_, Apr 22 2013",
+			"references": 2,
+			"revision": 20,
+			"time": "2013-07-28T12:20:07-04:00",
+			"created": "2013-04-24T01:30:09-04:00"
+		}
+	]
+}

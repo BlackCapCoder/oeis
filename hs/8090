@@ -1,0 +1,367 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 8090,
+	"results": [
+		{
+			"number": 256556,
+			"data": "0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,16,17,18,19,20,42,88,184,384,800,1664,3456,7168,14848,30,93,288,891,2754,8505,26244,80919,249318,767637,40,164,672,2752,11264,46080,188416,770048,3145728,12845056,50,255,1300,6625",
+			"name": "If n = 10k+m (0 \u003c= m \u003c= 9) then a(n) = n*k^m.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256556/b256556.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"10 yields 10*(1^0) = 10;",
+				"43 yields 43*(4^3)= 43*64=2754;",
+				"68 yields 68*(6^8)= 68*1679616 = 114213888."
+			],
+			"maple": [
+				"f:=proc(n) local k,m; m := (n mod 10); k := (n-m)/10; n*k^m; end;",
+				"[seq(f(n),n=1..40)];"
+			],
+			"program": [
+				"(Haskell)",
+				"a256556 n = n * uncurry (^) (divMod n 10)",
+				"-- _Reinhard Zumkeller_, May 02 2015"
+			],
+			"keyword": "nonn,look",
+			"offset": "1,10",
+			"author": "_Andy Edwards_, Apr 01 2015",
+			"ext": [
+				"Entry revised by _N. J. A. Sloane_, May 02 2015"
+			],
+			"references": 1,
+			"revision": 21,
+			"time": "2015-05-02T20:10:13-04:00",
+			"created": "2015-05-02T11:03:24-04:00"
+		},
+		{
+			"number": 257001,
+			"data": "18,27,36,45,54,63,72,81,96,98,108,117,126,135,144,153,162,171,180,189,192,207,216,225,234,243,252,261,270,288,296,306,315,324,333,342,351,360,378,387,392,405,414,423,432,441,450,468,477,486,496,504,513,522",
+			"name": "Numbers such that the largest missing digit is a divisor.",
+			"comment": [
+				"a(n) mod A000030(A230959(a(n))) = 0.",
+				"Pandigital numbers are not terms: A171102, A050278.",
+				"The original definition used the phrase \"largest absent digit\"."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257001/b257001.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Éric Angelini, \u003ca href=\"http://list.seqfan.eu/pipermail/seqfan/2015-April/014711.html\"\u003eAbsent digit\u003c/a\u003e, SeqFan list, Apr 14 2015."
+			],
+			"mathematica": [
+				"f[x_]:=Union[Sort[IntegerDigits[x]]];",
+				"d={1,2,3,4,5,6,7,8,9};",
+				"Select[Range[525],And[f[#]!=d,Length[f[#]]\u003c10,IntegerQ[#/Max[Complement[d,f[#]]]]]\u0026] (* _Ivan N. Ianakiev_, Apr 14 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\)); import Data.Char (digitToInt)",
+				"a257001 n = a257001_list !! (n-1)",
+				"a257001_list = filter f [1..] where",
+				"   f x = h \u003e 0 \u0026\u0026 mod x h == 0 where h = a000030 $ a230959 x"
+			],
+			"xref": [
+				"Cf. A000030, A230959, A050278, A116667, A171102."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Eric Angelini_ and _Reinhard Zumkeller_, Apr 14 2015",
+			"references": 1,
+			"revision": 19,
+			"time": "2016-08-23T12:04:27-04:00",
+			"created": "2015-04-14T10:03:26-04:00"
+		},
+		{
+			"number": 257456,
+			"data": "1,2,3,4,5,6,7,8,9,10,11,13,12,16,15,18,14,20,17,24,23,22,19,28,21,26,25,33,27,40,29,31,35,36,30,42,32,44,37,38,34,50,39,46,45,48,41,52,43,54,47,57,49,61,51,64,55,59,53,68,56,66,58,70,60,72,62",
+			"name": "Smallest m, such that A257340(m) = n.",
+			"comment": [
+				"A257340(a(n)) = n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257456/b257456.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a257456 = (+ 1) . fromJust . (`elemIndex` a257340_list)"
+			],
+			"xref": [
+				"Cf. A257340."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 24 2015",
+			"references": 1,
+			"revision": 4,
+			"time": "2015-04-24T09:45:06-04:00",
+			"created": "2015-04-24T09:45:06-04:00"
+		},
+		{
+			"number": 257836,
+			"data": "15,35,63,99,105,143,195,255,315,323,399,483,575,675,693,783,899,945,1023,1155,1287,1295,1443,1599,1763,1935,2115,2145,2303,2499,2703,2915,3135,3315,3363,3465,3599,3843,4095,4355,4623,4845,4899,5183,5475,5775,6083",
+			"name": "Numbers which are the product of at least two consecutive odd numbers \u003e 1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257836/b257836.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				".     |       |   ----- Factorizations into ... --------------",
+				".   n |  a(n) |   prime powers     |   consecutive odd numbers",
+				". ----+-------+--------------------+--------------------------",
+				".   1 |    15 |   3 * 5            |   3 * 5",
+				".   2 |    35 |   5 * 7            |   5 * 7",
+				".   3 |    63 |   3^2 * 7          |   7 * 9",
+				".   4 |    99 |   3^2 * 11         |   9 * 11",
+				".   5 |   105 |   3 * 5 * 7        |   3 * 5 * 7",
+				".   6 |   143 |   11 * 13          |   11 * 13",
+				".   7 |   195 |   3 * 5 * 13       |   13 * 15",
+				".   8 |   255 |   3 * 5 * 17       |   15 * 17",
+				".   9 |   315 |   3^2 * 5 * 7      |   5 * 7 * 9",
+				".  10 |   323 |   17 * 19          |   17 * 19",
+				".  11 |   399 |   3 * 7 * 19       |   19 * 21",
+				".  12 |   483 |   3 * 7 * 23       |   21 * 23",
+				".  13 |   575 |   5^2 * 23         |   23 * 25",
+				".  14 |   675 |   3^3 * 5^2        |   25 * 27",
+				".  15 |   693 |   3^2 * 7 * 11     |   7 * 9 * 11",
+				".  16 |   783 |   3^3 * 29         |   27 * 29",
+				".  17 |   899 |   29 * 31          |   29 * 31",
+				".  18 |   945 |   3^3 * 5 * 7      |   3 * 5 * 7 * 9",
+				".  19 |  1023 |   3 * 11 * 31      |   31 * 33",
+				".  20 |  1155 |   3 * 5 * 7 * 11   |   33 * 35",
+				".  21 |  1287 |   3^2 * 11 * 13    |   9 * 11 * 13",
+				".  22 |  1295 |   5 * 7 * 37       |   35 * 37",
+				".  23 |  1443 |   3 * 13 * 37      |   37 * 39",
+				".  24 |  1599 |   3 * 13 * 41      |   39 * 41",
+				".  25 |  1763 |   41 * 43          |   41 * 43",
+				".  26 |  1935 |   3^2 * 5 * 43     |   43 * 45",
+				".  27 |  2115 |   3^2 * 5 * 47     |   45 * 47",
+				".  28 |  2145 |   3 * 5 * 11 * 13  |   11 * 13 * 15",
+				".  29 |  2303 |   7^2 * 47         |   47 * 49",
+				".  30 |  2499 |   3 * 7^2 * 17     |   49 * 51  ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a257836 n = a257836_list !! (n-1)",
+				"a257836_list = f $ singleton (15, 3, 5) where",
+				"   f s = y : f (insert (w, u, v') $ insert (w `div` u, u + 2, v') s')",
+				"         where w = y * v'; v' = v + 2",
+				"               ((y, u, v), s') = deleteFindMin s"
+			],
+			"xref": [
+				"Cf. A005408, A097889."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 12 2015",
+			"references": 1,
+			"revision": 4,
+			"time": "2015-05-12T17:57:21-04:00",
+			"created": "2015-05-12T17:57:21-04:00"
+		},
+		{
+			"number": 257860,
+			"data": "1,89,132,264,518,739,2407,6579,8200,8201,8202,8203,8204,8205,8206,8207,8208,8209,32780,32781,32782,32783,32784,32785,32786,32787,32788,32789,59060,59061,59062,59063,59064,59065,59066,59067,59068,59069,78145,524300,524301,524302,524303,524304,524305,524306,524307,524308,524309,531459,823567,2097178",
+			"name": "Numbers n such that a digit of n to the power k plus the sum of the other digits of n equals n, where k is a positive integer.",
+			"comment": [
+				"There are numbers that come in groups of 10, like 8200, 32780 and 524300. But there are also a few stand-alone numbers. Like 531459 (=5+3+1+4+5+9^6).",
+				"It is easy to generate large terms in the sequence, for example, 9^104+409 and 9^1047+4561 are the smallest terms with 100 and 1000 digits, respectively. - _Giovanni Resta_, May 12 2015"
+			],
+			"example": [
+				"89 is in the sequence because 89 = 8+9^2.",
+				"2407 is in the sequence because 2407 = 2+4+0+7^4.",
+				"8202 is in the sequence because 8202 = 8+ 2^13 +0+2, also 8202 = 8+2+0+2^13."
+			],
+			"program": [
+				"(Python)",
+				"def sod(n):",
+				"....kk = 0",
+				"....while n \u003e 0:",
+				"........kk= kk+(n%10)",
+				"........n =int(n//10)",
+				"....return kk",
+				"for i in range (1,10**7):",
+				"....for j in range(1,len(str(i))+1):",
+				"........k=(i//(10**(j-1)))%10",
+				"........for m in range (2,30):",
+				"............if i==sod(i)+k**m-k:",
+				"................print (i)",
+				"(Haskell)",
+				"import Data.List (nub); import Data.List.Ordered (member)",
+				"a257860 n = a257860_list !! (n-1)",
+				"a257860_list = 1 : filter f [1..] where",
+				"   f x = any (\\d -\u003e member (x - q + d) $ ps d) $ filter (\u003e 1) $ nub ds",
+				"         where q = sum ds; ds = (map (read . return) . show) x",
+				"   ps x = iterate (* x) (x ^ 2)",
+				"-- _Reinhard Zumkeller_, May 12 2015"
+			],
+			"xref": [
+				"Cf. A061209, A130680, A257766, A257768, A257784,",
+				"Cf. A007953."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Pieter Post_, May 11 2015",
+			"ext": [
+				"One more term and some missing data added by _Reinhard Zumkeller_, May 12 2015"
+			],
+			"references": 1,
+			"revision": 17,
+			"time": "2015-05-12T20:10:07-04:00",
+			"created": "2015-05-12T08:31:26-04:00"
+		},
+		{
+			"number": 258063,
+			"data": "1,4,5,17,6,43,7,206,10,15,343,168,341,1636,1496,1577,526,2463,809,3640,5455,16183,33073,5261,4480,6679,3678,18286,29268,9970,16293,86706,51917,29328,106123,48123,5513,54326,10814,24362,128961,43695,35671,53900,97291,24028,129173,60751,86574,250333,80525,62243,65362,71986,77650,675846,16119,380911,245146,90632,71766,353564,508042,237403",
+			"name": "Smallest m such that A258062(m) = n.",
+			"comment": [
+				"A258062(a(n)) = n and A258062(m) != n for m \u003c a(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a258063 = (+ 1) . fromJust . (`elemIndex` a258062_list)"
+			],
+			"xref": [
+				"Cf. A258062, A188967."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 18 2015",
+			"references": 1,
+			"revision": 3,
+			"time": "2015-05-18T11:33:05-04:00",
+			"created": "2015-05-18T11:33:05-04:00"
+		},
+		{
+			"number": 258125,
+			"data": "2,2,4,6,8,11,13,24,37,40,77,82,93,134,165,232,243,272,275,292,303,376,477,524,577,708,1285,1344,1601,1608,3209,3276,6485,6498,7795,7814,9373,13280,13383,13466,14953,21686,22473,24022,24249,36260",
+			"name": "a(1) = a(2) = 2; a(n) = a(n-1) + gpf(a(n-2)), where gpf is greatest prime factor.",
+			"link": [
+				"Anders Hellström, \u003ca href=\"/A258125/b258125.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a[1] = a[2] = 2; a[n_] := a[n] = a[n - 1] + FactorInteger[a[n - 2]][[-1, 1]]; Table[a@ n, {n, 46}] (* _Michael De Vlieger_, Nov 16 2015 *)",
+				"nxt[{a_,b_}]:={b,b+FactorInteger[a][[-1,1]]}; Transpose[NestList[nxt,{2,2},50]][[1]] (* _Harvey P. Dale_, Nov 22 2015 *)"
+			],
+			"program": [
+				"(PARI) gpf(n)=my(f=factor(n)[, 1]);f[#f];",
+				"first(m)=my(v=vector(m));v[1]=2;v[2]=2;for(i=3,m,v[i]=v[i-1]+gpf(v[i-2]));v",
+				"(Haskell)",
+				"a258125 n = a258125_list !! (n-1)",
+				"a258125_list = 2 : 2 : zipWith (+)",
+				"               (map a006530 a258125_list) (tail a258125_list)",
+				"-- _Reinhard Zumkeller_, Nov 17 2015"
+			],
+			"xref": [
+				"Cf. A006530 (gpf), A078695 (same recurrence)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Anders Hellström_, Nov 16 2015",
+			"references": 1,
+			"revision": 20,
+			"time": "2015-11-22T06:06:02-05:00",
+			"created": "2015-11-17T03:59:53-05:00"
+		},
+		{
+			"number": 258565,
+			"data": "0,4,12,6,32,10,27,80,60,14,192,156,108,140,216,22,75,448,384,26,252,380,540,240,405,1024,912,34,756,147,38,700,960,1296,420,572,800,2304,46,2112,500,1836,945,780,1458,1792,2320,58,3024,1860,62,1628,2592",
+			"name": "Arithmetic derivative of powerful numbers, cf. A001694.",
+			"comment": [
+				"a(n) = A003415(A001694(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258565/b258565.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a258565 = a003415 . a001694"
+			],
+			"xref": [
+				"Cf. A003415, A001694, A068720, A068328, A078310."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 03 2015",
+			"references": 1,
+			"revision": 6,
+			"time": "2015-06-03T23:12:22-04:00",
+			"created": "2015-06-03T23:12:22-04:00"
+		},
+		{
+			"number": 258703,
+			"data": "-1,0,0,1,2,3,3,4,5,5,6,7,7,8,9,10,10,11,12,12,13,14,15,15,16,17,17,18,19,20,20,21,22,22,23,24,24,25,26,27,27,28,29,29,30,31,32,32,33,34,34,35,36,36,37,38,39,39,40,41,41,42,43,44,44,45,46,46,47,48,48,49,50,51,51,52,53,53",
+			"name": "a(n) = floor(n/sqrt(2) - 1/2).",
+			"comment": [
+				"Equals floor(1/(exp(sqrt(2)/n)-1)) for all nonzero integers n [O'Bryant].",
+				"a(n) = floor(n*sqrt(2) - 1) / 2). - _Reinhard Zumkeller_, Jun 09 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258703/b258703.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"K. O'Bryant, \u003ca href=\"http://arxiv.org/abs/1410.2927\"\u003eThe sequence of fractional parts of roots\u003c/a\u003e, arXiv preprint, arXiv:1410.2927 [math.NT], 2014"
+			],
+			"mathematica": [
+				"Table[Floor[n/Sqrt[2] - 1/2], {n, 0, 100}] (* _Vincenzo Librandi_, Jun 09 2015 *)"
+			],
+			"program": [
+				"(MAGMA) [Floor(n/Sqrt(2) - 1/2): n in [0..80]]; // _Vincenzo Librandi_, Jun 09 2015",
+				"(Haskell)",
+				"a258703 = floor . (/ 2) . subtract 1 . (* sqrt 2) . fromIntegral",
+				"-- _Reinhard Zumkeller_, Jun 09 2015",
+				"(PARI) vector(100, n, n--; floor(n/sqrt(2) - 1/2)) \\\\ _G. C. Greubel_, Sep 30 2018"
+			],
+			"xref": [
+				"Cf. A078608, A129935.",
+				"Cf. A049472, A001951."
+			],
+			"keyword": "sign",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_, Jun 09 2015",
+			"references": 1,
+			"revision": 21,
+			"time": "2018-09-30T20:22:34-04:00",
+			"created": "2015-06-09T01:50:34-04:00"
+		},
+		{
+			"number": 258738,
+			"data": "11,22,25,410,425,620,735,816,832,850,975,1280,1872,5125,7175,12500,14200,17200,19250,24150,42336,46920,141250,222500,251250,262000,291450,305000,402500,442750,515100,595000,627750,787500,855000,871200,2015625,2234375,4213125",
+			"name": "Numbers m such that the concatenation of k and the k-th divisor of m is equal to m for some k.",
+			"comment": [
+				"Inspired by A257491."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258738/b258738.txt\"\u003eTable of n, a(n) for n = 1..70\u003c/a\u003e"
+			],
+			"example": [
+				"The 1st divisor of 11 is 1, and the concatenation of 1 and 1 is 11.",
+				"The 2nd divisor of 25 is 5, and the concatenation of 2 and 5 is 25."
+			],
+			"mathematica": [
+				"Select[Range[10^5], (d = Divisors[n=#]; {} != Select[ Range@ Length@ d, FromDigits@ Flatten[ IntegerDigits /@{#, d[[#]]}] == n \u0026, 1]) \u0026] (* _Giovanni Resta_, Jun 08 2015 *)"
+			],
+			"program": [
+				"(PARI) isok(n) = {d = divisors(n); for (k=1, #d, if (eval(concat(Str(k), Str(d[k]))) == n, return (1)););}",
+				"(Haskell)",
+				"a258738 n = a258738_list !! (n-1)",
+				"a258738_list = f [1..] where",
+				"   f (x:xs) = if show x `elem` zipWith (++) kss (map show $ a027750_row' x)",
+				"                 then x : f xs else f xs",
+				"   kss = map show [1..]",
+				"-- _Reinhard Zumkeller_, Jun 10 2015"
+			],
+			"xref": [
+				"Cf. A257491.",
+				"Cf. A027750."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Michel Marcus_, Jun 08 2015",
+			"references": 1,
+			"revision": 12,
+			"time": "2015-06-10T06:56:46-04:00",
+			"created": "2015-06-09T15:58:59-04:00"
+		}
+	]
+}

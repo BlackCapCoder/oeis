@@ -1,0 +1,417 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3890,
+	"results": [
+		{
+			"number": 94189,
+			"data": "0,2,1,1,1,1,2,2,2,1,1,2,3,2,2,2,3,4,4,3,4,3,3,4,5,4,3,4,5,4,4,5,4,4,5,5,2,6,6,5,4,6,4,5,7,7,3,7,8,4,5,10,7,5,6,5,5,10,7,8,8,6,10,7,5,5,8,7,7,5,10,7,8,10,7,7,10,10,9,12,7,11,10,10,9,7,13,11,10,10,11,10,11,10,11",
+			"name": "Number of primes between n^2-n and n^2 (inclusive).",
+			"comment": [
+				"Conjecture: for n\u003e11, a(n)\u003e1.",
+				"Oppermann conjectured in 1882 that a(n)\u003e0 for n\u003e1. - _T. D. Noe_, Sep 16 2008"
+			],
+			"reference": [
+				"Paulo Ribenboim, The New Book of Prime Number Records, 3rd ed., 1995, Springer, p. 248."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A094189/b094189.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Oppermann%27s_conjecture\"\u003eOppermann's conjecture\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[PrimePi[n^2]-PrimePi[n^2-n-1],{n,100}] (* _Harvey P. Dale_, Jul 24 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n) = sum(k=n^2-n,n^2,isprime(k))",
+				"(PARI) a(n)=my(s);forprime(p=n^2-n,n^2,s++);s \\\\ _Charles R Greathouse IV_, Jan 18 2016",
+				"(Haskell)",
+				"a094189 n = sum $ map a010051' [n*(n-1) .. n^2]",
+				"-- _Reinhard Zumkeller_, Jun 07 2015"
+			],
+			"xref": [
+				"Cf. A014085, A089610, A108309, A010051."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Jason Earls_, May 25 2004",
+			"references": 7,
+			"revision": 18,
+			"time": "2017-12-15T17:36:38-05:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 95117,
+			"data": "0,1,3,5,6,8,9,11,12,13,14,16,17,19,20,21,22,24,25,27,28,29,30,32,33,34,35,36,37,39,40,42,43,44,45,46,47,49,50,51,52,54,55,57,58,59,60,62,63,64,65,66,67,69,70,71,72,73,74,76,77,79,80,81,82,83,84,86,87,88,89,91",
+			"name": "a(n) = pi(n) + n, where pi(n) = A000720(n) is the number of primes \u003c= n.",
+			"comment": [
+				"From _Paolo P. Lava_, Jun 05 2008 (Start):",
+				"Consider the sequence of natural numbers A000027: 1,2,3,4,5,6,7,8....",
+				"Taking Pn=n-th prime, apply the following sieve:",
+				"Delete the number in position P1=2 -\u003e 2 and compact:",
+				"1,3,4,5,6,7,8....",
+				"Then delete the number in position P2=3 -\u003e4 and compact:",
+				"1,3,5,6,7,8,9,10,11..",
+				"Then delete the number in position P3=5 -\u003e7 and compact:",
+				"1,3,5,6,8,9,10,11",
+				"and so on. (End)",
+				"Positions of first occurrences of n in A165634: A165634(a(n))=n for n\u003e0. - _Reinhard Zumkeller_, Sep 23 2009"
+			],
+			"link": [
+				"Carmine Suriano, \u003ca href=\"/A095117/b095117.txt\"\u003eTable of n, a(n) for n = 0..9999\u003c/a\u003e"
+			],
+			"formula": [
+				"a(0) = 0; for n\u003e0, a(n) = a(n-1) + (if n is prime then 2, else 1). - _Robert G. Wilson v_, Apr 22 2007; corrected by _David James Sycamore_, Aug 16 2018"
+			],
+			"maple": [
+				"with(numtheory): seq(n+pi(n),n=1..90); # _Emeric Deutsch_, May 02 2007"
+			],
+			"mathematica": [
+				"Table[ PrimePi@n + n, {n, 0, 71}] (* Or *) (* _Robert G. Wilson v_, Apr 22 2007 *)",
+				"a[0] = 0; a[n_] := a[n] = a[n - 1] + If[PrimeQ@n, 2, 1]; Table[a@n, {n, 0, 71}] (* _Robert G. Wilson v_, Apr 22 2007 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a095117 n = a000720 n + toInteger n  -- _Reinhard Zumkeller_, Apr 17 2012"
+			],
+			"xref": [
+				"Complement of A095116.",
+				"Cf. A064427."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,3",
+			"author": "_Dean Hickerson_, following a suggestion of _Leroy Quet_, May 28 2004",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Jul 02 2008 at the suggestion of _R. J. Mathar_"
+			],
+			"references": 7,
+			"revision": 30,
+			"time": "2018-08-16T11:05:41-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 95259,
+			"data": "1,3,2,4,10,5,21,9,6,16,18,14,19,39,25,26,11,8,51,38,46,56,20,15,17,34,7,48,50,37,78,27,67,12,52,33,64,66,69,44,169,53,134,93,95,40,22,28,47,41,29,89,91,54,96,60,70,99,312,43,202,80,157,55,63,92,130,13",
+			"name": "Smallest m such that A095258(m) = n.",
+			"comment": [
+				"Inverse of A095258, if the conjecture is true, that this is a permutation: a(A095258(n)) = A095258(a(n)) = n;",
+				"A095261(n) = a(a(n))."
+			],
+			"link": [
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a095259 = (+ 1) . fromJust . (`elemIndex` a095258_list)",
+				"-- _Reinhard Zumkeller_, Dec 31 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 31 2004",
+			"ext": [
+				"Revised version: _Reinhard Zumkeller_, Dec 31 2014"
+			],
+			"references": 7,
+			"revision": 9,
+			"time": "2014-12-31T17:42:05-05:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 97054,
+			"data": "8,27,32,125,128,216,243,343,512,1000,1331,1728,2048,2187,2197,2744,3125,3375,4913,5832,6859,7776,8000,8192,9261,10648,12167,13824,16807,17576,19683,21952,24389,27000,29791,32768,35937,39304,42875,50653",
+			"name": "Nonsquare perfect powers.",
+			"comment": [
+				"Terms of A001597 that are not in A000290.",
+				"All terms of this sequence are also in A070265 (odd powers), but omitting those odd powers that are also a square (e.g. 64=4^3=8^2)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A097054/b097054.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PerfectPower.html\"\u003ePerfect Power.\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/OddPower.html\"\u003eOdd Power.\u003c/a\u003e"
+			],
+			"formula": [
+				"A052409(a(n)) is odd. - _Reinhard Zumkeller_, Mar 28 2014"
+			],
+			"mathematica": [
+				"nn = 50653; Select[Union[Flatten[Table[n^i, {i, Prime[Range[2, PrimePi[Log[2, nn]]]]}, {n, 2, nn^(1/i)}]]], ! IntegerQ[Sqrt[#]] \u0026] (* _T. D. Noe_, Apr 19 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Map (singleton, findMin, deleteMin, insert)",
+				"a097054 n = a097054_list !! (n-1)",
+				"a097054_list = f 9 (3, 2) (singleton 4 (2, 2)) where",
+				"   f zz (bz, be) m",
+				"    | xx \u003c zz \u0026\u0026 even be =",
+				"                f zz (bz, be+1) (insert (bx*xx) (bx, be+1) $ deleteMin m)",
+				"    | xx \u003c zz = xx :",
+				"                f zz (bz, be+1) (insert (bx*xx) (bx, be+1) $ deleteMin m)",
+				"    | xx \u003e zz = f (zz+2*bz+1) (bz+1, 2) (insert (bz*zz) (bz, 3) m)",
+				"    | otherwise = f (zz + 2 * bz + 1) (bz + 1, 2) m",
+				"    where (xx, (bx, be)) = findMin m",
+				"-- _Reinhard Zumkeller_, Mar 28 2014",
+				"(PARI) is(n)=ispower(n)%2 \\\\ _Charles R Greathouse IV_, Aug 28 2016"
+			],
+			"xref": [
+				"Cf. A001597 perfect powers, A000290 the squares, A070265 odd powers, A097055, A097056, A239870, A239728, A093771."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Hugo Pfoertner_, Jul 21 2004",
+			"references": 7,
+			"revision": 17,
+			"time": "2016-08-28T03:03:32-04:00",
+			"created": "2004-09-22T03:00:00-04:00"
+		},
+		{
+			"number": 97065,
+			"data": "1,-1,2,0,3,1,4,2,5,3,6,4,7,5,8,6,9,7,10,8,11,9,12,10,13,11,14,12,15,13,16,14,17,15,18,16,19,17,20,18,21,19,22,20,23,21,24,22,25,23,26,24,27,25,28,26,29,27,30,28,31,29,32,30,33,31,34,32,35,33,36,34,37,35,38",
+			"name": "Interleave n+1 and n-1.",
+			"comment": [
+				"Pairwise sums are abs(A023443), or n-1+2*0^n. The partial sums of this sequence is A000124, with extra leading 1. Partial sums are A097066. Binomial transform is A097067."
+			],
+			"link": [
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,1,-1)."
+			],
+			"formula": [
+				"G.f.: (1-2x+2x^2)/((1+x)(1-x)^2).",
+				"a(n) = (2n-1)/4 + 5(-1)^n/4.",
+				"a(n) = floor((n+2)/2) - 2 * (n mod 2). - _Reinhard Zumkeller_, Apr 06 2015",
+				"a(n) = a(n-1) + a(n-2) - a(n-3) for n \u003e 2. - _Wesley Ivan Hurt_, Jan 10 2017"
+			],
+			"maple": [
+				"A097065:=n-\u003e(2*n-1)/4 + 5*(-1)^n/4: seq(A097065(n), n=0..150); # _Wesley Ivan Hurt_, Jan 10 2017"
+			],
+			"mathematica": [
+				"Table[(2n - 1)/4 + 5(-1)^n/4, {n, 0, 75}] (* Or *) Flatten[ Table[{n + 1, n - 1}, {n, 0, 37}]] (* Or *) CoefficientList[Series[(1 - 2x + 2x^2)/((1 + x)(1 - x)^2), {x, 0, 75}], x] (* _Robert G. Wilson v_, Jul 24 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a097065 n = n' - 2 * m where (n', m) = divMod (n + 2) 2",
+				"a097065_list = concat $ transpose [[1 ..], [-1 ..]]",
+				"(PARI) a(n)=n\\2+1-n%2*2 \\\\ _Charles R Greathouse IV_, Sep 02 2015",
+				"(MAGMA) [(2*n-1)/4 + 5*(-1)^n/4 : n in [0..100]]; // _Wesley Ivan Hurt_, Jan 10 2017"
+			],
+			"xref": [
+				"Essentially the same as A084964.",
+				"Cf. A000124, A023443, A097066, A097067."
+			],
+			"keyword": "easy,sign",
+			"offset": "0,3",
+			"author": "_Paul Barry_, Jul 22 2004",
+			"references": 7,
+			"revision": 16,
+			"time": "2017-01-11T02:36:12-05:00",
+			"created": "2004-09-22T03:00:00-04:00"
+		},
+		{
+			"number": 98565,
+			"data": "120,210,1540,7140,11628,24310,61218182743304701891431482520",
+			"name": "Numbers that appear as binomial coefficients exactly 6 times.",
+			"comment": [
+				"A059233(a(n)) = 3. - _Reinhard Zumkeller_, Dec 24 2012"
+			],
+			"reference": [
+				"See A003015"
+			],
+			"link": [
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Singmaster\u0026#39;s_conjecture\"\u003eSingmaster's conjecture\u003c/a\u003e",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a098565 n = a098565_list !! (n-1)",
+				"a098565_list = map (+ 2 ) $ elemIndices 3 a059233_list",
+				"-- _Reinhard Zumkeller_, Dec 24 2012"
+			],
+			"xref": [
+				"See A098564 for more information.",
+				"Cf. A185024, A182237, subsequence of A003015."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,1",
+			"author": "_Paul D. Hanna_, Oct 27 2004",
+			"ext": [
+				"a(7) from _T. D. Noe_, Jul 13 2005"
+			],
+			"references": 7,
+			"revision": 8,
+			"time": "2012-12-24T11:47:42-05:00",
+			"created": "2004-09-22T03:00:00-04:00"
+		},
+		{
+			"number": 98825,
+			"data": "1,1,0,1,0,1,1,0,3,2,1,0,6,8,9,1,0,10,20,45,44,1,0,15,40,135,264,265,1,0,21,70,315,924,1855,1854,1,0,28,112,630,2464,7420,14832,14833,1,0,36,168,1134,5544,22260,66744,133497,133496,1,0,45,240,1890,11088,55650",
+			"name": "Triangle read by rows: T(n,k) = number of partial derangements, that is, the number of permutations of n distinct, ordered items in which exactly k of the items are in their natural ordered positions, for n \u003e= 0, k = n, n-1, ..., 1, 0.",
+			"comment": [
+				"In other words, T(n,k) is the number of permutations of n letters that are at Hammimg distance k from the identity permutation (Cf. Diaconis, p. 112). - _N. J. A. Sloane_, Mar 02 2007",
+				"The sequence d(n) = 1, 0, 1, 2, 9, 44, 265, 1854, 14833, ... (A000166) is the number of derangements, that is, the number of permutations of n distinct, ordered items in which none of the items is in its natural ordered position."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A098825/b098825.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"P. Diaconis, \u003ca href=\"https://www.jstor.org/stable/4355560\"\u003eGroup Representations in Probability and Statistics\u003c/a\u003e, IMS, 1988; see p. 112.",
+				"Chris D. H. Evans, John Hughes and Julia Houston, \u003ca href=\"https://doi.org/10.1348/000711002760554525\"\u003eSignificance-testing the validity of idiographic methods: A little derangement goes a long way\u003c/a\u003e, British Journal of Mathematical and Statistical Psychology, 1 November 2002, Vol. 55, pp. 385-390.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PartialDerangement.html\"\u003ePartial Derangement\u003c/a\u003e"
+			],
+			"formula": [
+				"T(0, 0) = 1; d(0) = T(0, 0); for k = n, n-1, ..., 1, T(n, k) = c(n, k) d(n-k) where c(n, k) = n! / [(k!) (n-k)! ]; T(n, 0) = n! - [ T(n, n) + T(n, n-1) + ... + T(n, 1) ]; d(n) = T(n, 0).",
+				"T(n,k) = A008290(n,n-k). - _Vladeta Jovovic_, Sep 04 2006",
+				"Assuming a uniform distribution on S_n, the mean Hamming distance is n-1 and the variance is 1 (Diaconis, p. 117). - _N. J. A. Sloane_, Mar 02 2007"
+			],
+			"example": [
+				"Assume d(0), d(1), d(2) are given. Then",
+				"T(3, 3) = c(3, 3) d(0) = (1) (1) = 1",
+				"T(3, 2) = c(3, 2) d(1) = (3) (0) = 0",
+				"T(3, 1) = c(3, 1) d(2) = (3) (1) = 3",
+				"T(3, 0) = 3! - [ 1 + 0 + 3 ] = 6 - 4 = 2",
+				"d(3) = T(3, 0)"
+			],
+			"mathematica": [
+				"t[0, 0] = 1; t[n_, k_] := Binomial[n, k]*k!*Sum[(-1)^j/j!, {j, 0, k}]; Flatten[ Table[ t[n, k], {n, 0, 10}, {k, 0, n}]] (* _Robert G. Wilson v_, Nov 04 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a098825 n k = a098825_tabl !! n !! k",
+				"a098825_row n = a098825_tabl !! n",
+				"a098825_tabl = map (zipWith (*) a000166_list) a007318_tabl",
+				"-- _Reinhard Zumkeller_, Dec 16 2013"
+			],
+			"xref": [
+				"Cf. A000166, A007318.",
+				"T(2n,n) gives A281262."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,9",
+			"author": "_Gerald P. Del Fiacco_, Nov 02 2004",
+			"ext": [
+				"More terms from _Robert G. Wilson v_, Nov 04 2004"
+			],
+			"references": 7,
+			"revision": 23,
+			"time": "2019-04-15T07:21:12-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 99054,
+			"data": "1,2,3,1,3,2,3,1,2,3,2,1,3,1,2,1,3,2,3,1,2,3,2,1,2,3,1,2,1,3,2,3,1,3,2,1,3,1,2,3,2,1,2,3,1,3,2,1,3,1,2,1,3,2,3,1,2,3,2,1,2,3,1,2,1,3,2,3,1,3,2,1,2,3,1,2,1,3,1,2,3,1,3,2,1,2,3,2,1,3,2,3,1,2,1,3,1,2,3,2,1,3,2,3,1",
+			"name": "Arshon's sequence: start from 1 and replace the letters in odd positions using 1 -\u003e 123, 2 -\u003e 231, 3 -\u003e 312 and the letters in even positions using 1 -\u003e 321, 2-\u003e 132, 3 -\u003e 213.",
+			"comment": [
+				"The first three iterations give 1; 123; 123132312; ... the limiting sequence is shown here. Properties: the sequence is squarefree and cannot be defined by iteration of a morphism.",
+				"a(n) = A219762(n+1) + 1. - _Reinhard Zumkeller_, Aug 08 2014"
+			],
+			"reference": [
+				"S. E. Arshon, A proof of the existence of infinite asymmetric sequences on n symbols. Matematicheskoe Prosveshchenie (Mathematical Education), 2 (1935) 24-33 (in Russian); http://ilib.mccme.ru/djvu/mp1/mp1-2.htm",
+				"S. E. Arshon, A proof of the existence of infinite asymmetric sequences on n symbols. Mat. Sb., 2 (1937) 769-779 (in Russian, with French abstract).",
+				"Zheng-Pan Wang, Some combinatorial properties of Arshon sequences of arbitrary orders, J. Algebra and Applications, 12 (2013), article #1250210."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A099054/b099054.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"James D. Currie: \u003ca href=\"http://io.uwinnipeg.ca/~currie/arshon.ps\"\u003eNo iterated morphism generates any Arshon Sequence of Odd Order\u003c/a\u003e, Discrete Math. 259 (2002), no. 1-3, 277-283.",
+				"Sergey Kitaev, There are no iterated morphisms that define the Arshon sequence and the σ-sequence, Journal of Automata, Languages and Combinatorics 8 (2003) 1, 43-0-50. \u003ca href=\"http://www.math.chalmers.se/Math/Research/Preprints/2000/75.ps.gz\"\u003epreprint\u003c/a\u003e, \u003ca href=\"https://arxiv.org/abs/math/0205216\"\u003earXiv:math/0205216\u003c/a\u003e [math.CO]"
+			],
+			"mathematica": [
+				"f[n_List] := Block[{a = {}, l = Length[n], k = 1}, While[k \u003c l + 1, If[ EvenQ[ k], Switch[ n[[k]], 1, AppendTo[a, 321], 2, AppendTo[a, 132], 3, AppendTo[a, 213]], Switch[ n[[k]], 1, AppendTo[a, 123], 2, AppendTo[a, 231], 3, AppendTo[a, 312]]]; k++ ]; Flatten[IntegerDigits /@ a]]; Take[ Nest[f, {1}, 5], 105] (* _Robert G. Wilson v_, Nov 15 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose, stripPrefix); import Data.Maybe (fromJust)",
+				"a099054 n = a099054_list !! n",
+				"a099054_list = 1 : concatMap fromJust (zipWith stripPrefix ass $ tail ass)",
+				"   where ass = iterate f [1]",
+				"         f xs = concat $ concat $ transpose [map g $ e xs, map h $ o xs]",
+				"         g 1 = [1,2,3]; g 2 = [2,3,1]; g 3 = [3,1,2]",
+				"         h 1 = [3,2,1]; h 2 = [1,3,2]; h 3 = [2,1,3]",
+				"         e [] = []; e [x] = [x]; e (x:_:xs) = x : e xs",
+				"         o [] = []; o [x] = []; o (_:x:xs) = x : o xs",
+				"-- _Reinhard Zumkeller_, Aug 08 2014"
+			],
+			"xref": [
+				"Cf. A100336, A100337, A003270.",
+				"Cf. A219762, A241418 (first differences)."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,2",
+			"author": "_Sergey Kitaev_, Nov 14 2004",
+			"ext": [
+				"More terms from _Robert G. Wilson v_ and _John W. Layman_, Nov 15 2004"
+			],
+			"references": 7,
+			"revision": 23,
+			"time": "2018-12-21T17:47:40-05:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 99773,
+			"data": "1,0,0,1,0,1,1,1,1,1,2,2,2,3,3,3,4,5,5,6,7,7,9,10,11,12,14,15,17,20,21,24,26,29,33,35,40,44,47,53,58,64,70,77,84,91,101,110,120,130,142,155,168,184,199,215,234,254,275,298,323,348,376,407,439,474,511,551,592",
+			"name": "Number of partitions of n into odd prime parts.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A099773/b099773.txt\"\u003eTable of n, a(n) for n = 0..5000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: 1/Product_{k\u003e1} (1-x^prime(k))."
+			],
+			"mathematica": [
+				"CoefficientList[ Series[ Product[1/(1 - x^Prime[i]), {i, 2, 25}], {x, 0, 70}], x] (* _Robert G. Wilson v_, Jun 14 2006 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a099773 = p a065091_list where",
+				"   p _      0 = 1",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Aug 05 2012"
+			],
+			"xref": [
+				"Cf. A000607, A024939."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,11",
+			"author": "_Vladeta Jovovic_, Nov 11 2004",
+			"references": 7,
+			"revision": 11,
+			"time": "2018-01-26T20:00:20-05:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 100104,
+			"data": "1,1,5,19,49,101,181,295,449,649,901,1211,1585,2029,2549,3151,3841,4625,5509,6499,7601,8821,10165,11639,13249,15001,16901,18955,21169,23549,26101,28831,31745,34849,38149,41651,45361,49285,53429,57799,62401,67241,72325",
+			"name": "a(n) = n^3 - n^2 + 1.",
+			"comment": [
+				"Appears to be the number of possible distinct sums of a set of n distinct integers between 1 and n^2. Checked up to n=6. - _Dylan Hamilton_, Sep 21 2010",
+				"a(n) = A100104(n+1) - A100104(n). - _Reinhard Zumkeller_, Jul 07 2012"
+			],
+			"reference": [
+				"T. A. Gulliver, Sequences from Cubes of Integers, Int. Math. Journal, 4 (2003), 439-445."
+			],
+			"link": [
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4, -6, 4, -1)."
+			],
+			"formula": [
+				"From _Harvey P. Dale_, Sep 11 2011: (Start)",
+				"a(0)=1, a(1)=1, a(2)=5, a(3)=19, a(n) = 4*a(n-1) - 6*a(n-2) + 4*a(n-3) - a(n-4).",
+				"G.f.: (x^3+7*x^2-3*x+1)/(x-1)^4. (End)"
+			],
+			"mathematica": [
+				"f[n_]:=n^3-n^2+1;Table[f[n],{n,5!}] (* _Vladimir Joseph Stephan Orlovsky_, Feb 07 2010 *)",
+				"Array[#^3-#^2+1\u0026,50,0] (* or *) LinearRecurrence[{4,-6,4,-1},{1,1,5,19},50] (* _Harvey P. Dale_, Sep 11 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a049451 n = n * (3 * n + 1)  -- _Reinhard Zumkeller_, Jul 07 2012",
+				"(PARI) a(n)=n^3-n^2+1 \\\\ _Charles R Greathouse IV_, Oct 07 2015"
+			],
+			"xref": [
+				"Cf. A162611. - _Vincenzo Librandi_, May 27 2010",
+				"Cf. A049451 (first differences)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Jan 12 2005",
+			"references": 7,
+			"revision": 28,
+			"time": "2015-10-07T11:28:11-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		}
+	]
+}

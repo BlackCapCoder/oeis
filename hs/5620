@@ -1,0 +1,433 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5620,
+	"results": [
+		{
+			"number": 141164,
+			"data": "7,14,15,21,23,28,30,31,35,39,42,45,46,47,49,55,56,60,62,69,70,71,75,77,78,79,84,87,90,91,92,93,94,95,98,103,110,111,112,115,117,120,124,127,133,138,140,141,142,143,147,150,151,154,155,156,158,159,167,168,174,180,182,183,184,186,188,190,191,196,199",
+			"name": "Numbers having exactly 1 divisor of the form 8*k + 7.",
+			"comment": [
+				"A188172(a(n)) = 1;",
+				"A007522 is a subsequence."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A141164/b141164.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = A188226(1) = 7."
+			],
+			"mathematica": [
+				"okQ[n_] := Length[Select[Divisors[n] - 7, Mod[#, 8] == 0 \u0026]] == 1; Select[Range[200], okQ]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a141164 n = a141164_list !! (n-1)",
+				"a141164_list = map succ $ elemIndices 1 $ map a188172 [1..]"
+			],
+			"xref": [
+				"Cf. A004771."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 26 2011",
+			"references": 4,
+			"revision": 16,
+			"time": "2013-07-13T12:03:32-04:00",
+			"created": "2011-03-26T15:08:42-04:00"
+		},
+		{
+			"number": 141418,
+			"data": "0,1,1,2,3,3,3,5,6,6,4,7,9,10,10,5,9,12,14,15,15,6,11,15,18,20,21,21,7,13,18,22,25,27,28,28,8,15,21,26,30,33,35,36,36,9,17,24,30,35,39,42,44,45,45",
+			"name": "Triangle read by rows: T(n,k) = k * (2*n - k - 1) / 2, 1 \u003c= k \u003c= n.",
+			"comment": [
+				"n-th row = half of Dynkin diagram weights for the Cartan Groups D_n;",
+				"sum of n-th row = A007290(n+1).",
+				"n-th row = partial sums of n-th row of A025581. - _Reinhard Zumkeller_, Aug 04 2014"
+			],
+			"reference": [
+				"R. N. Cahn, Semi-Simple Lie Algebras and Their Representations, Dover, NY, 2006, ISBN 0-486-44999-8, p. 139."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A141418/b141418.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"{0},",
+				"{1, 1},",
+				"{2, 3, 3},",
+				"{3, 5, 6, 6},",
+				"{4, 7, 9, 10, 10},",
+				"{5, 9, 12, 14, 15, 15},",
+				"{6, 11, 15, 18, 20, 21, 21},",
+				"{7, 13, 18, 22, 25, 27, 28, 28},",
+				"{8, 15, 21, 26, 30, 33, 35, 36, 36},",
+				"{9, 17, 24, 30, 35, 39, 42, 44, 45, 45}"
+			],
+			"mathematica": [
+				"Clear[T, n, m, a] T[n_, m_] = m*(2*n - m - 1)/2; a = Table[Table[T[n, m], {m, 1, n}], {n, 1, 10}]; Flatten[a]"
+			],
+			"program": [
+				"(Haskell)",
+				"a141418 n k = k * (2 * n - k - 1) `div` 2",
+				"a141418_row n = a141418_tabl !! (n-1)",
+				"a141418_tabl = map (scanl1 (+)) a025581_tabl",
+				"-- _Reinhard Zumkeller_, Aug 04 2014, Nov 18 2012"
+			],
+			"xref": [
+				"Cf. A025581, A141419, A087401."
+			],
+			"keyword": "nonn,tabl,easy",
+			"offset": "1,4",
+			"author": "_Roger L. Bagula_, Aug 05 2008",
+			"ext": [
+				"Edited by _Reinhard Zumkeller_, Nov 18 2012"
+			],
+			"references": 4,
+			"revision": 14,
+			"time": "2015-01-21T14:05:41-05:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 141686,
+			"data": "1,1,1,1,8,1,1,33,33,1,1,104,396,104,1,1,285,3020,3020,285,1,1,720,17865,48320,17865,720,1,1,1729,90153,546665,546665,90153,1729,1,1,4016,409024,4941104,10933300,4941104,409024,4016,1,1,9117,1722240,38236128",
+			"name": "Triangle T(n,m) = A008292(n,m)*binomial(n-1,m-1) read by rows.",
+			"comment": [
+				"Row sums are A104098(n-1). [Jun 30 2010]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A141686/b141686.txt\"\u003eRows n = 1..125 of table, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,m)=T(n,n+1-m)."
+			],
+			"example": [
+				"1;",
+				"1, 1;",
+				"1, 8, 1;",
+				"1, 33, 33, 1;",
+				"1, 104, 396, 104, 1;",
+				"1, 285, 3020, 3020, 285, 1;",
+				"1, 720, 17865, 48320, 17865, 720, 1;",
+				"1, 1729, 90153, 546665, 546665, 90153, 1729, 1;",
+				"1, 4016, 409024, 4941104, 10933300, 4941104, 409024, 4016, 1;",
+				"1, 9117, 1722240, 38236128, 165104604, 165104604, 38236128, 1722240, 9117, 1;"
+			],
+			"mathematica": [
+				"(*Recurrence*) A[n_, 1] := 1; A[n_, n_] := 1; A[n_, k_] := (n - k + 1)A[n - 1, k - 1] + k A[n - 1, k]; Table[Table[A[n, k]*Binomial[n - 1, k - 1], {k, 1, n}], {n, 1, 10}]; Flatten[%]"
+			],
+			"program": [
+				"(Haskell)",
+				"a141686 n k = a141686_tabl !! (n-1) !! (k-1)",
+				"a141686_row n = a141686_tabl !! (n-1)",
+				"a141686_tabl = zipWith (zipWith (*)) a007318_tabl a008292_tabl",
+				"-- _Reinhard Zumkeller_, Apr 16 2014"
+			],
+			"xref": [
+				"Cf. A008292.",
+				"Cf. A007318."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,5",
+			"author": "_Roger L. Bagula_ and _Gary W. Adamson_, Sep 08 2008",
+			"ext": [
+				"keyword:tabl inserted, indices corrected by the Assoc. Eds. of the OEIS, Jun 30 2010"
+			],
+			"references": 4,
+			"revision": 7,
+			"time": "2014-04-16T15:30:30-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 141707,
+			"data": "1,1,1,1,1,3,5,1,1,27,1,89,13,1,49,1,1,13,69,5,25,3,1,103,29,1,63,3,9,103,7,1,1,19,37,147,1,13,3,19,11,45,1,37,23,3,1,27,61,1,233,47,13,1,21,23,59,525,5,1,93,23,41,1,1,49,27,13,187,87,269,15,111,13,29,7,1,13,3",
+			"name": "Least k\u003e0 such that (2n-1)k is palindromic in base 2.",
+			"comment": [
+				"Even numbers cannot be palindromic in base 2 (unless leading zeros are considered), that's why we search only for odd numbers 2n-1 the k-values such that k(2n-1) is palindromic in base 2. Obviously they are necessarily also odd.",
+				"a(A044051(n)) = 1. - _Reinhard Zumkeller_, Apr 20 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A141707/b141707.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1..5)=1 since 1,3,5,7,9 are already palindromic in base 2.",
+				"a(6)=3 since 2*6-1=11 and 2*11=22 are not palindromic in base 2, but 3*11=33 is."
+			],
+			"mathematica": [
+				"lkp[n_]:=Module[{k=1,n2=2n-1},While[IntegerDigits[k*n2,2]!= Reverse[ IntegerDigits[ k*n2,2]],k++];k]; Array[lkp,80] (* _Harvey P. Dale_, Mar 19 2016 *)"
+			],
+			"program": [
+				"(PARI) A141707(n,L=10^9)={ n=2*n-1; forstep(k=1,L,2, binary(k*n)-vecextract(binary(k*n),\"-1..1\") || return(k))}",
+				"(Haskell)",
+				"a141707 n = head [k | k \u003c- [1, 3 ..], a178225 (k * (2 * n - 1)) == 1]",
+				"-- _Reinhard Zumkeller_, Apr 20 2015"
+			],
+			"xref": [
+				"Cf. A050782, A141708, A178225, A044051."
+			],
+			"keyword": "base,easy,nice,nonn",
+			"offset": "1,6",
+			"author": "_M. F. Hasler_, Jul 17 2008",
+			"references": 4,
+			"revision": 9,
+			"time": "2017-06-14T01:08:15-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 141766,
+			"data": "1,12,24,36,48,60,72,96,108,120,144,168,180,192,216,240,288,300,324,336,360,384,432,480,504,540,576,600,648,660,672,720,768,840,864,900,960,972,1008,1080,1152,1176,1200,1296,1320,1344,1440,1500,1512,1536,1620",
+			"name": "A positive integer n is included if both (p-1) and (p+1) divide n for every prime p that divides n.",
+			"comment": [
+				"Every term is a multiple of 12."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A141766/b141766.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"120 has the prime factorization of 2^3 * 3^1 * 5^1. The distinct primes dividing 120 are therefore 2,3,5. 2-1=1, 3-1=2 and 5-1=4 all divide 120. Also, 2+1=3, 3+1=4 and 5+1=6 all divide 120. So 120 is included in the sequence."
+			],
+			"mathematica": [
+				"Select[Range[2, 1620], Function[n, AllTrue[FactorInteger[n][[All, 1]], AllTrue[# + {-1, 1}, Divisible[n, #] \u0026] \u0026]]] (* _Michael De Vlieger_, Sep 22 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a141766 n = a141766_list !! (n-1)",
+				"a141766_list = filter f [1..] where",
+				"   f x = all (== 0) $ map (mod x) $ (map pred ps) ++ (map succ ps)",
+				"         where ps = a027748_row x",
+				"-- _Reinhard Zumkeller_, Aug 27 2013"
+			],
+			"xref": [
+				"Cf. A140470, A141767, A124240.",
+				"Cf. A027748."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Jul 02 2008",
+			"ext": [
+				"a(12)-a(50) from _Donovan Johnson_, Sep 27 2008",
+				"a(1)=1 prepended by _Max Alekseyev_, Aug 27 2013"
+			],
+			"references": 4,
+			"revision": 17,
+			"time": "2017-09-23T03:20:42-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 141767,
+			"data": "1,24,48,72,96,120,144,192,216,240,288,336,360,384,432,480,576,600,648,672,720,768,864,960,1008,1080,1152,1200,1296,1320,1344,1440,1536,1680,1728,1800,1920,1944,2016,2160,2304,2352,2400,2592,2640,2688,2880,3000",
+			"name": "A positive integer n is included if (p-1)*(p+1) divides n for every prime p that divides n.",
+			"comment": [
+				"For n\u003e1, a(n) is a multiple of 24.",
+				"Sequence lists the only numbers a(n) such that the average of a(n) consecutive Fibonacci numbers is always an integer. - _Paolo P. Lava_, Dec 22 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A141767/b141767.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"120 has the prime factorization of 2^3 * 3^1 * 5^1. The distinct primes dividing 120 are therefore 2,3,5. (2-1)*(2+1)=3, (3-1)*(3+1)=8 and (5-1)*(5+1)=24 all divide 120. So 120 is included in the sequence."
+			],
+			"mathematica": [
+				"fQ[n_] := Block[{p = First /@ FactorInteger@ n}, Union@ Mod[n, (p - 1) (p + 1)] == {0}]; Select[ Range[2, 3000], fQ@# \u0026] (* _Robert G. Wilson v_, May 25 2009 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a141767 n = a141767_list !! (n-1)",
+				"a141767_list = filter f [1..] where",
+				"   f x = all (== 0) $",
+				"         map (mod x) $ zipWith (*) (map pred ps) (map succ ps)",
+				"         where ps = a027748_row x",
+				"-- _Reinhard Zumkeller_, Aug 27 2013"
+			],
+			"xref": [
+				"Cf. A140470, A141766, A124240.",
+				"Cf. A027748, A084920."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Jul 02 2008",
+			"ext": [
+				"Added missing term 336 and a(14)-a(47) from _Donovan Johnson_, Sep 27 2008",
+				"a(1)=1 prepended by _Max Alekseyev_, Aug 27 2013"
+			],
+			"references": 4,
+			"revision": 20,
+			"time": "2014-12-22T09:44:47-05:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 143071,
+			"data": "1,2,3,4,5,6,8,9,10,12,15,16,17,18,20,23,24,27,29,30,32,33,34,36,39,40,43,45,46,48,51,53,54,57,58,60,64,65,66,68,71,72,75,77,78,80,83,85,86,89,90,92,96,99,101,102,105,106,108,113,114,116,120,128,129,130,132,135",
+			"name": "A positive integer n is included if the number of 1's in the binary representation of n is a power of 2 (including being possibly 1).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A143071/b143071.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"A209229(A000120(a(n))) = 1. - _Reinhard Zumkeller_, Sep 14 2014"
+			],
+			"example": [
+				"34 in binary is 100010. This has 2 ones. And since 2 is a power of 2, 34 is included in the sequence."
+			],
+			"maple": [
+				"a:=proc(n) local nn, n1: nn:=convert(n,base,2): n1:=add(nn[j],j=1..nops(nn)): if 0 \u003c n1 and type(log[2](n1),integer)=true then n else end if end proc: seq(a(n),n=1..140); # _Emeric Deutsch_, Aug 13 2008"
+			],
+			"program": [
+				"(Haskell)",
+				"a143071 n = a143071_list !! (n-1)",
+				"a143071_list = filter ((== 1) . a209229 . a000120) [1..]",
+				"-- _Reinhard Zumkeller_, Sep 14 2014"
+			],
+			"xref": [
+				"Cf. A000120, A143070, A143072, A209229.",
+				"For complement see A271499."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Jul 22 2008",
+			"ext": [
+				"More terms from _Emeric Deutsch_, Aug 13 2008"
+			],
+			"references": 4,
+			"revision": 13,
+			"time": "2016-04-16T05:11:06-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 143205,
+			"data": "55,91,187,247,275,391,605,637,667,1147,1183,1375,1591,1927,2057,2491,3025,3127,3179,3211,4087,4459,4693,4891,5767,6647,6655,6875,7387,8281,8993,9991,10807,11227,12091,15125,15341,15379,17947,19343,22627,23707",
+			"name": "Numbers having exactly two distinct prime factors p, q with q=p+6.",
+			"comment": [
+				"A143201(a(n)) = 7;",
+				"A020639(a(n))in A023201 and A006530(a(n)) in A046117;",
+				"subsequence of A007774: A001221(a(n))=2; A111192 is a subsequence.",
+				"Subsequence of A195118. [_Reinhard Zumkeller_, Sep 13 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A143205/b143205.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/SexyPrimes.html\"\u003eSexy Primes\u003c/a\u003e",
+				"\u003ca href=\"/index/Pri#gaps\"\u003eIndex entries for primes, gaps between\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 55 = 5 * 11 = A023201(1) * A046117(1);",
+				"a(2) = 91 = 7 * 13 = A023201(2) * A046117(2);",
+				"a(3) = 187 = 11 * 17 = A023201(3) * A046117(3);",
+				"a(4) = 247 = 13 * 19 = A023201(4) * A046117(4);",
+				"a(5) = 275 = 5^2 * 11 = A023201(1)^2 * A046117(1);",
+				"a(6) = 391 = 17 * 23 = A023201(5) * A046117(5);",
+				"a(7) = 605 = 5 * 11^2 = A023201(1) * A046117(1)^2;",
+				"a(8) = 637 = 7^2 * 13 = A023201(2)^2 * A046117(2);",
+				"a(9) = 667 = 23 * 29 = A023201(6) * A046117(6);",
+				"a(10) = 1147 = 31 * 37 = A023201(7) * A046117(7)."
+			],
+			"mathematica": [
+				"okQ[n_]:=Module[{fi=Transpose[FactorInteger[n]][[1]]},Length[fi]==2 \u0026\u0026 Last[fi]-First[fi]==6]; Select[Range[25000],okQ]  (* _Harvey P. Dale_, Apr 18 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a143205 n = a143205_list !! (n-1)",
+				"a143205_list = filter f [1,3..] where",
+				"   f x = length pfs == 2 \u0026\u0026 last pfs - head pfs == 6 where",
+				"       pfs = a027748_row x",
+				"-- _Reinhard Zumkeller_, Sep 13 2011"
+			],
+			"xref": [
+				"Cf. A027748, A001221, A020639, A006530."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 30 2008",
+			"references": 4,
+			"revision": 15,
+			"time": "2013-11-21T12:49:25-05:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 143333,
+			"data": "1,1,1,1,0,1,1,3,3,1,1,0,0,0,1,1,5,0,0,5,1,1,0,15,0,15,0,1,1,7,21,35,35,21,7,1,1,0,0,0,0,0,0,0,1,1,9,0,0,0,0,0,0,9,1,1,0,45,0,0,0,0,0,45,0,1",
+			"name": "Pascal's triangle binomial(n,m) read by rows, all even elements replaced by zero.",
+			"comment": [
+				"Row sums are A088560.",
+				"A047999(n,k) = A057427(T(n,k)). - _Reinhard Zumkeller_, Oct 24 2010"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A143333/b143333.txt\"\u003eRows n = 0..127 of triangle, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,m) = A047999(n,m)*A007318(n,m)."
+			],
+			"example": [
+				"The triangle starts in row n=0 with columns 0\u003c=m\u003c=n as:",
+				"  1;",
+				"  1,  1;",
+				"  1,  0,  1;",
+				"  1,  3,  3,  1;",
+				"  1,  0,  0,  0,  1;",
+				"  1,  5,  0,  0,  5,  1;",
+				"  1,  0, 15,  0, 15,  0,  1;",
+				"  1,  7, 21, 35, 35, 21,  7,  1;",
+				"  1,  0,  0,  0,  0,  0,  0,  0,  1;",
+				"  1,  9,  0,  0,  0,  0,  0,  0,  9,  1;",
+				"  1,  0, 45,  0,  0,  0,  0,  0, 45,  0,  1;"
+			],
+			"mathematica": [
+				"t[n_, m_] = Mod[Binomial[n, m], 2]*Binomial[n, m]; Table[Table[t[n, m], {m, 0, n}], {n, 0, 10}]; Flatten[%]"
+			],
+			"program": [
+				"(Haskell)",
+				"a143333 n k = a143333_tabl !! (n-1) !! (k-1)",
+				"a143333_row n = a143333_tabl !! (n-1)",
+				"a143333_tabl = zipWith(zipWith (*)) a007318_tabl a047999_tabl",
+				"-- _Reinhard Zumkeller_, Oct 10 2013"
+			],
+			"xref": [
+				"Cf. A007318, A014421, A047999, A088560. - _Reinhard Zumkeller_, Oct 24 2010"
+			],
+			"keyword": "nonn,tabl,easy,look",
+			"offset": "0,8",
+			"author": "_Roger L. Bagula_ and _Gary W. Adamson_, Oct 21 2008",
+			"ext": [
+				"Offset set to 0 by _Reinhard Zumkeller_, Oct 21 2010"
+			],
+			"references": 4,
+			"revision": 22,
+			"time": "2015-12-17T02:57:44-05:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 143344,
+			"data": "1,3,4,6,7,8,10,11,12,13,14,16,17,18,19,20,21,23,24,25,26,27,28,29,31,32,33,34,35,36,37,38,39,41,42,43,44,45,46,47,48,49,50,52,53,54,55,56,57,58,59,60,61,62,64,65,66,67,68,69,70,71,72,73,74,75,77",
+			"name": "First differences of A022941.",
+			"comment": [
+				"This is (essentially) the sequence c() mentioned in the definition of A022941."
+			],
+			"link": [
+				"Nathaniel Johnston, \u003ca href=\"/A143344/b143344.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"a[1]:=1: a[2]:=2: c[1]:=3: for n from 2 to 70 do c[n]:=c[n-1]+1: for k from 1 to n do if(c[n]\u003c=a[k])then if(c[n]=a[k])then c[n]:=c[n]+1: fi: break: fi: od: a[n+1]:=a[n]+c[n-1]: od: seq(c[n],n=1..70); # _Nathaniel Johnston_, May 01 2011"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a143344 n = a143344_list !! (n-1)",
+				"a143344_list = zipWith (-) (tail a022941_list) a022941_list",
+				"-- _Reinhard Zumkeller_, May 17 2013"
+			],
+			"xref": [
+				"Cf. A022941, A156031."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Nov 01 2009",
+			"ext": [
+				"a(26), a(27) corrected by _Nathaniel Johnston_, May 01 2011"
+			],
+			"references": 4,
+			"revision": 15,
+			"time": "2019-02-06T23:54:32-05:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		}
+	]
+}

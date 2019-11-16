@@ -1,0 +1,397 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5270,
+	"results": [
+		{
+			"number": 46902,
+			"data": "0,1,6,1,7,12,1,8,19,18,1,9,27,37,24,1,10,36,64,61,30,1,11,46,100,125,91,36,1,12,57,146,225,216,127,42,1,13,69,203,371,441,343,169,48,1,14,82,272,574,812,784,512,217,54,1,15,96,354,846,1386,1596,1296,729,271",
+			"name": "Clark's triangle: left border = 0 1 1 1..., right border = multiples of 6; other entries = sum of 2 entries above.",
+			"reference": [
+				"J. E. Clark, Clark's triangle, Math. Student, 26 (No. 2, 1978), p. 4."
+			],
+			"link": [
+				"Harvey P. Dale, \u003ca href=\"/A046902/b046902.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Weisstein, Eric W. \u003ca href=\"http://mathworld.wolfram.com/ClarksTriangle.html\"\u003eClark's Triangle\u003c/a\u003e. MathWorld."
+			],
+			"formula": [
+				"c(n, k) = 6*binomial(n, k-1) + binomial(n-1, k). - _Max Alekseyev_, Nov 06 2005"
+			],
+			"example": [
+				"0;",
+				"1 6;",
+				"1 7 12;",
+				"1 8 19 18;",
+				"..."
+			],
+			"mathematica": [
+				"Join[{0},Flatten[Table[6*Binomial[n,k-1]+Binomial[n-1,k],{n,10},{k,0,n}]]] (* _Harvey P. Dale_, Nov 04 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a046902 n k = a046902_tabl !! n !! k",
+				"a046902_row n = a046902_tabl !! n",
+				"a046902_tabl = [0] : iterate",
+				"               (\\row -\u003e zipWith (+) ([0] ++ row) (row ++ [6])) [1,6]",
+				"-- _Reinhard Zumkeller_, Dec 26 2012"
+			],
+			"xref": [
+				"Cf. A100206.",
+				"Cf. A185080 (central terms)."
+			],
+			"keyword": "nonn,easy,tabl,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Apr 07 2000",
+				"More terms from _Max Alekseyev_, May 12 2005"
+			],
+			"references": 4,
+			"revision": 20,
+			"time": "2015-08-13T04:42:19-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 46922,
+			"data": "0,1,1,1,2,0,2,0,1,1,2,0,3,0,2,0,1,0,3,1,3,0,2,0,3,0,1,0,2,0,4,0,1,1,2,0,4,0,3,0,2,0,3,0,3,0,2,0,4,0,2,1,2,0,5,0,1,0,2,0,6,0,3,0,1,0,3,0,4,0,2,0,4,1,4,0,2,0,6,0,3,0,2,0,4,0,2,0,3,0,6,0,2,0,1,0,4,0,2",
+			"name": "Number of ways to express n as p+2a^2; p prime, a \u003e= 0.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A046922/b046922.txt\"\u003eTable of n, a(n) for n=1..10000\u003c/a\u003e",
+				"L. Hodges, \u003ca href=\"http://learning.physics.iastate.edu/hodges/mm-1.pdf\"\u003eA lesser-known Goldbach conjecture\u003c/a\u003e, Math. Mag., 66 (1993), 45-47.",
+				"\u003ca href=\"/index/Go#Goldbach\"\u003eIndex entries for sequences related to Goldbach conjecture\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a046922 n = sum $ map (a010051 . (n -)) $ takeWhile (\u003c n) a001105_list",
+				"-- _Reinhard Zumkeller_, Apr 03 2013"
+			],
+			"xref": [
+				"Cf. A042978, A046920, A046921, A046923, A060003, A143539.",
+				"Cf. A010051, A001105."
+			],
+			"keyword": "nonn",
+			"offset": "1,5",
+			"author": "_David W. Wilson_",
+			"references": 4,
+			"revision": 13,
+			"time": "2013-04-03T09:28:07-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 47904,
+			"data": "1,2,4,7,28,33,198,205,1640,1649,16490,16501,198012,198025,2772350,2772365,44357840,44357857,798441426,798441445,15968828900,15968828921,351314236262,351314236285,8431541670840,8431541670865,219220083442490",
+			"name": "a(n+1) = a(n) + n (if n is odd), a(n+1) = a(n) * n (if n is even).",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A047904/b047904.txt\"\u003eTable of n, a(n) for n = 1..100\u003c/a\u003e"
+			],
+			"maple": [
+				"A047904:=proc(q)",
+				"local a,n; a:=1; print(a);",
+				"for n from 2 to q do a:=1/2*((n-1+a)*(1+(-1)^n)+a*(n-1)*(1-(-1)^n)); print(a); od; end:",
+				"A047904(1000); # _Paolo P. Lava_, Feb 19 2013"
+			],
+			"mathematica": [
+				"Transpose[NestList[{#[[1]]+1,If[OddQ[#[[1]]],Total[#],Times@@#]}\u0026,{1,1},30]][[2]] (* _Harvey P. Dale_, Sep 11 2012 *)"
+			],
+			"program": [
+				"(Python)",
+				"a=1",
+				"for n in range(1,33):",
+				"    print a,",
+				"    if n\u00261:",
+				"        a += n",
+				"    else:",
+				"        a *= n",
+				"# _Alex Ratushnyak_, Feb 24 2013",
+				"(Haskell)",
+				"a047904 n = a047904_list !! (n-1)",
+				"a047904_list = 1 : zipWith uncurry",
+				"                           (cycle [(+), (*)]) (zip a047904_list [1..])",
+				"-- _Reinhard Zumkeller_, Nov 13 2013, Mar 24 2013"
+			],
+			"xref": [
+				"Cf. A000124, A047905, A077138."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "Miklos SZABO (mike(AT)ludens.elte.hu)",
+			"references": 4,
+			"revision": 25,
+			"time": "2018-07-04T05:14:22-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 47905,
+			"data": "1,1,3,9,13,65,71,497,505,4545,4555,50105,50117,651521,651535,9773025,9773041,166141697,166141715,3156692585,3156692605,66290544705,66290544727,1524682528721,1524682528745,38117063218625,38117063218651",
+			"name": "a(n+1) = a(n) + n (if n is even), a(n+1) = a(n) * n (if n is odd).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A047905/b047905.txt\"\u003eTable of n, a(n) for n = 1..100\u003c/a\u003e"
+			],
+			"maple": [
+				"A047905:=proc(q)",
+				"local a,n; a:=1; print(a);",
+				"for n from 2 to q do",
+				"  a:=1/2*((n-1+a)*(1-(-1)^n)+a*(n-1)*(1+(-1)^n)); print(a);",
+				"od; end:",
+				"A047905(1000); # _Paolo P. Lava_, Feb 19 2013"
+			],
+			"mathematica": [
+				"a[0]=1;a[n_]:=a[n]=If[EvenQ[n],a[n-1]+n,a[n-1]n];Join[{1}, Array[a,40]] (* _Harvey P. Dale_, Apr 24 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a047905 n = a047905_list !! (n-1)",
+				"a047905_list = 1 : zipWith uncurry",
+				"                           (cycle [(*), (+)]) (zip a047905_list [1..])",
+				"-- _Reinhard Zumkeller_, Nov 13 2013, May 31 2011",
+				"(Python)",
+				"a=1",
+				"for n in range(1,33):",
+				"    print a,",
+				"    if n\u00261:",
+				"        a *= n",
+				"    else:",
+				"        a += n",
+				"# _Alex Ratushnyak_, Feb 24 2013"
+			],
+			"xref": [
+				"Cf. A000124, A047904, A077138."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,3",
+			"author": "Miklos SZABO (mike(AT)ludens.elte.hu)",
+			"references": 4,
+			"revision": 26,
+			"time": "2018-07-04T05:14:43-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 48646,
+			"data": "7,13,19,37,41,107,191,223,379,487,997,1063,1093,1201,1301,1907,2029,3019,3169,3371,5081,5099,5693,6037,9041,9619,9721,9907,10007,11681,12227,12763,17393,18493,19013,19213,19219,21059,21157,21193,25931",
+			"name": "Primes p such that the decimal digits of p^2 can be partitioned into two or more squares.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A048646/b048646.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"7 is present because 7^2=49 can be partitioned into two squares 4 and 9; 13^2 = 169 = 16_9; 37^2 = 1369 = 1_36_9.",
+				"997^2 = 994009 = 9_9_400_9, 1063^2 = 1129969 = 1_12996_9, 997 and 1063 are primes, so 997 and 1063 are in the sequence."
+			],
+			"program": [
+				"(Haskell)",
+				"a048646 n = a048646_list !! (n-1)",
+				"a048646_list = filter ((== 1) . a010051') a048653_list",
+				"-- _Reinhard Zumkeller_, Apr 17 2015"
+			],
+			"xref": [
+				"Cf. A048375.",
+				"Cf. A010051, intersection of A048653 and A000040."
+			],
+			"keyword": "nice,nonn,base",
+			"offset": "1,1",
+			"author": "_Felice Russo_",
+			"ext": [
+				"Corrected and extended by _Naohiro Nomoto_, Sep 01 2001"
+			],
+			"references": 4,
+			"revision": 10,
+			"time": "2015-04-17T17:08:16-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 48859,
+			"data": "1,2,6,7,8,13,14,15,16,22,23,24,25,26,33,34,35,36,37,38,46,47,48,49,50,51,52,61,62,63,64,65,66,67,68,78,79,80,81,82,83,84,85,86,97,98,99,100,101,102,103,104,105,106,118,119,120,121,122,123,124,125,126,127,128",
+			"name": "A sieve: keep the first 2 numbers, delete the next 3 numbers; keep the next 3 numbers, delete the next 4 numbers; keep the next 4 numbers, delete the next 5 numbers; and so on. In other words, keep the next k numbers and delete the next k+1 numbers, for k = 2, 3, ...",
+			"reference": [
+				"C. Dumitrescu \u0026 V. Seleacu, editors, Some Notions and Questions in Number Theory, Vol. I, Erhus Publ., Glendale, 1994.",
+				"M. Le, On the Smarandache n-ary Sieve, Smarandache Notions Journal, Vol. 10, No. 1-2-3, 1999, 146-147.",
+				"F. Smarandache, Properties of Numbers, 1972."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A048859/b048859.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"C. Dumitrescu \u0026 V. Seleacu, editors, \u003ca href=\"http://www.gallup.unm.edu/~smarandache/SNAQINT.txt\"\u003eSome Notions and Questions in Number Theory, Vol. I\u003c/a\u003e.",
+				"\u003ca href=\"/index/Si#sieve\"\u003eIndex entries for sequences generated by sieves\u003c/a\u003e"
+			],
+			"example": [
+				"List the natural numbers: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, ...",
+				"Keep the first two numbers 1, 2 and delete the next three numbers 3, 4, 5.",
+				"Keep the next three numbers 6, 7, 8 and delete the next four numbers 9, 10, 11, 12. And so on."
+			],
+			"mathematica": [
+				"ss[n_]:=Module[{c=n^2+4n+1},Range[c,c+n+1]]; Flatten[Array[ss,10,0]] (* _Harvey P. Dale_, Sep 10 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a048859 n = a048859_list !! (n-1)",
+				"a048859_list = f 2 [1..] where",
+				"   f k xs = us ++ f (k + 1) (drop (k + 1) vs)",
+				"            where (us, vs) = splitAt k xs",
+				"-- _Reinhard Zumkeller_, May 16 2014"
+			],
+			"xref": [
+				"Cf. A007950, A007951, A007952.",
+				"Cf. A064801."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "Charles T. Le (charlestle(AT)yahoo.com)",
+			"ext": [
+				"Corrected and revised by the author, Mar 24 2004",
+				"More terms from _Bernardo Boncompagni_ Jul 27 2004",
+				"Offset changed by _Reinhard Zumkeller_, May 16 2014"
+			],
+			"references": 4,
+			"revision": 21,
+			"time": "2017-07-02T09:32:32-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 48973,
+			"data": "4,7,9,12,13,15,20,23,26,27,28,31,36,38,39,42,44,48,50,52,53,55,56,61,63,64,66,74,79,83,85,89,98,101,103,107,109,114,120,123,125,128,131,133,136,144,152,157,159,160,165,168,182,184,190,192,198,203,208,212",
+			"name": "Complement of A005243.",
+			"comment": [
+				"The sequence appears to be growing slightly faster than quadratically. - _T. D. Noe_, Nov 04 2007"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A048973/b048973.txt\"\u003eTable of n, a(n) for n=1..6564\u003c/a\u003e (terms \u003c 10^8)"
+			],
+			"mathematica": [
+				"nmax = 250; For[ s = {1, 2}; n = 3, n \u003c= nmax, n++, ls = Length[s]; tt = Total /@ Flatten[Table[s[[i ;; j]], {i, 1, ls - 1}, {j, i + 1, ls}], 1]; If[MemberQ[tt, n], AppendTo[s, n]]]; A048973 = Complement[Range[nmax], s] (* _Jean-François Alcover_, Oct 21 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List.Ordered (minus)",
+				"a048973 n = a048973_list !! (n-1)",
+				"a048973_list = [1..] `minus` a005243_list",
+				"-- _Reinhard Zumkeller_, Dec 17 2015"
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "D. R. Hofstadter",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Oct 02 2000"
+			],
+			"references": 4,
+			"revision": 14,
+			"time": "2016-10-22T02:57:34-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49341,
+			"data": "3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3,3,6,9,6,6,3,9,3",
+			"name": "a(n+1) = sum of digits of a(n) + a(n-1).",
+			"comment": [
+				"a(n+1) = a007953(a(n) + a(n-1)) for n \u003e 0.",
+				"Terms of the simple continued fraction of 21447/[sqrt(1347705679)-29932]. [From _Paolo P. Lava_, Aug 06 2009]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A049341/b049341.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Michael Gilleland, \u003ca href=\"/selfsimilar.html\"\u003eSome Self-Similar Integer Sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_08\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0, 0, 0, 0, 0, 0, 0, 1)."
+			],
+			"formula": [
+				"Period 8.",
+				"a(n)=1/224*{45*(n mod 8)+213*[(n+1) mod 8]-123*[(n+2) mod 8]+129*[(n+3) mod 8]+45*[(n+4) mod 8]+129*[(n+5) mod 8]-39*[(n+6) mod 8]-39*[(n+7) mod 8]} with n\u003e=0 - _Paolo P. Lava_, Nov 27 2006"
+			],
+			"example": [
+				"After 6,9 we get 6+9 = 15 -\u003e 1+5 = 6."
+			],
+			"mathematica": [
+				"LinearRecurrence[{0, 0, 0, 0, 0, 0, 0, 1},{3, 6, 9, 6, 6, 3, 9, 3},112] (* _Ray Chandler_, Aug 27 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a049341 n =  a030132_list !! n",
+				"a049341_list =",
+				"   3 : 6 : map a007953 (zipWith (+) a049341_list $ tail a049341_list)",
+				"-- _Reinhard Zumkeller_, Aug 20 2011"
+			],
+			"xref": [
+				"Cf. A030132, A030133, A049342."
+			],
+			"keyword": "base,nonn",
+			"offset": "0,1",
+			"author": "_Damir Olejar_",
+			"ext": [
+				"Definition improved by _Reinhard Zumkeller_, Aug 20 2011"
+			],
+			"references": 4,
+			"revision": 20,
+			"time": "2015-08-27T11:09:04-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49853,
+			"data": "1,2,2,3,6,11,19,33,58,102,179,314,551,967,1697,2978,5226,9171,16094,28243,49563,86977,152634,267854,470051,824882,1447567,2540303,4457921,7823106,13728594,24092003,42278518,74193627",
+			"name": "a(n) = a(n-1) + Sum_{k=0..n-3} a(k) for n \u003e= 2, a(0)=1, a(1)=2.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A049853/b049853.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-1,1)."
+			],
+			"formula": [
+				"a(n) = 2*a(n-1) - a(n-2) + a(n-3); 3 initial terms required.",
+				"a(n) = a(n-1) + a(n-2) + a(n-4) for n \u003e 3. - _Reinhard Zumkeller_, Aug 06 2011",
+				"Empirical: a(n) = Sum_{k=0..floor(n/3)} A084534(n-2*k, n-3*k). - _Johannes W. Meijer_, Jun 17 2018",
+				"G.f.: (1 - x)*(1 + x) / (1 - 2*x + x^2 - x^3). - _Colin Barker_, Jun 17 2018"
+			],
+			"maple": [
+				"a := proc(n) option remember: if n\u003c2 then n+1 else a(n-1) + add(a(k), k=0..n-3) fi end: seq(a(n), n=0..33); # _Johannes W. Meijer_, Jun 18 2018"
+			],
+			"program": [
+				"(Haskell)",
+				"a049853 n = a049853_list !! n",
+				"a049853_list = 1 : 2 : 2 : 3 :",
+				"   zipWith (+) a049853_list",
+				"               (zipWith (+) (drop 2 a049853_list) (drop 3 a049853_list))",
+				"-- _Reinhard Zumkeller_, Aug 06 2011",
+				"(PARI) Vec((1 - x)*(1 + x) / (1 - 2*x + x^2 - x^3) + O(x^40)) \\\\ _Colin Barker_, Jun 17 2018"
+			],
+			"xref": [
+				"Cf. A070550, A180662 (Ca2)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Clark Kimberling_",
+			"references": 4,
+			"revision": 28,
+			"time": "2018-06-18T19:44:29-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49865,
+			"data": "0,1,2,3,4,2,3,4,5,4,5,3,4,3,5,6,7,5,6,4,4,5,6,4,5,4,5,6,7,5,6,7,5,7,5,5,6,6,5,7,8,4,5,6,8,6,7,6,7,5,8,6,7,5,8,5,6,7,8,5,6,6,7,8,7,5,6,7,7,5,6,6,7,6,7,6,6,5,6,6,7,8,9,6,9,5,6,6,7,8,7,6,6,7,7,7,8,7,7,7,8,8,9,7,7,7,8,6,7,8,7",
+			"name": "Number of iterations of unitary totient function (A047994) required to reach 1 from n.",
+			"comment": [
+				"a(A003271(n)) = n and a(m) \u003c\u003e n for m \u003c A003271(n). [_Reinhard Zumkeller_, Aug 17 2011]"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A049865/b049865.txt\"\u003eTable of n, a(n) for n=1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"A049865 := proc(n)",
+				"    if n = 1 then",
+				"        0 ;",
+				"    else",
+				"        1+procname( A047994(n)) ;",
+				"    end if;",
+				"end proc: # _R. J. Mathar_, May 02 2013"
+			],
+			"mathematica": [
+				"uphi[n_] := (f = FactorInteger[n]; Times @@ (f[[All, 1]]^f[[All, 2]] - 1)); uphi[n_ /; n \u003c= 1] = 1; a[n_] := (k = 0; FixedPoint[ (k++; uphi[#]) \u0026 , n]; k-1); Table[a[n], {n, 1, 120}] (* _Jean-François Alcover_, Jan 20 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a049865 n = length $ takeWhile (\u003e 1) $ iterate a047994 n",
+				"a049865_list = map a049865 [1..]",
+				"-- _Reinhard Zumkeller_, Aug 17 2011"
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,3",
+			"author": "_David W. Wilson_",
+			"references": 4,
+			"revision": 18,
+			"time": "2013-11-21T13:11:31-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

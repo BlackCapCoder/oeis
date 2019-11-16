@@ -1,0 +1,403 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4780,
+	"results": [
+		{
+			"number": 94501,
+			"data": "15,8,7,4,3,2,19,12,6,5,13,9,10,16,30,18,34,36,66,162,924,71820,127005777360",
+			"name": "Smallest number that requires n iterations of the sum of digits of the divisors (A034690) to reach 15.",
+			"example": [
+				"a(0)=15 trivially because 15 is reached in no steps (number of steps is 0);",
+				"a(1)=8 because divisors of 8 are 1,2,4,8 with sum of digits = 15 hence 15 is reached in 1 steps (number of steps is 1);",
+				"a(2)=7 because divisors of 7 are 1,7 with sum of digits =8 and we need another one step to reach 15 (number of steps is 2);",
+				"a(3)=4 because divisors of 4 are 1,2,4 with sum of digits =7 and we need another two steps to reach 15 (number of steps is 3);",
+				"a(20)=924 because starting with 924 we have the trajectory 924, 168, 102, 36, 46, 18, 30, 27, 22, 9, 13, 5, 6, 12, 19, 11, 3, 4, 7, 8, 15 reaching 15 in 20 steps.",
+				"a(21)=71820 because starting with 71820 we have the trajectory 71820, 1104, 168, 102, 36, 46, 18, 30, 27, 22, 9, 13, 5, 6, 12, 19, 11, 3, 4, 7, 8, 15 reaching 15 in 21 steps. - _Sean A. Irvine_, Oct 04 2009"
+			],
+			"mathematica": [
+				"f[n_] := Block[{i = 0}, NestWhile[(i++; Plus @@ Flatten@ IntegerDigits@ Divisors@#) \u0026, n, # != 15 \u0026]; i]; t = Table[0, {100}]; Do[ a = f[n]; If[ t[[a]] \u003c 101 \u0026\u0026 t[[a]] == 0, t[[a]] = n], {n, 2, 10^8}]; t (* _Robert G. Wilson v_, May 16 2006 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a094501 = (+ 2) . fromJust . (`elemIndex` a086793_list)",
+				"-- _Reinhard Zumkeller_, Nov 08 2015",
+				"(PARI) A094501(n)=for(k=2, 9e9, A086793(k)==n\u0026\u0026return(k)) \\\\ _M. F. Hasler_, Nov 08 2015"
+			],
+			"xref": [
+				"Cf. A086793, A095347, A119397.",
+				"See A260060 for another variant."
+			],
+			"keyword": "base,more,nonn",
+			"offset": "0,1",
+			"author": "_Jason Earls_, Jun 05 2004",
+			"ext": [
+				"Examples provided by _Zak Seidov_, May 16 2006",
+				"Edited by _N. J. A. Sloane_ at the suggestion of _Andrew S. Plewe_, May 10 2007",
+				"a(22) found by exhaustive search by _Sean A. Irvine_, Oct 04 2009",
+				"a(22) corrected by _Donovan Johnson_ and _Sean A. Irvine_"
+			],
+			"references": 5,
+			"revision": 28,
+			"time": "2018-09-24T16:53:14-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 94511,
+			"data": "2,1,4,8,3,5,6,16,10,9,7,17,11,12,13,32,18,20,14,24,19,21,15,33,22,25,23,26,27,28,29,64,34,36,37,40,35,41,30,48,38,44,39,42,43,45,31,65,50,49,46,56,51,52,47,66,53,54,55,57,58,59,60,128,68,72,69,80,67,73,70",
+			"name": "Smallest number distinct from n, not occurring earlier and having in binary representation not more ones than n.",
+			"comment": [
+				"Permutation of the natural numbers: A094512(a(n))=a(A094512(n))=n."
+			],
+			"link": [
+				"Paul Tek, \u003ca href=\"/A094511/b094511.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a094511 n = a094511_list !! (n-1)",
+				"a094511_list = f 1 [1..] where",
+				"   f x zs = g zs where",
+				"     g (y:ys) = if y /= x \u0026\u0026 a000120 y \u003c= wt",
+				"                   then y : f (x + 1) (delete y zs) else g ys",
+				"     wt = a000120 x",
+				"-- _Reinhard Zumkeller_, Nov 23 2014"
+			],
+			"xref": [
+				"Cf. A007088, A000120, A094513, A094510."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 06 2004",
+			"references": 5,
+			"revision": 14,
+			"time": "2014-11-30T03:29:42-05:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 95116,
+			"data": "2,4,7,10,15,18,23,26,31,38,41,48,53,56,61,68,75,78,85,90,93,100,105,112,121,126,129,134,137,142,157,162,169,172,183,186,193,200,205,212,219,222,233,236,241,244,257,270,275,278,283,290,293,304,311,318,325",
+			"name": "a(n) = prime(n) + n - 1.",
+			"comment": [
+				"Positions of second occurrences of n in A165634: A165634(a(n)) = n. [_Reinhard Zumkeller_, Sep 23 2009]",
+				"a(n) = b(n)-th highest positive integer not equal to any a(k), 1 \u003c= k \u003c= n-1, where b(n) = primes = A000040(n). a(1) = 2, a(n) = a(n-1) + A000040(n) - A000040(n-1) + 1 for n \u003e= 2. a(1) = 2, a(n) = a(n-1) + A001223(n-1) + 1 for n \u003e= 2. a(n) = A014688(n) - 1. [_Jaroslav Krizek_, Oct 28 2009]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A095116/b095116.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A014690(n-1), n \u003e 1. [_R. J. Mathar_, Sep 05 2008]"
+			],
+			"maple": [
+				"with (numtheory):seq(n+ithprime(n+1),n=0..56); # _Zerinvary Lajos_, Aug 24 2008"
+			],
+			"mathematica": [
+				"Table[n + Prime[n] - 1, {n, 100}] (* _Vincenzo Librandi_, Aug 15 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a095116 n = a000040 n + toInteger n - 1",
+				"-- _Reinhard Zumkeller_, Apr 17 2012",
+				"(MAGMA) [n+NthPrime(n)-1: n in [1..60]]; // _Vincenzo Librandi_, Aug 15 2017"
+			],
+			"xref": [
+				"Complement of A095117."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Dean Hickerson_, following a suggestion of _Leroy Quet_, May 28 2004",
+			"references": 5,
+			"revision": 27,
+			"time": "2017-08-15T03:09:20-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 95381,
+			"data": "1,2,3,4,5,6,8,10,12,16,21,32,42,64,85,128,151,170,201,227,256,302,341,402,454,512,604,682,804,908,1024,1365,2048,2730,4096,5461,8192,10922,14563,16384,19417,21845,29126,32768,38834,43690,58252,65536,87381",
+			"name": "Initial values for 3x+1 trajectories in which the largest term arising in the iteration is a power of 2.",
+			"comment": [
+				"Clearly the sequence is infinite and a(n) \u003c 2^n. - _Charles R Greathouse IV_, May 25 2016"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A095381/b095381.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"A025586(a(n)) = 2^j for some j."
+			],
+			"mathematica": [
+				"Coll[n_]:=NestWhileList[If[EvenQ[#],#/2,3*#+1] \u0026,n,#\u003e1\u0026];t={};Do[x = Max[Coll[n]];If[IntegerQ[Log[2,x]],AppendTo[t,n]],{n,90000}];t (* _Jayanta Basu_, Apr 28 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a095381 n = a095381_list !! (n-1)",
+				"a095381_list = map (+ 1) $ elemIndices 1 $ map a209229 a025586_list",
+				"-- _Reinhard Zumkeller_, Apr 30 2013",
+				"(PARI) is(n)=my(r=n); while(n\u003e2, if(n%2, n=3*n+1; if(n\u003er, r=n)); n\u003e\u003e=1); r\u003e\u003evaluation(r,2)==1 \\\\ _Charles R Greathouse IV_, May 25 2016",
+				"(C) // Valid below A006884(47) = 12327829503 on 64-bit machines.",
+				"static long is (unsigned long n) {",
+				"  unsigned long r = n;",
+				"  n \u003e\u003e= __builtin_ctzl(n); // gcc builtin for A007814",
+				"  while (n \u003e 1) {",
+				"    n = 3*n + 1;",
+				"    if (n \u003e r) r = n;",
+				"    n \u003e\u003e= __builtin_ctzl(n);",
+				"  }",
+				"  return !(r \u0026 (r-1));",
+				"} // _Charles R Greathouse IV_, May 25 2016"
+			],
+			"xref": [
+				"Cf. A025586, A087256, A209229, A225124."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Labos Elemer_, Jun 14 2004",
+			"references": 5,
+			"revision": 16,
+			"time": "2016-05-25T01:57:29-04:00",
+			"created": "2004-09-22T03:00:00-04:00"
+		},
+		{
+			"number": 95841,
+			"data": "2,3,127,163,179,191,193,223,239,251,269,311,337,343,389,419,431,457,491,547,557,569,599,613,653,659,673,683,719,739,787,821,839,853,883,911,929,953,967,977,1117,1123,1201,1229,1249,1283,1289,1297,1303,1327,1381,1409,1423,1439,1451,1471,1481,1499,1607,1663,1681",
+			"name": "Prime powers having exactly one partition into two prime powers.",
+			"comment": [
+				"A095840(A095874(a(n))) = 1.",
+				"A071330(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A095841/b095841.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"N:= 10^4: # to get all terms \u003c= N",
+				"primepows:= {1,seq(seq(p^n, n=1..floor(log[p](N))),",
+				"    p=select(isprime,[2,seq(2*k+1,k=1..(N-1)/2)]))}:",
+				"npp:= nops(primepows):",
+				"B:= Vector(N,datatype=integer[4]):",
+				"for n from 1 to npp do for m from n to npp do",
+				"   j:= primepows[n]+primepows[m];",
+				"   if j \u003c= N then B[j]:= B[j]+1 fi;",
+				"od od:",
+				"select(t -\u003e B[t] = 1, primepows); # _Robert Israel_, Nov 21 2014"
+			],
+			"mathematica": [
+				"max = 2000; ppQ[n_] := n == 1 || PrimePowerQ[n]; pp = Select[Range[max], ppQ]; lp = Length[pp]; Table[pp[[i]] + pp[[j]], {i, 1, lp}, {j, i, lp}] // Flatten // Select[#, ppQ[#] \u0026\u0026 # \u003c= max\u0026]\u0026 // Sort // Split // Select[#, Length[#] == 1\u0026]\u0026 // Flatten (* _Jean-François Alcover_, Mar 04 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a095841 n = a095841_list !! (n-1)",
+				"a095841_list = filter ((== 1) . a071330) a000961_list",
+				"-- _Reinhard Zumkeller_, Jan 11 2013",
+				"(PARI) is(n)=if(n\u003c127,return(n==2||n==3)); isprimepower(n) \u0026\u0026 sum(i=2,n\\2,isprimepower(i)\u0026\u0026isprimepower(n-i))==1 \\\\ naive; _Charles R Greathouse IV_, Nov 21 2014",
+				"(PARI) is(n)=if(!isprimepower(n), return(0)); my(s); forprime(p=2, n\\2, if(isprimepower(n-p) \u0026\u0026 s++\u003e1, return(0))); for(e=2, log(n)\\log(2), forprime(p=2, sqrtnint(n\\2, e), if(isprimepower(n-p^e) \u0026\u0026 s++\u003e1, return(0)))); s+(!!isprimepower(n-1))==1 || n==2 \\\\ faster; _Charles R Greathouse IV_, Nov 21 2014",
+				"(PARI) has(n)=my(s); forprime(p=2, n\\2, if(isprimepower(n-p) \u0026\u0026 s++\u003e1, return(0))); for(e=2, log(n)\\log(2), forprime(p=2, sqrtnint(n\\2, e), if(isprimepower(n-p^e) \u0026\u0026 s++\u003e1, return(0)))); s+(!!isprimepower(n-1))==1",
+				"list(lim)=my(v=List([2])); forprime(p=2,lim,if(has(p), listput(v,p))); for(e=2,log(lim)\\log(2), forprime(p=2,lim^(1/e), if(has(p^e), listput(v,p^e)))); Set(v) \\\\ _Charles R Greathouse IV_, Nov 21 2014"
+			],
+			"xref": [
+				"Cf. A000961, A095842.",
+				"Intersection of A208247 and A000961.",
+				"Cf. A071330, A095840, A095874."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 10 2004",
+			"references": 5,
+			"revision": 21,
+			"time": "2019-03-04T18:44:07-05:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 95842,
+			"data": "1,149,331,373,509,701,757,809,877,907,997,1019,1087,1259,1549,1597,1619,1657,1759,1777,1783,1867,1973,2293,2377,2503,2579,2683,2789,2843,2879,2909,2999,3119,3163,3181,3187,3299,3343,3433,3539,3643",
+			"name": "Prime powers having no partition into two prime powers.",
+			"comment": [
+				"A095840(A095874(a(n))) = 0.",
+				"A071330(a(n)) = 0.",
+				"Here, \"prime powers\" is used in the relaxed sense, including 1. The numbers 96721, 121801, 192721, 205379, 226981,... seem to be the smallest composite terms of this sequence, which establishes the difference with the subsequence A115231. - _M. F. Hasler_, Nov 20 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A095842/b095842.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(PARI) isprimepower(n)=ispower(n,,\u0026n);isprime(n)||n==1;",
+				"isA095842(n)=if(!isprimepower(n),return(0));forprime(p=2,n\\2,if(isprimepower(n-p),return(0)));forprime(p=2,sqrtint(n\\2),for(e=1,log(n\\2)\\log(p),if(isprimepower(n-p^e),return(0))));!isprimepower(n-1)",
+				"\\\\ _Charles R Greathouse IV_, Jul 06 2011",
+				"(Haskell)",
+				"a095842 n = a095842_list !! (n-1)",
+				"a095842_list = filter ((== 0) . a071330) a000961_list",
+				"-- _Reinhard Zumkeller_, Jan 11 2013"
+			],
+			"xref": [
+				"Subsequence of A071331.",
+				"Cf. A000961, A095841."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 10 2004",
+			"references": 5,
+			"revision": 16,
+			"time": "2014-11-28T17:10:26-05:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 95916,
+			"data": "-2,3,-3,4,4,-7,4,-1,-2,2,3,1,-2,2,-6,-1,1,5,-4,2,-4,4,-2,-1,0,5,-5,-1,5,2,-4,-5,2,6,0,-4,-3,8,-2,-6,5,3,-6,6,0,-6,4,-2,-4,-1,5,3,-6,-2,9,-2,-3,5,-5,0,1,4,-7,1,-3,7,1,-7,5,-2,-4,6,-4,6,-2,-4,-2,8,1,0,-1,-2,-4,6,-8,3,1,4,-6,3,-2,1,-2,-1,0,6,-7,6,1,2",
+			"name": "Differences between adjacent digits of Pi.",
+			"comment": [
+				"a(A049514(n)) = 0. - _Reinhard Zumkeller_, Mar 12 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A095916/b095916.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ph#Pi314\"\u003eIndex entries for sequences related to the number Pi\u003c/a\u003e"
+			],
+			"mathematica": [
+				"b = RealDigits[N[Pi, 1000]]; b = First[b]; a = {}; Do[k = b[[n + 1]] - b[[n]]; AppendTo[a, k], {n, 1, 999}]; a - _Artur Jasinski_, Mar 16 2008",
+				"Differences[RealDigits[Pi,10,120][[1]]] (* _Harvey P. Dale_, Feb 10 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a095916 n = a095916_list !! (n-1)",
+				"a095916_list = zipWith (-) (tail a000796_list) a000796_list",
+				"-- _Reinhard Zumkeller_, Mar 12 2015"
+			],
+			"xref": [
+				"Cf. A000796, A138345.",
+				"Cf. A049514, A030658, A193496."
+			],
+			"keyword": "base,sign",
+			"offset": "1,1",
+			"author": "Herman Jamke (hermanjamke(AT)fastmail.fm), Jul 13 2004",
+			"references": 5,
+			"revision": 15,
+			"time": "2015-03-12T22:21:25-04:00",
+			"created": "2004-09-22T03:00:00-04:00"
+		},
+		{
+			"number": 97207,
+			"data": "1,1,3,1,4,5,1,5,9,7,1,6,14,16,9,1,7,20,30,25,11,1,8,27,50,55,36,13,1,9,35,77,105,91,49,15,1,10,44,112,182,196,140,64,17,1,11,54,156,294,378,336,204,81,19,1,12,65,210,450,672,714,540,285,100,21,1,13,77,275,660",
+			"name": "Triangle read by rows: T(n,k) = binomial(n,k) + 2*binomial(n,k-1).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A097207/b097207.txt\"\u003eRows n=0..150 of triangle, flattened\u003c/a\u003e",
+				"H. W. Gould, \u003ca href=\"http://dx.doi.org/10.1137/0117030\"\u003ePower sum identities for arbitrary symmetric arrays\u003c/a\u003e, SIAM J. Appl. Math., 17 (1969), 307-316.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A029635(n+1,k), 0 \u003c= k \u003c= n. - _Reinhard Zumkeller_, Mar 12 2012"
+			],
+			"example": [
+				"Triangle begins:",
+				"1",
+				"1 3",
+				"1 4 5",
+				"1 5 9 7",
+				"1 6 14 16 9"
+			],
+			"mathematica": [
+				"T[n_, k_] := Binomial[n, k] + 2Binomial[n, k - 1]; Flatten[ Table[ T[n, k], {n, 0, 10}, {k, 0, n}]] (* _Robert G. Wilson v_, Sep 21 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a097207 n k = a097207_tabl !! n !! k",
+				"a097207_row n = a097207_tabl !! n",
+				"a097207_tabl = map init $ tail a029635_tabl",
+				"-- _Reinhard Zumkeller_, Mar 12 2012"
+			],
+			"xref": [
+				"Cf. A029637, A110813 (row-reversed)."
+			],
+			"keyword": "nonn,tabl,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Sep 21 2004",
+			"ext": [
+				"More terms from _Robert G. Wilson v_, Sep 21 2004"
+			],
+			"references": 5,
+			"revision": 18,
+			"time": "2015-07-26T10:14:10-04:00",
+			"created": "2004-09-22T03:00:00-04:00"
+		},
+		{
+			"number": 97356,
+			"data": "1,1,1,1,3,3,4,4,5,12,14,16,19,21,24,27,64,72,84,94,108,120,136,150,169,377,427,480,540,603,674,748,831,918,1014,1115,2432,2702,3009,3331,3692,4070,4494,4935,5427,5942,6510,7104,7760,16475,18138,19928,21873,23961",
+			"name": "Number of partitions of n into parts not greater than sqrt(n).",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A097356/b097356.txt\"\u003eTable of n, a(n) for n = 0..20000\u003c/a\u003e"
+			],
+			"maple": [
+				"b:= proc(n, i) option remember; `if`(n=0, 1,",
+				"      `if`(i\u003c1, 0, b(n, i-1)+b(n-i, min(n-i, i))))",
+				"    end:",
+				"a:= n-\u003e b(n, (r-\u003e `if`(r*r\u003en, r-1, r))(isqrt(n))):",
+				"seq(a(n), n=0..100);  # _Alois P. Heinz_, Aug 02 2018"
+			],
+			"mathematica": [
+				"Table[Length[IntegerPartitions[n,Floor[Sqrt[n]]]],{n,70}] (* _Harvey P. Dale_, May 11 2011 *)",
+				"f[n_, 1] := 1; f[1, k_] := 1; f[n_, k_] := f[n, k] = If[k \u003e n, f[n, k - 1], f[n, k - 1] + f[n - k, k]]; Table[ f[n, Floor[Sqrt[n]]], {n, 53}] (* _Robert G. Wilson v_, Aug 13 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a097356 n = p [1..a000196 n] n where",
+				"   p [] _ = 0",
+				"   p _  0 = 1",
+				"   p ks'@(k:ks) m | m \u003c k     = 0",
+				"                  | otherwise = p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Aug 12 2011",
+				"(PARI) a(n,k=sqrtint(n))=if(min(n,k)\u003c2,1,sum(i=1,min(k,n),a(n-i,i))) \\\\ _Charles R Greathouse IV_, Aug 12 2011"
+			],
+			"xref": [
+				"Cf. A194020, A000196, A000041, A097355."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Aug 08 2004",
+			"references": 5,
+			"revision": 22,
+			"time": "2018-08-02T17:52:11-04:00",
+			"created": "2004-09-22T03:00:00-04:00"
+		},
+		{
+			"number": 97863,
+			"data": "1,3,4,7,6,12,8,15,13,18,12,28,14,24,24,31,18,39,20,42,32,36,24,60,31,42,40,56,30,72,32,33,48,54,48,91,38,60,56,90,42,96,44,84,78,72,48,124,57,93,72,98,54,120,72,120,80,90,60,168,62,96,104,99,84,144,68,126,96,144,72,195,74,114,124",
+			"name": "Sum of 5-infinitary divisors of n.",
+			"comment": [
+				"If n=Product p_i^r_i and d=Product p_i^s_i, each s_i has a digit a\u003c=b in its 5-ary expansion everywhere that the corresponding r_i has a digit b, then d is a 5-infinitary-divisor of n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A097863/b097863.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Denote by P_5={p^5^k} the two-parameter set when k=0,1,... and p runs prime values. Then every n has a unique representation of the form n=prod q_i prod (r_j)^2 prod (s_k)^3 prod (t_m)^4, where q_i, r_j, s_k, t_m are distinct elements of P_5. Using this representation, we have a(n)=prod (q_i+1)prod ((r_j)^2+r_j+1)prod ((s_k)^3+(s_k)^2+s_k+1) prod ((t_m)^4+(t_m)^3+(t_m)^2+t_m+1). - _Vladimir Shevelev_, May 08 2013"
+			],
+			"example": [
+				"a(32)=a(2^10)=2^10+2^0=32+1=33, in 5-ary expansion. This is the first term which is different from sigma(n)"
+			],
+			"maple": [
+				"A097863 := proc(n) option remember; local ifa, a, p, e, d, k ; ifa := ifactors(n)[2] ; a := 1 ; if nops(ifa) = 1 then p := op(1, op(1, ifa)) ; e := op(2, op(1, ifa)) ; d := convert(e, base, 5) ; for k from 0 to nops(d)-1 do a := a*(p^((1+op(k+1, d))*5^k)-1)/(p^(5^k)-1) ; end do: else for d in ifa do a := a*procname( op(1, d)^op(2, d)) ; end do: return a; end if; end proc:"
+			],
+			"program": [
+				" (Haskell)  following Bower and Harris, cf. A049418:",
+				"a097863 1 = 1",
+				"a097863 n = product $ zipWith f (a027748_row n) (a124010_row n) where",
+				"   f p e = product $ zipWith div",
+				"           (map (subtract 1 . (p ^)) $",
+				"                zipWith (*) a000351_list $ map (+ 1) $ a031235_row e)",
+				"           (map (subtract 1 . (p ^)) a000351_list)",
+				"-- _Reinhard Zumkeller_, Sep 18 2015"
+			],
+			"xref": [
+				"Cf. A049417, A049418, A074847, A097464.",
+				"Cf. A000351, A031235, A027748, A124010."
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,2",
+			"author": "_Yasutoshi Kohmoto_ Yasutoshi",
+			"references": 5,
+			"revision": 18,
+			"time": "2016-04-19T01:07:34-04:00",
+			"created": "2004-09-22T03:00:00-04:00"
+		}
+	]
+}

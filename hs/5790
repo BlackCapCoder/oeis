@@ -1,0 +1,371 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5790,
+	"results": [
+		{
+			"number": 209815,
+			"data": "0,1,4,10,23,47,90,164,288,488,807,1303,2063,3210,4920,7434,11098,16380,23928,34624,49668,70667,99795,139935,194930,269857,371413,508363,692195,937838,1264685,1697810,2269557,3021462,4006812,5293650,6968730,9142306,11954194",
+			"name": "Number of partitions of 2n in which every part is \u003cn; also, the number of partitions of 2 into rational numbers a/b such that 0\u003ca\u003cb\u003c=n and b divides n.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A209815/b209815.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A008284(3*n-1,n-1). - _Hans Loeblich_ Apr 18 2019"
+			],
+			"example": [
+				"The 4 partitions of 6 with parts \u003c3:",
+				"2+2+2, 2+2+1+1, 2+1+1+1+1, 1+1+1+1+1+1.",
+				"Matching partitions of 2 into rationals as described:",
+				"2/3 + 2/3 + 2/3",
+				"2/3 + 2/3 + 1/3 + 1/3",
+				"2/3 + 1/3 + 1/3 + 1/3 + 1/3",
+				"1/3 + 1/3 + 1/3 + 1/3 + 1/3 + 1/3."
+			],
+			"maple": [
+				"b:= proc(n, i) option remember; `if`(n=0, 1,",
+				"      `if`(i\u003c1, 0, b(n, i-1)+`if`(i\u003en, 0, b(n-i, i))))",
+				"    end:",
+				"a:= n-\u003e b(2*n, n-1):",
+				"seq(a(n), n=1..50);  # _Alois P. Heinz_, Jul 09 2012"
+			],
+			"mathematica": [
+				"f[n_] := Length[Select[IntegerPartitions[2 n], First[#] \u003c= n - 1 \u0026]];  Table[f[n], {n, 1, 34}]  (* A209815 *)",
+				"b[n_, i_] := b[n, i] = If[n==0, 1, If[i\u003c1, 0, b[n, i-1] + If[i\u003en, 0, b[n-i, i]]]]; a[n_] := b[2*n, n-1]; Table [a[n], {n, 1, 50}] (* _Jean-François Alcover_, Oct 28 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a209815 n = p [1..n-1] (2*n) where",
+				"   p _          0 = 1",
+				"   p []         _ = 0",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Nov 14 2013"
+			],
+			"xref": [
+				"Cf. A209816.",
+				"Cf. A231429."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Clark Kimberling_, Mar 13 2012",
+			"ext": [
+				"More terms from _Alois P. Heinz_, Jul 09 2012"
+			],
+			"references": 4,
+			"revision": 22,
+			"time": "2019-04-18T03:23:12-04:00",
+			"created": "2012-03-18T19:13:04-04:00"
+		},
+		{
+			"number": 210461,
+			"data": "91,7381,597871,3922632451,317733228541,2084647712458321,168856464709124011,1107867264956562636991,588766087155780604365200461,47690053059618228953581237351,25344449488056571213320166359119221,166284933091139163730593611482181209801",
+			"name": "Cipolla pseudoprimes to base 3: (9^p-1)/8 for any odd prime p.",
+			"comment": [
+				"This is the case a=3 of Theorem 1 in the paper of Hamahata and Kokubun (see Links section)."
+			],
+			"reference": [
+				"Michele Cipolla, Sui numeri composti P che verificano la congruenza di Fermat a^(P-1) = 1 (mod P), Annali di Matematica 9 (1904), p. 139-160."
+			],
+			"link": [
+				"Bruno Berselli, \u003ca href=\"/A210461/b210461.txt\"\u003eTable of n, a(n) for n = 1..50\u003c/a\u003e",
+				"Umberto Cerruti, \u003ca href=\"/A210461/a210461.pdf\"\u003ePseudoprimi di Fermat e numeri di Carmichael\u003c/a\u003e (in Italian), 2013.",
+				"Y. Hamahata and Y. Kokubun, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL10/Hamahata2/hamahata44.html\"\u003e Cipolla Pseudoprimes\u003c/a\u003e, Journal of Integer Sequences, Vol. 10 (2007)."
+			],
+			"example": [
+				"91 is in the sequence because 91=((3^3-1)/2)*((3^3+1)/4), even if p=3 divides 3*(3^2-1), and 3^90 = (91*8+1)^15 == 1 (mod 91).",
+				"7381 is in the sequence because 7381=((3^5-1)/2)*((3^5+1)/4) and 3^7380 = (7381*472400+1)^369 == 1 (mod 7381)."
+			],
+			"maple": [
+				"P:=proc(q)local n;",
+				"for n from 2 to q do print((9^ithprime(n)-1)/8);",
+				"od; end: P(100); # _Paolo P. Lava_, Oct 11 2013"
+			],
+			"mathematica": [
+				"(9^# - 1)/8 \u0026 /@ Prime[Range[2, 12]]"
+			],
+			"program": [
+				"(MAGMA) [(9^NthPrime(n)-1)/8: n in [2..12]];",
+				"(Maxima)",
+				"Prime(n) := block(if n = 1 then return(2), return(next_prime(Prime(n-1))))$",
+				"makelist((9^Prime(n)-1)/8, n, 2, 12);",
+				"(Haskell)",
+				"a210461 = (`div` 8) . (subtract 1) . (9 ^) . a065091",
+				"-- _Reinhard Zumkeller_, Jan 22 2013"
+			],
+			"xref": [
+				"Cf. A005935, A002452, A065091, A210454, A217853."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Bruno Berselli_, Jan 22 2013 - proposed by Umberto Cerruti (Department of Mathematics \"Giuseppe Peano\", University of Turin, Italy)",
+			"references": 4,
+			"revision": 35,
+			"time": "2016-05-04T04:35:48-04:00",
+			"created": "2013-01-22T11:23:12-05:00"
+		},
+		{
+			"number": 210679,
+			"data": "0,1,1,1,1,2,1,1,1,2,0,2,0,2,2,1,0,2,0,2,2,1,0,2,1,1,1,2,0,3,0,1,1,1,2,2,0,1,1,2,0,3,0,1,2,1,0,2,1,2,1,1,0,2,1,2,1,1,0,3,0,1,2,1,1,2,0,1,1,3,0,2,0,1,2,1,1,2,0,2,1,1,0,3,1,1",
+			"name": "Number of distinct prime factors \u003c= 7 of n.",
+			"comment": [
+				"a(n) \u003c= 4;",
+				"a(A008364(n)) = 0; a(A080672(n)) \u003e 0;",
+				"a(n) = A000005(n) iff n is 7-smooth: a(A002473(n))=A000005(A002473(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A210679/b210679.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell",
+				"a210679 = length . takeWhile (\u003c= 7) . a027748_row"
+			],
+			"xref": [
+				"Cf. A027748."
+			],
+			"keyword": "nonn",
+			"offset": "1,6",
+			"author": "_Reinhard Zumkeller_, Apr 01 2012",
+			"references": 4,
+			"revision": 14,
+			"time": "2013-07-13T12:04:25-04:00",
+			"created": "2012-04-02T05:27:38-04:00"
+		},
+		{
+			"number": 211005,
+			"data": "1,2,1,1,1,1,3,1,1,1,3,1,1,1,3,1,5,1,1,1,5,1,3,1,1,1,3,1,5,1,5,1,1,1,5,1,3,1,1,1,5,1,3,1,5,1,7,1,3,1,1,1,3,1,1,1,3,1,13,1,3,1,5,1,1,1,9,1,1,1,5,1,5,1,3,1,5,1,5,1,1,1,9,1,1,1",
+			"name": "Pair (i, j) where i = number of adjacent nonprimes and j = number of adjacent primes.",
+			"comment": [
+				"Also number of consecutive occurrences of n-1 in A069754. - _Reinhard Zumkeller_, Dec 04 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A211005/b211005.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A162154(n-1), n \u003e= 2."
+			],
+			"example": [
+				"----------------------------------------------------------",
+				".     Array from              Number of   Number of",
+				"n      A000027                nonprimes    primes    a(n)",
+				"----------------------------------------------------------",
+				"1         1;                      1          0        1",
+				"2         2, 3;                   0          2        2",
+				"3         4;                      1          0        1",
+				"4         5;                      0          1        1",
+				"5         6;                      1          0        1",
+				"6         7;                      0          1        1",
+				"7         8, 9, 10;               3          0        3",
+				"8        11;                      0          1        1",
+				"9        12;                      1          0        1",
+				"10       13;                      0          1        1",
+				"11       14, 15, 16;              3          0        3",
+				"12       17;                      0          1        1",
+				"13       18;                      1          0        1",
+				"14       19;                      0          1        1",
+				"15       20, 21, 22;              3          0        3",
+				"16       23;                      0          1        1",
+				"17       24, 25, 26, 27, 28;      5          0        5",
+				"18       29;                      0          1        1",
+				"19       30;                      1          0        1",
+				"20       31;                      0          1        1"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a211005 n = a211005_list !! (n-1)",
+				"a211005_list = map length $ group a069754_list",
+				"-- _Reinhard Zumkeller_, Dec 04 2012"
+			],
+			"xref": [
+				"1 together with A162154.",
+				"Cf. A000040, A001223, A018252, A046933, A211006, A211007."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Omar E. Pol_, Aug 11 2012",
+			"references": 4,
+			"revision": 22,
+			"time": "2013-07-13T12:04:25-04:00",
+			"created": "2012-10-21T16:38:20-04:00"
+		},
+		{
+			"number": 212177,
+			"data": "1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,1,2,1,1,1,1,2,1,1,2,1,1",
+			"name": "Number of exponents \u003e= 2 in the canonical prime factorization of the n-th nonsquarefree number (A013929(n)).",
+			"comment": [
+				"Length of second signature of A013929(n) (cf. A212172)."
+			],
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 844."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212177/b212177.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy].",
+				"Primefan, \u003ca href=\"http://primefan.tripod.com/500factored.html\"\u003eThe First 2500 Integers Factored\u003c/a\u003e (1st of 5 pages)"
+			],
+			"formula": [
+				"a(n) = A056170(A013929(n))."
+			],
+			"example": [
+				"24 = 2^3*3 has 1 exponent of size 2 or greater in its prime factorization. Since 24 = A013929(8), a(8) = 1."
+			],
+			"program": [
+				"(Haskell)",
+				"a212177 n = a212177_list !! (n-1)",
+				"a212177_list = filter (\u003e 0) a056170_list",
+				"-- _Reinhard Zumkeller_, Dec 29 2012"
+			],
+			"xref": [
+				"Cf.  A212172, A212174.",
+				"Cf. A124010, A056170, A046028."
+			],
+			"keyword": "nonn",
+			"offset": "1,13",
+			"author": "_Matthew Vandermast_, Jun 03 2012",
+			"references": 4,
+			"revision": 17,
+			"time": "2018-05-08T15:11:56-04:00",
+			"created": "2012-06-18T13:12:39-04:00"
+		},
+		{
+			"number": 212190,
+			"data": "25,49,81,100,196,289,324,400,529,784,1089,1156,1296,1600,2116,3136,4225,4356,4624,5184,6400,8464,12544,16641,16900,17424,18496,20736,25600,33856,50176,66049,66564,67600,69696,73984,82944,102400,135424,200704,263169",
+			"name": "Squares that are the sum of exactly three distinct powers of 2.",
+			"comment": [
+				"Squares with exactly three ones in their binary representation: A000120(a(n)) = 3;",
+				"squares in A014311;",
+				"a(n) = A212191(n)^2."
+			],
+			"link": [
+				"Giovanni Resta, \u003ca href=\"/A212190/b212190.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from Reinhard Zumkeller)"
+			],
+			"mathematica": [
+				"Select[Range[1000]^2, DigitCount[#, 2, 1] == 3\u0026] (* _Jean-François Alcover_, Nov 07 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a212190 n = a212190_list !! (n-1)",
+				"a212190_list = filter ((== 1) . a010052) a014311_list"
+			],
+			"xref": [
+				"Cf. A010052, A212192."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 03 2012",
+			"references": 4,
+			"revision": 15,
+			"time": "2018-11-23T10:30:14-05:00",
+			"created": "2012-05-03T19:40:55-04:00"
+		},
+		{
+			"number": 212191,
+			"data": "5,7,9,10,14,17,18,20,23,28,33,34,36,40,46,56,65,66,68,72,80,92,112,129,130,132,136,144,160,184,224,257,258,260,264,272,288,320,368,448,513,514,516,520,528,544,576,640,736,896,1025,1026,1028,1032,1040",
+			"name": "Numbers such that their squares are the sum of exactly three distinct powers of 2.",
+			"comment": [
+				"The finite sequence 5, 7, 9, 10, 14, 17 arises in the following context: squarefree circular words over the ternary alphabet exist for all lengths n except for 5, 7, 9, 10, 14, 17. See Currie (2002), Shur (2010). - _N. J. A. Sloane_, May 04 2013"
+			],
+			"link": [
+				"Giovanni Resta, \u003ca href=\"/A212191/b212191.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from Reinhard Zumkeller)",
+				"J. D. Currie, \u003ca href=\"http://www.combinatorics.org/ojs/index.php/eljc/article/view/v9i1n10\"\u003eThere are ternary circular square-free words of length n for n \u003e= 18\u003c/a\u003e, Elect. J. Combinatorics 9 (2002), Note #N10.",
+				"Arseny M. Shur, \u003ca href=\"http://www.combinatorics.org/ojs/index.php/eljc/article/view/v17i1r140\"\u003eOn Ternary Square-free Circular Words\u003c/a\u003e, Electronic J. Combin., Volume 17 (2010), Research Paper #R140."
+			],
+			"formula": [
+				"a(n)^2 = A212190(n)."
+			],
+			"mathematica": [
+				"Select[Range[1, 1000], Total[IntegerDigits[#^2, 2]] == 3 \u0026] (* _T. D. Noe_, Dec 07 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a212191 n = a212191_list !! (n-1)",
+				"a212191_list = map a000196 a212190_list"
+			],
+			"xref": [
+				"Cf. A000196, A005009 (subsequence)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 03 2012",
+			"references": 4,
+			"revision": 24,
+			"time": "2018-11-23T10:31:11-05:00",
+			"created": "2012-05-03T19:41:23-04:00"
+		},
+		{
+			"number": 212439,
+			"data": "1,3,5,6,8,11,13,15,17,19,20,22,24,27,29,30,32,35,37,38,40,42,45,47,49,51,52,54,56,59,61,63,65,67,69,70,72,74,77,79,81,83,85,86,88,90,93,94,96,99,101,102,104,106,108,111,113,115,116,118,120,123,125",
+			"name": "2 * n + A181935(n) mod 2.",
+			"comment": [
+				"a(n) = 2*n + A212412(n): binary representation of n appended by the parity of its curling number;",
+				"A212444 gives iterations starting from 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212439/b212439.txt\"\u003eTable of n, a(n) for n = 0..8191\u003c/a\u003e",
+				"Benjamin Chaffin and N. J. A. Sloane, \u003ca href=\"http://neilsloane.com/doc/CNC.pdf\"\u003eThe Curling Number Conjecture\u003c/a\u003e, preprint.",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a212439 n = 2 * n + a212412 n"
+			],
+			"xref": [
+				" Cf. A014601, A007088."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, May 17 2012",
+			"references": 4,
+			"revision": 7,
+			"time": "2013-07-13T12:04:27-04:00",
+			"created": "2012-05-17T10:02:10-04:00"
+		},
+		{
+			"number": 212440,
+			"data": "3,4,10,11,12,15,16,19,20,21,26,27,28,35,36,37,43,44,45,47,48,51,52,53,54,58,59,60,63,64,67,68,69,73,74,75,76,79,80,82,83,84,90,91,92,99,100,101,107,108,109,111,112,115,116,117,118,122,123,124,131",
+			"name": "Numbers with even curling numbers of their binary representations, cf. A181935.",
+			"comment": [
+				"A212412(a(n)) = 0; complement of A212441."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212440/b212440.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a212440 n = a212440_list !! (n-1)",
+				"a212440_list = filter (even . a181935) [0..]"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 17 2012",
+			"references": 4,
+			"revision": 7,
+			"time": "2013-07-13T12:04:27-04:00",
+			"created": "2012-05-17T10:02:44-04:00"
+		},
+		{
+			"number": 212441,
+			"data": "0,1,2,5,6,7,8,9,13,14,17,18,22,23,24,25,29,30,31,32,33,34,38,39,40,41,42,46,49,50,55,56,57,61,62,65,66,70,71,72,77,78,81,85,86,87,88,89,93,94,95,96,97,98,102,103,104,105,106,110,113,114,119,120",
+			"name": "Numbers with odd curling numbers of their binary representations, cf. A181935.",
+			"comment": [
+				"A212412(a(n)) = 1; complement of A212440."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212441/b212441.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a212441 n = a212441_list !! (n-1)",
+				"a212441_list = filter (odd . a181935) [0..]"
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, May 17 2012",
+			"references": 4,
+			"revision": 6,
+			"time": "2013-07-13T12:04:27-04:00",
+			"created": "2012-05-17T10:02:59-04:00"
+		}
+	]
+}

@@ -1,0 +1,391 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5290,
+	"results": [
+		{
+			"number": 52011,
+			"data": "0,0,0,0,1,1,2,3,5,7,10,16,23,37,55,84,125,198,297,458,704,1087,1673,2602,4029,6263,9738,15186,23704,36981,57909,90550,142033,222855,349862,549903,865019,1361581,2145191,3381318,5334509,8419527,13298630",
+			"name": "Number of primes between successive Fibonacci numbers.",
+			"comment": [
+				"The formula given and the sequence itself must use the same convention on \"between\" and what to do if one or both fibonacci numbers are themselves prime. - _Jonathan Vos Post_, Mar 08 2010",
+				"With the given sequence data, we see that neither endpoint is included, so we count primes p in the open interval F(n)\u003cp\u003cF(n+1) only. - _Jeppe Stig Nielsen_, Jun 06 2015"
+			],
+			"formula": [
+				"a(n) = PrimePi(F(n+1)-1) - PrimePi(F(n)) = A000720(A000045(n+1)-1) - A000720(A000045(n)). - _Jonathan Vos Post_, Mar 08 2010; corrected by _Jeppe Stig Nielsen_, Jun 06 2015",
+				"a(n) ~ phi^(n-1)/(n*sqrt(5)*log(phi)), where phi = (1+sqrt(5))/2 is the golden ratio. - _Charles R Greathouse IV_, Jun 08 2015"
+			],
+			"example": [
+				"Between Fib(9)=34 and Fib(10)=55 we find the following primes: 37, 41, 43, 47 and 53 hence a(9)=5."
+			],
+			"maple": [
+				"for n from 1 to 43 do T[n]:= numtheory:-pi(combinat:-fibonacci(n)) od:",
+				"seq(T[n]-T[n-1]-`if`(isprime(combinat:-fibonacci(n)),1,0), n=2..43); # _Robert Israel_, Jun 08 2015"
+			],
+			"mathematica": [
+				"lst={};Do[p=0;Do[If[PrimeQ[a],p++ ],{a,Fibonacci[n]+1,Fibonacci[n+1]-1}];AppendTo[lst,p],{n,50}];lst (* _Vladimir Joseph Stephan Orlovsky_, Nov 23 2009 *)",
+				"pbf[n_]:=Module[{fib1=If[PrimeQ[Fibonacci[n+1]],PrimePi[Fibonacci[n+1]-1], PrimePi[ Fibonacci[n+1]]], fib0=If[PrimeQ[Fibonacci[n]], PrimePi[ Fibonacci[n]+1],PrimePi[Fibonacci[n]]]},Max[0,fib1-fib0]]; Array[pbf,50] (* _Harvey P. Dale_, Mar 01 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a052011 n = a052011_list !! (n-1)",
+				"a052011_list = c 0 0 $ drop 2 a000045_list where",
+				"  c x y fs'@(f:fs) | x \u003c f     = c (x+1) (y + a010051 x) fs'",
+				"                   | otherwise = y : c (x+1) 0 fs",
+				"-- _Reinhard Zumkeller_, Dec 18 2011",
+				"(PARI) a(n)=my(s); forprime(p=fibonacci(n)+1,fibonacci(n+1)-1,s++); s \\\\ _Charles R Greathouse IV_, Jun 08 2015"
+			],
+			"xref": [
+				"Cf. A000040, A052012, A010051, A005478 (endpoint primes)"
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,7",
+			"author": "_Patrick De Geest_, Nov 15 1999",
+			"references": 4,
+			"revision": 32,
+			"time": "2015-06-08T14:53:32-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 52012,
+			"data": "1,0,1,0,2,2,4,6,9,15,20,31,48,72,110,170,257,400,608,950,1448,2256,3487,5413,8440,13118,20478,31932,49995,78222,122553,192262,301826,474039,745772,1173270,1848000,2912623,4593723,7249438,11448047",
+			"name": "Number of primes between successive Lucas numbers.",
+			"example": [
+				"Between Luc(7)=29 and Luc(8)=47 we find the following primes: 31, 37, 41 and 43 hence a(7)=4."
+			],
+			"mathematica": [
+				"PrimePi[Last[#]-1]-PrimePi[First[#]]\u0026/@Partition[LucasL[ Range[45]],2,1] (* _Harvey P. Dale_, Jun 28 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a052012 n = a052012_list !! (n-1)",
+				"a052012_list = c 1 0 $ tail a000204_list where",
+				"  c x y ls'@(l:ls) | x \u003c l     = c (x+1) (y + a010051 x) ls'",
+				"                   | otherwise = y : c (x+1) 0 ls",
+				"-- _Reinhard Zumkeller_, Dec 18 2011"
+			],
+			"xref": [
+				"Cf. A000204, A052011.",
+				"Cf. A010051."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,5",
+			"author": "_Patrick De Geest_, Nov 15 1999",
+			"references": 4,
+			"revision": 15,
+			"time": "2014-02-14T21:08:16-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 52227,
+			"data": "1,5,27,156,935,5733,35700,224808,1427679,9126975,58659315,378658800,2453288292,15944020316,103897691640,678610095504,4441369072335,29120107628115,191233066114545,1257635016353100",
+			"name": "a(n) = (4*n+1)*binomial(3*n,n)/(2*n+1).",
+			"comment": [
+				"T(2n,n) for A111125. - _Paul Barry_, Apr 19 2007",
+				"a(n) = A182584(2*n+1). - _Reinhard Zumkeller_, May 06 2012"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A052227/b052227.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: 4*x*F(4/3,5/3;5/2;27*x/4) + 2*sin(1/3*arcsin((3*sqrt(3*x))/2))/sqrt(3*x), where F(a;b;z) is a hypergeometric series. - _Emanuele Munarini_, Jun 06 2011",
+				"G.f.: (g+1)/((3*g-1)*(g-1)) where g*(1-g)^2 = x. - _Mark van Hoeij_, Nov 10 2011",
+				"Conjecture: 8*n*(2*n+1)*a(n) +6*(-8*n^2-25*n+13)*a(n-1) -45*(3*n-4)*(3*n-5)*a(n-2)=0. - _R. J. Mathar_, Nov 24 2012",
+				"a(n) = binomial(3*n+1, n) + binomial(3*n, n-1) for n\u003e=0. - _Paul D. Hanna_, Jul 22 2013",
+				"G.f.: G(x)*(2*G(x) - 1) / (3 - 2*G(x)), where G(x) = 1 + x*G(x)^3 is the g.f. of A001764. - _Paul D. Hanna_, Jul 22 2013",
+				"a(n) is the coefficient of [x^n] in (1+x)/(1-x)^(2n+2) and forms the main diagonal in the following table of coefficients:",
+				"(1+x)/(1-x)^2: [1, 3, 5, 7, 9, 11, 13, 15, 17, ...];",
+				"(1+x)/(1-x)^4: [1, 5, 14, 30, 55, 91, 140, 204, 285, ...];",
+				"(1+x)/(1-x)^6: [1, 7, 27, 77, 182, 378, 714, 1254, ...];",
+				"(1+x)/(1-x)^8: [1, 9, 44, 156, 450, 1122, 2508, 5148, ...];",
+				"(1+x)/(1-x)^10:[1, 11, 65, 275, 935, 2717, 7007, 16445, ...];",
+				"(1+x)/(1-x)^12:[1, 13, 90, 442, 1729, 5733, 16744, 44200, ...];",
+				"(1+x)/(1-x)^14:[1, 15, 119, 665, 2940, 10948, 35700, 104652, ...];",
+				"(1+x)/(1-x)^16:[1, 17, 152, 952, 4692, 19380, 69768, 224808, ...]; ... - _Paul D. Hanna_, Jul 22 2013"
+			],
+			"mathematica": [
+				"Table[(4n + 1)Binomial[3n, n]/(2n + 1), {n, 0, 30}] (* _Harvey P. Dale_, Jan 31 2011 *)"
+			],
+			"program": [
+				"(Maxima) makelist(binomial(3*n,n)*(4*n+1)/(2*n+1),n,0,100); /* _Emanuele Munarini_, Jun 06 2011 */",
+				"(MAGMA) [(4*n+1)*Binomial(3*n,n)/(2*n+1) : n in [0..30]]; // _Vincenzo Librandi_, Nov 13 2011",
+				"(Haskell)",
+				"a052227 n = (a016813 n) * (a005809 n) `div` (a005408 n)",
+				"-- _Reinhard Zumkeller_, May 06 2012",
+				"(PARI) {a(n)=binomial(3*n+1, n)+binomial(3*n, n-1)}  /* _Paul D. Hanna_, Jul 22 2013 */"
+			],
+			"xref": [
+				"Cf. A045721, A016813, A005809, A005408, A227726."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_Barry E. Williams_, Jan 29 2000",
+			"ext": [
+				"More terms from _Harvey P. Dale_, Jan 31 2011"
+			],
+			"references": 4,
+			"revision": 33,
+			"time": "2015-03-20T16:25:03-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 52423,
+			"data": "1,2,3,4,5,6,7,8,9,1,1,1,1,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,1,3,1,1,3,1,1,3,1,1,3,4,1,2,1,4,1,2,1,4,1,5,1,1,1,1,5,1,1,1,1,6,1,2,3,2,1,6,1,2,3,7,1,1,1,1,1,1,7,1,1,8,1,2,1,4,1,2,1,8,1,9,1,1,3,1,1,3,1,1,9,1,1,1",
+			"name": "Highest common factor of nonzero digits of n.",
+			"comment": [
+				"a(A069715(n)) = 1. - _Reinhard Zumkeller_, Apr 14 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A052423/b052423.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(46)=2 because highest common factor of 4 and 6 is 2."
+			],
+			"program": [
+				"(PARI) a(n) = {digs = digits(n, 10); hcf = digs[1]; for (i = 2, #digs, if (digs[i], hcf = gcd(hcf, digs[i]));); return (hcf);} \\\\ _Michel Marcus_, Jul 27 2013",
+				"(Haskell)",
+				"a052423 n = f n n where",
+				"   f x 1 = 1",
+				"   f x y | x \u003c 10    = gcd x y",
+				"         | otherwise = if d == 1 then 1 else f x' (gcd d y)",
+				"         where (x', d) = divMod x 10",
+				"-- _Reinhard Zumkeller_, Apr 14 2014"
+			],
+			"xref": [
+				"Cf. A007954."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,2",
+			"author": "_Henry Bottomley_, Mar 17 2000",
+			"references": 4,
+			"revision": 10,
+			"time": "2014-04-14T14:23:28-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53050,
+			"data": "1,1,10,5,2,57,5,11,20,3,8,97,49,5,57,11,4,113,23,9,40,17,23,99,9,49,26,5,7,57,39,11,76,13,180,119,29,23,119,11,6,305,10,17,242,23,39,119,40,9,179,49,25,187,17,115,70,7,30,103,151,39,40,171,131,175,38,37,52,209,19",
+			"name": "a(n) = smallest integer m such that Sum_{k=1..m} prime(k) is divisible by n.",
+			"comment": [
+				"It follows from a theorem of Daniel Shiu that m always exists. See A111287 for details. - _N. J. A. Sloane_, Nov 05 2005"
+			],
+			"reference": [
+				"Felice Russo, A set of new Smarandache functions, sequences and conjectures in number theory, American Research Press 2000"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A053050/b053050.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e (first 1000 terms from T. D. Noe)",
+				"D. K. L. Shiu, \u003ca href=\"http://dx.doi.org/10.1112/S0024610799007863\"\u003eStrings of Congruent Primes\u003c/a\u003e, J. Lond. Math. Soc. 61 (2) (2000) 359-373 [\u003ca href=\"http://www.ams.org/mathscinet-getitem?mr=1760689\"\u003eMR1760689\u003c/a\u003e]"
+			],
+			"formula": [
+				"A007504(a(n))/n = A308749(n). - _Alois P. Heinz_, Jun 21 2019"
+			],
+			"maple": [
+				"read transforms; M:=1000; p0:=[seq(ithprime(i),i=1..M)]; q0:=PSUM(p0); w:=[]; for n from 1 to M do p:=n; hit := 0; for i from 1 to M do if q0[i] mod p = 0 then w:=[op(w),i]; hit:=1; break; fi; od: if hit = 0 then break; fi; od: w;"
+			],
+			"mathematica": [
+				"Transpose[With[{aprs=Thread[{Range[500],Accumulate[Prime[Range[ 500]]]}]}, Flatten[Table[Select[aprs,Divisible[Last[#],n]\u0026,1],{n,80}],1]]][[1]] (* _Harvey P. Dale_, Dec 14 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a053050 n = head [k | (k, x) \u003c- zip [1..] a007504_list, mod x n == 0]",
+				"-- _Reinhard Zumkeller_, Oct 04 2015, Feb 10 2012"
+			],
+			"xref": [
+				"Cf. A007504, A111287, A002034, A011772.",
+				"Cf. A045985, A308749."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "1,3",
+			"author": "_Felice Russo_, Feb 25 2000",
+			"ext": [
+				"More terms from _N. J. A. Sloane_, Nov 05 2005"
+			],
+			"references": 4,
+			"revision": 34,
+			"time": "2019-06-21T19:51:01-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53685,
+			"data": "19,37,79,97,139,157,199,229,307,337,367,379,439,499,547,577,607,619,727,829,877,937,967,997,1009,1069,1237,1279,1297,1399,1429,1459,1609,1627,1657,1759,1867,2029,2089,2137,2179,2467,2539,2557,2617,2707,2719",
+			"name": "Primes p \u003e 7 which are congruent to 2 or 4 (mod 5) for which 2p-1 is also prime.",
+			"comment": [
+				"For such primes p, 2p-1 divides Fibonacci(p). Actually it is also true that (2m-1) divides Fibonacci(m) for *all* m \u003e 7, m = 2 or 4 (mod 5) for which 2m-1 is prime.",
+				"Intersection of A047211 and A005382 without terms \u003c= 7. - _Reinhard Zumkeller_, Oct 03 2012"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A053685/b053685.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Vladimir Drobot, \u003ca href=\"http://www.fq.math.ca/Scanned/38-1/drobot.pdf\"\u003eOn primes in the Fibonacci sequence\u003c/a\u003e, Fib. Quart. 38 (1) (2000) 71."
+			],
+			"example": [
+				"Note that 19 is prime and so is 2*19-1 or 37."
+			],
+			"mathematica": [
+				"okQ[n_]:=Module[{x=Mod[n,5]},PrimeQ[2n-1]\u0026\u0026MemberQ[{2,4},x]]; Select[Prime[Range[5,500]],okQ]  (* _Harvey P. Dale_, Jan 14 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a053685 n = a053685_list !! (n-1)",
+				"a053685_list = dropWhile (\u003c= 7) $ i a047211_list a005382_list where",
+				"   i xs'@(x:xs) ys'@(y:ys) | x \u003c y     = i xs ys'",
+				"                           | x \u003e y     = i xs' ys",
+				"                           | otherwise = x : i xs ys",
+				"-- _Reinhard Zumkeller_, Oct 03 2012"
+			],
+			"xref": [
+				"Cf. A000045."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "1,1",
+			"author": "_James A. Sellers_, Feb 15 2000",
+			"references": 4,
+			"revision": 19,
+			"time": "2019-05-19T01:43:47-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54477,
+			"data": "1,13,64,307,1471,7048,33769,161797,775216,3714283,17796199,85266712,408537361,1957420093,9378563104,44935395427,215298414031,1031556674728,4942484959609,23680868123317,113461855656976,543628410161563,2604680195150839,12479772565592632",
+			"name": "A Pellian-related sequence.",
+			"reference": [
+				"A. H. Beiler, Recreations in the Theory of Numbers, Dover, N.Y., 1964, p. 256."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054477/b054477.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"A. F. Horadam, \u003ca href=\"http://www.fq.math.ca/Scanned/9-3/horadam-a.pdf\"\u003ePell Identities\u003c/a\u003e, Fib. Quart., Vol. 9, No. 3, 1971, pp. 245-252.",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (5,-1)"
+			],
+			"formula": [
+				"a(n) = 5a(n-1)-a(n-2); a(0)=1, a(1)=13.",
+				"(A054477)=sqrt{21*(A002320)^2-20}; where the algebraic operations on (A------) are performed from the inside - out; that is, first squared, then multiplied by 21, then 20 is subtracted and finally the square root is performed term by term.",
+				"G.f.: (1+8*x)/(1-5*x+x^2). - _Alois P. Heinz_, Aug 07 2008",
+				"a(n) = (2^(-1-n)*((5-sqrt(21))^n*(-21+sqrt(21))+(5+sqrt(21))^n*(21+sqrt(21))))/sqrt(21). - _Colin Barker_, May 26 2016",
+				"E.g.f.: (sqrt(21)*sinh(sqrt(21)*x/2) + cosh(sqrt(21)*x/2))*exp(5*x/2). - _Ilya Gutkovskiy_, May 26 2016"
+			],
+			"maple": [
+				"a:= n-\u003e (Matrix([[1,-8]]). Matrix([[5,1],[ -1,0]])^(n))[1,1]:",
+				"seq(a(n), n=0..20);  # _Alois P. Heinz_, Aug 07 2008"
+			],
+			"mathematica": [
+				"LinearRecurrence[{5, -1}, {1, 13}, 20] (* _Jean-François Alcover_, Jan 09 2016 *)"
+			],
+			"program": [
+				"(Haskel)",
+				"a054477 n = a054477_list !! n",
+				"a054477_list = 1 : 13 :",
+				"   (zipWith (-) (map (* 5) (tail a054477_list)) a054477_list)",
+				"-- _Reinhard Zumkeller_, Oct 16 2011"
+			],
+			"xref": [
+				"Cf. A002320."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_Barry E. Williams_, Apr 16 2000",
+			"references": 4,
+			"revision": 34,
+			"time": "2016-05-26T11:19:54-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54584,
+			"data": "2,4,6,6,4,12,4,8,10,8,4,18,4,8,12,10,4,20,4,12,12,8,4,24,6,8,14,12,4,24,4,12,12,8,8,30,4,8,12,16,4,24,4,12,20,8,4,30,6,12,12,12,4,28,8,16,12,8,4,36,4,8,20,14,8,24,4,12,12,16,4,40,4,8,18,12,8,24,4,20,18,8,4",
+			"name": "Number of subgroups of the group generated by a^n=1, b^3=1 and ab=ba.",
+			"comment": [
+				"Also the number of subgroups of the group C_n X C_3 (where C_n is the cyclic group of order n). Number of subgroups of the group C_n X C_m is Sum_{i|n,j|m} gcd(i,j)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054584/b054584.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. Hampejs, N. Holighaus, L. Toth and C. Wiesmeyr, \u003ca href=\"http://arxiv.org/abs/1211.1797\"\u003eOn the subgroups of the group Z_m X Z_n\u003c/a\u003e, arXiv preprint arXiv:1211.1797, 2012. - From _N. J. A. Sloane_, Jan 02 2013"
+			],
+			"formula": [
+				"a(n) = tau(n)+3*tau(n/3)+A035191(n) if n is congruent to 0 mod 3 else tau(n)+A035191(n), where A035191(n) is the number of divisors of n that are not congruent to 0 mod 3.",
+				"a(n)/2 is multiplicative with a(3^e)=2e+1 and a(p^e)=e+1 for p\u003c\u003e3.",
+				"Moebius transform is period 3 sequence [2, 2, 4, ...]. - _Michael Somos_, Sep 20 2005",
+				"G.f.: Sum_{k\u003e0} x^k(2+2*x^k+4*x^(2k))/(1-x^(3k))."
+			],
+			"maple": [
+				"for n from 1 to 500 do a := ifactors(n):s := 1:for k from 1 to nops(a[2]) do p := a[2][k][1]:e := a[2][k][2]: if p=3 then b := 2*e+1:else b := e+1:fi:s := s*b:od:printf(`%d,`,2*s); od:"
+			],
+			"mathematica": [
+				"f[d_ /; Mod[d, 3] == 0] = 4; f[_] = 2; a[n_] := Total[f /@ Divisors[n]]; Table[a[n], {n, 1, 100}](* _Jean-François Alcover_, Nov 21 2011, after _Michael Somos_ *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c1, 0, sumdiv(n,d, (d%3==0)*2+2)) /* _Michael Somos_, Sep 20 2005 */",
+				"(Haskell)",
+				"a054584 n = a000005 n + 3 * a079978 n * a000005 (a051176 n) + a035191 n",
+				"-- _Reinhard Zumkeller_, Aug 27 2012"
+			],
+			"xref": [
+				"Cf. A060710, A060724, A062011, A060648, A035191, A000005.",
+				"Cf. A079978, A051176.",
+				"A row of A216624."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_John W. Layman_, Apr 12 2000",
+			"ext": [
+				"Additional comments from _Vladeta Jovovic_, Oct 25 2001"
+			],
+			"references": 4,
+			"revision": 33,
+			"time": "2014-05-20T20:32:41-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54632,
+			"data": "0,1,3,6,10,15,21,28,36,45,46,46,47,48,49,51,52,55,56,60,61,66,67,73,74,81,82,90,91,100,102,102,104,105,107,109,111,114,116,120,122,127,129,135,137,144,146,154,156,165,168,168,171,172,175,177",
+			"name": "Partial sums of A007376.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054632/b054632.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a054632 n = a054632_list !! n",
+				"a054632_list = scanl (+) 0 a007376_list",
+				"-- _Reinhard Zumkeller_, Dec 29 2011"
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Apr 16 2000",
+			"references": 4,
+			"revision": 12,
+			"time": "2013-07-13T12:02:29-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54868,
+			"data": "0,1,1,1,1,1,1,2,1,1,1,2,1,2,2,1,1,1,1,2,1,2,2,1,1,2,2,1,2,1,1,2,1,1,1,2,1,2,2,1,1,2,2,1,2,1,1,2,1,2,2,1,2,1,1,2,2,1,1,2,1,2,2,2,1,1,1,2,1,2,2,1,1,2,2,1,2,1,1,2,1,2,2,1,2,1,1,2,2,1,1,2,1,2,2,2,1,2,2",
+			"name": "Sum of bits of sum of bits of n: a(n) = wt(wt(n)).",
+			"comment": [
+				"a(n) = A000120(A000120(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054868/b054868.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"R. Bellman and H. N. Shapiro, \u003ca href=\"http://www.jstor.org/stable/1969281\"\u003eOn a problem in additive number theory\u003c/a\u003e, Annals Math., 49 (1948), 333-340.",
+				"Michael Gilleland, \u003ca href=\"/selfsimilar.html\"\u003eSome Self-Similar Integer Sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"example": [
+				"a(127) = 3 since 127 in base 2 is 1111111, whose sum of bits is 7 and 7 in base 2 is 111, whose sum of bits is 3"
+			],
+			"program": [
+				"(PARI) a(n) = norml2(binary(norml2(binary(n))))  \\\\ _Michel Marcus_, May 25 2013",
+				"(Haskell)",
+				"a054868 = a000120 . a000120  -- _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"xref": [
+				"Cf. A000120, A089224."
+			],
+			"keyword": "nonn",
+			"offset": "0,8",
+			"author": "_Jeffrey Shallit_, May 15 2000",
+			"references": 4,
+			"revision": 18,
+			"time": "2017-10-17T10:03:37-04:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		}
+	]
+}

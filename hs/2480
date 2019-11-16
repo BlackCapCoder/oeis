@@ -1,0 +1,428 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2480,
+	"results": [
+		{
+			"number": 60683,
+			"data": "1,2,3,4,5,7,8,9,10,11,13,14,16,17,19,21,22,23,25,26,27,28,29,31,32,33,34,35,37,38,39,41,43,44,46,47,49,50,51,52,53,55,57,58,59,61,62,64,65,67,68,69,71,73,74,76,77,79,81,82,83,85,86,87,88,89,92,93,94,95,97,98",
+			"name": "Numbers for which the differences between consecutive divisors (ordered by size) are distinct.",
+			"comment": [
+				"A060682(a(n)) = A000005(a(n)) - 1, n \u003e 1. - _Reinhard Zumkeller_, Jun 25 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A060683/b060683.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"A. Balog, P. Erdős and G. Tenenbaum, \u003ca href=\"http://dx.doi.org/10.1007/978-1-4612-3464-7_6\"\u003eOn Arithmetic Functions Involving Consecutive Divisors\u003c/a\u003e, In: Analytical Number Theory, pp. 77-90, Birkhauser, Basel, 1990."
+			],
+			"example": [
+				"For n=6, divisors={1,2,3,6}; differences={1,1,3}, which are not distinct, so 6 is not in the sequence."
+			],
+			"mathematica": [
+				"test[n_ ] := Length[dd=Drop[d=Divisors[n], 1]-Drop[d, -1]]==Length[Union[dd]]; Select[Range[1, 100], test]"
+			],
+			"program": [
+				"(Haskell)",
+				"a060683 n = a060683_list !! (n-1)",
+				"a060683_list = 1 : filter (\\x -\u003e a060682 x == a000005' x - 1) [2..]",
+				"-- _Reinhard Zumkeller_, Jun 25 2015"
+			],
+			"xref": [
+				"Cf. A000005, A060680, A060681, A060682, A060765.",
+				"Cf. A060682, A259366 (complement)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Labos Elemer_, Apr 19 2001",
+			"ext": [
+				"Edited by _Dean Hickerson_, Jan 22 2002"
+			],
+			"references": 13,
+			"revision": 20,
+			"time": "2019-02-13T03:54:18-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61040,
+			"data": "1,144,225,12,441,576,81,900,1089,48,1521,1764,75,2304,2601,324,3249,3600,147,4356,4761,64,5625,6084,729,7056,7569,100,8649,9216,363,10404,11025,1296,12321,12996,507,14400,15129,588,16641,17424",
+			"name": "Denominator of 1/9 - 1/n^2.",
+			"comment": [
+				"See A061039 (numerators) for comments, references and links."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061040/b061040.txt\"\u003eTable of n, a(n) for n = 3..1000\u003c/a\u003e",
+				"Friedrich Paschen, \u003ca href=\"https://doi.org/10.1002/andp.19083321303\"\u003eZur Kenntnis ultraroter Linienspektra\u003c/a\u003e, Annalen der Physik 27, pp. 537-570 (1908)."
+			],
+			"formula": [
+				"a(n) = denominator(n^2 - 9)/(9*n^2), n \u003e= 3.",
+				"a(n) = (n^2)/9 if n == 3 or 24 (mod 27), a(n) = (n^2)/3 if n == 6 or 12 or 15 or 21 (mod 27), a(n) = n^2 if n == 0 (mod 9) and 9*n^2 otherwise. From the period length 27 sequence gcd(n^2 - 9, 9*n^2). - _Wolfdieter Lang_, Mar 15 2018"
+			],
+			"mathematica": [
+				"Denominator[1/9-1/Range[3,50]^2] (* _Harvey P. Dale_, Jan 16 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), denominator)",
+				"a061040 n = denominator $ 1%9 - 1%n^2 -- _Reinhard Zumkeller_, Jan 03 2012",
+				"(PARI) a(n)=denominator(1/9 - 1/n^2) \\\\ _Charles R Greathouse IV_, Feb 07 2017"
+			],
+			"xref": [
+				"Cf. A061039."
+			],
+			"keyword": "nonn,frac,nice,easy",
+			"offset": "3,2",
+			"author": "_N. J. A. Sloane_, May 26 2001",
+			"references": 13,
+			"revision": 32,
+			"time": "2018-08-05T12:03:23-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61045,
+			"data": "-35,-2,-1,-5,-11,0,13,7,5,4,85,1,133,10,7,55,253,2,325,91,5,28,493,5,589,40,77,187,805,2,925,247,13,70,1189,35,1333,88,55,391,1645,4,1813,475,221,130,2173,7,2365,154,95,667,2773,20,2989,775,119,208,3445,11,3685,238,437,1015,4189,10,4453,1147,175,304,5005,143,5293,340,69,1435,5893,14,6205,1591,725,418,6853,65,7189,460,93,1927,7885,56,8245,2107,319",
+			"name": "Numerator of 1/36 - 1/n^2.",
+			"comment": [
+				"Sixth case of Rydberg's formula. From Humphrey's spectrum of hydrogen. See A045944, A000567, A061043, A061046, A061047. [From _Paul Curtz_, Dec 08 2008]"
+			],
+			"reference": [
+				"Curtis J. Humphreys, The Sixth Series in the Hydrogen Spectrum, Journal of the Optical Society of America, 1952, 42, p. 432 (not seen). [From _Paul Curtz_, Dec 08 2008]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061045/b061045.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"The fractions are -35/36, -2/9, -1/12, -5/144, -11/900, 0, 13/1764, 7/576, 5/324, 4/225, 85/4356, 1/48, 133/6084, 10/441, 7/300, 55/2304, 253/10404, 2/81, 325/12996, ..."
+			],
+			"mathematica": [
+				"Numerator[(1/36-1/Range[100]^2)] (* _Harvey P. Dale_, Mar 17 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator)",
+				"a061045 = numerator . (1 % 36 -) . recip . (^ 2) . fromIntegral",
+				"-- _Reinhard Zumkeller_, Jan 06 2014"
+			],
+			"xref": [
+				"A061046 gives denominators. Cf. A061035-A061050."
+			],
+			"keyword": "sign,frac",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, May 26 2001",
+			"references": 13,
+			"revision": 22,
+			"time": "2014-01-06T05:06:16-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61799,
+			"data": "1,2,4,6,12,12,24,24,36,48,60,60,120,120,120,120,180,180,240,240,360,360,360,360,720,720,720,720,720,720,840,840,1260,1260,1260,1260,1680,1680,1680,1680,2520,2520,2520,2520,2520,2520,2520,2520,5040,5040,5040",
+			"name": "Smallest number with at least n divisors.",
+			"comment": [
+				"Smallest number which can be expressed as the least common multiple of n distinct numbers. - _Amarnath Murthy_, Nov 27 2002",
+				"Also smallest possible member of a set of n+1 numbers with pairwise distinct GCD's. [Following an observation by _Charles R Greathouse IV_] (Proof: If the smallest number min(S) of the set (with card(S)=n+1) has a distinct GCD with each of the other n numbers, then it must have at least n distinct divisors (because any GCD is a divisor). It is then easy to choose larger members of the set so that all pairs of elements have pairwise distinct GCD's, e.g., by successively multiplying by distinct and sufficiently large primes.) - _M. F. Hasler_, Mar 05 2013"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A061799/b061799.txt\"\u003eTable of n, a(n) for n=1..2000\u003c/a\u003e (using A002182)"
+			],
+			"example": [
+				"a(5)=12 since every number less than 12 has fewer than five divisors (1 has one; 2,3,5,7 and 11 have two each; 4 and 9 have three each; 6,8 and 10 have four each) while 12 has at least five (in fact it has six: 1,2,3,4,6 and 12)."
+			],
+			"mathematica": [
+				"Reap[ For[ n = 1, n \u003c= 100, n++, s = n; While[ DivisorSigma[0, s] \u003c n, s++]; Sow[s] ] ][[2, 1]] (* _Jean-François Alcover_, Feb 16 2012, after Pari *)"
+			],
+			"program": [
+				"(PARI) for(n=1,100,s=n; while(numdiv(s)\u003cn,s++); print1(s,\",\"))",
+				"(Haskell)",
+				"import Data.List (findIndex)",
+				"import Data.Maybe (fromJust)",
+				"a061799 n = succ $ fromJust $ findIndex (n \u003c=) $ map a000005 [1..]",
+				"-- _Reinhard Zumkeller_, Apr 01 2011"
+			],
+			"xref": [
+				"Cf. A000005, A002182, A002183, A005179, A213918."
+			],
+			"keyword": "nice,nonn",
+			"offset": "1,2",
+			"author": "_Henry Bottomley_, Jun 22 2001",
+			"ext": [
+				"Replaced \"factors\" by \"divisors\" in definition and example _M. F. Hasler_, Oct 24 2010"
+			],
+			"references": 13,
+			"revision": 35,
+			"time": "2018-04-06T02:58:16-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 62060,
+			"data": "43,86,87,89,172,173,174,177,178,179,344,346,348,349,354,355,356,357,358,385,423,688,692,693,696,698,705,708,709,710,712,714,716,717,729,761,769,770,771,777,846,847,1376,1384,1386,1392,1393,1396,1397,1410,1411,1415",
+			"name": "Numbers with 10 odd integers in their Collatz (or 3x+1) trajectory.",
+			"comment": [
+				"The Collatz (or 3x+1) function is f(x) = x/2 if x is even, 3x+1 if x is odd.",
+				"The Collatz trajectory of n is obtained by applying f repeatedly to n until 1 is reached.",
+				"A078719(a(n)) = 10; A006667(a(n)) = 9."
+			],
+			"reference": [
+				"J. Shallit and D. Wilson, The \"3x+1\" Problem and Finite Automata, Bulletin of the EATCS #46 (1992) pp. 182-185."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A062060/b062060.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"J. Shallit and D. Wilson, \u003ca href=\"http://www.cs.uwaterloo.ca/~shallit/Papers/wilson.ps\"\u003eThe \"3x+1\" Problem and Finite Automata\u003c/a\u003e, Bulletin of the EATCS #46 (1992) pp. 182-185.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/CollatzProblem.html\"\u003eCollatz Problem\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Collatz_conjecture\"\u003eCollatz conjecture\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#2-automatic\"\u003eIndex entries for 2-automatic sequences\u003c/a\u003e."
+			],
+			"example": [
+				"The Collatz trajectory of 43 is (43, 130, 65, 196, 98, 49, 148, 74, 37, 112, 56, 28, 14, 7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1), which contains 10 odd integers."
+			],
+			"mathematica": [
+				"Collatz[n_] := NestWhileList[If[EvenQ[#], #/2, 3 # + 1] \u0026, n, # \u003e 1 \u0026]; countOdd[lst_] := Length[Select[lst, OddQ]]; Select[Range[1000], countOdd[Collatz[#]] == 10 \u0026] (* _T. D. Noe_, Dec 03 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a062060 n = a062060_list !! (n-1)",
+				"a062060_list = map (+ 1) $ elemIndices 10 a078719_list",
+				"-- _Reinhard Zumkeller_, Oct 08 2011",
+				"(Python)",
+				"def a(n):",
+				"    l=[n, ]",
+				"    while True:",
+				"        if n%2==0: n/=2",
+				"        else: n = 3*n + 1",
+				"        if not n in l:",
+				"            l+=[n, ]",
+				"            if n\u003c2: break",
+				"        else: break",
+				"    return len(list(filter(lambda i: i%2==1, l)))",
+				"print [n for n in xrange(40, 1501) if a(n)==10] # _Indranil Ghosh_, Apr 14 2017"
+			],
+			"xref": [
+				"Cf. A062052-A062059."
+			],
+			"keyword": "nonn,look",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 13,
+			"revision": 27,
+			"time": "2018-10-15T16:30:39-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 62249,
+			"data": "2,4,5,7,7,10,9,12,12,14,13,18,15,18,19,21,19,24,21,26,25,26,25,32,28,30,31,34,31,38,33,38,37,38,39,45,39,42,43,48,43,50,45,50,51,50,49,58,52,56,55,58,55,62,59,64,61,62,61,72,63,66,69,71,69,74,69,74,73,78,73",
+			"name": "a(n) = n + d(n), where d(n) = number of divisors of n, cf. A000005.",
+			"comment": [
+				"Number of cyclic subgroups of dihedral group with 2n elements.",
+				"a(n) is the n-th smallest number not a divisor of n. - _J. Lowell_, Apr 06 2008"
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A062249/b062249.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n + A000005(n). - _Omar E. Pol_, Dec 12 2008",
+				"From _Ilya Gutkovskiy_, Apr 12 2017: (Start)",
+				"G.f.: x/(1 - x)^2 + Sum_{k\u003e=1} x^k/(1 - x^k).",
+				"Dirichlet g.f.: zeta(s)^2 + zeta(s-1). (End)"
+			],
+			"maple": [
+				"with(numtheory):seq(n+tau(n), n=1..71) ; # _Zerinvary Lajos_, Jun 04 2008"
+			],
+			"mathematica": [
+				"Table[n + DivisorSigma[0, n], {n, 100}] (* _Indranil Ghosh_, Apr 12 2017 *)"
+			],
+			"program": [
+				"(PARI) { for (n=1, 1000, write(\"b062249.txt\", n, \" \", n + numdiv(n)) ) } \\\\ _Harry J. Smith_, Aug 03 2009",
+				"(Haskell)",
+				"a062249 n = a000005 n + n  -- _Reinhard Zumkeller_, Mar 29 2014",
+				"(Python)",
+				"from sympy.ntheory import divisor_count",
+				"print [n + divisor_count(n) for n in xrange(101)] # _Indranil Ghosh_, Apr 12 2017"
+			],
+			"xref": [
+				"Cf. A007503, A060710, A000005, A049820.",
+				"Cf. A064491 (iteration, start=1)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "Ahmed Fares (ahmedfares(AT)my-deja.com), Jul 01 2001",
+			"ext": [
+				"Formula and more terms from _Vladeta Jovovic_, Jul 03 2001"
+			],
+			"references": 13,
+			"revision": 31,
+			"time": "2017-04-12T23:05:52-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 62373,
+			"data": "8,12,15,16,20,21,28,30,32,33,35,36,39,42,44,45,51,52,55,57,64,66,68,69,70,75,76,77,78,87,90,92,93,95,99,100,102,108,110,111,114,115,116,119,123,124,128,129,135,138,141,143,147,148,150,153,154,155,159,161",
+			"name": "Ratio of totient to Carmichael's lambda function is 2.",
+			"comment": [
+				"Numbers k such that the highest order of elements in (Z/kZ)* is phi(n)/2, (Z/kZ)* = the multiplicative group of integers modulo k. Also numbers k such that (Z/kZ)* = C_2 X C_(2r). - _Jianing Song_, Jul 28 2018",
+				"Contains the powers of 2 greater than 4, 4 times primes, and semiprimes pq where (p-1)/2 and (q-1)/2 are coprime. If n is odd and in this sequence then so is 2n. - _Charlie Neder_, May 27 2019"
+			],
+			"link": [
+				"R. J. Mathar, \u003ca href=\"/A062373/b062373.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e"
+			],
+			"formula": [
+				"Solutions to phi(k)/lambda(k) = 2."
+			],
+			"example": [
+				"From _Jianing Song_, Jul 28 2018: (Start)",
+				"(Z/8Z)* = C_2 X C_2, so 8 is a term.",
+				"(Z/21Z)* = C_2 X C_6, so 21 is a term.",
+				"(Z/35Z)* = C_2 X C_12, so 35 is a term. (End)"
+			],
+			"mathematica": [
+				"Reap[ For[ n = 1, n \u003c= 161, n++, If[ EulerPhi[n] / CarmichaelLambda[n] == 2, Sow[n]]]][[2, 1]] (* _Jean-François Alcover_, Mar 26 2013 *)",
+				"Select[Range[200],EulerPhi[#]/CarmichaelLambda[#]==2\u0026] (* _Harvey P. Dale_, Jun 27 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a062373 n = a062373_list !! (n-1)",
+				"a062373_list = filter ((== 2) . a034380) [1..]",
+				"-- _Reinhard Zumkeller_, Sep 02 2014",
+				"(PARI) isok(n) = eulerphi(n)/lcm(znstar(n)[2]) == 2; \\\\ _Michel Marcus_, Jul 28 2018"
+			],
+			"xref": [
+				"Cf. A000010, A002322, A034380, A033948, A062374, A062375, A062376, A062377."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Vladeta Jovovic_, Jun 17 2001",
+			"ext": [
+				"More terms from Reiner Martin (reinermartin(AT)hotmail.com), Dec 22 2001"
+			],
+			"references": 13,
+			"revision": 27,
+			"time": "2019-06-18T03:30:17-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64113,
+			"data": "2,15,36,39,46,54,55,73,102,107,110,118,129,160,164,184,187,194,199,218,239,271,272,291,339,358,387,419,426,464,465,508,520,553,599,605,621,629,633,667,682,683,702,709,710,733,761,791,813,821,822,829,830",
+			"name": "Indices of primes prime(i) such that (1/3)*(prime(i)+prime(i+1)+prime(i+2)) is a prime.",
+			"comment": [
+				"n such that d(n) = d(n+1), where d(n)=prime(n+1)-prime(n), or A001223(n).",
+				"Of interest because when I generalize it to d(n)=d(n+2), d(n)=d(n+3), etc. I am unable to find any positive number k such that d(n)=d(n+k) has no solution.",
+				"From _Lei Zhou_, Dec 06 2005: (Start)",
+				"When (1/3)*(prime(i)+prime(i+1)+prime(i+2)) is prime, then it is equal to prime(i+1).",
+				"Alternative definition of this sequence: Indices of primes prime(i) such that (prime(i)+prime(i+2)/2 = prime(i+1).",
+				"The mathematica program is based on the alternative definition. (End)",
+				"A036263(a(n)) = 0; A122535(n) = A000040(a(n)); A006562(n) = A000040(a(n) + 1); A181424(n) = A000040(a(n) + 2). - _Reinhard Zumkeller_, Jan 20 2012",
+				"A262138(2*a(n)) = 0. - _Reinhard Zumkeller_, Sep 12 2015"
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A064113/b064113.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e"
+			],
+			"example": [
+				"a(2) = 15 because (p(15)+p(16)+p(17)) = 1/3(47 + 53 + 59) = 53 (prime average of three successive primes)."
+			],
+			"mathematica": [
+				"ct = 0; Do[If[(Prime[k] + Prime[k + 2] - 2*Prime[k + 1]) == 0, ct++; n[ct] = k], {k, 1, 2000}]; Table[n[k], {k, 1, ct}] (* _Lei Zhou_, Dec 06 2005 *)"
+			],
+			"program": [
+				"(PARI) d(n) = prime(n+1)-prime(n); j=[]; for(n=1,1500, if(d(n)==d(n+1), j=concat(j,n))); j",
+				"(PARI) d(n)= { prime(n + 1) - prime(n) } { n=0; for (m=1, 10^9, if (d(m)==d(m+1), write(\"b064113.txt\", n++, \" \", m); if (n==1000, break)) ) } \\\\ _Harry J. Smith_, Sep 07 2009",
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a064113 n = a064113_list !! (n-1)",
+				"a064113_list = map (+ 1) $ elemIndices 0 a036263_list",
+				"-- _Reinhard Zumkeller_, Jan 20 2012"
+			],
+			"xref": [
+				"Cf. A001223, A006562, A024675, A075540, A075541.",
+				"Cf. A262138."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Jason Earls_, Sep 08 2001",
+			"references": 13,
+			"revision": 32,
+			"time": "2017-12-15T17:35:37-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64437,
+			"data": "1,3,6,8,10,13,15,18,20,23,25,27,30,32,35,37,39,42,44,47,49,51,54,56,59,61,64,66,68,71,73,76,78,80,83,85,88,90,93,95,97,100,102,105,107,109,112,114,117,119,122,124,126,129,131,134,136,138,141,143,146,148,150",
+			"name": "a(1)=1, a(n)=a(n-1)+3 if n is already in the sequence, a(n)=a(n-1)+2 otherwise.",
+			"comment": [
+				"More generally let (x,y,z) be 3 positive integers and a(n) be the sequence a(1)=x, a(n)=a(n-1)+y if n is already in the sequence, a(n)=a(n-1)+z otherwise. Then it seems that a(n) is asymptotic to r*n where r is the largest positive root of q^2=z*q+z-y.",
+				"Example: (x,y,z) = (2, 1, 2) gives A004956(n), (x,y,z) = (1, 2, 3) gives A007066(n). The present sequence is the case (1, 3, 2)."
+			],
+			"link": [
+				"Robert Israel, \u003ca href=\"/A064437/b064437.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"B. Cloitre, N. J. A. Sloane and M. J. Vandermast, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL6/Cloitre/cloitre2.html\"\u003eNumerical analogues of Aronson's sequence\u003c/a\u003e, J. Integer Seqs., Vol. 6 (2003), #03.2.2.",
+				"B. Cloitre, N. J. A. Sloane and M. J. Vandermast, \u003ca href=\"http://arXiv.org/abs/math.NT/0305308\"\u003eNumerical analogues of Aronson's sequence\u003c/a\u003e (math.NT/0305308)"
+			],
+			"formula": [
+				"a(n) = ceiling((1+sqrt(2))*(n-1)+C) where C = 1/(2+sqrt(2)) = .292893218813..."
+			],
+			"example": [
+				"a(6)=13 hence a(13)=a(12)+3=27+3=30"
+			],
+			"maple": [
+				"A064437:= n -\u003e ceil((1+sqrt(2))*(n-1)+1/(2+sqrt(2))):",
+				"seq(A064437(n),n=1..100); # _Robert Israel_, May 19 2014"
+			],
+			"mathematica": [
+				"a[1] = 1; a[n_] := a[n] = a[n-1] + If[MemberQ[Array[a, n-1], n], 3, 2];",
+				"Array[a, 100] (* _Jean-François Alcover_, Aug 01 2018 *)"
+			],
+			"program": [
+				"(PARI) ?an=vector(100); an[1]=1; a(n)=if(n\u003c0,0,an[n]) ?x=1; y=3; z=2; an[1]=x; for(n=2,100,an[n]=if(setsearch(Set(vector(n- 1,i,a(i))),n),a(n-1)+y,a(n-1)+z))",
+				"(Haskell)",
+				"a064437 n = a064437_list !! (n-1)",
+				"a064437_list = 1 : f 2 [1] where",
+				"   f x zs@(z:_) = y : f (x + 1) (y : zs) where",
+				"     y = if x `elem` zs then z + 3 else z + 2",
+				"-- _Reinhard Zumkeller_, Sep 26 2014"
+			],
+			"xref": [
+				"Cf. A004956, A007066, A026351, A079000. Apart from start, equals A080652 + 1."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Benoit Cloitre_, Feb 14 2003",
+			"references": 13,
+			"revision": 22,
+			"time": "2018-08-01T05:52:56-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65730,
+			"data": "1,1,4,4,9,9,16,16,16,25,25,36,36,36,36,49,49,49,64,64,64,64,81,81,81,100,100,100,100,100,121,121,121,121,144,144,144,144,144,169,169,169,169,169,196,196,196,196,225,225,225,225,225,225,256,256,256,256,256",
+			"name": "Largest square \u003c= n-th prime.",
+			"comment": [
+				"For n \u003e 2: a(n) = A257053(n,0). - _Reinhard Zumkeller_, Apr 15 2015"
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A065730/b065730.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A048760(A000040(n))."
+			],
+			"mathematica": [
+				"Table[Floor[Sqrt@ Prime@ n]^2, {n, 60}] (* _Michael De Vlieger_, Jul 03 2016 *)"
+			],
+			"program": [
+				"(PARI) { for (n=1, 1000, a=sqrtint(prime(n))^2; write(\"b065730.txt\", n, \" \", a) ) } \\\\ _Harry J. Smith_, Oct 28 2009",
+				"(Haskell)",
+				"a065730 = a048760 . a000040  -- _Reinhard Zumkeller_, Apr 15 2015",
+				"(MAGMA) [Floor(Sqrt(NthPrime(n)))^2: n in [1..70]] // _Vincenzo Librandi_, Jan 05 2018"
+			],
+			"xref": [
+				"Cf. A048760, A000040, A065731-A065741.",
+				"Cf. A257053."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,3",
+			"author": "_Labos Elemer_, Nov 15 2001",
+			"references": 13,
+			"revision": 20,
+			"time": "2018-01-05T03:16:01-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

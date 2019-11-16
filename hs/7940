@@ -1,0 +1,362 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7940,
+	"results": [
+		{
+			"number": 82763,
+			"data": "40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,140,141,142,143,144,145,146,147,148,149,150,151,152",
+			"name": "Roman numeral contains an asymmetric symbol (L).",
+			"comment": [
+				"I,V,X,C,D,M - and even the vinculum (bar) and apostrophus (backwards \"C\") - are each symmetric: horizontally, vertically, or both.",
+				"Numbers containing a 4 when decimally encoded with A061493. - _Reinhard Zumkeller_, Apr 14 2013"
+			],
+			"link": [
+				"Nathaniel Johnston, \u003ca href=\"/A082763/b082763.txt\"\u003eTable of n, a(n) for n = 1..2000\u003c/a\u003e (complete up to 3999)",
+				"Gerard Schildberger, \u003ca href=\"/A006968/a006968.txt\"\u003eThe first 3999 numbers in Roman numerals\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RomanNumeral.html\"\u003eRoman Numeral.\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+50) = a(n) + 100 for n \u003e= 1 [a(n+L) = a(n) + C for n \u003e= I], a(1) = 40 [a(I) = XL], a(n+1) = a(n) + 1 for 1 \u003c= n \u003c= 49 [a(n+I) = a(n) + I for I \u003c= n \u003c= XLIX]; so a(n) = floor((n-1)/50)*100 + 40 + ((n-1)(mod 50)) for n \u003e= 1 [a(n) = floor((n-I)/L)*C + XL + ((n-I)(mod L)) for n \u003e= I]."
+			],
+			"example": [
+				"40 = XL, 89 = LXXXIX, 140 = CXL."
+			],
+			"maple": [
+				"with(StringTools): for n from 1 to 152 do if(Search(\"L\", convert(n, roman)) \u003e 0)then printf(\"%d, \", n): fi: od: # _Nathaniel Johnston_, May 18 2011"
+			],
+			"program": [
+				"(PARI) /* \"%\" use below is actually identical to lift(Mod(n-1,50)) */ /* (n-1)\u003cbackslash\u003e50 could be used for integer division below */ /* instead of floor, but the OEIS sometimes loses \u003cbackslash\u003e */ /* characters depending upon where on a submitted line they are. */ a(n)=floor((n-1)/50)*100+40+(n-1)%50 for(n=1,125,print1(a(n),\",\"))",
+				"(Haskell)",
+				"a082763 n = a082763_list !! (n-1)",
+				"a082763_list = filter (containsL . a061493) [1..3999] where",
+				"   containsL x = d == 4 || x \u003e 0 \u0026\u0026 containsL x' where",
+				"                 (x',d) = divMod x 10",
+				"-- _Reinhard Zumkeller_, Apr 14 2013"
+			],
+			"xref": [
+				"Cf. A006968 (Roman numerals main entry), A078715 (Palindromic Roman numerals)."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,1",
+			"author": "_Rick L. Shepherd_, May 21 2003",
+			"references": 1,
+			"revision": 17,
+			"time": "2017-08-13T20:34:30-04:00",
+			"created": "2003-09-13T03:00:00-04:00"
+		},
+		{
+			"number": 85732,
+			"data": "4,17,72,329,473,1906,9067,40680,124068,340694,579517,2967748,9677489,36774905,85005719,350057197,673138588,3731385891,9039525037,40395250381,121209164997,412091649984,1293483111622,3934831116232",
+			"name": "Smallest number obtained by placing a + in the first n digits of decimal expansion of Pi.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A085732/b085732.txt\"\u003eTable of n, a(n) for n = 2..1000\u003c/a\u003e",
+				"Dave Andersen, \u003ca href=\"http://www.angio.net/pi/piquery\"\u003eThe Pi-Search Page\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Pi.html\"\u003ePi\u003c/a\u003e."
+			],
+			"example": [
+				"n=5: insert '+' in '31415':",
+				"a(5) = Min{3+1415=1418, 31+415=446, 314+15=329, 3141+5=3146} = 329."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, tails); import Data.Function (on)",
+				"a085732 n = a085732_list !! (n-2)",
+				"a085732_list = map f $ drop 2 $ inits $ concatMap show a000796_list",
+				"   where f xs = minimum $ init $ tail $",
+				"                zipWith (on (+) read) (inits xs) (tails xs)",
+				"-- _Reinhard Zumkeller_, May 02 2015"
+			],
+			"xref": [
+				"Cf. A000796."
+			],
+			"keyword": "nonn,base",
+			"offset": "2,1",
+			"author": "_Reinhard Zumkeller_, Jul 20 2003",
+			"references": 1,
+			"revision": 7,
+			"time": "2015-05-02T10:26:46-04:00",
+			"created": "2003-09-13T03:00:00-04:00"
+		},
+		{
+			"number": 87349,
+			"data": "3,5,5,9,7,13,9,11,11,21,13,25,15,17,17,33,19,37,21,23,23,45,25,29,27,29,29,57,31,61,33,35,35,39,37,73,39,41,41,81,43,85,45,47,47,93,49,55,51,53,53,105,55,59,57,59,59,117,61,121,63,65,65,69,67,133,69,71,71",
+			"name": "n + (smallest prime-factor of n+1).",
+			"comment": [
+				"a(n) = n + A020639(n+1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A087349/b087349.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a087349 n = a020639 (n + 1) + n  -- _Reinhard Zumkeller_, Mar 31 2014"
+			],
+			"xref": [
+				"A061228(n) - 1."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 20 2003",
+			"references": 1,
+			"revision": 7,
+			"time": "2014-04-01T20:10:19-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 87713,
+			"data": "3,2,3,3,5,7,3,5,11,7,5,19,7,11,23,13,29,31,17,7,37,13,41,11,7,17,17,53,11,19,7,13,23,23,37,19,79,41,83,43,89,13,19,97,11,11,53,37,113,23,29,17,11,7,43,131,67,17,139,47,71,73,17,31,157,79,83,13,173,29,59",
+			"name": "Greatest prime factor of the product of the neighbors of the n-th prime.",
+			"comment": [
+				"a(n) = A006530((A000040(n)-1)*(A000040(n)+1)) = A006530(A006093(n)*A008864(n)) = A006530(A084920(n)).",
+				"Apparently a(n) = A024710(n) for n\u003e4. - _Georg Fischer_, Oct 06 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A087713/b087713.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(10) = A006530(A000040(10)^2 - 1) = A006530(29*29-1) =",
+				"A006530(840) = A006530(7*5*3*2^3) = 7."
+			],
+			"mathematica": [
+				"FactorInteger[#][[-1,1]]\u0026/@((#-1)(#+1)\u0026/@Prime[Range[80]]) (* _Harvey P. Dale_, Oct 26 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a087713 = a006530 . a084920  -- _Reinhard Zumkeller_, Aug 27 2013"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 28 2003",
+			"ext": [
+				"Definition clarified by _Harvey P. Dale_, Oct 26 2019"
+			],
+			"references": 1,
+			"revision": 14,
+			"time": "2019-10-26T16:29:31-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 87875,
+			"data": "1,1,2,3,4,4,4,5,7,7,7,8,8,8,8,9,12,12,9,10,14,14,13,13,14,15,15,16,16,16,16,17,20,21,17,17,19,23,19,21,24,24,19,20,26,26,25,25,24,25,26,27,27,27,28,28,29,29,30,30,30,31,34,34,31,32,32,32,34,38,34,36,35,39,37",
+			"name": "a[n] = pi[n-pi[n-1]] + a[n - a[n-2]], where pi(x) = number of primes \u003c= x.",
+			"comment": [
+				"A reinversion-type sequence using pi as the inverse and the Hofstadter Q-numbers A005185 as the pattern sequence."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A087875/b087875.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"hrid[n] =PrimePi[n-PrimePi[n-1]] + hrid[n - hrid[n-2]] digits=256 a=Table[hrid[n], {n, 1, digits}]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a087875 n = genericIndex a087875_list (n-1)",
+				"a087875_list = 1 : 1 : zipWith (+)",
+				"   (map a087875 $ zipWith (-) [3..] a087875_list)",
+				"   (map a000720 $ zipWith (-) [3..] $ tail a000720_list)",
+				"-- _Reinhard Zumkeller_, Sep 21 2014"
+			],
+			"xref": [
+				"Cf. A005185.",
+				" Cf. A000720."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Roger L. Bagula_, Oct 11 2003",
+			"references": 1,
+			"revision": 11,
+			"time": "2014-09-21T14:23:57-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 88517,
+			"data": "1,0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0",
+			"name": "First differences of Golomb's sequence.",
+			"comment": [
+				"Characteristic function of A001463"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A088517/b088517.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)=A001462(n+1)-A001462(n); a(A001463(n))=1"
+			],
+			"program": [
+				"(Haskell)",
+				"a088517 n = a001462 (n + 1) - a001462 n",
+				"a088517_list = zipWith (-) (tail a001462_list) a001462_list",
+				"-- _Reinhard Zumkeller_, Apr 28 2012"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Benoit Cloitre_, Nov 14 2003",
+			"references": 1,
+			"revision": 14,
+			"time": "2013-07-13T12:03:02-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 88864,
+			"data": "0,0,1,0,2,2,3,0,4,4,6,4,6,6,9,0,8,8,12,8,10,12,15,8,12,12,18,12,15,18,21,0,16,16,24,16,20,24,28,16,20,20,30,24,26,30,35,16,24,24,36,24,30,36,42,24,28,30,42,36,39,42,49,0,32,32,48,32,40,48,56,32,36,40,54",
+			"name": "Maximum of the products of left and right parts when splitting the binary representation of n.",
+			"comment": [
+				"a(2^n) = 0, a(2^n + 1) = 2^(n-1).",
+				"a(2*n+1) \u003e a(2*n) = 2*a(n). - _Reinhard Zumkeller_, Jun 27 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A088864/b088864.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Max{floor(n/(2^k))*(n mod 2^k)}."
+			],
+			"example": [
+				"n=77 -\u003e '1001101': a(77) = Max{'1'*'001101', '10'*'01101',",
+				"'100'*'1101', '1001'*'101', '10011'*'01', '100110'*'1'} = Max{1*13, 2*13,",
+				"4*13, 9*5, 19*1, 38*1} = Max{13, 26, 52, 45, 19, 38} = 52."
+			],
+			"mathematica": [
+				"mplrp[n_]:=Module[{idn2=IntegerDigits[n,2],len},len=Length[idn2];Max[ Times @@@Table[{FromDigits[Take[idn2,i],2],FromDigits[Take[ idn2, -(len-i)],2]},{i,len}]]]; Array[mplrp,80] (* _Harvey P. Dale_, Jun 24 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, tails)",
+				"import Data.Function (on)",
+				"a088864 1 = 0",
+				"a088864 n = maximum $ zipWith ((*) `on` foldr (\\d v -\u003e v * 2 + d) 0)",
+				"            (init $ tail $ inits bs) (init $ tail $ tails bs)",
+				"            where bs = a030308_row n",
+				"-- _Reinhard Zumkeller_, Jun 27 2013"
+			],
+			"xref": [
+				"Cf. A007088.",
+				"Cf. A030308."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,5",
+			"author": "_Reinhard Zumkeller_, Nov 26 2003",
+			"references": 1,
+			"revision": 12,
+			"time": "2013-06-27T03:25:58-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 92338,
+			"data": "1,2,3,4,4,5,5,5,6,6,5,7,7,5,7,8,6,7,7,7,9,7,5,9,10,6,7,9,7,9,9,7,9,7,7,12,10,5,7,11,9,9,9,7,11,9,5,11,12,8,9,9,7,9,11,11,11,7,5,13,13,5,9,12,10,11,9,7,9,11,9,13,13,5,9,11,9,11,9,11,14,8,5,13,15,7,7,11,9,13",
+			"name": "a(n) = number of numbers d with n mod d \u003c= 1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A092338/b092338.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Iverson_bracket\"\u003eIverson bracket\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: x^2/(x - 1) + ((1 + x)*(log(1 - x) + psi(1, x)))/log(x)  where psi(1,x) is the logarithmic derivative of the x-gamma function at z=1. - _Olivier Gérard_, Jun 24 2012",
+				"For n\u003e1, a(n) = Sum_{i=1..n-1} floor(n/i)-floor((n-2)/i). - _Wesley Ivan Hurt_, Sep 13 2017",
+				"a(n) = A000005(n) + [n\u003e1]*(A000005(n-1) - 1). - _Ridouane Oudra_, Oct 07 2019"
+			],
+			"maple": [
+				"with(numtheory): seq(tau(n)+`if`(n\u003e1, tau(n-1)-1, 0), n=1..80); # _Ridouane Oudra_, Oct 07 2019"
+			],
+			"program": [
+				"(Haskell)",
+				"a092338 n = length $ filter (\u003c= 1) $ map (mod n) [1..n]",
+				"-- _Reinhard Zumkeller_, Jul 04 2012",
+				"(PARI) A006218(n)=sum(k=1, sqrtint(n), n\\k)*2-sqrtint(n)^2",
+				"a(n)=if(n\u003e4, A006218(n)-A006218(n-2)-1, n) \\\\ _Charles R Greathouse IV_, Sep 13 2017",
+				"(MAGMA) [#[d:d in [1..n]| n mod d le 1]:n in [1..100]]; // _Marius A. Burtea_, Oct 07 2019"
+			],
+			"xref": [
+				"Cf. A000005."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Mar 18 2004",
+			"ext": [
+				"Wrong comment removed by _Reinhard Zumkeller_, Jul 04 2012"
+			],
+			"references": 1,
+			"revision": 25,
+			"time": "2019-10-07T15:37:05-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 92525,
+			"data": "1,5,3,19,5,13,7,71,9,21,11,51,13,29,15,271,17,37,19,83,21,45,23,199,25,53,27,115,29,61,31,1055,33,69,35,147,37,77,39,327,41,85,43,179,45,93,47,783,49,101,51,211,53,109,55,455,57,117,59,243,61,125,63,4159",
+			"name": "To binary representation of n, append as many ones as there are trailing zeros.",
+			"comment": [
+				"a(n) = (n+1)*A006519(n)-1;",
+				"a(2*n-1) = 2*n-1, a(2*n) \u003e 4*n."
+			],
+			"link": [
+				"Harvey P. Dale, \u003ca href=\"/A092525/b092525.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"example": [
+				"n=20='10100'='101'00' -\u003e a(20)='101'00'11'='1010011'=83."
+			],
+			"mathematica": [
+				"bra1[n_]:=Module[{idn2=IntegerDigits[n,2]},FromDigits[Join[ idn2, Table[1,{IntegerExponent[FromDigits[idn2]]}]],2]]; Array[bra1,70] (* _Harvey P. Dale_, Sep 30 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a092525 n = f n n where",
+				"   f x y = if m == 0 then f x' (2 * y + 1) else y",
+				"           where (x', m) = divMod x 2",
+				"-- _Reinhard Zumkeller_, Oct 06 2012"
+			],
+			"xref": [
+				"Cf. A007814, A007088."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 07 2004",
+			"references": 1,
+			"revision": 7,
+			"time": "2012-10-07T03:15:10-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 93020,
+			"data": "0,19,24,38,43,57,62,76,81,95,104,118,123,137,142,156,161,175,180,199,203,217,222,236,241,255,260,279,284,298,302,316,321,335,340,359,364,378,383,397,401,415,420,439,444,458,463,477,482,496,509,514,528,533",
+			"name": "Indices of terms in A093019 with value 0.",
+			"comment": [
+				"Integers which require a following 0 to have a valid Luhn mod 10 check digit."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A093020/b093020.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"John Kilgo, DotNetJohn.com, \u003ca href=\"http://www.dotnetjohn.com/articles/articleid97.aspx\"\u003eUsing the Luhn Algorithm\u003c/a\u003e",
+				"Webopedia, \u003ca href=\"http://www.webopedia.com/TERM/L/Luhn_formula.html\"\u003eLuhn formula\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Luhn_algorithm\"\u003eLuhn algorithm\u003c/a\u003e",
+				"\u003ca href=\"/index/De#decimal_expansion\"\u003eIndex entries for sequences related to decimal expansion of n\u003c/a\u003e"
+			],
+			"formula": [
+				"A093019(a(n)) = 0. - _Reinhard Zumkeller_, Nov 08 2014"
+			],
+			"example": [
+				"19 is in the sequence because A093019(19)=0; 190 has a valid Luhn mod 10 check digit."
+			],
+			"program": [
+				"(Haskell)",
+				"a093020 n = a093020_list !! (n-1)",
+				"a093020_list = filter ((== 0) . a093019) [0..]",
+				"-- _Reinhard Zumkeller_, Nov 08 2014"
+			],
+			"xref": [
+				"Cf. A093017-A093029."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "1,2",
+			"author": "_Ray Chandler_, Apr 03 2004",
+			"ext": [
+				"Offset changed by _Reinhard Zumkeller_, Nov 08 2014"
+			],
+			"references": 1,
+			"revision": 12,
+			"time": "2019-10-10T09:34:52-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		}
+	]
+}

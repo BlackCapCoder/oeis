@@ -1,0 +1,514 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1840,
+	"results": [
+		{
+			"number": 134640,
+			"data": "0,1,2,5,7,11,15,19,21,27,30,39,45,54,57,75,78,99,108,114,120,135,141,147,156,177,180,198,201,210,216,225,228,194,198,214,222,238,242,294,298,334,346,358,366,414,422,434,446,482,486,538,542,558,566,582,586",
+			"name": "Permutational numbers (numbers with k different digits in k-positional system).",
+			"comment": [
+				"Note that leading zeros are allowed in these numbers.",
+				"a(1) is the 1-positional system 1!=1 numbers",
+				"a(2) to a(3) are two=2! 2-positional system numbers",
+				"a(4) to a(9) are six=3! 3-positional system numbers",
+				"a(10) to a(33) are 24=4! 4-positional system numbers",
+				"a(34) to a(153) are 120=5! 5-positional system numbers",
+				"...",
+				"There are a(!k)-a(Sum[m!,1,k])=a(A003422)-a(A007489) k-positional system k! numbers",
+				"The name permutational numbers arises because each permutation of k elements is isomorphic with one and only one of member of this sequence and conversely each number in this sequence is isomorphic with one and only one permutation of k elelmnts or its equivalent permutation matrix.",
+				"T(n,1) = A023811(n); T(n,A000142(n)) = A062813(n). - _Reinhard Zumkeller_, Aug 29 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A134640/b134640.txt\"\u003eRows n = 1..7 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"We build permutational numbers:",
+				"a(1)=0 in unitary positional system we have only one digit 0",
+				"a(2)=1 because in binary positional system smaller number with two different digits is 01 = 1",
+				"a(3)=2 because in binary positional system bigger number with two different digits is 10 = 2 (binary system is over)",
+				"a(4)=5 because smallest number in ternary system with 3 different digits is 012=5",
+				"a(5)=7 second number in ternary system with 3 different digits is 021=7",
+				"a(6)=11 third number in ternary system with 3 different digits is 102=11",
+				"a(7)=15 120=15",
+				"etc."
+			],
+			"mathematica": [
+				"a = {}; b = {}; Do[AppendTo[b, n]; w = Permutations[b]; Do[j = FromDigits[w[[m]], n + 1]; AppendTo[a, j], {m, 1, Length[w]}], {n, 0, 5}]; a (*Artur Jasinski*)",
+				"Flatten[Table[FromDigits[#,n]\u0026/@Permutations[Range[0,n-1]],{n,5}]] (* _Harvey P. Dale_, Dec 09 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (permutations, sort)",
+				"a134640 n k = a134640_tabf !! (n-1) !! (k-1)",
+				"a134640_row n = sort $",
+				"   map (foldr (\\dig val -\u003e val * n + dig) 0) $ permutations [0 .. n - 1]",
+				"a134640_tabf = map a134640_row [1..]",
+				"a134640_list = concat a134640_tabf",
+				"-- _Reinhard Zumkeller_, Aug 29 2014"
+			],
+			"xref": [
+				"Cf. A003422, A007489, A061845, A000142 (row lengths excluding 1st term).",
+				"Cf. A023811, A062813, A000142 (row lengths), A007489 (sums of row lengths)."
+			],
+			"keyword": "nonn,base,tabf",
+			"offset": "1,3",
+			"author": "_Artur Jasinski_, Nov 05 2007, Nov 07 2007, Nov 08 2007",
+			"ext": [
+				"Corrected indices in examples. Replaced dashes in comments by the word \"to\" - _R. J. Mathar_, Aug 26 2009"
+			],
+			"references": 19,
+			"revision": 18,
+			"time": "2014-12-09T10:52:52-05:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 157037,
+			"data": "6,10,22,30,34,42,58,66,70,78,82,105,114,118,130,142,154,165,174,182,202,214,222,231,238,246,255,273,274,282,285,286,298,310,318,345,357,358,366,370,382,385,390,394,399,418,430,434,442,454,455,465,474,478",
+			"name": "Numbers with prime arithmetic derivative A003415.",
+			"comment": [
+				"Only about 5% of these numbers have n' \u003e n. For example, for n up to 10^6 we have 72754 prime n', with 69420 such that n' \u003c n and 3334 such that n' \u003e n. - _Paolo P. Lava_, May 20 2013, corrected by _M. F. Hasler_, Apr 07 2015",
+				"Equivalently, solutions to n'' = 1, since n' = 1 iff n is prime. Twice the lesser of the twin primes, 2*A001359 = A108605, are a subsequence. - _M. F. Hasler_, Apr 07 2015",
+				"All terms are squarefree, because if there would be a prime p whose square p^2 would divide n, then A003415(n) = (A003415(p^2) * (n/p^2)) + (p^2 * A003415(n/p^2)) = p*[(2 * (n/p^2)) + (p * A003415(n/p^2))], which certainly is not a prime. - _Antti Karttunen_, Oct 10 2019"
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A157037/b157037.txt\"\u003eTable of n, a(n) for n = 1..10001\u003c/a\u003e (first 1000 terms from Reinhard Zumkeller)"
+			],
+			"formula": [
+				"A010051(A003415(a(n))) = 1; A068346(a(n)) = 1; A099306(a(n)) = 0.",
+				"A003415(a(n)) = A328385(a(n)) = A241859(n); A327969(a(n)) = 3. - _Antti Karttunen_, Oct 19 2019"
+			],
+			"example": [
+				"A003415(42) = A003415(2*3*7) = 2*3+3*7+7*2 = 41 = A000040(13), therefore 42 is a term."
+			],
+			"mathematica": [
+				"dn[0] = 0; dn[1] = 0; dn[n_?Negative] := -dn[-n]; dn[n_] := Module[{f = Transpose[FactorInteger[n]]}, If[PrimeQ[n], 1, Total[n*f[[2]]/f[[1]]]]]; Select[Range[500], dn[dn[#]] == 1 \u0026] (* _T. D. Noe_, Mar 07 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a157037 n = a157037_list !! (n-1)",
+				"a157037_list = filter ((== 1) . a010051' . a003415) [1..]",
+				"-- _Reinhard Zumkeller_, Apr 08 2015",
+				"(PARI)",
+				"A003415(n) = if(n\u003c=1, 0, my(f=factor(n)); n*sum(i=1, #f~, f[i, 2]/f[i, 1]));",
+				"isA157037(n) = isprime(A003415(n)); \\\\ _Antti Karttunen_, Oct 19 2019"
+			],
+			"xref": [
+				"Cf. A003415, A010051, A038554, A192082, A192189, A192190,  A327978, A328233, A328240, A328384, A328385.",
+				"Cf. A189441 (primes produced by these numbers), A241859.",
+				"Cf. A192192, A328239 (numbers whose 2nd and numbers whose 3rd arithmetic derivative is prime).",
+				"Cf. A108605, A256673 (subsequences).",
+				"Subsequence of following sequences: A005117, A099308, A235991, A328234 (A328393), A328244, A328321."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Feb 22 2009",
+			"references": 19,
+			"revision": 39,
+			"time": "2019-10-19T10:47:48-04:00",
+			"created": "2009-02-27T03:00:00-05:00"
+		},
+		{
+			"number": 158405,
+			"data": "1,1,3,1,3,5,1,3,5,7,1,3,5,7,9,1,3,5,7,9,11,1,3,5,7,9,11,13,1,3,5,7,9,11,13,15,1,3,5,7,9,11,13,15,17,1,3,5,7,9,11,13,15,17,19,1,3,5,7,9,11,13,15,17,19,21,1,3,5,7,9,11,13,15,17,19,21,23",
+			"name": "Triangle T(n,m) = 1+2*m of odd numbers read along rows, 0\u003c=m\u003cn.",
+			"comment": [
+				"Row sums are n^2 = A000290(n).",
+				"The triangle sums, see A180662 for their definitions, link this triangle of odd numbers with seventeen different sequences, see the crossrefs. The knight sums Kn14 - Kn110 have been added. - _Johannes W. Meijer_, Sep 22 2010",
+				"A208057 is the eigentriangle of A158405 such that as infinite lower triangular matrices, A158405 * A208057 shifts the latter, deleting the right border of 1's. - _Gary W. Adamson_, Feb 22 2012",
+				"T(n,k) = A099375(n-1,n-k), 1\u003c=k\u003c=n. [_Reinhard Zumkeller_, Mar 31 2012]"
+			],
+			"link": [
+				"Seiichi Manyama, \u003ca href=\"/A158405/b158405.txt\"\u003eRows n = 1..140, flattened\u003c/a\u003e",
+				"Daniel Erman, \u003ca href=\"https://www.youtube.com/watch?v=uCsD3ZGzMgE\"\u003eThe Josephus Problem\u003c/a\u003e, Numberphile video (2016)",
+				"Boris Putievskiy, \u003ca href=\"http://arxiv.org/abs/1212.2732\"\u003eTransformations [of] Integer Sequences And Pairing Functions\u003c/a\u003e arXiv:1212.2732 [math.CO], 2012."
+			],
+			"formula": [
+				"a(n)= 2*i-1, where i = n-t(t+1)/2, t = floor((-1+sqrt(8*n-7))/2). - _Boris Putievskiy_, Feb 03 2013",
+				"a(n)= 2*A002262(n-1) + 1. - _Eric Werley_, Sep 30 2015"
+			],
+			"example": [
+				"The triangle contains the first n odd numbers in row n:",
+				"1;",
+				"1,3;",
+				"1,3,5;",
+				"1,3,5,7;",
+				"From _Seiichi Manyama_, Dec 02 2017: (Start)",
+				"    |       a(n)        |                               | A000290(n)",
+				"   -----------------------------------------------------------------",
+				"   0|                                                      (=  0)",
+				"   1|                 1 = 1/3 * ( 3)                       (=  1)",
+				"   2|             1 + 3 = 1/3 * ( 5 +  7)                  (=  4)",
+				"   3|         1 + 3 + 5 = 1/3 * ( 7 +  9 + 11)             (=  9)",
+				"   4|     1 + 3 + 5 + 7 = 1/3 * ( 9 + 11 + 13 + 15)        (= 16)",
+				"   5| 1 + 3 + 5 + 7 + 9 = 1/3 * (11 + 13 + 15 + 17 + 19)   (= 25)",
+				"(End)"
+			],
+			"mathematica": [
+				"Table[2 Range[1, n] - 1, {n, 12}] // Flatten (* _Michael De Vlieger_, Oct 01 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a158405 n k = a158405_row n !! (k-1)",
+				"a158405_row n = a158405_tabl !! (n-1)",
+				"a158405_tabl = map reverse a099375_tabl",
+				"-- _Reinhard Zumkeller_, Mar 31 2012",
+				"(PARI) a(n) = 2*(n-floor((-1+sqrt(8*n-7))/2)*(floor((-1+sqrt(8*n-7))/2)+1)/2)-1;",
+				"vector(100, n, a(n)) \\\\ _Altug Alkan_, Oct 01 2015"
+			],
+			"xref": [
+				"Cf. A129326, A099375, A005408.",
+				"Triangle sums (see the comments): A000290 (Row1; Kn11 \u0026 Kn4 \u0026 Ca1 \u0026 Ca4 \u0026 Gi1 \u0026 Gi4); A000027 (Row2); A005563 (Kn12); A028347 (Kn13); A028560 (Kn14); A028566 (Kn15); A098603 (Kn16); A098847 (Kn17); A098848 (Kn18); A098849 (Kn19); A098850 (Kn110); A000217 (Kn21. Kn22, Kn23, Fi2, Ze2); A000384 (Kn3, Fi1, Ze3); A000212 (Ca2 \u0026 Ze4); A000567 (Ca3, Ze1); A011848 (Gi2); A001107 (Gi3). - _Johannes W. Meijer_, Sep 22 2010",
+				"Cf. A063656, A063657, A208057, A292610, A292611."
+			],
+			"keyword": "nonn,tabl,easy",
+			"offset": "1,3",
+			"author": "_Paul Curtz_, Mar 18 2009",
+			"ext": [
+				"Edited by _R. J. Mathar_, Oct 06 2009"
+			],
+			"references": 19,
+			"revision": 67,
+			"time": "2018-12-21T12:50:20-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 162741,
+			"data": "1,1,1,1,1,2,2,1,1,1,3,4,3,2,1,1,1,4,7,7,5,3,2,1,1,1,5,11,14,12,8,5,3,2,1,1,1,6,16,25,26,20,13,8,5,3,2,1,1,1,7,22,41,51,46,33,21,13,8,5,3,2,1,1,1,8,29,63,92,97,79,54,34,21,13,8,5,3,2,1,1",
+			"name": "Fibonacci-Pascal triangle; same as Pascal triangle, but beginning another Pascal triangle to the right of each row starting at row 2.",
+			"comment": [
+				"Intertwined Pascal-triangles;",
+				"the first five rows seen as numbers in decimal representation: row(n) = 110*row(n-1) + 1. - corrected by _Reinhard Zumkeller_, Jul 16 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A162741/b162741.txt\"\u003eRows n = 1..100 of triangle, flattened\u003c/a\u003e",
+				"Richard L. Ollerton and Anthony G. Shannon, \u003ca href=\"http://www.fq.math.ca/Scanned/36-2/ollerton.pdf\"\u003eSome properties of generalized Pascal squares and triangles\u003c/a\u003e, Fib. Q., 36 (1998), 98-109. See Table 3.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = T(n-1,k-1) + T(n-1,k), T(n,1)=1 and for n\u003e1: T(n,2*n-2) = T(n,2*n-1)=1. - _Reinhard Zumkeller_, Jul 16 2013"
+			],
+			"example": [
+				".                                           1",
+				".                                       1,  1, 1",
+				".                                   1,  2,  2, 1, 1",
+				".                               1,  3,  4,  3, 2, 1, 1",
+				".                           1,  4,  7,  7,  5, 3, 2, 1, 1",
+				".                       1,  5, 11, 14, 12,  8, 5, 3, 2, 1, 1",
+				".                   1,  6, 16, 25, 26, 20, 13, 8, 5, 3, 2, 1,1",
+				".               1,  7, 22, 41, 51, 46, 33, 21,13, 8, 5, 3, 2,1,1",
+				".           1,  8, 29, 63, 92, 97, 79, 54, 34,21,13, 8, 5, 3,2,1,1",
+				".       1,  9, 37, 92,155,189,176,133, 88, 55,34,21,13, 8, 5,3,2,1,1",
+				".    1,10, 46,129,247,344,365,309,221,143, 89,55,34,21,13, 8,5,3,2,1,1",
+				". 1,11,56,175,376,591,709,674,530,364,232,144,89,55,34,21,13,8,5,3,2,1,1 ."
+			],
+			"mathematica": [
+				"T[_, 1] = 1; T[n_, k_] /; k == 2*n-2 || k == 2*n-1 = 1; T[n_, k_] := T[n, k] = T[n-1, k-1] + T[n-1, k]; Table[T[n, k], {n, 1, 9}, {k, 1, 2*n-1}] // Flatten (* _Jean-François Alcover_, Oct 30 2017, after _Reinhard Zumkeller_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a162741 n k = a162741_tabf !! (n-1) !! (k-1)",
+				"a162741_row n = a162741_tabf !! (n-1)",
+				"a162741_tabf = iterate",
+				"   (\\row -\u003e zipWith (+) ([0] ++ row ++ [0]) (row ++ [0,1])) [1]",
+				"-- _Reinhard Zumkeller_, Jul 16 2013"
+			],
+			"xref": [
+				"Cf. A005408 (row length), A000225 (row sums), A000045 (central terms), A007318, A136431.",
+				"Cf. A021113. - _Mark Dols_, Jul 18 2009",
+				"Some other Fibonacci-Pascal triangles: A027926, A036355, A037027, A074829, A105809, A109906, A111006, A114197, A228074."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,6",
+			"author": "_Mark Dols_, Jul 12 2009, Jul 19 2009",
+			"references": 19,
+			"revision": 23,
+			"time": "2017-11-23T05:13:16-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 170942,
+			"data": "1,2,0,3,1,1,0,0,1,4,2,2,1,1,2,2,0,1,0,0,1,1,0,2,1,0,0,0,1,1,2,0,0,5,3,3,2,2,3,3,1,2,1,1,2,2,1,3,2,1,1,1,2,2,3,1,1,3,1,1,0,0,1,2,0,1,0,0,1,1,0,2,1,0,0,0,1,1,2,0,0,2,0,1,0,0,1,3,1,2,1,1,2,1,0,1,0,0,0,0,1,0,1,0,0",
+			"name": "Take the permutations of lengths 1, 2, 3, ... arranged lexicographically, and replace each permutation with the number of its fixed points.",
+			"comment": [
+				"Length of n-th row = sum of n-th row = n!; number of zeros in n-th row = A000166(n); number of positive terms in n-th row = A002467(n). [_Reinhard Zumkeller_, Mar 29 2012]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A170942/b170942.txt\"\u003eRows n=1..7 of triangle, flattened\u003c/a\u003e",
+				"FindStat - Combinatorial Statistic Finder, \u003ca href=\"http://www.findstat.org/St000022\"\u003eThe number of fixed points of a permutation\u003c/a\u003e"
+			],
+			"example": [
+				"123,132,213,231,312,321 (corresponding to 3rd row of triangle A030298) have respectively 3,1,1,0,0,1 fixed points."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (permutations, sort)",
+				"a170942 n k = a170942_tabf !! (n-1) (k-1)",
+				"a170942_row n = map fps $ sort $ permutations [1..n] where",
+				"   fps perm = sum $ map fromEnum $ zipWith (==) perm [1..n]",
+				"a170942_tabf = map a170942_row [1..]",
+				"-- _Reinhard Zumkeller_, Mar 29 2012"
+			],
+			"xref": [
+				"Cf. A030298, A030299.",
+				"Cf. A008290, A000166, A000240, A000387, A000449, A000475, A129135, A129136, A129149, A129153, A129217, A129218, A129238, A129255.",
+				"Cf. A008291."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,2",
+			"author": "Neven Juric (neven.juric(AT)apis-it.hr) and _N. J. A. Sloane_, Feb 23 2010",
+			"ext": [
+				"a(36)-a(105) from _John W. Layman_, Feb 23 2010",
+				"Keyword tabf added by _Reinhard Zumkeller_, Mar 29 2012"
+			],
+			"references": 19,
+			"revision": 30,
+			"time": "2017-03-31T20:33:49-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 176059,
+			"data": "3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3,2,3",
+			"name": "Periodic sequence: Repeat 3, 2.",
+			"comment": [
+				"Interleaving of A010701 and A007395.",
+				"Also continued fraction expansion of (3+sqrt(15))/2.",
+				"Also decimal expansion of 32/99.",
+				"a(n) = A010693(n+1).",
+				"Essentially first differences of A047218.",
+				"Binomial transform of 3 followed by -A122803.",
+				"Inverse binomial transform of 3 followed by A020714.",
+				"Second inverse binomial transform of A057198 without initial term 1."
+			],
+			"formula": [
+				"a(n) = (5+(-1)^n)/2.",
+				"a(n) = a(n-2) for n \u003e 1; a(0) = 3, a(1) = 2.",
+				"a(n) = -a(n-1)+5 for n \u003e 0; a(0) = 3.",
+				"a(n) = 3*((n+1) mod 2)+2*(n mod 2).",
+				"G.f.: (3+2*x)/((1-x)*(1+x))."
+			],
+			"maple": [
+				"A176059:=n-\u003e(5+(-1)^n)/2; seq(A176059(n), n=0..100); # _Wesley Ivan Hurt_, Feb 26 2014"
+			],
+			"mathematica": [
+				"a[n_] := {3, 2}[[Mod[n, 2] + 1]]; Table[a[n], {n, 0, 104}] (* _Jean-François Alcover_, Jul 19 2013 *)",
+				"PadRight[{},120,{3,2}] (* _Harvey P. Dale_, Oct 06 2019 *)"
+			],
+			"program": [
+				"(MAGMA) \u0026cat[ [3, 2]: n in [0..52] ];",
+				"[ (5+(-1)^n)/2: n in [0..104] ];",
+				"(Haskell)",
+				"a176059 = (3 -) . (`mod` 2) -- _Reinhard Zumkeller_, Nov 27 2012",
+				"(Haskell)",
+				"a176059_list = cycle [3,2]  -- _Reinhard Zumkeller_, Apr 04 2012",
+				"(PARI) a(n)=3-n%2 \\\\ _Charles R Greathouse IV_, Jul 13 2016"
+			],
+			"xref": [
+				"Cf. A010701 (all 3's sequence), A007395 (all 2's sequence), A176058 (decimal expansion of (3+sqrt(15))/2), A010693 (repeat 2, 3), A047218 (congruent to {0, 3} mod 5), A122803 (powers of -2), A020714 (5*2^n), A057198 ((5*3^(n-1)+1)/2, n \u003e 0).",
+				"Cf. A026532 (partial products)."
+			],
+			"keyword": "cofr,cons,nonn,easy",
+			"offset": "0,1",
+			"author": "_Klaus Brockhaus_, Apr 07 2010",
+			"references": 19,
+			"revision": 20,
+			"time": "2019-10-06T20:32:15-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 178225,
+			"data": "1,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0",
+			"name": "Characteristic function of A006995 (binary palindromes).",
+			"comment": [
+				"a(n)=1 if n is in A006995, a(n)=0 otherwise.",
+				"For small n, identical to parity of A175096.",
+				"Comment by _Franklin T. Adams-Watters_: (Start)",
+				"Any permutation of the runs of n gives another such permutation when reversed. This pairs up all non-palindromic permutations of the runs of n. Thus the parity of A175096(n) is the parity of the number of palindromic run-permutations of n. For small n, this is 1 when n is a binary palindrome, and 0 otherwise.",
+				"The first exception is 43, binary 101011, which has a nontrivial palindromic run-permutation 45, binary 101101. Another kind of exception occurs first for n = 365, binary 101101101, which is a palindrome, but has another palindromic run-permutation 427, binary 110101011. (End)",
+				"Given an index n such that a(n)=1, then the following A164126(A206915(n))-1 terms will be 0. n'=A164126(A206915(n)) is the next term with a(n')=1. Therefore, if we subtract 1 from each term of A164126, we get the sequence of run lengths of 0's. - _Hieronymus Fischer_, Feb 19 2012.",
+				"Given an index n such that a(n)=0, then p=A206913(n) is the greatest index p\u003cn such that a(p)=1, hence, a(k)=0 for all k with p\u003ck\u003c=n. Similarly, q=A206914(n) is the least index q\u003en such that a(q)=1, which implies a(k)=0 for all k with n\u003c=k\u003cq. - _Hieronymus Fischer_, Feb 19 2012.",
+				"Binary palindromes are distributed symmetrically with respect to threefold multiples of powers of 2. This becomes obvious by the generating function g(x) below. Example for the resulting factors of x^(3*2^5)=x^96: the factors are x^q and x^(-q) for q=3,11,23,31. Thus, the palindromes are 96+3, 96-3, 96+11, 96-11, 96+23, 96-23, 96+31, 96-31. The respective number of palindromes with this property is 2^(floor(m/2)), where m is the exponent of the corresponding power of 2. - _Hieronymus Fischer_, Apr 04 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A178225/b178225.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(A006995(n)) = 1; a(A154809(n)) = 0. - _Reinhard Zumkeller_, Oct 21 2011",
+				"a(n) = if A030101(n) = n then 1, otherwise 0. - _Reinhard Zumkeller_, Jan 17 2012",
+				"a(n) = 1 - (A206916(n) - A206915(n)). - _Hieronymus Fischer_, Feb 18 2012",
+				"G.f.: g(x) = 1 + x + x^3 + Sum{j\u003e=1} x^(3*2^j)*(f_j(x)+f_j(1/x)), where the f_j(x) are defined as follows:",
+				"  f_1(x)=x, and for j \u003e 1,",
+				"  f_j(x) = x^3*Product_{k=1..floor((j-1)/2)} (1+x^b(j,k)), where b(j,k) = 2^(floor((j-1)/2)-k)*((3+(-1)^j)*2^(2*k+1)+4) for k \u003e 1, and b(j,1) = (2+(-1)^j)*2^(floor((j-1)/2)+1). The first explicit terms of this g.f. are",
+				"  g(x) = 1 + x + x^3 + (f_1(x) + f_1(1/x))*x^6 + (f_2(x) + f_2(1/x))*x^12 + (f_3(x)+f_3(1/x))*x^24 + (f_4(x) + f_4(1/x))*x^48 + (f_5(x) + f_5(1/x))*x^96 + ... = 1 + x + x^3 + (x+1/x)*x^6 + (x^3+1/x^3)*x^12 + (x^3*(1+x^4) + (1+1/x^4)/x^3)*x^24 + (x^3*(1+x^12) + (1+1/x^12)/x^3)*x^48 + (x^3*(1+x^8)(1+x^20) + (1+1/x^20)(1+1/x^8)/x^3)*x^96 + ...  - _Hieronymus Fischer_, Apr 02 2012"
+			],
+			"example": [
+				"a(3)=1, since 3 is binary palindromic;",
+				"a(4)=0, since 4 is not palindromic."
+			],
+			"program": [
+				"(Chipmunk BASIC v3.6.4(b8))",
+				"rem http://www.nicholson.com/rhn/basic/",
+				"for n=0 to 200",
+				"r$=\"\"",
+				"s$=bin$(n)",
+				"for i=len(s$) to 1 step -1",
+				"r$=r$+mid$(s$,i,1)",
+				"next i",
+				"if r$ = s$ then c=1 : else c=0",
+				"print str$(c)+\",\";",
+				"next n",
+				"print",
+				"end",
+				"(Haskell)",
+				"a178225 n = fromEnum $ n == a030101 n  -- _Reinhard Zumkeller_, Oct 21 2011",
+				"(PARI) a(n) = my(b=binary(n)); b == Vecrev(b); \\\\ _Michel Marcus_, Feb 13 2019"
+			],
+			"xref": [
+				"Cf. A006995, A175096, A178226",
+				"Cf. A136522. See A206915 for the partial sums."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "0,1",
+			"author": "_Jeremy Gardiner_, May 23 2010",
+			"references": 19,
+			"revision": 42,
+			"time": "2019-02-13T04:18:10-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 178788,
+			"data": "1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1",
+			"name": "Characteristic function of numbers having distinct digits in their decimal representation.",
+			"comment": [
+				"a(A010784(n)) = 1; a(A109303(n)) = 0;",
+				"first differences of A178787.",
+				"a(n) \u003c= A196368(n).",
+				"a(n) = 0 for n \u003e 9*9!. - _Hieronymus Fischer_, Feb 02 2013"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A178788/b178788.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Digit.html\"\u003eDigit\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 0^(A055642(n)-A043537(n))."
+			],
+			"mathematica": [
+				"lst = {}; Do[If[Select[Tally[IntegerDigits[n]][[All, 2]], # \u003e 1 \u0026] == {}, AppendTo[lst, 1], AppendTo[lst, 0]], {n, 0, 104}]; lst (* _Arkadiusz Wesolowski_, May 10 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (nub)",
+				"a178788 n = fromEnum $ nub (show n) == show n",
+				"-- _Reinhard Zumkeller_, Sep 25 2011"
+			],
+			"keyword": "base,nonn",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Jun 30 2010",
+			"references": 19,
+			"revision": 21,
+			"time": "2013-02-13T04:38:41-05:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 179242,
+			"data": "4,6,7,9,10,11,14,15,16,18,22,23,24,26,29,35,36,37,39,42,47,56,57,58,60,63,68,76,90,91,92,94,97,102,110,123,145,146,147,149,152,157,165,178,199,234,235,236,238,241,246,254,267,288,322,378,379,380,382,385,390",
+			"name": "Numbers n that have two terms in their Zeckendorf representation.",
+			"comment": [
+				"A007895(a(n)) = 2. - _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A179242/b179242.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"4 = 1+3;",
+				"6 = 1+5;",
+				"7 = 2+5;",
+				"9 = 1+8;",
+				"10 = 2+8;"
+			],
+			"maple": [
+				"with(combinat): B := proc (n) local A, ct, m, j: A := proc (n) local i; for i while fibonacci(i) \u003c= n do n-fibonacci(i) end do end proc: ct := 0: m := n: for j while 0 \u003c A(m) do ct := ct+1: m := A(m) end do: ct+1 end proc: Q := {}: for i from fibonacci(5)-1 to 400 do if B(i) = 2 then Q := `union`(Q, {i}) else end if end do: Q;"
+			],
+			"mathematica": [
+				"f[n_] := (k = 1; ff = {}; While[(fi = Fibonacci[k]) \u003c= n, AppendTo[ff, fi]; k++]; Drop[ff, 1]); z[n_] := If[n == 0, 0, r = n; s = {}; fr = f[n]; While[r \u003e 0, lf = Last[fr]; If[lf \u003c= r, r = r - lf; PrependTo[s, lf]]; fr = Drop[fr, -1]]; s]; Select[ Range[400], Length[z[#]] == 2 \u0026] (* _Jean-François Alcover_, Sep 27 2011 *)",
+				"zeck = DigitCount[Select[Range[5000], BitAnd[#, 2*#] == 0\u0026], 2, 1];",
+				"Position[zeck, 2] // Flatten (* _Jean-François Alcover_, Jan 25 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits)",
+				"a179242 n = a179242_list !! (n-1)",
+				"a179242_list = concatMap h $ drop 3 $ inits $ drop 2 a000045_list where",
+				"   h is = reverse $ map (+ f) fs where",
+				"          (f:_:fs) = reverse is",
+				"-- _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"xref": [
+				"Cf. A035517, A007895, A179243, A179244, A179245, A179246, A179247, A179248, A179249, A179250, A179251, A179252, A179253.",
+				"Cf. A000045."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Emeric Deutsch_, Jul 05 2010",
+			"references": 19,
+			"revision": 15,
+			"time": "2018-01-25T17:45:57-05:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 180191,
+			"data": "0,1,3,13,67,411,2921,23633,214551,2160343,23897269,288102189,3760013027,52816397219,794536751217,12744659120521,217140271564591,3916221952414383,74539067188152941,1493136645424092773,31400620285465593339,691708660911435955579",
+			"name": "Number of permutations of [n] having at least one succession. A succession of a permutation p is a position i such that p(i+1)-p(i) = 1.",
+			"comment": [
+				"a(n) = A180190(n,1).",
+				"a(n+2) = p(n+2) where p(x) is the unique degree-n polynomial such that p(k) = k! for k = 1, ..., n+1. - _Michael Somos_, Jan 05 2012",
+				"From _Jon Perry_, Jan 04 2013: (Start)",
+				"Number of permutations of {1,...,n-1,n+1} with at least one indexed point p(k)=k with 1\u003c=k\u003c=n. Note that this means p(k)=n+1 is never an indexed point as k\u003cn+1. Permutations of {1,2,4} with an indexed point p(k)=k are 124, 142 and 421, so a(3)=3.",
+				"For n\u003e1, a(n) is the number of permutations of [n+1] that have a fixed point and contain 12; for example the a(3)=3 such permutations of {1,2,3,4} are 1234, 1243, and 3124.",
+				"(End)",
+				"For n \u003e 0: row sums of triangle A116853. - _Reinhard Zumkeller_, Aug 31 2014"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A180191/b180191.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"Uriel Feige, \u003ca href=\"http://www.wisdom.weizmann.ac.il/~feige/mypapers/OnlineMatchingFeige2018.pdf\"\u003eTighter bounds for online bipartite matching\u003c/a\u003e, 2018."
+			],
+			"formula": [
+				"a(n) = n! - d(n) - d(n-1), where d(j) = A000166(j) are the derangement numbers.",
+				"a(n) = n! - A000255(n-1) = A002467(n) - A000166(n-1). - _Jon Perry_, Jan 05 2013",
+				"a(n) = (n-1)! [x^(n-1)] (1-exp(-x))/(1-x)^2. - _Alois P. Heinz_, Feb 23 2019"
+			],
+			"example": [
+				"x^2 + 3*x^3 + 13*x^4 + 67*x^5 + 411*x^6 + 2921*x^7 + 23633*x^8 + ...",
+				"a(3) = 3 because we have 123, 312, and 231; the permutations 132, 213, and 321 have no successions.",
+				"a(4) = 13 since p(x) = (3*x^2 - 7*x + 6) / 2 interpolates p(1) = 1, p(2) = 2, p(3) = 6, and p(4) = 13. - _Michael Somos_, Jan 05 2012"
+			],
+			"maple": [
+				"d[0] := 1: for n to 50 do d[n] := n*d[n-1]+(-1)^n end do: seq(factorial(n)-d[n]-d[n-1], n = 1 .. 22);"
+			],
+			"mathematica": [
+				"f[n_] := Sum[ -(-1)^k (n - k)! Binomial[n - 1, k], {k, 1, n}]; Array[f, 20] (* _Robert G. Wilson v_, Oct 16 2010 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c2, 0, n--; subst( polinterpolate( vector( n, k, k!)), x, n+1))} /* _Michael Somos_, Jan 05 2012 */",
+				"(Haskell)",
+				"a180191 n = if n == 1 then 0 else sum $ a116853_row (n - 1)",
+				"-- _Reinhard Zumkeller_, Aug 31 2014"
+			],
+			"xref": [
+				"Cf. A000166, A000255, A002467, A180190.",
+				"Cf. A116853, A276975.",
+				"Column k=1 of A306234, A306461, and of A324362(n-1)."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Emeric Deutsch_, Sep 07 2010",
+			"references": 19,
+			"revision": 47,
+			"time": "2019-02-23T17:55:38-05:00",
+			"created": "2010-09-12T03:00:00-04:00"
+		}
+	]
+}

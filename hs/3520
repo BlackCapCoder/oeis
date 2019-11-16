@@ -1,0 +1,471 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3520,
+	"results": [
+		{
+			"number": 70319,
+			"data": "1,2,2,3,3,4,4,4,4,4,4,6,6,6,6,6,6,6,6,6,6,6,6,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12",
+			"name": "Max( tau(k) : k=1,2,3,...,n ) where tau(n)=A000005(n) is the number of divisors of x.",
+			"comment": [
+				"Is this the same as A068509? - _David Scambler_, Sep 10 2012",
+				"They are different even asymptotically: A068509(n)=O(sqrt(n)), while a(n) does not have polynomial growth. One example where the sequences differ: a(625) = 24 \u003c A068509(625). (The inequality is implied by the set {1,2,..,25} where each pair of the elements has lcm \u003c= 625.) - _Max Alekseyev_, Sep 11 2012",
+				"The two sequences first differ when n = 336, due to the set of 21 elements {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16, 18, 21, 24, 30, 36, 42, 48} where each pair of elements has lcm \u003c= 336, while no positive integer \u003c= 336 has more than 20 divisors. Therefore A068509(336) = 21 and A070319(336) = 20. - _William Rex Marshall_, Sep 11 2012"
+			],
+			"reference": [
+				"Sándor, J., Crstici, B., Mitrinović, Dragoslav S. Handbook of Number Theory I. Dordrecht: Kluwer Academic, 2006, p. 44.",
+				"S. Wigert. Sur l’ordre de grandeur du nombre des diviseurs d’un entier. Arkiv. for Math. 3 (1907), 1-9."
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A070319/b070319.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"S. Ramanujan, \u003ca href=\"http://ramanujan.sirinudi.org/Volumes/published/ram15.html\"\u003eHighly composite numbers\u003c/a\u003e, Proceedings of the London Mathematical Society, 2, XIV, 1915, 347 - 409."
+			],
+			"formula": [
+				"a(n) = exp(log(2) log(n) / log(log(n)) + O(log(n) log(log(log(n))) / (log(log(n)))^2)). (See Sándor reference for more formulas.) - _Eric M. Schmidt_, Jun 30 2013",
+				"a(n) = A002183(A261100(n)). - _Antti Karttunen_, Jun 06 2017"
+			],
+			"mathematica": [
+				"a = {0}; Do[AppendTo[a, Max[DivisorSigma[0, n], a[[n]]]], {n, 120}]; Rest@ a (* _Michael De Vlieger_, Sep 29 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n)=vecmax(vector(n,k,numdiv(k)))",
+				"(PARI) v=vector(100);v[1]=1;for(n=2,#v,v[n]=max(v[n-1],numdiv(n))); v \\\\ _Charles R Greathouse IV_, Sep 12 2012",
+				"(Haskell)",
+				"a070319 n = a070319_list !! (n-1)",
+				"a070319_list = scanl1 max $ map a000005 [1..]",
+				"-- _Reinhard Zumkeller_, Apr 01 2011",
+				"(PARI) A070319(n,m=1,s=2)={for(k=s,n,m\u003cnumdiv(k) \u0026\u0026 m=numdiv(k));m} /* Although this should statistically require more assignments, the simple for() loop is faster than a forstep(k=n,s,-1) loop. To speed up the computation, give as 2nd and 3rd (optional) arguments earlier computed values, e.g. m=a(n-1) and s=n, cf. the example below. */ - _M. F. Hasler_, Sep 12 2012",
+				"(PARI) {a=0;for(n=1,100,print1(a=A070319(n,a,n),\",\"))} /* Using this pattern, computation of a(1..10^6) is faster than \"normal\" computation of a(1..3000). */"
+			],
+			"xref": [
+				"Cf. A000005, A002182, A002183, A261100, A261104."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Benoit Cloitre_, May 11 2002",
+			"references": 8,
+			"revision": 50,
+			"time": "2017-06-13T21:42:30-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 70883,
+			"data": "3,1,6,3,14,11,22,27,30,23,20,41,36,37,32,37,42,47,80,83,92,89,68,65,120,127,124,119,112,111,96,163,168,169,182,179,184,133,128,133,154,159,148,237,232,233,252,239,210,215,218,219,196,205,310,319,308,309,302",
+			"name": "Bitwise XOR of n and n-th prime.",
+			"comment": [
+				"For any integer k, XOR(n,k) = 2*OR(n,k) - (n+k). - _Gary Detlefs_, Oct 26 2013"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A070883/b070883.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Aut.html\"\u003eaut\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/XOR.html\"\u003eXOR\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = 2*OR(p,n) - (p+n), for n-th prime p. - _Gary Detlefs_, Oct 26 2013"
+			],
+			"example": [
+				"A000040(25)=97, [25]2 = '00011001', [97]2 = '01100001' '00011001' XOR '01100001' = '01111000', therefore a(25)=120."
+			],
+			"mathematica": [
+				"Table[ BitXor[ n, Prime[n]], {n, 1, 55}]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Bits (xor)",
+				"a070883 n = a070883_list !! (n-1)",
+				"a070883_list = zipWith xor [1..] a000040_list",
+				"-- _Reinhard Zumkeller_, Jun 23 2015"
+			],
+			"xref": [
+				"Cf. A169810, A169811, A194187.",
+				"Cf. A265885 (IMPL)."
+			],
+			"keyword": "nonn,look",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 22 2002",
+			"references": 8,
+			"revision": 24,
+			"time": "2017-05-13T18:07:42-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 70887,
+			"data": "1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,1,0,1,1,1,0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,0,1,1,1,0,0,0,1,0,1",
+			"name": "Triangle read by rows giving successive states of one-dimensional cellular automaton generated by \"Rule 110\".",
+			"comment": [
+				"New state of cell is 1 in every case except when the previous states of the cell and its two neighbors were all the same, or when the left neighbor was 1 and the cell and its right neighbor were both 0.",
+				"A cellular automaton using Rule 110 with arbitrary inputs is a universal Turing machine.",
+				"Row n has length n.",
+				"T(n,k) = A075437(n-1,k-1), k=1..n. - _Reinhard Zumkeller_, Jun 26 2013"
+			],
+			"reference": [
+				"S. Wolfram, A New Kind of Science, Wolfram Media, 2002; p. 31ff.."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A070887/b070887.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Rule110.html\"\u003eRule 110\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Rule_110\"\u003eRule 110\u003c/a\u003e",
+				"\u003ca href=\"/index/Ce#cell\"\u003eIndex entries for sequences related to cellular automata\u003c/a\u003e"
+			],
+			"example": [
+				"1;",
+				"1,1;",
+				"1,1,1;",
+				"1,1,0,1;",
+				"1,1,1,1,1; ..."
+			],
+			"maple": [
+				"A070887 := proc(n,k)",
+				"    option remember;",
+				"    local lef,mid,rig ;",
+				"    if k \u003c 1 or k \u003e n then",
+				"        0;",
+				"    elif n = 1 then",
+				"        1;",
+				"    else",
+				"        lef := procname(n-1,k-2) ;",
+				"        mid := procname(n-1,k-1) ;",
+				"        rig := procname(n-1,k) ;",
+				"        if lef = mid and mid = rig then",
+				"            0 ;",
+				"        elif lef = 1 and mid =0 and rig =0 then",
+				"            0;",
+				"        else",
+				"            1 ;",
+				"        end if;",
+				"    end if;",
+				"end proc:",
+				"for n from 1 to 12 do",
+				"    for k from 1 to n do",
+				"        printf(\"%d \",A070887(n,k)) ;",
+				"    end do:",
+				"    printf(\"\\n\")",
+				"end do: # _R. J. Mathar_, Feb 18 2015"
+			],
+			"mathematica": [
+				"rows = 14; ca = CellularAutomaton[110, {{1}, 0}, rows-1]; Flatten[ Table[ca[[k, rows-k+1 ;; -1]], {k, 1, rows}]] (* _Jean-François Alcover_, May 24 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a070887 n k = a070887_tabl !! (n-1) !! (k-1)",
+				"a070887_row n = a070887_tabl !! (n-1)",
+				"a070887_tabl = zipWith take [1..] a075437_tabf",
+				"-- _Reinhard Zumkeller_, Jun 26 2013"
+			],
+			"xref": [
+				"Cf. A070950, A070886.",
+				"Cf. A047999.",
+				"A071049 gives number of ON cells at n-th generation."
+			],
+			"keyword": "nonn,tabl,nice,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, May 19 2002",
+			"ext": [
+				"More terms from _Hans Havermann_, May 26 2002"
+			],
+			"references": 8,
+			"revision": 31,
+			"time": "2018-04-11T10:58:45-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71222,
+			"data": "1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2,1,6,1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2,1,6,1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2,1,6,1,2,1,2,1,4,1,2,1,2,1,4,1,2,1,2",
+			"name": "Smallest k such that gcd(n,k) = gcd(n+1,k+1).",
+			"comment": [
+				"a(n) = least m\u003e0 such that gcd(n!+1+m,n-m) = 1.  [_Clark Kimberling_, Jul 21 2012]",
+				"From _Antti Karttunen_, Jan 26 2014: (Start)",
+				"a(n-1)+1 = A053669(n) = Smallest k \u003e= 2 coprime to n = Smallest prime not dividing n.",
+				"Note that a(n) is equal to A235918(n+1) for the first 209 values of n. The first difference occurs at n=210 and A235921 lists the integers n for which a(n) differs from A235918(n+1).",
+				"(End)"
+			],
+			"link": [
+				"Clark Kimberling \u0026 Antti Karttunen, \u003ca href=\"/A071222/b071222.txt\"\u003eTable of n, a(n) for n = 0..10001\u003c/a\u003e (Terms up to n=1000 from Kimberling)"
+			],
+			"mathematica": [
+				"sgcd[n_]:=Module[{k=1},While[GCD[n,k]!=GCD[n+1,k+1],k++];k]; Array[sgcd,110] (* _Harvey P. Dale_, Jul 13 2012 *)"
+			],
+			"program": [
+				"(PARI) for(n=1,140,s=1; while(gcd(s,n)\u003cgcd(n+1,s+1),s++); print1(s,\",\"))",
+				"(Scheme) (define (A071222 n) (let loop ((k 1)) (cond ((= (gcd n k) (gcd (+ n 1) (+ k 1))) k) (else (loop (+ 1 k)))))) ;; _Antti Karttunen_, Jan 26 2014",
+				"(Haskell)",
+				"a071222 n = head [k | k \u003c- [1..], gcd (n + 1) (k + 1) == gcd n k]",
+				"-- _Reinhard Zumkeller_, Oct 01 2014"
+			],
+			"xref": [
+				"One less than A053669(n+1).",
+				"Cf. also A007978, A055874, A235918, A235921."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_Benoit Cloitre_, Jun 10 2002",
+			"ext": [
+				"Added a(0)=1. - _N. J. A. Sloane_, Jan 19 2014"
+			],
+			"references": 8,
+			"revision": 27,
+			"time": "2019-05-18T05:54:07-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71321,
+			"data": "0,2,3,0,5,-1,7,2,0,-3,11,3,13,-5,-2,0,17,2,19,5,-4,-9,23,-1,0,-11,3,7,29,4,31,2,-8,-15,-2,0,37,-17,-10,-3,41,6,43,11,5,-21,47,3,0,2,-14,13,53,-1,-6,-5,-16,-27,59,-2,61,-29,7,0,-8",
+			"name": "Alternating sum of all prime factors of n; primes nondecreasing, starting with the least prime factor: A020639(n).",
+			"comment": [
+				"a(n) = 0 iff n square, a(A000290(n)) = 0;",
+				"a(n) \u003c= 0 iff A001222(n) is even;",
+				"a(n) = n iff n prime, a(A000040(n)) = A000040(n).",
+				"a(2n) = -a(n) + 2. - _Ralf Stephan_"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A071321/b071321.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = -A071322(n)*A008836(n). - _Franklin T. Adams-Watters_, Oct 18 2006"
+			],
+			"example": [
+				"72 = 2*2*2*3*3, therefore a(72) = 2 - 2 + 2 - 3 + 3 = 2;",
+				"90 = 2*3*3*5, therefore a(90) = 2 - 3 + 3 - 5 = -3."
+			],
+			"mathematica": [
+				"Join[{0},Table[Total[Times@@@Partition[Riffle[Flatten[Table[#[[1]],{#[[2]]}]\u0026/@ FactorInteger[n]],{1,-1},{2,-1,2}],2]],{n,2,100}]] (* _Harvey P. Dale_, Sep 23 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a071321 1 = 0",
+				"a071321 n = sum $ zipWith (*) a033999_list $ a027746_row n",
+				"-- _Reinhard Zumkeller_, Jun 01 2013"
+			],
+			"xref": [
+				"Cf. A001414, A071322, A071323.",
+				"Cf. A008836.",
+				"Cf. A027746, A033999."
+			],
+			"keyword": "sign",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 18 2002",
+			"references": 8,
+			"revision": 17,
+			"time": "2015-12-12T04:18:01-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71700,
+			"data": "15,143,3599,5183,11663,32399,36863,51983,57599,97343,121103,176399,186623,359999,435599,685583,1040399,1065023,1192463,1327103,1742399,2039183,2108303,2214143,2585663,2624399,2782223",
+			"name": "Product of twin primes of form (4*k+3,4*(k+1)+1), k\u003e=0.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A071700/b071700.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) \u003e\u003e n^2 log^4 n. - _Charles R Greathouse IV_, Jul 03 2013"
+			],
+			"program": [
+				"(PARI) for(k=0,1e3,if(isprime(4*k+3)\u0026\u0026isprime(4*k+5),print1(16*k^2+32*k +15\", \"))) \\\\ _Charles R Greathouse IV_, Jul 03 2013",
+				"(PARI) is(n)=my(k=sqrtint(n\\16)); n==16*k^2+32*k+15 \u0026\u0026 isprime(4*k+3) \u0026\u0026 isprime(4*k+5) \\\\ _Charles R Greathouse IV_, Jul 03 2013",
+				"(PARI) is(n)=my(t); n%16==15 \u0026\u0026 issquare(n+1,\u0026t) \u0026\u0026 isprime(t-1) \u0026\u0026 isprime(t+1) \\\\ _Charles R Greathouse IV_, Dec 12 2016",
+				"(PARI) list(lim)=my(v=List(),p=3); forprime(q=5,sqrtint(1+lim\\1)+1, if(q-p==2 \u0026\u0026 p%4==3, listput(v,p*q)); p=q); Vec(v) \\\\ _Charles R Greathouse IV_, Dec 12 2016",
+				"(Haskell)",
+				"a071700 n = a071700_list !! (n-1)",
+				"a071700_list = [x * y | x \u003c- [3, 7 ..], a010051' x == 1,",
+				"                        let y = x + 2, a010051' y == 1]",
+				"-- _Reinhard Zumkeller_, Aug 05 2014"
+			],
+			"xref": [
+				"Subsequence of A037074, A071700 and of A182140.",
+				"Cf. A071697, a(n) = A071698(n)*A071699(n)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 04 2002",
+			"references": 8,
+			"revision": 14,
+			"time": "2016-12-12T14:11:35-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71954,
+			"data": "2,4,10,32,114,420,1562,5824,21730,81092,302634,1129440,4215122,15731044,58709050,219105152,817711554,3051741060,11389252682,42505269664,158631825970,592022034212,2209456310874,8245803209280,30773756526242,114849222895684",
+			"name": "a(n) = 4*a(n-1) - a(n-2) - 4, with a(0) = 2, a(1) = 4.",
+			"comment": [
+				"a(n) gives the side of a cube having a square number of cubes in its two outermost layers, i.e., solutions p to the equation p^3 - (p - 4)^3 = q^2. The corresponding q is given by 4*A001075(n)."
+			],
+			"reference": [
+				"M. E. Larsen, \"Four Cubes\" in Puzzler's Tribute, Ed. D. Wolfe \u0026 T. Rodgers, pp. 69-70, A. K. Peters, MA, 2002"
+			],
+			"link": [
+				"G. C. Greubel, \u003ca href=\"/A071954/b071954.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (terms 0..100 from Reinhard Zumkeller)",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (5,-5,1)."
+			],
+			"formula": [
+				"a(n) = 5*a(n-1) - 5*a(n-2) + a(n-3) for n \u003e 2, with a(0) = 2, a(1) = 4, a(2) = 10.",
+				"G.f.: 2*(1 - 3*x)/((1-x)*(1 -4*x +x^2)). - _Harvey P. Dale_, May 05 2011",
+				"a(n) = (2 + (-(2 - sqrt(3))^n + (2 + sqrt(3))^n)/sqrt(3)). - _Colin Barker_, Nov 03 2016",
+				"A263942(n) = -a(-1-n) for all n in Z. - _Michael Somos_, Nov 03 2016",
+				"E.g.f.: (2/3)*(3*exp(x) + sqrt(3)*exp(2*x)*sinh(sqrt(3)*x)). - _Franck Maminirina Ramaharo_, Nov 14 2018",
+				"From _G. C. Greubel_, Feb 25 2019: (Start)",
+				"a(n) = 2*A072110(n).",
+				"a(n) = 2*(1 - (-i)^(n+1)*F(n, 4*i)), where i=sqrt(-1) and F(n,x) is the Fibonacci polynomial. (End)"
+			],
+			"example": [
+				"G.f. = 2 + 4*x + 10*x^2 + 32*x^3 + 114*x^4 + 420*x^5 + 1562*x^6 + ..."
+			],
+			"mathematica": [
+				"a[n_]:= a[n] = 4*a[n-1] -a[n-2] -4; a[0]=2; a[1]=4; Table[a[n], {n,0,30}]",
+				"LinearRecurrence[{5,-5,1},{2,4,10},30] (* _Harvey P. Dale_, May 05 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a071954 n = a071954_list !! n",
+				"a071954_list = 2 : 4 : zipWith (-)",
+				"               (map ((4 *) . pred) (tail a071954_list)) a071954_list",
+				"-- _Reinhard Zumkeller_, Aug 11 2011",
+				"(PARI) Vec((2-6*x)/(1-5*x+5*x^2-x^3)+O(x^30)) \\\\ _Charles R Greathouse IV_, Feb 09 2012",
+				"(PARI) {a(n) = my(w=quadgen(12)); simplify( 2 + ((2+w)^n - (2-w)^n) / w)}; /* _Michael Somos_, Nov 03 2016 */",
+				"(MAGMA) I:=[2,4,10]; [n le 3 select I[n] else 5*Self(n-1) -5*Self(n-2) + Self(n-3): n in [1..30]]; // _G. C. Greubel_, Feb 25 2019",
+				"(Sage) (2*(1-3*x)/((1-x)*(1-4*x+x^2))).series(x, 30).coefficients(x, sparse=False) # _G. C. Greubel_, Feb 25 2019",
+				"(GAP) a:=[2,4,10];; for n in [4..30] do a[n]:=5*a[n-1]-5*a[n-2]+a[n-3]; od; a; # _G. C. Greubel_, Feb 25 2019"
+			],
+			"xref": [
+				"Equals A052530(n) + 2, n \u003e 0.",
+				"Cf. A001075, A003699, A072110, A263942."
+			],
+			"keyword": "nice,nonn,easy",
+			"offset": "0,1",
+			"author": "_Lekraj Beedassy_, Jun 25 2002",
+			"ext": [
+				"Edited by _Robert G. Wilson v_, Jun 27 2002"
+			],
+			"references": 8,
+			"revision": 45,
+			"time": "2019-02-26T08:19:53-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 72103,
+			"data": "4,8,9,16,16,25,27,32,36,49,64,64,64,81,81,100,121,125,128,144,169,196,216,225,243,256,256,256,289,324,343,361,400,441,484,512,512,529,576,625,625,676,729,729,729,784,841,900,961,1000,1024,1024,1024,1089",
+			"name": "Sorted perfect powers a^b for a, b \u003e 1 with duplication.",
+			"comment": [
+				"If b is the largest integer such that n=a^b for some a\u003e1, then n occurs d(b)-1 times in this sequence (where d = A000005 is the number of divisors function). (This includes the case where b=1 and n does not occur in the sequence.) - _M. F. Hasler_, Jan 25 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A072103/b072103.txt\"\u003eTable of n, a(n) for n = 1..9999\u003c/a\u003e, recomputed with new offset by _M. F. Hasler_, Jan 25 2015",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PerfectPower.html\"\u003ePerfect Power\u003c/a\u003e"
+			],
+			"formula": [
+				"Sum_{i=2}^{infty} sum_{j=2}^{infty} 1/i^j = 1."
+			],
+			"example": [
+				"(a,b) = (2,4) and (4,2) both yield 2^4 = 4^2 = 16, therefore 16 is listed twice.",
+				"Similarly, 64 is listed 3 times since (a,b) = (2,6), (4,3) and (8,2) all yield 64."
+			],
+			"maple": [
+				"N:= 2000: # to get all entries \u003c= N",
+				"sort([seq(seq(a^b, b = 2 .. floor(log[a](N))), a = 2 .. floor(sqrt(N)))]); # _Robert Israel_, Jan 25 2015"
+			],
+			"mathematica": [
+				"nn=60;Take[Sort[#[[1]]^#[[2]]\u0026/@Tuples[Range[2,nn],2]],nn] (* _Harvey P. Dale_, Oct 03 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, findMin, deleteMin, insert)",
+				"a072103 n = a072103_list !! (n-1)",
+				"a072103_list = f 9 3 $ Set.singleton (4,2) where",
+				"   f zz z s",
+				"     | xx \u003c zz   = xx : f zz z (Set.insert (x*xx, x) $ Set.deleteMin s)",
+				"     | otherwise = zz : f (zz+2*z+1) (z+1) (Set.insert (z*zz, z) s)",
+				"     where (xx, x) = Set.findMin s",
+				"-- _Reinhard Zumkeller_, Oct 04 2012",
+				"(PARI) is_A072103(n)=ispower(n)",
+				"for(n=1,999,(e=ispower(n))||next;fordiv(e,d,d\u003e1 \u0026\u0026 print1(n\",\")) \\\\ _M. F. Hasler_, Jan 25 2015"
+			],
+			"xref": [
+				"Cf. A001597, A000005, A253641, A253642."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Eric W. Weisstein_, Jun 18 2002",
+			"ext": [
+				"Offset corrected and examples added by _M. F. Hasler_, Jan 25 2015"
+			],
+			"references": 8,
+			"revision": 27,
+			"time": "2016-07-19T10:47:42-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 72202,
+			"data": "1,2,4,8,15,16,30,32,35,39,51,55,60,64,70,78,87,91,95,102,110,111,115,119,120,123,128,140,143,155,156,159,174,182,183,187,190,203,204,215,219,220,222,225,230,235,238,240,246,247,256,259,267,280,286,287,291",
+			"name": "Same numbers of prime factors of forms 4*k+1 and 4*k+3, counted with multiplicity.",
+			"comment": [
+				"Equivalently, numbers n such that A083025(n) = A065339(n), indices of zeros in A079635.",
+				"Closed under multiplication.",
+				"Closed with respect to permutation A267099. - _Antti Karttunen_, Feb 03 2016"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A072202/b072202.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"825 = 3*5*5*11 = [(4*0+3)*(4*2+3)]*[(4*1+1)*(4*1+1)], therefore 825 is a term."
+			],
+			"mathematica": [
+				"f[n_]:=Plus@@Last/@Select[If[==1,{},FactorInteger[n]],Mod[#[[1]],4]==1\u0026]; Table[f[n],{n,100}] (* _Ray Chandler_, Dec 18 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a072202 n = a072202_list !! (n-1)",
+				"a072202_list = [x | x \u003c- [1..], a083025 x == a065339 x]",
+				"-- _Reinhard Zumkeller_, Jan 10 2012",
+				"(Scheme) (define A072202 (ZERO-POS 1 1 A079635)) ;; [requires also my IntSeq-library] - _Antti Karttunen_, Feb 03 2016",
+				"(PARI) isok(n) = {my(f = factor(n)); sum(k=1, #f~, ((f[k,1] % 4)==1)*f[k,2]) == sum(k=1, #f~, ((f[k,1] % 4)==3)*f[k,2]);} \\\\ _Michel Marcus_, Feb 05 2016"
+			],
+			"xref": [
+				"Cf. A002144, A002145, A202237 (odd elements), A079635, A065339, A083025, A267099.",
+				"Primitive elements are {2} U A080774. - _Franklin T. Adams-Watters_, Dec 16 2011.",
+				"Subsequence of A078613 and of A268381."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 03 2002",
+			"references": 8,
+			"revision": 31,
+			"time": "2016-02-05T20:39:46-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 72499,
+			"data": "1,1,1,2,1,2,1,2,3,2,1,6,1,2,3,8,1,6,1,8,3,2,1,24,5,2,3,8,1,30,1,8,3,2,5,144,1,2,3,40,1,36,1,8,15,2,1,144,7,10,3,8,1,36,5,56,3,2,1,720,1,2,21,64,5,36,1,8,3,70,1,1152,1,2,15,8,7,36,1,320,27,2,1,1008,5,2,3,64,1",
+			"name": "Product of divisors of n which are \u003c= n^(1/2).",
+			"comment": [
+				"a(1) = 1 and a(24) = 24. For each pair of primes p,q such that p \u003c q \u003c p^2, if n = p^3*q, then a(n) = n. There are others as well; e.g. a(40)=40. - _Don Reble_, Aug 02 2002",
+				"Row products of the table in A161906. - _Reinhard Zumkeller_, Mar 08 2013",
+				"It appears that numbers such that a(n)=n belong to 3 categories: p^6 (A030516), p^3*q, or p*q*r. - _Michel Marcus_, May 16 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A072499/b072499.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(20) = 8. The divisors of 20 are 1,2,4,5,10 and 20. a(20) = 1*2*4 = 8."
+			],
+			"program": [
+				"(Haskell)",
+				"a072499 = product . a161906_row  -- _Reinhard Zumkeller_, Mar 08 2013",
+				"(PARI) a(n) = my(d = divisors(n)); prod(i=1, #d, if (d[i]^2 \u003c= n, d[i], 1)); \\\\ _Michel Marcus_, May 16 2014"
+			],
+			"xref": [
+				"Cf. A072500, A072501.",
+				"Cf. A072504, A066839."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Amarnath Murthy_, Jul 20 2002",
+			"ext": [
+				"More terms from _Sascha Kurz_, Feb 02 2003"
+			],
+			"references": 8,
+			"revision": 15,
+			"time": "2017-10-19T10:46:15-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

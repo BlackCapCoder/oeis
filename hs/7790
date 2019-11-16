@@ -1,0 +1,373 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7790,
+	"results": [
+		{
+			"number": 260822,
+			"data": "3,4,1,2,7,8,5,6,11,12,9,10,14,13,17,18,15,16,20,19,23,24,21,22,26,25,28,27,31,32,29,30,35,36,33,34,38,37,41,42,39,40,44,43,46,45,48,47,50,49,53,54,51,52,56,55,58,57,60,59,62,61,65,66,63,64,68",
+			"name": "Lexicographically smallest permutation of the natural numbers, such that a(n)+n is a composite number and a(n) != n.",
+			"comment": [
+				"The permutation is self-inverse: a(a(n)) = n;",
+				"by definition there are no fixed points."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A260822/b260822.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a260822 n = a260822_list !! (n-1)",
+				"a260822_list = f 1 [1..] where",
+				"   f x zs = g zs where",
+				"     g (y:ys) = if y /= x \u0026\u0026 a010051' (x + y) == 0",
+				"                   then y : f (x + 1) (delete y zs) else g ys"
+			],
+			"xref": [
+				"Cf. A010051, A002808, A260933."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 04 2015",
+			"references": 2,
+			"revision": 30,
+			"time": "2015-08-04T20:44:46-04:00",
+			"created": "2015-08-04T20:44:46-04:00"
+		},
+		{
+			"number": 260895,
+			"data": "1,2,2,3,2,6,2,5,4,7,4,10,3,8,8,9,4,13,4,11,8,11,6,15,7,13,10,15,7,24,7,13,12,16,12,23,9,18,14,22,10,29,9,20,17,20,9,28,12,25,17,23,12,31,15,26,18,24,13,44,12,24,21,25,18,43,13,28,21,39,14",
+			"name": "Number of primes in n-th row of triangle A077664.",
+			"comment": [
+				"a(n) = sum(A010051(A077664(n,k)): k = 1..n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A260895/b260895.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a260895 = sum . map a010051' . a077664_row"
+			],
+			"xref": [
+				"Cf. A077664, A010051."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Aug 03 2015",
+			"references": 2,
+			"revision": 7,
+			"time": "2015-08-04T03:06:18-04:00",
+			"created": "2015-08-04T01:56:12-04:00"
+		},
+		{
+			"number": 260936,
+			"data": "4,10,13,16,19,22,25,27,31,34,37,40,42,45,47,49,52,55,57,58,59,60,61,62,64,66,67,70,73,76,79,80,82,84,85,87,91,94,97,100,101,102,103,104,106,108,109,110,112,115,117,118,121,124,126,129,132,136,139,142",
+			"name": "Numbers m such that A260933(m) = m.",
+			"comment": [
+				"A260933(a(n)) = a(n): fixed points of A260933."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A260936/b260936.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a260936 n = a260936_list !! (n-1)",
+				"a260936_list = [x | x \u003c- [1..], a260933 x == x]"
+			],
+			"xref": [
+				" Cf. A260933."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 04 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-08-04T14:55:42-04:00",
+			"created": "2015-08-04T14:55:42-04:00"
+		},
+		{
+			"number": 261012,
+			"data": "-1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1",
+			"name": "Sign(n) (with offset -1): a(n) = 1 if n\u003e0, = -1 if n\u003c0, = 0 if n = 0.",
+			"comment": [
+				"For nonnegative n, partial sums of A063524 (characteristic function of 1). - _Jeremy Gardiner_, Sep 08 2002",
+				"For nonnegative n, characteristic function of positive integers. - _Franklin T. Adams-Watters_, Aug 01 2011",
+				"a(A000027(n)) = 1; a(A000004(n)) = 0. - _Reinhard Zumkeller_, Oct 11 2008",
+				"Central terms of the triangle in A152487. - _Reinhard Zumkeller_, Dec 06 2008",
+				"n-th prime mod 2 (with offset 1,1). - _Philippe Deléham_, Apr 04 2009"
+			],
+			"reference": [
+				"T. M. Macrobert, Functions of a Complex Variable, 4th ed., Macmillan and Co, London, 1958, p. 90"
+			],
+			"link": [
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_01\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1)."
+			],
+			"formula": [
+				"G.f.: Sum_{k\u003e=0} 2^k*x^(2^k)/(1+x^(2^k)). - _Michael Somos_, Sep 11 2005",
+				"For n\u003e=0, a(n) = A000007(0^n). - _Jaume Oliver Lafont_, Mar 19 2009",
+				"a(0) = 0, a(n) = n/|n| or |n|/n for n != 0. - _Jon Perry_, Sep 20 2012",
+				"G.f.: -(x^2+x-1) / (x*(x-1)). - _Colin Barker_, Mar 13 2014"
+			],
+			"maple": [
+				"with(numtheory); A057427:=n-\u003esignum(n); seq(A057427(k), k=-1..50); # _Wesley Ivan Hurt_, Oct 22 2013"
+			],
+			"mathematica": [
+				"Sign[Range[-1,120]] (* or *) PadRight[{-1,0},120,{1}] (* _Harvey P. Dale_, May 12 2019 *)"
+			],
+			"program": [
+				"(PARI) a(n)=sign(n)",
+				"(Haskell)",
+				"a261012 = signum",
+				"a261012_list = -1 : 0 : [1, 1 ..] -- _Reinhard Zumkeller_, Nov 28 2012"
+			],
+			"xref": [
+				"A057427 is the official entry for sign(n) or signum(n). - _N. J. A. Sloane_, Aug 16 2015"
+			],
+			"keyword": "easy,sign,mult",
+			"offset": "-1,1",
+			"author": "_Henry Bottomley_, Sep 05 2000",
+			"ext": [
+				"a(-1) = -1 added by _Jon Perry_, Sep 20 2012",
+				"Incorrect g.f. and e.g.f. removed by _Joerg Arndt_, Oct 22 2013",
+				"The initial a(-1)=-1 should never have been added."
+			],
+			"references": 2,
+			"revision": 19,
+			"time": "2019-05-12T15:37:45-04:00",
+			"created": "2015-08-16T04:34:19-04:00"
+		},
+		{
+			"number": 261036,
+			"data": "1,1,1,1,1,1,1,2,1,1,2,2,1,3,2,2,1,3,4,2,1,4,5,4,2,1,4,6,5,4,1,5,8,8,5,4,1,5,10,10,8,5,1,6,11,14,10,8,5,1,6,14,16,16,10,8,1,7,16,22,20,16,10,8,1,7,18,26,27,20,16,10,1,8,21,32,34,31",
+			"name": "Table read by rows: number of complete partitions of n with largest part = k.",
+			"comment": [
+				"See A126796 for definition of complete partitions;",
+				"A126796(n) = sum of n-th row;",
+				"also T(n,floor((n+1)/2) = A126796(floor(n/2))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261036/b261036.txt\"\u003eRows n = 1..200 of triangle, flattened\u003c/a\u003e",
+				"SeungKyung Park, \u003ca href=\"http://www.fq.math.ca/Scanned/36-4/park.pdf\"\u003eComplete Partitions\u003c/a\u003e, Fibonacci Quarterly, Vol. 36 (1998), pp. 354-360."
+			],
+			"formula": [
+				"According to the Park link, Theorem 3.7, p. 357f:",
+				"Let D_k(n) be the number of complete partitions of a positive integer n with largest part exactly k.",
+				"D_0(n) = 0 for all n, D_k(0) = 0 for all k, D_1(n)=1 for n\u003e0, and for k\u003e1:",
+				"D_k(n) = D_(k-1)(n-1) + D_k(n-k) if n \u003e= 3*k-1, D_(k-1)(n-1) if 2*k-1 \u003c= n \u003c= 3*k-2, 0 if 1 \u003c= n \u003c= 2*k-2.",
+				"In the following, T(n,k) = D_k(n)."
+			],
+			"example": [
+				"T(8,2) = #{1+1+1+1+1+1+2, 1+1+1+1+2+2, 1+1+2+2+2} = 3;",
+				"T(8,3) = #{1+1+1+1+1+3, 1+1+1+2+3, 1+1+3+3, 1+2+2+3} = 4;",
+				"T(8,4) = #{1+1+1+1+4, 1+1+2+4} = 2;",
+				"T(9,2) = #{+11+1+1+1+1+1+2, 1+1+1+1+1+2+2, 1+1+1+2+2+2, 1+2+2+2+2} = 4;",
+				"T(9,3) = #{1+1+1+1+1+1+3, 1+1+1+1+2+3, 1+1+1+3+3, 1+1+2+2+3, 3,3,2,1} = 5;",
+				"T(9,4) = #{1+1+1+1+1+4, 1+1+1+2+4, 1+1+3+4, 1+2+2+4} = 4;",
+				"T(9,5) = #{1+1+1+1+5, 1+1+2+2+5} = 2.",
+				". -----------------------------------------------",
+				".   n |  T(n,k), k = 1 .. [(n+1)/2]  | A126796(n)",
+				". ----+------------------------------+-----------",
+				".   1 |  1                           |         1",
+				".   2 |  1                           |         1",
+				".   3 |  1 1                         |         2",
+				".   4 |  1 1                         |         2",
+				".   5 |  1 2  1                      |         4",
+				".   6 |  1 2  2                      |         5",
+				".   7 |  1 3  2  2                   |         8",
+				".   8 |  1 3  4  2                   |        10",
+				".   9 |  1 4  5  4  2                |        16",
+				".  10 |  1 4  6  5  4                |        20",
+				".  11 |  1 5  8  8  5  4             |        31",
+				".  12 |  1 5 10 10  8  5             |        39",
+				".  13 |  1 6 11 14 10  8  5          |        55",
+				".  14 |  1 6 14 16 16 10  8          |        71",
+				".  15 |  1 7 16 22 20 16 10  8       |       100",
+				".  16 |  1 7 18 26 27 20 16 10       |       125",
+				".  17 |  1 8 21 32 34 31 20 16 10    |       173",
+				".  18 |  1 8 24 37 42 39 31 20 16    |       218",
+				".  19 |  1 9 26 46 53 50 39 31 20 16 |       291",
+				".  20 |  1 9 30 52 66 63 55 39 31 20 |       366"
+			],
+			"mathematica": [
+				"d[k_, n_] := d[k, n] = Which[n == 0 || k == 0, 0, k == 1, 1, n \u003e= 3 k - 1, d[k - 1, n - 1] + d[k, n - k], 2 k - 1 \u003c= n \u003c= 3 k - 2, d[k - 1, n - 1], True, 0]; Table[d[k, n], {n, 17}, {k, Floor[(n + 1)/2]}] // Flatten (* _Michael De Vlieger_, Jul 13 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.MemoCombinators (memo2, integral, Memo)",
+				"a261036 n k = a261036_tabf !! (n-1) !! (k-1)",
+				"a261036_row n = a261036_tabf !! (n-1)",
+				"a261036_tabf = zipWith (map . flip dMemo) [1..] a122197_tabf where",
+				"   dMemo = memo2 integral integral d",
+				"   d 0 _ = 0",
+				"   d _ 0 = 0",
+				"   d 1 _ = 1",
+				"   d k n | n \u003c= 2 * k - 2 = 0",
+				"         | n \u003c= 3 * k - 2 = dMemo (k - 1) (n - 1)",
+				"         | otherwise      = dMemo (k - 1) (n - 1) + dMemo k (n - k)"
+			],
+			"xref": [
+				"Cf. A008619 (row lengths), A126796 (row sums).",
+				"Cf. A122197."
+			],
+			"keyword": "nonn,tabf,look",
+			"offset": "1,8",
+			"author": "_Reinhard Zumkeller_, Aug 08 2015",
+			"references": 2,
+			"revision": 27,
+			"time": "2017-07-13T20:45:47-04:00",
+			"created": "2015-08-09T00:44:14-04:00"
+		},
+		{
+			"number": 261121,
+			"data": "0,0,0,35,148931620,145695442998205937771172926213510853765",
+			"name": "Number of partitions of n-th primorial into aliquant parts (i.e., parts that do not divide n#).",
+			"comment": [
+				"a(n) = A098743(A002110(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"a261121 = a098743 . a002110"
+			],
+			"xref": [
+				"Cf. A098743, A002110, A260797."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Aug 09 2015",
+			"references": 2,
+			"revision": 3,
+			"time": "2015-08-09T08:13:12-04:00",
+			"created": "2015-08-09T08:13:12-04:00"
+		},
+		{
+			"number": 261255,
+			"data": "2,3,5,8,10,11,15,16,20,24,25,26,31,33,38,39,44,45,47,53,54,57,61,64,70,71,72,75,80,83,87,90,92,96,101,104,105,109,113,115,119,123,125,129,134,138,140,144,145,149,151,156,161,165,166,168,173,178,180",
+			"name": "Where MU-numbers (cf. A007335) occur in A003589 (3-smooth numbers).",
+			"comment": [
+				" A007335(n) = A003586(a(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261255/b261255.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				".   n |   A007335(n)     | a(n) | A003586(a(n))",
+				".  ---+------+-----------+------+--------------",
+				".   1 |    2 |         2 |    2 |            2",
+				".   2 |    3 |         3 |    3 |            3",
+				".   3 |    6 |     2 * 3 |    5 |            6",
+				".   4 |   12 |   2^2 * 3 |    8 |           12",
+				".   5 |   18 |   2 * 3^2 |   10 |           18",
+				".   6 |   24 |   2^3 * 3 |   11 |           24",
+				".   7 |   48 |   2^4 * 3 |   15 |           48",
+				".   8 |   54 |   2 * 3^3 |   16 |           54",
+				".   9 |   96 |   2^5 * 3 |   20 |           96",
+				".  10 |  162 |   2 * 3^4 |   24 |          162",
+				".  11 |  192 |   2^6 * 3 |   25 |          192",
+				".  12 |  216 | 2^3 * 3^3 |   26 |          216 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndex); import Data.Maybe (fromJust)",
+				"a261255 n = fromJust (findIndex (== a007335 n) a003586_list) + 1"
+			],
+			"xref": [
+				" Cf. A007335, A003586."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 13 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-08-13T02:44:45-04:00",
+			"created": "2015-08-13T02:44:45-04:00"
+		},
+		{
+			"number": 261351,
+			"data": "1,2,4,3,6,8,5,9,7,12,10,13,11,16,14,17,15,20,18,21,19,24,22,25,23,28,26,29,27,32,30,33,31,36,34,37,35,40,38,41,39,44,42,45,43,48,46,49,47,52,50,53,51,56,54,57,55,60,58,61,59,64,62,65,63,68,66",
+			"name": "Inverse permutation of A084385.",
+			"comment": [
+				"-4 \u003c= a(n) - A084385(n) \u003c= 3;",
+				"for n \u003e 4: a(n) != A084385(n);",
+				"for n \u003e 7: a(n) \u003e= A084385(n) - 3."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261351/b261351.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a261351 = (+ 1) . fromJust . (`elemIndex` a084385_list)"
+			],
+			"xref": [
+				"Cf. A084385."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Aug 16 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-08-16T08:52:27-04:00",
+			"created": "2015-08-16T08:52:27-04:00"
+		},
+		{
+			"number": 261392,
+			"data": "1,1,3,6,11,21,40,73,144,274,509,931,1771,3555,7021,13964,27789,54536,105854,210655,415349,812461,1578752,3050921,5868562,11244267,21472441,40887802,77668032,147222550,278556477,540784632,1116709696,2292646735,4682550808,9519363902",
+			"name": "Largest term in row n of A261019.",
+			"comment": [
+				"a(n) = Max(A261019(n,k): k = 0..A261017(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"a261392 = maximum . a261019_row"
+			],
+			"xref": [
+				"Cf. A261019, A261017."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Aug 18 2015",
+			"ext": [
+				"a(26)-a(36) from _Alois P. Heinz_, Aug 19 2015"
+			],
+			"references": 2,
+			"revision": 9,
+			"time": "2015-08-19T14:20:17-04:00",
+			"created": "2015-08-18T15:32:16-04:00"
+		},
+		{
+			"number": 261441,
+			"data": "0,1,5,15,35,73,144,274,509,931,1685,3027,5409,9628,17088,30261,53497,94447,166563,293489,516772,909402,1599585,2812479,4943461,8686739,15261105,26806184,47077920,82669241,145152429,254839087,447378963,785340873,1378536968",
+			"name": "Number of binary strings of length n+3 such that the smallest number whose binary representation is not visible in the string is 5.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A261441/b261441.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_08\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (5,-10,12,-12,10,-6,3,-1)."
+			],
+			"formula": [
+				"a(n) = A261019(n+3,5).",
+				"G.f.: -(x^5+2*x^3-1)*x/((x^3-x^2+2*x-1)*(x^3+x-1)*(x-1)^2). - _Alois P. Heinz_, Aug 19 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a261441 0 = 0",
+				"a261441 n = a261019' (n + 3) 5"
+			],
+			"xref": [
+				"Column k=5 of A261019."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Aug 18 2015",
+			"ext": [
+				"More terms from _Alois P. Heinz_, Aug 19 2015"
+			],
+			"references": 2,
+			"revision": 11,
+			"time": "2015-08-20T15:30:47-04:00",
+			"created": "2015-08-20T15:24:06-04:00"
+		}
+	]
+}

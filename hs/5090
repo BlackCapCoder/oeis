@@ -1,0 +1,391 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5090,
+	"results": [
+		{
+			"number": 248353,
+			"data": "1,9,10,45,55,99,100,297,703,999,1000,2223,2728,4879,4950,5050,5292,7272,7777,9999,10000,17344,22222,38962,77778,82656,95121,99999,100000,142857,148149,181819,187110,208495,318682,329967,351352,356643,390313,461539",
+			"name": "Kaprekar numbers, allowing powers of 10: n such that n=q+r and n^2=q*10^m+r, for some m \u003e= 1, q\u003e=0 and 0\u003c=r\u003c10^m.",
+			"comment": [
+				"Powers of 10 were excluded in Kaprekar's original definition (A006886), see also A045913."
+			],
+			"link": [
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Kaprekar_number\"\u003eKaprekar_number\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/KaprekarNumber.html\"\u003eKaprekar Number\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sqrt(A102766(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"a248353 n = a248353_list !! (n-1)",
+				"a248353_list = filter k [1..] where",
+				"   k x = elem x $ map (uncurry (+)) $",
+				"         takeWhile ((\u003e 0) . fst) $ map (divMod (x ^ 2)) a011557_list"
+			],
+			"xref": [
+				"Cf. A006886 (subsequence), A045913, A053816, A011557, A102766."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 05 2014",
+			"references": 5,
+			"revision": 5,
+			"time": "2017-08-04T12:05:51-04:00",
+			"created": "2014-10-05T12:41:37-04:00"
+		},
+		{
+			"number": 248378,
+			"data": "12,21,23,32,34,43,45,54,56,65,67,76,78,87,89,98,910,109,1011,1110,1112,1211,1213,1312,1314,1413,1415,1514,1516,1615,1617,1716,1718,1817,1819,1918,1920,2019,2021,2120,2122,2221,2223,2322,2324,2423,2425,2524,2526",
+			"name": "a(2n) = concatenation of n+1 with n+2, a(2n+1) = concatenation of n+2 with n+1.",
+			"reference": [
+				"Charles Duvall, Email to N. J. A. Sloane, Oct 07 2014."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248378/b248378.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a248378 n = a248378_list !! n",
+				"a248378_list = concat $ transpose [a001704_list, tail a127423_list]",
+				"-- _Reinhard Zumkeller_, Oct 07 2014"
+			],
+			"xref": [
+				"Cf. A001704, A127423.",
+				"Cf. A154530 (primes)."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Oct 07 2014",
+			"references": 5,
+			"revision": 13,
+			"time": "2015-06-27T12:42:52-04:00",
+			"created": "2014-10-07T19:54:59-04:00"
+		},
+		{
+			"number": 248940,
+			"data": "7,6,4,1,-3,2,-4,3,-5,-14,-24,-13,-1,12,-2,13,29,46,28,9,-11,10,-12,11,35,60,34,61,33,62,32,63,31,64,30,65,101,138,100,139,99,58,16,-27,17,-28,18,-29,19,-30,20,-31,21,-32,22,-33,23,-34,24,-35,25,-36",
+			"name": "Wrecker ball sequence starting with 7.",
+			"comment": [
+				"Finite sequence with A228474(7) + 1 = 1726 terms;",
+				"row 7 of table A248939: a(n) = A248939(7,n) for n = 0..1725;",
+				"A248952(7) = -6362 \u003c= a(n) \u003c= 6843 = A248953(7)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248940/b248940.txt\"\u003eTable of n, a(n) for n = 0..1725\u003c/a\u003e",
+				"Gordon Hamilton, \u003ca href=\"http://www.youtube.com/watch?v=mQdNaofLqVc\"\u003eWrecker Ball Sequences\u003c/a\u003e, Video, 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a248940 n = a248940_list !! n",
+				"a248940_list = a248939_row 7"
+			],
+			"xref": [
+				"Cf. A248939, A228474, A248941 (start with 17), A248942 (start with 20)."
+			],
+			"keyword": "sign,fini,full",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Oct 18 2014",
+			"references": 5,
+			"revision": 6,
+			"time": "2019-05-16T01:32:32-04:00",
+			"created": "2014-10-20T14:10:22-04:00"
+		},
+		{
+			"number": 248941,
+			"data": "17,16,14,11,7,2,-4,3,-5,4,-6,5,-7,6,-8,-23,-39,-22,-40,-21,-1,20,-2,21,-3,22,48,75,47,18,-12,19,-13,-46,-80,-45,-9,28,-10,29,-11,30,72,115,71,26,-20,27,75,124,74,23,-29,24,-30,25,-31,-88,-146,-87",
+			"name": "Wrecker ball sequence starting with 17.",
+			"comment": [
+				"This is a finite sequence, containing exactly A228474(17) + 1 = 781803 terms.",
+				"This is row 17 of table A248939: a(n) = A248939(17,n) for n = 0..781802;",
+				"A248952(17) = -4843985 \u003c= a(n) \u003c= 4674389 = A248953(17)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248941/b248941.txt\"\u003eTable of n, a(n) for n = 0..9999\u003c/a\u003e",
+				"Gordon Hamilton, \u003ca href=\"http://www.youtube.com/watch?v=mQdNaofLqVc\"\u003eWrecker Ball Sequences\u003c/a\u003e, Video, 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a248941 n = a248941_list !! n",
+				"a248941_list = a248939_row 17"
+			],
+			"xref": [
+				"Cf. A248939, A228474, A248940 (start with 7), A248942 (start with 20)."
+			],
+			"keyword": "sign,fini",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Oct 18 2014",
+			"references": 5,
+			"revision": 13,
+			"time": "2019-05-16T01:32:32-04:00",
+			"created": "2014-10-20T14:11:25-04:00"
+		},
+		{
+			"number": 248942,
+			"data": "20,19,17,14,10,5,-1,6,-2,7,-3,8,-4,9,-5,-20,-36,-19,-37,-18,2,23,1,-22,-46,-21,-47,-74,-102,-73,-43,-12,-44,-11,-45,-10,26,63,25,-14,-54,-13,29,72,28,-17,-63,-16,32,81,31,82,30,-23,-77,-132,-76,-133",
+			"name": "Wrecker ball sequence starting with 20.",
+			"comment": [
+				"Finite sequence with A228474(20) + 1 = 132897 terms;",
+				"row 20 of table A248939: a(n) = A248939(20,n) for n = 0..132896;",
+				"A248952(20) = -657367 \u003c= a(n) \u003c= 891114 = A248953(20)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248942/b248942.txt\"\u003eTable of n, a(n) for n = 0..132896\u003c/a\u003e",
+				"Gordon Hamilton, \u003ca href=\"http://www.youtube.com/watch?v=mQdNaofLqVc\"\u003eWrecker Ball Sequences\u003c/a\u003e, Video, 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a248942 n = a248942_list !! n",
+				"a248942_list = a248939_row 20"
+			],
+			"xref": [
+				"Cf. A248939, A228474, A248940 (start with 7), A248941 (start with 17)."
+			],
+			"keyword": "sign,fini,full",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Oct 18 2014",
+			"references": 5,
+			"revision": 5,
+			"time": "2019-05-16T01:32:32-04:00",
+			"created": "2014-10-20T14:14:42-04:00"
+		},
+		{
+			"number": 248961,
+			"data": "0,1,-2,5,-292,-241,14,-437861,-28,-1,30,313,-4472,-4223,-2,55,3252,-214246256269,-70,-27,5260887648,91,-538,-193,-132,-864538549823,-22,27,140,40053,53088613819206,86166834699,86167898716,86168962733,86170026754,49,204",
+			"name": "Sums of wrecker ball sequences starting with n.",
+			"comment": [
+				"a(n) = A248973(n, A228474(n)) = sum of row n in triangle A248939;",
+				"a(A000217(n)) = A000330(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248961/b248961.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Gordon Hamilton, \u003ca href=\"http://www.youtube.com/watch?v=mQdNaofLqVc\"\u003eWrecker Ball Sequences\u003c/a\u003e, Video, 2013"
+			],
+			"example": [
+				"a(1) = 1+0 = 1;",
+				"a(2) = 2+1-1-4+0 = -2;",
+				"a(3) = 3+2+0 = 5;",
+				"a(4) = 4+3+1-2+2-3-9-16-8-17-7-18-6+7+21+6-10-27-45-26-46-25-47-24+0 = -292;",
+				"a(5) = 5+4+2-1+3-2-8-15-7-16-6-17-5+8+22+7-9-26-44-25-45-24-46-... = -241;",
+				"a(6) = 6+5+3+0 = 14;",
+				"a(7) = 7+6+4+1-3+2-4+3-5-14-24-13-1+12-2+13+29+46+28+9-11+10-... = -437861;",
+				"a(8) = 8+7+5+2-2+3-3+4-4-13-23-12+0 = -28;",
+				"a(9) = 9+8+6+3-1+4-2+5-3-12-22-11+1+14+0 = -1."
+			],
+			"program": [
+				"(Haskell) import Data.IntSet (singleton, member, insert)",
+				"a248961 n = addup 1 n 0 $ singleton n where",
+				"   addup _ 0 sum _ = sum",
+				"   addup k x sum s = addup (k + 1) y (sum + x) (insert y s) where",
+				"                     y = x + (if (x - j) `member` s then j else -j)",
+				"                     j = k * signum x",
+				"(C++) #include\u003cset\u003e",
+				"long A248961(long n) { long c=0, d, S=n; for(std::set\u003clong\u003e A; n; A.insert(n), S += n += A.count(n - (d = n\u003e0 ? c : -c)) ? d : -d) ++c; return S; } // _M. F. Hasler_, Mar 19 2019",
+				"(PARI) A248961(n,A=[n],c,S=n)={while( n+=sign(n)*if(setsearch(A,n-sign(n)*c+=1), c, -c), A=setunion(A,[n]); S+=n); S} \\\\ _M. F. Hasler_, Mar 19 2019",
+				"(Python) def A248961(n):",
+				"  A = {n}; c = 0; S = 0",
+				"  while n != 0:",
+				"    ++c; s = c if n\u003e0 else -c; n += s if n-s in A else -s; A.add(n); S += n",
+				"  return S # _M. F. Hasler_, Mar 19 2019"
+			],
+			"xref": [
+				"Cf. A248939, A248973, A228474, A000217, A000330."
+			],
+			"keyword": "sign",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Oct 18 2014",
+			"references": 5,
+			"revision": 11,
+			"time": "2019-05-16T01:32:32-04:00",
+			"created": "2014-10-20T14:04:06-04:00"
+		},
+		{
+			"number": 249054,
+			"data": "1,2,4,3,6,8,5,9,10,12,7,11,14,13,15,16,17,19,23,18,20,29,31,21,22,24,37,25,26,41,27,43,28,47,30,32,53,59,33,34,61,67,35,36,71,38,73,39,40,79,83,42,89,97,101,44,45,103,46,48,107,49,50,109,113,51",
+			"name": "Defined by (i) a(1)=1; (ii) if you move a(n) steps to the right you must reach a prime; (iii) a(n) = smallest unused composite number, unless a(n) is required to be prime by (ii), in which case a(n) is the smallest unused prime.",
+			"comment": [
+				"In contrast to A249053, here all the primes appear and in the correct order, and all the composites appear, also in increasing order. The graph shows two distinct curves. In A249053 many terms are missing, and the points lie on a single curve.",
+				"A permutation of the positive integers with inverse A249571."
+			],
+			"reference": [
+				"Gabriel Cunningham, Posting to Sequence Fans Mailing List, Mar 17 2008."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249054/b249054.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"example": [
+				"a(7) = 5, so a(7+a(7)) = a(7+5) = a(12) = 11 must be prime, which it is."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Map (singleton, findMin, delete, insert)",
+				"a249054 n = a249054_list !! (n-1)",
+				"a249054_list = 1 : f 1 a000040_list a002808_list (singleton 1 1) where",
+				"   f x ps'@(p:ps) cs'@(c:cs) m",
+				"     | k == x    = p : f (x + 1) ps cs' (insert (x + p) 0 $ delete x m)",
+				"     | otherwise = c : f (x + 1) ps' cs (insert (x + c) 0 m)",
+				"     where (k,_) = findMin m",
+				"-- _Reinhard Zumkeller_, Nov 01 2014"
+			],
+			"xref": [
+				"See A249053 for another version.",
+				"Cf. A000040, A002808, A249571 (inverse).",
+				"Positions of primes and nonprimes: A249594 and A249595."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Nov 01 2014",
+			"ext": [
+				"Data corrected by _Reinhard Zumkeller_, Nov 01 2014"
+			],
+			"references": 5,
+			"revision": 29,
+			"time": "2014-11-04T05:58:12-05:00",
+			"created": "2014-11-01T01:26:24-04:00"
+		},
+		{
+			"number": 249111,
+			"data": "1,1,2,3,1,2,4,5,6,1,2,5,7,10,11,12,1,2,6,9,15,18,22,23,24,1,2,7,11,21,27,37,41,46,47,48,1,2,8,13,28,38,58,68,83,88,94,95,96,1,2,9,15,36,51,86,106,141,156,177,183,190,191,192,1,2,10,17,45,66",
+			"name": "Triangle of partial sums of rows in triangle A249095.",
+			"comment": [
+				"Length of row n = 2*n+1.",
+				"In the layout as given in the example, T(n,k) is the sum of the two elements to the left and to the right of the element just above, with the row continued to the left by 0's and to the right by the last element, cf. formula. - _M. F. Hasler_, Nov 17 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249111/b249111.txt\"\u003eRows n = 0..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,0) = A249095(n,0) = 1; T(n,k) = T(n,k-1) + A249095(n,k), k \u003c= n.",
+				"T(n+1,k+1) = T(n,k-1) + T(n,k+1), with T(n,k-1)=0 for k\u003c1 and T(n,k+1)=T(n,k) for k\u003e=2n (last element of the row). In particular, T(n,k)=k+1 if k\u003c2n and T(n,k)=3*2^(n-1) if k\u003e=2n. - _M. F. Hasler_, Nov 17 2014"
+			],
+			"example": [
+				"The triangle begins:",
+				".  0:                            1",
+				".  1:                        1   2   3",
+				".  2:                    1   2   4   5   6",
+				".  3:                1   2   5   7  10  11  12",
+				".  4:             1  2   6   9  15  18  22  23  24",
+				".  5:          1  2  7  11  21  27  37  41  46  47  48",
+				".  6:       1  2  8 13  28  38  58  68  83  88  94  95  96",
+				".  7:    1  2  9 15 36  51  86 106 141 156 177 183 190 191 192",
+				".  8:  1 2 10 17 45 66 122 157 227 262 318 339 367 374 382 383 384 .",
+				"It can be seen that the elements (except for row 1) are sum of the neighbors to the upper left and upper right, with the table continued to the left with 0's and to the right with the last = largest element of each row. E.g., 1=0+1, 2=0+2, 4=1+3, 5=2+3 (=1+4 in the next row), 6=3+3 (in row 2), 7=2+5 etc. - _M. F. Hasler_, Nov 17 2014"
+			],
+			"program": [
+				"(Haskell)",
+				"a249111 n k = a249111_tabf !! n !! k",
+				"a249111_row n = a249111_tabf !! n",
+				"a249111_tabf = map (scanl1 (+)) a249095_tabf",
+				"(PARI) T(n,k)=if(k\u003c2,k+1,if(k\u003e=2*n-2,3\u003c\u003c(n-1),T(n-1,k-2)+T(n-1,k))) \\\\ _M. F. Hasler_, Nov 17 2014"
+			],
+			"xref": [
+				"Cf. A005408 (row lengths), A128543 (row sums), A248574 (central terms), A008949."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Nov 14 2014",
+			"references": 5,
+			"revision": 11,
+			"time": "2014-11-19T10:59:37-05:00",
+			"created": "2014-11-15T06:56:02-05:00"
+		},
+		{
+			"number": 249183,
+			"data": "1,111,11011,1110111,110101011,11100000111,1101100011011,111011101110111,11010101010101011,1110000000000000111,110110000000000011011,11101110000000001110111,1101010110000000110101011,111000001110000011100000111,11011000110110001101100011011",
+			"name": "a(n) = row n of triangle A249133, concatenated.",
+			"comment": [
+				" a(n) = A007088(A249184(n));",
+				"A055641(a(n)) = A249304(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249183/b249183.txt\"\u003eTable of n, a(n) for n = 0..500\u003c/a\u003e"
+			],
+			"formula": [
+				" a(n) = sum(A249133(n,k)*10^k : k=0..2*n)."
+			],
+			"example": [
+				".   0:                                  1",
+				".   1:                                 111",
+				".   2:                                11011",
+				".   3:                               1110111",
+				".   4:                              110101011",
+				".   5:                             11100000111",
+				".   6:                            1101100011011",
+				".   7:                           111011101110111",
+				".   8:                          11010101010101011",
+				".   9:                         1110000000000000111",
+				".  10:                        110110000000000011011",
+				".  11:                       11101110000000001110111",
+				".  12:                      1101010110000000110101011",
+				".  13:                     111000001110000011100000111",
+				".  14:                    11011000110110001101100011011",
+				".  15:                   1110111011101110111011101110111",
+				".  16:                  110101010101010101010101010101011",
+				".  17:                 11100000000000000000000000000000111",
+				".  18:                1101100000000000000000000000000011011",
+				".  19:               111011100000000000000000000000001110111",
+				".  20:              11010101100000000000000000000000110101011",
+				".  21:             1110000011100000000000000000000011100000111",
+				".  22:            110110001101100000000000000000001101100011011",
+				".  23:           11101110111011100000000000000000111011101110111",
+				".  24:          1101010101010101100000000000000011010101010101011",
+				".  25:         111000000000000011100000000000001110000000000000111",
+				".  26:        11011000000000001101100000000000110110000000000011011",
+				".  27:       1110111000000000111011100000000011101110000000001110111",
+				".  28:      110101011000000011010101100000001101010110000000110101011",
+				".  29:     11100000111000001110000011100000111000001110000011100000111",
+				".  30:    1101100011011000110110001101100011011000110110001101100011011",
+				".  31:   111011101110111011101110111011101110111011101110111011101110111",
+				".  32:  11010101010101010101010101010101010101010101010101010101010101011 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a249183 = foldr (\\b v -\u003e 10 * v + b) 0 . a249133_row"
+			],
+			"xref": [
+				"Cf. A249133, A249184 (decimal), A007088, A006943."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Nov 14 2014",
+			"references": 5,
+			"revision": 5,
+			"time": "2014-11-15T06:57:43-05:00",
+			"created": "2014-11-15T06:57:43-05:00"
+		},
+		{
+			"number": 249307,
+			"data": "1,1,2,4,1,2,8,8,16,1,2,12,16,48,32,64,1,2,16,24,96,96,256,128,256,1,2,20,32,160,192,640,512,1280,512,1024,1,2,24,40,240,320,1280,1280,3840,2560,6144,2048,4096,1,2,28,48,336,480,2240,2560,8960,7680",
+			"name": "Triangle read by rows: A249095(n,k) * 2^k, k = 0 .. 2*n+1.",
+			"comment": [
+				"Length of row n = 2*n+1;",
+				"T(n,2*n+1) = 4^n = A000302(n);",
+				"for n \u003e 0: sum of row n = 7*5^(n-1), cf. A005055."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249307/b249307.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a249307 n k = a249307_tabf !! n !! k",
+				"a249307_row n = a249307_tabf !! n",
+				"a249307_tabf = map (zipWith (*) a000079_list) a249095_tabf"
+			],
+			"xref": [
+				"Cf. A249095, A000079, A005408 (row lengths), A249308 (central terms), A000302 (right edge), A005055 (row sums, except for initial 1), A013609.",
+				"Cf. A013609."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Nov 14 2014",
+			"references": 5,
+			"revision": 7,
+			"time": "2019-08-01T10:42:56-04:00",
+			"created": "2014-11-15T06:58:35-05:00"
+		}
+	]
+}

@@ -1,0 +1,373 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4620,
+	"results": [
+		{
+			"number": 44051,
+			"data": "1,2,3,4,5,8,9,11,14,16,17,23,26,32,33,37,43,47,50,54,60,64,65,77,83,95,98,110,116,128,129,137,149,157,163,171,183,191,194,202,214,222,228,236,248,256,257,281,293,317,323,347,359,383",
+			"name": "a(n)=(s(n)+1)/2, where s=A006995 (base 2 palindromes).",
+			"comment": [
+				"A141707(a(n)) = 1. - _Reinhard Zumkeller_, Apr 20 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A044051/b044051.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Let n\u003e=3, m=floor(log_2(n)), p=floor((3*2^(m-1)-1)/n), then",
+				"a(n)=2^(2*m-2-p)+1+p*(1-(-1)^n)*2^(m-1)+(1/2)*sum(k=1...(m-1-p), (floor((n-(3-p)*2^(m-1))/2^(m-1-k)) mod 2)*(2^k+2^(2*m-1-p-k)) - _Hieronymus Fischer_, Feb 18 2012"
+			],
+			"program": [
+				"(Haskell)",
+				"a044051 = (`div` 2) . (+ 1) . a006995 . (+ 1)",
+				"-- _Reinhard Zumkeller_, Apr 20 2015"
+			],
+			"xref": [
+				" Cf. A006995, A141707."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "Melia Aldridge, ma38(AT)spruce.evansville.edu",
+			"references": 5,
+			"revision": 14,
+			"time": "2015-04-20T14:45:31-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45323,
+			"data": "2,3,7,11,17,19,23,31,41,43,47,59,67,71,73,79,83,89,97,103,107,113,127,131,137,139,151,163,167,179,191,193,199,211,223,227,233,239,241,251,257,263,271,281,283,307,311",
+			"name": "Primes congruent to {1, 2, 3, 7} mod 8.",
+			"comment": [
+				"Numbers x such that x^4 = 4 has a solution mod p."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A045323/b045323.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Prime[Range[300]],MemberQ[{1,2,3,7},Mod[#,8]]\u0026] (* _Vincenzo Librandi_, Aug 07 2012 *)"
+			],
+			"program": [
+				"(MAGMA) [ p: p in PrimesUpTo(400) | p mod 8 in {1, 2, 3, 7} ]; // _Vincenzo Librandi_, Aug 07 2012",
+				"(Haskell)",
+				"a045323 n = a045323_list !! (n-1)",
+				"a045323_list = filter ((== 1). a010051) a004776_list",
+				"-- _Reinhard Zumkeller_, Aug 17 2012"
+			],
+			"xref": [
+				"Cf. A000040, A010051.",
+				"Subsequence of A004776; see also A007521."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 5,
+			"revision": 10,
+			"time": "2012-08-18T22:47:55-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45472,
+			"data": "13,29,41,43,71,83,97,113,127,139,167,181,197,211,223,239,251,281,293,307,337,349,379,419,421,433,449,461,463,491,503,547,587,601,617,631,643,659,673,701,727,743,757,769",
+			"name": "Primes congruent to {1, 6} mod 7.",
+			"comment": [
+				"Appears to be the primes p such that p^4 mod 210 =1. [_Gary Detlefs_, Dec 29 2011]",
+				"Primes in A047336, also in A113801. [_Reinhard Zumkeller_, Jan 07 2012]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A045472/b045472.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Prime[Range[200]],MemberQ[{1,6},Mod[#,7]]\u0026] (* _Vincenzo Librandi_, Aug 13 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a045472 n = a045472_list !! (n-1)",
+				"a045472_list = [x | x \u003c- a047336_list, a010051 x == 1]",
+				"-- _Reinhard Zumkeller_, Jan 07 2012",
+				"(MAGMA) [ p: p in PrimesUpTo(1000) | p mod 7 in {1,6} ]; // _Vincenzo Librandi_, Aug 13 2012"
+			],
+			"xref": [
+				"Cf. A042989 (complement), A010051."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 5,
+			"revision": 26,
+			"time": "2019-05-02T10:03:40-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45926,
+			"data": "2,4,6,8,22,24,26,28,42,44,46,48,62,64,66,68,82,84,86,88,222,224,226,228,242,244,246,248,262,264,266,268,282,284,286,288,422,424,426,428,442,444,446,448,462,464,466,468,482,484,486,488,622,624,626,628,642",
+			"name": "All digits even and nonzero.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A045926/b045926.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = 2 * A084544(n). - _Reinhard Zumkeller_, Jan 01 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a045926 n = a045926_list !! (n-1)",
+				"a045926_list = filter (all (`elem` \"2468\") . show) [2, 4..]",
+				"-- _Reinhard Zumkeller_, Jan 01 2013"
+			],
+			"xref": [
+				"Cf. A045927, A014261, A014263, A192370."
+			],
+			"keyword": "nonn,easy,base",
+			"offset": "1,1",
+			"author": "_Felice Russo_",
+			"ext": [
+				"More terms from _Patrick De Geest_, Jun 15 1999"
+			],
+			"references": 5,
+			"revision": 14,
+			"time": "2019-10-10T00:45:25-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45953,
+			"data": "0,1,10,11,95,96,100,101,125,976,995,996,1000,1001,1025,1376,9625,9976,9995,9996,10000,10001,10025,10376,10625,99376,99625,99976,99995,99996,100000,100001,100025,100376,100625,109376,990625,999376,999625,999976",
+			"name": "Numbers n such that n^2 can be obtained from n by inserting an internal block of (contiguous) digits.",
+			"comment": [
+				"All terms of this sequence appear in A086457. - _Jeremy Gardiner_, Jul 20 2003"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A045953/b045953.txt\"\u003eTable of n, a(n) for n = 1..100\u003c/a\u003e",
+				"J. Knoderer, \u003ca href=\"http://www.mazes.com/sequence.html\"\u003eAn Interesting Sequence of Numbers\u003c/a\u003e"
+			],
+			"example": [
+				"95^2 = 9025 (insert '02' inside '95')."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isPrefixOf, inits, isSuffixOf, tails)",
+				"a045953 n = a045953_list !! (n-1)",
+				"a045953_list = filter chi a008851_list where",
+				"   chi n = (x == y \u0026\u0026 xs `isSub'` ys) where",
+				"      x:xs = show $ div n 10",
+				"      y:ys = show $ div (n^2) 10",
+				"      isSub' us vs = any id $ zipWith (\u0026\u0026)",
+				"                              (map (`isPrefixOf` vs) $ inits us)",
+				"                              (map (`isSuffixOf` vs) $ tails us)",
+				"-- _Reinhard Zumkeller_, Jul 27 2011"
+			],
+			"xref": [
+				"Cf. A046851, A008851, A018834."
+			],
+			"keyword": "base,nonn,nice,easy",
+			"offset": "1,3",
+			"author": "John \"MazeMan\" Knoderer (Webmaster(AT)Mazes.com)",
+			"references": 5,
+			"revision": 13,
+			"time": "2014-08-11T22:45:18-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45967,
+			"data": "4,9,25,27,49,225,121,81,125,441,169,675,289,1089,1225,243,361,1125,529,1323,3025,1521,841,2025,343,2601,625,3267,961,11025,1369,729,4225,3249,5929,3375,1681,4761,7225,3969,1849,27225,2209,4563,6125,7569,2809,6075",
+			"name": "a(1)=4; if n = Product p_i^e_i, n\u003e1, then a(n) = Product p_{i+1}^{e_i+1}.",
+			"reference": [
+				"From a puzzle proposed by _Marc LeBrun_."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A045967/b045967.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a[1]=4; a[n_] := Thread[f = FactorInteger[n]; Times @@ Power[f[[All, 1]] // NextPrime , f[[All, 2]] + 1]]; Array[a, 50] (* _Jean-François Alcover_, Feb 03 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a045967 1 = 4",
+				"a045967 n = product $ zipWith (^)",
+				"            (map a151800 $ a027748_row n) (map (+ 1) $ a124010_row n)",
+				"-- _Reinhard Zumkeller_, Jun 03 2013, Dec 23 2011"
+			],
+			"xref": [
+				"Cf. A045966, A027748, A124010, A000040.",
+				"Cf. A151800."
+			],
+			"keyword": "easy,nonn,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _David W. Wilson_."
+			],
+			"references": 5,
+			"revision": 19,
+			"time": "2015-02-03T10:17:04-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45995,
+			"data": "1,1,1,1,1,1,1,2,2,1,1,3,8,3,1,1,5,55,55,5,1,1,8,610,6765,610,8,1,1,13,10946,9227465,9227465,10946,13,1,1,21,317811,225851433717,190392490709135,225851433717,317811,21,1,1,34,14930352",
+			"name": "Rows of Fibonacci-Pascal triangle.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A045995/b045995.txt\"\u003eRows n=0..14 of triangle, flattened\u003c/a\u003e",
+				"R. Whitney, \u003ca href=\"http://www.fq.math.ca/Scanned/13-3/advanced13-3.pdf\"\u003eProblem H-254\u003c/a\u003e, Fib. Quart., 13 (1975), p. 281."
+			],
+			"formula": [
+				"Take Pascal triangle (A007318) and replace each i by Fibonacci(i): a(n,k)=Fibonacci(binomial(n,k))."
+			],
+			"example": [
+				"1,",
+				"1,  1,",
+				"1,  1,      1,",
+				"1,  2,      2,            1,",
+				"1,  3,      8,            3,               1,",
+				"1,  5,     55,           55,               5,            1,",
+				"1,  8,    610,         6765,             610,            8,      1,",
+				"1, 13,  10946,      9227465,         9227465,        10946,     13,  1,",
+				"1, 21, 317811, 225851433717, 190392490709135, 225851433717, 317811, 21, 1,",
+				"..."
+			],
+			"maple": [
+				"A045995 := proc(n,k)",
+				"    combinat[fibonacci](binomial(n,k)) ;",
+				"end proc: # _R. J. Mathar_, Dec 03 2014"
+			],
+			"mathematica": [
+				"Flatten[Table[Fibonacci[Binomial[n,k]],{n,0,10},{k,0,n}]] (* _Harvey P. Dale_, Dec 31 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a045995 n k = a045995_tabl !! n !! k",
+				"a045995_row n = a045995_tabl !! n",
+				"a045995_tabl = map (map (a000045 . fromInteger)) a007318_tabl",
+				"-- _Reinhard Zumkeller_, Dec 29 2011"
+			],
+			"xref": [
+				"Cf. A000045, A007318, A006449 (row sums), A081667.",
+				"Main diagonal gives A281450."
+			],
+			"keyword": "nonn,easy,nice,tabl",
+			"offset": "0,8",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _David W. Wilson_"
+			],
+			"references": 5,
+			"revision": 36,
+			"time": "2018-01-10T10:33:11-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 46669,
+			"data": "1,3,6,8,13,15,22,24,27,29,40,42,55,57,60,62,79,81,100,102,105,107,130,132,137,139,142,144,173,175,206,208,211,213,218,220,257,259,262,264,305,307,350,352,355,357,404,406,413,415,418,420,473",
+			"name": "Partial sums of A020639.",
+			"reference": [
+				"D. S. Mitrinovic et al., Handbook of Number Theory, Kluwer, Section IV.1."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A046669/b046669.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"A. E. Brouwer, \u003ca href=\"/A046670/a046670.pdf\"\u003eTwo number theoretic sums\u003c/a\u003e, Stichting Mathematisch Centrum. Zuivere Wiskunde, Report ZW 19/74 (1974): 3 pages. [Cached copy, included with the permission of the author]"
+			],
+			"mathematica": [
+				"Accumulate[Array[FactorInteger[#][[1,1]]\u0026,60]]  (* _Harvey P. Dale_, Apr 20 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a046669 n = a046669_list !! (n-1)",
+				"A046669_list = scanl1 (+) a020639_list -- _Reinhard Zumkeller_, Jun 15 2013"
+			],
+			"xref": [
+				"A088821(n) + 1.",
+				"Cf. A046670.",
+				"Cf. A072486."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"references": 5,
+			"revision": 16,
+			"time": "2017-06-28T00:32:32-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 46727,
+			"data": "0,3,21,119,697,4059,23661,137903,803761,4684659,27304197,159140519,927538921,5406093003,31509019101,183648021599,1070379110497,6238626641379,36361380737781,211929657785303,1235216565974041,7199369738058939,41961001862379597",
+			"name": "Related to Pythagorean triples: alternate terms of A001652 and A046090.",
+			"comment": [
+				"For a triple (a,b,c) there exist k,m such that (a,b,c) = (k^2-m^2, 2km, k^2+m^2). Here k = A001333(n) and m = A001333(n+1), so this sequence is identical to the Pell oblongs A084159 for n \u003e 0. - Lambert Klasen (Lambert.Klasen(AT)gmx.de), Nov 10 2004",
+				"a(n), for n \u003e= 1, gives the odd length (in some unit) catheti (legs) of the (primitive) Pythagorean triples which have absolute length difference of the catheti equal to one. See a W. Lang comment on A001653 on how to generate all such Pythagorean triples. - _Wolfdieter Lang_, Mar 08 2012"
+			],
+			"reference": [
+				"A. H. Beiler, Recreations in the Theory of Numbers. New York: Dover, pp. 122-125, 1964."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A046727/b046727.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"A. Bogomolny, \u003ca href=\"http://www.cut-the-knot.org/pythagoras/PT_matrix.shtml\"\u003eThe Trinary Tree(s) underlying Primitive Pythagorean Triples\u003c/a\u003e.",
+				"Dan Romik, \u003ca href=\"https://doi.org/10.1090/S0002-9947-08-04467-X\"\u003eThe dynamics of Pythagorean Triples\u003c/a\u003e, Trans. Amer. Math. Soc. 360 (2008), 6045-6064.",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (5,5,-1)."
+			],
+			"formula": [
+				"Values of x obtained by repeatedly multiplying the triple (x, y, z)=(3, 4, 5) by the matrix A = ([1 2 2] [2 1 2] [2 2 3]), the Across matrix of \"The Trinary Tree(s) underlying Primitive Pythagorean Triples\" generating matrices. - _Vim Wenders_, Jan 14 2004",
+				"For n \u003e 0, a(n) = A001333(n)*A001333(n+1). - Lambert Klasen (Lambert.Klasen(AT)gmx.de), Nov 10 2004",
+				"G.f.: x*(3+6*x-x^2)/((1+x)*(1-6*x+x^2)). - _R. J. Mathar_, Jul 08 2009",
+				"a(n) + a(n+1) = A005319(n+1), n \u003e 0. - _R. J. Mathar_, Jul 13 2009",
+				"a(n) = 6*a(n-1) - a(n-2) - 4*(-1)^n. - _Ron Knott_, Jul 01 2013",
+				"From _Colin Barker_, Nov 03 2016: (Start)",
+				"a(n) = (2*(-1)^n - (3-2*sqrt(2))^n*(-1+sqrt(2)) + (1+sqrt(2))*(3+2*sqrt(2))^n)/4 for n \u003e 0.",
+				"a(n) = 5*a(n-1) + 5*a(n-2) - a(n-3) for n \u003e 3. (End)"
+			],
+			"mathematica": [
+				"RecurrenceTable[{a[n + 2] == 6 a[n + 1] - a[n] - (-1)^n 4, a[0] == 3,",
+				"  a[1] == 21}, a, {n, 30}] (* _Ron Knott_, Jul 01 2013 *)",
+				"Join[{0}, LinearRecurrence[{5, 5, -1}, {3, 21, 119}, 25]] (* _Vincenzo Librandi_, Nov 04 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a046727 n = a046727_list !! n",
+				"a046727_list = 0 : f (tail a001652_list) (tail a046090_list) where",
+				"   f (x:_:xs) (_:y:ys) = x : y : f xs ys",
+				"-- _Reinhard Zumkeller_, Jan 10 2012",
+				"(PARI) concat(0, Vec(x*(3+6*x-x^2)/((1+x)*(1-6*x+x^2)) + O(x^30))) \\\\ _Colin Barker_, Nov 03 2016",
+				"(MAGMA) I:=[0,3,21,119]; [n le 4 select I[n] else 5*Self(n-1)+5*Self(n-2)-Self(n-3): n in [1..30]]; // _Vincenzo Librandi_, Nov 04 2016"
+			],
+			"xref": [
+				"Cf. A046729. Essentially the same as A084159."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Sascha Kurz_, Jan 23 2003"
+			],
+			"references": 5,
+			"revision": 43,
+			"time": "2019-02-12T01:33:16-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 46920,
+			"data": "1,1,2,1,2,0,2,0,2,1,2,0,3,0,2,0,1,0,4,1,3,0,2,0,3,0,1,0,2,0,4,0,2,1,2,0,4,0,3,0,2,0,3,0,3,0,2,0,4,0,3,1,2,0,5,0,1,0,2,0,6,0,3,0,1,0,3,0,4,0,2,0,5,1,4,0,2,0,6,0,3,0,2,0,4,0,2,0,3,0,6,0,2,0,1,0,4,0,3",
+			"name": "Number of ways to express n as p+2a^2; p = 1 or prime, a \u003e= 0.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A046920/b046920.txt\"\u003eTable of n, a(n) for n=1..10000\u003c/a\u003e",
+				"L. Hodges, \u003ca href=\"http://learning.physics.iastate.edu/hodges/mm-1.pdf\"\u003eA lesser-known Goldbach conjecture\u003c/a\u003e, Math. Mag., 66 (1993), 45-47.",
+				"\u003ca href=\"/index/Go#Goldbach\"\u003eIndex entries for sequences related to Goldbach conjecture\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a046920 n = length $ filter ((\\x -\u003e x == 1 || a010051 x == 1) . (n -)) $",
+				"                            takeWhile (\u003c n) a001105_list",
+				"-- _Reinhard Zumkeller_, Apr 03 2013"
+			],
+			"xref": [
+				"Cf. A042978, A046921, A046922, A046923, A060003, A143539.",
+				"Cf. A016067, A008578, A010051, A001105."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_David W. Wilson_",
+			"references": 5,
+			"revision": 13,
+			"time": "2013-04-03T09:27:52-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

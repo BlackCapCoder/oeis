@@ -1,0 +1,361 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3980,
+	"results": [
+		{
+			"number": 198437,
+			"data": "49,289,529,961,1681,2209,2401,5041,5329,6241,7921,9409,10609,12769,14161,14161,16129,18769,22801,25921,25921,27889,36481,37249,39601,47089,47089,49729,54289,57121,58081,66049,69169,73441,78961,82369,82369,83521,96721",
+			"name": "Third term of a triple of squares in arithmetic progression, which is not a multiple of another triple in (A198384,A198385,A198386).",
+			"comment": [
+				"a(n) = A198441(n)^2 = A198386(A198409(n));",
+				"a(n) - A198436(n) = A198436(n) - A198435(n) = A198438(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198435/a198435.txt\"\u003eTable of initial values\u003c/a\u003e",
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a198437 n = a198437_list !! (n-1)",
+				"a198437_list = map a198386 a198409_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 25 2011",
+			"references": 7,
+			"revision": 7,
+			"time": "2013-07-13T12:04:18-04:00",
+			"created": "2011-10-25T17:35:08-04:00"
+		},
+		{
+			"number": 199238,
+			"data": "0,0,1,0,1,0,1,0,1,0,2,0,1,2,3,0,1,0,1,0,0,1,3,0,1,2,3,1,1,2,1,0,1,0,2,0,1,2,3,0,2,0,3,2,1,2,2,0,1,2,3,1,1,2,0,2,1,2,4,0,1,2,3,0,1,0,1,0,0,1,3,0,1,2,3,1,1,2,4,0,0,1,3,0,1,2",
+			"name": "n mod (number of ones in binary representation of n).",
+			"comment": [
+				"a(A049445(n)) = 0;",
+				"a(n) = n - A161764(n);",
+				"a(A199262(n)) = n and a(m) \u003c\u003e n for m \u003c A199262(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A199238/b199238.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Mod[#,DigitCount[#,2,1]]\u0026/@Range[90] (* _Harvey P. Dale_, Nov 08 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a199238 n = a199238_list !! (n-1)",
+				"a199238_list = zipWith mod [1..] $ tail a000120_list",
+				"(PARI) A199238(n)=n%norml2(binary(n))  \\\\ - _M. F. Hasler_, Oct 09 2012"
+			],
+			"xref": [
+				"Cf. A070635."
+			],
+			"keyword": "nonn",
+			"offset": "1,11",
+			"author": "_Reinhard Zumkeller_, Nov 04 2011",
+			"references": 7,
+			"revision": 13,
+			"time": "2013-11-21T12:50:21-05:00",
+			"created": "2011-11-05T01:51:46-04:00"
+		},
+		{
+			"number": 203976,
+			"data": "0,1,5,4,15,11,40,29,105,76,275,199,720,521,1885,1364,4935,3571,12920,9349,33825,24476,88555,64079,231840,167761,606965,439204,1589055,1149851,4160200,3010349,10891545,7881196,28514435,20633239,74651760,54018521,195440845",
+			"name": "a(n) = 3*a(n-2) - a(n-4), a(0)=0, a(1)=1, a(2)=5, a(3)=4.",
+			"comment": [
+				"a(n+1) = p(n+2) where p(x) is the unique degree-n polynomial such that p(k) = Lucas(k) for k = 1, ..., n+1.",
+				"This is a divisibility sequence; that is, if n divides m, then a(n) divides a(m).",
+				"a(A004277(n)) = A054888(n+1). - _Reinhard Zumkeller_, Jan 11 2012",
+				"a(n) = row sums of triangle A226377(n), based on differences among Lucas Numbers.  - _Richard R. Forberg_, Aug 01 2013",
+				"a(2n) = a(2n-1) + a(2n+1), for n\u003e0. - _Richard R. Forberg_, Aug 01 2013",
+				"A strong divisibility sequence, i.e., gcd(a(n),a(m)) = a(gcd(n,m)) for all natural numbers n and m. The sequence of convergents of the 2-periodic continued fraction [0; 1, -5, 1, -5, ...] = 1/(1 - 1/(5 - 1/(1 - 1/(5 - ...)))) = 1/2*(5 - sqrt(5)) begins [0/1, 1/1, 5/4, 4/3, 15/11, 11/8, 40/29,...]. The present sequence is the sequence of numerators; the sequence of denominators [1, 1, 4, 3, 11, 8, 29,...] is A005013. - _Peter Bala_, May 19 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A203976/b203976.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Di#divseq\"\u003eIndex to divisibility sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,3,0,-1)."
+			],
+			"formula": [
+				"a(1) = 1, a(2) = 5, a(3) = 4, a(n) * a(n-3) = a(n-1) * a(n-2) - 5. a(-n) = -a(n).",
+				"G.f.: x * (1 + 5*x + x^2) /  ( (x^2+x-1)*(x^2-x-1) ).",
+				"a(2*n) = 5 * A000045(2*n) (Fibonacci). a(2*n+1) = A000032(2*n+1) (Lucas).",
+				"a(n) = A000032(n+1) - A061084(n). - _R. J. Mathar_, Jun 23 2013",
+				"a(n) = (2^(-1-n)*((-5-sqrt(5)+(-1)^n*(-5+sqrt(5)))*((-1+sqrt(5))^n-(1+sqrt(5))^n)))/sqrt(5). - _Colin Barker_, Mar 28 2016",
+				"E.g.f.: exp(-phi*x)*(exp(x) - 1)*(phi*exp(sqrt(5)*x) - 1/phi), where phi = (1 + sqrt(5))/2. - _G. C. Greubel_, Mar 28 2016"
+			],
+			"example": [
+				"a(3) = 4 since p(x) = (-x^2 + 7*x - 4) / 2 interpolates p(1) = 1, p(2) = 3, p(3) = 4, and p(4) = 4."
+			],
+			"mathematica": [
+				"LinearRecurrence[{0,3,0,-1},{0,1,5,4},40] (* _Harvey P. Dale_, Apr 06 2013 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n%2, fibonacci(n+1) + fibonacci(n-1), 5 * fibonacci(n))}",
+				"(PARI) {a(n) = if( n\u003c0, -a(-n), polcoeff( x * (1 + 5*x + x^2) / (1 - 3*x^2 + x^4) + x * O(x^n), n))}",
+				"(PARI) {a(n) = if( n\u003c0, -a(-n), subst( polinterpolate( vector( n, k, fibonacci(k-1) + fibonacci(k+1) )), x, n + 1))}",
+				"(Haskell)",
+				"a203976 n = a203976_list !! n",
+				"a203976_list = 0 : 1 : 5 : 4 : zipWith (-)",
+				"   (map (* 3) $ drop 2 a203976_list) a203976_list",
+				"-- _Reinhard Zumkeller_, Jan 10 2012",
+				"(MAGMA) I:=[0,1,5,4]; [n le 4 select I[n] else 3*Self(n-2)-Self(n-4): n in [1..40]]; // _Vincenzo Librandi_, Mar 29 2016"
+			],
+			"xref": [
+				"Cf. A000032, A000045, A201157 (bisection), A002878 (bisection). A005013."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Michael Somos_, Jan 08 2012",
+			"references": 7,
+			"revision": 57,
+			"time": "2016-03-29T03:21:22-04:00",
+			"created": "2012-01-09T19:53:02-05:00"
+		},
+		{
+			"number": 207337,
+			"data": "5,17,29,53,73,109,137,281,397,449,593,757,941,1061,1277,1613,1877,2161,2341,2657,2789,3881,4973,5153,6101,6917,7129,7673,8009,8237,8821,9181,10433,12041,13177,13469,13913,14669,15761,17389,18233,18749",
+			"name": "Primes of the form (m^2+1)/10.",
+			"comment": [
+				"Equivalently, primes of the form (K^2 + (K+1)^2)/5. The connection to the primes of the form (m^2+1)/10 is given by m=2*K+1 (m is necessarily odd). The corresponsding m=m(n) values are given in A002733(n).",
+				"Equivalently, primes of the form (4*T(K)+1)/5, with the corresponding triangular numbers T(K):=A000217(K), for K(n)=(m(n)-1)/2, given in A207339(n).",
+				"For n\u003e=2 the smallest positive representative of the class of nontrivial solutions of the congruence x^2==1 (Modd a(n)) is x=m(n). The trivial solution is the class with representative x=1, which also includes -1. For the prime a(1)=5 the smallest positive nontrivial solution is 3 (see A027862(1) with  A002731(1)). Such a nontrivial smallest positive representative exists for each unique class of solutions of this congruence Modd p for any prime p of the form 4*k+1, given in A002144. Here the subset with k=k(n)=(a(n)-1)/4 appears, namely 1, 4, 7, 13, 18, 27, 34, 70,... For Modd n see a comment on A203571."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A207337/b207337.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) is the n-th member of the increasingly ordered list of primes of the form (m^2+1)/10, where m=m(n) is necessarily an odd integer, namely A002733(n)."
+			],
+			"example": [
+				"a(3)=29, m(3)=A002733(3)=17. T(K(3))=A000217((17-1)/2)= A000217(8)=A207339(3)=36. (8^2+9^2)/5 = 29 = (4*36+1)/5."
+			],
+			"program": [
+				"(Haskell)",
+				"a207337 n = a207337_list !! (n-1)",
+				"a207337_list = f a002522_list where",
+				"   f (x:xs) | m == 0 \u0026\u0026 a010051 y == 1 = y : f xs",
+				"            | otherwise                = f xs",
+				"            where (y,m) = divMod x 10",
+				"-- _Reinhard Zumkeller_, Apr 06 2012"
+			],
+			"xref": [
+				"Cf.  A207339, A129307, A027862, A002731.",
+				"Cf. A010051, A002522."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Wolfdieter Lang_, Feb 27 2012",
+			"references": 7,
+			"revision": 21,
+			"time": "2013-07-13T12:04:22-04:00",
+			"created": "2012-02-28T18:22:56-05:00"
+		},
+		{
+			"number": 208259,
+			"data": "1,11,101,111,121,131,141,151,161,171,181,191,1001,1011,1021,1031,1041,1051,1061,1071,1081,1091,1101,1111,1121,1131,1141,1151,1161,1171,1181,1191,1201,1211,1221,1231,1241,1251,1261,1271,1281,1291,1301,1311,1321,1331",
+			"name": "Numbers starting and ending with digit 1.",
+			"comment": [
+				"Union of A062332 and A208260. Supersequence of A208262 (numbers with all divisors starting and ending with digit 1).",
+				"Intersection of A017281 and A131835; A000030(a(n)) = a(n) mod 10 = 1. - _Reinhard Zumkeller_, Jul 16 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A208259/b208259.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[2000], First[IntegerDigits[#]] == 1 \u0026\u0026 Last[IntegerDigits[#]] == 1 \u0026] (* _Vladimir Joseph Stephan Orlovsky_, Feb 26 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a208259 n = a208259_list !! (n-1)",
+				"a208259_list = 1 : map ((+ 1) . (* 10)) a131835_list",
+				"-- _Reinhard Zumkeller_, Jul 16 2014"
+			],
+			"xref": [
+				"Cf. A062332 (primes starting and ending with a digit 1), A208260 (nonprime numbers starting and ending with a digit 1).",
+				"Cf. A017281, A131835, A000030."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Jaroslav Krizek_, Feb 24 2012",
+			"references": 7,
+			"revision": 12,
+			"time": "2014-07-16T15:38:41-04:00",
+			"created": "2012-02-26T15:58:54-05:00"
+		},
+		{
+			"number": 209878,
+			"data": "20169,111267,337788,1122255,4446666,1111113,2222244,4446666,1111113,2222244,4446666,1111113,2222244,4446666,1111113,2222244,4446666,1111113,2222244,4446666,1111113,2222244,4446666,1111113,2222244,4446666,1111113,2222244,4446666",
+			"name": "RATS: Reverse Add Then Sort the digits applied to previous term, starting with 20169.",
+			"comment": [
+				"A114613(1) = 20169 is the smallest starting number for a RATS trajectory leading to a cycle of length 3: A114611(20169) = 3;",
+				"a(n + 3) = a(n) for n \u003e 4."
+			],
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RATSSequence.html\"\u003eRATS Sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0, 0, 1)."
+			],
+			"formula": [
+				"a(n + 1) = A036839(a(n))."
+			],
+			"mathematica": [
+				"Join[{20169, 111267, 337788, 1122255},LinearRecurrence[{0, 0, 1},{4446666, 1111113, 2222244},25]] (* _Ray Chandler_, Aug 25 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a209878 n = a209878_list !! (n-1)",
+				"a209878_list = iterate a036839 20169"
+			],
+			"xref": [
+				"Cf. A004000, A066710, A066711, A209879, A209880."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 14 2012",
+			"references": 7,
+			"revision": 11,
+			"time": "2015-08-25T14:51:08-04:00",
+			"created": "2012-03-14T19:04:30-04:00"
+		},
+		{
+			"number": 209879,
+			"data": "6999,15699,11355,66666,123333,445566,111111,222222,444444,888888,1677777,3455589,11112333,33444444,77778888,156666666,123333378,666669999,1356666666,123333789,11111667,22777788,11115555,66666666,123333333,445566666,111122223",
+			"name": "RATS: Reverse Add Then Sort the digits applied to previous term, starting with 6999.",
+			"comment": [
+				"A114615(1) = 6999 is the smallest starting number for a RATS trajectory leading to a cycle of length 14: A114611(6999) = 14;",
+				"a(n + 14) = a(n) for n \u003e 25."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A209879/b209879.txt\"\u003eTable of n, a(n) for n = 1..100\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RATSSequence.html\"\u003eRATS Sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_14\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)."
+			],
+			"formula": [
+				"a(n + 1) = A036839(a(n))."
+			],
+			"mathematica": [
+				"rats[n_]:=Module[{idnr=FromDigits[Reverse[IntegerDigits[n]]]}, FromDigits[ Sort[ IntegerDigits[idnr+n]]]]; NestList[rats,6999,30] (* _Harvey P. Dale_, May 29 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a209879 n = a209879_list !! (n-1)",
+				"a209879_list = iterate a036839 6999"
+			],
+			"xref": [
+				"Cf. A004000, A066710, A209878, A066711, A209880."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 14 2012",
+			"references": 7,
+			"revision": 15,
+			"time": "2015-08-25T14:57:14-04:00",
+			"created": "2012-03-14T19:04:41-04:00"
+		},
+		{
+			"number": 209880,
+			"data": "29,112,233,556,1112,2233,5555,1111,2222,4444,8888,16777,34589,112333,444455,889999,1788899,1177777,4558889,13444447,77888888,156667777,233444489,1112278888,11999,11119,1223,4444,8888,16777,34589,112333,444455,889999,1788899",
+			"name": "RATS: Reverse Add Then Sort the digits applied to previous term, starting with 29.",
+			"comment": [
+				"A114616(1) = 29 is the smallest starting number for a RATS trajectory leading to a cycle of length 18: A114611(29) = 18;",
+				"a(n + 18) = a(n) for n \u003e 9."
+			],
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RATSSequence.html\"\u003eRATS Sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_18\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)."
+			],
+			"formula": [
+				"a(n + 1) = A036839(a(n))."
+			],
+			"mathematica": [
+				"NestList[FromDigits[Sort[IntegerDigits[#+IntegerReverse[#]]]]\u0026,29,40] (* or *) PadRight[{29,112,233,556,1112,2233,5555,1111,2222},50,{4558889,13444447,77888888,156667777,233444489,1112278888,11999,11119,1223,4444,8888,16777,34589,112333,444455,889999,1788899,1177777}] (* _Harvey P. Dale_, Sep 17 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a209880 n = a209880_list !! (n-1)",
+				"a209880_list = iterate a036839 29"
+			],
+			"xref": [
+				"Cf. A004000, A066710, A209878, A066711, A209879."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 14 2012",
+			"references": 7,
+			"revision": 12,
+			"time": "2018-09-17T13:29:34-04:00",
+			"created": "2012-03-14T19:04:51-04:00"
+		},
+		{
+			"number": 210108,
+			"data": "1,1,2,4,8,10,34,68,94,104,496,992,1420,1712,1816,11056,22112,32176,40256,45496,47312,349504,699008,1026400,1309568,1528384,1666688,1714000,14873104,29746208,43920304,56696384,67419664,75523808,80571184,82285184,819786496",
+			"name": "Left half of Poupard's triangle, A008301.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A210108/b210108.txt\"\u003eRows n=0..120 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A008301(n,k), 0 \u003c= k \u003c= n."
+			],
+			"program": [
+				"(Haskell)",
+				"a210108 n k = a210108_tabl !! n !! k",
+				"a210108_row n = a210108_tabl !! n",
+				"a210108_tabl = zipWith take [1..] a008301_tabf"
+			],
+			"xref": [
+				"Cf. A002105 (left edge), A005799 (right edge); A210111."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Mar 17 2012",
+			"references": 7,
+			"revision": 11,
+			"time": "2013-07-13T12:04:24-04:00",
+			"created": "2012-03-17T19:21:23-04:00"
+		},
+		{
+			"number": 210442,
+			"data": "1,0,1,1,3,1,7,1,9,4,10,1,44,1,13,13,35,1,80,1,91,17,19,1,457,6,22,22,155,1,741,1,201,25,28,25,2233,1,31,29,1369,1,1653,1,336,285,37,1,9675,8,406,37,453,1,3131,37,3064,41,46,1,73154,1,49,492,1827",
+			"name": "Number of partitions of n into proper divisors of n, cf. A027751.",
+			"comment": [
+				"For n \u003e 0: a(A000040(n)) = 1 and a(A002808(n)) \u003e 1."
+			],
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A210442/b210442.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (terms n = 0..197 from Reinhard Zumkeller)"
+			],
+			"maple": [
+				"with(numtheory):",
+				"a:= proc(n) local b, l; l:= sort([(divisors(n) minus {n})[]]):",
+				"      b:= proc(m, i) option remember; `if`(m=0 or i=1, 1,",
+				"            `if`(i\u003c1, 0, b(m, i-1)+`if`(l[i]\u003em, 0, b(m-l[i], i))))",
+				"          end; forget(b):",
+				"      b(n, nops(l))",
+				"    end:",
+				"seq(a(n), n=0..100); # _Alois P. Heinz_, Jan 29 2013"
+			],
+			"mathematica": [
+				"a[n_] := Module[{b, l}, l = Most[Divisors[n]]; b[m_, i_] := b[m, i] = If[m==0 || i==1, 1, If[i\u003c1, 0, b[m, i-1] + If[l[[i]]\u003em, 0, b[m-l[[i]], i]]]]; b[n, Length[l]]]; a[0]=1; Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Feb 02 2017, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a210442 n = p (a027751_row n) n where",
+				"   p _          0 = 1",
+				"   p []         _ = 0",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A065205, A211110, A018818."
+			],
+			"keyword": "nonn,look",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Jan 21 2013",
+			"references": 7,
+			"revision": 17,
+			"time": "2017-02-02T08:02:04-05:00",
+			"created": "2013-01-21T15:22:38-05:00"
+		}
+	]
+}

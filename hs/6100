@@ -1,0 +1,429 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6100,
+	"results": [
+		{
+			"number": 32762,
+			"data": "0,1,2,3,4,5,6,7,8,9,1,1,11,21,31,41,51,61,71,81,92,2,12,22,32,42,52,62,72,82,93,3,13,23,33,43,53,63,73,83,94,4,14,24,34,44,54,64,74,84,95,5,15,25,35,45,55,65,75,85,96,6,16,26,36,46,56,66,76,86,97,7,17,27",
+			"name": "Take list of integers n \u003e= 0, move left digit of each term to end of previous term.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A032762/b032762.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"...,15,16,17,18,19,... -\u003e ...,51,61,71,81,..."
+			],
+			"program": [
+				"(Haskell)",
+				"a032762 n = a032762_list !! n",
+				"a032762_list = 0 : map read (zipWith (++) vs (tail us)) :: [Integer]",
+				"   where (us,vs) = unzip $ map ((splitAt 1) . show) [0..]",
+				"-- _Reinhard Zumkeller_, Oct 10 2013"
+			],
+			"xref": [
+				"Cf. A032759-A032764."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "0,3",
+			"author": "_Patrick De Geest_, May 15 1998",
+			"references": 3,
+			"revision": 7,
+			"time": "2015-03-09T09:35:21-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33180,
+			"data": "1,2,4,20,21,26,30,33,37,39,42,44,45,48,51,52,53,56,59,60,64,65,67,68,69,72,75,78,79,80,81,82,83,84,88,91,93,94,95,96,97,98,99,116,124,134,136,140,141,149,164,165,166,170,174,180,186,188,196,198,200,202,205",
+			"name": "Numbers n such that n! contains n as a string of digits.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A033180/b033180.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Fa#factorial\"\u003eIndex entries for sequences related to factorial numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"A067109(a(n)) \u003e 0. [_Reinhard Zumkeller_, Aug 23 2008]"
+			],
+			"maple": [
+				"select(n-\u003esearchtext(convert(n, string), convert(n!, string))\u003e0, [$0..205]);",
+				"# _Paolo P. Lava_, Jun 27 2018"
+			],
+			"mathematica": [
+				"Select[Range[210],MemberQ[Partition[IntegerDigits[#!],IntegerLength[#], 1], IntegerDigits[ #]]\u0026] (* _Harvey P. Dale_, Dec 25 2011 *)",
+				"Select[Range@500, StringContainsQ[ToString[#!], ToString[#]] \u0026] (* _Ivan N. Ianakiev_, Jul 28 2016 *)",
+				"Select[Range[210],SequenceCount[IntegerDigits[#!],IntegerDigits[#]]\u003e0\u0026] (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Aug 14 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033180 n = a033180_list !! (n-1)",
+				"a033180_list = filter ((\u003e 0) . a067109) [1..]",
+				"-- _Reinhard Zumkeller_, Aug 28 2014"
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "1,2",
+			"author": "_Jeff Burch_",
+			"ext": [
+				"More terms from _David W. Wilson_"
+			],
+			"references": 3,
+			"revision": 29,
+			"time": "2018-06-27T09:23:06-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33569,
+			"data": "-1,4,21,50,91,144,209,286,375,476,589,714,851,1000,1161,1334,1519,1716,1925,2146,2379,2624,2881,3150,3431,3724,4029,4346,4675,5016,5369,5734,6111,6500,6901,7314,7739,8176,8625,9086,9559,10044,10541,11050,11571",
+			"name": "a(n) = (2*n - 1)*(3*n + 1).",
+			"comment": [
+				"For n\u003e0, a(n) is the sum of the numbers from 2n+2 to 4n. The last digit of a(n) corresponds to the last digit of the squares mod 10 (A008959). Binomial Transform of a(n) starts: -1, 3, 28, 124, 432, 1328, 3776, 10176, 26368, ... . - _Wesley Ivan Hurt_, Dec 06 2014"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A033569/b033569.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-3,1)."
+			],
+			"formula": [
+				"G.f.: (-1+7*x+6*x^2)/(1-x)^3. - _Vincenzo Librandi_, Jul 07 2012",
+				"a(n) = 3*a(n-1) -3*a(n-2) +a(n-3). - _Vincenzo Librandi_, Jul 07 2012",
+				"E.g.f.: (-1+5*x+6*x^2)*e^x. - _Robert Israel_, Dec 07 2014",
+				"a(n) = A060747(n) * A016777(n). - _Reinhard Zumkeller_, Jul 05 2015"
+			],
+			"maple": [
+				"A033569:=n-\u003e(2*n-1)*(3*n+1): seq(A033569(n), n=0..50); # _Wesley Ivan Hurt_, Dec 06 2014"
+			],
+			"mathematica": [
+				"CoefficientList[Series[(-1+7*x+6*x^2)/(1-x)^3,{x,0,50}],x] (* _Vincenzo Librandi_, Jul 07 2012 *)"
+			],
+			"program": [
+				"(MAGMA) [(2*n-1)*(3*n+1): n in [0..50]]; // _Vincenzo Librandi_, Jul 07 2012",
+				"(Haskell)",
+				"a033569 n = (2 * n - 1) * (3 * n + 1)",
+				"a033569_list = map a033569 [0..]",
+				"-- _Reinhard Zumkeller_, Jul 05 2015",
+				"(PARI) a(n)=(2*n-1)*(3*n+1) \\\\ _Charles R Greathouse IV_, Jun 17 2017",
+				"(Sage) [(2*n-1)*(3*n+1) for n in (0..50)] # _G. C. Greubel_, Apr 02 2019",
+				"(GAP) List([0..50], n-\u003e (2*n-1)*(3*n+1)) # _G. C. Greubel_, Apr 02 2019"
+			],
+			"xref": [
+				"Cf. A008959, A060747, A016777, A259758 (subsequence)."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 3,
+			"revision": 41,
+			"time": "2019-05-04T10:07:17-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34303,
+			"data": "11,19,41,61,89,227,251,257,277,281,349,449,499,521,557,577,587,727,757,787,821,827,857,877,881,887,991,1117,1129,1171,1187,1259,1289,1423,1447,1453,1471,1483,1543,1553,1559,1583,1621,1669,1721,1741,1747",
+			"name": "Prime; becomes nonprime if any digit deleted (zeros not allowed in the number).",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A034303/b034303.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Prime[Range[5,300]],Union[PrimeQ[FromDigits/@Table[Delete[ IntegerDigits[ #], n],{n,IntegerLength[#]}]]] == {False} \u0026\u0026 !MemberQ[ IntegerDigits[#],0]\u0026] (* _Harvey P. Dale_, Jan 09 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, tails)",
+				"a034303 n = a034303_list !! (n-1)",
+				"a034303_list = filter f $ drop 4 a038618_list where",
+				"   f x = all (== 0) $ map (a010051 . read) $",
+				"             zipWith (++) (inits $ show x) (tail $ tails $ show x)",
+				"-- _Reinhard Zumkeller_, Dec 17 2011"
+			],
+			"xref": [
+				"Cf. A034302, A034304, A034305.",
+				"Cf. A010051, A038618."
+			],
+			"keyword": "base,nonn,nice",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"ext": [
+				"Definition corrected by T. D. Noe, Apr 02 2008"
+			],
+			"references": 3,
+			"revision": 15,
+			"time": "2014-01-09T15:23:59-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34404,
+			"data": "20,680,29260,34220,70300,221815,227920,287980,467180,908600,2481115,4278680,12259940,13813570,15493204,17861900,19970444,24672560,25665020,27880600,29742164,34055980,44722580",
+			"name": "Values of C(n,3) which can be written as C(x,3)+C(y,3).",
+			"comment": [
+				"Bombieri's Napkin Problem: Bombieri said that \"the equation C(x,n)+C(y,n)=C(z,n) has no trivial solutions for n \u003e= 3\" (the joke being that he said \"trivial\" rather than \"nontrivial\"!).",
+				"Also: tetrahedral numbers that are the sum of two other tetrahedral numbers. (For the indices of these terms, see A002311.)[From Harvey P. Dale, Jul 25 2011]"
+			],
+			"reference": [
+				"Van der Poorten, Notes on Fermat's Last Theorem, Wiley, p. 122."
+			],
+			"formula": [
+				"a(n) = A000292(A002311(n)). - _Reinhard Zumkeller_, May 02 2014"
+			],
+			"example": [
+				"C(10,3)+C(16,3)=C(17,3)=680."
+			],
+			"mathematica": [
+				"With[{tetras=Binomial[Range[700]+2,3]},Union[Select[Total/@Tuples[ tetras,2], MemberQ[tetras,#]\u0026]]] (* _Harvey P. Dale_, Jul 25 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034404 = a000292 . a002311  -- _Reinhard Zumkeller_, May 02 2014"
+			],
+			"xref": [
+				"Cf. A010330, A002311."
+			],
+			"keyword": "nonn,nice",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 3,
+			"revision": 11,
+			"time": "2014-05-02T01:39:07-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34698,
+			"data": "2,7,31,113,233,647,1487,4919,6329,7951,26833,47737,53623,128959,135697,142327,1312777,3178289,6061607,26564393,32426081,102958417,209074609,323901311,587709359,1006009759,1029482303,9876033449,11061524183,15821898167,27926616007",
+			"name": "a(n) is the smallest prime such that a(1), ..., a(n-1) are squares mod a(n).",
+			"link": [
+				"Giovanni Resta, \u003ca href=\"/A034698/b034698.txt\"\u003eTable of n, a(n) for n = 1..39\u003c/a\u003e"
+			],
+			"mathematica": [
+				"residueQ[n_, p_] := JacobiSymbol[n, p] == 1; a[1] = 2;  a[n_] := a[n] = For[r = Range[n - 1]; p = NextPrime[a[n - 1]], True, p = NextPrime[p], If[AllTrue[r, residueQ[a[#], p] \u0026], Return[p]]]; Table[Print[\"a(\", n, \") = \", a[n]]; a[n], {n, 1, 24}] (* _Jean-François Alcover_, Feb 16 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034698 n = a034698_list !! (n-1)",
+				"a034698_list = f [2..] [1] where",
+				"   f (x:xs) ys | a010051' x == 1 \u0026\u0026",
+				"                 (and $ map (isSquMod x) ys) = x : f xs (x:ys)",
+				"               | otherwise                   = f xs ys",
+				"   isSquMod u v = v `mod` u `elem` (map ((`mod` u) . (^ 2)) [0..u-1])",
+				"-- _Reinhard Zumkeller_, Mar 28 2012",
+				"(PARI) first(n) = my(res=vector(n)); res[1]=2; for(x=2, n, forprime(p=res[x-1]+1, , for(y=1, x-1, if(!issquare(Mod(res[y], p)), next(2))); res[x]=p; break())); res \\\\ _Iain Fox_, Aug 08 2018",
+				"(PARI) nextterm(v) = forprime(p=v[#v]+1, , for(y=1, #v, if(!issquare(Mod(v[y], p)), next(2))); return(p)) \\\\ (Inserting a vector of the first n-1 terms will return the n-th term) _Iain Fox_, Aug 08 2018"
+			],
+			"xref": [
+				"Cf. A034700.",
+				"Cf. A010051, A034791."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "E. M. Rains (rains(AT)caltech.edu)",
+			"ext": [
+				"More terms from _David W. Wilson_",
+				"a(25)-a(28) from _Iain Fox_, Aug 08 2018",
+				"a(29)-a(30) from _Iain Fox_, Aug 09 2018",
+				"a(31) from _Iain Fox_, Aug 10 2018"
+			],
+			"references": 3,
+			"revision": 32,
+			"time": "2018-08-10T04:19:09-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34757,
+			"data": "1,3,7,15,25,41,61,89,131,161,193,245,295,363,407,503,579,721,801,949,1129,1185,1323,1549,1643,1831,1939,2031,2317,2623,2789,3045,3143,3641,3791,4057,4507,4757,5019,5559,5849,6309,6707,7181,7593",
+			"name": "a(1)=1, a(n) = smallest odd number such that all sums of pairs of (not necessarily distinct) terms in the sequence are distinct.",
+			"comment": [
+				"a(1) = 1, a(n) = least number such that every difference a(i)-a(j) is a distinct even number. - _Amarnath Murthy_, Apr 07 2004"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A034757/b034757.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 2*A005282(n)-1. (David Wasserman)"
+			],
+			"example": [
+				"5 is not in the sequence since 5+1 is already obtainable from 3+3, 9 is excluded since 1, 3 and 7 are in the sequence and would collide with 1+9"
+			],
+			"mathematica": [
+				"seq2={1, 3}; Do[le=Length[seq2]; t=Last[seq2]+2; While[Length[Expand[(Plus @@ (x^seq2) + x^t)^2]] \u003c Pochhammer[3, le]/le!, t=t+2]; AppendTo[seq2, t], {20}]; Print@seq2"
+			],
+			"program": [
+				"(Haskell)",
+				"a034757 = (subtract 1) . (* 2) . a005282  -- _Reinhard Zumkeller_, Dec 18 2012"
+			],
+			"xref": [
+				"Cf. A025582, A051912, A055598."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_Wouter Meeussen_, Jun 01 2000",
+			"ext": [
+				"An incorrect comment from _Amarnath Murthy_, also dated Apr 07 2004, has been deleted.",
+				"Offset fixed by _Reinhard Zumkeller_, Dec 18 2012"
+			],
+			"references": 3,
+			"revision": 16,
+			"time": "2013-12-05T19:54:46-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34791,
+			"data": "1,2,7,14,31,62,113,226,233,466,647,1294,1487,2974,4919,6329,7951,12658,15902,26329,26833,47737,52658,53623,53666,95474,107246,128959,135697,142327,271394,284654,715177,1312777,1430354,1474657,2625554",
+			"name": "a(n) is square mod a(i), i \u003c n.",
+			"comment": [
+				"Apparently A034698 is a subsequence and all elements are products of elements of A034698.",
+				"a(n) is the smallest integer larger than a(n-1) such that all a(i), 1\u003c=i\u003cn, are quadratic residues mod a(n). - _R. J. Mathar_, Jul 27 2015"
+			],
+			"maple": [
+				"A034791 := proc(n)",
+				"    option remember;",
+				"    local a,wrks ;",
+				"    if n = 1 then",
+				"        1;",
+				"    else",
+				"        for a from procname(n-1)+1 do",
+				"            wrks := true;",
+				"            for i from 1 to n-1 do",
+				"                if numtheory[quadres](procname(i),a) \u003c\u003e 1 then",
+				"                    wrks := false;",
+				"                end if;",
+				"            end do;",
+				"            if wrks then",
+				"                return a;",
+				"            end if;",
+				"        end do:",
+				"    end  if;",
+				"end proc: # _R. J. Mathar_, Jul 27 2015"
+			],
+			"mathematica": [
+				"residueQ[n_, k_] := Length[Select[Range[Floor[k/2]], PowerMod[#, 2, k] == n \u0026, 1]] == 1; a[1] = 1; a[n_] := a[n] = For[r = Range[n - 1]; an = a[n - 1] + 1, True, an++, If[AllTrue[r, residueQ[a[#], an] \u0026], Return[an]]]; Table[Print[\"a(\", n, \") = \", a[n]]; a[n], {n, 1, 37}] (* _Jean-François Alcover_, Feb 16 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034791 n = a034791_list !! (n-1)",
+				"a034791_list = 1 : f [2..] [1] where",
+				"   f (x:xs) ys | and $ map (flip isSquMod x) ys = x : f xs (x:ys)",
+				"               | otherwise                      = f xs ys",
+				"   isSquMod u v = u `mod` v `elem` (map ((`mod` v) . (^ 2)) [0..v-1])",
+				"-- _Reinhard Zumkeller_, fixed Jul 29 2015, Mar 28 2012"
+			],
+			"xref": [
+				"Cf. A034698.",
+				"Cf. A034793, A034903."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_David W. Wilson_",
+			"references": 3,
+			"revision": 19,
+			"time": "2018-02-16T04:04:42-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34793,
+			"data": "1,2,3,4,9,13,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400,441,484,529,576,625,676,729,784,841,900,961,1024,1089,1156,1225,1296,1369,1444,1521,1600,1681,1764,1849,1936,2025,2116,2209,2304",
+			"name": "a(1)=1; thereafter a(n+1) is the least k \u003e a(n) such that k is a square mod a(i) for all  i\u003c= n.",
+			"comment": [
+				"For 7 \u003c= n \u003c 10^12.5, a(n) = (n-3)^2. On the ERH this holds for all n \u003e= 7; unconditionally it holds for all but finitely many n. [_Charles R Greathouse IV_, Mar 29 2012]",
+				"a(n) is the smallest integer larger than a(n-1) such that a(n) is a quadratic residuum modulo all a(i), 1\u003c=i\u003cn. - R. J. Mathar, Jul 27 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A034793/b034793.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e"
+			],
+			"formula": [
+				"Apparently includes all positive squares along with 2, 3 and 13."
+			],
+			"maple": [
+				"A034793 := proc(n)",
+				"    option remember;",
+				"    local a,wrks ;",
+				"    if n = 1 then",
+				"        1;",
+				"    else",
+				"        for a from procname(n-1)+1 do",
+				"            wrks := true;",
+				"            for i from 1 to n-1 do",
+				"                if numtheory[quadres](a,procname(i)) \u003c\u003e 1 then",
+				"                    wrks := false;",
+				"                    break;",
+				"                end if;",
+				"            end do;",
+				"            if wrks then",
+				"                return a;",
+				"            end if;",
+				"        end do:",
+				"end  i # _R. J. Mathar_, Jul 27 2015"
+			],
+			"mathematica": [
+				"a[n_ ] := If[n\u003c7, {1, 2, 3, 4, 9, 13}[[n]], (n-3)^2]; Table[a[n], {n, 1, 60}] (* _Jean-François Alcover_, Jul 22 2015, after _Charles R Greathouse IV_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034793 n = a034793_list !! (n-1)",
+				"a034793_list = 1 : f [2..] [1] where",
+				"   f (x:xs) ys | and $ map (isSquMod x) ys = x : f xs (x:ys)",
+				"               | otherwise                 = f xs ys",
+				"   isSquMod u v = u `mod` v `elem` (map ((`mod` v) . (^ 2)) [0..v-1])",
+				"-- _Reinhard Zumkeller_, Mar 27 2012",
+				"(PARI) a(n)=if(n\u003c7,[1,2,3,4,9,13][n],(n-3)^2) \\\\ _Charles R Greathouse IV_, Mar 29 2012"
+			],
+			"xref": [
+				"Cf. A034903, A054762."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_David W. Wilson_",
+			"ext": [
+				"More precise definition from _Giovanni Resta_, Jul 22 2015"
+			],
+			"references": 3,
+			"revision": 28,
+			"time": "2015-07-27T06:19:00-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34852,
+			"data": "0,0,0,0,1,0,0,1,1,0,0,2,2,2,0,0,2,4,4,2,0,0,3,6,10,6,3,0,0,3,9,16,16,9,3,0,0,4,12,28,32,28,12,4,0,0,4,16,40,60,60,40,16,4,0,0,5,20,60,100,126,100,60,20,5,0,0,5,25,80,160,226,226,160,80,25,5,0,0,6,30,110,240",
+			"name": "Rows of (Pascal's triangle - Losanitsch's triangle) (n \u003e= 0, k \u003e= 0).",
+			"comment": [
+				"Also number of linear unbranched n-4-catafusenes of C_{2v} symmetry.",
+				"Number of n-bead black-white reversible strings with k black beads; also binary grids; string is not palindromic. - _Yosu Yurramendi_, Aug 08 2008",
+				"The first seven columns are A004526, A002620, A006584, A032091, A032092, A032093, A032094. Row sums give essentially A032085. - _Yosu Yurramendi_, Aug 08 2008"
+			],
+			"reference": [
+				"S. J. Cyvin et al., Unbranched catacondensed polygonal systems containing hexagons and tetragons, Croatica Chem. Acta, 69 (1996), 757-774.",
+				"S. M. Losanitsch, Die Isomerie-Arten bei den Homologen der Paraffin-Reihe, Chem. Ber. 30 (1897), 1917-1926."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A034852/b034852.txt\"\u003eRows n=0..150 of triangle, flattened\u003c/a\u003e",
+				"Johann Cigler, \u003ca href=\"https://arxiv.org/abs/1711.03340\"\u003eSome remarks on Rogers-Szegö polynomials and Losanitsch's triangle\u003c/a\u003e, arXiv:1711.03340 [math.CO], 2017.",
+				"S. M. Losanitsch, \u003ca href=\"/A000602/a000602_1.pdf\"\u003eDie Isomerie-Arten bei den Homologen der Paraffin-Reihe\u003c/a\u003e, Chem. Ber. 30 (1897), 1917-1926. (Annotated scanned copy)",
+				"N. J. A. Sloane, \u003ca href=\"/classic.html#LOSS\"\u003eClassic Sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"Equals (A007318-A051159)/2. - _Yosu Yurramendi_, Aug 08 2008"
+			],
+			"example": [
+				"0; 0 0; 0 1 0; 0 1 1 0; 0 2 2 2 0; 0 2 4 4 2 0; ..."
+			],
+			"mathematica": [
+				"nmax = 12; t[n_?EvenQ, k_?EvenQ] := (Binomial[n, k] - Binomial[n/2, k/2])/ 2; t[n_?EvenQ, k_?OddQ] := Binomial[n, k]/2; t[n_?OddQ, k_?EvenQ] := (Binomial[n, k] - Binomial[(n-1)/2, k/2])/2; t[n_?OddQ, k_?OddQ] := (Binomial[n, k] - Binomial[(n-1)/2, (k-1)/2])/2; Flatten[ Table[t[n, k], {n, 0, nmax}, {k, 0, n}]] (* _Jean-François Alcover_, Nov 15 2011, after Yosu Yurramendi *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034852 n k = a034852_tabl !! n !! k",
+				"a034852_row n = a034852_tabl !! n",
+				"a034852_tabl = zipWith (zipWith (-)) a007318_tabl a034851_tabl",
+				"-- _Reinhard Zumkeller_, Mar 24 2012"
+			],
+			"xref": [
+				"Cf. A007318, A034851, A051159.",
+				"Essentially the same as A034877."
+			],
+			"keyword": "nonn,tabl,easy,nice",
+			"offset": "0,12",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _James A. Sellers_, May 04 2000"
+			],
+			"references": 3,
+			"revision": 31,
+			"time": "2018-03-16T17:01:03-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,426 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5880,
+	"results": [
+		{
+			"number": 239728,
+			"data": "32,128,243,2048,2187,3125,7776,8192,16807,78125,100000,131072,161051,177147,248832,279936,371293,524288,537824,759375,823543,1419857,1594323,1889568,2476099,3200000,4084101,5153632,6436343,7962624,8388608,10000000,11881376,17210368",
+			"name": "Perfect power but neither square nor cube.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239728/b239728.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"GCD(A052409(a(n), 6) = 1. - _Reinhard Zumkeller_, Mar 28 2014"
+			],
+			"example": [
+				"279936 is included since 279936=6^7 is a power and this is not a square or a cube.",
+				"59049=9^5 not included since this is a square 243^2=59049.",
+				"32768=8^5 not included since this is a cube 32^3=32768."
+			],
+			"program": [
+				"(PARI) for(i=1, 2^25, if(gcd(ispower(i), 6) == 1, print(i)))",
+				"(Haskell)",
+				"import Data.Map (singleton, findMin, deleteMin, insert)",
+				"a239728 n = a239728_list !! (n-1)",
+				"a239728_list = f 9 (3, 2) (singleton 4 (2, 2)) where",
+				"   f zz (bz, be) m",
+				"    | xx \u003c zz \u0026\u0026 gcd 6 be \u003e 1 =",
+				"                f zz (bz, be+1) (insert (bx*xx) (bx, be+1) $ deleteMin m)",
+				"    | xx \u003c zz = xx :",
+				"                f zz (bz, be+1) (insert (bx*xx) (bx, be+1) $ deleteMin m)",
+				"    | xx \u003e zz = f (zz+2*bz+1) (bz+1, 2) (insert (bz*zz) (bz, 3) m)",
+				"    | otherwise = f (zz + 2 * bz + 1) (bz + 1, 2) m",
+				"    where (xx, (bx, be)) = findMin m",
+				"-- _Reinhard Zumkeller_, Mar 28 2014"
+			],
+			"xref": [
+				"Cf. A001597 (perfect powers), A097054 (nonsquare perfect powers),  A239870 (noncube perfect powers).",
+				"Cf. A052409."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Jeppe Stig Nielsen_, Mar 25 2014",
+			"references": 4,
+			"revision": 20,
+			"time": "2014-03-28T12:20:24-04:00",
+			"created": "2014-03-26T06:21:19-04:00"
+		},
+		{
+			"number": 239870,
+			"data": "4,9,16,32,36,49,81,121,128,144,169,196,243,256,324,400,441,484,576,625,841,900,961,1024,1156,1225,1296,1369,1444,1521,1600,1681,1849,1936,2025,2048,2187,2209,2304,2401,2601,2704,2916,3025,3125,3249,3364,3600",
+			"name": "Noncube perfect powers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239870/b239870.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"A052409(a(n)) mod 3 \u003e 0."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Map (singleton, findMin, deleteMin, insert)",
+				"a239870 n = a239870_list !! (n-1)",
+				"a239870_list = f 9 (3, 2) (singleton 4 (2, 2)) where",
+				"   f zz (bz, ez) m",
+				"    | xx \u003c zz = if ex `mod` 3 \u003e 0",
+				"      then xx : f zz (bz, ez+1) (insert (bx*xx) (bx, ex+1) $ deleteMin m)",
+				"      else      f zz (bz, ez+1) (insert (bx*xx) (bx, ex+1) $ deleteMin m)",
+				"    | xx \u003e zz = if ez `mod` 3 \u003e 0",
+				"      then zz : f (zz+2*bz+1) (bz+1, 2) (insert (bz*zz) (bz, 3) m)",
+				"      else      f (zz+2*bz+1) (bz+1, 2) (insert (bz*zz) (bz, 3) m)",
+				"    | otherwise = f (zz+2*bz+1) (bz+1, 2) m",
+				"    where (xx, (bx, ex)) = findMin m  --  bx ^ ex == xx"
+			],
+			"xref": [
+				"Cf. A097054, A239728, intersection of A007412 and A001597."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 28 2014",
+			"references": 4,
+			"revision": 4,
+			"time": "2014-03-28T10:11:37-04:00",
+			"created": "2014-03-28T10:11:37-04:00"
+		},
+		{
+			"number": 239878,
+			"data": "0,18,27,36,45,72,81,108,153,198,216,225,243,252,270,297,306,342,369,396,423,441,450,477,486,495,504,513,522,549,558,576,603,630,639,657,693,702,729,747,756,783,801,846,891,918,954,963,972,981",
+			"name": "Numbers n with digit_sum(n*n) + 1 = digit_sum((n+1)*(n+1)).",
+			"comment": [
+				"All terms are divisible by 9.",
+				"The number of terms is unlimited: n = 3*10^z + 6, i.e., digit_sum(n*n) + 1 = 27 + 1 = 28 = digit_sum((n+1)*(n+1)). - _Reiner Moewald_, Apr 20 2014"
+			],
+			"link": [
+				"Reiner Moewald, \u003ca href=\"/A239878/b239878.txt\"\u003eTable of n, a(n) for n = 1..4067\u003c/a\u003e"
+			],
+			"formula": [
+				"A240752(a(n)) = 1. - _Reinhard Zumkeller_, Apr 12 2014"
+			],
+			"program": [
+				"(Python)",
+				"def digit_Sum(n):",
+				"...integerString = str(n)",
+				"...digit_Sum=0",
+				"...for digitLetter in integerString:",
+				"......digit_Sum = digit_Sum + int(digitLetter)",
+				"...return digit_Sum",
+				"count = 0;",
+				"for i in range(20000):",
+				"...if(digit_Sum(i*i) + 1 == digit_Sum((i+1)*(i+1))):",
+				"......count = count +1",
+				"......print(anz,\"   \",i);",
+				"(PARI) isok(n) = (sumdigits(n^2) + 1) == sumdigits((n+1)^2); \\\\ _Michel Marcus_, Apr 06 2014",
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a239878 n = a239878_list !! (n-1)",
+				"a239878_list = elemIndices 1 a240752_list",
+				"-- _Reinhard Zumkeller_, Apr 12 2014"
+			],
+			"xref": [
+				"Cf. A202089, A240752, A240754, A004159, A007953, A000290."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reiner Moewald_, Mar 28 2014",
+			"references": 4,
+			"revision": 25,
+			"time": "2014-04-29T22:53:24-04:00",
+			"created": "2014-04-11T17:09:17-04:00"
+		},
+		{
+			"number": 239930,
+			"data": "1,2,1,3,1,3,1,3,2,2,1,5,1,2,1,4,1,4,1,4,1,2,1,5,2,2,2,3,1,4,1,4,1,2,1,7,1,2,1,4,1,4,1,3,2,2,1,6,2,3,1,3,1,4,1,4,1,2,1,7,1,2,2,5,1,3,1,3,1,2,1,8,1,2,2,3,1,3,1,5,3,2,1,6,1,2,1,3,1,6,1,3,1,2,1,6,1,3,2,6,1,3,1,3,1,2,1,7,1,3",
+			"name": "Number of distinct quarter-squares dividing n.",
+			"comment": [
+				"For more information about the quarter-squares see A002620."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239930/b239930.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Table_of_divisors\"\u003eTable of divisors\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{k=1..A000005(n)} A240025(A027750(n,k)). - _Reinhard Zumkeller_, Jul 05 2014"
+			],
+			"example": [
+				"For n = 12 the quarter-squares \u003c= 12 are [0, 0, 1, 2, 4, 6, 9, 12]. There are five quarter-squares that divide 12; they are [1, 2, 4, 6, 12], so a(12) = 5."
+			],
+			"maple": [
+				"isA002620 := proc(n)",
+				"    local k,qsq ;",
+				"    for k from 0 do",
+				"        qsq := floor(k^2/4) ;",
+				"        if n = qsq then",
+				"            return true;",
+				"        elif qsq \u003e n then",
+				"            return false;",
+				"        end if;",
+				"    end do:",
+				"end proc:",
+				"A239930 := proc(n)",
+				"    local a,d ;",
+				"    a :=0 ;",
+				"    for d in numtheory[divisors](n) do",
+				"        if isA002620(d) then",
+				"            a:= a+1 ;",
+				"        end if;",
+				"    end do:",
+				"    a;",
+				"end proc: # _R. J. Mathar_, Jul 03 2014"
+			],
+			"mathematica": [
+				"qsQ[n_] := AnyTrue[Range[Ceiling[2 Sqrt[n]]], n == Floor[#^2/4]\u0026]; a[n_] := DivisorSum[n, Boole[qsQ[#]]\u0026]; Array[a, 110] (* _Jean-François Alcover_, Feb 12 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a239930 = sum . map a240025 . a027750_row",
+				"-- _Reinhard Zumkeller_, Jul 05 2014"
+			],
+			"xref": [
+				"Cf. A000005, A001221, A001511, A002620, A005086, A006519, A007862, A027750, A046951, A147645, A236103.",
+				"Cf. A240025."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Omar E. Pol_, Jun 19 2014",
+			"references": 4,
+			"revision": 28,
+			"time": "2018-10-12T23:36:29-04:00",
+			"created": "2014-07-01T23:30:06-04:00"
+		},
+		{
+			"number": 239965,
+			"data": "1,2,3,4,7,5,6,10,8,11,9,12,15,13,14,18,21,16,20,17,22,25,23,19,24,28,26,29,27,30,33,31,32,43,34,37,35,36,40,44,38,45,39,46,49,47,41,48,52,50,42,51,53,56,54,60,55,57,64,58,59,74,62,65,61,63,71",
+			"name": "Where the n-th nonprime occurs in the nonprime EKG sequence A240024.",
+			"comment": [
+				"A240024(a(n)) = A018252(n);",
+				"a permutation of the natural numbers with inverse A238862: a(A238862(n))=A238862(a(n))=n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A239965/b239965.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a239965 = (+ 1) . fromJust . (`elemIndex` a240024_list) . a018252"
+			],
+			"xref": [
+				"Cf. A239943 (fixed points)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 30 2014",
+			"references": 4,
+			"revision": 24,
+			"time": "2014-07-05T11:12:55-04:00",
+			"created": "2014-04-30T03:27:35-04:00"
+		},
+		{
+			"number": 240400,
+			"data": "0,1,5,6,19,20,24,25,65,66,70,71,84,85,89,90,211,212,216,217,230,231,235,236,276,277,281,282,295,296,300,301,665,666,670,671,684,685,689,690,730,731,735,736,749,750,754,755,876,877,881,882,895,896,900,901",
+			"name": "Numbers n having a partition into distinct parts of form 3^k-2^k.",
+			"comment": [
+				"Numbers n such that there are partitions into distinct parts from A001047. - _Joerg Arndt_, Apr 06 2014",
+				"Based on casting binary numbers as ternary numbers. - _Jon Perry_, Apr 12 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A240400/b240400.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"A241759(a(n)) \u003e 0. - _Reinhard Zumkeller_, Apr 28 2014",
+				"Recursive formula: For n \u003e= 1, a(1)=1 then a(n) = n + 3*a(floor(n/2)). Sum: a(n) = Sum_{k=0..floor(log_2(n))} 3^k*floor(n/2^k). - _Benoit Cloitre_, Apr 06 2019"
+			],
+			"example": [
+				"25 = 19 + 5 + 1 so 25 is in the sequence."
+			],
+			"mathematica": [
+				"max = 1000; nmax = FindRoot[3^n - 2^n == max, {n, 1}][[1, 2]] // Ceiling; partitions = Select[Table[{3^n - 2^n}, {n, 1, nmax}], (First[#] \u003c= max)\u0026] //. {a___, b_List, c___, d_List, e___} /; Total[b] + Total[d] \u003c= max \u0026\u0026 FreeQ[p = {a, b, c, d, e}, (j = Join[b, d] // Sort)] \u0026\u0026 j == Union[j] :\u003e Union[Append[p, j]]; Join[{0}, Total /@ partitions // Sort] (* _Jean-François Alcover_, Apr 16 2014 *)"
+			],
+			"program": [
+				"(JavaScript)",
+				"function trimArray(arr) {",
+				"var c, i, j;",
+				"c = new Array();",
+				"for (j = 0; j \u003c arr.length; j++) c[j] = arr[j];",
+				"c.sort(function(a, b) {return a - b;});",
+				"i = -1;",
+				"while(i++ \u003c c.length - 1)",
+				"if (c[i] == c[i + 1]) c.splice(i--, 1);",
+				"return c;",
+				"}",
+				"a = new Array();",
+				"for (i = 0; i \u003c 10; i++)",
+				"a[i] = Math.pow(3, i) - Math.pow(2, i);",
+				"b = new Array();",
+				"bc = 0;",
+				"for (j = 0; j \u003c 130; j++) {",
+				"c = 0;",
+				"s = j.toString(2);",
+				"sl = s.length;",
+				"for (k = 0; k \u003c sl; k++) if (s.charAt(k) == 1) c += a[k];",
+				"b[bc++] = c;",
+				"}",
+				"b = trimArray(b);",
+				"document.write(b);",
+				"(Haskell)",
+				"a240400 n = a240400_list !! (n-1)",
+				"a240400_list = filter ((\u003e 0) . a241759) [0..]",
+				"-- _Reinhard Zumkeller_, Apr 28 2014",
+				"(PARI)",
+				"a(n)=if(n\u003c2,n%2,n+3*a(floor(n/2)))"
+			],
+			"xref": [
+				"Cf. A241783 (complement).",
+				"Cf. A001047, A005187, A080277, A241759."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Jon Perry_, Apr 04 2014",
+			"references": 4,
+			"revision": 34,
+			"time": "2019-04-08T07:59:35-04:00",
+			"created": "2014-04-28T02:48:06-04:00"
+		},
+		{
+			"number": 240754,
+			"data": "8,26,53,98,107,143,161,170,179,188,224,233,242,260,269,278,287,296,350,368,386,404,413,431,449,476,494,503,539,548,557,584,593,629,638,647,674,683,737,746,773,791,818,827,863,872,908,926,944,998,1007,1043",
+			"name": "Numbers n with digit_sum(n*n) - 1 = digit_sum((n+1)*(n+1)).",
+			"comment": [
+				"A240752(a(n)) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A240754/b240754.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a240754 n = a240754_list !! (n-1)",
+				"a240754_list = elemIndices (-1) a240752_list"
+			],
+			"xref": [
+				"Cf. A202089, A239878, A004159, A007953, A000290."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 12 2014",
+			"references": 4,
+			"revision": 4,
+			"time": "2014-04-12T13:24:34-04:00",
+			"created": "2014-04-12T13:24:34-04:00"
+		},
+		{
+			"number": 240807,
+			"data": "-1,-1,2,1,1,3,3,3,2,4,6,4,4,5,4,8,9,6,7,8,8,8,9,10,10,9,13,14,10,12,13,12,14,15,14,15,16,16,16,17,18,18,19,20,20,20,19,23,24,20,22,22,22,25,23,22,27,27,25,28,27,27,29,29,29,29,31,31,31,32,32,32,33,34,34,35,36,36,36,37,38,38,39,40,40,40,40,39,43,44,40,42,42,42",
+			"name": "a(0)=a(1)=-1, a(2)=2; thereafter a(n) = a(n-1-a(n-1))+a(n-2-a(n-2)) unless a(n-1) \u003c= n-1 or a(n-2) \u003c= n-2 in which case the sequence terminates.",
+			"reference": [
+				"Higham, Jeff and Tanny, Stephen, A tamely chaotic meta-Fibonacci sequence. Twenty-third Manitoba Conference on Numerical Mathematics and Computing (Winnipeg, MB, 1993). Congr. Numer. 99 (1994), 67-94."
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A240807/b240807.txt\"\u003eTable of n, a(n) for n = 0..20000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"maple": [
+				"a:=proc(n) option remember;",
+				"if n = 0 then  -1",
+				"elif n = 1 then -1",
+				"elif n = 2 then 2",
+				"else",
+				"    if (a(n-1) \u003c= n-1) and (a(n-2) \u003c= n-2) then",
+				"    a(n-1-a(n-1))+a(n-2-a(n-2));",
+				"    else lprint(\"died with n =\",n); return (-1);",
+				"    fi;",
+				"fi; end;",
+				"[seq(a(n),n=0..100)];"
+			],
+			"program": [
+				"(Haskell)",
+				"a240807 n = a240807_list !! n",
+				"a240807_list = -1 : -1 : 2 : zipWith (+) xs (tail xs)",
+				"   where xs = map a240807 $ zipWith (-) [1..] $ tail a240807_list",
+				"-- _Reinhard Zumkeller_, Apr 17 2014"
+			],
+			"xref": [
+				"A006949 and A240808 have the same recurrence but different initial conditions."
+			],
+			"keyword": "sign",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Apr 15 2014",
+			"references": 4,
+			"revision": 15,
+			"time": "2014-07-03T13:43:37-04:00",
+			"created": "2014-04-15T15:28:39-04:00"
+		},
+		{
+			"number": 240923,
+			"data": "0,0,0,0,0,1,0,0,0,3,0,3,0,4,2,0,0,1,0,3,0,6,0,2,0,7,0,1,0,6,0,0,4,9,0,0,0,10,0,2,0,8,0,9,2,12,0,3,0,0,6,7,0,7,0,7,0,15,0,8,0,16,0,0,0,12,0,9,8,24,0,5,0,19,0,15,0,14,0,3,0,21,0",
+			"name": "a(n) = numerator(sigma(n)/n) - sigma(denominator(sigma(n)/n)).",
+			"comment": [
+				"a(n) is the integer t, such that if sigma(n)/n is written in its most reduced form, nk/dk = A017665(n)/A017666(n), then we have (sigma(dk)+t)/dk.",
+				"It appears that a(n) is never negative.",
+				"a(n) = 0 if and only if n is in A014567 (n and sigma(n) are relatively prime)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A240923/b240923.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"William G. Stanton and Judy A. Holdener, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL10/Holdener/holdener7.html\"\u003eAbundancy \"Outlaws\" of the Form (sigma(N) + t)/N\u003c/a\u003e, Journal of Integer Sequences , Vol 10 (2007) , Article 07.9.6."
+			],
+			"example": [
+				"For n=10, sigma(10)/10 = 18/10 = 9/5 = (sigma(5) + 3)/5, hence a(10)=3."
+			],
+			"maple": [
+				"with(numtheory): A240923:=n-\u003enumer(sigma(n)/n) - sigma(denom(sigma(n)/n)): seq(A240923(n), n=1..100); # _Wesley Ivan Hurt_, Aug 06 2014"
+			],
+			"mathematica": [
+				"Table[Numerator[DivisorSigma[1, n]/n] - DivisorSigma[1, Denominator[ DivisorSigma[1, n]/n]], {n, 100}] (* _Wesley Ivan Hurt_, Aug 06 2014 *)"
+			],
+			"program": [
+				"(PARI) a(n) = my(ab = sigma(n)/n); numerator(ab) - sigma(denominator(ab));",
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"a240923 n = numerator sq - a000203 (denominator sq)",
+				"   where sq = a000203 n % n",
+				"-- _Reinhard Zumkeller_, Aug 05 2014",
+				"(Python)",
+				"from gmpy2 import mpq",
+				"from sympy import divisors",
+				"map(lambda x: x.numerator-sum(divisors(x.denominator)),[mpq(sum(divisors(n)),n) for n in range(1,10**5)]) # _Chai Wah Wu_, Aug 05 2014"
+			],
+			"xref": [
+				"Cf. A014567, A017665, A017666.",
+				"Cf. A000203."
+			],
+			"keyword": "nonn",
+			"offset": "1,10",
+			"author": "_Michel Marcus_, Aug 03 2014",
+			"references": 4,
+			"revision": 20,
+			"time": "2014-08-12T00:00:05-04:00",
+			"created": "2014-08-05T09:45:32-04:00"
+		},
+		{
+			"number": 241582,
+			"data": "0,1,2,4,8,16,20,25,31,32,37,42,43,56,58,71,72,97,109,114,120,136,153,158,172,199,220,226,249,252,254,280,305,316,340,392,394,400,448,452,457,486,499,529,537,546,572,588,619,657,704,737,809,814,872,921,934,964,973,993,1014,1024,1048,1074,1113",
+			"name": "Records in A131644.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A241582/b241582.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a241582 n = a241582_list !! (n-1)",
+				"(a241582_list, a241583_list) =  unzip $ f [1..] a131644_list (-1) where",
+				"   f (x:xs) (y:ys) r = if y \u003e r then (y, x) : f xs ys y else f xs ys r",
+				"-- _Reinhard Zumkeller_, Jan 30 2015"
+			],
+			"xref": [
+				"Cf. A131644, A241583, A192362."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, May 06 2014",
+			"references": 4,
+			"revision": 6,
+			"time": "2015-01-30T21:02:13-05:00",
+			"created": "2014-05-06T16:31:32-04:00"
+		}
+	]
+}

@@ -1,0 +1,380 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3860,
+	"results": [
+		{
+			"number": 78715,
+			"data": "1,2,3,5,10,19,20,30,50,100,190,200,300,500,1000,1900,2000,3000",
+			"name": "Palindromic Roman numerals.",
+			"comment": [
+				"This sequence is consistent with the Roman numerals as expressed in the Schildberger link. 4 (usually IV now) could be included in a variant of this sequence as IIII is sometimes used (especially on clock faces). To make this or similar sequences well-defined for numbers larger than 3999, it must be decided whether and how to handle the apostrophus (backward-C), the vinculum (bar), the frame, or even other multiplier notations used at various times in representations of larger Roman numerals. Recalling the \"Y2K crisis\", will there be a(n even milder) \"Y4M crisis\"? In particular, is 4000 to be represented as MMMM, (I)(I)(I)(I) (where parentheses are used to represent C and the apostrophus), MV (with vinculum over the V), IV (with vinculum over both I and V) or IIII with vinculum over all four I's? If there is no general agreement, could Roman civilization be at risk (once again)?",
+				"Indices of terms in A061493 which are also in A002113. - _M. F. Hasler_, Jan 12 2015"
+			],
+			"reference": [
+				"Encyclopaedia Britannica, 1981 ed., Vol. 11, \"Mathematics, History of\", p. 647.",
+				"Webster's Third New International Dictionary (Unabridged), 1976 ed., \"Cardinal Numbers Table\" and footnotes, p. 1549."
+			],
+			"link": [
+				"P. Lewis, \u003ca href=\"http://www.wilkiecollins.demon.co.uk/roman/front.htm\"\u003eROMAN NUMERALS AND DATES\u003c/a\u003e",
+				"Gerard Schildberger, \u003ca href=\"/A006968/a006968.txt\"\u003eThe first 3999 numbers in Roman numerals\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RomanNumeral.html\"\u003eRoman Numeral.\u003c/a\u003e"
+			],
+			"formula": [
+				"A136522(A061493(a(n))) = 1. - _Reinhard Zumkeller_, Apr 14 2013"
+			],
+			"example": [
+				"I, II, III, V, X, XIX, XX, XXX, L, C, CXC, CC, CCC, D, M, MCM, MM, MMM"
+			],
+			"program": [
+				"(Haskell)",
+				"a078715 n = a078715_list !! (n-1)",
+				"a078715_list = filter ((== 1) . a136522 . a061493) [1..3999]",
+				"-- _Reinhard Zumkeller_, Apr 14 2013",
+				"(PARI) is_A078715(n)=Vecrev(n=Str(A061493(n)))==Vec(n) \\\\ _M. F. Hasler_, Jan 12 2015"
+			],
+			"xref": [
+				"Cf. A061493, A006968 (Roman numerals main entry), A002113 (Palindromic Arabic numerals).",
+				"Subsequence of A093703."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,2",
+			"author": "_Rick L. Shepherd_, Dec 19 2002",
+			"references": 7,
+			"revision": 17,
+			"time": "2015-01-12T13:18:06-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 78779,
+			"data": "1,2,3,4,5,6,7,10,11,12,13,14,15,17,19,20,21,22,23,26,28,29,30,31,33,34,35,37,38,39,41,42,43,44,46,47,51,52,53,55,57,58,59,60,61,62,65,66,67,68,69,70,71,73,74,76,77,78,79,82,83,84,85,86,87,89,91,92,93,94,95,97,101",
+			"name": "Union of S, 2S and 4S, where S = odd squarefree numbers (A056911).",
+			"comment": [
+				"Numbers n such that the cyclic group Z_n is a DCI-group.",
+				"Numbers n such that A008475(n) = A001414(n).",
+				"A193551(a(n)) = A000026(a(n)) = a(n). - _Reinhard Zumkeller_, Aug 27 2011",
+				"Union of squarefree numbers and twice the squarefree numbers (A005117). - _Reinhard Zumkeller_, Feb 11 2012",
+				"The complement is A046790. - _Omar E. Pol_, Jun 11 2016"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A078779/b078779.txt\"\u003eTable of n, a(n) for n = 1..7098\u003c/a\u003e",
+				"B. Alspach and M. Mishna, \u003ca href=\"http://dx.doi.org/10.1016/S0012-365X(02)00319-9\"\u003eEnumeration of Cayley graphs and digraphs\u003c/a\u003e, Discr. Math., 256 (2002), 527-539.",
+				"M. Mishna, \u003ca href=\"http://people.math.sfu.ca/~mmishna/\"\u003eHome Page\u003c/a\u003e",
+				"M. Muzychuk, \u003ca href=\"http://dx.doi.org/10.1016/S0012-365X(97)81804-3\"\u003eOn Adam's conjecture for circulant graphs\u003c/a\u003e, Discr. Math. 167 (1997), 497-510."
+			],
+			"formula": [
+				"a(n) = (Pi^2/7)*n + O(sqrt(n)). - _Vladimir Shevelev_, Jun 08 2016"
+			],
+			"program": [
+				"(Haskell)",
+				"a078779 n = a078779_list !! (n-1)",
+				"a078779_list = m a005117_list $ map (* 2) a005117_list where",
+				"   m xs'@(x:xs) ys'@(y:ys) | x \u003c y     = x : m xs ys'",
+				"                           | x == y    = x : m xs ys",
+				"                           | otherwise = y : m xs' ys",
+				"-- _Reinhard Zumkeller_, Feb 11 2012, Aug 27 2011",
+				"(PARI) is(n)=issquarefree(n/gcd(n,2)) \\\\ _Charles R Greathouse IV_, Nov 05 2017"
+			],
+			"xref": [
+				"Cf. A121176, A121684, A008475, A001414, A046790."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Benoit Cloitre_, Jan 11 2003",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Sep 13 2006"
+			],
+			"references": 7,
+			"revision": 29,
+			"time": "2017-11-05T12:43:07-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79122,
+			"data": "1,0,0,1,1,3,5,8,13,21,31,46,67,95,134,186,253,343,461,611,806,1055,1369,1768,2270,2896,3678,4649,5847,7325,9141,11359,14069,17367,21363,26202,32042,39068,47512,57632,69728,84167,101365,121801,146053,174777",
+			"name": "Number of ways to partition 2*n into distinct positive integers not greater than n.",
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A079122/b079122.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (terms 0..80 from Reinhard Zumkeller)"
+			],
+			"formula": [
+				"a(n) = b(0, n), b(m, n) = 1 + sum(b(i, j): m\u003ci\u003cj\u003cn \u0026 i+j=2*n).",
+				"Coefficient of x^(2*n) in Product_{k=1..n} (1+x^k). - _Vladeta Jovovic_, Aug 07 2003",
+				"a(n) ~ exp(Pi*sqrt(2*n/3)) / (2^(11/4) * 3^(1/4) * n^(3/4)). - _Vaclav Kotesovec_, Oct 22 2015"
+			],
+			"example": [
+				"a(4)=1 [1+3+4=2*4]; a(5)=3 [1+2+3+4=1+4+5=2+3+5=2*5]."
+			],
+			"maple": [
+				"b:= proc(n, i) option remember; `if`(n=0, 1, `if`(i\u003c1, 0,",
+				"       b(n, i-1) + `if`(i\u003en, 0, b(n-i, i-1))))",
+				"    end:",
+				"a:= n-\u003e b(2*n, n):",
+				"seq(a(n), n=0..80);  # _Alois P. Heinz_, Jan 18 2013"
+			],
+			"mathematica": [
+				"d[n_] := Select[IntegerPartitions[n], Max[Length /@ Split@ #] == 1 \u0026]; Table[d[n], {n, 1, 12}]",
+				"TableForm[%]",
+				"f[n_] := Length[Select[d[2 n], First[#] \u003c= n \u0026]]",
+				"Table[f[n], {n, 1, 20}]  (* A079122 *)",
+				"(* _Clark Kimberling_, Mar 13 2012 *)",
+				"b[n_, i_] := b[n, i] = If[n==0, 1, If[i\u003c1, 0, b[n, i-1] + If[i\u003en, 0, b[n-i, i-1]]]]; a[n_] := b[2*n, n]; Table[a[n], {n, 0, 80}] (* _Jean-François Alcover_, Oct 22 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a079122 n = p [1..n] (2 * n) where",
+				"   p _  0     = 1",
+				"   p [] _     = 0",
+				"   p (k:ks) m = if m \u003c k then 0 else p ks (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Mar 16 2012"
+			],
+			"xref": [
+				"Cf. A035294, A079126, A000009, A079124, A079125, A067953, A111133."
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_Reinhard Zumkeller_, Dec 27 2002",
+			"references": 7,
+			"revision": 25,
+			"time": "2015-10-22T11:45:31-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79124,
+			"data": "1,1,0,1,0,2,0,4,1,5,1,11,0,17,4,13,13,37,2,53,13,51,35,103,10,135,78,167,89,255,4,339,253,378,306,542,121,759,558,872,498,1259,121,1609,1180,1677,1665,2589,808,3250,1969,3844,3325,5119,1850,6268,4758,7546,7070",
+			"name": "Number of ways to partition n into distinct positive integers \u003c= phi(n), where phi is Euler's totient function (A000010).",
+			"reference": [
+				"Mohammad K. Azarian, A Generalization of the Climbing Stairs Problem, Mathematics and Computer Education, Vol. 31, No. 1, pp. 24-28, Winter 1997.  MathEduc Database (Zentralblatt MATH, 1997c.01891)."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A079124/b079124.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Mohammad K. Azarian, \u003ca href=\"http://www.math-cs.ucmo.edu/~mjms/2004.1/azar6.pdf\"\u003eA Generalization of the Climbing Stairs Problem II\u003c/a\u003e, Missouri Journal of Mathematical Sciences, Vol. 16, No. 1, Winter 2004, pp. 12-17. Zentralblatt MATH, Zbl 1071.05501."
+			],
+			"formula": [
+				"a(n) = b(0, n), b(m, n) = 1 + sum(b(i, j): m\u003ci\u003cj\u003cphi(n) \u0026 i+j=n)."
+			],
+			"maple": [
+				"with(numtheory):",
+				"b:= proc(n, i) option remember; `if`(n=0, 1,",
+				"      `if`(i\u003c1, 0, b(n, i-1)+`if`(i\u003en, 0, b(n-i, i-1))))",
+				"    end:",
+				"a:= n-\u003e b(n, phi(n)):",
+				"seq(a(n), n=0..100);  # _Alois P. Heinz_, May 11 2015"
+			],
+			"mathematica": [
+				"b[n_, i_] := b[n, i] = If[n==0, 1, If[i\u003c1, 0, b[n, i-1] + If[i\u003en, 0, b[n-i, i-1]]]]; a[n_] := b[n, EulerPhi[n]]; Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Jun 30 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a079124 n = p [1 .. a000010 n] n where",
+				"   p _      0 = 1",
+				"   p []     _ = 0",
+				"   p (k:ks) m = if m \u003c k then 0 else p ks (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Jul 05 2013"
+			],
+			"xref": [
+				"Cf. A079126, A000009, A079122, A079125, A067953.",
+				"Cf. A227296, A036998."
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_Reinhard Zumkeller_, Dec 27 2002",
+			"ext": [
+				"a(0)=1 prepended by _Alois P. Heinz_, May 11 2015"
+			],
+			"references": 7,
+			"revision": 20,
+			"time": "2015-06-30T06:14:47-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79890,
+			"data": "2,4,4,8,6,8,9,16,12,12,14,16,14,18,18,32,21,24,21,24,27,27,25,32,27,27,36,36,33,36,33,64,42,42,42,48,38,42,42,48,46,54,46,54,54,50,49,64,50,54,52,54,55,72,63,72,63,63,62,72,62,63,81,128,66,81,69,81,70,81,74,96",
+			"name": "Least number \u003e n having one more prime factor than n, not necessarily distinct.",
+			"comment": [
+				"A001222(a(n)) = A001222(n) + 1;",
+				"a(2^k) = 2^(k+1).",
+				"a(A076156(n)) = A076156(n)+1. - _Reinhard Zumkeller_, Feb 01 2008"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A079890/b079890.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"lng[n_]:=Module[{x=n+1,pon=PrimeOmega[n]},While[PrimeOmega[x]-pon!=1, x++]; x]; Array[lng,80] (* _Harvey P. Dale_, Nov 09 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a079890 n = head [x | x \u003c- [n + 1 ..], a001222 x == 1 + a001222 n]",
+				"-- _Reinhard Zumkeller_, Aug 29 2013"
+			],
+			"xref": [
+				"Cf. A079891, A079892.",
+				"Cf. A165712."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jan 14 2003",
+			"references": 7,
+			"revision": 11,
+			"time": "2013-11-21T12:47:58-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80096,
+			"data": "1,1,2,0,3,1,2,2,1,3,0,4,1,3,2,2,3,1,4,0,5,1,4,2,3,3,2,4,1,5,0,6,1,5,2,4,3,3,4,2,5,1,6,0,7,1,6,2,5,3,4,4,3,5,2,6,1,7,0,8,1,7,2,6,3,5,4,4,5,3,6,2,7,1,8,0,9,1,8,2,7,3,6,4,5,5,4,6,3,7,2,8,1,9,0,10,1,9,2,8,3,7,4,6,5",
+			"name": "a(1)=a(2)=1; a(3)=2; a(n)=abs(a(n-1)-a(n-2)-a(n-3)).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080096/b080096.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"For n\u003e=3 Max( a(k) : 1\u003c=k\u003c=n ) = floor ( sqrt(n+4)).",
+				"Special cases: a(n^2+4*n-1)=0; a(n^2-4)=n",
+				"Also a( A028557(n))= a(A028557(n+1)); sum(k=(n-1)^2, n^2, a(k)) = n^2"
+			],
+			"program": [
+				"(PARI) a(n)=local(k,m); if(n\u003c1,0,k=sqrtint(n+4); m=n+4-k^2; if(m%2,m\\2+1,k-m\\2))",
+				"(Haskell)",
+				"a080096 n = a080096_list !! (n-1)",
+				"a080096_list = 1 : 1 : 2 : zipWith3 (\\u v w -\u003e abs (w - v - u))",
+				"               a080096_list (tail a080096_list) (drop 2 a080096_list)",
+				"-- _Reinhard Zumkeller_, Oct 11 2014"
+			],
+			"xref": [
+				"Cf. A028347.",
+				" Cf. A077623, A077653, A079623, A079624, A088226."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Benoit Cloitre_, Jan 28 2003",
+			"references": 7,
+			"revision": 11,
+			"time": "2014-10-20T15:18:15-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80225,
+			"data": "0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,2,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0",
+			"name": "Number of perfect divisors of n.",
+			"comment": [
+				"Number of divisors d of n with sigma(d)=2*d (sigma=A000203); A080224(n)+a(n)+A080226(n)=A000005(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080225/b080225.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PerfectNumber.html\"\u003ePerfect Number.\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Perfect_number\"\u003ePerfect number\u003c/a\u003e"
+			],
+			"example": [
+				"Divisors of n=84: {1,2,3,4,6,7,12,14,21,24,28,42}, two of them are perfect: 6=A000396(1) and 28=A000396(2), therefore a(84)=2."
+			],
+			"program": [
+				"(Haskell)",
+				"a080225 n = length [d | d \u003c- takeWhile (\u003c= n) a000396_list, mod n d == 0]",
+				"-- _Reinhard Zumkeller_, Jan 20 2012"
+			],
+			"xref": [
+				"Cf. A000396, A000203, A147645."
+			],
+			"keyword": "nonn",
+			"offset": "1,84",
+			"author": "_Reinhard Zumkeller_, Feb 07 2003",
+			"references": 7,
+			"revision": 12,
+			"time": "2013-07-13T12:02:56-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 81311,
+			"data": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75",
+			"name": "Numbers that can be written as sum of a prime and an 3-smooth number.",
+			"comment": [
+				"A081308(a(n))\u003e0; complement of A081310.",
+				"Up to 10^n this sequence has 8, 95, 916, 8871, 86974, 858055, 8494293, 84319349, 838308086, ... terms. The lower density is of this sequence is greater than 0.59368 (see Pintz), but seems to be less than 1; can this be proved? _Charles R Greathouse IV_, Sep 01 2015"
+			],
+			"reference": [
+				"J. Pintz, A note on Romanov's constant, Acta Mathematica Hungarica 112:1-2 (2006), pp. 1-14."
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A081311/b081311.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a081310 n = a081310_list !! (n-1)",
+				"a081310_list = filter ((== 0) . a081308) [1..]",
+				"-- _Reinhard Zumkeller_, Jul 04 2012",
+				"(PARI) is(n)=for(i=0, logint(n,3), my(k=3^i); while(k\u003cn, if(isprime(n-k), return(1)); k\u003c\u003c=1)); 0 \\\\ _Charles R Greathouse IV_, Sep 01 2015"
+			],
+			"xref": [
+				"A118955 is a subsequence.",
+				"Union of A081312 and A081313.",
+				"Cf. A000040, A003586."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 17 2003",
+			"references": 7,
+			"revision": 19,
+			"time": "2015-09-02T14:14:12-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 81605,
+			"data": "0,3,6,9,10,11,12,15,18,19,20,21,24,27,28,29,30,31,32,33,34,35,36,37,38,39,42,45,46,47,48,51,54,55,56,57,58,59,60,61,62,63,64,65,66,69,72,73,74,75,78,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100",
+			"name": "Numbers having at least one 0 in their ternary representation.",
+			"comment": [
+				"Complement of A032924.",
+				"A212193(a(n)) \u003c\u003e 0. [_Reinhard Zumkeller_, May 04 2012]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A081605/b081605.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a081605 n = a081605_list !! (n-1)",
+				"a081605_list = findIndices (/= 0) a212193_list",
+				"-- _Reinhard Zumkeller_, May 04 2012"
+			],
+			"xref": [
+				"Cf. A007089, A077267, A081607, A081606, A074940."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Mar 23 2003",
+			"references": 7,
+			"revision": 12,
+			"time": "2013-07-13T12:02:58-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 81827,
+			"data": "0,1,1,0,1,1,0,1,0,0,2,0,0,2,-1,1,1,0,1,0,0,0,4,-2,0,2,0,0,0,4,-3,0,3,1,-2,1,2,-1,1,1,0,1,0,0,0,0,8,-8,1,5,-2,-2,4,0,-2,4,-2,2,0,0,0,8,-7,-2,7,-3,-2,6,1,-3,1,2,-1,1,-1,3,-2,1,2,1,-1,0,3,-2,1,2,0,-1,2,0,0,0,0,0,16,-23,11,2,2",
+			"name": "Successive differences of Hofstadter Q-sequence.",
+			"comment": [
+				"a(A081829(n))\u003c0; a(A081828(n))=0; a(A081830(n))\u003e0; a(A194626(n))=1. [_Reinhard Zumkeller_, Sep 15 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A081827/b081827.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/HofstadtersQ-Sequence.html\"\u003eHofstadter's Q-Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Hofstadter_sequence\"\u003eHofstadter sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)=A005185(n+1)-A005185(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a081827 n = a081827_list !! (n-1)",
+				"a081827_list = zipWith (-) (tail a005185_list) a005185_list",
+				"b081827 = bFile \"A081827\" a081827_list 1 10000 -- (0.34 secs)",
+				"-- _Reinhard Zumkeller_, Sep 15 2011"
+			],
+			"keyword": "sign,look",
+			"offset": "1,11",
+			"author": "_Benoit Cloitre_, Apr 10 2003",
+			"references": 7,
+			"revision": 16,
+			"time": "2014-01-27T14:26:31-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

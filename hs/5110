@@ -1,0 +1,508 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5110,
+	"results": [
+		{
+			"number": 251555,
+			"data": "1,3,2,9,4,15,8,5,6,25,12,35,16,7,10,21,20,27,14,33,26,11,13,22,39,28,45,32,51,38,17,18,85,24,55,34,65,36,91,30,49,40,63,44,57,46,19,23,76,69,50,81,52,75,56,87,62,29,31,58,93,64,99,68,77,48,119,54,133,60,161,66,115,42,95,72,125",
+			"name": "a(1)=1, a(2)=3, a(3)=2; thereafter a(n) is the smallest number not occurring earlier having at least one common factor with a(n-2), but none with a(n-1).",
+			"comment": [
+				"A variant of A098550. See that entry for much more information.",
+				"It seems likely that this sequence will never merge with A098550, but it would be nice to have a proof.",
+				"A252912 gives numbers m, such that a(m) = A098550(m), see also A252939 and A252940. - _Reinhard Zumkeller_, Dec 25 2014"
+			],
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A251555/b251555.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"David L. Applegate, Hans Havermann, Bob Selcoe, Vladimir Shevelev, N. J. A. Sloane, and Reinhard Zumkeller, \u003ca href=\"http://arxiv.org/abs/1501.01669\"\u003eThe Yellowstone Permutation\u003c/a\u003e, arXiv preprint arXiv:1501.01669 [math.NT], 2015 and \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL18/Sloane/sloane9.html\"\u003eJ. Int. Seq. 18 (2015) 15.6.7\u003c/a\u003e."
+			],
+			"mathematica": [
+				"a[1]=1; a[2]=3; a[3]=2;",
+				"A251555 = Array[a, 3];",
+				"a[n_] := a[n] = For[k=2, True, k++, If[FreeQ[A251555, k], If[!CoprimeQ[k, a[n-2]] \u0026\u0026 CoprimeQ[k, a[n-1]], AppendTo[A251555, k]; Return[k]]]];",
+				"A251555 = Array[a, 100] (* _Jean-François Alcover_, Aug 02 2018 *)"
+			],
+			"program": [
+				"(Python)",
+				"from fractions import gcd",
+				"A251555_list, l1, l2, s, b = [1,3,2], 2, 3, 4, set()",
+				"for _ in range(10**4):",
+				"....i = s",
+				"....while True:",
+				"........if not i in b and gcd(i,l1) == 1 and gcd(i,l2) \u003e 1:",
+				"............A251555_list.append(i)",
+				"............l2, l1 = l1, i",
+				"............b.add(i)",
+				"............while s in b:",
+				"................b.remove(s)",
+				"................s += 1",
+				"............break",
+				"........i += 1 # _Chai Wah Wu_, Dec 21 2014",
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a251555 n = a251555_list !! (n-1)",
+				"a251555_list = 1 : 3 : 2 : f 3 2 [4..] where",
+				"   f u v ws = g ws where",
+				"     g (x:xs) = if gcd x u \u003e 1 \u0026\u0026 gcd x v == 1",
+				"                   then x : f v x (delete x ws) else g xs",
+				"-- _Reinhard Zumkeller_, Dec 24 2014"
+			],
+			"xref": [
+				"Cf. A098550, A251554.",
+				"Cf. A252912, A252939, A252940."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Dec 21 2014",
+			"references": 5,
+			"revision": 23,
+			"time": "2018-08-02T11:54:49-04:00",
+			"created": "2014-12-21T15:16:01-05:00"
+		},
+		{
+			"number": 251557,
+			"data": "2,4,4,6,6,10,10,16,16,16,16,16,16,18,18,18,18,22,22,24,24,24,24,24,28,28,30,30,34,34,34,34,34,34,36,36,38,38,38,38,40,40,40,44,44,46,46,46,46,52,52,52,52,54,54,54,54,58,58,64,64,64,64,64,66,66,70,70,70,70,70,70,70",
+			"name": "a(n) = 2 more than the largest even number among {A098550(1), A098550(2), ..., A098550(n)}.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A251557/b251557.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"David L. Applegate, Hans Havermann, Bob Selcoe, Vladimir Shevelev, N. J. A. Sloane, and Reinhard Zumkeller, \u003ca href=\"http://arxiv.org/abs/1501.01669\"\u003eThe Yellowstone Permutation\u003c/a\u003e, arXiv preprint arXiv:1501.01669 [math.NT], 2015 and \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL18/Sloane/sloane9.html\"\u003eJ. Int. Seq. 18 (2015) 15.6.7\u003c/a\u003e."
+			],
+			"mathematica": [
+				"terms = 100;",
+				"f[lst_] := Block[{k = 4}, While[GCD[lst[[-2]], k] == 1 || GCD[lst[[-1]], k] \u003e 1 || MemberQ[lst, k], k++]; Append[lst, k]];",
+				"A098550 = Nest[f, {1, 2, 3}, terms - 3];",
+				"a[1] = 2; a[n_] := Max[Select[A098550[[1 ;; n]], EvenQ]] + 2;",
+				"Array[a, terms] (* _Jean-François Alcover_, Aug 02 2018, after _Robert G. Wilson v_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a251557 n = a251557_list !! (n-1)",
+				"a251557_list = map (+ 2) $ tail $ scanl maxEven 0 a098550_list",
+				"               where maxEven u v = if even v then max u v else u",
+				"-- _Reinhard Zumkeller_, Mar 10 2015"
+			],
+			"xref": [
+				"Cf. A098550, A251546, A251558, A251559."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Dec 23 2014",
+			"references": 5,
+			"revision": 17,
+			"time": "2018-08-02T11:54:57-04:00",
+			"created": "2014-12-23T18:37:36-05:00"
+		},
+		{
+			"number": 251599,
+			"data": "1,2,3,5,8,9,13,18,19,25,32,33,41,50,51,61,72,73,85,98,99,113,128,129,145,162,163,181,200,201,221,242,243,265,288,289,313,338,339,365,392,393,421,450,451,481,512,513,545,578,579,613,648,649,685,722,723",
+			"name": "Centers of rows of the triangular array formed by the natural numbers.",
+			"comment": [
+				"Forms a cascade of 3-number triangles down the center of the triangle array. Related to A000124 (left/west bank of same triangular array), A000217 (right/east bank) and A001844 (center column).",
+				"Sums of the mentioned cascading triangles: a(3*n-2) + a(3*n-1) + a(3*n) = A058331(n) + A001105(n) + A001844(n-1) = 2*A056106(n) = 2*(3*n^2-n+1). - _Reinhard Zumkeller_, Dec 13 2014",
+				"Union of A080827 and A000982. - _David James Sycamore_, Aug 09 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A251599/b251599.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"David James Sycamore, \u003ca href=\"/A251599/a251599.jpg\"\u003eA080827 \u0026 A000982\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_07\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,0,2,-2,0,-1,1)."
+			],
+			"formula": [
+				"Terms for n=1 (mod 3): 2m^2+2m+1, for n=2 (mod 3): 2m^2+4m+2, for n=0 (mod 3): 2m^2+4m+3, where m = floor((n-1)/3).",
+				"G.f.: -x*(x^2+1)*(x^4-x^3+x+1)/((x^2+x+1)^2*(x-1)^3). - _Alois P. Heinz_, Dec 10 2014"
+			],
+			"example": [
+				"First ten terms (1,2,3,5,8,9,13,18,19,25) may be read down the center of the triangular formation:",
+				"               1",
+				"             2   3",
+				"           4   5   6",
+				"         7   8   9  10",
+				"      11  12  13  14  15",
+				"    16  17  18  19  20  21",
+				"  22  23  24  25  26  27  28"
+			],
+			"maple": [
+				"a:= n-\u003e (m-\u003e 2*(m+1)^2-[2*m+1, 0, -1][1+r])(iquo(n-1, 3, 'r')):",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Dec 10 2014"
+			],
+			"mathematica": [
+				"LinearRecurrence[{1, 0, 2, -2, 0, -1, 1}, {1, 2, 3, 5, 8, 9, 13}, 60] (* _Jean-François Alcover_, Jan 09 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a251599 n = a251599_list !! (n-1)",
+				"a251599_list = f 0 $ g 1 [1..] where",
+				"   f i (us:vs:wss) = [head $ drop i us] ++ (take 2 $ drop i vs) ++",
+				"                     f (i + 1) wss",
+				"   g k zs = ys : g (k + 1) xs where (ys,xs) = splitAt k zs",
+				"-- _Reinhard Zumkeller_, Dec 12 2014",
+				"(PARI) Vec(-x*(x^2+1)*(x^4-x^3+x+1)/((x^2+x+1)^2*(x-1)^3) + O(x^80)) \\\\ _Michel Marcus_, Jan 09 2016"
+			],
+			"xref": [
+				"Cf. A000124, A000217, A001844.",
+				"Cf. A092942 (first differences).",
+				"Cf. A001105, A056106, A058331.",
+				"Cf. A080827, A000982."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Dave Durgin_, Dec 05 2014",
+			"references": 5,
+			"revision": 49,
+			"time": "2018-08-12T13:21:51-04:00",
+			"created": "2014-12-11T12:15:20-05:00"
+		},
+		{
+			"number": 251725,
+			"data": "1,1,1,1,1,2,1,1,1,6,1,2,1,8,3,1,1,2,1,6,3,12,1,2,1,14,1,8,1,6,1,1,12,18,2,2,1,20,14,6,1,8,1,12,3,24,1,2,1,6,18,14,1,2,4,8,20,30,1,6,1,32,3,1,4,12,1,18,24,8,1,2,1,38,3,20,4,14,1,6,1,42,1,8,5,44,30,12,1,6,4,24,32,48,5,2,1,8,12,6",
+			"name": "Smallest number b such that in base-b representation the prime factors of n have equal lengths.",
+			"comment": [
+				"The \"base-1\" is here same as \"unary base\", where n is represented with digit \"1\" replicated n times. Thus if and only if n is in A000961 (is a power of prime), a(n) = 1. See A252375 for a more consistent treatment of those cases."
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A251725/b251725.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Other identities. For all n \u003e= 1:",
+				"A138510(n) = a(A001358(n)).",
+				"a(n) = a(A066048(n)). [The result depends only on the smallest and the largest prime factor of n.]"
+			],
+			"program": [
+				"(MIT/GNU Scheme)",
+				";; Factorization function ifactor can be found in _Antti Karttunen_'s IntSeq-library, and code for A162319bi given in A162319:",
+				"(define (A251725 n) (let ((spf (A020639 n)) (gpf (A006530 n))) (if (= spf gpf) 1 (let outerloop ((k 2)) (let innerloop ((r 1)) (cond ((and (\u003c= r spf) (\u003c gpf (* k r))) k) ((\u003c= r spf) (innerloop (* k r))) (else (outerloop (+ 1 k)))))))))",
+				"(define (A251725 n) (if (= 1 n) 1 (let ((fs (uniq (ifactor n)))) (if (= 1 (length fs)) 1 (let outerloop ((base 2)) (let innerloop ((fs fs) (prevlen #f)) (cond ((null? fs) base) ((not prevlen) (innerloop (cdr fs) (A162319bi (car fs) base))) ((= (A162319bi (car fs) base) prevlen) (innerloop (cdr fs) prevlen)) (else (outerloop (+ 1 base))))))))))",
+				"(Haskell)",
+				"import Data.List (unfoldr); import Data.Tuple (swap)",
+				"a251725 1 = 1",
+				"a251725 n = if length ps == 1 then 1 else head $ filter f [2..]  where",
+				"  f b = all (== len) lbs where len:lbs = map (length . d b) ps",
+				"  ps = a027748_row n",
+				"  d b = unfoldr (\\z -\u003e if z == 0 then Nothing else Just $ swap $ divMod z b)",
+				"-- _Reinhard Zumkeller_, Dec 17 2014"
+			],
+			"xref": [
+				"Cf. A252375 (variant).",
+				"Cf. A251726 (those n \u003e 1 for which a(n) \u003c= A006530(n)).",
+				"Cf. A251727 (those n for which a(n) = A006530(n)+1).",
+				"Cf. A000961 (positions of ones).",
+				"Cf. A001358, A006530, A020639, A066048, A138510, A162319.",
+				"Cf. A027748."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,6",
+			"author": "_Antti Karttunen_, Dec 16 2014",
+			"references": 5,
+			"revision": 16,
+			"time": "2019-06-30T10:16:14-04:00",
+			"created": "2014-12-18T02:06:12-05:00"
+		},
+		{
+			"number": 252001,
+			"data": "1,9,2,8,3,7,4,6,5,15,16,14,17,13,18,12,19,11,29,21,39,22,28,23,27,24,26,25,35,36,34,37,33,38,32,48,42,49,31,59,41,60,40,61,43,47,44,46,45,55,50,51,52,53,54,56,57,58,62,63,64,65,66,67,68,69,70",
+			"name": "Lexicographically earliest permutation of the positive integers, such that a carry occurs when adjacent terms are added in decimal representation.",
+			"comment": [
+				"a(n+1) = smallest number, not occuring earlier, such that a carry occurs when adding it to a(n) in decimal arithmetic."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A252001/b252001.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Carry.html\"\u003eCarry\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Carry_(arithmetic)\"\u003eCarry (arithmetic)\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a252001 n = a252001_list !! (n-1)",
+				"a252001_list = 1 : f [1] (drop 2 a031298_tabf) where",
+				"   f xs zss = g zss where",
+				"     g (ds:dss) = if any (\u003e 9) $ zipWith (+) xs ds",
+				"       then (foldr (\\d v -\u003e 10 * v + d) 0 ds) : f ds (delete ds zss)",
+				"       else g dss"
+			],
+			"xref": [
+				"Cf. A252022 (no carries); A252002 (inverse), A252078 (fixed points), A251984, A167831.",
+				"Cf. A262703 (first differences)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 12 2014",
+			"references": 5,
+			"revision": 9,
+			"time": "2015-09-27T17:23:56-04:00",
+			"created": "2014-12-13T15:20:49-05:00"
+		},
+		{
+			"number": 252022,
+			"data": "1,2,3,4,5,10,6,11,7,12,13,14,15,20,8,21,16,22,17,30,9,40,18,31,23,24,25,32,26,33,34,35,41,27,42,36,43,44,45,50,19,60,28,51,37,52,46,53,100,29,70,101,38,61,102,47,110,39,120,48,111,54,103,55,104",
+			"name": "Lexicographically earliest permutation of the positive integers, such that no carry occurs when adjacent terms are added in decimal representation.",
+			"comment": [
+				"a(n+1) = smallest number, not occuring earlier, such that no carry occurs when adding it to a(n) in decimal arithmetic."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A252022/b252022.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Carry.html\"\u003eCarry\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Carry_(arithmetic)\"\u003eCarry (arithmetic)\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a252022 n = a252022_list !! (n-1)",
+				"a252022_list = 1 : f [1] (drop 2 a031298_tabf) where",
+				"   f xs zss = g zss where",
+				"     g (ds:dss) = if all (\u003c= 9) $ zipWith (+) xs ds",
+				"       then (foldr (\\d v -\u003e 10 * v + d) 0 ds) : f ds (delete ds zss)",
+				"       else g dss",
+				"(Python)",
+				"A252022_list, l, s, b = [1], [1], 2, set()",
+				"for _ in range(10**3):",
+				"....i = s",
+				"....while True:",
+				"........if i not in b:",
+				"............li = [int(d) for d in str(i)[::-1]]",
+				"............for x,y in zip(li,l):",
+				"................if x+y \u003e 9:",
+				"....................break",
+				"............else:",
+				"................l = li",
+				"................b.add(i)",
+				"................A252022_list.append(i)",
+				"................while s in b:",
+				"....................b.remove(s)",
+				"....................s += 1",
+				"................break",
+				"........i += 1 # _Chai Wah Wu_, Dec 14 2014"
+			],
+			"xref": [
+				"Cf. A252001 (carries required); A252023 (inverse), A252079 (fixed points), A251984, A167831.",
+				"Cf. A262604 (first differences)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 12 2014",
+			"references": 5,
+			"revision": 13,
+			"time": "2015-09-27T17:24:25-04:00",
+			"created": "2014-12-13T15:27:48-05:00"
+		},
+		{
+			"number": 253569,
+			"data": "10,14,22,26,33,34,38,39,46,51,57,58,62,69,74,82,86,87,93,94,106,111,118,122,123,129,134,141,142,145,146,155,158,159,166,177,178,183,185,194,201,202,205,206,213,214,215,218,219,226,235,237,249,254,262,265,267,274,278,290",
+			"name": "Composite numbers n = p_i * p_j * p_k * ... * p_u, p_i \u003c= p_j \u003c= p_k \u003c= ... \u003c= p_u, where each successive prime factor (when sorted into a nondecreasing order) is greater than the square of the previous: (p_i)^2 \u003c p_j, (p_j)^2 \u003c p_k, etc.",
+			"comment": [
+				"Numbers n = A020639(n) * A014673(n) * A054576(n), for which A020639(n)^2 \u003c A014673(n) and either A054576(n) = 1 or A032742(n) satisfies the same condition (is the term of this sequence)."
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A253569/b253569.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"290 = 2*5*29 is a member, because 2^2 \u003c 5 and 5^2 \u003c 29."
+			],
+			"program": [
+				"(Haskell)",
+				"a253569 n = a253569_list !! (n-1)",
+				"a253569_list = filter f [1..] where",
+				"                    f x = (p ^ 2 \u003c a020639 q) \u0026\u0026 (a010051' q == 1 || f q)",
+				"                          where q = div x p; p = a020639 x",
+				"-- _Antti Karttunen_ after _Reinhard Zumkeller_'s code for A138511, Jan 09 2015",
+				"a253569 n = a253569_list !! (n-1)",
+				"a253569_list = filter (not . f''') a002808_list where",
+				"   f''' x = p ^ 2 \u003e a020639 q || (a010051 q == 0 \u0026\u0026 f''' q)",
+				"            where q = div x p; p = a020639 x",
+				"-- _Reinhard Zumkeller_, Jan 12 2015",
+				"(Scheme, with Antti Karttunen's IntSeq-library)",
+				"(define A253569 (MATCHING-POS 1 1 (lambda (n) (and (\u003e (A001222 n) 1) (numbers-sparsely-distributed? (ifactor n))))))",
+				"(define (numbers-sparsely-distributed? lista) (cond ((null? lista) #t) ((null? (cdr lista)) #t) ((\u003e (A000290 (car lista)) (cadr lista)) #f) (else (numbers-sparsely-distributed? (cdr lista)))))",
+				";; _Antti Karttunen_, Jan 16 2015"
+			],
+			"xref": [
+				"Complement: A253567.",
+				"Subsequence of A002808, A005117, A088381, A251727, A245729 and A253785.",
+				"A138511 is a subsequence, from which this sequence differs for the first time at n=60, where A138511(60) = 291, while here a(60) = 290.",
+				"Cf. A000290, A001222, A020639, A032742, A014673, A054576."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Antti Karttunen_ \u0026 _Reinhard Zumkeller_, Jan 09 2015",
+			"references": 5,
+			"revision": 23,
+			"time": "2016-09-26T21:01:06-04:00",
+			"created": "2015-01-16T18:22:31-05:00"
+		},
+		{
+			"number": 253580,
+			"data": "0,1,0,2,3,1,0,2,4,5,3,1,0,2,4,6,7,5,3,1,0,2,4,6,8,9,7,5,3,1,0,2,4,6,8,10,11,9,7,5,3,1,0,2,4,6,8,10,12,13,11,9,7,5,3,1,0,2,4,6,8,10,12,14,15,13,11,9,7,5,3,1,0,2,4,6,8,10,12,14,16",
+			"name": "A fractal tree, read by rows: for n \u003e 1: T(n,0) = T(n-1,0)+2, T(n,2*n) = T(n-1,0)+3, and for k=1..2*n-1: T(n,k) = T(n-1,k-1).",
+			"comment": [
+				"If all pairs of consecutive terms (i,i+1) (such as (0,1), (1,2), (2,3), ...) are erased, the original sequence appears; see also A253607.",
+				"T(n,n-k) + T(n,n+k) = 4*k - 1 for k = 1..n;",
+				"T(n+m,k) = T(n,k) for m \u003e 0, k = 0 .. 2*n."
+			],
+			"reference": [
+				"V. A. Sankar Ponnapalli and V. Y. Jayasree Pappu, Design of Octagonal Fractal Array Antenna for Side Lobe Reduction with Morse-Thue Fractal Density Tapering Technique, Preprint, 2016."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A253580/b253580.txt\"\u003eRows n = 0..100 of triangle, flattened\u003c/a\u003e",
+				"Éric Angelini, \u003ca href=\"http://list.seqfan.eu/pipermail/seqfan/2015-January/014247.html\"\u003eMore fractal trees - and erasures\u003c/a\u003e, SeqFan list, Jan 04 2015."
+			],
+			"example": [
+				".   0:                                 0",
+				".   1:                               1 0 2",
+				".   2:                             3 1 0 2 4",
+				".   3:                           5 3 1 0 2 4 6",
+				".   4:                         7 5 3 1 0 2 4 6 8",
+				".   5:                       9 7 5 3 1 0 2 4 6 8 10",
+				".   6:                    11 9 7 5 3 1 0 2 4 6 8 10 12",
+				".   7:                 13 11 9 7 5 3 1 0 2 4 6 8 10 12 14",
+				".   8:              15 13 11 9 7 5 3 1 0 2 4 6 8 10 12 14 16",
+				".   9:           17 15 13 11 9 7 5 3 1 0 2 4 6 8 10 12 14 16 18",
+				".  10:        19 17 15 13 11 9 7 5 3 1 0 2 4 6 8 10 12 14 16 18 20",
+				".  11:     21 19 17 15 13 11 9 7 5 3 1 0 2 4 6 8 10 12 14 16 18 20 22",
+				".  12:  23 21 19 17 15 13 11 9 7 5 3 1 0 2 4 6 8 10 12 14 16 18 20 22 24 ."
+			],
+			"mathematica": [
+				"a[n_, k_] := 2 Abs[n-k] - Boole[k\u003cn]; Table[a[n, k], {n, 0, 9}, {k, 0, 2 n}] // Flatten (* _Jean-François Alcover_, Nov 04 2016, after _M. F. Hasler_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a253580 n k = a253580_tabf !! n !! k",
+				"a253580_row n = a253580_tabf !! n",
+				"a253580_tabf = [0] : [1,0,2] : f [1,0,2] where",
+				"   f xs@(x:_) = ys : f ys where ys = [x + 2] ++ xs ++ [x + 3]",
+				"a253580_list = concat a253580_tabf",
+				"(PARI) a(n,k)=abs(n-k)*2-(k\u003cn) \\\\ _M. F. Hasler_, Jan 04 2015"
+			],
+			"xref": [
+				"Cf. A014105 (row sums), A253607 (first differences as flattened list), A253146."
+			],
+			"keyword": "nonn,tabf,easy,nice,look",
+			"offset": "0,4",
+			"author": "_Eric Angelini_ and _Reinhard Zumkeller_, Jan 04 2015",
+			"ext": [
+				"Typo in definition corrected by _M. F. Hasler_, Jan 04 2015"
+			],
+			"references": 5,
+			"revision": 23,
+			"time": "2017-11-10T20:33:52-05:00",
+			"created": "2015-01-04T09:52:44-05:00"
+		},
+		{
+			"number": 253581,
+			"data": "0,1,2,4,2,4,1,4,1,2,8,2,8,1,8,32,10,32,3,32,16,8,16,13,16,2,16,34,20,1,20,1,2,1,2,4,8,4,8,6,64,18,64,18,65,48,65,36,65,44,1,14,1,2,1,2,4,2,4,3,32,2,48,66,33,66,37,16,37,16,5,24,128,26",
+			"name": "a(n) = A252867(n) AND A252867(n+2).",
+			"comment": [
+				"Binary coded intersection of the two sets, coded by A252867(n) and A252867(n+2);",
+				"for n \u003e 0: a(n) \u003e 0 by definition of A252867;",
+				"conjecture: all natural numbers occur, cf. A253603, giving smallest m such that A253581(m) = n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A253581/b253581.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				".   n | A252867(n) |   binary |   a(n) |  binary",
+				". ----+------------+----------+--------+---------",
+				".   0 |          0 |        0 |      0 |       0",
+				".   1 |          1 |        1 |      1 |       1",
+				".   2 |          2 |       10 |      2 |      10",
+				".   3 |          5 |      101 |      4 |     100",
+				".   4 |         10 |     1010 |      2 |      10",
+				".   5 |          4 |      100 |      4 |     100",
+				".   6 |          3 |       11 |      1 |       1",
+				".   7 |         12 |     1100 |      4 |     100",
+				".   8 |         17 |    10001 |      1 |       1",
+				".   9 |          6 |      110 |      2 |      10",
+				".  10 |          9 |     1001 |      8 |    1000",
+				".  11 |         18 |    10010 |      2 |      10",
+				".  12 |          8 |     1000 |      8 |    1000",
+				".  13 |          7 |      111 |      1 |       1",
+				".  14 |         24 |    11000 |      8 |    1000",
+				".  15 |         33 |   100001 |     32 |  100000",
+				".  16 |         14 |     1110 |     10 |    1010",
+				".  17 |         32 |   100000 |     32 |  100000",
+				".  18 |         11 |     1011 |      3 |      11",
+				".  19 |         36 |   100100 |     32 |  100000",
+				".  20 |         19 |    10011 |     16 |   10000",
+				".  21 |         40 |   101000 |      8 |    1000",
+				".  22 |         16 |    10000 |     16 |   10000",
+				".  23 |         13 |     1101 |     13 |    1101",
+				".  24 |         48 |   110000 |     16 |   10000",
+				".  25 |         15 |     1111 |      2 |      10",
+				".  26 |         80 |  1010000 |     16 |   10000",
+				".  27 |         34 |   100010 |     34 |  100010",
+				".  28 |         20 |    10100 |     20 |   10100",
+				".  29 |         35 |   100011 |      1 |       1",
+				".  30 |         28 |    11100 |     20 |   10100 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Bits ((.\u0026.))",
+				"a253581 n = a253581_list !! n",
+				"a253581_list = zipWith (.\u0026.) a252867_list $ drop 2 a252867_list :: [Int]"
+			],
+			"xref": [
+				"Cf. A252867, A253603, A253582, A251102, A007088."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jan 12 2015",
+			"references": 5,
+			"revision": 6,
+			"time": "2015-01-13T07:33:31-05:00",
+			"created": "2015-01-13T07:33:31-05:00"
+		},
+		{
+			"number": 254967,
+			"data": "1,2,3,2,4,7,0,2,2,9,0,0,2,4,13,0,0,0,2,2,15,2,2,2,2,4,6,21,2,0,2,0,2,2,4,25,2,0,0,2,2,0,2,6,31,0,2,2,2,0,2,2,4,2,33,0,0,2,0,2,2,0,2,2,4,37,0,0,0,2,2,0,2,2,0,2,6,43,2,2,2,2,0,2",
+			"name": "Triangle of iterated absolute differences of lucky numbers read by antidiagonals upwards.",
+			"comment": [
+				"This sequence is related to the lucky numbers (cf. A000959) in the same way as A036262 is related to the prime numbers;",
+				"T(n,0) = A054978(n);",
+				"T(2*n,n) = A254969(n);",
+				"T(n,n-1) = A031883(n), n \u003e 0;",
+				"T(n,n) = A000959(n+1);",
+				"for n \u003e 0: T(n,k) = abs(T(n,k+1) - T(n-1,k), k = 0 .. n-1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254967/b254967.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LuckyNumber.html\"\u003eLucky number.\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Lucky_number\"\u003eLucky number\u003c/a\u003e"
+			],
+			"example": [
+				".   0:                      1",
+				".   1:                     2 3",
+				".   2:                    2 4 7",
+				".   3:                   0 2 2 9",
+				".   4:                  0 0 2 4 13",
+				".   5:                 0 0 0 2 2 15",
+				".   6:                2 2 2 2 4 6 21",
+				".   7:               2 0 2 0 2 2 4 25",
+				".   8:              2 0 0 2 2 0 2 6 31",
+				".   9:             0 2 2 2 0 2 2 4 2 33",
+				".  10:            0 0 2 0 2 2 0 2 2 4 37",
+				".  11:           0 0 0 2 2 0 2 2 0 2 6 43",
+				".  12:          2 2 2 2 0 2 2 0 2 2 0 6 49",
+				".  13:         0 2 0 2 0 0 2 0 0 2 4 4 2 51 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a254967 n k = a254967_tabl !! n !! k",
+				"a254967_row n = a254967_tabl !! n",
+				"a254967_tabl = diags [] $",
+				"   iterate (\\lds -\u003e map abs $ zipWith (-) (tail lds) lds) a000959_list",
+				"   where diags uss (vs:vss) = (map head wss) : diags (map tail wss) vss",
+				"                              where wss = vs : uss"
+			],
+			"xref": [
+				"Cf. A054978 (left edge), A254969 (central terms), A000959 (right edge), A031883, A036262."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Feb 11 2015",
+			"references": 5,
+			"revision": 9,
+			"time": "2016-11-30T22:10:54-05:00",
+			"created": "2015-02-11T12:52:04-05:00"
+		}
+	]
+}

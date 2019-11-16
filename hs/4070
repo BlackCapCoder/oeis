@@ -1,0 +1,518 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4070,
+	"results": [
+		{
+			"number": 4831,
+			"data": "0,1,2,16,17,32,81,82,97,162,256,257,272,337,512,625,626,641,706,881,1250,1296,1297,1312,1377,1552,1921,2401,2402,2417,2482,2592,2657,3026,3697,4096,4097,4112,4177,4352,4721,4802,5392,6497,6561,6562,6577,6642",
+			"name": "Numbers that are the sum of at most 2 nonzero 4th powers.",
+			"comment": [
+				"Apart from 0, 1, 2, there are no three consecutive terms up to 10^16. The first two consecutive terms not of the form n^4, n^4+1 are 3502321 = 25^4 + 42^4, 3502322 = 17^4 + 43^4. - _Charles R Greathouse IV_, Oct 17 2017"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A004831/b004831.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Reap[For[n = 0, n \u003c 10000, n++, If[MatchQ[ PowersRepresentations[n, 2, 4], {{_, _},___}], Print[n]; Sow[n]]]][[2, 1]] (* _Jean-François Alcover_, Oct 30 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a004831 n = a004831_list !! (n-1)",
+				"a004831_list = [x ^ 4 + y ^ 4 | x \u003c- [0..], y \u003c- [0..x]]",
+				"-- _Reinhard Zumkeller_, Jul 15 2013",
+				"(PARI) is(n)=#thue(thueinit(z^4+1),n) \\\\ _Ralf Stephan_, Oct 18 2013",
+				"(PARI) list(lim)=my(v=List(),t); for(m=0,sqrtnint(lim\\=1,4), for(n=0, min(sqrtnint(lim-m^4,4),m), listput(v,n^4+m^4))); Set(v) \\\\ _Charles R Greathouse IV_, Sep 28 2015"
+			],
+			"xref": [
+				"Subsequences include A000583 and A002645."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 6,
+			"revision": 23,
+			"time": "2017-10-30T10:26:19-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 5244,
+			"id": "M0704",
+			"data": "2,3,5,9,14,17,26,27,33,41,44,50,51,53,65,69,77,80,81,84,87,98,99,101,105,122,125,129,131,134,137,149,152,153,158,159,161,164,167,173,194,195,197,201,204,206,209,219,230,233,237,239,242,243,249",
+			"name": "A self-generating sequence: start with 2 and 3, take all products of any 2 previous elements, subtract 1 and adjoin them to the sequence.",
+			"comment": [
+				"a(n)=A139127(n)*a(k)-1 for some k; A139128 gives number of distinct representations a(n)=a(i)*a(j)-1. - _Reinhard Zumkeller_, Apr 09 2008",
+				"Complement of A171413. [From _Jaroslav Krizek_, Dec 08 2009]"
+			],
+			"reference": [
+				"R. K. Guy, Unsolved Problems in Number Theory, E31.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A005244/b005244.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/HofstadterSequences.html\"\u003eHofstadter Sequences.\u003c/a\u003e"
+			],
+			"example": [
+				"17 is present because it equals 2*9-1."
+			],
+			"mathematica": [
+				"f[s_,mx_] := Union[s, Select[Apply[Times, Subsets[s, {2}], {1}] - 1, # \u003c= mx \u0026]]; mx = 250; FixedPoint[f[#, mx] \u0026, {2, 3}] (* From Jean-François Alcover , Mar 29 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, fromList, union)",
+				"a005244 n = a005244_list !! (n-1)",
+				"a005244_list = f [2] (singleton 2) where",
+				"   f xs s = y :",
+				"     f (y : xs) (s' `union` fromList (map ((subtract 1) . (* y)) xs))",
+				"     where (y,s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Feb 26 2013"
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,1",
+			"author": "D. R. Hofstadter",
+			"ext": [
+				"More terms from _Jud McCranie_"
+			],
+			"references": 6,
+			"revision": 32,
+			"time": "2013-02-26T04:07:40-05:00",
+			"created": "1991-05-20T03:00:00-04:00"
+		},
+		{
+			"number": 5247,
+			"id": "M0149",
+			"data": "2,1,3,2,7,5,18,13,47,34,123,89,322,233,843,610,2207,1597,5778,4181,15127,10946,39603,28657,103682,75025,271443,196418,710647,514229,1860498,1346269,4870847,3524578,12752043,9227465,33385282,24157817",
+			"name": "a(n) = 3*a(n-2) - a(n-4), a(0)=2, a(1)=1, a(2)=3, a(3)=2. Alternates Lucas (A000032) and Fibonacci (A000045) sequences for even and odd n.",
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A005247/b005247.txt\"\u003eTable of n, a(n) for n=0..500\u003c/a\u003e",
+				"T. Crilly, \u003ca href=\"http://www.jstor.org/stable/3617570\"\u003eDouble sequences of positive integers\u003c/a\u003e, Math. Gaz., 69 (1985), 263-271.",
+				"R. K. Guy, \u003ca href=\"/A005246/a005246.pdf\"\u003eLetter to N. J. A. Sloane, Feb 1986\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,3,0,-1)."
+			],
+			"formula": [
+				"a(0)=2, a(1)=1, a(2)=3, a(n) = (1+a(n-1)a(n-2))/a(n-3), n \u003e= 3. a(-n) = a(n).",
+				"G.f.: (2+x-3*x^2-x^3)/((1-x-x^2)*(1+x-x^2))",
+				"a(n) = F(n) if n odd, a(n) = L(n) if n even. a(n) = F(n+1)+(-1)^nF(n-1). - Mario Catalani (mario.catalani(AT)unito.it), Sep 20 2002",
+				"a(n) = ((5+sqrt(5))/10)*(((1+sqrt(5))/2)^n+((-1+sqrt(5))/2)^n)+((5-sqrt(5))/10)*(((1-sqrt(5))/2)^n+((-1-sqrt(5))/2)^n). With additional leading 1: a(n)=((sqrt(5))/5)*(((1+sqrt(5))/2)^n-((1-sqrt(5))/2)^n)+((5+3*sqrt(5))/10)*((-1+sqrt(5))/2)^n+((5-3*sqrt(5))/10)*((-1-sqrt(5))/2)^n. - _Tim Monahan_, Jul 25 2011",
+				"From _Peter Bala_, Jan 11 2013: (Start)",
+				"Let phi = 1/2*(sqrt(5) - 1). This sequence is the simple continued fraction expansion of the real number 1 + product {n \u003e= 0} (1 + sqrt(5)*phi^(4*n+1))/(1 + sqrt(5)*phi^(4*n+3)) = 2.77616 23282 02325 23857 ... = 2 + 1/(1 + 1/(3 + 1/(2 + 1/(7 + ...)))). Cf. A005248.",
+				"Furthermore, for k = 0,1,2,... the simple continued fraction expansion of 1 + product {n \u003e= 0} (1 + 1/5^k*sqrt(5)*phi^(4*n+1))/(1 + 1/5^k*sqrt(5)*phi^(4*n+3)) equals [2; 1*5^k, 3, 2*5^k, 7, 5*5^k, 18, 13*5^k, 47, ...]. (End)",
+				"a(n) = hypergeom([(1-n)/2, n mod 2 - n/2], [1 - n], -4) for n \u003e 2. - _Peter Luschny_, Sep 03 2019"
+			],
+			"maple": [
+				"with(combinat): A005247 := n-\u003e if n mod 2 = 1 then fibonacci(n) else fibonacci(n+1)+fibonacci(n-1); fi;",
+				"A005247:=-(z+1)*(3*z**2-z-1)/(z**2-z-1)/(z**2+z-1); # _Simon Plouffe_ in his 1992 dissertation. Gives sequence with an additional leading 1."
+			],
+			"mathematica": [
+				"CoefficientList[Series[(2 + x - 3x^2 - x^3)/(1 - 3x^2 + x^4), {x, 0, 40}], x]",
+				"LinearRecurrence[{0,3,0,-1},{2,1,3,2},50] (* _Harvey P. Dale_, Oct 10 2012 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n%2,fibonacci(n),fibonacci(n+1)+fibonacci(n-1))",
+				"(Haskell)",
+				"a005247 n = a005247_list !! n",
+				"a005247_list = f a000032_list a000045_list where",
+				"   f (x:_:xs) (_:y:ys) = x : y : f xs ys",
+				"-- _Reinhard Zumkeller_, Dec 27 2012",
+				"(MAGMA) I:=[2,1,3,2]; [n le 4 select I[n] else 3*Self(n-2) - Self(n-2): n in [1..30]]; // _G. C. Greubel_, Dec 21 2017"
+			],
+			"xref": [
+				"Cf. A000032, A000045, A005013, A005013. A005248."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Additional comments from _Michael Somos_, May 01 2000"
+			],
+			"references": 6,
+			"revision": 51,
+			"time": "2019-09-03T09:53:25-04:00",
+			"created": "1991-05-20T03:00:00-04:00"
+		},
+		{
+			"number": 5255,
+			"id": "M1076",
+			"data": "0,1,2,4,7,13,24,46,88,172,337,667,1321,2629,5234,10444,20842,41638,83188,166288,332404,664636,1328935,2657533,5314399,10628131,21254941,42508561,85014493,170026357,340047480,680089726,1360169008,2720327572",
+			"name": "Atkinson-Negro-Santoro sequence: a(n+1) = 2a(n) - a(n-floor(n/2+1)).",
+			"comment": [
+				"For each n, the n-term sequence (b(k) = a(n) - a(n-k), 1 \u003c= k \u003c= n), has the property that all 2^n sums of subsets of the terms are distinct.",
+				"a(n) = A062178(n+1) - 1; see also A002083. - _Reinhard Zumkeller_, Nov 18 2012"
+			],
+			"reference": [
+				"S. R. Finch, Mathematical Constants, Cambridge, 2003, Section 2.28.",
+				"T. V. Narayana, Recent progress and unsolved problems in dominance theory, pp. 68-78 of Combinatorial mathematics (Canberra 1977), Lect. Notes Math. Vol. 686, 1978.",
+				"T. V. Narayana, Lattice Path Combinatorics with Statistical Applications. Univ. Toronto Press, 1979, pp. 100-101.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A005255/b005255.txt\"\u003eTable of n, a(n) for n=0..300\u003c/a\u003e",
+				"M. D. Atkinson et al., \u003ca href=\"http://dx.doi.org/10.1016/0012-365X(90)90112-U\"\u003eSums of lexicographically ordered sets\u003c/a\u003e, Discrete Math., 80 (1990), 115-122.",
+				"W. F. Lunnon, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-1988-0917837-5\"\u003eInteger sets with distinct subset-sums\u003c/a\u003e, Math. Comp. 50 (1988), 297-320.",
+				"B. E. Wynne \u0026 N. J. A. Sloane, \u003ca href=\"/A002083/a002083_1.pdf\"\u003eCorrespondence, 1976-84\u003c/a\u003e",
+				"B. E. Wynne \u0026 T. V. Narayana, \u003ca href=\"/A002083/a002083_2.pdf\"\u003eTournament configuration, weighted voting, and partitioned catalans\u003c/a\u003e, Preprint.",
+				"Bayard Edmund Wynne, and T. V. Narayana, \u003ca href=\"http://www.numdam.org/item?id=BURO_1981__36__75_0\"\u003eTournament configuration and weighted voting\u003c/a\u003e, Cahiers du bureau universitaire de recherche opérationnelle, 36 (1981): 75-78."
+			],
+			"example": [
+				"For n = 4, the sequence b is 7-4,7-2,7-1,7-0 = 3,5,6,7, which has subset sums (grouped by number of terms) 0, 3,5,6,7, 8,9,10,11,12,13, 14,15,16,18, 21."
+			],
+			"mathematica": [
+				"a[ 0 ] := 0; a[ 1 ] := 1; a[ n_ ] := 2*a[ n - 1 ] - a[(n - 1) - Floor[ (n - 1)/2 + 1 ] ]; For[ n = 1, n \u003c= 100, n++, Print[ a[ n ] ] ];"
+			],
+			"program": [
+				"(Haskell)",
+				"a005255 n = a005255_list !! (n-1)",
+				"a005255_list = scanl (+) 0 $ tail a002083_list",
+				"-- _Reinhard Zumkeller_, Nov 18 2012"
+			],
+			"xref": [
+				"Cf. A002083, A005318, A062178."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, _Simon Plouffe_",
+			"ext": [
+				"More terms from Winston C. Yang (winston(AT)cs.wisc.edu), Aug 26 2000",
+				"Edited by _Franklin T. Adams-Watters_, Apr 11 2009"
+			],
+			"references": 6,
+			"revision": 36,
+			"time": "2017-06-29T17:06:50-04:00",
+			"created": "1991-05-20T03:00:00-04:00"
+		},
+		{
+			"number": 5350,
+			"id": "M0253",
+			"data": "1,1,1,2,2,3,3,3,4,5,5,5,5,6,7,7,8,8,8,8,8,9,10,11,11,12,12,12,13,13,13,13,13,13,14,15,16,16,17,18,18,19,19,19,20,20,20,20,21,21,21,21,21,21,21,22,23,24,25,25,26,27,27,28",
+			"name": "a(1) = a(2) = a(3) = 1, a(n) = a(a(n-1))+a(n-a(n-1)) for n \u003e= 4.",
+			"comment": [
+				"a(n)-a(n-1) = 0 or 1 (see the 1991 Monthly reference). - _Emeric Deutsch_, Jun 06 2005"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A005350/b005350.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"R. K. Guy, \u003ca href=\"http://www.jstor.org/stable/2691503\"\u003eThe Second Strong Law of Small Numbers\u003c/a\u003e, Math. Mag, 63 (1990), no. 1, 3-20.",
+				"R. K. Guy, \u003ca href=\"/A005347/a005347.pdf\"\u003eThe Second Strong Law of Small Numbers\u003c/a\u003e, Math. Mag, 63 (1990), no. 1, 3-20. [Annotated scanned copy]",
+				"R. K. Guy and N. J. A. Sloane, \u003ca href=\"/A005180/a005180.pdf\"\u003eCorrespondence\u003c/a\u003e, 1988.",
+				"D. Kleitman, \u003ca href=\"http://www.jstor.org/stable/2324158\"\u003eSolution to Problem E3274\u003c/a\u003e, Amer. Math. Monthly, 98 (1991), 958-959."
+			],
+			"maple": [
+				"A005350 := proc(n) option remember; if n\u003c=3 then 1 else A005350(A005350(n-1))+A005350(n-A005350(n-1)); fi; end;",
+				"a[1]:=1: a[2]:=1: a[3]:=1: for n from 4 to 64 do a[n]:=a[a[n-1]]+a[n-a[n-1]] od: seq(a[n],n=1..64); # _Emeric Deutsch_, Jun 06 2005"
+			],
+			"mathematica": [
+				"a[1] = a[2] = a[3] = 1; a[n_] := a[n] = a[a[n-1]] + a[n-a[n-1]]; Table[a[n], {n, 1, 64}] (* _Jean-François Alcover_, Feb 11 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a005350 n = a005350_list !! (n-1)",
+				"a005350_list = 1 : 1 : 1 : h 4 1 where",
+				"   h x y = z : h (x + 1) z where z = a005350 y + a005350 (x - y)",
+				"-- _Reinhard Zumkeller_, Jul 20 2012"
+			],
+			"xref": [
+				"Cf. A004001, A005707.",
+				"Cf. A005185."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,4",
+			"author": "_N. J. A. Sloane_, _R. K. Guy_",
+			"references": 6,
+			"revision": 30,
+			"time": "2017-06-26T23:01:42-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 5413,
+			"id": "M4445",
+			"data": "1,1,7,72,891,12672,202770,3602880,70425747,1503484416,34845294582,872193147840,23469399408510,676090493459712,20771911997290116,678287622406488192,23466105907996232835,857623856612704266240",
+			"name": "Number of non-vanishing Feynman diagrams of order 2n+1 for the electron-electron-photon proper vertex function in quantum electrodynamics (QED).",
+			"comment": [
+				"From _Robert Coquereaux_, Sep 12 2014: (Start)",
+				"QED diagrams are graphs with two kinds of edges (lines): a (non-oriented), f (oriented), and only one kind of (internal) vertex: aff.",
+				"They may have internal and external (ie pendant) lines.",
+				"QED diagrams containing loops of type f with an odd number of vertices are set to 0 (vanishing diagrams).",
+				"Proper diagrams also called one-particle-irreducible diagrams (1PI) are connected diagrams that remain connected when an arbitrary internal line is cut.",
+				"The proper vertex function of QED is described by proper (1PI) diagrams with one external line of type a (photon) and two external lines of type f (electron). Non-vanishing diagrams only exist if the number of vertices is odd.",
+				"The number of non-vanishing Feynman diagrams for the proper vertex function is obtained from  g*Gamma(g) = g (1 + 1 g^2 + 7 g^4 + 72 g^6 + ...) where the exponent p of g^p gives the number of (internal) vertices, p is called the order of the diagram.",
+				"Write g*Gamma(g) = g (1 + x + 7 x2 + 72 x3 + ...) with x = g^2.",
+				"The sequence a(n) gives the coefficient of x^n.",
+				"Relation with A005411: Gamma (g) =  (S(g) -1)/(g^2 S(g)^3) where S(g) = 1 + g^2 + 4 g^4+ 25 g^6+ ... is sum A005411(n) g^(2n), hence the G.f. in terms of modified Bessel functions.",
+				"(End)"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"C. Itzykson and J.-B. Zuber, Quantum Field Theory, McGraw-Hill, 1980, pages 466-467."
+			],
+			"link": [
+				"Robert Coquereaux, \u003ca href=\"/A005413/b005413.txt\"\u003eTable of n, a(n) for n = 0..250\u003c/a\u003e",
+				"P. Cvitanovic, B. Lautrup and R. B. Pearson, \u003ca href=\"http://www.nbi.dk/~predrag/papers/PRD18-78.pdf\"\u003eThe number and weights of Feynman diagrams\u003c/a\u003e, Phys. Rev. D18, pp. 1939-1949 (1978).",
+				"Kevin Hartnett, \u003ca href=\"https://www.quantamagazine.org/20161115-strange-numbers-found-in-particle-collisions/\"\u003ePhysicists uncover strange numbers in particle collisions\u003c/a\u003e, Quanta Magazine, November 15 2016.",
+				"R. J. Martin and M. J. Kearney, \u003ca href=\"http://dx.doi.org/10.1007/s00010-010-0051-0\"\u003eAn exactly solvable self-convolutive recurrence\u003c/a\u003e, Aequat. Math., 80 (2010), 291-318. see p. 310.",
+				"R. J. Martin and M. J. Kearney, \u003ca href=\"http://arXiv.org/abs/1103.4936\"\u003eAn exactly solvable self-convolutive recurrence\u003c/a\u003e, arXiv:1103.4936 [math.CO], 2011.",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Feynman_diagram\"\u003eFeynman diagram\u003c/a\u003e"
+			],
+			"formula": [
+				"See recurrence in Martin-Kearney paper.",
+				"a(n) = (n - 1) * (A005412(n) + 2 * n * A005412(n - 1)) if n\u003e1.",
+				"From _Robert Coquereaux_, Sep 12 2014: (Start)",
+				"The G.f. for this sequence is  (U - 1)/(U^3 x) where U is G.f. for A005411.",
+				"G.f.: (4*x*(-2*x + (1 - K(1, -(1/(4*x))) / K(0, -(1/(4*x))))))/",
+				"   (1 - K(1, -(1/(4*x))) / K(0, -(1/(4*x))))^3",
+				"where K(p, z) denotes the modified Bessel function of the second kind (order p, argument z). This is a small improvement of a result obtained in the 1980 book \"Quantum Field Theory\".",
+				"(End)"
+			],
+			"example": [
+				"G.f. = 1 + x + 7*x^2 + 72*x^3 + 891*x^4 + 12672*x^5 + 202770*x^6 + 3602880*x^7 + ..."
+			],
+			"mathematica": [
+				"a[n_]:= SeriesCoefficient[(4*x*(-2*x + (1 - BesselK[1, -(1/(4*x))]/BesselK[0, -(1/(4*x))])))/ (1 - BesselK[1, -(1/(4*x))]/BesselK[0, -(1/(4*x))])^3, {x,0,n}] (* _Robert Coquereaux_, Sep 12 2014 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = my(A); if( n\u003c2, n\u003e=0, A = vector(n); A[1] = 1; for( k=2, n, A[k] = (2 * k - 2) * A[k-1] + sum( j=1, k-1, A[j] * A[k-j])); (n-1) * (A[n] + 2 * n * A[n-1]))}; /* _Michael Somos_, Jul 24 2011 */",
+				"(Haskell)",
+				"a005413 n = a005413_list !! (n-1)",
+				"a005413_list = 1 : zipWith (*) [1 ..]",
+				"                           (zipWith (+) (tail a005412_list)",
+				"                           (zipWith (*) [4, 6 ..] a005413_list))",
+				"-- _Reinhard Zumkeller_, Jan 24 2014"
+			],
+			"xref": [
+				"Cvitanovic et al. relate this sequence to A000698 and A005411. - _Robert Munafo_, Jan 24 2010"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Name clarified and reference added by _Robert Coquereaux_, Sep 12 2014"
+			],
+			"references": 6,
+			"revision": 68,
+			"time": "2017-03-24T00:47:49-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 5658,
+			"id": "M0969",
+			"data": "1,2,4,5,8,9,10,14,15,16,17,18,20,26,27,28,29,30,32,33,34,36,40,44,47,50,51,52,53,54,56,57,58,60,62,63,64,66,68,72,80,83,86,87,88,89,92,93,94,98,99,100,101,102,104,105,106,108,110,111,112,114,116,120,122,123",
+			"name": "If n appears so do 2n, 3n+2, 6n+3.",
+			"comment": [
+				"David Klarner and coauthors studied several sequences of this type. Some of the references here apply generally to this class of sequences."
+			],
+			"reference": [
+				"Guy, R. K., Klarner-Rado Sequences. Section E36 in Unsolved Problems in Number Theory, 2nd ed. New York: Springer-Verlag, p. 237, 1994.",
+				"J. C. Lagarias, ed., The Ultimate Challenge: The 3x+1 Problem, Amer. Math. Soc., 2010. See pp. 6, 280.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"R. J. Mathar, \u003ca href=\"/A005658/b005658.txt\"\u003eTable of n, a(n) for n = 1..15889\u003c/a\u003e",
+				"R. K. Guy, \u003ca href=\"/A005658/a005658.pdf\"\u003eLetter to N. J. A. Sloane with attachment, 1982\u003c/a\u003e",
+				"R. K. Guy, \u003ca href=\"https://www.jstor.org/stable/2975688\"\u003eDon't try to solve these problems\u003c/a\u003e, Amer. Math. Monthly, 90 (1983), 35-41.",
+				"Dean G. Hoffman and David A. Klarner, \u003ca href=\"http://dx.doi.org/10.2140/pjm.1978.78.337\"\u003eSets of integers closed under affine operators-the closure of finite sets\u003c/a\u003e, Pacific J. Math. 78 (1978), no. 2, 337-344.",
+				"Dean G. Hoffman and David A. Klarner, \u003ca href=\"http://dx.doi.org/10.2140/pjm.1979.83.135\"\u003eSets of integers closed under affine operators-the finite basis theorem\u003c/a\u003e, Pacific J. Math. 83 (1979), no. 1, 135-144.",
+				"David A. Klarner, \u003ca href=\"https://doi.org/10.1016/0166-218X(88)90067-4\"\u003em-Recognizability of sets closed under certain affine functions\u003c/a\u003e, Discrete Appl. Math. 21 (1988), no. 3, 207-214.",
+				"David A. Klarner, Karel Post, \u003ca href=\"https://doi.org/10.1016/0012-365X(92)90558-W\"\u003eSome fascinating integer sequences\u003c/a\u003e, A collection of contributions in honour of Jack van Lint, Discrete Math. 106/107 (1992), 303-309.",
+				"David A. Klarner and R. Rado, \u003ca href=\"http://dx.doi.org/10.2140/pjm.1974.53.445\"\u003eArithmetic properties of certain recursively defined sets\u003c/a\u003e, Pacific J. Math. 53 (1974), 445-463.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Klarner-RadoSequence.html\"\u003eKlarner-Rado Sequence\u003c/a\u003e.",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"maple": [
+				"ina:= proc(n) evalb(n=1) end:",
+				"a:= proc(n) option remember; local k, t;",
+				"      if n=1 then 1",
+				"    else for k from a(n-1)+1 while not",
+				"           (irem(k, 2, 't')=0 and ina(t) or",
+				"            irem(k, 3, 't')=2 and ina(t) or",
+				"            irem(k, 6, 't')=3 and ina(t) )",
+				"         do od: ina(k):= true; k",
+				"      fi",
+				"    end:",
+				"seq(a(n), n=1..80);  # _Alois P. Heinz_, Mar 16 2011"
+			],
+			"mathematica": [
+				"s={1};Do[a=s[[n]];s=Union[s,{2a,3a+2,6a+3}],{n,1000}];s (* _Zak Seidov_, Mar 15 2011 *)",
+				"nxt[n_]:=Flatten[{#,2#,3#+2,6#+3}\u0026/@n]; Take[Union[Nest[nxt,{1},5]],100] (* _Harvey P. Dale_, Feb 06 2015 *)"
+			],
+			"program": [
+				"(C++)",
+				"#include \u003cstdio.h\u003e",
+				"#include \u003ciostream\u003e",
+				"#include \u003cset\u003e",
+				"using namespace std ;",
+				"int main(int argc, char *argv[])",
+				"{ const int anmax= 40000 ; set\u003cint\u003e a ; a.insert(1) ; for(int i=0;i\u003c anmax ;i++) { if( a.count(i) ) { if( 2*i\u003c=anmax) a.insert(2*i) ; if( 3*i+2 \u003c= anmax) a.insert(3*i+2) ; if( 6*i+3 \u003c= anmax) a.insert(6*i+3) ; } } int n=1 ; for(int i=0; i \u003c anmax; i++) { if( a.count(i) ) { cout \u003c\u003c n \u003c\u003c \" \" \u003c\u003c i \u003c\u003c endl ; n++ ; } } return 0 ; }",
+				"- _R. J. Mathar_, Aug 20 2006",
+				"(Haskell)",
+				"import Data.Set (Set, fromList, insert, deleteFindMin)",
+				"a005658 n = a005658_list !! (n-1)",
+				"a005658_list = klarner $ fromList [1,2] where",
+				"   klarner :: Set Integer -\u003e [Integer]",
+				"   klarner s = m : (klarner $",
+				"                    insert (2*m) $ insert (3*m+2) $ insert (6*m+3) s')",
+				"      where (m,s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Mar 14 2011",
+				"(PARI) is(n)=if(n\u003c3,return(n\u003e0)); my(k=n%6); if(k==3, return(is(n\\6))); if(k==1, return(0)); if(k==5, return(is(n\\3))); if(k!=2, return(is(n/2))); is(n\\3) || is(n/2) \\\\ _Charles R Greathouse IV_, Sep 15 2015"
+			],
+			"xref": [
+				"Cf. A002977, A185661."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Oct 16 2000"
+			],
+			"references": 6,
+			"revision": 46,
+			"time": "2019-06-07T22:01:08-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 5920,
+			"id": "M4611",
+			"data": "1,9,33,82,165,291,469,708,1017,1405,1881,2454,3133,3927,4845,5896,7089,8433,9937,11610,13461,15499,17733,20172,22825,25701,28809,32158,35757,39615,43741,48144,52833,57817,63105,68706,74629,80883,87477,94420",
+			"name": "Tricapped prism numbers.",
+			"comment": [
+				"a(n) = (n+1)*A000326(n+1) - Sum_{i=0...n} A001477(i) = (n+1)*((n+1)*(3*n+2)/2) - A000217(n) = (n+1)*(3*n^2+4n+2)/2. - _Bruno Berselli_, Apr 25 2010",
+				"Also central terms of triangle A093445: a(n) = A093445(2*n+1,n+1). - _Reinhard Zumkeller_, Oct 03 2012"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A005920/b005920.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"B. K. Teo and N. J. A. Sloane, \u003ca href=\"http://neilsloane.com/doc/magic1/magic1.html\"\u003eMagic numbers in polygonal and polyhedral clusters\u003c/a\u003e, Inorgan. Chem. 24 (1985),4545-4558.",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4, -6, 4, -1)."
+			],
+			"formula": [
+				"a(n) = (1/2) * (3n^3 + 7n^2 + 6n + 2). - _Ralf Stephan_, Apr 20 2004",
+				"a(0)=1, a(1)=9, a(2)=33, a(3)=82, a(n) = 4*a(n-1) - 6*a(n-2) + 4*a(n-3) - a(n-4). - _Harvey P. Dale_, Sep 25 2012"
+			],
+			"maple": [
+				"a:=n-\u003e(3*n^3+7*n^2+6*n+2)/2: seq(a(n),n=0..60);",
+				"A005920:=(1+5*z+3*z**2)/(z-1)**4; # conjectured by _Simon Plouffe_ in his 1992 dissertation"
+			],
+			"mathematica": [
+				"CoefficientList[ Series[(1+5x+3x^2)/(1-x)^4, {x, 0, 39}], x] (* _Jean-François Alcover_, Dec 02 2011, after _Simon Plouffe_ *)",
+				"LinearRecurrence[{4,-6,4,-1},{1,9,33,82},40] (* _Harvey P. Dale_, Sep 25 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a005920 n = (n * (n * (3 * n + 7) + 6) + 2) `div` 2",
+				"-- _Reinhard Zumkeller_, Oct 03 2012",
+				"(PARI) a(n)=n*(3*n^2+7*n+6)/2+1 \\\\ _Charles R Greathouse IV_, Oct 07 2015"
+			],
+			"xref": [
+				"Cf. for recursive method [Ar(m) is the m-th term of a sequence in the OEIS] a(n) = n*Ar(n) - A000217(n-1) or a(n) = (n+1)*Ar(n+1) - A000217(n) or similar: A081436, A005945, A006003 and the terms T(2, n) or T(3, n) in the sequence A125860. - _Bruno Berselli_, Apr 25 2010"
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Emeric Deutsch_, May 09 2004"
+			],
+			"references": 6,
+			"revision": 45,
+			"time": "2017-10-02T20:07:26-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 6277,
+			"id": "M0888",
+			"data": "1,1,2,3,8,27,224,6075,1361024,8268226875,11253255215681024,93044467205527772332546875,1047053135870867396062743192203958743681024,97422501162981936223682742789520433197690551802305989766350860546875",
+			"name": "a(n) = (a(n-1) + 1)*a(n-2).",
+			"reference": [
+				"S. R. Finch, Mathematical Constants, Cambridge, 2003, Section 6.7.",
+				"Steven R. Finch, Mathematical Constants, Cambridge University Press, 2003, Section 6.10 Quadratic recurrence constants, pp. 445-446.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"J. L. Davison, Jeffrey Shallit, \u003ca href=\"http://dx.doi.org/10.1007/BF01332350\"\u003eContinued Fractions for Some Alternating Series\u003c/a\u003e, Monatsh. Math., 111 (1991), 119-126."
+			],
+			"formula": [
+				"sum_{n\u003e=0} 1/a(n) = 3. - _Gerald McGarvey_, Jul 20 2004",
+				"a(n) = floor(A243967^(phi^n) * A243968^((1-phi)^n)), where phi is the golden ratio (1+sqrt(5))/2. - _Vaclav Kotesovec_, Jan 19 2015"
+			],
+			"maple": [
+				"A006277 := proc(n) options remember; if n \u003c= 1 then RETURN(1) else A006277(n-2)*(A006277(n-1)+1); fi; end;"
+			],
+			"mathematica": [
+				"a=b=1;lst={a,b};Do[AppendTo[lst,c=a*b+a];a=b;b=c,{n,0,12}];lst (* _Vladimir Joseph Stephan Orlovsky_, May 06 2010 *)",
+				"RecurrenceTable[{a[n]==a[n-2]*(1+a[n-1]),a[0]==1,a[1]==1},a,{n,0,15}] (* _Vaclav Kotesovec_, Jan 19 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a006277_list = 1 : scanl ((*) . (+ 1)) 2 a006277_list -- _Jack Willis_, Dec 22 2013",
+				"(Maxima) a(n) := if (n = 0 or n = 1) then 1 else a(n-2)*(a(n-1)+1) $",
+				"makelist(a(n),n,0,12); _Emanuele Munarini_, Mar 23 2017",
+				"(MAGMA) [n le 2 select 1 else (Self(n-1) + 1)*Self(n-2): n in [1..15]]; // _Vincenzo Librandi_, May 23 2019"
+			],
+			"xref": [
+				"Cf. A243967, A243968."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, _Jeffrey Shallit_",
+			"ext": [
+				"More terms from _Vladimir Joseph Stephan Orlovsky_, May 06 2010"
+			],
+			"references": 6,
+			"revision": 41,
+			"time": "2019-05-23T01:17:28-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 6504,
+			"id": "M3895",
+			"data": "5,20,51,105,190,315,490,726,1035,1430,1925,2535,3276,4165,5220,6460,7905,9576,11495,13685,16170,18975,22126,25650,29575,33930,38745,44051,49880,56265,63240,70840,79101,88060,97755,108225,119510,131651,144690,158670",
+			"name": "Coefficient of x^4 in (1-x-x^2)^(-n).",
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A006504/b006504.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"G. E. Bergum and V. E. Hoggatt, Jr., \u003ca href=\"/A006503/a006503.pdf\"\u003eNumerator polynomial coefficient array for the convolved Fibonacci sequence\u003c/a\u003e, Fib. Quart., 14 (1976), 43-44. (Annotated scanned copy)",
+				"G. E. Bergum and V. E. Hoggatt, Jr., \u003ca href=\"http://www.fq.math.ca/Scanned/14-1/bergum.pdf\"\u003eNumerator polynomial coefficient array for the convolved Fibonacci sequence\u003c/a\u003e, Fib. Quart., 14 (1976), 43-48.",
+				"M. Janjic, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL13/Janjic/janjic33.html\"\u003eHessenberg Matrices and Integer Sequences \u003c/a\u003e, J. Int. Seq. 13 (2010) # 10.7.8, section 3.",
+				"P. Moree, \u003ca href=\"http://arXiv.org/abs/math.CO/0311205\"\u003eConvoluted convolved Fibonacci numbers\u003c/a\u003e, arXiv:math/0311205 [math.CO], 2003.",
+				"Pieter Moree, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL7/Moree/moree12.htm\"\u003eConvoluted Convolved Fibonacci Numbers\u003c/a\u003e, Journal of Integer Sequences, Vol. 7 (2004), Article 04.2.2.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992."
+			],
+			"formula": [
+				"The coefficient of x^4 in (1-x-x^2)^{-n} is the coefficient of x^4 in (1+x+2x^2+3x^3+5x^4)^n. Using the multinomial theorem one then finds that a(n)=7n/4+59*n^2/24+3*n^3/4+n^4/24. - Pieter Moree (moree(AT)mpim-bonn.mpg.de), Sep 03 2003",
+				"a(n) = n*(n+1)*(n+3)*(n+14)/4!. - _Alois P. Heinz_, Jan 21 2017"
+			],
+			"maple": [
+				"A006504:=-(5-5*z+z**2)/(z-1)**5; # Conjectured by _Simon Plouffe_ in his 1992 dissertation."
+			],
+			"program": [
+				"(Haskell)",
+				"a006504 n = n * (42 + n * (59 + n * (18 + n))) `div` 24",
+				"-- _Reinhard Zumkeller_, Oct 16 2011",
+				"(PARI) a(n)=7*n/4+59*n^2/24+3*n^3/4+n^4/24 \\\\ _Charles R Greathouse IV_, Oct 16 2011"
+			],
+			"xref": [
+				"Row n=4 of A144064."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 6,
+			"revision": 40,
+			"time": "2017-08-10T18:24:35-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		}
+	]
+}

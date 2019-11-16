@@ -1,0 +1,443 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6820,
+	"results": [
+		{
+			"number": 247468,
+			"data": "1,5,164,501,7364,29121,515504,2445693",
+			"name": "Smallest number m such that A247462(m) = n.",
+			"comment": [
+				"A247462(a(n)) = n and A247462(m) \u003c n for m \u003c a(n)."
+			],
+			"example": [
+				".  n |    a(n) |                  A058977 trajectory",
+				". ---+---------+---------------------------------------------------------",
+				".  2 |       5 | 1/a(2)-5/2-7",
+				".  3 |     164 | 1/a(3)-19/3-13/2-4",
+				".  4 |     501 | 1/a(4)-253/2-25/3-9/2-11",
+				".  5 |    7364 | 1/a(5)-499/3-253/2-25/3-9/2-11",
+				".  6 |   29121 | 1/a(6)-14563/2-979/3-493/2-19/3-13/2-4",
+				".  7 |  515504 | 1/a(6)-34375/3-17191/2-535/3-271/2-23/3-15/2-17",
+				".  8 | 2445693 | 1/a(8)-1222849/2-58241/3-14563/2-979/3-493/2-19/3-13/2-4"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a247468 = (+ 1) . fromJust . (`elemIndex` a247462_list)"
+			],
+			"xref": [
+				"Cf. A247462, A058977."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 17 2014",
+			"references": 3,
+			"revision": 3,
+			"time": "2014-09-17T19:00:36-04:00",
+			"created": "2014-09-17T19:00:36-04:00"
+		},
+		{
+			"number": 247500,
+			"data": "1,1,1,2,3,1,6,12,6,1,24,60,40,10,1,120,360,300,100,15,1,720,2520,2520,1050,210,21,1,5040,20160,23520,11760,2940,392,28,1,40320,181440,241920,141120,42336,7056,672,36,1,362880,1814400,2721600,1814400,635040,127008,15120,1080,45,1",
+			"name": "Triangle read by rows: T(n,k)=((k+1)*(n+1)*Gamma(n+1)^2)/(Gamma(k+2)^2 *Gamma(n-k+2)), 0\u003c=k\u003c=n.",
+			"comment": [
+				"A better definition would have been: (n-k)!*N(n,k) where N(n,k) are the little Narayana numbers A090181(n,k). This adds a first column (1,0,0,...) to the triangle and amounts to (Gamma(n)*Gamma(n+1))/(Gamma(k)*Gamma(k+1)*Gamma(n-k+2)). - _Peter Luschny_, Jun 18 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247500/b247500.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n, k) = (n!/k!)*C(n+2, k+1)/(n+2).",
+				"T(n, 0) = A000142(n).",
+				"T(n, n-1) = A000217(n).",
+				"T(n+1, 1) = A001710(n+2).",
+				"Sum_{k=0..n} T(n, k) = A247499(n).",
+				"L(n+1, k+1) = T(n-1, k)*P(n) for n\u003e=1 and 0\u003c=k\u003c=n; here L(n,k) denote the unsigned Lah numbers and P(n) the pronic numbers. - _Peter Luschny_, Oct 18 2014",
+				"T(n,k) = A105278(n+1,k+1) / (n+1-k), k=0..n. - _Reinhard Zumkeller_, Oct 19 2014"
+			],
+			"example": [
+				"                1;",
+				"               1, 1;",
+				"             2, 3, 1;",
+				"           6, 12, 6, 1;",
+				"        24, 60, 40, 10, 1;",
+				"    120, 360, 300, 100, 15, 1;",
+				"720, 2520, 2520, 1050, 210, 21, 1;"
+			],
+			"maple": [
+				"T := (n,k) -\u003e ((k+1)*(n+1)*GAMMA(n+1)^2)/(GAMMA(k+2)^2*GAMMA(n-k+2));"
+			],
+			"mathematica": [
+				"Table[((k + 1) (n + 1) Gamma[n + 1]^2)/(Gamma[k + 2]^2*",
+				"Gamma[n - k + 2]), {n, 0, 9}, {k, 0, n}] // Flatten (* _Michael De Vlieger_, Jun 19 2015 *)"
+			],
+			"program": [
+				"(MAGMA) /* triangle */ [[Factorial(n)/Factorial(k) * Binomial(n+2, k+1) /(n+2): k in [0..n]]: n in [0.. 15]]; // _Vincenzo Librandi_, Oct 18 2014",
+				"(Haskell)",
+				"a247500 n k = a247500_tabl !! n !! k",
+				"a247500_row n = a247500_tabl !! n",
+				"a247500_tabl = zipWith (zipWith div) a105278_tabl a004736_tabl",
+				"-- _Reinhard Zumkeller_, Oct 19 2014"
+			],
+			"xref": [
+				"Cf. A247499 (row sums), A008297.",
+				"Cf. A000142, A000217, A001710.",
+				"Cf. A204515 (central terms), A105278, A004736."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,4",
+			"author": "_Peter Luschny_, Oct 17 2014",
+			"references": 3,
+			"revision": 24,
+			"time": "2015-06-22T18:49:16-04:00",
+			"created": "2014-10-18T04:29:57-04:00"
+		},
+		{
+			"number": 247563,
+			"data": "2,3,1,-9,-31,-57,-47,87,449,999,1201,-393,-5983,-16377,-25199,-10089,70529,251943,473713,413367,-654751,-3617721,-8234159,-10231593,2241857,47651943,133988401,211357431,98118689,-551073657,-2045695727,-3932792553,-3615594751",
+			"name": "a(n) = 3*a(n-1) - 4*a(n-2) with a(0) = 2, a(1) = 3.",
+			"comment": [
+				"This is the Lucas sequence V_n(P, Q) = V_n(3, 4). U_n(P, Q) = U_n(3, 4) = A049072(n). ( a(n)/2 )^2 + 7*( A049072(n-1)/2 )^2 = 4^n. - _Raphie Frank_, Dec 04 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247563/b247563.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-4)."
+			],
+			"formula": [
+				"G.f.: (2 - 3*x) / (1 - 3*x + 4*x^2).",
+				"a(n) = a(-n) * 4^n for all n in Z.",
+				"a(n) = (-1)^n * A128415(n) if n \u003e 0.",
+				"a(n) = ((3 + sqrt(-7))/2)^n + ((3 - sqrt(-7))/2)^n. - _Raphie Frank_, Dec 04 2015"
+			],
+			"example": [
+				"G.f. = 2 + 3*x + x^2 - 9*x^3 - 31*x^4 - 57*x^5 - 47*x^6 + 87*x^7 + ..."
+			],
+			"mathematica": [
+				"{a[0], a[1]} = {2, 3}; a[n_] := a[n] = 3 a[n - 1] - 4 a[n - 2]; Table[a@ n, {n, 0, 32}] (* _Michael De Vlieger_, Dec 04 2015 *)",
+				"CoefficientList[Series[(2-3*x)/(1-3*x+4*x^2), {x, 0, 60}], x] (* _G. C. Greubel_, Aug 04 2018 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c0, n=-n; 4^-n, 1) * polcoeff( (2 - 3*x) / (1 - 3*x + 4*x^2) + x * O(x^n), n)};",
+				"(Haskell)",
+				"a247563 n = a247563_list !! n",
+				"a247563_list = 2 : 3 : zipWith (-) (map (* 3) $ tail a247563_list)",
+				"                                   (map (* 4) a247563_list)",
+				"-- _Reinhard Zumkeller_, Sep 20 2014",
+				"(MAGMA) [n le 2 select n+1 else 3*Self(n-1)-4*Self(n-2): n in [1..40]]; // _Vincenzo Librandi_, Dec 05 2015",
+				"(MAGMA) m:=25; R\u003cx\u003e:=PowerSeriesRing(Integers(), m); Coefficients(R!((2 - 3*x)/(1-3*x+4*x^2)));  // _G. C. Greubel_, Aug 04 2018"
+			],
+			"xref": [
+				"Cf. A128415, A049072."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,1",
+			"author": "_Michael Somos_, Sep 20 2014",
+			"references": 3,
+			"revision": 27,
+			"time": "2018-08-04T19:46:40-04:00",
+			"created": "2014-09-20T00:41:23-04:00"
+		},
+		{
+			"number": 247564,
+			"data": "2,1,3,1,1,-1,-9,-7,-31,-17,-57,-23,-47,-1,87,89,449,271,999,457,1201,287,-393,-967,-5983,-4049,-16377,-8279,-25199,-8641,-10089,7193,70529,56143,251943,139657,473713,194399,413367,24569,-654751,-703889,-3617721",
+			"name": "a(n) = 3*a(n-2) - 4*a(n-4) with a(0) = 2, a(1) = 1, a(2) = 3, a(3) = 1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247564/b247564.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,3,0,-4)."
+			],
+			"formula": [
+				"G.f.: (2 + x - 3*x^2 - 2*x^3) / (1 - 3*x^2 + 4*x^4).",
+				"a(n) = A247487(n) * 3^( n == 1 (mod 4) ) for all n in Z.",
+				"a(2*n) = A247563(n). a(2*n + 1) = A247560(n).",
+				"0 = a(n)*(+2*a(n+2)) + a(n+1)*(+2*a(n+1) - 8*a(n+2) + a(n+3)) + a(n+2)*(+a(n+2)) for all n in Z.",
+				"a(n) = (-1)^floor(n/2)*H(n, n mod 2, 1/2)) for n \u003e= 3 where H(n, a, b) = hypergeom([a - n/2, b - n/2], [1 - n], 8). - _Peter Luschny_, Sep 03 2019"
+			],
+			"example": [
+				"G.f. = 2 + x + 3*x^2 + x^3 + x^4 - x^5 - 9*x^6 - 7*x^7 - 31*x^8 - 17*x^9 + ..."
+			],
+			"maple": [
+				"H := (n, a, b) -\u003e hypergeom([a - n/2, b - n/2], [1 - n], 8):",
+				"a := n -\u003e `if`(n \u003c 3, [2, 1, 3][n+1], (-1)^iquo(n, 2)*H(n, irem(n, 2), 1/2)):",
+				"seq(simplify(a(n)), n=0..42); # _Peter Luschny_, Sep 03 2019",
+				"# second Maple program:",
+				"a:= n-\u003e (\u003c\u003c0|1\u003e, \u003c-4|3\u003e\u003e^iquo(n, 2, 'r').\u003c[\u003c2, 3\u003e, \u003c1, 1\u003e][1+r]\u003e)[1,1]:",
+				"seq(a(n), n=0..42);  # _Alois P. Heinz_, Sep 03 2019"
+			],
+			"mathematica": [
+				"CoefficientList[Series[(2+x-3*x^2-2*x^3)/(1-3*x^2+4*x^4), {x,0,60}], x] (* _G. C. Greubel_, Aug 04 2018 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c0, n=-n; 2^-n, 1) * polcoeff( (2 + x - 3*x^2 - 2*x^3) / (1 - 3*x^2 + 4*x^4) + x * O(x^n), n)};",
+				"(Haskell)",
+				"a247564 n = a247564_list !! n",
+				"a247564_list = [2,1,3,1] ++ zipWith (-) (map (* 3) $ drop 2 a247564_list)",
+				"                                        (map (* 4) $ a247564_list)",
+				"-- _Reinhard Zumkeller_, Sep 20 2014",
+				"(MAGMA) m:=25; R\u003cx\u003e:=PowerSeriesRing(Integers(), m); Coefficients(R!((2+x-3*x^2-2*x^3)/(1-3*x^2+4*x^4)));  // _G. C. Greubel_, Aug 04 2018"
+			],
+			"xref": [
+				"Cf. A247487, A247560, A247563."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,1",
+			"author": "_Michael Somos_, Sep 20 2014",
+			"references": 3,
+			"revision": 31,
+			"time": "2019-09-03T14:16:59-04:00",
+			"created": "2014-09-20T00:53:39-04:00"
+		},
+		{
+			"number": 247698,
+			"data": "2308,4261,6569,10830,17399,28229,45628,73857,119485,193342,312827,506169,818996,1325165,2144161,3469326,5613487,9082813,14696300,23779113,38475413,62254526,100729939,162984465,263714404,426698869,690413273,1117112142,1807525415,2924637557,4732162972,7656800529",
+			"name": "Brady numbers: B(n) = B(n - 1) + B(n - 2) with B(1) = 2308 and  B(2) = 4261.",
+			"comment": [
+				"B(n) / B(n - 1) approaches the golden ratio as n approaches infinity."
+			],
+			"link": [
+				"Logan Cooper, \u003ca href=\"/A247698/b247698.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e (truncated from 9966 to 1000 terms by _M. F. Hasler_, May 10 2017)",
+				"Brady Haran and Matt Parker, \u003ca href=\"https://www.youtube.com/watch?v=D8ntDpBm6Ok\"\u003eBrady Numbers\u003c/a\u003e, Numberphile video (2014)",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,1)."
+			],
+			"formula": [
+				"a(n) = a(n-1) + a(n-2).",
+				"G.f.: x*(2308 + 1953*x) / (1-x-x^2). - _Colin Barker_, Sep 23 2014",
+				"a(n) = k*phi^n + o(1), where k = 976.5 + sqrt(354578.45) = 1571.96.... - _Charles R Greathouse IV_, Sep 28 2014",
+				"a(n) = 2308*A000045(n-2) + 4261*A000045(n-1) = 1953*A000045(n+1) + 355*A000045(n). - _M. F. Hasler_, May 10 2017"
+			],
+			"maple": [
+				"Brady1 := proc(n::posint)",
+				"option remember, system;",
+				"if n = 1 then",
+				"  2308",
+				"elif n = 2 then",
+				"  4261",
+				"else",
+				"  thisproc( n - 1 ) + thisproc( n - 2 )",
+				"end if",
+				"end proc:",
+				"seq( Brady1( n ), n = 1 .. 100 );",
+				"# _James McCarron_, Oct 05 2019",
+				"# alternate program",
+				"Brady2 := ( n :: posint ) -\u003e coeff( series(x*(2308+1953*x)/(1-x-x^2),x,n+1), x^n ):",
+				"seq( Brady2( n ), n = 1 .. 100 );",
+				"# _James McCarron_, Oct 05 2019"
+			],
+			"mathematica": [
+				"LinearRecurrence[{1, 1}, {2308, 4261}, n]",
+				"Rest[CoefficientList[Series[x*(2308+1953*x)/(1-x-x^2), {x,0,50}], x]] (* _G. C. Greubel_, Sep 07 2018 *)"
+			],
+			"program": [
+				"(Haskell) brady = let makeSeq a b = a : makeSeq b (a + b) in makeSeq 2308 4261",
+				"(PARI) Vec(-x*(1953*x+2308)/(x^2+x-1) + O(x^50)) \\\\ _Colin Barker_, Sep 23 2014",
+				"(PARI) a(n)=([1,1;1,0]^n*[1953;355])[1,1] \\\\ _Charles R Greathouse IV_, Jan 20 2016",
+				"(MAGMA) m:=50; R\u003cx\u003e:=PowerSeriesRing(Integers(), m); Coefficients(R!(x*(2308+1953*x)/(1-x-x^2))); // _G. C. Greubel_, Sep 07 2018"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Sebastian Zimmer_, Sep 22 2014",
+			"references": 3,
+			"revision": 53,
+			"time": "2019-10-23T16:30:43-04:00",
+			"created": "2014-09-23T11:04:21-04:00"
+		},
+		{
+			"number": 247765,
+			"data": "2,2,6,2,4,2,4,20,2,3,2,3,42,2,3,24,2,3,18,2,3,15,2,3,14,231,2,3,12,2,3,12,156,2,3,11,231,2,3,10,2,3,10,240,2,3,10,128,32640,2,3,9,2,3,9,342,2,3,9,180,2,3,9,126,2,3,9,99,2,3,9,83,34362",
+			"name": "Table of denominators in the Egyptian fraction representation of n/(n+1) by the greedy algorithm.",
+			"comment": [
+				"A100678(n) = length of n-th row;",
+				"T(n, A100678(n)) = A100695(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247765/b247765.txt\"\u003eRows n = 1..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".   1:  2",
+				".   2:  2, 6",
+				".   3:  2, 4",
+				".   4:  2, 4, 20",
+				".   5:  2, 3",
+				".   6:  2, 3, 42",
+				".   7:  2, 3, 24",
+				".   8:  2, 3, 18",
+				".   9:  2, 3, 15",
+				".  10:  2, 3, 14, 231",
+				".  11:  2, 3, 12",
+				".  12:  2, 3, 12, 156",
+				".  13:  2, 3, 11, 231",
+				".  14:  2, 3, 10",
+				".  15:  2, 3, 10, 240",
+				".  16:  2, 3, 10, 128, 32640",
+				".  17:  2, 3,  9",
+				".  18:  2, 3,  9, 342",
+				".  19:  2, 3,  9, 180",
+				".  20:  2, 3,  9, 126"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"a247765 n k = a247765_tabf !! (n-1) !! (k-1)",
+				"a247765_tabf = map a247765_row [1..]",
+				"a247765_row n = f (map recip [2..]) (n % (n + 1)) where",
+				"   f es x | numerator x == 1 = [denominator x]",
+				"          | otherwise        = g es",
+				"          where g (u:us) | u \u003c= x    = (denominator u) : f us (x - u)",
+				"                         | otherwise =  g us"
+			],
+			"xref": [
+				"Cf. A100678, A100695."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 25 2014",
+			"references": 3,
+			"revision": 14,
+			"time": "2016-04-28T12:15:53-04:00",
+			"created": "2014-09-25T05:15:17-04:00"
+		},
+		{
+			"number": 247793,
+			"data": "2,1,75,10,18,1,75,41,58,2,94,107,14,13,2,14,14,1,84,527,124,715,13,4,1,4,276,310,2,4,11216,3074,3470,14,2,15,5,947,538839,2,8,2,1592,4,8,16813,2293,1,2755,3007,3272,32203,5357440,6,17,17,374252,9,17,6905",
+			"name": "Least integer m \u003e 0 such that pi(m*n) divides prime(m) + prime(n), where pi(x) denotes the number of primes not exceeding x.",
+			"comment": [
+				"Conjecture: a(n) exists for any n \u003e 0."
+			],
+			"link": [
+				"Zhi-Wei Sun, \u003ca href=\"/A247793/b247793.txt\"\u003eTable of n, a(n) for n = 1..100\u003c/a\u003e",
+				"Zhi-Wei Sun, \u003ca href=\"http://arxiv.org/abs/1409.5685\"\u003eA new theorem on the prime-counting function\u003c/a\u003e, arXiv:1409.5685, 2014."
+			],
+			"example": [
+				"a(4) = 10 since pi(4*10) = 12 divides prime(4) + prime(10) = 7 + 29 = 36."
+			],
+			"mathematica": [
+				"Do[m=1;Label[aa];If[m*n\u003e1\u0026\u0026Mod[Prime[m]+Prime[n],PrimePi[m*n]]==0,Print[n,\" \",m];Goto[bb]];m=m+1;Goto[aa];Label[bb];Continue,{n,1,60}]"
+			],
+			"program": [
+				"(Haskell)",
+				"a247793_list = 2 : f (zip [2..] $ tail a000040_list) where",
+				"   f ((x, p) : xps) = m : f xps where",
+				"     m = head [y | y \u003c- [1..], (p + a000040 y) `mod` a000720 (x * y) == 0]",
+				"-- _Reinhard Zumkeller_, Sep 24 2014"
+			],
+			"xref": [
+				"Cf. A000040, A000720, A247600, A247601, A247602, A247603, A247604, A247672, A247673."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Zhi-Wei Sun_, Sep 23 2014",
+			"references": 3,
+			"revision": 12,
+			"time": "2014-09-24T09:36:01-04:00",
+			"created": "2014-09-23T23:57:41-04:00"
+		},
+		{
+			"number": 247796,
+			"data": "0,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,19,2,3,4,5,6,7,8,9,28,29,3,4,5,6,7,8,9,37,38,39,4,5,6,7,8,9,46,47,48,49,5,6,7,8,9,55,56,57,58,59,6,7,8,9,64,65,66,67,68,69,7,8,9,73,74,75,76,77",
+			"name": "From right to left in decimal representation of n: replace each maximal set of adjacent digits with their sum, if this sum is less than 10.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247796/b247796.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) \u003c= n; a(A248013(n)) = A248013(n); a(A248014(n)) \u003c A248014(n);",
+				"a(n) =  a(a(n)) = a(A004719(n)) = a(n * 10^k)."
+			],
+			"example": [
+				"7654321: 7654[321] -\u003e 7654[3+2+1] -\u003e 76546 -\u003e 76[54]6 -\u003e 76[5+4]6 -\u003e 7696 = a(7654321);",
+				"1234567: 123[45]67 -\u003e 123[4+5]67 -\u003e 123967 -\u003e [123]967 -\u003e [1+2+3]967 -\u003e 6967 = a(1234567);",
+				"1111111: [1111111] -\u003e [1+1+1+1+1+1+1] -\u003e 7 = a(1111111);",
+				"a(7777777) = 7777777;",
+				"90909: 909[09] -\u003e 909[0+9] -\u003e 9099 -\u003e 9[09]9 -\u003e 9[0+9]9 -\u003e 999 = a(90909);",
+				"20202: [20202] -\u003e [2+0+2+0+2] -\u003e 6 = a(20202)."
+			],
+			"program": [
+				"(Haskell)",
+				"a247796 = f 0 where",
+				"   f s 0 = s",
+				"   f s x = if s + d \u003c 10 then f (s + d) x' else (f d x') * 10 + s",
+				"           where (x', d) = divMod x 10",
+				"(PARI) A247796(n,d=digits(n))={forstep(k=#d,2,-1,if(d[k-1]+d[k]\u003c10, d[k-1]+=d[k]; d=d[^k]));fromdigits(d)} /* or: (about 10% faster) */",
+				"A247796(n,u=1)={until(n\u003c10*u*=10,my(m=n\\u);while(m\u003e9\u0026\u0026sumdigits(m%100)\u003c10, m=vecsum(divrem(m,10));n=m*u+n%u));n} \\\\ Trying to reduce the number of redefinitions of n yields slower code. _M. F. Hasler_, Jan 29 2018"
+			],
+			"xref": [
+				"Cf. A248013, A248014."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Oct 08 2014",
+			"ext": [
+				"Edited by _M. F. Hasler_, Jan 29 2018"
+			],
+			"references": 3,
+			"revision": 14,
+			"time": "2018-01-29T22:19:40-05:00",
+			"created": "2014-10-08T10:46:33-04:00"
+		},
+		{
+			"number": 247798,
+			"data": "1,2,3,4,7,6,7,14,9,10,19,12,16,20,15,16,28,26,19,32,21,22,43,24,29,41,27,38,46,30,31,55,44,34,55,36,37,71,50,40,61,42,57,68,45,58,73,63,49,82,51,52,116,54,55,86,57,76,95,74,67,95,78,64,100,66",
+			"name": "n-th positive integer relatively prime to 2*n - 1.",
+			"comment": [
+				"Central terms of triangle A077581."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247798/b247798.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a247798 n = a077581 (2 * n - 1) n"
+			],
+			"xref": [
+				" Cf. A077581, A069213."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 26 2014",
+			"references": 3,
+			"revision": 4,
+			"time": "2014-09-26T13:26:27-04:00",
+			"created": "2014-09-26T13:26:27-04:00"
+		},
+		{
+			"number": 247857,
+			"data": "2,5,17,17,37,41,97,97,101,137,181,197,241,257,257,277,281,337,337,401,457,577,617,641,641,661,677,757,769,821,857,881,881,977,1097,1109,1201,1217,1237,1297,1297,1301,1321,1409,1481,1601,1657,1697,1777,2017,2069,2137,2281,2389,2417,2417,2437",
+			"name": "Primes of the form a^2 + b^4, with repetition.",
+			"comment": [
+				"Duplicates, which begin 17, 97, 257, 337, etc, are quartan primes A002645, except 2 (noticed by _Michel Marcus_).",
+				"Is there any triple?",
+				"No, by the uniqueness part of Fermat's two-squares theorem, at most one duplicate of a^2 + b^4 can exist. Namely, when a is a square, say a = B^2, then a^2 + b^4 = A^2 + B^4 where A = b^2. (This also proves Marcus's comment, since a^2 + b^4 = b^4 + B^4.) - _Jonathan Sondow_, Oct 03 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247857/b247857.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Art of Problem Solving, \u003ca href=\"http://www.artofproblemsolving.com/wiki/index.php/Fermat\u0026#39;s_Two_Squares_Theorem\"\u003eFermat's Two Squares Theorem\u003c/a\u003e",
+				"John Friedlander and Henryk Iwaniec, \u003ca href=\"http://www.pnas.org/cgi/content/full/94/4/1054\"\u003eUsing a parity-sensitive sieve to count prime values of a polynomial\u003c/a\u003e, PNAS, vol. 94 no. 4, pp. 1054-1058.",
+				"Marek Wolf, \u003ca href=\"http://arxiv.org/abs/1003.4015\"\u003eContinued fractions constructed from prime numbers\u003c/a\u003e, arXiv:1003.4015 [math.NT], 2010, p. 8.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Friedlander%E2%80%93Iwaniec_theorem\"\u003eFriedlander-Iwaniec theorem\u003c/a\u003e"
+			],
+			"example": [
+				"Since 97 = 4^2 + 3^4 = 9^2 + 2^4, it appears twice in the sequence."
+			],
+			"mathematica": [
+				"max = 10^4; r = Reap[Do[n = a^2 + b^4; If[n \u003c= max \u0026\u0026 PrimeQ[n], Sow[n]], {a, Sqrt[max]}, {b, max^(1/4)}]][[2, 1]]; Union[r, SameTest -\u003e (False\u0026)]"
+			],
+			"program": [
+				"(Haskell)",
+				"a247857 n = a247857_list !! (n-1)",
+				"a247857_list = concat $ zipWith replicate a256852_list a000040_list",
+				"-- _Reinhard Zumkeller_, Apr 11 2015"
+			],
+			"xref": [
+				"Cf. A002645, A028916 (same sequence without repetition).",
+				"Cf. A000040, A256852."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Jean-François Alcover_, Sep 25 2014",
+			"references": 3,
+			"revision": 29,
+			"time": "2015-10-05T09:19:36-04:00",
+			"created": "2014-09-29T22:38:28-04:00"
+		}
+	]
+}

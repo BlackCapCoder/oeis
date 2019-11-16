@@ -1,0 +1,379 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7870,
+	"results": [
+		{
+			"number": 32761,
+			"data": "0,1,8,2,76,41,252,163,435,127,291,1,3311,7282,1972,7443,3754,964,9135,8326,8598,9,2611,6481,21671,38241,56251,75761,96832,19522,43892,70002,97913,27683,59373,93044,28754,66565,6535,48725,93196,40006,89217,40887",
+			"name": "Take list of cubes, move left digit of each term to end of previous term.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A032761/b032761.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a032761 n = a032761_list !! n",
+				"a032761_list = 0 : map read (zipWith (++) vs (tail us)) :: [Integer]",
+				"   where (us,vs) = unzip $ map ((splitAt 1) . show) a000578_list",
+				"-- _Reinhard Zumkeller_, Oct 10 2013"
+			],
+			"xref": [
+				"Cf. A032759-A032764.",
+				"Cf. A000578."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "0,3",
+			"author": "_Patrick De Geest_, May 15 1998",
+			"references": 1,
+			"revision": 9,
+			"time": "2015-03-09T09:35:21-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33556,
+			"data": "3,4,5,7,9,11,15,17,21,23,27,31,33,35,39,41,45,47,51,55,57,61,63,65,69,71,75,77,81,83,87,91,93,97,105,107,111,113,117,121,129,131,135,139,141,143,147,155,159,161,165",
+			"name": "a(n+1) = 2a(n) - {largest prime \u003c a(n)}.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A033556/b033556.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = 2*a(n) - A151799(a(n)). - _Reinhard Zumkeller_, Jul 26 2012"
+			],
+			"mathematica": [
+				"a[n_] := a[n] = 2*a[n-1] - NextPrime[ a[n-1], -1]; a[0] = 3; Table[ a[n], {n, 0, 50}] (* _Jean-François Alcover_, Sep 24 2012 *)",
+				"NestList[2#-NextPrime[#,-1]\u0026,3,50] (* _Harvey P. Dale_, Jul 19 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033556 n = a033556_list !! n",
+				"a033556_list = iterate (\\x -\u003e 2*x - fromInteger (a151799 x)) 3",
+				"-- _Reinhard Zumkeller_, Jul 26 2012",
+				"(PARI) a(n) = if(n==0,3,2*a(n-1)-precprime(a(n-1)-1)) \\\\ _Iain Fox_, Oct 18 2017",
+				"(PARI) first(n) = my(res = vector(n)); res[1] = 3; for(i = 2, n, res[i] = 2 * res[i - 1] - precprime(res[i - 1] - 1)); res \\\\ _David A. Corneth_, Oct 18 2017"
+			],
+			"xref": [
+				"Cf. A007917, A151799."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,1",
+			"author": "armand turpel (armand_t(AT)yahoo.com)",
+			"references": 1,
+			"revision": 24,
+			"time": "2017-10-22T01:34:55-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 35306,
+			"data": "1,1,2,1,3,1,2,2,5,1,2,1,3,1,7,1,2,3,3,2,2,1,5,1,11,1,2,2,3,1,13,1,2,1,7,1,3,1,5,1,2,4,17,1,2,1,3,2,19,1,2,2,5,1,3,1,7,1,2,1,11,1,23,1,2,3,3,1,5,2,2,1,13,1,3,3,2,2,7,1,29,1,2,1,3,1,5,1,31,1,2,5,3,1,11,1,2",
+			"name": "List prime factors of each number in order (each prime factor is followed by its power). Start with 1 = {1,1}.",
+			"comment": [
+				"This entry also serves to show how to factor numbers in various languages.",
+				"Memo: in Maple, use ifactors, not ifactor!",
+				"Length of n-th row = 2*A001221(n). - _Reinhard Zumkeller_, Jan 10 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A035306/b035306.txt\"\u003eRows n = 1..1000 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"For 1 \u003c= k \u003c= A001221(n): T(n,2*k-1) = A027748(n,k), T(n,2*k) = A124010(n,k). - _Reinhard Zumkeller_, Jan 10 2013"
+			],
+			"example": [
+				"1 = {1,1}, 2 = {2,1}, 3 = {3,1}, 4 = {2,2}, 5 = {5,1}, 6 = {2,1,3,1}, ..."
+			],
+			"maple": [
+				"ListTools[Flatten]([[[1, 1]], seq(op(2..-1, ifactors(n)), n=2..34)], 2); # _Peter Luschny_, Sep 02 2018"
+			],
+			"mathematica": [
+				"Flatten[ Array[ FactorInteger[ # ]\u0026, 40 ] ]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a035306 n k = a035306_row n !! (k-1)",
+				"a035306_row 1 = [1,1]",
+				"a035306_row n = concat $ transpose [a027748_row n, a124010_row n]",
+				"a035306_tabf = map a035306_row [1..]",
+				"-- _Reinhard Zumkeller_, Jan 10 2013",
+				"(MAGMA) [ Factorization(n) : n in [1..120]];",
+				"(PARI) for (n=2,256,print(factor(n))) [There has to be a better PARI code than this]",
+				"(PARI) upto(n) = {n = max(n, 1); my(res = List([1, 1])); for(i = 2, n, f = factor(i); for(j = 1, #f~, listput(res, f[j, 1]); listput(res, f[j, 2]))); res} \\\\ _David A. Corneth_, Sep 02 2018"
+			],
+			"xref": [
+				"Cf. A008474 (row sums, apart from initial row).",
+				"Cf. A001221, A001222, A027748, A124010."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_.",
+			"references": 1,
+			"revision": 23,
+			"time": "2018-09-02T15:32:34-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36103,
+			"data": "0,1,1110,4110,145120,1524124120,2534425120,354413624120,16355433523120,26454463424120,36456453523120,46457443522120,1736556443522120,2736556433623120,2756553463623120,2766552473622120",
+			"name": "A look-and-say sequence: each term summarizes the previous two terms.",
+			"comment": [
+				"A look-and-say sequence. a(3) says 4 ones, 1 zero, which is the count of ones and zeros in the two previous terms. a(4) says 1 four, 5 ones, 2 zeros.",
+				"From the 28th term the sequence gets into a cycle of 117."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A036103/b036103.txt\"\u003eTable of n, a(n) for n = 0..611\u003c/a\u003e = 5 periods",
+				"\u003ca href=\"/index/Sa#swys\"\u003eIndex to sequences related to say what you see\u003c/a\u003e"
+			],
+			"example": [
+				"a(26) = 39283736554483723130;",
+				"a(27) = 39384726554493622120 = first term of first period;",
+				"a(28) = 39383736455493622120;",
+				"a(143) = 39283746553473823130 = last term of first period != a(26);",
+				"a(144) = 39384726554493622120 = first term of second period = a(27);",
+				"a(145) = 39383736455493622120 = a(28)."
+			],
+			"mathematica": [
+				"a[0] = 0; a[1] = 1; a[n_] := a[n] = Reverse /@ (Join[a[n-2] // IntegerDigits, a[n-1] // IntegerDigits] // Tally // SortBy[#, First]\u0026 // Reverse) // Flatten // FromDigits;",
+				"Array[a, 16, 0] (* _Jean-François Alcover_, Jul 13 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (sort, group); import Data.Function (on)",
+				"a036103 n = a036103_list !! n",
+				"a036103_list = 0 : 1 : map (read . concatMap say . group . reverse . sort)",
+				"               (zipWith ((++) `on` show) a036103_list $ tail a036103_list)",
+				"               where say w = (show $ length w) ++ [head w]",
+				"-- _Reinhard Zumkeller_, Oct 05 2015"
+			],
+			"xref": [
+				"Cf. A036059.",
+				"Cf. A036106."
+			],
+			"keyword": "base,easy,nice,nonn",
+			"offset": "0,3",
+			"author": "_Floor van Lamoen_",
+			"references": 1,
+			"revision": 17,
+			"time": "2016-07-14T03:24:47-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37166,
+			"data": "4,12,30,70,132,208,306,418,644,870,1116,1480,1722,1978,2444,3074,3540,4026,4690,5112,5694,6478,7304,8544,9700,10302,10918,11556,12208,14238,16510,17816,18906,20572,22350,23556,25434,27058,28724,30794,32220",
+			"name": "Prime(n)*prime(n+1)-prime(n).",
+			"comment": [
+				"a(n) = A000040(n) * A006093(n+1). - _Reinhard Zumkeller_, Nov 10 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037166/b037166.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Times@@#-#[[1]]\u0026/@Partition[Prime[Range[50]],2,1] (* _Harvey P. Dale_, Apr 15 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a037166 n = a037166_list !! (n-1)",
+				"a037166_list = zipWith (*) a000040_list $",
+				"                           map (subtract 1) $ tail a000040_list",
+				"-- _Reinhard Zumkeller_, Nov 10 2013"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "Armand Turpel armandt(AT)unforgettable.com",
+			"references": 1,
+			"revision": 8,
+			"time": "2013-11-21T12:46:35-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 38135,
+			"data": "0,1,1,1,3,7,9,4,5,10,16,17,11,5,12,20,23,17,9,20,18,13,14,33,43,31,28,27,2,29,4,57,34,73,33,2,34,6,71,114,90,4,71,116,117,28,9,91,248,161,4,91,362,232,6,161,4,323,6,393,6,322,4,716,6,715,6,644,4,1431,6,1359,6",
+			"name": "Pseudo Q-numbers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A038135/b038135.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)=a(abs(n-a(n-1)))+a(abs(n-a(n-2)))+a(abs(n-a(n-3)), a(j)=0 for j\u003en."
+			],
+			"mathematica": [
+				"a[0] = 0; a[1] = a[2] = a[3] = 1; a[n_] := a[n] = Module[{b}, b[j_ /; j \u003e n] = 0; b[j_] := a[j]; b[Abs[n - b[n-1]]] + b[Abs[n - b[n-2]]] + b[Abs[n - b[n-3]]]]; Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Oct 23 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a038135 n = genericIndex a038135_list n",
+				"a038135_list = 0 : 1 : 1 : 1 : f 1 1 1 4 where",
+				"   f u v w x = y : f v w y (x + 1) where",
+				"     y = q (x - u) + q (x - v) + q (x - w)",
+				"     q z = if abs z \u003e= x then 0 else a038135 $ abs z",
+				"-- _Reinhard Zumkeller_, Sep 21 2014"
+			],
+			"xref": [
+				"Cf. A005185."
+			],
+			"keyword": "nice,nonn",
+			"offset": "0,5",
+			"author": "_Felice Russo_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Apr 04 2000"
+			],
+			"references": 1,
+			"revision": 12,
+			"time": "2016-10-23T16:04:33-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 38555,
+			"data": "0,0,0,1,2,0,2,0,1,3,4,5,7,8,6,2,0,1,6,7,8,1,2,0,5,3,4,9,10,11,13,14,12,17,15,16,21,22,23,25,26,24,20,18,19,6,7,8,1,2,0,5,3,4,18,19,20,22,23,21,26,24,25,3,4,5,7,8,6,2,0,1,15,16,17,10,11,9,14,12,13,27,28,29",
+			"name": "Derivative of n in base 3.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A038555/b038555.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Write n in ternary, replace each pair of adjacent digits by their modulo 3 sum."
+			],
+			"example": [
+				"15 = 120 in ternary, derivative is 02 = 2, so a(15)=2."
+			],
+			"program": [
+				"(Haskell)",
+				"a038555 n = foldr (\\d v -\u003e v * 3 + d) 0 $",
+				"   zipWith (\\x y -\u003e (x + y) `mod` 3) ts $ tail ts",
+				"   where ts = a030341_row n",
+				"-- _Reinhard Zumkeller_, May 26 2013",
+				"(J) ab3 =: 3\u0026#.^:_1",
+				"sp =: 2\u0026(+/\\)\"1",
+				"\u003e (3 | sp)\u0026.ab3\u0026.\u003e ;/ i. 100 NB. _Stephen Makdisi_, May 26 2018"
+			],
+			"xref": [
+				"Cf. A038554.",
+				"Cf. A030341."
+			],
+			"keyword": "nonn,nice,easy,base",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Erich Friedman_",
+				"Formula corrected by _Reinhard Zumkeller_, May 26 2013"
+			],
+			"references": 1,
+			"revision": 21,
+			"time": "2018-05-28T09:13:46-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 40026,
+			"data": "1,1,3,1,5,3,7,1,9,5,11,-3,13,7,15,1,17,9,19,5,21,11,23,9,25,13,27,-7,29,15,31,1,33,17,35,9,37,19,39,-15,41,21,43,-11,45,23,47,-15,49,25,51,13,53,27,55,-7,57,29,59,-15,61,31,63,1,65,33,67,17,69,35,71,9,73,37,75,-19",
+			"name": "If n=r*2^s, r odd, then a(n)=t*r, where t is smallest (in magnitude) number such that 1=t*r+u*2^s.",
+			"reference": [
+				"J. Neukirch, Class Field Theory, Springer, p. 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A040026/b040026.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"24=3*2^3, 1=3*3-1*2^3, a(24)=3*3=9."
+			],
+			"mathematica": [
+				"a[1] = a[2] = 1; a[n_?OddQ] := n; a[n_] := (s = IntegerExponent[n, 2]; r = n/2^s; eq = Reduce[1 == t*r + u*2^s, {t, u}, Integers] /. C[_] -\u003e 0; t*r /. Solve[eq] // First ); Table[a[n], {n, 1, 76}] (* _Jean-François Alcover_, Jun 07 2013 *)"
+			],
+			"program": [
+				"(C:) for(n=1; n\u003c=100; n++) { r=n; s=1; while((r\u00261)==0) { r\u003e\u003e=1; s\u003c\u003c=1; } for(t=1; t\u003c9999; t++) { if(((t*r-1)%s)==0) { printf(\"%d,\",t*r); break; } if(((t*r+1)%s)==0) { printf(\"%d,\",-t*r); break; } } if((n%10)==0) printf(\"\\n\"); if(t==9999) exit(0); //\"not found\": error }",
+				"(Haskell)",
+				"a040026 n = f 1 where",
+				"   f t | (1 - t*r) `mod` s == 0 = t*r",
+				"       | (1 + t*r) `mod` s == 0 = - t*r",
+				"       | otherwise              = f (t + 1)",
+				"   (r,s) = split n 1",
+				"   split x y | m == 0 = split x' (2 * y)",
+				"             | m == 1 = (x,y) where (x',m) = divMod x 2",
+				"-- _Reinhard Zumkeller_, Jul 21 2012"
+			],
+			"xref": [
+				"|a(n)| differs from A000265, as a(24)=9."
+			],
+			"keyword": "sign,easy,nice,look",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Arlin Anderson (starship1(AT)gmail.com)"
+			],
+			"references": 1,
+			"revision": 18,
+			"time": "2015-06-14T21:24:34-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 41013,
+			"data": "1,2,4,8,16,61,122,221,442,884,1768,8671,17342,24371,48742,97484,194968,869491,1738982,2898371,5796742,11593484,48439511,96879022,193758044,440857391,881714782,1763429564,4659243671,9318487342,18636974684,48647963681",
+			"name": "Reverse or double: if reverse of a(n) \u003e a(n), then a(n+1) = a(n) reversed, otherwise a(n+1) = 2*a(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A041013/b041013.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"rd[n_]:=Module[{rev=FromDigits[Reverse[IntegerDigits[n]]]},If[ rev\u003en, rev, 2n]]; NestList[rd,1,40] (* _Harvey P. Dale_, Jan 25 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a041013 n = a041013_list !! n",
+				"a041013_list = 1 : f 1 where",
+				"   f x | rev \u003c= x  = (2*x) : f (2*x)",
+				"       | otherwise = rev : f rev where rev = a004086 x",
+				"-- _Reinhard Zumkeller_, Aug 08 2011"
+			],
+			"xref": [
+				"Cf. A004086."
+			],
+			"keyword": "base,nonn,nice",
+			"offset": "0,2",
+			"author": "_Dann Toliver_",
+			"ext": [
+				"Typo in definition corrected by K. Viswanathan Iyer, Mar 23 2010"
+			],
+			"references": 1,
+			"revision": 21,
+			"time": "2013-10-12T15:29:00-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45541,
+			"data": "2,4,16,25,6,3,9,81,656,43033,18518989,3422322,11718787168,33299240224,118856557176,42330949,17161,29449992,867300880006,522114591215,760366360676,5815244491919,3370600766306,11949525822594424885",
+			"name": "Square previous term and then delete digits of previous term.",
+			"comment": [
+				"After 100 steps enters a cycle of length 307: a(n+307)=a(n) for n\u003e100; a(167) = 88703778700083013187738001 is the largest term. - _Reinhard Zumkeller_, Sep 15 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller and Chai Wah Wu, \u003ca href=\"/A045541/b045541.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e First 1001 terms from Reinhard Zumkeller.",
+				"\u003ca href=\"/index/Rec#order_307\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, order 307."
+			],
+			"example": [
+				"a(100)^2 = 46629^2 = 2174263641 --\u003e 1731 = a(301);",
+				"a(407)^2 = 646^2 = 417316 --\u003e 1731 = a(408) = a(301+307)."
+			],
+			"mathematica": [
+				"nxt[n_]:=Module[{idn=IntegerDigits[n],idn2=IntegerDigits[n^2]}, Table[ idn2= DeleteCases[ idn2, idn[[i]]],{i,Length[idn]}];FromDigits[idn2]]; NestList[nxt,2,30] (* _Harvey P. Dale_, Oct 29 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a045541 n = a045541_list !! n",
+				"a045541_list = 2 : f 2 where",
+				"   f x = x' : f x'",
+				"       where x' = read $ filter (`notElem` show x) $ show (x^2)",
+				"-- _Reinhard Zumkeller_, Sep 15 2011",
+				"(Python)",
+				"A045541_list, l = [2], 2",
+				"for _ in range(10**4):",
+				"....l = int(''.join(d for d in str(l**2) if not d in set(str(l))))",
+				"....A045541_list.append(l) # _Chai Wah Wu_, Jan 03 2015",
+				"(PARI) deldig(n,m)=my(s=Set(digits(m)));fromdigits(select(k-\u003e!setsearch(s,k), digits(n)))",
+				"a(n)=if(n, my(k=a(n-1)); deldig(k^2,k), 2) \\\\ _Charles R Greathouse IV_, Jun 16 2015"
+			],
+			"keyword": "base,nonn,nice,look,easy",
+			"offset": "0,1",
+			"author": "_Erich Friedman_",
+			"references": 1,
+			"revision": 36,
+			"time": "2015-07-13T21:26:14-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

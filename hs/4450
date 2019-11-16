@@ -1,0 +1,488 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4450,
+	"results": [
+		{
+			"number": 216345,
+			"data": "1,2,4,6,7,8,10,11,13,15,16,18,20,21,22,24,25,26,28,30,31,33,34,35,37,38,40,42,43,44,46,47,48,50,51,53,55,56,58,60,61,62,64,65,67,69,70,72,73,74,76,77,78,80,82,83,85,87,88,89,91,92,94,96,97,99,101,102,103",
+			"name": "Position of the beginning of the n-th run in A000002.",
+			"comment": [
+				"If n is odd then the run is 1's, otherwise it's 2's."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A216345/b216345.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"{n: A156728(n-1)=1}. - _R. J. Mathar_, Sep 14 2012",
+				"a(n+1) = A054353(n)+1 = a(n) + A000002(n). - _Jean-Christophe Hervé_, Oct 05 2014"
+			],
+			"example": [
+				"Kolakoski sequence starts 1221121 so we can see that this sequence begins 1,2,4,6,7."
+			],
+			"program": [
+				"(JavaScript)",
+				"a=new Array();",
+				"a[1]=1;  a[2]=2;  a[3]=2;",
+				"cd=1;  ap=3;",
+				"for (i=4; i\u003c50; i++)",
+				"{",
+				"    if (a[ap]==1) a[i]=cd;",
+				"    else {a[i]=cd; a[i+1]=cd; i++}",
+				"    ap++;",
+				"    cd=3-cd;",
+				"}",
+				"/* document.write(a); document.write(\"\u003cbr\u003e\"); */",
+				"b=new Array();",
+				"b[1]=1;",
+				"c=2;",
+				"for (i=2; i\u003c50; i++)",
+				"    if (a[i]!=a[i-1]) b[c++]=i;",
+				"document.write(b);",
+				"(Haskell)",
+				"a216345 n = a216345_list !! (n-1)",
+				"a216345_list = 1 : (filter (\\x -\u003e a000002 x /= a000002 (x - 1)) [2..])",
+				"-- _Reinhard Zumkeller_, Aug 03 2013"
+			],
+			"xref": [
+				"Cf. A000002, A054354.",
+				"Cf. A100428, A100429."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Jon Perry_, Sep 04 2012",
+			"references": 6,
+			"revision": 22,
+			"time": "2014-10-26T15:26:51-04:00",
+			"created": "2012-09-15T15:14:50-04:00"
+		},
+		{
+			"number": 218495,
+			"data": "1,1,1,2,3,4,7,10,17,26,39,58,89,133,195,289,420,610,875,1253,1778,2514,3527,4937,6879,9516,13115,18012,24625,33503,45432,61402,82677,110913,148286,197722,262768,348100,459791,605780,795874,1042791,1362800,1776777",
+			"name": "Number of partitions of n^2 into positive cubes.",
+			"comment": [
+				"a(n) = A003108(A000290(n))."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A218495/b218495.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ exp(4 * (Gamma(1/3)*Zeta(4/3))^(3/4) * sqrt(n) / 3^(3/2)) * (Gamma(1/3)*Zeta(4/3))^(3/4) / (24*Pi^2*n^(5/2)) [after Hardy \u0026 Ramanujan, 1917]. - _Vaclav Kotesovec_, Apr 10 2017",
+				"a(n) = [x^(n^2)] Product_{k\u003e=1} 1/(1 - x^(k^3)). - _Ilya Gutkovskiy_, Jun 05 2017"
+			],
+			"example": [
+				"n=5: number of partitions of 25 into parts of {1, 8}:",
+				"a(5) = #{8+8+8+1, 8+8+9x1, 8+17x1, 25x1} = 4;",
+				"n=6: number of partitions of 36 into parts of {1, 8, 27}:",
+				"a(6) = #{27+8+1, 27+9x1, 4x8+4x1, 3x8+12x1, 8+8+20x1, 8+28x1, 36x1} = 7;",
+				"n=7: number of partitions of 49 into parts of {1, 8, 27}:",
+				"a(7) = #{27+8+8+6x1, 27+8+14x1, 27+22x1, 6x8+1, 5x8+9x1, 4x8+17x1, 3x8+25x1, 8+8+33x1, 8+41x1, 49x1} = 10."
+			],
+			"maple": [
+				"b:= proc(n, i) option remember; `if`(n=0 or i=1, 1,",
+				"      b(n, i-1) +`if`(i^3\u003en, 0, b(n-i^3, i)))",
+				"    end:",
+				"a:= n-\u003e b(n^2, iroot(n^2, 3)):",
+				"seq(a(n), n=0..60);  # _Alois P. Heinz_, Nov 08 2012"
+			],
+			"mathematica": [
+				"b[n_, i_] := b[n, i] = If[n == 0 || i == 1, 1, b[n, i-1] + If[i^3\u003en, 0, b[n - i^3, i]]]; a[n_] := b[n^2, n^(2/3) // Floor]; Table[a[n], {n, 0, 60}] (* _Jean-François Alcover_, Nov 11 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell) a218495 = p (tail a000578_list) . (^ 2) where",
+				"   p _          0 = 1",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m",
+				"(PARI) a(n) = {my(nb=0); forpart(p=n^2, nb += (sum(k=1, #p, ispower(p[k], 3)) == #p);); nb;} \\\\ _Michel Marcus_, Jun 02 2015",
+				"(PARI) ok(p)=for(i=1,#p,if(!ispower(p[i],3),return(0)));1",
+				"a(n)=my(s=1);for(i=8,n^2,forpart(p=i,s+=ok(p),[8,sqrtnint(i,3)^3]));s \\\\ _Charles R Greathouse IV_, Jun 02 2015"
+			],
+			"xref": [
+				"Cf. A000578, A218494."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Oct 31 2012",
+			"ext": [
+				"More terms from _Alois P. Heinz_, Nov 08 2012"
+			],
+			"references": 6,
+			"revision": 33,
+			"time": "2017-06-05T17:34:11-04:00",
+			"created": "2012-10-31T03:09:30-04:00"
+		},
+		{
+			"number": 219069,
+			"data": "3,21,48,91,133,243,273,336,481,768,651,741,931,1281,1875,1333,1456,1701,2128,2821,3888,2451,2613,2923,3441,4251,5461,7203,4161,4368,4753,5376,6321,7696,9633,12288,6643,6901,7371,8113,9211,10773,12931,15841,19683",
+			"name": "Triangle read by rows: T(n,k) = n^4 + (n*k)^2 + k^4, 1 \u003c= k \u003c= n.",
+			"comment": [
+				"Entry 17a from July 9, 1796 in Gauss's Mathematical Diary: \"Summa trium quadratorum continue proportionalium numquam primus esse potest: conspicuum exemplum novimus et quod congruum videtur. Confidamus.\" Paul Bachmann explains that this note is based on Gauss's discovery of this factorization: n^4 + n^2*k^2 + k^4 = (n^2 + n*k + k^2) * (n^2 - n*k + k^2)."
+			],
+			"reference": [
+				"Carl Friedrich Gauss (Hans Wussing, ed.), Mathematisches Tagebuch 1796-1814, Ostwalds Klassiker der Exakten Wissenschaften, Leipzig (1976, 1979), pp. 43, 63, 90."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A219069/b219069.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Gauss\u0026#39;s_diary\"\u003eGauss's diary\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Paul_Gustav_Heinrich_Bachmann\"\u003ePaul Gustav Heinrich Bachmann\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A215630(n,k) * A215631(n,k), 1 \u003c= k \u003c= n."
+			],
+			"example": [
+				"The triangle begins:",
+				".  1:      3",
+				".  2:     21    48",
+				".  3:     91   133   243",
+				".  4:    273   336   481   768",
+				".  5:    651   741   931  1281  1875",
+				".  6:   1333  1456  1701  2128  2821  3888",
+				".  7:   2451  2613  2923  3441  4251  5461  7203",
+				".  8:   4161  4368  4753  5376  6321  7696  9633 12288",
+				".  9:   6643  6901  7371  8113  9211 10773 12931 15841 19683",
+				". 10:  10101 10416 10981 11856 13125 14896 17301 20496 24661 30000",
+				". 11:  14763 15141 15811 16833 18291 20293 22971 26481 31003 36741 43923"
+			],
+			"program": [
+				"(Haskell)",
+				"a219069 n k = a219069_tabl !! (n-1) !! (k-1)",
+				"a219069_row n = a219069_tabl !! n",
+				"a219069_tabl = zipWith (zipWith (*)) a215630_tabl a215631_tabl"
+			],
+			"xref": [
+				"Cf. A059826 (left edge), A219056 (right edge), A219070 (row sums).",
+				"Cf. A239426 (central terms).",
+				"Cf. A243201 (diagonal (n + 1, n)). - _Mathew Englander_, Jun 03 2014"
+			],
+			"keyword": "nonn,tabl,look",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Nov 11 2012",
+			"references": 6,
+			"revision": 23,
+			"time": "2019-10-11T03:04:32-04:00",
+			"created": "2012-11-11T14:18:48-05:00"
+		},
+		{
+			"number": 219206,
+			"data": "1,1,1,1,2,1,1,3,9,1,1,4,36,64,1,1,5,100,1000,625,1,1,6,225,8000,50625,7776,1,1,7,441,42875,1500625,4084101,117649,1,1,8,784,175616,24010000,550731776,481890304,2097152,1,1,9,1296,592704,252047376,31757969376,351298031616,78364164096,43046721,1",
+			"name": "Triangle, read by rows, where T(n,k) = binomial(n,k)^k for n\u003e=0, k=0..n.",
+			"comment": [
+				"Maximal term in row n is asymptotically in position k = r*n, where r = 0.70350607643... is a root of the equation (1-r)^(2*r-1) = r^(2*r). - _Vaclav Kotesovec_, Nov 15 2012"
+			],
+			"link": [
+				"Paul D. Hanna, \u003ca href=\"/A219206/b219206.txt\"\u003eRows n = 0..45, flattened.\u003c/a\u003e"
+			],
+			"formula": [
+				"Row sums equal A167008."
+			],
+			"example": [
+				"Triangle of coefficients C(n,k)^k begins:",
+				"1;",
+				"1, 1;",
+				"1, 2, 1;",
+				"1, 3, 9, 1;",
+				"1, 4, 36, 64, 1;",
+				"1, 5, 100, 1000, 625, 1;",
+				"1, 6, 225, 8000, 50625, 7776, 1;",
+				"1, 7, 441, 42875, 1500625, 4084101, 117649, 1;",
+				"1, 8, 784, 175616, 24010000, 550731776, 481890304, 2097152, 1; ..."
+			],
+			"program": [
+				"(PARI) {T(n,k)=binomial(n,k)^k}",
+				"for(n=0,10,for(k=0,n,print1(T(n,k),\", \"));print(\"\"))",
+				"(Haskell)",
+				"a219206 n k = a219206_tabl !! n !! k",
+				"a219206_row n = a219206_tabl !! n",
+				"a219206_tabl = zipWith (zipWith (^)) a007318_tabl a002262_tabl",
+				"-- _Reinhard Zumkeller_, Feb 27 2015"
+			],
+			"xref": [
+				"Cf. A167008, A219207.",
+				"Cf. A007318, A002262."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,5",
+			"author": "_Paul D. Hanna_, Nov 14 2012",
+			"references": 6,
+			"revision": 16,
+			"time": "2015-02-27T20:26:01-05:00",
+			"created": "2012-11-14T18:26:35-05:00"
+		},
+		{
+			"number": 220073,
+			"data": "1,1,2,2,1,3,3,1,2,4,4,2,1,3,5,5,3,1,2,4,6,6,4,2,1,3,5,7,7,5,3,1,2,4,6,8,8,6,4,2,1,3,5,7,9,9,7,5,3,1,2,4,6,8,10,10,8,6,4,2,1,3,5,7,9,11,11,9,7,5,3,1,2,4,6,8,10,12,12,10,8,6,4,2",
+			"name": "Mirror of the triangle A130517.",
+			"comment": [
+				"T(n,k) = A130517(n,n-k+1), 1 \u003c= k \u003c= n;",
+				"T(n,n) = T(n,1) + 1.",
+				"From _Boris Putievskiy_, Jan 15 2013: (Start)",
+				"General case see A187760. Let m be natural number. Table T(n,k) n, k \u003e 0, T(n,k)=n-k+1, if n\u003e=k, T(n,k)=k-n+m-1, if n \u003c k.  Table T(n,k) read by antidiagonals. The first column of the table T(n,1) is the sequence of the natural numbers A000027. In all columns with number k (k \u003e 1) the segment with the length of (k-1): {m+k-2, m+k-3, ..., m}  shifts the sequence A000027. For m=1 the result is A220073, for m=2 the result is A143182. (End)",
+				"First inverse function (numbers of rows) for pairing function A209293. - _Boris Putievskiy_, Jan 28 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A220073/b220073.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e",
+				"Boris Putievskiy, \u003ca href=\"https://arxiv.org/abs/1212.2732\"\u003eTransformations [of] Integer Sequences And Pairing Functions\u003c/a\u003e arXiv:1212.2732 [math.CO], 2012."
+			],
+			"formula": [
+				"T(1,1)=1, for n\u003e1: T(n,k)=T(n-1,n-k+1), 1\u003c=k\u003cn and T(n,n)=T(n-1,n)+1.",
+				"From _Boris Putievskiy_, Jan 15 2013: (Start)",
+				"For the general case",
+				"a(n) = |(t+1)^2 - 2n| + m*floor((t^2+3t+2-2n)/(t+1)),",
+				"where t = floor((-1+sqrt(8*n-7))/2).",
+				"For m = 2",
+				"a(n) = |(t+1)^2 - 2n| + floor((t^2+3t+2-2n)/(t+1)),",
+				"where t=floor((-1+sqrt(8*n-7))/2). (End)"
+			],
+			"example": [
+				"From _Boris Putievskiy_, Jan 15 2013: (Start)",
+				"The start of the sequence as table:",
+				"1..1..2..3..4..5..6..7...",
+				"2..1..1..2..3..4..5..6...",
+				"3..2..1..1..2..3..4..5...",
+				"4..3..2..1..1..2..3..4...",
+				"5..4..3..2..1..1..2..3...",
+				"6..5..4..3..2..1..1..2...",
+				"7..6..5..4..3..2..1..1...",
+				"8..7..6..5..4..3..2..1...",
+				". . .",
+				"The start of the sequence as triangle array read by rows:",
+				"1,",
+				"1, 2,",
+				"2, 1, 3,",
+				"3, 1, 2, 4,",
+				"4, 2, 1, 3, 5,",
+				"5, 3, 1, 2, 4, 6,",
+				"6, 4, 2, 1, 3, 5, 7,",
+				"7, 5, 3, 1, 2, 4, 6, 8,",
+				". . .",
+				"Row number r contains r numbers: r-1, r-3,...,1,...r-2,r.",
+				"(End)"
+			],
+			"mathematica": [
+				"max = 13;",
+				"row[n_] := Join[Range[n, 1, -1], Range[max - n + 1]];",
+				"T = Array[row, max];",
+				"Table[T[[n - k + 1, k]], {n, 1, max}, {k, n, 1, -1}] // Flatten (* _Jean-François Alcover_, Sep 11 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a220073 n k = a220073_tabl !! (n-1) !! (k-1)",
+				"a220073_row n = a220073_tabl !! (n-1)",
+				"a220073_tabl = map reverse a130517_tabl"
+			],
+			"xref": [
+				"Cf. A028310 (left edge), A000027 (right edge), A000012 (central terms), A000217 (row sums), A220075 (partial sums in rows), A002260, A000027, A143182, A187760, A209293."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Dec 03 2012",
+			"references": 6,
+			"revision": 19,
+			"time": "2017-09-11T03:32:46-04:00",
+			"created": "2012-12-03T23:21:55-05:00"
+		},
+		{
+			"number": 220101,
+			"data": "0,1,6,27,112,450,1782,7007,27456,107406,419900,1641486,6418656,25110020,98285670,384942375,1508593920,5915896470,23213240820,91140287370,358042932000,1407342229020,5534695100220,21777424274502,85729014099072,337635166767500",
+			"name": "Number of ordered set partitions of {1,...,n} into n-1 blocks avoiding the pattern 123.",
+			"comment": [
+				"a(n) = A051666(2*(n-1),n-1) / 2. - _Reinhard Zumkeller_, Aug 05 2013",
+				"Let A(i, j) denote the infinite array such that the i-th row of this array is the sequence obtained by applying the partial sum operator i times to the function n^2 for n \u003e 0. Then A(n, n) equals a(n+1) for all n \u003e 0. - _John M. Campbell_, Jan 20 2019"
+			],
+			"link": [
+				"Lara Pudwell and Giorgio Balzarotti, \u003ca href=\"/A220101/b220101.txt\"\u003eTable of n, a(n) for n = 1..101\u003c/a\u003e (first 37 terms from Lara Pudwell, terms generated by Maple code below).",
+				"W. Y. C. Chen, A. Y. L. Dai and R. D. P. Zhou, \u003ca href=\"http://arxiv.org/abs/1304.3187\"\u003eOrdered Partitions Avoiding a Permutation of Length 3\u003c/a\u003e, arXiv:1304.3187 [math.CO], 2013. See Eq. (2.6).",
+				"Anant Godbole, Adam Goyt, Jennifer Herdan, and Lara Pudwell, \u003ca href=\"http://arxiv.org/abs/1212.2530\"\u003ePattern Avoidance in Ordered Set Partitions\u003c/a\u003e, arXiv:1212.2530 [math.CO], 2012.",
+				"Lara Pudwell, \u003ca href=\"http://faculty.valpo.edu/lpudwell/maple/123_scheme\"\u003eMaple code\u003c/a\u003e to generate this and other sequences enumerating 123-avoiding ordered set partitions."
+			],
+			"formula": [
+				"G.f.: (2*x^2-7*x+2+3*x*sqrt(1-4*x)-2*sqrt(1-4*x))/(2*x*sqrt(1-4*x)) [see Chen et al., 2013 - _Bruno Berselli_, Dec 05 2012]",
+				"a(n)/a(n-1) = 2*(2*n-3)*(n-1)^2/((n+1)*(n-2)^2) for n\u003e 2 . - _Bruno Berselli_, Dec 05 2012",
+				"a(n) = 3*(n-1)/(2*n-1)*binomial(2*n-1,n-2). [See Godbole et al., Theorem 4.] - _Peter Bala_, Dec 18 2013",
+				"a(n) = 3*2^(-2+2*n)*Gamma(-1/2+n)*(-1+n)^2/(sqrt(Pi)*Gamma(2+n)). - _Peter Luschny_, Dec 14 2015",
+				"a(n) ~ (3/4)*4^n*(1 - (21/8)/n + (393/128)/n^2 - (3055/1024)/n^3 + (99099/32768)/n^4) /sqrt(n*Pi). - _Peter Luschny_, Dec 16 2015"
+			],
+			"example": [
+				"An ordered set partition is a set partition where the order of the blocks is important.  A 123 pattern within such a set partition is a list of 3 elements a from block i, b from block j, and c from block k such that i \u003c j \u003c k and a \u003c b \u003c c.",
+				"For n=3, the a(3)=6 ordered partitions are 12/3, 13/2, 23/1, 3/12, 2/13, 23/1.",
+				"For n=4, the a(4)=27 ordered partitions are 12/4/3, 3/12/4, 3/4/12, 4/12/3, 4/3/12, 13/4/2, 2/4/13, 4/13/2, 4/2/13, 14/3/2, 2/14/3, 3/2/14, 2/3/14, 23/1/4, 23/4/1, 1/4/23, 4/1/23, 4/23/1, 24/1/3, 24/3/1, 3/1/24, 3/24/1, 34/1/2, 34/2/1, 2/34/1, 2/1/34, 1/34/2."
+			],
+			"maple": [
+				"g:=(2*x^2-7*x+2+3*x*sqrt(1-4*x)-2*sqrt(1-4*x))/(2*x*sqrt(1-4*x));",
+				"series(g,x,50);",
+				"seriestolist(%); # _N. J. A. Sloane_, Apr 13 2014",
+				"a := n -\u003e 3*2^(-2+2*n)*GAMMA(n-1/2)*(n-1)^2/(sqrt(Pi)*GAMMA(2+n)):",
+				"seq(simplify(a(n)), n=1..26); # _Peter Luschny_, Dec 14 2015"
+			],
+			"mathematica": [
+				"T[n_, 0] := n^2; T[n_, n_] := n^2;",
+				"T[n_, k_] := T[n, k] = T[n-1, k-1] + T[n-1, k];",
+				"a[n_] := T[2(n-1), n-1]/2;",
+				"Array[a, 26] (* _Jean-François Alcover_, Jul 13 2018, after _Reinhard Zumkeller_ *)",
+				"Table[3*(n-1)/(2*n-1)*Binomial[2*n-1,n-2], {n,1,30}] (* _G. C. Greubel_, Feb 12 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a220101 n = (a051666 (2 * (n - 1)) (n - 1)) `div` 2",
+				"-- _Reinhard Zumkeller_, Aug 05 2013",
+				"(PARI) vector(30, n, 3*(n-1)/(2*n-1)*binomial(2*n-1,n-2)) \\\\ _G. C. Greubel_, Feb 12 2019",
+				"(MAGMA) [3*(n-1)/(2*n-1)*Binomial(2*n-1,n-2): n in [1..30]]; // _G. C. Greubel_, Feb 12 2019",
+				"(Sage) [3*(n-1)/(2*n-1)*binomial(2*n-1,n-2) for n in (1..30)] # _G. C. Greubel_, Feb 12 2019",
+				"(GAP) List([1..30], n -\u003e 3*(n-1)/(2*n-1)*Binomial(2*n-1,n-2)); # _G. C. Greubel_, Feb 12 2019"
+			],
+			"xref": [
+				"Cf. A220097 (counts 123-avoiding ordered set partitions where all blocks have size 2)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,3",
+			"author": "_Lara Pudwell_, Dec 04 2012",
+			"references": 6,
+			"revision": 75,
+			"time": "2019-05-11T11:43:36-04:00",
+			"created": "2012-12-06T22:44:47-05:00"
+		},
+		{
+			"number": 220237,
+			"data": "1,1,2,1,2,3,4,5,8,10,16,1,2,4,1,2,4,5,8,16,1,2,3,4,5,6,8,10,16,1,2,4,5,7,8,10,11,13,16,17,20,22,26,34,40,52,1,2,4,8,1,2,4,5,7,8,9,10,11,13,14,16,17,20,22,26,28,34,40,52,1,2,4,5,8,10",
+			"name": "Triangle read by rows: sorted terms of Collatz trajectories.",
+			"comment": [
+				"n-th row = sorted list of {A070165(n,k): k = 1..A006577(n)};",
+				"T(n,1) = 1 if Collatz conjecture is true."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A220237/b220237.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"example": [
+				"The table begins:",
+				".   1:  [1]",
+				".   2:  [1,2]",
+				".   3:  [1,2,3,4,5,8,10,16]",
+				".   4:  [1,2,4]",
+				".   5:  [1,2,4,5,8,16]",
+				".   6:  [1,2,3,4,5,6,8,10,16]",
+				".   7:  [1,2,4,5,7,8,10,11,13,16,17,20,22,26,34,40,52]",
+				".   8:  [1,2,4,8]",
+				".   9:  [1,2,4,5,7,8,9,10,11,13,14,16,17,20,22,26,28,34,40,52]",
+				".  10:  [1,2,4,5,8,10,16]",
+				".  11:  [1,2,4,5,8,10,11,13,16,17,20,26,34,40,52]",
+				".  12:  [1,2,3,4,5,6,8,10,12,16] ."
+			],
+			"mathematica": [
+				"Flatten[Table[Sort[NestWhileList[If[EvenQ[#],#/2,3#+1]\u0026,n,#\u003e1\u0026]],{n,12}]] (* _Harvey P. Dale_, Jan 28 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (sort)",
+				"a220237 n k = a220237_tabf !! (n-1) !! (k-1)",
+				"a220237_row n = a220237_tabf !! (n-1)",
+				"a220237_tabf = map sort a070165_tabf"
+			],
+			"xref": [
+				"Cf. A006577 (row lengths), A025586(right edge), A033493 (row sums)."
+			],
+			"keyword": "nonn,tabf,look",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Jan 03 2013",
+			"references": 6,
+			"revision": 13,
+			"time": "2014-01-29T08:33:01-05:00",
+			"created": "2013-01-03T14:35:23-05:00"
+		},
+		{
+			"number": 221264,
+			"data": "3,6,7,9,11,12,14,18,19,21,22,23,24,27,28,31,33,36,38,42,43,44,46,47,48,49,54,56,57,59,62,63,66,67,69,71,72,76,77,79,81,83,84,86,88,92,93,94,96,98,99,103,105,107,108,112,114,118,121,124,126,127,129",
+			"name": "Numbers having fewer distinct prime factors of form 4*k+1 than of 4*k+3.",
+			"comment": [
+				"A005089(a(n)) \u003c A005091(a(n)); a005094(a(n)) \u003c 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221264/b221264.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a221264 n = a221264_list !! (n-1)",
+				"a221264_list = filter ((\u003c 0) . a005094) [1..]",
+				"(PARI) is_A221264(n)={#(n=vecsort(factor(n\u003e\u003evaluation(n,2))[,1]%4))\u0026\u0026n[(1+#n)\\2]==3} \\\\ _M. F. Hasler_, Dec 17 2014"
+			],
+			"xref": [
+				"Cf. A078613, A221265."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jan 07 2013",
+			"references": 6,
+			"revision": 13,
+			"time": "2016-02-05T12:11:46-05:00",
+			"created": "2013-01-07T16:59:57-05:00"
+		},
+		{
+			"number": 221368,
+			"data": "12,112,111112,411112,311112141,311112114121131141,611212113214221231241,211412113114421122123124131132141142161,611412313414116621122123124331132341242144161,411512213314216321122323224331132133234541142143144261162166",
+			"name": "A two-digit Look-and-Say sequence starting with 12: each term summarizes the increasing two-digit substrings of the previous term.",
+			"comment": [
+				"a(36) is the first term containing a zero; this is due to the fact that a(35) is the first term having exactly 10 occurrences of a two-digit number, namely 10 x 42."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221368/b221368.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LookandSaySequence.html\"\u003eLook and Say Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Look-and-say_sequence\"\u003eLook-and-say sequence\u003c/a\u003e",
+				"Reinhard Zumkeller, \u003ca href=\"/A209234/a209234.hs.txt\"\u003eHaskell program for two-digit Look-and-Say sequences\u003c/a\u003e"
+			],
+			"example": [
+				"a(0) = 12: 1 x 12 --\u003e a(1) = 112;",
+				"a(1) = 112: 1 x 11 ana 1 x 12 --\u003e a(2) = 111112;",
+				"a(2) = 111112: 4 x 11 and 1 x 12 --\u003e a(4) = 411112;",
+				"a(3) = 411112: 3 x 11, 1 x 12 and 1 x 41 --\u003e a(4) = 311112141."
+			],
+			"program": [
+				"(Haskell)  See Link."
+			],
+			"xref": [
+				"Cf. A005151, A047842.",
+				"Cf. A209234 (start=10), A209233 (start=11), A221369 (start=13), A221372 (start=19), A221373 (start=99)."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Jan 13 2013",
+			"references": 6,
+			"revision": 8,
+			"time": "2013-07-13T12:04:36-04:00",
+			"created": "2013-01-14T00:20:21-05:00"
+		},
+		{
+			"number": 221372,
+			"data": "19,119,111119,411119,311119141,311114119131141191,611113214219231241291,311212113114119221123124129131132141142161191192,911512313314116319521122123124129431132341142161291292",
+			"name": "A two-digit Look-and-Say sequence starting with 19: each term summarizes the increasing two-digit substrings of the previous term.",
+			"comment": [
+				"a(16) is the first term containing a zero; this is due to the fact that a(15) is the first term having exactly 10 occurrences of a two-digit number, namely 10 x 51."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221372/b221372.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LookandSaySequence.html\"\u003eLook and Say Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Look-and-say_sequence\"\u003eLook-and-say sequence\u003c/a\u003e",
+				"Reinhard Zumkeller, \u003ca href=\"/A209234/a209234.hs.txt\"\u003eHaskell program for two-digit Look-and-Say sequences\u003c/a\u003e"
+			],
+			"example": [
+				"a(0) = 19: 1 x 19 --\u003e a(1) = 119;",
+				"a(1) = 119: 1 x 11 and 1 x 19 --\u003e a(2) = 111119;",
+				"a(2) = 111119: 4 x 11 and 1 x 19 --\u003e a(3) = 411119;",
+				"a(3) = 411119: 3 x 11, 1 x 19 and 1 x 41 --\u003e a(4) = 311119141."
+			],
+			"program": [
+				"(Haskell)  See Link."
+			],
+			"xref": [
+				"Cf. A005151, A047842.",
+				"Cf. A209234 (start=10), A209233 (start=11), A221368 (start=12), A221369 (start=13), A221373 (start=99)."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Jan 13 2013",
+			"references": 6,
+			"revision": 7,
+			"time": "2013-07-13T12:04:36-04:00",
+			"created": "2013-01-14T00:23:56-05:00"
+		}
+	]
+}

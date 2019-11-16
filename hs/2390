@@ -1,0 +1,459 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2390,
+	"results": [
+		{
+			"number": 211110,
+			"data": "1,0,1,1,2,1,3,1,4,2,3,1,12,1,3,3,10,1,15,1,16,3,3,1,80,2,3,5,20,1,94,1,36,3,3,3,280,1,3,3,158,1,154,1,28,25,3,1,1076,2,29,3,32,1,255,3,262,3,3,1,7026,1,3,32,202,3,321,1,40,3,302,1,12072,1",
+			"name": "Number of partitions of n into divisors \u003e 1 of n.",
+			"comment": [
+				"a(A000040(n)) = 1; a(A002808(n)) \u003e 1;",
+				"a(A001248(n)) = 2; a(A080257(n)) \u003e 2;",
+				"a(A006881(n)) = 3; a(A033942(n)) \u003e 3."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A211110/b211110.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(10) = #{10, 5+5, 2+2+2+2+2} = 3;",
+				"a(11) = #{11} = 1;",
+				"a(12) = #{12, 6+6, 6+4+2, 6+3+3, 6+2+2+2, 4+4+4, 4+4+2+2, 4+3+3+2, 4+2+2+2+2, 3+3+3+3, 3+3+2+2+2, 6x2} = 12;",
+				"a(13) = #{13} = 1;",
+				"a(14) = #{14, 7+7, 2+2+2+2+2+2+2} = 3;",
+				"a(15) = #{15, 5+5+5, 3+3+3+3+3} = 3."
+			],
+			"maple": [
+				"with(numtheory):",
+				"a:= proc(n) local b, l; l:= sort([(divisors(n) minus {1})[]]):",
+				"      b:= proc(m, i) option remember; `if`(m=0, 1, `if`(i\u003c1, 0,",
+				"             b(m, i-1)+`if`(l[i]\u003em, 0, b(m-l[i], i))))",
+				"          end; forget(b):",
+				"      b(n, nops(l))",
+				"    end:",
+				"seq(a(n), n=0..100); # _Alois P. Heinz_, Feb 05 2014"
+			],
+			"mathematica": [
+				"a[n_] := Module[{b, l}, l = Rest[Divisors[n]]; b[m_, i_] := b[m, i] = If[m==0, 1, If[i\u003c1, 0, b[m, i-1] + If[l[[i]]\u003em, 0, b[m-l[[i]], i]]]]; b[n, Length[l]]]; a[0] = 1; Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Jun 30 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a211110 n = p (tail $ a027750_row n) n where",
+				"   p _      0 = 1",
+				"   p []     _ = 0",
+				"   p ks'@(k:ks) m | m \u003c k     = 0",
+				"                  | otherwise = p ks' (m - k) + p ks m",
+				"(PARI) isokp(p, n) = {for (k=1, #p, if ((p[k]==1) || (n % p[k]), return (0));); return (1);}",
+				"a(n) = {my(nb = 0); forpart(p=n, if (isokp(p,n), nb++)); nb;} \\\\ _Michel Marcus_, Jun 30 2015"
+			],
+			"xref": [
+				"Cf. A211111, A018818, A027750.",
+				"Cf. A210442."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Apr 01 2012",
+			"references": 14,
+			"revision": 19,
+			"time": "2015-06-30T06:16:01-04:00",
+			"created": "2012-04-01T16:51:58-04:00"
+		},
+		{
+			"number": 227736,
+			"data": "1,1,1,2,2,1,1,1,1,1,2,3,3,1,1,2,1,1,1,1,1,2,1,1,2,2,1,1,2,1,3,4,4,1,1,3,1,1,1,2,1,2,2,1,2,1,1,1,1,1,1,1,1,1,2,1,1,3,1,1,3,2,1,2,2,1,1,1,2,2,1,2,2,3,1,1,3,1,4,5,5,1,1,4,1,1,1,3,1",
+			"name": "Irregular table read by rows: the first entry of n-th row is length of run of rightmost identical bits (either 0 or 1, equal to n mod 2), followed by length of the next run of bits, etc., in the binary representation of n, when scanned from the least significant to the most significant end.",
+			"comment": [
+				"Row n has A005811(n) terms. In rows 2^(k-1)..2^k-1 we have all the compositions (ordered partitions) of k. Other orderings of compositions: A101211, A066099, A108244 and A124734.",
+				"Each row n (n\u003e=1) contains the initial A005811(n) nonzero terms from the beginning of row n of A227186. A070939(n) gives the sum of terms on row n, while A167489(n) gives the product of its terms. A136480 gives the first column. A101211 lists the terms of each row in reverse order."
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A227736/b227736.txt\"\u003eThe rows 1..1023 of the table, flattened\u003c/a\u003e",
+				"Claude Lenormand, \u003ca href=\"/A318921/a318921.pdf\"\u003eDeux transformations sur les mots\u003c/a\u003e, Preprint, 5 pages, Nov 17 2003. Apparently unpublished. This is a scanned copy of the version that the author sent to me in 2003. - _N. J. A. Sloane_, Sep 09 2018. See Procedure 1."
+			],
+			"formula": [
+				"a(n) = A227186(A227737(n),A227740(n)).",
+				"a(n) = A101211(A227741(n))."
+			],
+			"example": [
+				"Table begins as:",
+				"  Row  n in    Terms on",
+				"   n   binary  that row",
+				"   1      1    1;",
+				"   2     10    1,1;",
+				"   3     11    2;",
+				"   4    100    2,1;",
+				"   5    101    1,1,1;",
+				"   6    110    1,2;",
+				"   7    111    3;",
+				"   8   1000    3,1;",
+				"   9   1001    1,2,1;",
+				"  10   1010    1,1,1,1;",
+				"  11   1011    2,1,1;",
+				"  12   1100    2,2;",
+				"  13   1101    1,1,2;",
+				"  14   1110    1,3;",
+				"  15   1111    4;",
+				"  16  10000    4,1;",
+				"etc. with the terms of row n appearing in reverse order compared how the runs of the same length appear in the binary expansion of n (Cf. A101211).",
+				"From _Omar E. Pol_, Sep 08 2013: (Start)",
+				"Illustration of initial terms:",
+				"---------------------------------------",
+				"k   m     Diagram        Composition",
+				"---------------------------------------",
+				".          _",
+				"1   1     |_|_           1;",
+				"2   1     |_| |          1, 1,",
+				"2   2     |_ _|_         2;",
+				"3   1     |_  | |        2, 1,",
+				"3   2     |_|_| |        1, 1, 1,",
+				"3   3     |_|   |        1, 2,",
+				"3   4     |_ _ _|_       3;",
+				"4   1     |_    | |      3, 1,",
+				"4   2     |_|_  | |      1, 2, 1,",
+				"4   3     |_| | | |      1, 1, 1, 1,",
+				"4   4     |_ _|_| |      2, 1, 1,",
+				"4   5     |_  |   |      2, 2,",
+				"4   6     |_|_|   |      1, 1, 2,",
+				"4   7     |_|     |      1, 3,",
+				"4   8     |_ _ _ _|_     4;",
+				"5   1     |_      | |    4, 1,",
+				"5   2     |_|_    | |    1, 3, 1,",
+				"5   3     |_| |   | |    1, 1, 2, 1,",
+				"5   4     |_ _|_  | |    2, 2, 1,",
+				"5   5     |_  | | | |    2, 1, 1, 1,",
+				"5   6     |_|_| | | |    1, 1, 1, 1, 1,",
+				"5   7     |_|   | | |    1, 2, 1, 1,",
+				"5   8     |_ _ _|_| |    3, 1, 1,",
+				"5   9     |_    |   |    3, 2,",
+				"5  10     |_|_  |   |    1, 2, 2,",
+				"5  11     |_| | |   |    1, 1, 1, 2,",
+				"5  12     |_ _|_|   |    2, 1, 2,",
+				"5  13     |_  |     |    2, 3,",
+				"5  14     |_|_|     |    1, 1, 3,",
+				"5  15     |_|       |    1, 4,",
+				"5  16     |_ _ _ _ _|    5;",
+				".",
+				"Also irregular triangle read by rows in which row k lists the compositions of k, k \u003e= 1.",
+				"Triangle begins:",
+				"[1];",
+				"[1,1], [2];",
+				"[2,1], [1,1,1], [1,2],[3];",
+				"[3,1], [1,2,1], [1,1,1,1], [2,1,1], [2,2], [1,1,2], [1,3], [4];",
+				"[4,1], [1,3,1], [1,1,2,1], [2,2,1], [2,1,1,1], [1,1,1,1,1], [1,2,1,1], [3,1,1], [3,2], [1,2,2], [1,1,1,2], [2,1,2], [2,3], [1,1,3], [1,4], [5];",
+				"Row k has length A001792(k-1).",
+				"Row sums give A001787(k), k \u003e= 1.",
+				"(End)"
+			],
+			"program": [
+				"(Scheme) (define (A227736 n) (A227186bi (A227737 n) (A227740 n))) ;; The Scheme-function for A227186bi has been given in A227186.",
+				"(Haskell)",
+				"import Data.List (group)",
+				"a227736 n k = a227736_tabf !! (n-1) !! (k-1)",
+				"a227736_row n = a227736_tabf !! (n-1)",
+				"a227736_tabf = map (map length . group) $ tail a030308_tabf",
+				"-- _Reinhard Zumkeller_, Aug 11 2014"
+			],
+			"xref": [
+				"Cf. A227738 and also A227739 for similar table for unordered partitions.",
+				"Cf. A030308, A245562, A245563."
+			],
+			"keyword": "nonn,base,tabf",
+			"offset": "1,4",
+			"author": "_Antti Karttunen_, Jul 25 2013",
+			"references": 14,
+			"revision": 35,
+			"time": "2018-09-09T22:23:58-04:00",
+			"created": "2013-08-12T03:58:05-04:00"
+		},
+		{
+			"number": 235224,
+			"data": "0,1,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+			"name": "a(0) = 0, and for n \u003e 0, a(n) = largest k such that A002110(k-1) \u003c= n, where A002110(k) gives the k-th primorial number.",
+			"comment": [
+				"For n \u003e 0: a(n) = (length of row n in A235168) = A055642(A049345(n)).",
+				"For n \u003e 0, a(n) gives the length of primorial base expansion of n. Also, after zero, each value n occurs A061720(n-1) times. - _Antti Karttunen_, Oct 19 2019"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A235224/b235224.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Pri#primorialbase\"\u003eIndex entries for sequences related to primorial base\u003c/a\u003e"
+			],
+			"formula": [
+				"From _Antti Karttunen_, Oct 19 2019: (Start)",
+				"a(n) = A061395(A276086(n)).",
+				"For all n \u003e= 0, a(n) \u003e= A267263(n).",
+				"For all n \u003e= 1, A000040(a(n)) \u003e A328114(n). (End)"
+			],
+			"program": [
+				"(Haskell)",
+				"a235224 n = length $ takeWhile (\u003c= n) a002110_list",
+				"(PARI) A235224(n) = { my(s=0, p=2); while(n, s++; n = n\\p; p = nextprime(1+p)); (s); }; \\\\ _Antti Karttunen_, Oct 19 2019",
+				"(PARI) A235224(n, p=2) = if(!n,n,if(n\u003cp, 1, 1+A235224(n\\p, nextprime(p+1)))); \\\\ (Recursive implementation) - _Antti Karttunen_, Oct 19 2019"
+			],
+			"xref": [
+				"Cf. A000040, A002110, A049345, A055642, A061395, A061720, A084558, A267263, A276086, A235168, A328114, A328404, A328405, A328406."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jan 05 2014",
+			"ext": [
+				"Name corrected to match the data - _Antti Karttunen_, Oct 19 2019"
+			],
+			"references": 14,
+			"revision": 23,
+			"time": "2019-10-19T10:47:40-04:00",
+			"created": "2014-01-05T11:50:24-05:00"
+		},
+		{
+			"number": 241917,
+			"data": "0,1,2,0,3,1,4,0,0,2,5,1,6,3,1,0,7,0,8,2,2,4,9,1,0,5,0,3,10,1,11,0,3,6,1,0,12,7,4,2,13,2,14,4,1,8,15,1,0,0,5,5,16,0,2,3,6,9,17,1,18,10,2,0,3,3,19,6,7,1,20,0,21,11,0,7,1,4,22,2,0,12,23",
+			"name": "If n is a prime with index i, p_i, a(n) = i, (with a(1)=0), otherwise difference (i-j) of the indices of the two largest primes p_i, p_j, i \u003e= j in the prime factorization of n: a(n) = A061395(n) - A061395(A052126(n)).",
+			"comment": [
+				"Note: the two largest primes in the multiset of prime divisors of n are equal for all numbers that are in A070003, thus, after a(1)=0, A070003 gives the positions of the other zeros in this sequence. Cf. A241919, A242411 for other variants.",
+				"a(A000040(k)) = k."
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A241917/b241917.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A061395(n) - A061395(A052126(n))."
+			],
+			"program": [
+				"(Scheme) (define (A241917 n) (- (A061395 n) (A061395 (A052126 n))))",
+				"(Haskell)",
+				"a241917 n = i - j where",
+				"            (i:j:_) = map a049084 $ reverse (1 : a027746_row n)",
+				"-- _Reinhard Zumkeller_, May 15 2014",
+				"(Python)",
+				"from sympy import primefactors, primepi",
+				"def a061395(n): return 0 if n==1 else primepi(primefactors(n)[-1])",
+				"def a052126(n): return 1 if n==1 else n/primefactors(n)[-1]",
+				"def a(n): return 0 if n==1 else a061395(n) - a061395(a052126(n)) # _Indranil Ghosh_, May 19 2017"
+			],
+			"xref": [
+				"Cf. A241919, A242411, A052126, A061395, A070003, A122111, A241909.",
+				"Cf. A049084, A027746."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Antti Karttunen_, May 13 2014",
+			"references": 14,
+			"revision": 25,
+			"time": "2017-05-20T10:22:23-04:00",
+			"created": "2014-05-14T19:45:33-04:00"
+		},
+		{
+			"number": 255731,
+			"data": "3348,3510,6750,17430,18750,18876,18944,19475,20564,21312,26550,28280,37230,38396,43940,48042,77770,88270,91224,97470,108882,111403,120046,123630,181996,182646,235467,253460,260429,264735,278675,289161,295960,296055,306642",
+			"name": "Rhonda numbers in sexagesimal number system.",
+			"comment": [
+				"See A099542 for definition of Rhonda numbers and for more links."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A255731/b255731.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RhondaNumber.html\"\u003eRhonda Number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Sexagesimal\"\u003eSexagesimal\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 3348 = 55 * 60^1 + 48 * 60^0 = 2*2*3*3*3*31,",
+				"with 55 * 48 = 60 * (2+2+3+3+3+31) = 2640;",
+				"a(10) = 21312 = 5*60^2 + 55*60^1 + 12*60^0 = 2*2*2*2*2*2*3*3*37,",
+				"with 5 * 55 * 12 = 60 * (2+2+2+2+2+2+3+3+37) = 3300."
+			],
+			"program": [
+				"(Haskell)",
+				"a255731 n = a255731_list !! (n-1)",
+				"a255731_list = filter (rhonda 60) $ iterate z 1 where",
+				"   z x = 1 + if r \u003c 59 then x else 60 * z x' where (x', r) = divMod x 60",
+				"-- Function rhonda as in A099542."
+			],
+			"xref": [
+				"Cf. Rhonda numbers to other bases: A100968 (base 4), A100969 (base 6), A100970 (base 8), A100973 (base 9), A099542 (base 10), A100971 (base 12), A100972 (base 14), A100974 (base 15), A100975 (base 16), A255735 (base 18), A255732 (base 20), A255736 (base 30).",
+				"Cf. A001414, A027746.",
+				"Column k=42 of A291925."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 05 2015",
+			"references": 14,
+			"revision": 9,
+			"time": "2017-09-09T15:49:18-04:00",
+			"created": "2015-03-05T16:37:39-05:00"
+		},
+		{
+			"number": 255872,
+			"data": "10206,855,1836,15540,1568,560,11475,2392,1000,1470,1815,1632,2695,2080,6764,7788,4797,3094,3024,1944,756,5661,8232,1000,12296,5824,4624,4851,8262,6561,16583,14616,6545,7225,11310,18382,1995,16896,2940,23465,8464,3348",
+			"name": "Smallest Rhonda number to base b = n-th composite number, cf. A002808.",
+			"comment": [
+				"See A099542 for definition of Rhonda numbers and for more links."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A255872/b255872.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RhondaNumber.html\"\u003eRhonda Number\u003c/a\u003e"
+			],
+			"example": [
+				".   n |  b |  a(n)              |  a(n) in base b | factorization",
+				". ----+----+--------------------+-----------------+--------------",
+				".   1 |  4 | 10206 = A100968(1) | [2,1,3,3,1,3,2] | 2*3^6*7",
+				".   2 |  6 |   855 = A100969(1) |       [3,5,4,3] | 3^2*5*19",
+				".   3 |  8 |  1836 = A100970(1) |       [3,4,5,4] | 2^2*3^3*17",
+				".   4 |  9 | 15540 = A100973(1) |     [2,3,2,7,6] | 2^2*3*5*7*37",
+				".   5 | 10 |  1568 = A099542(1) |       [1,5,6,8] | 2^5*7^2",
+				".   6 | 12 |   560 = A100971(1) |        [3,10,8] | 2^4*5*7",
+				".   7 | 14 | 11475 = A100972(1) |       [4,2,7,9] | 3^3*5^2*17",
+				".   8 | 15 |  2392 = A100974(1) |        [10,9,7] | 2^3*13*23",
+				".   9 | 16 |  1000 = A100975(1) |        [3,14,8] | 2^3*5^3",
+				".  10 | 18 |  1470 = A255735(1) |        [4,9,12] | 2*3*5*7^2",
+				".  11 | 20 |  1815 = A255732(1) |       [4,10,15] | 3*5*11^2",
+				".  12 | 21 |  1632              |       [3,14,15] | 2^5*3*17",
+				".  13 | 22 |  2695              |       [5,12,11] | 5*7^2*11",
+				".  14 | 24 |  2080              |       [3,14,16] | 2^5*5*13",
+				".  15 | 25 |  6764              |      [10,20,14] | 2^2*19*89",
+				".  16 | 26 |  7788              |      [11,13,14] | 2^2*3*11*59",
+				".  17 | 27 |  4797              |       [6,15,18] | 3^2*13*41",
+				".  18 | 28 |  3094              |       [3,26,14] | 2*7*13*17",
+				".  19 | 30 |  3024 = A255736(1) |       [3,10,24] | 2^4*3^3*7",
+				".  20 | 32 |  1944              |       [1,28,24] | 2^3*3^5"
+			],
+			"program": [
+				"(Haskell)",
+				"a255872 n = head $ filter (rhonda b) $ iterate zeroless 1 where",
+				"            -- function rhonda as defined in A099542",
+				"            zeroless x = 1 + if r \u003c b - 1 then x else b * zeroless x'",
+				"                         where (x', r) = divMod x b",
+				"            b = a002808 n"
+			],
+			"xref": [
+				"Cf. A002808, A100968, A100969, A100970, A100973, A099542, A100971, A100972, A100974, A100975, A255735, A255732, A255736.",
+				"Cf. A255880.",
+				"Row n=1 of A291925."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 08 2015",
+			"references": 14,
+			"revision": 14,
+			"time": "2017-09-07T15:46:18-04:00",
+			"created": "2015-03-08T19:48:23-04:00"
+		},
+		{
+			"number": 256775,
+			"data": "97,181,277,337,757,1237,2017,3217,4177,5557,5857,6481,7477,11317,13537,16981,19681,21397,33937,37717,48481,51157,52981,59617,62581,65617,80737,84181,87697,96181,102481,106357,111637,119797,144481,149077,155317,160081",
+			"name": "Primes of the form n^2 + 81.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256775/b256775.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[400]^2 + 81, PrimeQ] (* _Michael De Vlieger_, Apr 19 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a256775 n = a256775_list !! (n-1)",
+				"a256775_list = [x | x \u003c- map (+ 81) a000290_list, a010051' x == 1]",
+				"(MAGMA) [p: p in PrimesUpTo(200000)| IsSquare(p-81)]; // _Vincenzo Librandi_, Apr 20 2015",
+				"(PARI) for(n=1,10^3,if(isprime(p=n^2+81),print1(p,\", \"))) \\\\ _Derek Orr_, Apr 24 2015"
+			],
+			"xref": [
+				"subsequence of A045349.",
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256776 (b=4), A256777 (b=5), A256834 (b=6), A256835 (b=7), A256836 (b=8), A256837 (b=9), A256838 (b=10), A256839 (b=11), A256840 (b=12), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 17,
+			"time": "2015-04-30T12:52:28-04:00",
+			"created": "2015-04-11T17:02:57-04:00"
+		},
+		{
+			"number": 256776,
+			"data": "257,281,337,617,881,1097,1217,1481,1777,2281,2657,2857,4481,5297,5881,7481,8537,9281,10457,12577,14897,15881,17417,18481,19577,23057,24281,25537,26177,27481,28817,30881,32297,35977,38281,39857,42281,44777,52697,53617",
+			"name": "Primes of form n^2 + 256.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256776/b256776.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256776 n = a256776_list !! (n-1)",
+				"a256776_list = [x | x \u003c- map (+ 256) a000290_list, a010051' x == 1]",
+				"(PARI) list(lim)=if(lim\u003c257,return([])); my(v=List(),t); forstep(n=1, sqrtint(lim\\1-256), 2, if(isprime(t=n^2+256), listput(v,t))); Vec(v) \\\\ _Charles R Greathouse IV_, Aug 18 2017"
+			],
+			"xref": [
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256777 (b=5), A256834 (b=6), A256835 (b=7), A256836 (b=8), A256837 (b=9), A256838 (b=10), A256839 (b=11), A256840 (b=12), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 6,
+			"time": "2017-08-18T10:49:13-04:00",
+			"created": "2015-04-11T17:03:11-04:00"
+		},
+		{
+			"number": 256777,
+			"data": "641,661,769,821,881,1109,1201,1301,1409,2069,2389,2741,3329,3541,3761,3989,4721,6101,6709,7349,7681,8369,9461,12289,14081,14549,16001,18049,19121,20789,25589,28181,31601,32309,33749,35221,35969,37489,38261,39041,39829",
+			"name": "Primes of form n^2 + 625.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256777/b256777.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256777 n = a256777_list !! (n-1)",
+				"a256777_list = [x | x \u003c- map (+ 625) a000290_list, a010051' x == 1]",
+				"(PARI) list(lim)=if(lim\u003c641,return([])); my(v=List(),t); forstep(n=4, sqrtint(lim\\1-625), 2, if(isprime(t=n^2+625), listput(v,t))); Vec(v) \\\\ _Charles R Greathouse IV_, Aug 18 2017"
+			],
+			"xref": [
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256776 (b=4), A256834 (b=6), A256835 (b=7), A256836 (b=8), A256837 (b=9), A256838 (b=10), A256839 (b=11), A256840 (b=12), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 6,
+			"time": "2017-08-18T10:50:30-04:00",
+			"created": "2015-04-11T17:03:22-04:00"
+		},
+		{
+			"number": 256834,
+			"data": "1297,1321,1657,2137,2521,3697,5521,6337,7537,8521,10321,11497,13177,15937,16921,18457,23497,24097,25321,34057,35521,40897,43321,45817,47521,58417,59377,88321,90697,94321,98017,106921,109537,117577,127321,131617,138937",
+			"name": "Primes of form n^2 + 1296.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256834/b256834.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[1,401,2]^2+1296,PrimeQ] (* _Harvey P. Dale_, Sep 18 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a256834 n = a256834_list !! (n-1)",
+				"a256834_list = [x | x \u003c- map (+ 1296) a000290_list, a010051' x == 1]"
+			],
+			"xref": [
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256776 (b=4), A256777 (b=5), A256835 (b=7), A256836 (b=8), A256837 (b=9), A256838 (b=10), A256839 (b=11), A256840 (b=12), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 7,
+			"time": "2018-09-18T18:17:12-04:00",
+			"created": "2015-04-11T17:03:35-04:00"
+		}
+	]
+}

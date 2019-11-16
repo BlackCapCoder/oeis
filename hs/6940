@@ -1,0 +1,355 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6940,
+	"results": [
+		{
+			"number": 256863,
+			"data": "3,7,11,13,19,23,29,31,43,47,53,59,61,67,71,73,79,83,89,103,107,109,113,127,131,139,149,151,157,163,167,173,179,191,193,199,211,223,227,229,233,239,251,263,269,271,283,293,307,311,313,317,331,347,349,353",
+			"name": "Primes that can't be written in form a^2 + b^4.",
+			"comment": [
+				"Complement of A028916;",
+				"A256852(A049084(a(n))) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256863/b256863.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Reap[Do[If[Reduce[p == a^2 + b^4, {a, b}, Integers] === False, Sow[p]], {p, Prime[Range[80]]}]][[2, 1]] (* _Jean-François Alcover_, Jan 31 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a256863 n = a256863_list !! (n-1)",
+				"a256863_list = map a000040 $ filter ((== 0) . a256852) [1..]"
+			],
+			"xref": [
+				"Cf. A028916, A000290,  A000583, A000040, A256852."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 3,
+			"revision": 7,
+			"time": "2018-01-31T09:09:27-05:00",
+			"created": "2015-04-11T17:07:10-04:00"
+		},
+		{
+			"number": 257046,
+			"data": "1,5,8,10,14,17,21,24,26,30,33,35,37,41,44,46,50,54,57,59,63,65,69,72,74,78,82,86,89,91,95,98,101,105,108,110,114,117,122,126,129,131,135,138,142,145,149,152,154,158,161,165,168,170,174,177,179,183,186",
+			"name": "Numbers having trace 1 in their enhanced squares representation, see A256913.",
+			"comment": [
+				"A256914(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257046/b257046.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257046 n = a257046_list !! (n-1)",
+				"a257046_list = filter ((== 1) . a256914) [0..]"
+			],
+			"xref": [
+				"Cf. A256913, A256914, A257047 (complement)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 15 2015",
+			"references": 3,
+			"revision": 5,
+			"time": "2015-04-15T04:56:50-04:00",
+			"created": "2015-04-15T04:56:50-04:00"
+		},
+		{
+			"number": 257070,
+			"data": "2,3,1,3,2,4,1,3,3,4,2,1,1,3,2,4,1,3,3,3,9,2,2,1,16,1,3,3,9,4,2,1,16,2,1,3,4,3,3,4,1,3,2,1,1,3,2,2,2,4,1,1,16,1,1,3,4,2,1,25,2,4,2,2,1,3,3,4,3,25,4,1,2,3,2,2,3,36,1,9,3,1,2,1",
+			"name": "Traces of primes in enhanced squares representation, cf. A256913.",
+			"comment": [
+				"a(n) = A256914(A000040(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257070/b257070.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257070 = last . a257053_row"
+			],
+			"xref": [
+				"Cf. A257053, A256913, A000040, A256914."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 15 2015",
+			"references": 3,
+			"revision": 5,
+			"time": "2015-04-15T13:31:37-04:00",
+			"created": "2015-04-15T13:31:37-04:00"
+		},
+		{
+			"number": 257071,
+			"data": "1,1,2,2,2,2,2,2,3,2,3,2,3,3,3,2,3,3,2,3,2,4,2,4,2,2,2,3,2,3,3,3,2,3,3,3,3,3,4,2,3,3,4,5,2,2,4,3,2,2,4,4,2,3,2,3,3,4,4,2,3,2,3,4,5,3,3,3,4,2,3,4,3,3,3,4,3,2,2,2,3,4,4,5,3,2",
+			"name": "Length of enhanced squares representation of n-th prime, cf. A256913.",
+			"comment": [
+				"a(n) = A256915(A000040(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257071/b257071.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257071 = length . a257053_row"
+			],
+			"xref": [
+				"Cf. A257053, A256913, A000040, A256915."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Apr 15 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-04-15T13:31:26-04:00",
+			"created": "2015-04-15T13:31:26-04:00"
+		},
+		{
+			"number": 257088,
+			"data": "1,1,4,3,8,5,12,7,16,9,20,11,24,13,28,15,32,17,36,19,40,21,44,23,48,25,52,27,56,29,60,31,64,33,68,35,72,37,76,39,80,41,84,43,88,45,92,47,96,49,100,51,104,53,108,55,112,57,116,59,120,61,124,63,128",
+			"name": "a(2*n) = 4*n if n\u003e0, a(2*n + 1) = 2*n + 1, a(0) = 1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257088/b257088.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,2,0,-1)."
+			],
+			"formula": [
+				"Euler transform of length 4 sequence [ 1, 3, -1, -1].",
+				"a(n) is multiplicative with a(2^e) = 2^(e+1) if e\u003e0, otherwise a(p^e) = p^e.",
+				"G.f.: (1 + x + 2*x^2 + x^3 + x^4) / (1 - 2*x^2 + x^4).",
+				"G.f.: (1 - x^3) * (1 - x^4) / ((1 - x) * (1 - x^2)^3).",
+				"MOBIUS transform of A215947 is [1, 4, 3, 8, 5, ...].",
+				"a(n) = n * A040001(n) if n\u003e0.",
+				"a(n) + a(n-1) = A007310(n) if n\u003e0.",
+				"a(n) = A001082(n+1) - A001082(n) if n\u003e0.",
+				"Binomial transform with a(0)=0 is A128543 if n\u003e0.",
+				"a(2*n) = A008574(n). a(2*n + 1) = A005408(n).",
+				"a(n) = A022998(n) if n\u003e0. - _R. J. Mathar_, Apr 19 2015"
+			],
+			"example": [
+				"G.f. = 1 + x + 4*x^2 + 3*x^3 + 8*x^4 + 5*x^5 + 12*x^6 + 7*x^7 + 16*x^8 + ..."
+			],
+			"mathematica": [
+				"a[ n_] := Which[ n \u003c 1, Boole[n == 0], OddQ[n], n, True, 2 n];",
+				"a[ n_] := SeriesCoefficient[ (1 + x + 2*x^2 + x^3 + x^4) / (1 - 2*x^2 + x^4), {x, 0, n}];"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c1, n==0, n%2, n, 2*n)};",
+				"(PARI) {a(n) = if( n\u003c0, 0, polcoeff( (1 + x + 2*x^2 + x^3 + x^4) / (1 - 2*x^2 + x^4) + x * O(x^n), n))};",
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a257088 n = a257088_list !! n",
+				"a257088_list = concat $ transpose [a008574_list, a005408_list]",
+				"-- _Reinhard Zumkeller_, Apr 17 2015"
+			],
+			"xref": [
+				"Cf. A001082, A005408, A007310, A008574, A040001, A215947.",
+				"CF. A257083 (partial sums), A246695."
+			],
+			"keyword": "nonn,mult,easy",
+			"offset": "0,3",
+			"author": "_Michael Somos_, Apr 16 2015",
+			"references": 3,
+			"revision": 14,
+			"time": "2015-08-31T10:11:56-04:00",
+			"created": "2015-04-16T00:28:30-04:00"
+		},
+		{
+			"number": 257122,
+			"data": "1,2,3,5,8,4,30,6,10,7,123,12,201,31,9,13,300,11,825,16,34,124,946,14,27,202,21,32,3094,15,7060,18,127,301,54,20,13528,826,205,17,28659,33,40811,125,25,947,46658,19,81,28,304,203,57450,22,134,38,829,3095",
+			"name": "Smallest m such that A257218(m) = n.",
+			"comment": [
+				"A257218(a(n)) = n and A257218(m) != n for m \u003c a(n);",
+				"it appears that all records \u003e 8 occur at primes;",
+				"for p prime: a(p)-1 = index of the smallest multiple of p in A257218."
+			],
+			"link": [
+				"Hiroaki Yamanouchi, \u003ca href=\"/A257122/b257122.txt\"\u003eTable of n, a(n) for n = 1..72\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a257122 = (+ 1) . fromJust . (`elemIndex` a257218_list)"
+			],
+			"xref": [
+				"Cf. A257218."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 25 2015",
+			"ext": [
+				"a(41)-a(58) from _Hiroaki Yamanouchi_, May 04 2015"
+			],
+			"references": 3,
+			"revision": 19,
+			"time": "2015-05-04T11:31:10-04:00",
+			"created": "2015-04-25T08:10:33-04:00"
+		},
+		{
+			"number": 257145,
+			"data": "1,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0,-1,-2,2,1,0",
+			"name": "a(n) = 5 * floor( (n+2) / 5) - n with a(0) = 1.",
+			"comment": [
+				"Cycle period is 5, {0, -1, -2, 2, 1} after the first five terms. - _Robert G. Wilson v_, Aug 02 2018"
+			],
+			"link": [
+				"G. C. Greubel, \u003ca href=\"/A257145/b257145.txt\"\u003eTable of n, a(n) for n = 0..2500\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (-1,-1,-1,-1)."
+			],
+			"formula": [
+				"Euler transform of length 5 sequence [-1, -2, 0, 0, 1].",
+				"a(5*n) = 0 for all n in Z except n=0.",
+				"a(n) = -a(-n) for all n in Z except n=0.",
+				"a(n) = a(n+5) for all n in Z except n=-5 or n=0.",
+				"Convolution inverse is A257143.",
+				"G.f.: (1 - x) * (1 - x^2)^2 / (1 - x^5).",
+				"G.f.: (1 - 2*x^2 + x^4) / (1 + x + x^2 + x^3 + x^4).",
+				"a(n) = -A117444(n), n\u003e0. - _R. J. Mathar_, Oct 05 2017"
+			],
+			"example": [
+				"G.f. = 1 - x - 2*x^2 + 2*x^3 + x^4 - x^6 - 2*x^7 + 2*x^8 + x^9 - x^11 + ..."
+			],
+			"mathematica": [
+				"a[ n_] := If[ n==0, 1, -Mod[ n, 5, -2]];",
+				"a[ n_] := If[ n==0, 1, Sign[n] SeriesCoefficient[ (1 - x) * (1 - x^2)^2 / (1 - x^5), {x, 0, Abs@n}]];",
+				"CoefficientList[Series[(1-x)*(1-x^2)^2/(1-x^5), {x,0,60}], x] (* _G. C. Greubel_, Aug 02 2018 *)",
+				"a[n_] := 5 Floor[(n + 2)/5] - n; Array[a, 77, 0] (* or *)",
+				"CoefficientList[ Series[(x - 1)^2 (x + 1)^2/(x^4 + x^3 + x^2 + x + 1), {x, 0, 76}], x] (* or *)",
+				"LinearRecurrence[{-1, -1, -1, -1}, {1, -1, -2, 2, 1, 0}, 76] (* _Robert G. Wilson v_, Aug 02 2018*)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n==0, 1, (n+2) \\ 5 * 5 - n)};",
+				"(PARI) {a(n) = if( n==0, 1, [0, -1, -2, 2, 1][n%5 + 1])};",
+				"(PARI) {a(n) = if( n==0, 1, sign(n) * polcoeff( (1 - x) * (1 - x^2)^2 / (1 - x^5) + x * O(x^abs(n)), abs(n)))};",
+				"(PARI) x='x+O('x^60); Vec((1-x)*(1-x^2)^2/(1-x^5)) \\\\ _G. C. Greubel_, Aug 02 2018",
+				"(Haskell)",
+				"a257145 0 = 1",
+				"a257145 n = div (n + 2) 5 * 5 - n  -- _Reinhard Zumkeller_, Apr 17 2015",
+				"(MAGMA) m:=60; R\u003cx\u003e:=PowerSeriesRing(Integers(), m); Coefficients(R!((1-x)*(1-x^2)^2/(1-x^5))); // _G. C. Greubel_, Aug 02 2018"
+			],
+			"xref": [
+				"Cf. A257143, A253262, A117444."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,3",
+			"author": "_Michael Somos_, Apr 16 2015",
+			"references": 3,
+			"revision": 19,
+			"time": "2018-08-03T04:22:14-04:00",
+			"created": "2015-04-16T17:26:16-04:00"
+		},
+		{
+			"number": 257232,
+			"data": "1,2,0,3,1,0,4,2,1,1,5,3,2,2,0,6,4,3,3,1,1,7,5,4,4,2,2,0,8,6,5,5,3,3,1,1,9,7,6,6,4,4,2,2,1,10,8,7,7,5,5,3,3,2,1,11,9,8,8,6,6,4,4,3,2,0",
+			"name": "Triangle T(n, k) with the natural numbers in columns with nonprime k and the nonnegative numbers in columns with prime k, for 1 \u003c= k \u003c= n.",
+			"comment": [
+				"This triangle is motivated by sequence A256885 by _Wesley Ivan Hurt_, which is the sequence of row sums for n \u003e= 1.",
+				"Row n ends in a 0 if n is prime; otherwise it ends in 1.",
+				"The alternating row sums give 1, seven times 2, six times 3, six times 4, four times 5, twice 6, ..., and the multiplicity sequence 1, 7, 6, 6, 4, 2, ... is given in A257233."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257232/b257232.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n, k) = n - (k-1) - [isprime(k)], with [isprime(k)] = A010051(k), for  1 \u003c= k \u003c= n.",
+				"O.g.f. for column k (with leading zeros): x^k/(1-x)^2 if k is nonprime else x^(k+1)/(1-x)^2.",
+				"T(n+1,k) = T(n,k) + 1, 1 \u003c= k \u003c= n, T(n+1,n+1) = 1 - A010051(n+1). - _Reinhard Zumkeller_, Apr 21 2015"
+			],
+			"example": [
+				"The triangle T(n, k) begins:",
+				"n\\k  1  2  3  4  5  6  7  8  9 10 11 ...",
+				"1:   1",
+				"2:   2  0",
+				"3:   3  1  0",
+				"4:   4  2  1  1",
+				"5:   5  3  2  2  0",
+				"6:   6  4  3  3  1  1",
+				"7:   7  5  4  4  2  2  0",
+				"8:   8  6  5  5  3  3  1  1",
+				"9:   9  7  6  6  4  4  2  2  1",
+				"10: 10  8  7  7  5  5  3  3  2  1",
+				"11: 11  9  8  8  6  6  4  4  3  2  0",
+				"..."
+			],
+			"mathematica": [
+				"Table[n - (k - 1) - Boole[PrimeQ@ k], {n, 11}, {k, n}] // Flatten (* _Michael De Vlieger_, Apr 19 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a257232 n k = a257232_tabl !! (n-1) !! (k-1)",
+				"a257232_row n = a257232_tabl !! (n-1)",
+				"a257232_tabl = iterate",
+				"               (\\xs@(x:_) -\u003e map (+ 1) xs ++ [1 - a010051 (x + 1)]) [1]",
+				"-- _Reinhard Zumkeller_, Apr 21 2015"
+			],
+			"xref": [
+				"Cf. A256885 (row sums), A257233 (multiplicities for alternating row sums).",
+				"Cf. A010051."
+			],
+			"keyword": "nonn,easy,tabl",
+			"offset": "1,2",
+			"author": "_Wolfdieter Lang_, Apr 19 2015",
+			"references": 3,
+			"revision": 13,
+			"time": "2015-04-21T11:32:02-04:00",
+			"created": "2015-04-21T04:45:41-04:00"
+		},
+		{
+			"number": 257457,
+			"data": "2,3,4,6,8,10,11,12,14,15,18,19,20,22,23,27,30,35,38,42,47,48,49,52,53,54,60,61,63,64,69,70,73,74,83,85,87,89,92,94,97,102,112,114,116,117,120,125,127,128,134,136,139,146,149,151,153,155,156,158,159",
+			"name": "Indices of primes in A257339.",
+			"comment": [
+				"A010051(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257457/b257457.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257457 n = a257457_list !! (n-1)",
+				"a257457_list = filter ((== 1) . a010051 . a257339) [1..]"
+			],
+			"xref": [
+				" Cf. A257339, A010051, A257458."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 24 2015",
+			"references": 3,
+			"revision": 5,
+			"time": "2015-04-29T16:06:13-04:00",
+			"created": "2015-04-29T16:06:13-04:00"
+		},
+		{
+			"number": 257458,
+			"data": "1,2,3,4,5,6,8,9,10,11,12,13,14,15,17,18,19,20,22,23,25,27,30,31,34,35,38,42,45,47,48,49,52,53,54,60,61,63,64,66,69,70,71,73,74,81,83,85,87,89,92,94,97,100,102,108,112,114,116,117,120,125,127,128",
+			"name": "Indices of prime powers in A257339.",
+			"comment": [
+				"A010055(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A257458/b257458.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a257458 n = a257458_list !! (n-1)",
+				"a257458_list = filter ((== 1) . a010055 . a257339) [1..]"
+			],
+			"xref": [
+				"Cf. A257339, A010055, A257457."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 24 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-04-29T16:06:43-04:00",
+			"created": "2015-04-29T16:06:43-04:00"
+		}
+	]
+}

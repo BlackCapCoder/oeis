@@ -1,0 +1,390 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5220,
+	"results": [
+		{
+			"number": 25129,
+			"data": "0,6,10,29,43,94,128,231,279,484,584,903,1051,1552,1796,2489,2823,3784,4172,5515,6091,7758,8404,10575,11395,14076,15174,18339,19667,23414,24906,29437,31089,36500,38614,44731,47071,54198,56914,65051,68371,77402,81052,91341",
+			"name": "a(n) = p(1)p(n) + p(2)p(n-1) + ... + p(k)p(n-k+1), where k = [ n/2 ], p = A000040, the primes.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A025129/b025129.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A024697(n) for even n. - _M. F. Hasler_, Apr 06 2014"
+			],
+			"mathematica": [
+				"f[n_] := Block[{primeList = Prime@ Range@ n}, Total[ Take[ primeList, Floor[n/2]]*Reverse@ Take[ primeList, {Floor[(n + 3)/2], n}]]]; Array[f, 44] (* _Robert G. Wilson v_, Apr 07 2014 *)"
+			],
+			"program": [
+				"(PARI) A025129=n-\u003esum(k=1,n\\2,prime(k)*prime(n-k+1)) \\\\ _M. F. Hasler_, Apr 06 2014",
+				"(Haskell)",
+				"a025129 n = a025129_list !! (n-1)",
+				"a025129_list= f (tail a000040_list) [head a000040_list] 1 where",
+				"   f (p:ps) qs k = sum (take (div k 2) $ zipWith (*) qs $ reverse qs) :",
+				"                   f ps (p : qs) (k + 1)",
+				"-- _Reinhard Zumkeller_, Apr 07 2014"
+			],
+			"xref": [
+				"Cf. A014342, A000040, A258323."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"Following suggestions by _Robert Israel_ and _N. J. A. Sloane_, initial 0=a(1) added by _M. F. Hasler_, Apr 06 2014"
+			],
+			"references": 4,
+			"revision": 24,
+			"time": "2017-01-02T02:01:05-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 25286,
+			"data": "325,425,650,725,845,850,925,1025,1250,1300,1325,1445,1450,1525,1690,1700,1825,1850,2050,2225,2425,2525,2600,2650,2725,2825,2873,2890,2900,2925,3050,3125,3380,3400,3425,3650,3700,3725,3757,3825,3925,4100,4205",
+			"name": "Numbers that are the sum of 2 nonzero squares in exactly 3 ways.",
+			"comment": [
+				"A025426(a(n)) = 3. - _Reinhard Zumkeller_, Feb 26 2015"
+			],
+			"link": [
+				"Donovan Johnson, \u003ca href=\"/A025286/b025286.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"G. Xiao, \u003ca href=\"http://wims.unice.fr/~wims/en_tool~number~twosquares.en.html\"\u003eTwo squares\u003c/a\u003e",
+				"\u003ca href=\"/index/Su#ssq\"\u003eIndex entries for sequences related to sums of squares\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a025286 n = a025286_list !! (n-1)",
+				"a025286_list = filter ((== 3) . a025426) [1..]",
+				"-- _Reinhard Zumkeller_, Feb 26 2015"
+			],
+			"xref": [
+				" Cf. A025426."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 4,
+			"revision": 17,
+			"time": "2015-02-26T16:58:06-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 25302,
+			"data": "5,10,13,17,20,25,26,29,34,37,40,41,45,50,52,53,58,61,68,73,74,80,82,89,90,97,100,101,104,106,109,113,116,117,122,136,137,146,148,149,153,157,160,164,169,173,178,180,181,193,194,197,200,202,208,212,218,225,226,229",
+			"name": "Numbers that are the sum of 2 distinct nonzero squares in exactly 1 way.",
+			"comment": [
+				"A025441(a(n)) = 1. - _Reinhard Zumkeller_, Dec 20 2013"
+			],
+			"link": [
+				"Donovan Johnson, \u003ca href=\"/A025302/b025302.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Su#ssq\"\u003eIndex entries for sequences related to sums of squares\u003c/a\u003e"
+			],
+			"mathematica": [
+				"nn = 229; t = Table[0, {nn}]; lim = Floor[Sqrt[nn - 1]]; Do[num = i^2 + j^2; If[num \u003c= nn, t[[num]]++], {i, lim}, {j, i - 1}]; Flatten[Position[t, 1]] (* _T. D. Noe_, Apr 07 2011 *)",
+				"a[1] = 5; a[ n_] := a[n] = Module[ {s = a[n - 1], t = True, j}, While[ t, s++; Do[ If[ i^2 + (j = Floor[Sqrt[s - i^2]])^2 == s \u0026\u0026 i \u003c j, t = False; Break], {i, Sqrt[s/2]}]]; s]; (* _Michael Somos_, Jan 20 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a025302 n = a025302_list !! (n-1)",
+				"a025302_list = [x | x \u003c- [1..], a025441 x == 1]"
+			],
+			"xref": [
+				"Cf. A009000, A009003, A024507, A004431.",
+				"Cf. Subsequence of A001983; A004435."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 4,
+			"revision": 19,
+			"time": "2019-01-20T21:11:01-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 25530,
+			"data": "1,1,5,7,47,37,319,533,1879,1627,20417,18107,263111,237371,261395,477745,8842385,8161705,167324635,155685007,166770367,156188887,3825136961,3602044091,19081066231,18051406831,57128792093,54260455193,1653866633797",
+			"name": "a(n) = (1/1 - 1/2 + ... + (-1)^(n-1)/n)*lcm{1..n}.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A025530/b025530.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Lc#lcm\"\u003eIndex entries for sequences related to lcm's\u003c/a\u003e"
+			],
+			"mathematica": [
+				"nn=30;With[{fr=Accumulate[Table[1/(n (-1)^(n-1)),{n,nn}]]}, Table[fr[[n]] LCM@@ Range[n],{n,nn}]] (* _Harvey P. Dale_, Dec 27 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a025530 n = sum $ map (div (a003418 $ fromInteger n))",
+				"                      (zipWith (*) [1..n] a033999_list)",
+				"-- _Reinhard Zumkeller_, Dec 23 2011",
+				"(PARI) a(n)=my(v=primes(primepi(n)),k=sqrtint(n),L=log(n+.5),t);t=prod(i=1,#v,if(v[i]\u003ek,v[i],v[i]^(L\\log(v[i]))));-sum(i=1,n,(-1)^i*t/i) \\\\ _Charles R Greathouse IV_, Dec 23 2011",
+				"(PARI) s=1;v=vector(10^4,i,1);for(n=2,#v,t=n/gcd(s,n);s*=t;v[n]=v[n-1]*t-(-1)^n*s/n);v \\\\ _Charles R Greathouse IV_, Dec 23 2011"
+			],
+			"xref": [
+				"Cf. A058312, A058313, A003418, A033999."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,3",
+			"author": "_Clark Kimberling_",
+			"references": 4,
+			"revision": 18,
+			"time": "2018-04-01T20:48:12-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 25613,
+			"data": "1,3,4,9,12,16,27,36,48,64,81,108,144,192,243,256,324,432,576,729,768,972,1024,1296,1728,2187,2304,2916,3072,3888,4096,5184,6561,6912,8748,9216,11664,12288,15552,16384,19683,20736,26244,27648,34992,36864,46656",
+			"name": "Numbers of form 3^i*4^j, with i, j \u003e= 0.",
+			"comment": [
+				"Subsequence of 3-smooth numbers, cf. A003586."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A025613/b025613.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Union[Flatten[Table[3^x 4^y,{x,0,10},{y,0,10}]]] (* _Harvey P. Dale_, Aug 25 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a025613 n = a025613_list !! (n-1)",
+				"a025613_list = f $ singleton 1",
+				"   where f s = m : (f $ insert (3*m) $ insert (4*m) s')",
+				"             where (m, s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Jun 01 2011",
+				"(PARI) list(lim)=my(v=List(), N); for(n=0, logint(lim\\1,3), N=3^n; while(N\u003c=lim, listput(v, N); N\u003c\u003c=2)); Set(v) \\\\ _Charles R Greathouse IV_, Sep 10 2015"
+			],
+			"xref": [
+				"Cf. A191113, A191145, A191126, A191127, A191128, A191129, A191130, A191131."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_David W. Wilson_",
+			"references": 4,
+			"revision": 17,
+			"time": "2019-08-25T10:46:07-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 25620,
+			"data": "1,4,9,16,36,64,81,144,256,324,576,729,1024,1296,2304,2916,4096,5184,6561,9216,11664,16384,20736,26244,36864,46656,59049,65536,82944,104976,147456,186624,236196,262144,331776,419904,531441,589824,746496,944784",
+			"name": "Numbers of form 4^i*9^j, with i, j \u003e= 0.",
+			"comment": [
+				"Numbers of form 2^(2*i)*3^(2*j)) or 3-smooth squares: intersection of A003586 and A000290; A001221(a(n)) \u003c= 2; A001222(a(n)) is even; A006530(a(n)) \u003c= 3. - _Reinhard Zumkeller_, May 16 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A025620/b025620.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a025620 n = a025620_list !! (n-1)",
+				"a025620_list = f $ singleton 1 where",
+				"   f s = y : f (insert (4 * y) $ insert (9 * y) s')",
+				"               where (y, s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, May 16 2015",
+				"(PARI) list(lim)=my(v=List(), N); for(n=0, logint(lim\\=1, 9), N=9^n; while(N\u003c=lim, listput(v, N); N\u003c\u003c=2)); Set(v) \\\\ _Charles R Greathouse IV_, Jan 10 2018"
+			],
+			"xref": [
+				"Cf. A003586, A000290, A001221, A001222, A006530, subsequence of A036667."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_David W. Wilson_",
+			"references": 4,
+			"revision": 10,
+			"time": "2018-01-10T12:32:29-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 26832,
+			"data": "0,1,0,2,1,2,2,4,4,5,6,8,10,12,14,18,21,24,30,36,42,50,58,68,80,93,108,126,146,168,194,224,256,294,336,384,439,500,568,646,732,828,938,1060,1194,1348,1516,1704,1916,2149,2408,2698,3018,3372,3766,4202,4682",
+			"name": "Number of partitions of n into distinct parts, the least being odd.",
+			"comment": [
+				"Fine's numbers L(n).",
+				"Also number of partitions of n such that if k is the largest part, then k occurs an odd number of times and each of the numbers 1,2,...,k-1 occurs at least once. Example: a(7)=4 because we have [3,2,1,1], [2,2,2,1], [2,1,1,1,1,1] and [1,1,1,1,1,1,1]. - _Emeric Deutsch_, Mar 29 2006"
+			],
+			"reference": [
+				"N. J. Fine, Basic Hypergeometric Series and Applications, Amer. Math. Soc., 1988; p. 56, Eq. (26.28)."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A026832/b026832.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: Sum_{k\u003e=1} ((-1)^(k+1)*(-1+Product_{i\u003e=k} (1+x^i))). - _Vladeta Jovovic_, Aug 26 2003",
+				"G.f.: Sum_{ k \u003e= 1 } x^(k*(k+1)/2)/((1+x^k)*Product_{i=1..k} (1-x^i) ). - _Vladeta Jovovic_, Aug 10 2004",
+				"(1 + Sum_{n \u003e= 1} a(n)q^n )*(1 + 2 Sum_{m\u003e=1} (-1)^m*q^(m^2)) = Sum_{n \u003e= 1} (-1)^n*q^((3*n^2+n)/2)/(1+q^n). [Fine]",
+				"G.f.: Sum_{k\u003e=1} x^(2k-1)*Product_{j\u003e=2k} (1 + x^j). - _Emeric Deutsch_, Mar 29 2006",
+				"a(n) ~ exp(Pi*sqrt(n/3)) / (2 * 3^(5/4) * n^(3/4)). - _Vaclav Kotesovec_, Jun 09 2019"
+			],
+			"example": [
+				"a(7)=4 because we have [7], [6,1], [4,3] and [4,2,1]."
+			],
+			"maple": [
+				"g:=sum(x^(2*k-1)*product(1+x^j, j=2*k..60), k=1..60): gser:=series(g, x=0, 55): seq(coeff(gser, x, n), n=0..53); # _Emeric Deutsch_, Mar 29 2006",
+				"# second Maple program:",
+				"b:= proc(n, i) option remember; `if`(i*(i+1)/2\u003cn, 0, b(n, i-1)+",
+				"      `if`(i=n and i::odd, 1, 0)+`if`(i\u003cn, b(n-i, min(n-i, i-1)), 0))",
+				"    end:",
+				"a:= n-\u003e `if`(n=0, 0, b(n$2)):",
+				"seq(a(n), n=0..60);  # _Alois P. Heinz_, Feb 01 2019"
+			],
+			"mathematica": [
+				"mx=53; Rest[CoefficientList[Series[Sum[x^(2*k-1) Product[1+x^j, {j, 2*k, mx}], {k, mx}], {x, 0, mx}], x]]  (* _Jean-François Alcover_, Apr 05 2011, after _Emeric Deutsch_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a026832 n = p 1 n where",
+				"   p _ 0 = 1",
+				"   p k m = if m \u003c k then 0 else p (k+1) (m-k) + p (k+1+0^(n-m)) m",
+				"-- _Reinhard Zumkeller_, Jun 14 2012"
+			],
+			"xref": [
+				"Cf. A026804, A026805, A026807, A026833, A092265, A096661, A097042.",
+				"Cf. A000009, A096765."
+			],
+			"keyword": "nonn,nice",
+			"offset": "0,4",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"More terms from _Emeric Deutsch_, Mar 29 2006",
+				"a(0)=0 prepended by _Alois P. Heinz_, Feb 01 2019"
+			],
+			"references": 4,
+			"revision": 34,
+			"time": "2019-06-09T18:03:58-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 27427,
+			"data": "0,1,2,4,7,11,14,20,25,32,37,47,52,64,71,79,88,104,112,130,140,151,162,184,193,211,224,240,253,281,292,322,338,355,372,391,404,440,459,479,494,534,550,592,612,632,655,701,718,753,775,801,824,876",
+			"name": "Number of distinct products ij with 0 \u003c= i \u003c j \u003c= n.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A027427/b027427.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)=A027428(n)+1. - T. D. Noe, Jan 16 2007"
+			],
+			"maple": [
+				"A027427 := proc(n)",
+				"    local L, i, j ;",
+				"    L := {};",
+				"    for i from 0 to n do",
+				"        for j from i+1 to n do",
+				"            L := L union {i*j};",
+				"        end do:",
+				"    end do:",
+				"    nops(L);",
+				"end proc:  # _R. J. Mathar_, Jun 09 2016"
+			],
+			"mathematica": [
+				"a[n_] := Table[i*j, {i, 0, n}, {j, i+1, n}] // Flatten // Union // Length;",
+				"Table[a[n], {n, 0, 60}] (* _Jean-François Alcover_, Feb 03 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (nub)",
+				"a027427 n = length $ nub [i*j | j \u003c- [1..n], i \u003c- [0..j-1]]",
+				"-- _Reinhard Zumkeller_, Jan 01 2012"
+			],
+			"xref": [
+				"Cf. A027430, etc.",
+				"Cf. A027384, A027429."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_.",
+			"references": 4,
+			"revision": 18,
+			"time": "2018-02-03T09:55:59-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 27429,
+			"data": "0,0,1,2,5,11,17,30,43,61,76,112,127,178,207,239,275,362,397,508,555,614,678,839,884,1005,1093,1199,1278,1530,1591,1882,1999,2134,2276,2433,2519,2922,3097,3279,3392,3885,4015,4564,4751,4939,5187,5841,5988,6423",
+			"name": "Number of distinct products ijk with 0 \u003c= i \u003c j \u003c k \u003c= n.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A027429/b027429.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A027430(n) + 1. - _T. D. Noe_, Jan 16 2007"
+			],
+			"example": [
+				"a(3) = 2 (0 and 6 being the only products) and a(4)=5 (with products 0,6,8,12 and 24)."
+			],
+			"mathematica": [
+				"nn=50; prod=Table[0, {1+nn^3}]; t=Table[Do[prod[[1+i*j*k]]=1, {i,0,n}, {j,i+1,n}, {k,j+1,n}]; Count[Take[prod,1+n^3],1], {n,0,nn}] (* _T. D. Noe_, Jan 16 2007 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (nub)",
+				"a027429 n = length $ nub [i*j*k | k\u003c-[2..n], j\u003c-[1..k-1], i\u003c-[0..j-1]]",
+				"-- _Reinhard Zumkeller_, Jan 01 2012"
+			],
+			"xref": [
+				"Cf. A027425, A027426, A027427, A027430."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Corrected by _T. D. Noe_, Jan 16 2007"
+			],
+			"references": 4,
+			"revision": 16,
+			"time": "2019-05-19T02:10:48-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 28263,
+			"data": "3,4,4,5,8,5,6,13,13,6,7,19,26,19,7,8,26,45,45,26,8,9,34,71,90,71,34,9,10,43,105,161,161,105,43,10,11,53,148,266,322,266,148,53,11,12,64,201,414,588,588,414,201,64,12,13,76,265,615,1002,1176,1002,615,265,76,13",
+			"name": "Elements in 3-Pascal triangle A028262 (by row) that are not 1.",
+			"comment": [
+				"Rows of triangle formed using Pascal's rule except begin and end n-th row with n+3."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A028263/b028263.txt\"\u003eRows n=0..150 of triangle, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A007318(n,k) + A014410(n+2,k+1). [_Reinhard Zumkeller_, Mar 12 2012]"
+			],
+			"example": [
+				"The triangle T(n,k) begins",
+				"n\\k  0  1   2   3    4    5    6   7   8  9 10 ...",
+				"0:   3",
+				"1:   4  4",
+				"2:   5  8   5",
+				"3:   6 13  13   6",
+				"4:   7 19  26  19    7",
+				"5:   8 26  45  45   26    8",
+				"6:   9 34  71  90   71   34    9",
+				"7:  10 43 105 161  161  105   43  10",
+				"8:  11 53 148 266  322  266  148  53  11",
+				"9:  12 64 201 414  588  588  414 201  64 12",
+				"10: 13 76 265 615 1002 1176 1002 615 265 76 13",
+				"... Reformatted. - _Wolfdieter Lang_, Jun 28 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a028263 n k = a028263_tabl !! n !! k",
+				"a028263_row n = a028263_tabl !! n",
+				"a028263_tabl = zipWith (zipWith (+)) a007318_tabl a014410_tabl",
+				"-- _Reinhard Zumkeller_, Mar 12 2012"
+			],
+			"xref": [
+				"Row sums give A051633(n)."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,1",
+			"author": "_Mohammad K. Azarian_",
+			"ext": [
+				"More terms from _James A. Sellers_"
+			],
+			"references": 4,
+			"revision": 19,
+			"time": "2015-06-28T10:46:05-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

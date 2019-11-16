@@ -1,0 +1,447 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4470,
+	"results": [
+		{
+			"number": 234950,
+			"data": "1,2,1,5,6,2,14,28,20,5,42,120,135,70,14,132,495,770,616,252,42,429,2002,4004,4368,2730,924,132,1430,8008,19656,27300,23100,11880,3432,429,4862,31824,92820,157080,168300,116688,51051,12870,1430",
+			"name": "Borel's triangle read by rows: T(n,k) = Sum_{s=k..n} binomial(s,k)*C(n,s), where C(n,s) is an entry in Catalan's triangle A009766.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A234950/b234950.txt\"\u003eRows n=0..125 of triangle, flattened\u003c/a\u003e",
+				"Steve Butler, R. Graham, C. H. Yan, \u003ca href=\"http://www.math.ucsd.edu/~ronspubs/17_03_parking.pdf\"\u003eParking distributions on trees\u003c/a\u003e, European Journal of Combinatorics 65 (2017), 168-185.",
+				"Yue Cai, Catherine Yan, \u003ca href=\"http://www.math.tamu.edu/~catherine.yan/Files/Borel-main-final.pdf\"\u003eCounting with Borel's triangle\u003c/a\u003e, Texas A\u0026M University.",
+				"Yue Cai, Catherine Yan, \u003ca href=\"https://arxiv.org/abs/1804.01597\"\u003eCounting with Borel's triangle\u003c/a\u003e, arXiv:1804.01597 [math.CO], 2018.",
+				"G. Chatel, V. Pilaud, \u003ca href=\"http://arxiv.org/abs/1411.3704\"\u003eCambrian Hopf Algebras\u003c/a\u003e, arXiv:1411.3704 [math.CO], 2014-2015.",
+				"C. A. Francisco, J. Mermin, J. Schweig, \u003ca href=\"http://www.math.okstate.edu/~jayjs/ppt.pdf\"\u003eCatalan numbers, binary trees, and pointed pseudotriangulations\u003c/a\u003e, preprint 2013; European Journal of Combinatorics, Volume 45, April 2015, pp. 85-96.",
+				"A. Lakshminarayan, Z. Puchala, K. Zyczkowski, \u003ca href=\"http://arxiv.org/abs/1407.1169\"\u003eDiagonal unitary entangling gates and contradiagonal quantum states\u003c/a\u003e, arXiv preprint arXiv:1407.1169 [quant-ph], 2014.",
+				"Jeffrey B. Remmel, \u003ca href=\"http://www.combinatorics.org/ojs/index.php/eljc/article/view/v21i3p2/0\"\u003eConsecutive Up-down Patterns in Up-down Permutations\u003c/a\u003e, Electron. J. Combin., 21 (2014), #P3.2. See pp. 21-22. - _N. J. A. Sloane_, Jul 12 2014"
+			],
+			"formula": [
+				"G.f.: 1/x*(1-sqrt(1-4*x-4*x*y))/(1+2*y+sqrt(1-4*x-4*x*y)). - _Vladimir Kruchinin_, Sep 04 2018",
+				"T(n,k) = 2*binomial(2*n+1,n)*(n-k+1)*binomial(n+1,k)/((k+n+1)*(k+n+2)). - _Peter Luschny_, Sep 04 2018"
+			],
+			"example": [
+				"Triangle begins:",
+				"     1,",
+				"     2,    1,",
+				"     5,    6,     2,",
+				"    14,   28,    20,     5,",
+				"    42,  120,   135,    70,    14,",
+				"   132,  495,   770,   616,   252,    42,",
+				"   429, 2002,  4004,  4368,  2730,   924,  132,",
+				"  1430, 8008, 19656, 27300, 23100, 11880, 3432, 429,",
+				"  ..."
+			],
+			"maple": [
+				"T := (n,k) -\u003e 2*binomial(2*n+1,n)*(n-k+1)*binomial(n+1,k)/((k+n+1)*(k+n+2)):",
+				"seq(seq(T(n,k), k=0..n), n=0..8); # _Peter Luschny_, Sep 04 2018"
+			],
+			"mathematica": [
+				"T[n_, k_] := 2 Binomial[2n+1, n] (n-k+1) Binomial[n+1, k]/((k+n+1)(k+n+2));",
+				"Table[T[n, k], {n, 0, 8}, {k, 0, n}] // Flatten (* _Jean-François Alcover_, Sep 19 2018, from Maple *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a234950 n k = sum [a007318 s k * a009766 n s | s \u003c- [k..n]]",
+				"a234950_row n = map (a234950 n) [0..n]",
+				"a234950_tabl = map a234950_row [0..]",
+				"-- _Reinhard Zumkeller_, Jan 12 2014",
+				"(PARI) T(n,k) = sum(s=k, n, binomial(s, k)*binomial(n+s, n)*(n-s+1)/(n+1));",
+				"tabl(nn) = for (n=0, nn, for (k=0, n, print1(T(n,k), \", \")); print();); \\\\ _Michel Marcus_, Sep 06 2015"
+			],
+			"xref": [
+				"A062991 is a signed version. See also A094385 for another version.",
+				"Cf. A009766.",
+				"The two borders give the Catalan numbers A000108.",
+				"Cf. A062992 (row sums).",
+				"The second and third columns give A002694 and A244887."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Jan 11 2014",
+			"references": 6,
+			"revision": 56,
+			"time": "2018-09-19T06:12:06-04:00",
+			"created": "2014-01-11T18:05:13-05:00"
+		},
+		{
+			"number": 235168,
+			"data": "0,1,1,0,1,1,2,0,2,1,1,0,0,1,0,1,1,1,0,1,1,1,1,2,0,1,2,1,2,0,0,2,0,1,2,1,0,2,1,1,2,2,0,2,2,1,3,0,0,3,0,1,3,1,0,3,1,1,3,2,0,3,2,1,4,0,0,4,0,1,4,1,0,4,1,1,4,2,0,4,2,1,1,0,0,0",
+			"name": "Triangle read by rows: row n gives digits of n in primorial base.",
+			"comment": [
+				"T(n,k) = A108731(n,k) for k=0..23; a(n) = A108731(n) for n=0..63), when both tables are seen as flattened lists;",
+				"T T(n,k) \u003c 10 for k = 1..A235224(n) and n \u003c 2100 = 10 * 7#."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A235168/b235168.txt\"\u003eRows n = 0..2500 of triangle, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/Pri#primorialbase\"\u003eIndex entries for sequences related to primorial base\u003c/a\u003e"
+			],
+			"example": [
+				".        n | .. + _*7# + _*5# + _*3# + _*2# + _*1# | row(n)",
+				". ---------+---------------------------------------+---------------------",
+				".       10 | 1*6 + 2*2 + 0*1                       | [1,2,0]",
+				".      100 | 3*30 + 1*6 + 2*2 + 0*1                | [3,1,2,0]",
+				".     1000 | 4*210 + 5*30 + 1*6 + 2*2n + 0*1       | [4,5,1,2,0]",
+				".     2099 | 9*210 + 6*30 + 4*6 + 2*2 + 1*1        | [9,6,4,2,1]",
+				".     2100 | 10*210 + 0*30 + 0*6 + 0*2 + 0*1       | [10,0,0,0,0]",
+				".    10000 | 4*2310 + 3*210 + 4*30 + 1*6 + 2*2     | [4,3,4,1,2,0]",
+				".   100000 | 3*30030+4*2310+3*210+1*30+1*6+2*2+0*1 | [3,4,3,1,1,2,0]",
+				".  1000000 |                                       | [1,16,3,9,6,1,2,0]",
+				". 10000000 |                                       | [1,0,10,0,0,0,1,2,0]",
+				".  1000000 = 1*510510+16*30030+3*2310+9*210+6*30+1*6+2*2+0*1",
+				". 10000000 = 1*9699690+0*510510+10*30030+0*2310+0*210+0*30+1*6+2*2+0*1 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a235168 n k = a235168_row n !! k",
+				"a235168_row 0 = [0]",
+				"a235168_row n = t n $ reverse $ takeWhile (\u003c= n) a002110_list",
+				"   where t 0 []     = []",
+				"         t x (b:bs) = x' : t m bs where (x', m) = divMod x b",
+				"a235168_tabf = map a235168_row [0..]"
+			],
+			"xref": [
+				"Cf. A235224 (row lengths), A049345, A002110, A108731."
+			],
+			"keyword": "nonn,tabf,base,look",
+			"offset": "0,7",
+			"author": "_Reinhard Zumkeller_, Jan 05 2014",
+			"references": 6,
+			"revision": 12,
+			"time": "2016-08-26T16:47:10-04:00",
+			"created": "2014-01-05T11:48:40-05:00"
+		},
+		{
+			"number": 238056,
+			"data": "23,37,53,73,113,137,173,193,197,211,223,229,233,241,271,283,293,311,331,337,347,353,359,367,379,383,389,397,433,523,541,547,571,593,613,617,673,677,719,733,743,761,773,977,1013,1033,1093,1097,1117,1123,1129",
+			"name": "Primes which are the concatenation of two primes in exactly one way.",
+			"comment": [
+				"This is not a duplicate of A129800, which accepts \"07\" for example as the second prime."
+			],
+			"link": [
+				"Giovanni Resta, \u003ca href=\"/A238056/b238056.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e"
+			],
+			"example": [
+				"113 is in the sequence because 11 and 3 are both primes, but 1 and 13 are not both primes, so there is one way."
+			],
+			"mathematica": [
+				"spl[n_] := Block[{d = IntegerDigits@n, c = 0, z}, z = Length@d; Do[If[PrimeQ@ FromDigits@ Take[d, k] \u0026\u0026 d[[k + 1]] \u003e 0 \u0026\u0026 PrimeQ@ FromDigits@ Take[d, k - z], c++], {k, z - 1}]; c]; Select[ Prime@ Range@ 300, spl[#] == 1 \u0026] (* _Giovanni Resta_, Feb 27 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a238056 n = a238056_list !! (n-1)",
+				"a238056_list = filter ((== 1) . length . f) a000040_list where",
+				"  f x = filter (\\(us, vs) -\u003e",
+				"               head vs /= '0' \u0026\u0026",
+				"               a010051' (read us :: Integer) == 1 \u0026\u0026",
+				"               a010051' (read vs :: Integer) == 1) $",
+				"               map (flip splitAt $ show x) [1 .. length (show x) - 1]",
+				"-- _Reinhard Zumkeller_, Feb 27 2014"
+			],
+			"xref": [
+				"Cf. A105184, A238057, A129800.",
+				"Cf. A010051, A000040."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Colin Barker_, Feb 17 2014",
+			"references": 6,
+			"revision": 16,
+			"time": "2014-02-27T10:56:00-05:00",
+			"created": "2014-02-27T08:20:29-05:00"
+		},
+		{
+			"number": 239508,
+			"data": "1,1,1,1,1,1,2,2,2,2,3,3,4,4,5,6,7,7,8,8,10,12,14,14,16,17,20,22,25,26,31,33,37,40,45,49,57,60,66,71,80,86,98,104,115,125,138,147,164,175,193,209,230,244,269,289,318,343,374,398,437,468,510,548",
+			"name": "Number of partitions of n into nonprime squarefree numbers, cf. A000469.",
+			"example": [
+				"a(10) = #{10, 6+1+1+1+1, 10x1} = 3;",
+				"a(11) = #{10+1, 6+1+1+1+1+1, 11x1} = 3;",
+				"a(12) = #{10+1+1, 6+6, 6+6x1, 12x1} = 4;",
+				"a(13) = #{10+1+1+1, 6+6+1, 6+7x1, 13x1} = 4;",
+				"a(14) = #{14, 10+1+1+1+1, 6+6+1+1, 6+8x1, 14x1} = 5;",
+				"a(15) = #{15, 14+1, 10+5x1, 6+6+1+1+1, 6+9x1, 15x1} = 6;",
+				"a(16) = #{15+1, 14+1+1, 10+6, 10+6x1, 6+6+4x1, 6+10x1, 16x1} = 7."
+			],
+			"program": [
+				"(Haskell)",
+				"a239508 = p a000469_list where",
+				"   p _          0 = 1",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A239509, A073576."
+			],
+			"keyword": "nonn",
+			"offset": "0,7",
+			"author": "_Reinhard Zumkeller_, Mar 21 2014",
+			"references": 6,
+			"revision": 3,
+			"time": "2014-03-21T08:59:53-04:00",
+			"created": "2014-03-21T08:59:53-04:00"
+		},
+		{
+			"number": 240162,
+			"data": "0,1,0,3,2,3,6,3,0,7,9,3,1,13,12,11,7,9,18,7,6,9,18,3,12,1,0,27,10,27,23,27,9,7,27,27,36,37,27,27,27,27,2,31,27,41,6,27,6,37,24,27,50,27,42,27,18,39,49,27,52,23,27,59,27,9,52,7,18,27,49,27",
+			"name": "Tower of 3's modulo n.",
+			"comment": [
+				"a(n) = (3^(3^(3^(3^(3^ ... ))))) mod n, provided sufficient 3's are in the tower such that adding more doesn't affect the value of a(n).",
+				"For values of n significantly less than Graham's Number, a(n) is equal to Graham's Number mod n."
+			],
+			"link": [
+				"Wayne VanWeerthuizen, \u003ca href=\"/A240162/b240162.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 3^a(A000010(n)) mod n. - _Robert Israel_, Aug 01 2014"
+			],
+			"example": [
+				"a(7) = 6. For any natural number X, 3^X is a positive odd multiple of 3. 3^(any positive odd multiple of three) mod 7 is always 6.",
+				"a(9) = 0, since 3^(3^X) is divisible by 9 for any natural number X. In our case, X itself is a tower of 3's.",
+				"a(100000000) = 64195387, giving the rightmost eight digits of Graham's Number."
+			],
+			"maple": [
+				"A:= proc(n) option remember; 3 \u0026^ A(numtheory:-phi(n)) mod n end proc:",
+				"A(2):= 1;",
+				"seq(A(n), n=2..100); # _Robert Israel_, Aug 01 2014"
+			],
+			"mathematica": [
+				"a[1] = 0; a[n_] := a[n] = PowerMod[3, a[EulerPhi[n]], n]; Array[a, 72] (* _Jean-François Alcover_, Feb 09 2018 *)"
+			],
+			"program": [
+				"(Sage)",
+				"def A(n):",
+				"    if ( n \u003c= 10 ):",
+				"        return 27%n",
+				"    else:",
+				"        return power_mod(3,A(euler_phi(n)),n)",
+				"(Haskell)",
+				"import Math.NumberTheory.Moduli (powerMod)",
+				"a245972 n = powerMod 3 (a245972 $ a000010 n) n",
+				"-- _Reinhard Zumkeller_, Feb 01 2015"
+			],
+			"xref": [
+				"Cf. A245970, A245971, A245972, A245973, A245974.",
+				"Cf. A000010, A000244."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,4",
+			"author": "_Wayne VanWeerthuizen_, Aug 01 2014",
+			"references": 6,
+			"revision": 53,
+			"time": "2018-02-09T11:10:53-05:00",
+			"created": "2014-08-21T17:50:48-04:00"
+		},
+		{
+			"number": 240694,
+			"data": "1,1,2,1,3,1,2,8,1,5,1,2,6,36,1,7,1,2,8,64,1,3,27,1,2,10,100,1,11,1,2,6,24,144,1728,1,13,1,2,14,196,1,3,15,225,1,2,8,64,1024,1,17,1,2,6,36,324,5832,1,19,1,2,8,40,400,8000,1,3,21,441,1,2",
+			"name": "Partial products of divisors of n, cf. A027750.",
+			"comment": [
+				"T(n,1) = 1;",
+				"T(n,2) = A020639(n), n \u003e 1;",
+				"T(n,A000005(n)) = A007955(n);",
+				"T(n,A000005(n)-1) = A007956(n), n \u003e 1.",
+				"Triangle read by rows in which row n lists the partial products of divisors of n. - _Omar E. Pol_, Apr 12 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A240694/b240694.txt\"\u003eRows n = 1..1000 of table, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,1) = 1, T(n,k) = T(n,k-1) * A027750(n,k), 1 \u003c k \u003c= n."
+			],
+			"example": [
+				".    n |  n-th row of A240694     |  n-th row of A027750",
+				".  ----+--------------------------+---------------------",
+				".    1 |  1                       |  1",
+				".    2 |  1, 2                    |  1, 2",
+				".    3 |  1, 3                    |  1, 3",
+				".    4 |  1, 2, 8                 |  1, 2, 4",
+				".    5 |  1, 5                    |  1, 5",
+				".    6 |  1, 2, 6, 36             |  1, 2, 3, 6",
+				".    7 |  1, 7                    |  1, 7",
+				".    8 |  1, 2, 8, 64             |  1, 2, 4, 8",
+				".    9 |  1, 3, 27                |  1, 3, 9",
+				".   10 |  1, 2, 10, 100           |  1, 2, 5, 10",
+				".   11 |  1, 11                   |  1, 11",
+				".   12 |  1, 2, 6, 24, 144, 1728  |  1, 2, 3, 4, 6, 12",
+				".   13 |  1, 13                   |  1, 13 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a240694 n k = a240694_tabf !! (n-1) !! (k-1)",
+				"a240694_row n = a240694_tabf !! (n-1)",
+				"a240694_tabf = map (scanl1 (*)) a027750_tabf"
+			],
+			"xref": [
+				"Cf. A000005 (row lengths), A240698."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Apr 10 2014",
+			"references": 6,
+			"revision": 7,
+			"time": "2014-04-17T10:57:44-04:00",
+			"created": "2014-04-11T01:17:43-04:00"
+		},
+		{
+			"number": 242186,
+			"data": "72,100,147,225,456,576,800,1050,1176,1539,1800,1944,2028,2645,2646,2695,2700,3025,3087,3275,3648,3844,3969,4335,4356,4500,4608,4950,5412,6000,6075,6400,7260,7623,8225,8400,8405,8450,8664,8820,9000,9408,9828,10108",
+			"name": "Positive integers, c, such that there is more than one solution to the equation a^2 + b^3 = c^4, with a, b \u003e 0.",
+			"comment": [
+				"225, 1050, 1176, 2028, 3025, 6075, 7260, 8400, 8450, 8820, 9408, 10890, 12312, 18375, 19494, 21160, 24696, 26775, 28125, 28350, 31752, 31974, 34300, 39600, 43245, 44100, 49923, 53361, 54756, 58080, 64980, 67200, 71415, 75264, 87120, 98496, 131250, 139425, 144150, 145656, 159048, 164025, ... have three solutions;",
+				"1800, 11025, 14400, 16224, 38025, 48600, 61347, 67600, 70560, 81675, 88200, 115200, 129792, 147000, 155952, 166419, ... have four solutions;",
+				"24200, 77175, ... have five solutions.",
+				"A242192(a(n)) \u003e 1. - _Reinhard Zumkeller_, May 07 2014"
+			],
+			"link": [
+				"Lars Blomberg, \u003ca href=\"/A242186/b242186.txt\"\u003eTable of n, a(n) for n = 1..202\u003c/a\u003e"
+			],
+			"example": [
+				"72 is in the sequence since 72^4 = 1728^2 + 288^3 = 4941^2 + 135^3."
+			],
+			"mathematica": [
+				"f[n_] := f[n] = Module[{a}, Array[(a = Sqrt[n^4 - #^3]; If[ IntegerQ@ a \u0026\u0026 a \u003e 0, {a, #}, Sequence @@ {}]) \u0026, Floor[n^(4/3)]]]; Select[ Range@ 10000, f@# \u003e 1 \u0026]"
+			],
+			"program": [
+				"(Haskell)",
+				"a242186 n = a242186_list !! (n-1)",
+				"a242186_list = filter ((\u003e 1) . a242192) [1..]",
+				"-- _Reinhard Zumkeller_, May 07 2014"
+			],
+			"xref": [
+				"Cf. A242183, A242184, A242185."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Lars Blomberg_ and _Robert G. Wilson v_, May 06 2014",
+			"references": 6,
+			"revision": 16,
+			"time": "2014-05-12T12:08:14-04:00",
+			"created": "2014-05-06T19:19:01-04:00"
+		},
+		{
+			"number": 242357,
+			"data": "1,1,2,2,1,1,2,3,3,3,2,1,1,2,3,4,4,4,4,3,2,1,1,2,3,4,5,5,5,5,5,4,3,2,1,1,2,3,4,5,6,6,6,6,6,6,5,4,3,2,1,1,2,3,4,5,6,7,7,7,7,7,7,7,6,5,4,3,2,1,1,2,3,4,5,6,7,8,8,8,8,8,8,8,8,7",
+			"name": "Crescendo trapezoidal.",
+			"comment": [
+				"a(A000326(n)) = a(A143689(n-1)) = 1;",
+				"for all n: a(k) = n, A104249(n-1) \u003c= k \u003c= A005448(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A242357/b242357.txt\"\u003eTable of n, a(n) for n = 1..1001\u003c/a\u003e"
+			],
+			"example": [
+				". Initial values",
+				". seen trapezoidal:                                  666666",
+				".                                    55555          5......5",
+				".                       4444        4.....4        4........4",
+				".             333      3....3      3.......3      3..........3",
+				".      22    2...2    2......2    2.........2    2............2",
+				".  1  1..1  1.....1  1........1  1...........1  1..............1 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits)",
+				"a242357 n = a242357_list !! (n-1)",
+				"a242357_list = concatMap f $ tail $ inits [1..] where",
+				"   f us = (init us) ++ (take v [v, v ..]) ++ vs",
+				"          where (v:vs) = reverse us"
+			],
+			"xref": [
+				"Cf. A004737."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, May 11 2014",
+			"references": 6,
+			"revision": 4,
+			"time": "2014-05-11T16:51:25-04:00",
+			"created": "2014-05-11T16:51:25-04:00"
+		},
+		{
+			"number": 242407,
+			"data": "0,1,2,3,4,6,9,10,11,12,13,18,19,20,27,28,29,30,31,33,36,37,38,39,40,54,55,56,57,58,60,81,82,83,84,85,87,90,91,92,93,94,99,100,101,108,109,110,111,112,114,117,118,119,120,121,162,163,164,165,166,168",
+			"name": "Numbers such that in ternary representation all pairs of adjacent digits have sums not greater than 2.",
+			"comment": [
+				"A242400(a(n)) = 0;",
+				"A242399(a(n)) = 4*a(n);",
+				"numbers m, such that in ternary arithmetic no carry occurs, when 3*m is added to m."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A242407/b242407.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Ternary.html\"\u003eTernary.\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ternary_numeral_system\"\u003eTernary numeral system\u003c/a\u003e"
+			],
+			"example": [
+				"Initial terms and their ternary representations, cf. A007089:",
+				".  0 1 2  3  4  6   9  10  11  12  13  18  19  20   27   28   29   30 ..",
+				".  0 1 2 10 11 20 100 101 102 110 111 200 201 202 1000 1001 1002 1010 .."
+			],
+			"program": [
+				"(Haskell)",
+				"a242407 n = a242407_list !! (n-1)",
+				"a242407_list = filter ((== 0) . a242400) [0..]"
+			],
+			"xref": [
+				"Cf. A242408 (complement), A003714, A039691, A007089."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, May 13 2014",
+			"references": 6,
+			"revision": 7,
+			"time": "2014-07-05T13:08:49-04:00",
+			"created": "2014-07-05T13:08:49-04:00"
+		},
+		{
+			"number": 245093,
+			"data": "1,1,3,1,3,4,1,3,4,7,1,3,4,7,6,1,3,4,7,6,12,1,3,4,7,6,12,8,1,3,4,7,6,12,8,15,1,3,4,7,6,12,8,15,13,1,3,4,7,6,12,8,15,13,18,1,3,4,7,6,12,8,15,13,18,12,1,3,4,7,6,12,8,15,13,18,12,28",
+			"name": "Triangle read by rows in which row n lists the first n terms of A000203.",
+			"comment": [
+				"Reluctant sequence of A000203.",
+				"Row sums give A024916.",
+				"Has a symmetric representation - for more information see A237270."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A245093/b245093.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A000203(k), 1\u003c=k\u003c=n."
+			],
+			"example": [
+				"Triangle begins:",
+				"1;",
+				"1, 3;",
+				"1, 3, 4;",
+				"1, 3, 4, 7;",
+				"1, 3, 4, 7, 6;",
+				"1, 3, 4, 7, 6, 12;",
+				"1, 3, 4, 7, 6, 12, 8;",
+				"1, 3, 4, 7, 6, 12, 8, 15;",
+				"1, 3, 4, 7, 6, 12, 8, 15, 13;",
+				"1, 3, 4, 7, 6, 12, 8, 15, 13, 18;",
+				"1, 3, 4, 7, 6, 12, 8, 15, 13, 18, 12;",
+				"1, 3, 4, 7, 6, 12, 8, 15, 13, 18, 12, 28;"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits)",
+				"a245093 n k = a245093_tabl !! (n-1) !! (k-1)",
+				"a245093_row n = a245093_tabl !! (n-1)",
+				"a245093_tabl = tail $ inits $ a000203_list",
+				"-- _Reinhard Zumkeller_, Dec 12 2015"
+			],
+			"xref": [
+				"Cf. A000203, A024916, A027293, A104765, A140207, A221529, A237270, A237593, A245099, A265652."
+			],
+			"keyword": "nonn,tabl,look",
+			"offset": "1,3",
+			"author": "_Omar E. Pol_, Jul 15 2014",
+			"references": 6,
+			"revision": 18,
+			"time": "2015-12-12T13:18:23-05:00",
+			"created": "2014-07-15T07:18:00-04:00"
+		}
+	]
+}

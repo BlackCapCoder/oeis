@@ -1,0 +1,428 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6450,
+	"results": [
+		{
+			"number": 132080,
+			"data": "2,3,4,5,6,7,8,9,23,27,29,34,37,38,43,46,47,49,53,54,56,57,58,59,67,68,69,73,76,78,79,83,86,87,89,97,223,227,229,233,239,247,249,257,259,263,267,269,277,283,289,293,307,323,329,334,337,347,349,353,356,358,359",
+			"name": "Numbers having in decimal representation no common digits with all their proper divisors.",
+			"comment": [
+				"A038603 is a subsequence."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A132080/b132080.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/ProperDivisor.html\"\u003eProper Divisor\u003c/a\u003e"
+			],
+			"example": [
+				"Proper divisors of a(20)=54: {1, 2, 3, 6, 9, 18, 27}",
+				"with set of digits {1,2,3,6,7,8,9} containing neither 4 nor 5."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersect)",
+				"a132080 n = a132080_list !! (n-1)",
+				"a132080_list = [x | x \u003c- [2..], all null $",
+				"                    map (show x `intersect`) $ map show $ a027751_row x]",
+				"-- _Reinhard Zumkeller_, Oct 06 2012",
+				"(PARI) is(n)=my(D=Set(digits(n))); fordiv(n,d, if(#setintersect(D, Set(digits(d))), return(d==n\u0026\u0026n\u003e1))) \\\\ _Charles R Greathouse IV_, Dec 01 2013"
+			],
+			"xref": [
+				"Subsequence of A052383."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 09 2007",
+			"references": 3,
+			"revision": 10,
+			"time": "2013-12-01T15:42:30-05:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 132090,
+			"data": "0,0,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9",
+			"name": "a(n) = pi(pi(n)), where pi = A000720.",
+			"comment": [
+				"a(n) = a(n-1) + 1 if n is in A006450, otherwise a(n) = a(n-1). - _Robert Israel_, Jan 20 2016"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A132090/b132090.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ n/log^2 n. - _Charles R Greathouse IV_, Aug 12 2014"
+			],
+			"maple": [
+				"map(numtheory:-pi@@2,[$1..100]); # _Robert Israel_, Jan 20 2016"
+			],
+			"mathematica": [
+				"PrimePi@ PrimePi@ Range@ 105 (* _Robert G. Wilson v_, Jan 20 2016 *)"
+			],
+			"program": [
+				"(PARI) a(n)=primepi(primepi(n)) \\\\ _Charles R Greathouse IV_, Aug 12 2014",
+				"(Haskell)",
+				"a132090 = a000720 . a000720  -- _Reinhard Zumkeller_, Jun 23 2015"
+			],
+			"xref": [
+				"Cf. A000720, A006450, A000040, A000720, A137588."
+			],
+			"keyword": "nonn",
+			"offset": "1,5",
+			"author": "_Jonathan Vos Post_, Sep 03 2007",
+			"references": 3,
+			"revision": 20,
+			"time": "2016-01-21T05:28:53-05:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 132157,
+			"data": "4,1,1,1,2,2,1,2,2,1,3,2,1,2,2,1,3,2,1,2,2,3,2,1,2,2,2,1,3,2,1,2,2,3,2,1,2,2,2,1,3,2,2,3,2,1,2,2,2,1,3,2,2,1,2,2,2,3,2,1,2,2,2,1,3,2,2,3,2,1,2,2,2,1,3,2,2,1,2,2,2,3,2,1,3,2,2,3,2,1,2,2,2,1,3,2,2,1,2",
+			"name": "a(n) = number of times n occurs in A063882.",
+			"comment": [
+				"a(A202016(n)) = 1. [_Reinhard Zumkeller_, Dec 08 2011]"
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A132157/b132157.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e [Taken from the Balamohan et al. reference]",
+				"B. Balamohan, A. Kuznetsov and S. Tanny, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL10/Tanny/tanny3.html\"\u003eOn the behavior of a variant of Hofstadter's Q-sequence\u003c/a\u003e, J. Integer Sequences, Vol. 10 (2007), #07.7.1.",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a132157 n = a132157_list !! (n-1)",
+				"a132157_list = (map length) (group a063882_list)",
+				"-- _Reinhard Zumkeller_, Dec 08 2011"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Nov 06 2007",
+			"references": 3,
+			"revision": 16,
+			"time": "2015-05-25T03:58:51-04:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 132171,
+			"data": "1,3,3,3,9,9,9,9,9,9,9,9,9,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81",
+			"name": "3^n repeated 3^n times.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A132171/b132171.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"From _Robert Israel_, Feb 24 2017: (Start)",
+				"a(n) = 3^floor(log_3(2n+1)).",
+				"a(3*n+1)=a(3*n+2)=a(3*n+3)=3*a(n).",
+				"G.f.: (1-x)^(-1)*Sum_{m\u003e=1} (3^m-3^(m-1))*x^((3^m-1)/2).",
+				"(End)"
+			],
+			"maple": [
+				"seq((3^n)$(3^n),n=0..5); # _Robert Israel_, Feb 24 2017"
+			],
+			"mathematica": [
+				"Table[ConstantArray[3^n, 3^n], {n, 0, 4}] // Flatten (* or *)",
+				"Table[3^Floor@ Log[3, 2 n + 1], {n, 0, 81}] (* _Michael De Vlieger_, Feb 24 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a132171 n = genericIndex a132171_list n",
+				"a132171_list = 1 : zs where",
+				"   zs = 3 : 3 : 3 : (map (* 3) $ concat $ transpose [zs, zs, zs])",
+				"-- _Reinhard Zumkeller_, Sep 01 2015"
+			],
+			"xref": [
+				"Cf. A053644, A132162.",
+				"Cf. A064235, A000244."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Paul Curtz_, Nov 04 2007",
+			"references": 3,
+			"revision": 12,
+			"time": "2017-02-24T17:55:32-05:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 132213,
+			"data": "0,0,0,0,0,1,1,0,1,1,2,0,1,3,0,0,2,2,4,1,1,3,3,0,2,4,3,0,4,1,4,1,2,4,2,1,3,6,2,0,5,2,6,2,2,7,5,0,6,5,3,3,8,6,3,0,3,6,8,0,6,8,3,2,2,3,7,3,3,2,7,0,9,10,3,4,6,4,9,1,10,10,11,1,2,13,3,0,10,4,5,4,4,13,4,1,11,10,4,4",
+			"name": "Number of distinct primes among the squares mod n.",
+			"comment": [
+				"It appears that a(n)=0 for only the 30 numbers in A065428, which appears to be related to idoneal numbers, A000926. The graph shows a(n) can be quite small even for large n. For example, a(9240)=7. Observe that the graph up to n=10000 appears to have 5 components. Why?",
+				"The logarithmic plot of the first 10^6 terms shows seven components.",
+				"From _Rémy Sigrist_, Nov 28 2017: (Start)",
+				"Empirically, in the logarithmic plot of the sequence:",
+				"- the set of indices of the first component (starting from the top), say S_1, is the union of A061345 and of A278568,",
+				"- the set of indices of the n-th component (for n \u003e 1), say S_n, contains the numbers k not in a previous component and such that (omega(k) = n-1) or (omega(k) = n and val(k) = 0 or 2) or (omega(k) = n+1 and val(k) = 1) (where omega(k) = A001221(k) and val(k) = A007814(k)),",
+				"- see logarithmic scatterplot colored according to this scheme in Links section.",
+				"(End)"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A132213/b132213.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"T. D. Noe, \u003ca href=\"http://www.sspectra.com/math/A132213.gif\"\u003eLogarithmic plot of 10^6 terms\u003c/a\u003e",
+				"Rémy Sigrist, \u003ca href=\"/A132213/a132213.png\"\u003eColored logarithmic plot of 2*10^6 terms\u003c/a\u003e"
+			],
+			"example": [
+				"For n=14, the squares (mod n) repeat 0,1,4,9,2,11,8,7,8,11,2,9,4,1,0,..., a sequence containing three distinct primes: 2, 7 and 11. Hence a(14)=3."
+			],
+			"mathematica": [
+				"Table[s=Union[Mod[Range[n]^2,n]]; Length[Select[s,PrimeQ]], {n,10000}]",
+				"Table[Count[Union[PowerMod[Range[n],2,n]],_?PrimeQ],{n,100}] (* _Harvey P. Dale_, Mar 02 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (nub, genericTake)",
+				"a132213 n = sum $ map a010051' $",
+				"            nub $ genericTake n $ map (`mod` n) $ tail a000290_list",
+				"-- _Reinhard Zumkeller_, Jun 23 2015, Oct 15 2011"
+			],
+			"xref": [
+				"Cf. A000224 (number of squares mod n).",
+				"Cf. A000290, A001221, A007814, A010051, A061345, A278568."
+			],
+			"keyword": "nice,nonn,look",
+			"offset": "1,11",
+			"author": "_T. D. Noe_, Aug 13 2007, Aug 17 2007",
+			"references": 3,
+			"revision": 21,
+			"time": "2018-03-02T17:16:50-05:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 132223,
+			"data": "1,2,1,4,2,3,1,8,4,7,2,6,3,5,1,16,8,15,4,14,7,13,2,12,6,11,3,10,5,9,1,32,16,31,8,30,15,29,4,28,14,27,7,26,13,25,2,24,12,23,6,22,11,21,3,20,10,19,5,18,9,17",
+			"name": "A dense infinitive sequence.",
+			"comment": [
+				"The sequence is dense in the sense that any two neighboring terms in a segment are separated in all succeeding segments. Thus in the limiting para-sequence, each pair of positive integers are separated by infinitely many positive integers.",
+				"A sequence is an infinitive sequence if and only if it is a sequence that contains every positive integer and also contains itself as a proper subsequence.",
+				"See A132224 for the normalization of A132223, making A132224 a fractal sequence."
+			],
+			"reference": [
+				"C. Kimberling, Proper self-containing sequences, fractal sequences and para-sequences, preprint, 2007."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A132223/b132223.txt\"\u003eTable of n, a(n) for n = 1..8190\u003c/a\u003e (12 segments)",
+				"Clark Kimberling, \u003ca href=\"/A131987/a131987.pdf\"\u003eProper self-containing sequences, fractal sequences and para-sequences\u003c/a\u003e, unpublished manuscript, 2007, cached copy, with permission."
+			],
+			"formula": [
+				"Start with 1,2. Separate them by 3,4, like this: 1,4,2,3. Then separate those by 5,6,7,8 like this: 1,8,4,7,2,6,3,5. Continue the process. Regard 1,2 and 1,4,2,3 and 1,8,4,7,2,6,3,5 as successive segments, so that the n-th segment has 2^n terms."
+			],
+			"example": [
+				"The next segment after 1,8,4,7,2,6,3,5, formed by separating those by 9,10,11,12,13,14,15,16, is 1,16,8,15,4,14,7,13,2,12,6,11,3,10,5,9."
+			],
+			"maple": [
+				"A132223 := proc(n,k)",
+				"    option remember ;",
+				"    if n = 1 then",
+				"        return k;",
+				"    else",
+				"        if type(k,'odd') then",
+				"            return procname(n-1,(k+1)/2) ;",
+				"        else",
+				"            return 2^n-k/2+1 ;",
+				"        end if;",
+				"    end if;",
+				"end proc:",
+				"seq(seq( A132223(n,k),k=1..2^n),n=1..8) ; # _R. J. Mathar_, May 08 2016"
+			],
+			"mathematica": [
+				"Flatten@FoldList[Riffle[#1, Range[2^#2, 2^(#2 - 1) + 1, -1]] \u0026, {1, 2}, Range[2, 5]] (* _Birkas Gyorgy_, Apr 20 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits)",
+				"a132223 n = a132223_list !! (n-1)",
+				"a132223_list = f 1 [1] where",
+				"   f k xs = ys ++ f (2 * k) ys where",
+				"            ys = concat $ transpose [xs, reverse $ take k [k+1 ..]]",
+				"-- _Reinhard Zumkeller_, Apr 14 2014"
+			],
+			"xref": [
+				"Cf. A132224."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, Aug 14 2007",
+			"references": 3,
+			"revision": 17,
+			"time": "2016-05-08T09:13:06-04:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 132240,
+			"data": "29,31,59,61,89,149,151,179,181,211,239,241,269,271,331,359,389,419,421,449,479,509,541,569,571,599,601,631,659,661,691,719,751,809,811,839,929,991,1019,1021,1049,1051,1109,1171,1201,1229,1231",
+			"name": "Primes congruent to {1, 29} mod 30.",
+			"comment": [
+				"For every prime p here, the cyclotomic polynomial Phi(15p,x) is flat.",
+				"Primes in A175887. [_Reinhard Zumkeller_, Jan 07 2012]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A132240/b132240.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"C. K. Caldwell, \u003ca href=\"http://primes.utm.edu\"\u003eThe Prime Pages\u003c/a\u003e.",
+				"Omar E. Pol, \u003ca href=\"http://www.polprimos.com\"\u003eDeterminacion geometrica de los numeros primos y perfectos\u003c/a\u003e."
+			],
+			"mathematica": [
+				"Select[Prime[Range[1000]],MemberQ[{1,29},Mod[#,30]]\u0026] (* _Vincenzo Librandi_, Aug 14 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a132240 n = a132240_list !! (n-1)",
+				"a132240_list = [x | x \u003c- a175887_list, a010051 x == 1]",
+				"-- _Reinhard Zumkeller_, Jan 07 2012",
+				"(MAGMA) [ p: p in PrimesUpTo(1300) | p mod 30 in {1, 29} ]; // _Vincenzo Librandi_, Aug 14 2012"
+			],
+			"xref": [
+				"Cf. A000040, A001097, A001359, A006512, A039949, A057204, A068228, A087715, A129805, A117223, A010051."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Omar E. Pol_, Aug 15 2007",
+			"references": 3,
+			"revision": 17,
+			"time": "2014-03-11T01:34:09-04:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 132442,
+			"data": "1,1,3,1,1,4,1,3,1,7,1,1,1,1,6,1,3,4,3,1,12,1,1,1,1,1,1,8,1,3,1,7,1,3,1,15,1,1,4,1,1,4,1,1,13,1,3,1,3,6,3,1,3,1,18,1,1,1,1,1,1,1,1,1,1,12,1,3,4,7,1,12,1,7,4,3,1,28,1,1,1,1,1,1,1,1,1,1,1,1,14,1,3,1,3,1,3,8,3,1,3,1,3,1,24",
+			"name": "Triangle, n-th row = first n terms of n-th row of an array formed by A051731 * A127093(transform).",
+			"comment": [
+				"Right border = sigma(n), A000203: (1, 3, 4, 7, 6, 12, 8,...). Row sums = A038040: (1, 4, 6, 12, 10, 24, 14,...).",
+				"The function T(n,k) = T(k,n) is defined for k\u003en but only the values of k 1\u003c=k\u003c=n as a triangular array are listed here."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A132442/b132442.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"Given an array formed by A051731 * A127093(transform), extract the first n terms of row n to form the triangle.",
+				"T(n,k) = A000203(GCD(n,k)). - _Reinhard Zumkeller_, Dec 12 2015"
+			],
+			"example": [
+				"First few rows of the array are:",
+				"1, 1, 1, 1, 1, 1, 1,...",
+				"1, 3, 1, 3, 1, 3, 1,...",
+				"1, 1, 4, 1, 1, 4, 1,...",
+				"1, 3, 1, 7, 1, 3, 1,...",
+				"1, 1, 1, 1, 6, 1, 1,...",
+				"1, 3, 4, 3, 1, 12, 1,...",
+				"...",
+				"First few rows of the triangle are:",
+				"1;",
+				"1, 3;",
+				"1, 1, 4;",
+				"1, 3, 1, 7;",
+				"1, 1, 1, 1, 6;",
+				"1, 3, 4, 3, 1, 12;",
+				"1, 1, 1, 1, 1, 1, 8;",
+				"1, 3, 1, 7, 1, 3, 1, 15;",
+				"..."
+			],
+			"mathematica": [
+				"T[ n_, k_] := If[ n \u003c 1 || k \u003c 1, 0, If[ k \u003e n, T[ k, n], If[ k == 1, 1, If[ n \u003e k, T[ k, Mod[ n, k, 1]],  DivisorSigma [1, n]]]]] (* _Michael Somos_, Jul 18 2011 *)"
+			],
+			"program": [
+				"(PARI) {T(n, k) = if( n\u003c1 || k\u003c1, 0, if( k\u003en, T(k, n), if( k==1, 1, if( n\u003ek, T(k, (n-1)%k+1), sigma( n)))))} /* _Michael Somos_, Jul 18 2011 */",
+				"(Haskell)",
+				"a132442 n k = a132442_tabl !! (n-1) !! (k-1)",
+				"a132442_row n = a132442_tabl !! (n-1)",
+				"a132442_tabl = map (map a000203) a050873_tabl",
+				"-- _Reinhard Zumkeller_, Dec 12 2015"
+			],
+			"xref": [
+				"Cf. A051731, A127093, A038040, A000203.",
+				"Cf. A050873."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,3",
+			"author": "_Gary W. Adamson_, Nov 14 2007",
+			"ext": [
+				"Missing T(10,9) = 1 inserted by _Reinhard Zumkeller_, Dec 12 2015"
+			],
+			"references": 3,
+			"revision": 14,
+			"time": "2015-12-12T11:36:21-05:00",
+			"created": "2007-12-09T03:00:00-05:00"
+		},
+		{
+			"number": 133809,
+			"data": "1,2,4,8,16,18,32,54,64,108,128,162,256,324,486,512,648,972,1024,1458,1944,2048,2250,2916,3888,4096,4374,5832,8192,8748,11250,11664,13122,16384,17496,23328,26244,32768,33750,34992,39366,52488,56250,65536",
+			"name": "Numbers that are primally tight, have 2 as first prime and strictly ascending powers.",
+			"comment": [
+				"All numbers of the form 2^k1*p_2^k2*...*p_n^k_n, where k1 \u003c k2 \u003c ... \u003c k_n and the p_i are the n first primes.",
+				"Subset of A073491, A133811 and A133808."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A133809/b133809.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"36 = 2^2*3^2 with both exponents being equal is not in the sequence."
+			],
+			"program": [
+				"(PARI) isok(n) = {my(f = factor(n)); my(nbf = #f~); if (prod(i=1, nbf, prime(i)) ! = prod(i=1, nbf, f[i, 1]), return (0)); for (j=2, nbf, if (f[j,2] \u003c= f[j-1,2], return (0));); return (1);} \\\\ _Michel Marcus_, Jun 04 2014",
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a133809 n = a133809_list !! (n-1)",
+				"a133809_list = 1 : f (singleton (2, 2, 1)) where",
+				"   f s = y : f (insert (y*p, p, e+1) $ insert (y*q^(e+1), q, e+1) s')",
+				"             where q = a151800 p",
+				"                   ((y, p, e), s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Apr 14 2015"
+			],
+			"xref": [
+				"Cf. A025487, A087980, A073491, A133808-A133813.",
+				"Cf. A027748, A124010, A151800, A000040, A145108 (subsequence)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Olivier Gérard_, Sep 23 2007",
+			"references": 3,
+			"revision": 10,
+			"time": "2015-04-14T11:40:38-04:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 133820,
+			"data": "1,1,8,1,8,27,1,8,27,64,1,8,27,64,125,1,8,27,64,125,216,1,8,27,64,125,216,343,1,8,27,64,125,216,343,512,1,8,27,64,125,216,343,512,729,1,8,27,64,125,216,343,512,729,1000",
+			"name": "Triangle whose rows are sequences of increasing cubes: 1; 1,8; 1,8,27; ... .",
+			"comment": [
+				"Reading the triangle by rows produces the sequence 1,1,8,1,8,27,1,8,27,64,..., analogous to A002260."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A133820/b133820.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"O.g.f.: (1+4qx+q^2x^2)/((1-x)(1-qx)^4) = 1 + x(1 + 8q) + x^2(1 + 8q + 27q^2) + ... ."
+			],
+			"example": [
+				"Triangle starts",
+				"1;",
+				"1, 8;",
+				"1, 8, 27;",
+				"1, 8, 27, 64;",
+				"1, 8, 27, 64, 125;"
+			],
+			"mathematica": [
+				"Module[{nn=10,c},c=Range[nn]^3;Flatten[Table[Take[c,n],{n,10}]]] (* _Harvey P. Dale_, Mar 05 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a133820 n k = a133820_tabl !! (n-1) !! (k-1)",
+				"a133820_row n = a133820_tabl !! (n-1)",
+				"a133820_tabl = map (`take` (tail a000578_list)) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 11 2012"
+			],
+			"xref": [
+				"Cf. A000537 (row sums), A002260, A019522, A133819, A133821, A133823."
+			],
+			"keyword": "easy,nonn,tabl",
+			"offset": "1,3",
+			"author": "_Peter Bala_, Sep 25 2007",
+			"ext": [
+				"Offset changed by _Reinhard Zumkeller_, Nov 11 2012"
+			],
+			"references": 3,
+			"revision": 11,
+			"time": "2014-03-05T15:30:51-05:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		}
+	]
+}

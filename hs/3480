@@ -1,0 +1,425 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3480,
+	"results": [
+		{
+			"number": 58698,
+			"data": "2,3,7,15,56,101,297,490,1255,4565,6842,21637,44583,63261,124754,329931,831820,1121505,2679689,4697205,6185689,13848650,23338469,49995925,133230930,214481126,271248950,431149389,541946240,851376628",
+			"name": "p(P(n)), P = primes (A000040), p = partition numbers (A000041).",
+			"comment": [
+				"Number of partitions of n-th prime. - _Omar E. Pol_, Aug 05 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A058698/b058698.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000041(A000040(n)). - _Omar E. Pol_, Aug 05 2011"
+			],
+			"example": [
+				"a(2) = 3 because the second prime is 3 and there are three partitions of 3: {1, 1, 1}, {1, 2}, {3}."
+			],
+			"mathematica": [
+				"Table[PartitionsP[Prime[n]], {n, 30}] (* _Vladimir Joseph Stephan Orlovsky_, Dec 05 2008 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.MemoCombinators (memo2, integral)",
+				"a058698 n = a058698_list !! (n-1)",
+				"a058698_list = map (pMemo 1) a000040_list where",
+				"   pMemo = memo2 integral integral p",
+				"   p _ 0 = 1",
+				"   p k m | m \u003c k     = 0",
+				"         | otherwise = pMemo k (m - k) + pMemo (k + 1) m",
+				"-- _Reinhard Zumkeller_, Aug 09 2015"
+			],
+			"xref": [
+				"Cf. A058697.",
+				"Cf. A000040, A000041, A260798."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Dec 31 2000",
+			"references": 8,
+			"revision": 21,
+			"time": "2015-08-09T08:12:52-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 58922,
+			"data": "0,4,16,48,128,320,768,1792,4096,9216,20480,45056,98304,212992,458752,983040,2097152,4456448,9437184,19922944,41943040,88080384,184549376,385875968,805306368,1677721600,3489660928,7247757312",
+			"name": "a(n) = n*2^n - 2^n.",
+			"comment": [
+				"A hierarchical sequence (S(W'2{2}*c) - see A059126).",
+				"a(n) = -det(M(n+1)) where M(n) is the n X n matrix with m(i,i)=1, m(i,j)=-i/j for i != j. - _Benoit Cloitre_, Feb 01 2003"
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A058922/b058922.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"J. Wallgren, \u003ca href=\"/A059126/a059126.txt\"\u003eHierarchical sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4, -4)."
+			],
+			"formula": [
+				"With offset 0, this is 4n*2^(n-1), the binomial transform of 4n. - _Paul Barry_, May 20 2003",
+				"a(1)=0, a(n) = 2*a(n-1) + 2^n for n\u003e1. - _Philippe Deléham_, Apr 20 2009",
+				"a(n) = A000337(n) - 1. - _Omar E. Pol_, Feb 22 2010",
+				"From _R. J. Mathar_, Mar 01 2010: (Start)",
+				"a(n)= 4*a(n-1) - 4*a(n-2).",
+				"G.f.: 4*x^2/(2*x-1)^2. (End)"
+			],
+			"mathematica": [
+				"Table[n*2^n-2^n,{n,100}] (* _Vladimir Joseph Stephan Orlovsky_, Jan 15 2011 *)"
+			],
+			"program": [
+				"(PARI) { for (n = 1, 200, write(\"b058922.txt\", n, \" \", n*2^n - 2^n); ) } \\\\ _Harry J. Smith_, Jun 24 2009",
+				"(Haskell)",
+				"a058922 n = (n - 1) * 2 ^ n",
+				"a058922_list = zipWith (*) [0..] $ tail a000079_list",
+				"-- _Reinhard Zumkeller_, Jul 11 2014"
+			],
+			"xref": [
+				"A001787(n) = a(n+1)/4. A073346(n, n-2) = a(n-2).",
+				"Cf. A000337. - _Omar E. Pol_, Feb 22 2010"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Jan 12 2001",
+			"references": 8,
+			"revision": 32,
+			"time": "2017-09-30T08:23:04-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 58972,
+			"data": "3,9,15,24,25,29,33,35,50,51,55,57,59,63,73,79,80,81,85,87,89,90,95,99,105,119,120,121,128,131,139,143,145,169,177,179,181,183,193,195,201,203,204,211,215,217,218,219,221,225,227,233,247,248,255,273,275,288",
+			"name": "For a rational number p/q let f(p/q) = sum of aliquot divisors of p+q divided by number of divisors of p+q; sequence gives numbers n such that, starting at n/1 and iterating f, an integer is eventually reached.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A058972/b058972.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"P. Schogt, \u003ca href=\"http://arxiv.org/abs/1211.6583\"\u003eThe Wild Number Problem: math or fiction?\u003c/a\u003e, arXiv preprint arXiv:1211.6583, 2012. - From _N. J. A. Sloane_, Jan 03 2013"
+			],
+			"example": [
+				"f(9/1) = 8/4 = 2, an integer, so 9 is in the sequence; f(10/1) = 1/2 and f(1/2)=1/2, so 10 is not in the sequence."
+			],
+			"mathematica": [
+				"f[r_] := If[init == False \u0026\u0026 IntegerQ[r], r, init = False; p = Numerator[r]; q = Denominator[r]; d = Most[Divisors[p+q]]; Total[d]/(Length[d]+1)]; ok[n_] := IntegerQ[ init = True; FixedPoint[f, n/1]]; ok[1] = False; A058972 = Select[ Range[300], ok] (* _Jean-François Alcover_, Dec 21 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"a058972 n = a058972_list !! (n-1)",
+				"a058972_list = map numerator $ filter ((f [])) [1..] where",
+				"   f ys q = denominator y == 1 || not (y `elem` ys) \u0026\u0026 f (y : ys) y",
+				"            where y = a001065 q' % a000005 q'",
+				"                  q' = numerator q + denominator q",
+				"-- _Reinhard Zumkeller_, Jun 15 2013"
+			],
+			"xref": [
+				"Cf. A058971, A058973.",
+				"Cf. A001065, A000005."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Jan 14 2001",
+			"ext": [
+				"Corrected and extended by _Matthew Conroy_, Apr 18 2001"
+			],
+			"references": 8,
+			"revision": 19,
+			"time": "2014-10-02T17:26:25-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 58977,
+			"data": "2,3,2,5,7,7,2,3,3,11,7,13,11,4,2,17,7,19,3,5,4,23,7,5,17,3,11,29,13,31,2,7,5,6,7,37,23,8,3,41,4,43,4,4,3,47,7,7,3,10,17,53,7,8,11,11,7,59,13,61,6,5,2,9,19,67,5,13,17,71,7,73,41,4,23,9,6,79,3,3,4,83,4,11,47",
+			"name": "For a rational number p/q let f(p/q) = sum of distinct prime factors (A008472) of p+q divided by number of distinct prime factors (A001221) of p+q; a(n) is obtained by iterating f, starting at n/1, until an integer is reached, or if no integer is ever reached then a(n) = 0.",
+			"comment": [
+				"A247462 gives number of iterations needed to reach a(n). - _Reinhard Zumkeller_, Sep 17 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A058977/b058977.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"P. Schogt, \u003ca href=\"http://arxiv.org/abs/1211.6583\"\u003eThe Wild Number Problem: math or fiction?\u003c/a\u003e, arXiv preprint arXiv:1211.6583, 2012. - From _N. J. A. Sloane_, Jan 03 2013"
+			],
+			"example": [
+				"f(5/1) = 5/2 and f(5/2) = 7, so a(5)=7."
+			],
+			"mathematica": [
+				"nxt[n_]:=Module[{s=Numerator[n]+Denominator[n]},Total[Transpose[ FactorInteger[ s]][[1]]]/PrimeNu[s]]; Table[NestWhile[nxt,nxt[n],!IntegerQ[#]\u0026],{n,90}] (* _Harvey P. Dale_, Mar 15 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"a058977 = numerator . until ((== 1) . denominator) f . f . fromIntegral",
+				"   where f x = a008472 z % a001221 z",
+				"               where z = numerator x + denominator x",
+				"-- _Reinhard Zumkeller_, Aug 29 2014"
+			],
+			"xref": [
+				"Cf. A058971, A058972.",
+				"Cf. A008472, A001221.",
+				"Cf. A247462, A247468."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Jan 14 2001",
+			"ext": [
+				"More terms from _Matthew Conroy_, Apr 18 2001"
+			],
+			"references": 8,
+			"revision": 15,
+			"time": "2014-10-02T17:17:31-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59010,
+			"data": "1,3,4,7,9,10,12,15,16,19,21,22,25,26,28,31,33,34,36,39,40,43,45,46,48,51,53,54,57,58,60,63,64,67,69,70,73,74,76,79,81,82,84,87,88,91,93,94,97,98,100,103,104,107,109,110,112,115,117,118,121,122,124,127,129,130",
+			"name": "Natural numbers having an even number of nonleading zeros in their binary expansion.",
+			"link": [
+				"Indranil Ghosh, \u003ca href=\"/A059010/b059010.txt\"\u003eTable of n, a(n) for n = 0..25000\u003c/a\u003e (terms 0..1000 from T. D. Noe)",
+				"J.-P. Allouche, J. Shallit and G. Skordev, \u003ca href=\"http://dx.doi.org/10.1016/j.disc.2004.12.004\"\u003eSelf-generating sets, integers with missing blocks and substitutions\u003c/a\u003e, Discrete Math. 292 (2005) 1-15.",
+				"C. Kimberling, \u003ca href=\"http://dx.doi.org/10.1016/S0012-365X(03)00085-2\"\u003eAffinely recursive sets and orderings of languages\u003c/a\u003e, Discrete Math., 274 (2004), 147-160. [From _N. J. A. Sloane_, Jan 31 2012]",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"formula": [
+				"a(0) = 1, a(2n) = -a(n) + 6n + 1, a(2n+1) = a(n) + 2n + 2. a(n) = 2n+1 - 1/2(1-(-1)^A023416(n)) = 2n+1 - A059448(n). - _Ralf Stephan_, Sep 17 2003"
+			],
+			"mathematica": [
+				"Select[Range[130], EvenQ @ DigitCount[#, 2, 0] \u0026] (* _Jean-François Alcover_, Apr 11 2011 *)"
+			],
+			"program": [
+				"(PARI) is(n)=hammingweight(bitneg(n,#binary(n)))%2==0 \\\\ _Charles R Greathouse IV_, Mar 26 2013",
+				"(Haskell)",
+				"a059010 n = a059010_list !! (n-1)",
+				"a059010_list = filter (even . a023416) [1..]",
+				"-- _Reinhard Zumkeller_, Jan 21 2014",
+				"(Python)",
+				"#Program to generate the b-file",
+				"i=1",
+				"j=0",
+				"while j\u003c=25000:",
+				"    if bin(i)[2:].count(\"0\")%2==0:",
+				"        print str(j)+\" \"+str(i)",
+				"        j+=1",
+				"    i+=1 # _Indranil Ghosh_, Feb 03 2017",
+				"(R)",
+				"maxrow \u003c- 4 # by choice",
+				"onezeros \u003c- 1",
+				"for(m in 1:(maxrow+1)){",
+				"  row \u003c- onezeros[2^(m-1):(2^m-1)]",
+				"  onezeros \u003c- c(onezeros, c(1-row, row) )",
+				"}",
+				"a \u003c- which(onezeros == 1)",
+				"a",
+				"# _Yosu Yurramendi_, Mar 28 2017"
+			],
+			"xref": [
+				"Cf. A000069, A001969, A023416, A059009 (complement), A059011, A059012, A059013, A059014, A059448."
+			],
+			"keyword": "nonn,easy,base,nice",
+			"offset": "0,2",
+			"author": "_Patrick De Geest_, Dec 15 2000",
+			"ext": [
+				"Name clarified by _Antti Karttunen_, Mar 28 2017"
+			],
+			"references": 8,
+			"revision": 43,
+			"time": "2017-03-28T14:54:07-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59175,
+			"data": "0,66,66,462,180,66,31395,714,72,9,5,15,3,36,42,39,2,9,45,462,12,12,90,3703207920,1692600,84,234,27,3043425,74613,6,7930296,264,4290,510,315,315,73302369360,1155,3,8,239872017,6,4386,1989,18,17740866,499954980",
+			"name": "For a rational number p/q let f(p/q) = p*q divided by the sum of digits of p and q; a(n) is obtained by iterating f, starting at n/1, until an integer is reached, or if no integer is ever reached then a(n) = 0.",
+			"comment": [
+				"a(A214866(n)) = 0. - _Reinhard Zumkeller_, Mar 11 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059175/b059175.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"P. Schogt, \u003ca href=\"http://arxiv.org/abs/1211.6583\"\u003eThe Wild Number Problem: math or fiction?\u003c/a\u003e, arXiv preprint arXiv:1211.6583, 2012. - From _N. J. A. Sloane_, Jan 03 2013"
+			],
+			"example": [
+				"3/1 -\u003e 3/4 -\u003e 12/7 -\u003e 84/10=42/5 -\u003e 210/11 -\u003e 2310/5 = 462 so a(3)=462.",
+				"84/1 -\u003e 84/13 -\u003e 273/4 -\u003e 273/4 -\u003e ...  so a(84) = 0."
+			],
+			"mathematica": [
+				"f[Rational[p_, q_]] := p*q/(Total[ IntegerDigits[p]] + Total[ IntegerDigits[q]]); f[n_Integer] := n/(1 + Total[ IntegerDigits[n]]); a[n_] := If[ IntegerQ[ r = NestWhile[f, n, Not[#1 == #2 || #1 != #2 \u0026\u0026 IntegerQ[#2]]\u0026, 2]], r, 0]; Table[a[n], {n, 0, 50}] (* _Jean-François Alcover_, Apr 03 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"a059175 n = f [n % 1] where",
+				"   f xs@(x:_) | denominator y == 1 = numerator y",
+				"              | y `elem` xs        = 0",
+				"              | otherwise          = f (y : xs)",
+				"              where y = (numerator x * denominator x) %",
+				"                        (a007953 (numerator x) + a007953 (denominator x))",
+				"-- _Reinhard Zumkeller_, Mar 11 2013"
+			],
+			"xref": [
+				"Cf. A058971.",
+				"Cf. A007953."
+			],
+			"keyword": "base,easy,nonn,nice",
+			"offset": "0,2",
+			"author": "_Floor van Lamoen_, Jan 15 2001",
+			"ext": [
+				"Corrected and extended by _Naohiro Nomoto_, Jul 20 2001"
+			],
+			"references": 8,
+			"revision": 14,
+			"time": "2015-03-03T16:02:10-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59283,
+			"data": "1,0,1,0,2,3,0,2,8,11,0,2,14,36,47,0,2,20,78,172,219,0,2,26,138,424,862,1081,0,2,32,216,856,2314,4476,5557,0,2,38,312,1522,5116,12768,23882,29439,0,2,44,426,2476,9970,30168,71294,130172,159611,0,2,50,558",
+			"name": "Triangle T(n,k) (0\u003c= k \u003c=n) read by rows. Left edge is 1, 0, 0, ... Otherwise each entry is sum of entry to left, entries immediately above it to left and right and entry directly above it 2 rows back.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059283/b059283.txt\"\u003eRows n = 0..120 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(0, 0)=1; T(n, 0)=0, n\u003e0; T(n, k)=T(n, k-1)+T(n-1, k-1)+T(n-1, k)+T(n-2, k-1), n, k\u003e0",
+				"G.f. for T(n, k): ((1+2*w+w^2)*z^2+(-1-2*w-w^2)*z-w*(-3*w^2-6*w+1)^(1/2)+2*w)/(1+w)^2/((1+w)*z^2+(w-1)*z+w) (expand first as series in z, then in w)."
+			],
+			"example": [
+				"1; 0,1; 0,2,3; 0,2,8,11; 0,2,14,36,47; ... [36 = 14 + 8 + 11 + 3 for example]."
+			],
+			"mathematica": [
+				"t[0, 0] = 1; t[_, 0] = 0; t[n_, k_] /; 0 \u003c= k \u003c= n := t[n, k] = t[n, k-1] + t[n-1, k-1] + t[n-1, k] + t[n-2, k-1]; t[_, _] = 0; Table[t[n, k], {n, 0, 10}, {k, 0, n}] // Flatten (* _Jean-François Alcover_, Oct 11 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a059283 n k = a059283_tabl !! n !! k",
+				"a059283_row n = a059283_tabl !! n",
+				"a059283_tabl = [1] : [0,1] : f [1] [0,1] where",
+				"   f us vs = ws : f vs ws where",
+				"     ws = scanl1 (+) $ zipWith (+)",
+				"                       ([0]++us++[0]) $ zipWith (+) ([0]++vs) (vs++[0])",
+				"-- _Reinhard Zumkeller_, Apr 17 2013"
+			],
+			"xref": [
+				"Right edge is A059284. Cf. A059226.",
+				"Cf. A224729 (central terms), A122542."
+			],
+			"keyword": "nonn,tabl,easy,nice",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_, Jan 24 2001",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Jan 25 2001"
+			],
+			"references": 8,
+			"revision": 10,
+			"time": "2013-10-11T04:31:00-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59708,
+			"data": "0,1,2,3,4,5,6,7,8,9,11,13,15,17,19,20,22,24,26,28,31,33,35,37,39,40,42,44,46,48,51,53,55,57,59,60,62,64,66,68,71,73,75,77,79,80,82,84,86,88,91,93,95,97,99,111,113,115,117,119,131,133,135,137,139",
+			"name": "Numbers n such that all digits have same parity.",
+			"comment": [
+				"A059717(a(n)) = a(n). - _Reinhard Zumkeller_, Jul 05 2011",
+				"A059707(a(n)) = a(n). - _Reinhard Zumkeller_, Jun 15 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059708/b059708.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"mathematica": [
+				"Select[Range[0, 140], (cnt = Count[id = IntegerDigits[#], _?OddQ]; cnt == 0 || cnt == Length[id]) \u0026 ] (* _Jean-François Alcover_, May 16 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a059708 n = a059708_list !! (n-1)",
+				"a059708_list = filter sameParity [0..] where",
+				"   sameParity n = all (`elem` \"02468\") ns",
+				"               || all (`elem` \"13579\") ns where ns = show n",
+				"-- _Reinhard Zumkeller_, Jul 05 2011"
+			],
+			"xref": [
+				"Union of A014261 and A014263.",
+				"Cf. A059707, A061383."
+			],
+			"keyword": "nonn,base,easy,look",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, Feb 07 2001",
+			"references": 8,
+			"revision": 22,
+			"time": "2017-02-13T00:25:32-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 60144,
+			"data": "0,0,0,1,1,1,2,2,3,3,3,4,4,4,5,5,6,6,6,7,7,8,8,8,9,9,9,10,10,11,11,11,12,12,12,13,13,14,14,14,15,15,16,16,16,17,17,17,18,18,19,19,19,20,20,21,21,21,22,22,22,23,23,24,24,24,25,25,25,26,26,27,27,27,28,28,29,29",
+			"name": "Floor(n/(1+tau)), or equivalently floor(n/(tau)^2), where tau is the golden ratio (A001622).",
+			"comment": [
+				"a(n+1) = n - A005206(n). - _Reinhard Zumkeller_, Apr 07 2012"
+			],
+			"reference": [
+				"Martin Griffiths, A formula for an infinite family of Fibonacci-word sequences, Fib. Q., 56 (2018), 75-80."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A060144/b060144.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"D. R. Hofstadter, \u003ca href=\"/A006336/a006336_1.pdf\"\u003eEta-Lore\u003c/a\u003e [With permission]",
+				"D. R. Hofstadter, \u003ca href=\"/A006336/a006336_2.pdf\"\u003ePi-Mu Sequences\u003c/a\u003e [With permission]",
+				"D. R. Hofstadter and N. J. A. Sloane, \u003ca href=\"/A006336/a006336.pdf\"\u003eCorrespondence, 1977 and 1991\u003c/a\u003e (On page 4 of DRH letter, v[n] = A006336, a[n] = A060144[n+1]). - _N. J. A. Sloane_, Oct 25 2014"
+			],
+			"formula": [
+				"For n\u003e0, a(n)=n reduced modulo A005206(n). - _Benoit Cloitre_, Jan 01 2003",
+				"Let n' = n-1.  Above formula is better as a(n') = n'-A005206(n'). Also a(n') = A005206(A005206(n'-1)). Also a(n'+1) = n'-a(n')-a(n'-a(n')), with a(0) = 0. - _Frank Ruskey_, Dec 09 2011"
+			],
+			"mathematica": [
+				"Table[Floor[n/GoldenRatio^2], {n, 0, 100}] (* _T. D. Noe_, Dec 10 2011 *)"
+			],
+			"program": [
+				"(PARI) { default(realprecision, 10); f=2/(sqrt(5) + 3); for (n=0, 1000, write(\"b060144.txt\", n, \" \", floor(n*f)); ) } [_Harry J. Smith_, Jul 02 2009]",
+				"(Haskell)",
+				"a060144 n = a060144_list !! n",
+				"a060144_list = 0 : 0 : scanl1 (+) a003849_list",
+				"-- _Reinhard Zumkeller_, Apr 07 2012"
+			],
+			"xref": [
+				"Cf. A001622, A005206, A006336."
+			],
+			"keyword": "nonn",
+			"offset": "0,7",
+			"author": "_Clark Kimberling_, Mar 05 2001",
+			"references": 8,
+			"revision": 36,
+			"time": "2018-03-10T14:17:18-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61426,
+			"data": "2,14,22,41,118,124,142,181,214,222,241,412,421,811,1128,1144,1182,1218,1224,1242,1281,1414,1422,1441,1812,1821,2118,2124,2142,2181,2214,2222,2241,2412,2421,2811,4114,4122,4141,4212,4221,4411,8112,8121,8211",
+			"name": "Geometric mean of the digits = 2. In other words the product of the digits is = 2^k where k is the number of digits.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061426/b061426.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"124 is a term as the geometric mean of digits is (1*2*4) = 8 = 2^3."
+			],
+			"program": [
+				"(Haskell)",
+				"a061426 n = a061426_list !! (n-1)",
+				"a061426_list = g [1] where",
+				"   g ds = if product ds == 2 ^ length ds",
+				"          then foldr (\\d v -\u003e 10 * v + d) 0 ds : g (s ds) else g (s ds)",
+				"   s [] = [1]; s (8:ds) = 1 : s ds; s (d:ds) = 2*d : ds",
+				"-- _Reinhard Zumkeller_, Jan 13 2014"
+			],
+			"xref": [
+				"Cf. A061427-A061430. A069512 gives another version.",
+				"Cf. A028846."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, May 03 2001",
+			"ext": [
+				"More terms from _Erich Friedman_, May 08 2001"
+			],
+			"references": 8,
+			"revision": 7,
+			"time": "2014-01-13T12:36:00-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

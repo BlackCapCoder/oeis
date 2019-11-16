@@ -1,0 +1,440 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3410,
+	"results": [
+		{
+			"number": 23717,
+			"data": "0,1,2,4,5,6,8,9,10,16,17,18,20,21,22,24,25,26,32,33,34,36,37,38,40,41,42,64,65,66,68,69,70,72,73,74,80,81,82,84,85,86,88,89,90,96,97,98,100,101,102,104,105,106,128,129,130,132,133",
+			"name": "Numbers with no 3's in base 4 expansion.",
+			"comment": [
+				"A032925 is the intersection of this sequence and A023705; cf. A179888. -_Reinhard Zumkeller_, Jul 31 2010",
+				"Fixed point of the morphism : 0-\u003e 0,1,2 ; 1-\u003e 4,5,6 ; 2-\u003e 8,9,10 ; ...; n-\u003e 4n,4n+1,4n+2 . - _Philippe Deléham_, Oct 22 2011."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A023717/b023717.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)=Sum{d(i)*4^i: i=0, 1, ..., m}, where Sum{d(i)*3^i: i=0, 1, ..., m} is the base 3 representation of n. - _Clark Kimberling_",
+				"a(3n)=4a(n); a(3n+1)=4a(n)+1; a(3n+2)=4a(n)+2; a(n)=4*a(floor(n/3))+n-3*floor(n/3) - _Benoit Cloitre_, Apr 27 2003",
+				"a(n)=Sum_k\u003e=0 {A030341(n,k)*4^k}. - _Philippe Deléham_, Oct 22 2011."
+			],
+			"mathematica": [
+				"Select[ Range[ 0, 140 ], (Count[ IntegerDigits[ #, 4 ], 3 ]==0)\u0026 ]"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c1,0,if(n%3,a(n-1)+1,4*a(n/3))) or a(n)=if(n\u003c1,0,4*a(floor(n/3))+n-3*floor(n/3))",
+				"(Haskell)",
+				"a023717 n = a023717_list !! (n-1)",
+				"a023717_list = filter f [0..] where",
+				"   f x = x \u003c 3 || (q \u003c 3 \u0026\u0026 f x') where (x', q) = divMod x 4",
+				"-- _Reinhard Zumkeller_, Apr 18 2015"
+			],
+			"xref": [
+				"Cf. A032925, A023705, A179888."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "0,3",
+			"author": "_Olivier Gérard_",
+			"references": 8,
+			"revision": 24,
+			"time": "2015-04-18T05:31:50-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 23895,
+			"data": "1,0,0,0,1,0,1,0,2,1,2,0,4,1,4,2,7,2,9,3,12,6,15,6,23,11,26,15,37,19,48,26,61,39,78,47,105,65,126,88,167,111,211,146,264,196,331,241,426,318,519,408,657,511,820,651,1010,833,1252,1028,1564,1301,1900",
+			"name": "Number of partitions of n into composite parts.",
+			"comment": [
+				"First differences of A002095. - _Emeric Deutsch_, Apr 03 2006",
+				"a(n+1) \u003e a(n) for n \u003e 108. - _Reinhard Zumkeller_, Aug 22 2007"
+			],
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A023895/b023895.txt\"\u003eTable of n, a(n) for n = 0..5000\u003c/a\u003e (terms n = 0..150 from Reinhard Zumkeller)"
+			],
+			"formula": [
+				"G.f.: (1-x)*Product_{j\u003e=1} (1-x^prime(j))/(1-x^j). - _Emeric Deutsch_, Apr 03 2006"
+			],
+			"example": [
+				"a(12) = 4 because 12 = 4 + 4 + 4 = 6 + 6 = 4 + 8 = 12 (itself a composite number)."
+			],
+			"maple": [
+				"g:=(1-x)*product((1-x^ithprime(j))/(1-x^j),j=1..80): gser:=series(g,x=0,70): seq(coeff(gser,x,n),n=0..62); # _Emeric Deutsch_, Apr 03 2006",
+				"# second Maple program:",
+				"b:= proc(n, i) option remember; `if`(n=0, 1, `if`(i\u003c2, 0,",
+				"       b(n, i-1)+ `if`(i\u003en or isprime(i), 0, b(n-i, i))))",
+				"    end:",
+				"a:= n-\u003e b(n$2):",
+				"seq(a(n), n=0..70);  # _Alois P. Heinz_, May 29 2013"
+			],
+			"mathematica": [
+				"Composite[n_Integer] := FixedPoint[n + PrimePi[ # ] + 1 \u0026, n + PrimePi[n] + 1]; CoefficientList[ Series[1/Product[1 - x^Composite[i], {i, 1, 50}], {x, 0, 75}], x]",
+				"(* Second program: *)",
+				"b[n_, i_] := b[n, i] = If[n==0, 1, If[i\u003c2, 0, b[n, i-1] + If[i\u003en || PrimeQ[i], 0, b[n-i, i]]]]; a[n_] := b[n, n]; Table[a[n], {n, 0, 70}] (* _Jean-François Alcover_, Feb 16 2017, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a023895 = p a002808_list where",
+				"   p _          0 = 1",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Jan 15 2012"
+			],
+			"xref": [
+				"Cf. A002808.",
+				"Cf. A002095.",
+				"Cf. A132456.",
+				"Cf. A204389."
+			],
+			"keyword": "nonn",
+			"offset": "0,9",
+			"author": "_Olivier Gérard_",
+			"ext": [
+				"More terms from _Reinhard Zumkeller_, Aug 22 2007"
+			],
+			"references": 8,
+			"revision": 29,
+			"time": "2019-02-02T18:19:40-05:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 24894,
+			"data": "2,6,8,12,14,20,26,30,36,38,42,48,50,54,56,62,66,80,84,86,92,98,104,108,114,120,126,128,132,138,140,150,152,162,164,176,182,188,194,198,204,206,210,212,218,230,234,236,240,246,258,260,264,272,276,290,294,296,302,306,314",
+			"name": "Numbers k such that 5*k + 1 is prime.",
+			"comment": [
+				"a(n) = (A030430(n) - 1) / 5. - _Reinhard Zumkeller_, Aug 15 2013"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A024894/b024894.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ 0.8n log n. - _Charles R Greathouse IV_, Apr 16 2012"
+			],
+			"mathematica": [
+				"Select[Range[350], PrimeQ[5 # + 1] \u0026] (* _Vincenzo Librandi_, May 20 2014 *)"
+			],
+			"program": [
+				"(MAGMA) [n: n in [0..1000] | IsPrime(5*n+1)]; // _Vincenzo Librandi_, Nov 20 2010",
+				"(PARI) is(n)=isprime(5*n+1) \\\\ _Charles R Greathouse IV_, Apr 16 2012",
+				"(Haskell)",
+				"a024894 = flip div 5 . subtract 1 . a030430",
+				"-- _Reinhard Zumkeller_, Aug 15 2013"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Clark Kimberling_",
+			"references": 8,
+			"revision": 27,
+			"time": "2018-11-23T18:19:19-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 27837,
+			"data": "1,7,97,2143,68641,3011263,173773153,12785668351,1169623688353,130305512589247,17376934722756577,2733655173624167551,501034099176714373921,105847486567006696384831",
+			"name": "Number of subgroups of index n in free group of rank 3.",
+			"reference": [
+				"P. de la Harpe, Topics in Geometric Group Theory, Univ. Chicago Press, 2000, p. 23.",
+				"R. P. Stanley, Enumerative Combinatorics, Cambridge, Vol. 2, 1999; see Problem 5.13(b)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A027837/b027837.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e",
+				"M. Hall, \u003ca href=\"http://dx.doi.org/10.4153/CJM-1949-017-2\"\u003eSubgroups of finite index in free groups\u003c/a\u003e, Canad. J. Math., 1 (1949), 187-190.",
+				"V. A. Liskovets and A. Mednykh, \u003ca href=\"http://dx.doi.org/10.1080/00927870008826924\"\u003eEnumeration of subgroups in the fundamental groups of orientable circle bundles over surfaces\u003c/a\u003e, Commun. in Algebra, 28, No. 4 (2000), 1717-1738."
+			],
+			"formula": [
+				"a(n) = n*n!^2 - Sum_{k=1..n-1} k!^2*a(n-k).",
+				"L.g.f.: Sum_{n\u003e=1} a(n)*x^n/n = log( Sum_{n\u003e=1} (n-1)!^2*x^n ). - _Paul D. Hanna_, Apr 13 2009"
+			],
+			"mathematica": [
+				"a[n_] := a[n] = n*n!^2 - Sum [k!^2*a[n-k], {k, 1, n-1}]; Table[ a[n], {n, 1, 14}] (* _Jean-François Alcover_, Dec 13 2011, after formula *)"
+			],
+			"program": [
+				"(PARI) {a(n)=n*polcoeff(log(sum(k=0,n,k!^2*x^k)+x*O(x^n)),n)} \\\\ _Paul D. Hanna_, Apr 13 2009",
+				"(Haskell)",
+				"a027837 n = a027837_list !! (n-1)",
+				"a027837_list = f 1 [] where",
+				"   f x ys = y : f (x + 1) (y : ys) where",
+				"            y = a001044 x * x - sum (zipWith (*) ys $ tail a001044_list)",
+				"-- _Reinhard Zumkeller_, Sep 05 2015"
+			],
+			"xref": [
+				"Cf. A003319, A049290-A049295.",
+				"Cf. A001044."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "1,2",
+			"author": "_Valery A. Liskovets_",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Oct 05 2000",
+				"Further terms from _Naohiro Nomoto_, Jun 18 2001"
+			],
+			"references": 8,
+			"revision": 19,
+			"time": "2017-06-30T03:01:24-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 29942,
+			"data": "0,1,4,5,6,9,10,24,25,32,40,49,50,51,56,60,75,76,90,99,100,125,240,249,250,251,375,376,400,490,499,500,501,510,600,624,625,749,750,751,760,782,875,900,990,999,1000,1249,1250,2400,2490,2500,2510",
+			"name": "Numbers k such that decimal expansion of k^3 contains k as a substring.",
+			"link": [
+				"Giovanni Resta, \u003ca href=\"/A029942/b029942.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e (first 500 terms from Reinhard Zumkeller)"
+			],
+			"example": [
+				"24 is a term as 24^3 = 13824 contains 24 as a substring, 250 is a term as 250^3 = 1562500 contains 250 as a substring.",
+				"6^3 = 21_6, 782^3 = 4_782_11768."
+			],
+			"maple": [
+				"select(n-\u003esearchtext(convert(n, string), convert(n^3, string))\u003e0, [$0..3*10^3]); # _Paolo P. Lava_, Apr 18 2018"
+			],
+			"mathematica": [
+				"n3ssQ[n_]:=Module[{idn=IntegerDigits[n],idn3=Partition[ IntegerDigits[ n^3], IntegerLength[n],1]},MemberQ[idn3,idn]]; Join[{0},Select[Range[ 2600],n3ssQ]] (* _Harvey P. Dale_, Jan 23 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a029942 n = a029942_list !! (n-1)",
+				"a029942_list = [x | x \u003c- [0..], show x `isInfixOf` show (x^3)]",
+				"-- _Reinhard Zumkeller_, Feb 29 2012"
+			],
+			"xref": [
+				"Cf. A018834, A075904, A075905.",
+				"Cf. A000578. Supersequence of A029943."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "1,3",
+			"author": "_Patrick De Geest_",
+			"references": 8,
+			"revision": 26,
+			"time": "2018-07-04T05:48:04-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 31218,
+			"data": "1,2,3,4,5,5,7,8,9,9,11,11,13,13,13,16,17,17,19,19,19,19,23,23,25,25,27,27,29,29,31,32,32,32,32,32,37,37,37,37,41,41,43,43,43,43,47,47,49,49,49,49,53,53,53,53,53,53,59,59,61,61,61,64,64,64,67,67,67,67,71,71",
+			"name": "Largest prime power \u003c= n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A031218/b031218.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"B. Dearden, J. Iiams, J. Metzger, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL16/Dearden/dearden4.html\"\u003eRumor Arrays\u003c/a\u003e, Journal of Integer Sequences, 16 (2013), #13.9.3.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimePower.html\"\u003ePrime Power\u003c/a\u003e"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c1,0, while(matsize(factor(n))[1]\u003e1,n--); n)",
+				"(Haskell)",
+				"a031218 n = last $ takeWhile (\u003c= n) a000961_list",
+				"-- _Reinhard Zumkeller_, Apr 25 2011"
+			],
+			"xref": [
+				"Cf. A000015, A000961."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _Erich Friedman_."
+			],
+			"references": 8,
+			"revision": 17,
+			"time": "2019-01-24T10:33:23-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 32981,
+			"data": "1,2,3,4,5,6,7,8,9,10,11,12,21,22,23,32,33,34,43,44,45,54,55,56,65,66,67,76,77,78,87,88,89,98,99,100,101,110,111,112,121,122,123,210,211,212,221,222,223,232,233,234,321,322,323,332,333,334,343,344,345",
+			"name": "Positive numbers n with property that all pairs of consecutive base 10 digits differ by 0 or 1.",
+			"comment": [
+				"a(n) = A178403(n+1) for n \u003c 38. - _Reinhard Zumkeller_, May 27 2010"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A032981/b032981.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"okQ[n_]:=Max[Abs[Last[#]-First[#]]\u0026/@Partition[IntegerDigits[n],2,1]]\u003c2",
+				"Select[Range[350],okQ]  (* _Harvey P. Dale_, Feb 14 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a032981 n = a032981_list !! (n-1)",
+				"a032981_list = map read $ filter f $ map show [1..] :: [Int] where",
+				"   f ps = all (`elem` neighbours) $ zipWith ((. return) . (:)) ps (tail ps)",
+				"   neighbours = \"09\" : \"90\" : zipWith ((. return) . (:))",
+				"      (digs ++ tail digs ++ init digs) (digs ++ init digs ++ tail digs)",
+				"   digs = \"0123456789\"",
+				"-- _Reinhard Zumkeller_, Feb 14 2015"
+			],
+			"xref": [
+				" Cf. A068148 (primes)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 8,
+			"revision": 17,
+			"time": "2015-02-14T12:46:56-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33200,
+			"data": "3,11,17,19,41,43,59,67,73,83,89,97,107,113,131,137,139,163,179,193,211,227,233,241,251,257,281,283,307,313,331,337,347,353,379,401,409,419,433,443,449,457,467,491,499",
+			"name": "Primes congruent to {1, 3} mod 8; or, odd primes of form x^2+2*y^2.",
+			"comment": [
+				"Rational primes that decompose in the field Q(sqrt(-2)). - _N. J. A. Sloane_, Dec 25 2017",
+				"Fermat knew of the relationship between a prime being congruent to 1 or 3 mod 8 and its being the sum of a square and twice a square, and claimed to have a firm proof of this fact. These numbers are not primes in Z[sqrt(-2)], as they have x - y sqrt(-2) as a divisor. - _Alonso del Arte_, Dec 07 2012",
+				"Terms m in A047471 with A010051(m) = 1. - _Reinhard Zumkeller_, Dec 29 2012",
+				"This sequence gives the primes p which satisfy norm(rho(p)) = + 1 with rho(p) := 2*cos(Pi/p) (the length ratio (smallest diagonal)/side in the regular p-gon). The norm of an algebraic number (over Q) is the product over all zeros of its minimal polynomial. Here norm(rho(p)) = (-1)^delta(p)* C(p, 0), with the degree delta(p) = A055034(p) = (p-1)/2. For the minimal polynomial C see A187360. For p == 1 (mod 8) the norm is C(p, 0) (see a comment on 4*A005123) and for p == 3 (mod 8) the norm is -C(p, 0) (see a comment on A186297). For the primes with norm(rho(p)) = -1 see A003628. - _Wolfdieter Lang_, Oct 24 2013",
+				"If p is a member then it has a unique representation as x^2+2y^2 [Frei, Theorem 3]. - _N. J. A. Sloane_, May 30 2014",
+				"Primes that are the quarter perimeter of a Heronian triangle. Such primes are unique to the Heronian triangle (see Yiu link). - _Frank M Jackson_, Nov 30 2014"
+			],
+			"reference": [
+				"David A. Cox, \"Primes of the Form x^2 + n y^2\", Wiley, 1989, p. 7."
+			],
+			"link": [
+				"Ray Chandler, \u003ca href=\"/A033200/b033200.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e [First 1000 terms from T. D. Noe]",
+				"G. Frei, \u003ca href=\"http://dx.doi.org/10.1007/BF03025809\"\u003eEuler's convenient numbers\u003c/a\u003e, Math. Intell. Vol. 7 No. 3 (1985), p. 56.",
+				"Zak Seidov, \u003ca href=\"/A033200/a033200.dat.txt\"\u003eTable of n, a(n), x and y for n=1..1000\u003c/a\u003e",
+				"N. J. A. Sloane et al., \u003ca href=\"https://oeis.org/wiki/Binary_Quadratic_Forms_and_OEIS\"\u003eBinary Quadratic Forms and OEIS\u003c/a\u003e (Index to related sequences, programs, references)",
+				"Paul Yiu, \u003ca href=\"https://cms.math.ca/crux/v24/n3/page175-177.pdf\"\u003eCRUX, Problem 2331, Proposed by Paul Yiu\u003c/a\u003e",
+				"Paul Yiu and Jill S. Taylor, \u003ca href=\"http://dongthapvietnam.informe.com/blog/uploads/2012/10/cruxv25_1999.pdf\"\u003eCRUX, Problem 2331, Solution\u003c/a\u003e pp 185-186",
+				"\u003ca href=\"https://oeis.org/wiki/Index_to_OEIS:_Section_Pri#primes_decomp_of\"\u003eIndex to sequences related to decomposition of primes in quadratic fields\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A033203(n+1). - _Zak Seidov_, May 29 2014"
+			],
+			"example": [
+				"Since 11 is prime and 11 = 3 mod 8, 11 is in the sequence. (Also 11 = 3^2 + 2 * 1^2 = (3 + sqrt(-2))(3 - sqrt(-2))).",
+				"Since 17 is prime and 17 = 1 mod 8, 17 is in the sequence."
+			],
+			"mathematica": [
+				"Rest[QuadPrimes2[1, 0, 2, 10000]] (* see A106856 *)",
+				"Select[Prime[Range[200]],MemberQ[{1,3},Mod[#,8]]\u0026] (* _Harvey P. Dale_, Jun 09 2017 *)"
+			],
+			"program": [
+				"(MAGMA) [p: p in PrimesUpTo(600) | p mod 8 in [1, 3]]; // _Vincenzo Librandi_, Aug 04 2012",
+				"(Haskell)",
+				"a033200 n = a033200_list !! (n-1)",
+				"a033200_list = filter ((== 1) . a010051) a047471_list",
+				"-- _Reinhard Zumkeller_, Dec 29 2012",
+				"(PARI) is(n)=n%8\u003c4 \u0026\u0026 n%2 \u0026\u0026 isprime(n) \\\\ _Charles R Greathouse IV_, Feb 09 2017"
+			],
+			"xref": [
+				"Cf. A033203."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 8,
+			"revision": 65,
+			"time": "2017-12-31T16:41:14-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33650,
+			"data": "7,14,55,110,121,242,484,968,1837,9218,17347,91718,173437,907808,1716517,8872688,17735476,85189247,159487405,664272356,1317544822,3602001953,7193004016,13297007933,47267087164",
+			"name": "Trajectory of 7 under map x --\u003e x + (x-with-digits-reversed).",
+			"comment": [
+				"A Reverse and Add! sequence.",
+				"Trajectories of 19, 23, 28, 29, 32, 37, 38, 41, 46, 47, 49, 50, ..., merge into this sequence. - _Robert G. Wilson v_, Dec 16 2005",
+				"A Reverse and Add! sequence."
+			],
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A033650/b033650.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (first 251 terms from Reinhard Zumkeller)",
+				"\u003ca href=\"/index/Res#RAA\"\u003eIndex entries for sequences related to Reverse and Add!\u003c/a\u003e"
+			],
+			"maple": [
+				"a:= proc(n) option remember; `if`(n=0, 7, (h-\u003e h+ (s-\u003e",
+				"      parse(cat(s[-i]$i=1..length(s))))(\"\"||h))(a(n-1)))",
+				"    end:",
+				"seq(a(n), n=0..40);  # _Alois P. Heinz_, Jun 18 2014"
+			],
+			"mathematica": [
+				"NestList[ # + FromDigits@Reverse@IntegerDigits@# \u0026, 7, 26] (* _Robert G. Wilson v_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033650 n = a033650_list !! n",
+				"a033650_list = iterate a056964 7 -- _Reinhard Zumkeller_, Sep 22 2011"
+			],
+			"xref": [
+				"Cf. A006960, A001127, A033648, A033649, A033651.",
+				"Cf. A056964, A004086.",
+				"Row n=7 of A243238."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 8,
+			"revision": 24,
+			"time": "2015-03-14T18:27:18-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34869,
+			"data": "1,1,2,1,3,1,6,4,1,10,5,1,20,15,6,1,35,21,7,1,70,56,28,8,1,126,84,36,9,1,252,210,120,45,10,1,462,330,165,55,11,1,924,792,495,220,66,12,1,1716,1287,715,286,78,13,1,3432,3003,2002,1001,364,91,14,1",
+			"name": "Right half of Pascal's triangle.",
+			"comment": [
+				"From _R. J. Mathar_, May 13 2006: (Start)",
+				"Also flattened table of the expansion coefficients of x^n in Chebyshev Polynomials T_k(x) of the first kind:",
+				"x^n is 2^(1-n) multiplied by the sum of floor(1+n/2) terms using only terms T_k(x) with even k if n even, only terms T_k(x) with odd k if n is odd and halving the coefficient a(..) in front of any T_0(x):",
+				"x^0=2^(1-0) a(0)/2 T_0(x)",
+				"x^1=2^(1-1) a(1) T_1(x)",
+				"x^2=2^(1-2) [a(2)/2 T_0(x)+a(3) T_2(x)]",
+				"x^3=2^(1-3) [a(4) T_1(x)+a(5) T_3(x)]",
+				"x^4=2^(1-4) [a(6)/2 T_0(x)+a(7) T_2(x) +a(8) T_4(x)]",
+				"x^5=2^(1-5) [a(9) T_1(x)+a(10) T_3(x) +a(11) T_5(x)]",
+				"x^6=2^(1-6) [a(12)/2 T_0(x)+a(13) T_2(x) +a(14) T_4(x) +a(15) T_6(x)]",
+				"x^7=2^(1-7) [a(16) T_1(x)+a(17) T_3(x) +a(18) T_5(x) +a(19) T_7(x)]\" (End)",
+				"T(n,k) = A034868(n,floor(n/2)-k), k = 0..floor(n/2). - _Reinhard Zumkeller_, Jul 27 2012",
+				"Rows are binomial(r-1,(2r+1-(-1)^r)\\4 -n ) where r is the row and n is the term. Columns are binomial(2m+c-3,m-1) where c is the column and m is the term. - _Anthony Browne_, May 17 2016"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A034869/b034869.txt\"\u003eRows n=0..150 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"The table starts:",
+				"1",
+				"1",
+				"2 1",
+				"3 1",
+				"6 4 1"
+			],
+			"maple": [
+				"for n from 0 to 60 do for j from n mod 2 to n by 2 do print( binomial(n,(n-j)/2) ); od; od; # _R. J. Mathar_, May 13 2006"
+			],
+			"mathematica": [
+				"Table[Binomial[n, k], {n, 0, 14}, {k, Ceiling[n/2], n}] // Flatten (* _Michael De Vlieger_, May 19 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034869 n k = a034869_tabf !! n !! k",
+				"a034869_row n = a034869_tabf !! n",
+				"a034869_tabf = [1] : f 0 [1] where",
+				"   f 0 us'@(_:us) = ys : f 1 ys where",
+				"                    ys = zipWith (+) us' (us ++ [0])",
+				"   f 1 vs@(v:_) = ys : f 0 ys where",
+				"                  ys = zipWith (+) (vs ++ [0]) ([v] ++ vs)",
+				"_Reinhard Zumkeller_, improved Dec 21 2015, Jul 27 2012",
+				"(PARI) for(n=0, 14, for(k=ceil(n/2), n, print1(binomial(n, k),\", \");); print();) \\\\ _Indranil Ghosh_, Mar 31 2017",
+				"(Python)",
+				"import math",
+				"from sympy import binomial",
+				"for n in xrange(0, 15):",
+				"....print [binomial(n, k) for k in xrange(int(math.ceil(n/2)), n + 1)] # _Indranil Ghosh_, Mar 31 2017"
+			],
+			"xref": [
+				"Cf. A007318, A008619 (row lengths).",
+				"Cf. A110654.",
+				"Cf. A034868 (left half), A014413, A014462."
+			],
+			"keyword": "nonn,tabf,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Keyword fixed and example added by _Franklin T. Adams-Watters_, May 27 2010"
+			],
+			"references": 8,
+			"revision": 33,
+			"time": "2017-03-31T11:47:29-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

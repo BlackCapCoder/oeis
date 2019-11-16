@@ -46,6 +46,7 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - oeis
+    - bytestring
 
 default-extensions:
 - AllowAmbiguousTypes

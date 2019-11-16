@@ -1,0 +1,446 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4350,
+	"results": [
+		{
+			"number": 138166,
+			"data": "1,12,20,21,22,23,24,25,26,27,28,29,32,42,52,62,72,82,92,103,113,123,130,131,132,133,134,135,136,137,138,139,143,153,163,173,183,193,203,213,223,230,231,232,233,234,235,236,237,238,239,243,253,263,273,283",
+			"name": "Numbers containing their length in their decimal representation.",
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A138166/b138166.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a138166 n = a138166_list !! (n-1)",
+				"a138166_list = filter (\\x -\u003e show (a055642 x) `isInfixOf` show x) [0..]",
+				"-- _Reinhard Zumkeller_, Jul 04 2012"
+			],
+			"xref": [
+				"Cf. A055642, A138167, A138168.",
+				"Cf. A038528 (subsequence).",
+				"Cf. A052018, A119246."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Mar 03 2008",
+			"references": 6,
+			"revision": 9,
+			"time": "2013-12-16T12:39:36-05:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 139764,
+			"data": "1,2,3,1,5,1,2,8,1,2,3,1,13,1,2,3,1,5,1,2,21,1,2,3,1,5,1,2,8,1,2,3,1,34,1,2,3,1,5,1,2,8,1,2,3,1,13,1,2,3,1,5,1,2,55,1,2,3,1,5,1,2,8,1,2,3,1,13,1,2,3,1,5,1,2,21,1,2,3,1,5,1,2,8,1,2,3,1,89",
+			"name": "Smallest term in Zeckendorf representation of n.",
+			"comment": [
+				"Also called a \"Fibonacci fractal\".",
+				"Appears to be the same as the \"ruler of Fibonaccis\" mentioned by Knuth. - _N. J. A. Sloane_, Aug 03 2012",
+				"a(n) is also the number of matches to take away to win in a certain match game (see Rocher et al.).",
+				"The frequencies of occurrences of the values in this sequence and A035614 are related by the golden ratio."
+			],
+			"reference": [
+				"D. E. Knuth, The Art of Computer Programming, Vol. 4A, Section 7.1.3, p. 82, solution to Problem 179. - From _N. J. A. Sloane_, Aug 03 2012"
+			],
+			"link": [
+				"Steve Witham, \u003ca href=\"/A139764/b139764.txt\"\u003eTable of n, a(n) for n = 1..9999\u003c/a\u003e",
+				"Author?, \u003ca href=\"http://gifted.msquare.or.kr/lib/2003/2003bcamp.pdf\"\u003eTitle?\u003c/a\u003e (see p. 24) [Broken link]",
+				"Alex Bogomolny, \u003ca href=\"http://www.cut-the-knot.org/Curriculum/Games/TakeAway.shtml#theory\"\u003eTheory of Take-Away Games\u003c/a\u003e",
+				"Sylvain Rocher, Elodie Privat, Laurent Orban, Alexandre Mothe and Laurent Thouy, \u003ca href=\"http://mathematiques.ac-bordeaux.fr/elv/clubs/mej/mej2005/allumettes.pdf\"\u003eLa stratégie des allumettes\u003c/a\u003e",
+				"A. J. Schwenk, \u003ca href=\"http://www.fq.math.ca/Scanned/8-3/schwenk-a.pdf\"\u003eTake-Away Games\u003c/a\u003e, The Fibonacci Quarterly, v 8, no 3 (1970), 225-234.",
+				"Eric Weisstein's World of Math, \u003ca href=\"http://mathworld.wolfram.com/WythoffArray.html\"\u003eWythoff Array\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Zeckendorf\u0026#39;s_theorem\"\u003eZeckendorf's theorem\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n if n is a Fibonacci number, else a( n - (largest Fibonacci number \u003c n) ).",
+				"a(n) = the value of the (exactly one) digit that turns on between the Fibonacci-base representations of n-1 and n. E.g., from 6 (1001) to 7 (1010), the two's digit turns on.",
+				"a(n) = top element of the column of the Wythoff array that contains n.",
+				"a(n) = Fibonacci(A035614(n) + 1).",
+				"a(n) = A035517(n,0). - _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"example": [
+				"The Zeckendorf representation of 7 = 5 + 2, so a(7) = 2."
+			],
+			"maple": [
+				"A000045 := proc(n) combinat[fibonacci](n) ; end:",
+				"A087172 := proc(n)",
+				"local a,i ;",
+				"a := 0 ;",
+				"for i from 0 do",
+				"if A000045(i) \u003c= n then",
+				"a := A000045(i) ;",
+				"else",
+				"RETURN(a) ;",
+				"fi ;",
+				"od:",
+				"end:",
+				"A139764 := proc(n)",
+				"local nResid,prevF ;",
+				"nResid := n ;",
+				"while true do",
+				"prevF := A087172(nResid) ;",
+				"if prevF = nResid then",
+				"RETURN(prevF) ;",
+				"else",
+				"nResid := nResid-prevF ;",
+				"fi ;",
+				"od:",
+				"end:",
+				"seq(A139764(n),n=1..120) ;",
+				"# _R. J. Mathar_, May 22 2008"
+			],
+			"mathematica": [
+				"f[n_] := (k = 1; ff = {}; While[(fi = Fibonacci[k]) \u003c= n, AppendTo[ff, fi]; k++]; Drop[ff, 1]); a[n_] := First[ If[n == 0, 0, r = n; s = {}; fr = f[n]; While[r \u003e 0, lf = Last[fr]; If[lf \u003c= r, r = r - lf; PrependTo[s, lf]]; fr = Drop[fr, -1]]; s]]; Table[a[n], {n, 1, 89}] (* _Jean-François Alcover_, Nov 02 2011 *)"
+			],
+			"program": [
+				"(PARI) a(n)=my(f);forstep(k=log(n*sqrt(5))\\log(1.61803)+2, 2, -1, f=fibonacci(k);if(f\u003c=n,n-=f;if(!n,return(f));k--)) \\\\ _Charles R Greathouse IV_, Nov 02 2011",
+				"(Haskell)",
+				"a139764 = head . a035517_row  -- _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"xref": [
+				"Cf. A035614, A107017, A014417, A006519.",
+				"Cf. A087172."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "Steve Witham (sw(AT)tiac.net), May 15 2008",
+			"ext": [
+				"More terms from _T. D. Noe_ and _R. J. Mathar_, May 22 2008"
+			],
+			"references": 6,
+			"revision": 33,
+			"time": "2015-10-05T02:58:08-04:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 142149,
+			"data": "0,1,3,3,6,5,5,7,12,9,15,11,10,13,9,15,24,17,27,19,30,21,29,23,20,25,23,27,18,29,17,31,48,33,51,35,54,37,53,39,60,41,63,43,58,45,57,47,40,49,43,51,46,53,45,55,36,57,39,59,34,61,33,63,96,65,99,67,102,69,101,71",
+			"name": "a(n) = XOR{k OR (n-k): 0\u003c=k\u003c=n}.",
+			"comment": [
+				"a(n) = XOR{k AND (n-k): 0\u003c=k\u003c=n} = XOR{k AND (n-k): 0\u003c=k\u003c=n}."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A142149/b142149.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"R. Zumkeller, \u003ca href=\"/A142149/a142149.txt\"\u003eLogical Convolutions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(2*n)=A048724(n) and a(2*n+1)=A005408(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Bits (xor, (.|.))",
+				"a142149 :: Integer -\u003e Integer",
+				"a142149 = foldl xor 0 . zipWith (.|.) [0..] . reverse . enumFromTo 1",
+				"-- _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"xref": [
+				"Cf. A003817, A000004, A086099, A142150, A142151, A001477."
+			],
+			"keyword": "nonn,hear,look",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 15 2008",
+			"references": 6,
+			"revision": 10,
+			"time": "2015-03-31T17:38:30-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 142151,
+			"data": "0,1,2,3,6,5,6,7,14,13,14,11,14,13,14,15,30,29,30,27,30,29,30,23,30,29,30,27,30,29,30,31,62,61,62,59,62,61,62,55,62,61,62,59,62,61,62,47,62,61,62,59,62,61,62,55,62,61,62,59,62,61,62,63,126,125,126,123,126,125",
+			"name": "a(n) = OR{k XOR (n-k): 0\u003c=k\u003c=n}.",
+			"comment": [
+				"a(2*n) = 2*(A062383(n)-1);",
+				"A023416(a(n)) \u003c= 1."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A142151/b142151.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"R. Zumkeller, \u003ca href=\"/A142149/a142149.txt\"\u003eLogical Convolutions\u003c/a\u003e"
+			],
+			"maple": [
+				"A142151 := n -\u003e n + Bits:-Nor(n, n+1):",
+				"seq(A142151(n), n=0..69); # _Peter Luschny_, Sep 26 2019"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Bits (xor, (.|.))",
+				"a142151 :: Integer -\u003e Integer",
+				"a142151 = foldl (.|.) 0 . zipWith xor [0..] . reverse . enumFromTo 1",
+				"-- _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"xref": [
+				"Cf. A003817, A000004, A142149, A086099, A142150, A001477, A089633."
+			],
+			"keyword": "nonn,hear,look",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 15 2008",
+			"references": 6,
+			"revision": 13,
+			"time": "2019-09-26T07:30:45-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 143206,
+			"data": "21,77,221,437,1517,2021,4757,6557,9797,11021,12317,16637,27221,38021,50621,53357,77837,95477,99221,123197,145157,159197,194477,210677,216221,239117,250997,378221,416021,455621,549077,576077,594437,680621",
+			"name": "Product of the n-th cousin prime pair.",
+			"comment": [
+				"a(n) = A023200(n)*A046132(n);",
+				"intersection of A143203 and A001358.",
+				"Solutions of the equation n'=2*sqrt(n+4), where n' is the arithmetic derivative of n. [_Paolo P. Lava_, Oct 30 2012]",
+				"Sum_{n\u003e=2} 1/a(n) \u003e 0.02187310784. - _R. J. Mathar_, Jan 23 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A143206/b143206.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/CousinPrimes.html\"\u003eCousin Primes\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 3*7 = 3*(3+4) = 21;",
+				"a(2) = 7*11 = 7*(7+4) = 77;",
+				"a(3) = 13*17 = 13*(13+4) = 221;",
+				"a(4) = 19*23 = 19*(19+4) = 437."
+			],
+			"maple": [
+				"with(numtheory);",
+				"A143206:= proc(i)",
+				"local n,p;",
+				"for n from 1 to i do",
+				"  if n*add(op(2,p)/op(1,p),p=ifactors(n)[2])=2*sqrt(n+4) then print(n); fi;",
+				"od; end:",
+				"A143206(1000000);  # _Paolo P. Lava_, Oct 30 2012"
+			],
+			"mathematica": [
+				"fQ[n_] := Block[{fi = FactorInteger@ n}, Last@# \u0026 /@ fi == {1, 1} \u0026\u0026 Differences[ First@# \u0026 /@ fi] == {4}]; Select[ Range@ 700000, fQ] (* _Robert G. Wilson v_, Feb 08 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a143206 n = a143206_list !! (n-1)",
+				"a143206_list = (3*7) : f a000040_list where",
+				"   f (p:ps@(p':_)) | p'-p == 4 = (p*p') : f ps",
+				"                   | otherwise = f ps",
+				"-- _Reinhard Zumkeller_, Sep 13 2011",
+				"(MAGMA) [(p*(p+4)): p in PrimesUpTo(1000)| IsPrime(p+4)]; // _Vincenzo Librandi_, Jan 04 2018",
+				"(PARI) lista(nn) = forprime(p=2, nn, if (isprime(q=p+4), print1(p*q, \", \"))); \\\\ _Michel Marcus_, Jan 04 2018"
+			],
+			"xref": [
+				"Cf. A037074, A111192."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 12 2008",
+			"references": 6,
+			"revision": 39,
+			"time": "2018-01-04T05:27:26-05:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 143691,
+			"data": "1,2,4,3,6,5,9,7,10,8,14,11,15,12,16,13,21,17,22,18,24,19,25,20,26,23,33,27,34,28,35,29,36,30,38,31,39,32,40,37,46,41,49,42,51,43,54,44,55,45,56,47,57,48,58,50,60,52,62,53,64,59,65,61,69,63,74,66,77,67,81,68",
+			"name": "Lexicographically earliest permutation of the natural numbers having alternating even and odd numbers of prime factors.",
+			"comment": [
+				"A066829(a(n)*a(n+1)) = 1; n mod 2 + A001222(a(n)) = 1;",
+				"a(2*n) = A026424(n); a(2*n-1) = A028260(n);",
+				"a(a(n)) = A143693(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A143691/b143691.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a143691 n = a143691_list !! (n-1)",
+				"a143691_list = f 1 [1..] where",
+				"   f m xs = g xs where",
+				"     g (z:zs) = if m + m' /= 1 then g zs else z : f m' (delete z xs)",
+				"                where m' = a001222 z `mod` 2",
+				"-- _Reinhard Zumkeller_, Aug 07 2014"
+			],
+			"xref": [
+				"Cf. A143692 (inverse), A001222, A066829, A026424, A028260, A143693, A109465."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Aug 29 2008",
+			"references": 6,
+			"revision": 12,
+			"time": "2018-04-10T14:38:41-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 143967,
+			"data": "3,7,33,37,73,77,333,337,373,377,733,737,773,777,3333,3337,3373,3377,3733,3737,3773,3777,7333,7337,7373,7377,7733,7737,7773,7777,33333,33337,33373,33377,33733,33737,33773,33777,37333,37337,37373,37377",
+			"name": "Numbers containing only digits 3 or 7 in decimal representation.",
+			"comment": [
+				"See A020463 for primes."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A143967/b143967.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = f(n+1, 0) with f(n, x) = if n=1 then A004086(x) else f(floor(n/2), 10*x + 3 + 4*(n mod 2))."
+			],
+			"mathematica": [
+				"Table[FromDigits/@Tuples[{3,7},n],{n,5}]//Flatten (* _Harvey P. Dale_, Aug 28 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a143967 = f 0 . (+ 1) where",
+				"   f y 1 = a004086 y",
+				"   f y x = f (10 * y + 3 + 4 * r) x' where (x', r) = divMod x 2",
+				"-- _Reinhard Zumkeller_, Mar 18 2015"
+			],
+			"xref": [
+				"Cf. A004086, A020463, A032810."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 06 2008",
+			"references": 6,
+			"revision": 7,
+			"time": "2017-08-28T15:16:16-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 145513,
+			"data": "1,2,12,562,195812,515009562,10837901390812,1899421190329234562,2851206628197445401265812,37421114946843687272702534859562,4362395890943439751990308572939648140812,4573514084633441973328831327010967245403925484562,43557001521047571730475817291330175020887917015964570015812",
+			"name": "Number of partitions of 10^n into powers of 10.",
+			"comment": [
+				"a(n) = A179051(10^n); for n\u003e0: a(n) = A179052(10^(n-1)). - _Reinhard Zumkeller_, Jun 27 2010"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A145513/b145513.txt\"\u003eTable of n, a(n) for n = 0..45\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = [x^(10^n)] 1/Product_{j\u003e=0} (1-x^(10^j))."
+			],
+			"example": [
+				"a(1) = 2, because there are 2 partitions of 10^1 into powers of 10: [1,1,1,1,1,1,1,1,1,1], [10]."
+			],
+			"maple": [
+				"g:= proc(b,n,k) option remember; local t; if b\u003c0 then 0 elif b=0 or n=0 or k\u003c=1 then 1 elif b\u003e=n then add(g(b-t, n, k) *binomial(n+1, t) *(-1)^(t+1), t=1..n+1); else g(b-1, n, k) +g(b*k, n-1, k) fi end: a:= n-\u003e g(1,n,10): seq(a(n), n=0..13);"
+			],
+			"mathematica": [
+				"g[b_, n_, k_] := g[b, n, k] = Module[{t}, Which[b \u003c 0, 0, b == 0 || n == 0 || k \u003c= 1, 1, b \u003e= n, Sum[g[b - t, n, k]*Binomial[n + 1, t] *(-1)^(t + 1), {t, 1, n + 1}], True, g[b - 1, n, k] + g[b*k, n - 1, k]]]; a[n_] := g[1, n, 10]; Table[a[n], {n, 0, 13}] (* _Jean-François Alcover_, Feb 01 2017, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.MemoCombinators (memo2, list, integral)",
+				"a145513 n = a145513_list !! n",
+				"a145513_list = f [1] where",
+				"   f xs = (p' xs $ last xs) : f (1 : map (* 10) xs)",
+				"   p' = memo2 (list integral) integral p",
+				"   p _ 0 = 1; p [] _ = 0",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p' ks' (m - k) + p' ks m",
+				"-- _Reinhard Zumkeller_, Nov 27 2015"
+			],
+			"xref": [
+				"Cf. 10th column of A145515, A007318.",
+				"Cf. A011557, A002577, A078125."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Alois P. Heinz_, Oct 11 2008",
+			"references": 6,
+			"revision": 21,
+			"time": "2017-02-01T12:46:02-05:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 147812,
+			"data": "7,13,23,31,37,53,61,67,73,89,97,103,113,131,139,157,173,181,193,211,223,233,241,263,271,277,293,307,317,337,359,373,389,409,421,433,449,457,467,479,491,509,523",
+			"name": "Primes prime(n) such that prime(n+1) - prime(n) \u003e prime(n+2) - prime(n+1).",
+			"comment": [
+				"This was originally formulated as (-prime(n) + 2*prime(n+1) - prime(n+2))/((1 - prime(n) + prime(n+1))^(3/2)) \u003e 0, which relates it to other sequences. This is equivalent since the denominator is always positive."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A147812/b147812.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"The gap between 7 and the next prime, 11, is 4, which is greater than the next prime gap from 11 to 13, so 7 is in the sequence."
+			],
+			"mathematica": [
+				"d2[n_] = Prime[n + 2] - 2*Prime[n + 1] + Prime[n]; d1[n_] = Prime[n + 1] - Prime[n]; k[n_] = -d2[n]/(1 + d1[n])^(3/2); Flatten[Table[If[k[n] \u003e 0, Prime[n], {}], {n, 1, 100}]]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a147812 n = a147812_list !! (n-1)",
+				"a147812_list = map (a000040 . (+ 1)) $ findIndices (\u003c 0) a036263_list",
+				"-- _Reinhard Zumkeller_, Jan 20 2012",
+				"(Ruby)",
+				"require 'mathn'",
+				"Prime.take(100).each_cons(3).select{ |a,b,c| b-a\u003ec-b }.map(\u0026:first)",
+				"-- _Aaron Weiner_, Dec 05 2013"
+			],
+			"xref": [
+				"Cf. A036263, A147813 (complement with respect to A000040)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Roger L. Bagula_, Nov 13 2008",
+			"ext": [
+				"Edited by _Alonso del Arte_ and _Joerg Arndt_, Nov 01 2013",
+				"Simpler formula added by _Aaron Weiner_, Dec 05 2013"
+			],
+			"references": 6,
+			"revision": 26,
+			"time": "2014-03-13T01:18:15-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 151945,
+			"data": "1,1,3,5,7,10,14,19,25,32,42,53,66,82,101,124,150,181,216,257,306,361,424,495,577,671,776,895,1029,1180,1350,1540,1752,1988,2252,2547,2872,3231,3630,4071,4558,5093,5683,6330,7040,7822,8674,9606,10625,11738",
+			"name": "Denomination sequence. Start with the 0th and first coins of value 1 cent: a(0)=a(1)=1. Thereafter a(n), the value of the n-th coin (n\u003e=2), is the number of ways to make change for n cents in earlier coins. The two one-cent coins are considered distinct.",
+			"comment": [
+				"a(n) is the number of nonnegative solutions to the Diophantine equation 1*x_0 + 1*x_1 + ... + a(n-1)*x_(n-1) = n. - _Melvin Peralta_, Jan 03 2016"
+			],
+			"link": [
+				"Robert G. Wilson v, \u003ca href=\"/A151945/b151945.txt\"\u003eTable of n, a(n) for n = 0..3500\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f: g(x) = Product_{n \u003e= 0} 1/(1-x^a(n)) - x."
+			],
+			"example": [
+				"Call the two one-cent coins c and d.",
+				"Then we can make change for 2 cents in three ways: cc,cd,dd, so a(2) = 3.",
+				"Then we can make change for 3 cents in five ways: ccc,ccd,cdd,ddd,3, so a(3) = 5."
+			],
+			"maple": [
+				"b:= proc(n,i) option remember;",
+				"      if n\u003c0 then 0",
+				"    elif n=0 then 1",
+				"    elif i\u003c0 then 0",
+				"    elif i=1 then n+1",
+				"    else b(n,i-1) +b(n-a(i),i)",
+				"      fi",
+				"    end:",
+				"a:= n-\u003e b(n, n-1):",
+				"seq(a(n), n=0..100);  # _Alois P. Heinz_, Aug 14 2009"
+			],
+			"mathematica": [
+				"b[n_, i_] := b[n, i] = If[n \u003c 0, 0, If[n == 0, 1, If[i \u003c 0, 0, If[i == 1, n + 1, b[n, i - 1] + b[n - a[i], i]] ]]]; a[0] = a[1] = 1; a[n_] := a[n] = b[n, n - 1]; Table[ a@n, {n, 0, 50}] (* _Robert G. Wilson v_, Aug 17 2009 *)",
+				"Nest[Join[#,{Length[FrobeniusSolve[#,Length[#]]]}]\u0026,{1,1},50] (* _Harvey P. Dale_, Jul 29 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a151945 n = a151945_list !! n",
+				"a151945_list = 1 : 1 : f [2..] where",
+				"   f (x:xs) = p (take x a151945_list) x : f xs",
+				"   p _ 0 = 1; p [] _ = 0",
+				"   p ds'@(d:ds) m = if m \u003c d then 0 else p ds' (m - d) + p ds m",
+				"-- _Reinhard Zumkeller_, Jan 21 2014"
+			],
+			"keyword": "nonn,nice",
+			"offset": "0,3",
+			"author": "_David W. Wilson_, Aug 14 2009",
+			"ext": [
+				"More terms from _Alois P. Heinz_, Aug 14 2009"
+			],
+			"references": 6,
+			"revision": 33,
+			"time": "2018-07-29T19:08:24-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		}
+	]
+}

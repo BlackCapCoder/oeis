@@ -1,0 +1,348 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2400,
+	"results": [
+		{
+			"number": 256835,
+			"data": "2417,2437,2657,2801,3301,3557,3697,4001,4337,4517,7877,10501,11617,12401,13217,19301,20357,20897,26737,28001,29297,33377,36997,38501,40037,44017,48197,49057,64901,70001,77477,78577,86501,90017,92401,104801,107377,108677",
+			"name": "Primes of form n^2 + 2401.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256835/b256835.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256835 n = a256835_list !! (n-1)",
+				"a256835_list = [x | x \u003c- map (+ 2401) a000290_list, a010051' x == 1]"
+			],
+			"xref": [
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256776 (b=4), A256777 (b=5), A256834 (b=6), A256836 (b=8), A256837 (b=9), A256838 (b=10), A256839 (b=11), A256840 (b=12), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 4,
+			"time": "2015-04-11T17:03:47-04:00",
+			"created": "2015-04-11T17:03:47-04:00"
+		},
+		{
+			"number": 256836,
+			"data": "4177,4217,4457,4721,4937,6121,7121,7577,7817,9137,9721,10337,10657,11321,12377,13121,15121,16417,17321,18257,23417,23977,25121,26297,31321,34721,36137,36857,38321,40577,44497,47777,50321,52057,52937,54721,57457,81937",
+			"name": "Primes of form n^2 + 4096.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256836/b256836.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[300]^2+4096,PrimeQ] (* _Harvey P. Dale_, Jun 21 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a256836 n = a256836_list !! (n-1)",
+				"a256836_list = [x | x \u003c- map (+ 4096) a000290_list, a010051' x == 1]"
+			],
+			"xref": [
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256776 (b=4), A256777 (b=5), A256834 (b=6), A256835 (b=7), A256837 (b=9), A256838 (b=10), A256839 (b=11), A256840 (b=12), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 6,
+			"time": "2018-06-21T12:41:05-04:00",
+			"created": "2015-04-11T17:04:02-04:00"
+		},
+		{
+			"number": 256837,
+			"data": "6577,6661,6961,7237,7717,8161,8677,9697,10657,12037,16561,17377,18661,21937,24517,25057,26161,33457,35461,37537,56737,57637,69061,74161,77317,81637,84961,106417,108961,124897,129061,143461,146437,147937,150961,155557",
+			"name": "Primes of form n^2 + 6561.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256837/b256837.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256837 n = a256837_list !! (n-1)",
+				"a256837_list = [x | x \u003c- map (+ 6561) a000290_list, a010051' x == 1]"
+			],
+			"xref": [
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256776 (b=4), A256777 (b=5), A256834 (b=6), A256835 (b=7), A256836 (b=8), A256838 (b=10), A256839 (b=11), A256840 (b=12), A256841 (b=13)"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 5,
+			"time": "2015-04-11T17:04:14-04:00",
+			"created": "2015-04-11T17:04:14-04:00"
+		},
+		{
+			"number": 256838,
+			"data": "10009,10169,10289,10529,10729,11369,11681,12401,12601,12809,13249,13721,14489,15329,16561,16889,17569,17921,19801,20201,21881,22769,23689,26641,27689,29881,30449,32801,33409,34649,35281,37889,38561,39241,39929,48809,53681",
+			"name": "Primes of form n^2 + 10000.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256838/b256838.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256838 n = a256838_list !! (n-1)",
+				"a256838_list = [x | x \u003c- map (+ 10000) a000290_list, a010051' x == 1]"
+			],
+			"xref": [
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256776 (b=4), A256777 (b=5), A256834 (b=6), A256835 (b=7), A256836 (b=8), A256837 (b=9), A256839 (b=11), A256840 (b=12), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 4,
+			"time": "2015-04-11T17:04:25-04:00",
+			"created": "2015-04-11T17:04:25-04:00"
+		},
+		{
+			"number": 256839,
+			"data": "14657,14741,14897,15217,15541,15797,15937,19541,20117,22037,22741,23857,25457,28097,30517,31541,38977,40241,42197,43541,44917,47041,48497,50741,57077,58741,61297,64817,65717,74177,77141,80177,82241,87541,107057,117041",
+			"name": "Primes of form n^2 + 14641.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256839/b256839.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[500]^2+14641,PrimeQ] (* _Harvey P. Dale_, Mar 20 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a256839 n = a256839_list !! (n-1)",
+				"a256839_list = [x | x \u003c- map (+ 14641) a000290_list, a010051' x == 1]"
+			],
+			"xref": [
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256776 (b=4), A256777 (b=5), A256834 (b=6), A256835 (b=7), A256836 (b=8), A256837 (b=9), A256838 (b=10), A256840 (b=12), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 6,
+			"time": "2017-03-20T21:32:24-04:00",
+			"created": "2015-04-11T17:04:36-04:00"
+		},
+		{
+			"number": 256840,
+			"data": "20857,21577,21961,23761,27961,28657,29017,29761,30937,33961,34897,37897,41761,42937,49297,51361,60337,62761,65257,80761,83737,93097,107761,111337,113761,122497,132961,142537,151057,164377,173617,181537,188017,192961,218761",
+			"name": "Primes of form n^2 + 20736.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256840/b256840.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"J. Gebel, \u003ca href=\"/A001014/a001014.txt\"\u003eInteger points on Mordell curves\u003c/a\u003e [Cached copy, after the original web site tnt.math.se.tmu.ac.jp was shut down in 2017]"
+			],
+			"program": [
+				"(Haskell)",
+				"a256840 n = a256840_list !! (n-1)",
+				"a256840_list = [x | x \u003c- map (+ 20736) a000290_list, a010051' x == 1]"
+			],
+			"xref": [
+				"Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256776 (b=4), A256777 (b=5), A256834 (b=6), A256835 (b=7), A256836 (b=8), A256837 (b=9), A256838 (b=10), A256839 (b=11), A256841 (b=13)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 6,
+			"time": "2017-05-02T21:45:34-04:00",
+			"created": "2015-04-11T17:04:48-04:00"
+		},
+		{
+			"number": 256841,
+			"data": "28597,28661,28817,28961,29137,29717,30161,30497,30677,31477,32917,33461,34337,34961,35617,37397,38561,42017,42961,47057,49297,49877,51061,55457,60961,62417,64661,66977,70177,70997,72661,74357,75217,76961,78737,86161,93077",
+			"name": "Primes of form n^2 + 28561.",
+			"comment": [
+				"Conjecture: sequence is infinite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256841/b256841.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256841 n = a256841_list !! (n-1)",
+				"a256841_list = [x | x \u003c- map (+ 28561) a000290_list, a010051' x == 1]"
+			],
+			"xref": [
+				" Cf. A010051, A000290; subsequence of A028916.",
+				"Primes of form n^2+b^4, b fixed: A002496 (b=1), A243451 (b=2), A256775 (b=3), A256776 (b=4), A256777 (b=5), A256834 (b=6), A256835 (b=7), A256836 (b=8), A256837 (b=9), A256838 (b=10), A256839 (b=11), A256840 (b=12)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 11 2015",
+			"references": 14,
+			"revision": 4,
+			"time": "2015-04-11T17:05:03-04:00",
+			"created": "2015-04-11T17:05:03-04:00"
+		},
+		{
+			"number": 260273,
+			"data": "1,3,5,8,11,15,17,20,23,27,31,33,36,39,44,51,56,61,65,68,71,76,81,84,87,91,95,99,104,111,115,120,125,129,132,135,140,145,148,151,157,165,168,171,175,179,186,190,194,199,204,209,216,223,227,232,241,246",
+			"name": "Successively add the smallest nonzero binary number that is not a substring.",
+			"comment": [
+				"a(n) is at least Omega(n), at most O(n*log(n)).",
+				"The empirical approximation n*(log(n)/2 + exp(1)) is startlingly close to tight, compared with many increasing upper bounds.",
+				"A261644(n) = A062383(a(n)) - a(n). - _Reinhard Zumkeller_, Aug 30 2015"
+			],
+			"link": [
+				"Alex Meiburg, \u003ca href=\"/A260273/b260273.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = a(n) + A261461(a(n)). - _Reinhard Zumkeller_, Aug 30 2015"
+			],
+			"example": [
+				"Begin with a(1)=1, in binary, \"1\". This contains the string \"1\" but not \"10\", so we add 2. Thus a(2)=1+2=3. This also contains \"1\" but not \"10\", so we move to a(3)=3+2=5. This contains \"1\" and \"10\" but not \"11\", so we add 3. Thus a(4)=5+3=8. (See A261018 for the successive numbers that are added. - _N. J. A. Sloane_, Aug 17 2015)"
+			],
+			"mathematica": [
+				"sublistQ[L1_, L2_] := Module[{l1 = Length[L1], l2 = Length[L2], k}, If[l2 \u003c= l1, For[k = 1, k \u003c= l1 - l2 + 1, k++, If[L1[[k ;; k + l2 - 1]] == L2, Return[True]]]]; False];",
+				"a[1] = 1; a[n_] := a[n] = Module[{bb = IntegerDigits[a[n-1], 2], k}, For[k = 1, sublistQ[bb, IntegerDigits[k, 2]], k++]; a[n-1] + k]; Table[a[n], {n, 1, 60}] (* _Jean-François Alcover_, Apr 01 2016 *)",
+				"NestList[Function[k, k + FromDigits[#, 2] \u0026@ SelectFirst[IntegerDigits[Range[2^8], 2], Length@ SequencePosition[IntegerDigits[k, 2], #] == 0 \u0026]], 1, 64] (* _Michael De Vlieger_, Apr 01 2016, Version 10.1 *)"
+			],
+			"program": [
+				"(Java)",
+				"public static void main(String[] args) {",
+				"   int a=1;",
+				"   for(int iter=0;iter\u003c100;iter++){",
+				"       System.out.print(a+\", \");",
+				"       int inc;",
+				"       for(inc=1; contains(a,inc); inc++);",
+				"       a+=inc;",
+				"   }",
+				"}",
+				"static boolean contains(int a,int test){",
+				"   int mask=(Integer.highestOneBit(test)\u003c\u003c1)-1;",
+				"   while(a \u003e= test){",
+				"       if((a \u0026 mask) == test) return true;",
+				"       a \u003e\u003e= 1;",
+				"   }",
+				"   return false;",
+				"}",
+				"(Haskell)",
+				"a260273 n = a260273_list !! (n-1)",
+				"a260273_list = iterate (\\x -\u003e x + a261461 x) 1",
+				"-- _Reinhard Zumkeller_, Aug 30 2015, Aug 17 2015",
+				"(Python)",
+				"A260273_list, a = [1], 1",
+				"for i in range(10**3):",
+				"    b, s = 1, format(a,'b')",
+				"    while format(b,'b') in s:",
+				"        b += 1",
+				"    a += b",
+				"    s = format(a,'b')",
+				"    A260273_list.append(a) # _Chai Wah Wu_, Aug 26 2015"
+			],
+			"xref": [
+				"See A261922 and A261461 for the smallest missing number function; also A261923, A262279, A261281.",
+				"Cf. A030308, A261015, A261016, A261017, A261019.",
+				"See also A261396 (when a(n) just passes a power of 2), A261416 (the limiting behavior just past a power of 2).",
+				"First differences are A261018.",
+				"A262288 is the decimal analog.",
+				"Cf. A261644, A062383."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "1,2",
+			"author": "_Alex Meiburg_, Jul 22 2015",
+			"references": 14,
+			"revision": 54,
+			"time": "2016-08-10T00:29:45-04:00",
+			"created": "2015-08-16T17:38:02-04:00"
+		},
+		{
+			"number": 263451,
+			"data": "1,2,4,8,61,221,442,884,8761,75221,544210,8842100,87642100,875422100,8754421000,88754210000,877542100000,8755421000000,87542110000000,875422100000000,8754421000000000,88754210000000000,877542100000000000,8755421000000000000",
+			"name": "a(n) is the largest anagram of 2*a(n-1), a(1)=1.",
+			"comment": [
+				"For large n, a(n)/a(n-1) ~ 10."
+			],
+			"formula": [
+				"a(n) \u003e= A036447(n).",
+				"From _Alois P. Heinz_, Oct 19 2015: (Start)",
+				"G.f.: x*(99990000000*x^18 +86679000000*x^17 -333332100000*x^16 -13533210000*x^15 +6579000*x^14 +8577900*x^13 +354357900*x^12 +212157900*x^11 +60455790*x^10 +7924779*x^9 +3991239*x^8 +1999116*x^7 +999558*x^6 -221*x^5 -61*x^4 -8*x^3 -4*x^2 -2*x -1) / ((10*x-1) *(1+10*x) *(100*x^2+10*x+1) *(100*x^2-10*x+1)).",
+				"a(n) = 10^6 * a(n-6) for n \u003e= 20. (End)",
+				"a(n+1) = A004186(2*a(n)). - _Reinhard Zumkeller_, Oct 19 2015"
+			],
+			"mathematica": [
+				"s={1,2,4,8}; a=8; Do[b=FromDigits[Reverse[Sort[IntegerDigits[2*a]]]]; AppendTo[s,a=b],{20}]; s",
+				"NestList[FromDigits[ReverseSort[IntegerDigits[2 #]]]\u0026,1,30] (* Requires Mathematica version 11 or later *) (* _Harvey P. Dale_, May 17 2019 *)"
+			],
+			"program": [
+				"(MAGMA) [n eq 1 select 1 else Seqint(Sort(Intseq(2*Self(n-1)))): n in [1..30]]; // _Bruno Berselli_, Oct 19 2015",
+				"(Haskell)",
+				"a263451 n = a263451_list !! (n-1)",
+				"a263451_list = iterate (a004186 . (* 2)) 1",
+				"-- _Reinhard Zumkeller_, Oct 19 2015"
+			],
+			"xref": [
+				"The following are parallel families: A000079 (2^n), A004094 (2^n reversed), A028909 (2^n sorted up), A028910 (2^n sorted down), A036447 (double and reverse), A057615 (double and sort up), A263451 (double and sort down); A000244 (3^n), A004167 (3^n reversed), A321540 (3^n sorted up), A321539 (3^n sorted down), A163632 (triple and reverse), A321542 (triple and sort up), A321541 (triple and sort down)."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_Zak Seidov_, Oct 18 2015",
+			"references": 14,
+			"revision": 18,
+			"time": "2019-05-17T12:41:42-04:00",
+			"created": "2015-10-19T06:37:34-04:00"
+		},
+		{
+			"number": 1255,
+			"data": "1,1,4,9,25,49,121,225,484,900,1764,3136,5929,10201,18225,30976,53361,88209,148225,240100,393129,627264,1004004,1575025,2480625,3833764,5934096,9060100,13823524,20839225,31404816,46812964,69705801,102880449,151536100",
+			"name": "Squares of partition numbers.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A001255/b001255.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000041(n)^2.",
+				"a(n) ~ exp(2*Pi*sqrt(2*n/3)) / (48*n^2). - _Vaclav Kotesovec_, Dec 01 2015"
+			],
+			"maple": [
+				"seq(numbpart(k)^2, k=0..33); # _Zerinvary Lajos_, Jun 06 2007"
+			],
+			"mathematica": [
+				"Table[ PartitionsP[n]^2, {n, 0, 33}] (* _Ray Chandler_, Nov 14 2005 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a001255 = (^ 2) . a000041  -- _Reinhard Zumkeller_, Nov 15 2015"
+			],
+			"xref": [
+				"Cf. A000041, A304990.",
+				"Cf. A133042, A054440."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Extended by _Ray Chandler_, Nov 14 2005"
+			],
+			"references": 13,
+			"revision": 20,
+			"time": "2018-05-23T03:48:02-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		}
+	]
+}

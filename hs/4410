@@ -1,0 +1,375 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4410,
+	"results": [
+		{
+			"number": 199118,
+			"data": "1,1,1,2,3,4,6,7,10,13,17,21,28,34,42,52,65,78,96,113,138,165,196,231,276,322,379,442,518,600,698,803,931,1071,1231,1407,1615,1839,2099,2384,2712,3069,3478,3923,4434,4991,5618,6303,7083,7928,8878,9916,11081",
+			"name": "Number of partitions of n into terms of (1,3)-Ulam sequence, cf. A002859.",
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UlamSequence.html\"\u003eUlam Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ulam_number\"\u003eUlam number\u003c/a\u003e",
+				"\u003ca href=\"/index/U#Ulam_num\"\u003eIndex entries for Ulam numbers\u003c/a\u003e"
+			],
+			"example": [
+				"The first terms of A002859 are 1, 3, 4, 5, 6, 8, 10, 12, 17, 21, ...",
+				"a(7) = #{6+1, 5+1+1, 4+3, 4+1+1+1, 3+3+1, 3+1+1+1+1, 7x1} = 7;",
+				"a(8) = #{8, 6+1+1, 5+3, 5+1+1+1, 4+4, 4+3+1, 4+1+1+1+1, 3+3+1+1, 3+1+1+1+1+1, 8x1} = 10."
+			],
+			"program": [
+				"(Haskell)",
+				"a199118 = p a002859_list where",
+				"   p _ 0 = 1",
+				"   p us'@(u:us) m | m \u003c u     = 0",
+				"                  | otherwise = p us' (m - u) + p us m"
+			],
+			"xref": [
+				"Cf. A000607; A199119, A199016, A199120, A199122."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Nov 03 2011",
+			"references": 6,
+			"revision": 6,
+			"time": "2012-03-30T18:51:11-04:00",
+			"created": "2011-11-03T21:43:38-04:00"
+		},
+		{
+			"number": 199119,
+			"data": "1,1,0,1,2,2,2,2,3,4,4,4,5,6,6,7,7,8,10,9,9,12,13,13,13,14,17,18,18,19,21,23,25,26,27,30,33,33,36,40,42,43,45,51,55,55,57,62,67,71,72,76,82,87,91,95,100,107,112,116,124,132,137,143,151,159,170",
+			"name": "Number of partitions of n into distinct terms of (1,3)-Ulam sequence, cf. A002859.",
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UlamSequence.html\"\u003eUlam Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ulam_number\"\u003eUlam number\u003c/a\u003e",
+				"\u003ca href=\"/index/U#Ulam_num\"\u003eIndex entries for Ulam numbers\u003c/a\u003e"
+			],
+			"example": [
+				"The first terms of A002859 are 1, 3, 4, 5, 6, 8, 10, 12, 17, 21, ...",
+				"a(10) = #{10, 6+4, 6+3+1, 5+4+1} = 4;",
+				"a(11) = #{10+1, 8+3, 6+5, 6+4+1} = 4;",
+				"a(12) = #{12, 8+4, 8+3+1, 6+5+1, 5+4+3} = 5."
+			],
+			"program": [
+				"(Haskell)",
+				"a199119 = p a002859_list where",
+				"   p _  0 = 1",
+				"   p (u:us) m | m \u003c u = 0",
+				"              | otherwise = p us (m - u) + p us m"
+			],
+			"xref": [
+				"A000586; A199118, A199017, A199121, A199123."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Nov 03 2011",
+			"references": 6,
+			"revision": 5,
+			"time": "2012-03-30T18:51:11-04:00",
+			"created": "2011-11-03T21:43:48-04:00"
+		},
+		{
+			"number": 199120,
+			"data": "1,1,1,1,2,3,4,5,7,8,11,13,17,20,25,30,38,44,54,63,77,90,107,124,148,171,202,231,271,310,360,412,477,542,622,705,809,915,1042,1175,1335,1501,1699,1905,2148,2403,2702,3018,3383,3768,4212,4682,5223,5794,6445",
+			"name": "Number of partitions of n into terms of (1,4)-Ulam sequence, cf. A003666.",
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UlamSequence.html\"\u003eUlam Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ulam_number\"\u003eUlam number\u003c/a\u003e",
+				"\u003ca href=\"/index/U#Ulam_num\"\u003eIndex entries for Ulam numbers\u003c/a\u003e"
+			],
+			"example": [
+				"The first terms of A003666 are 1, 4, 5, 6, 7, 8, 10, 16, 18, 19, ...",
+				"a(7) = #{7, 6+1, 5+1+1, 4+1+1+1, 7x1} = 5;",
+				"a(8) = #{8, 7+1, 6+1+1, 5+1+1+1, 4+4, 4+1+1+1+1, 8x1} = 7;",
+				"a(9) = #{8+1, 7+1+1, 6+1+1+1, 5+4, 5+1+1+1+1, 4+4+1, 4+5x1, 9x1} = 8."
+			],
+			"program": [
+				"(Haskell)",
+				"a199120 = p a003666_list where",
+				"   p _ 0 = 1",
+				"   p us'@(u:us) m | m \u003c u     = 0",
+				"                  | otherwise = p us' (m - u) + p us m"
+			],
+			"xref": [
+				"A000607; A199121, A199016, A199118, A199122."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Nov 03 2011",
+			"references": 6,
+			"revision": 5,
+			"time": "2012-03-30T18:51:11-04:00",
+			"created": "2011-11-03T21:44:00-04:00"
+		},
+		{
+			"number": 199121,
+			"data": "1,1,0,0,1,2,2,2,2,2,3,4,4,4,4,5,6,6,7,8,7,8,10,11,11,12,14,14,15,17,18,20,21,22,24,25,27,30,31,32,35,37,39,41,44,45,48,52,53,56,60,62,66,69,72,76,81,86,89,92,96,103,109,113,117,123,127,134",
+			"name": "Number of partitions of n into distinct terms of (1,4)-Ulam sequence, cf. A003666.",
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UlamSequence.html\"\u003eUlam Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ulam_number\"\u003eUlam number\u003c/a\u003e",
+				"\u003ca href=\"/index/U#Ulam_num\"\u003eIndex entries for Ulam numbers\u003c/a\u003e"
+			],
+			"example": [
+				"The first terms of A003666 are 1, 4, 5, 6, 7, 8, 10, 16, 18, 19, ...",
+				"a(12) = #{8+4, 7+5, 7+4+1, 6+5+1} = 4;",
+				"a(13) = #{8+5, 8+4+1, 7+6, 7+5+1} = 4;",
+				"a(14) = #{10+4, 8+6, 8+5+1, 7+6+1} = 4;",
+				"a(15) = #{10+5, 10+4+1, 8+7, 8+6+1, 6+5+4} = 5;",
+				"a(16) = #{16, 10+6, 10+5+1, 8+7+1, 7+5+4, 6+5+4+1} = 6."
+			],
+			"program": [
+				"(Haskell)",
+				"a199121 = p a003666_list where",
+				"   p _  0 = 1",
+				"   p (u:us) m | m \u003c u =",
+				"              | otherwise = p us (m - u) + p us m"
+			],
+			"xref": [
+				"Cf. A000586; A199120, A199017, A199119, A199123."
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_Reinhard Zumkeller_, Nov 03 2011",
+			"references": 6,
+			"revision": 5,
+			"time": "2012-03-30T18:51:11-04:00",
+			"created": "2011-11-03T21:44:10-04:00"
+		},
+		{
+			"number": 199122,
+			"data": "1,0,1,1,1,2,2,3,4,5,6,7,9,11,14,16,20,23,29,33,39,47,54,64,75,86,101,117,135,155,179,204,236,268,306,349,397,450,511,577,653,736,831,934,1050,1179,1322,1478,1657,1848,2065,2302,2562,2852,3172,3518,3909",
+			"name": "Number of partitions of n into terms of (2,3)-Ulam sequence, cf. A001857.",
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UlamSequence.html\"\u003eUlam Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ulam_number\"\u003eUlam number\u003c/a\u003e",
+				"\u003ca href=\"/index/U#Ulam_num\"\u003eIndex entries for Ulam numbers\u003c/a\u003e"
+			],
+			"example": [
+				"The first terms of A001857 are 2, 3, 5, 7, 8, 9, 13, 14, 18, 19, ...",
+				"a(10) = #{8+2, 7+3, 5+5, 5+3+2, 3+3+2+2, 2+2+2+2+2} = 6;",
+				"a(11) = #{9+2, 8+3, 7+2+2, 5+3+3, 5+2+2+2, 3+3+3+2, 3+2+2+2+2} = 7;",
+				"a(12) = #{9+3, 8+2+2, 7+5, 7+3+2, 5+5+2, 5+3+2+2, 3+3+3+3, 3+3+2+2+2, 6x2} = 9."
+			],
+			"program": [
+				"(Haskell)",
+				"a199122 = p a001857_list where",
+				"   p _ 0 = 1",
+				"   p us'@(u:us) m | m \u003c u     = 0",
+				"                  | otherwise = p us' (m - u) + p us m"
+			],
+			"xref": [
+				"Cf. A000607; A199123, A199016, A199118, A199120."
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_Reinhard Zumkeller_, Nov 03 2011",
+			"references": 6,
+			"revision": 5,
+			"time": "2012-03-30T18:51:11-04:00",
+			"created": "2011-11-03T21:44:24-04:00"
+		},
+		{
+			"number": 199123,
+			"data": "1,0,1,1,0,2,0,2,2,2,3,2,3,3,4,4,5,5,6,6,6,8,8,9,11,10,12,14,12,17,16,17,22,19,24,25,25,30,30,33,37,37,42,45,46,52,54,57,64,66,69,79,76,87,93,91,109,105,115,126,123,140,144,151,166,169,180,193",
+			"name": "Number of partitions of n into distinct terms of (2,3)-Ulam sequence, cf. A001857.",
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UlamSequence.html\"\u003eUlam Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ulam_number\"\u003eUlam number\u003c/a\u003e",
+				"\u003ca href=\"/index/U#Ulam_num\"\u003eIndex entries for Ulam numbers\u003c/a\u003e"
+			],
+			"example": [
+				"The first terms of A001857 are 2, 3, 5, 7, 8, 9, 13, 14, 18, 19, 24, ...",
+				"a(20) = #{18+2, 13+7, 13+5+2, 9+8+3, 8+7+5, 8+7+3+2} = 6;",
+				"a(21) = #{19+2, 18+3, 14+7, 14+5+2, 13+8, 13+5+3, 9+7+5, 9+7+3+2} = 8."
+			],
+			"program": [
+				"(Haskell)",
+				"a199123 = p a001857_list where",
+				"   p _  0 = 1",
+				"   p (u:us) m | m \u003c u = 0",
+				"              | otherwise = p us (m - u) + p us m"
+			],
+			"xref": [
+				"Cf. A000586; A199122, A199017, A199119, A199121."
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_Reinhard Zumkeller_, Nov 03 2011",
+			"references": 6,
+			"revision": 5,
+			"time": "2012-03-30T18:51:11-04:00",
+			"created": "2011-11-03T21:44:34-04:00"
+		},
+		{
+			"number": 203907,
+			"data": "55,15,165,30,275,45,1,60,495,75,13,90,11,105,825,120,1,135,77,150,3,26,95,180,1375,22,1485,210,77,225,1705,240,29,2,5,270,2035,23,33,300,2255,315,2365,52,2475,190,2585,360,7,375,19,44,2915,405,65,420",
+			"name": "Successor function for Conway's PRIMEGAME.",
+			"comment": [
+				"a(n) \u003c= 55 * n, as 55/1 is the last and largest FRACTRAN fraction.",
+				"Iterations, starting with 2, give A007542. A185242 begins with 3.",
+				"A quasipolynomial of order 6469693230 = 29#. - _Charles R Greathouse IV_, Jul 31 2016",
+				"Apparent simple regularities do not necessarily hold. It is true that a(2n)/15 = a(4n)/30, but for n = 11, 13, 17, 19, 22, 23, ... this is not equal to n. Also, a(2k-1) = 55k holds for more than 60%, but not for all k \u003e= 1. - _M. F. Hasler_, Jun 15 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A203907/b203907.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/FRACTRAN.html\"\u003eFRACTRAN\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://oeis.org/wiki/Conway\u0026#39;s_PRIMEGAME\"\u003eConway's PRIMEGAME\u003c/a\u003e"
+			],
+			"formula": [
+				"Let [17/91, 78/85, 19/51, 23/38, 29/33, 77/29, 95/23, 77/19, 1/17, 11/13, 13/11, 15/2, 1/7, 55/1] be the list of FRACTRAN fractions = [A202138(k)/A203363(k) : 1\u003c=k\u003c=14], then a(n) = n*f, where f is the first term yielding an integral product."
+			],
+			"mathematica": [
+				"conwayFracs = {17/91, 78/85, 19/51, 23/38, 29/33, 77/29, 95/23, 77/19, 1/17, 11/13, 13/11, 15/2, 1/7, 55}; conwayProc[n_] := Module[{curr = 1/2, iter = 1}, While[Not[IntegerQ[curr]], curr = conwayFracs[[iter]]n; iter++]; Return[curr]]; Table[conwayProc[n], {n, 60}] (* _Alonso del Arte_, Jan 24 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"a203907 n = numerator $ head",
+				"   [x | x \u003c- map (* fromInteger n) fracts, denominator x == 1]",
+				"   where fracts = zipWith (%) a202138_list a203363_list",
+				"a203907_list = map a203907 [1..]",
+				"(PARI) {A203907(n,V=[17/91, 78/85, 19/51, 23/38, 29/33, 77/29, 95/23, 77/19, 1/17, 11/13, 13/11, 15/2, 1/7, 55])=for(i=1,#V, denominator(V[i]*n)==1 \u0026\u0026 return(V[i]*n))} \\\\ _Charles R Greathouse IV_, Jul 31 2016, edited by _M. F. Hasler_, Jun 15 2017"
+			],
+			"xref": [
+				"Cf. A007542."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jan 24 2012",
+			"references": 6,
+			"revision": 28,
+			"time": "2017-06-15T17:12:21-04:00",
+			"created": "2012-01-24T16:29:55-05:00"
+		},
+		{
+			"number": 204293,
+			"data": "1,0,0,1,0,1,0,0,0,0,1,0,2,0,1,0,0,0,0,0,0,1,0,3,0,3,0,1,0,0,0,0,0,0,0,0,1,0,4,0,6,0,4,0,1,0,0,0,0,0,0,0,0,0,0,1,0,5,0,10,0,10,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,6,0,15,0,20",
+			"name": "Pascal's triangle interspersed with rows of zeros, and the rows of Pascal's triangle are interspersed with zeros.",
+			"comment": [
+				"Auxiliary array for computing Losanitsch's triangle A034851;",
+				"T(n, k) + T(n, k + 2) = T(n + 2, k + 2) for k \u003c n - 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A204293/b204293.txt\"\u003eRows n=0..100 of triangle, flattened\u003c/a\u003e",
+				"S. M. Losanitsch, \u003ca href=\"/A000602/a000602_1.pdf\"\u003eDie Isomerie-Arten bei den Homologen der Paraffin-Reihe\u003c/a\u003e, Chem. Ber. 30 (1897), 1917-1926. (Annotated scanned copy)",
+				"N. J. A. Sloane, \u003ca href=\"/classic.html#LOSS\"\u003eClassic Sequences: Losanitsch's Triangle\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LosanitschsTriangle.html\"\u003eLosanitsch's Triangle\u003c/a\u003e",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n, k) = (1 - n mod 2) * (1 - k mod 2) * binomial(floor(n/2),floor(k/2))."
+			],
+			"mathematica": [
+				"t[n_?EvenQ, k_?EvenQ] := Binomial[n/2, k/2]; t[_, _] = 0; Flatten[Table[t[n, k], {n, 0, 12}, {k, 0, n}]] (* _Jean-François Alcover_, Feb 07 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a204293 n k = a204293_tabl !! n !! k",
+				"a204293_row n = a204293_tabl !! n",
+				"a204293_tabl = [1] : [0,0] : f [1] [0,0] where",
+				"   f xs ys = xs' : f ys xs' where",
+				"     xs' = zipWith (+) ([0,0] ++ xs) (xs ++ [0,0])"
+			],
+			"xref": [
+				"Cf. A077957 (row sums), A126869 (central terms); A108044, A007318."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,13",
+			"author": "_Reinhard Zumkeller_, Jan 14 2012",
+			"ext": [
+				"Formula for T(n,k) corrected by _Peter Bala_, Jul 06 2015"
+			],
+			"references": 6,
+			"revision": 20,
+			"time": "2018-03-16T17:03:01-04:00",
+			"created": "2012-01-15T14:49:32-05:00"
+		},
+		{
+			"number": 204674,
+			"data": "1,12,57,160,345,636,1057,1632,2385,3340,4521,5952,7657,9660,11985,14656,17697,21132,24985,29280,34041,39292,45057,51360,58225,65676",
+			"name": "4*n^3 + 5*n^2 + 2*n + 1",
+			"comment": [
+				"For n \u003e 0: a(n) = sum(A033293(n,k): k = 1..n), row sums of the triangle A033293."
+			],
+			"formula": [
+				"a(n) = (4*n^2 + n + 1) * (n + 1), cf. A054567."
+			],
+			"program": [
+				"(Haskell)",
+				"a204674 n = n * (n * (4 * n + 5) + 2) + 1"
+			],
+			"xref": [
+				"Cf. A226449. [_Bruno Berselli_, Jun 09 2013]"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jan 18 2012",
+			"references": 6,
+			"revision": 10,
+			"time": "2013-06-09T10:11:38-04:00",
+			"created": "2012-01-18T12:39:07-05:00"
+		},
+		{
+			"number": 206351,
+			"data": "1,3,16,105,715,4896,33553,229971,1576240,10803705,74049691,507544128,3478759201,23843770275,163427632720,1120149658761,7677619978603,52623190191456,360684711361585,2472169789339635",
+			"name": "a(n) = 7*a(n-1) - a(n-2) - 4 with a(1)=1, a(2)=3.",
+			"comment": [
+				"A Pell sequence related to Heronian triangles (rational triangles), see A206334. The connection is this: consider the problem of finding triangles with area a positive integer n, and with sides (a, b, n) where a, b are rational. Note that n is both the area and one side. For many values of n this is not possible, and the sequence of such numbers n is quite erratic (see A206334). Nonetheless, each term in this sequence is such a value of n. For example, for n = 105 you can take the other two sides, a and b, to be 10817/104, and 233/104 and the area will equal n, i.e., 105."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A206351/b206351.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (8,-8,1)."
+			],
+			"formula": [
+				"a(n) = 4/5+1/10*((7/2-3/2*sqrt(5))^(n-1)+(7/2+3/2*sqrt(5))^(n-1))+1/10*sqrt(5)*((7/2 +3/2*sqrt(5))^(n-1)-(7/2-3/2*sqrt(5))^(n-1)). - _Paolo P. Lava_, Feb 07 2012",
+				"From _Bruno Berselli_, Feb 07 2012: (Start)",
+				"G.f.: x*(1-5*x)/(1-8*x+8*x^2-x^3).",
+				"a(n) = A081018(n-1) + 1. (End)",
+				"a(n) = -A003482(-n) = Fibonacci(2*n)*Fibonacci(2*n-3). - _Michael Somos_, Jun 26 2018",
+				"a(n) = A089508(n-1) + 2 for n\u003e1. - _Bruno Berselli_, Jun 20 2019 [Formula found by Umberto Cerruti]"
+			],
+			"example": [
+				"G.f. = x + 3*x^2 + 16*x^3 + 105*x^4 + 715*x^5 + 4896*x^6 + 33553*x^7 + ... - _Michael Somos_, Jun 26 2018"
+			],
+			"maple": [
+				"genZ := proc(n)",
+				"local start;",
+				"option remember;",
+				"    start := [1, 3];",
+				"    if n \u003c 3 then start[n]",
+				"    else 7*genZ(n - 1) - genZ(n - 2) - 4",
+				"    end if",
+				"end proc:",
+				"seq(genZ(n),n=1..20);"
+			],
+			"mathematica": [
+				"LinearRecurrence[{8, -8, 1}, {1, 3, 16}, 50] (* _Charles R Greathouse IV_, Feb 07 2012 *)",
+				"RecurrenceTable[{a[1] == 1, a[2] == 3, a[n] == 7 a[n - 1] - a[n - 2] - 4}, a, {n, 20}] (* _Bruno Berselli_, Feb 07, 2012 *)",
+				"a[ n_] := Fibonacci[2 n] Fibonacci[2 n - 3]; (* _Michael Somos_, Jun 26 2018 *)"
+			],
+			"program": [
+				"(PARI) Vec((1-5*x)/(1-8*x+8*x^2-x^3)+O(x^99)) \\\\ _Charles R Greathouse IV_, Feb 07 2012",
+				"(PARI) {a(n) = fibonacci(2*n) * fibonacci(2*n - 3)}; /* _Michael Somos_, Jun 26 2018 */",
+				"(Haskell)",
+				"a206351 n = a206351_list !! (n-1)",
+				"a206351_list = 1 : 3 : map (subtract 4)",
+				"               (zipWith (-) (map (* 7) (tail a206351_list)) a206351_list)",
+				"-- _Reinhard Zumkeller_, Feb 08 2012",
+				"(MAGMA) [Fibonacci(2*n)*Fibonacci(2*n-3): n in [1..30]]; // _G. C. Greubel_, Aug 12 2018"
+			],
+			"xref": [
+				"Cf. A000045, A003482, A089508.",
+				"Subsequence of A206334."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_James R. Buddenhagen_, Feb 06 2012",
+			"references": 6,
+			"revision": 41,
+			"time": "2019-06-20T03:58:28-04:00",
+			"created": "2012-02-07T17:24:05-05:00"
+		}
+	]
+}

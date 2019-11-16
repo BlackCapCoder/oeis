@@ -1,0 +1,412 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4600,
+	"results": [
+		{
+			"number": 36441,
+			"data": "2,4,6,9,12,15,20,25,30,35,42,49,56,63,70,77,88,99,110,121,132,143,156,169,182,195,208,221,238,255,272,289,306,323,342,361,380,399,418,437,460,483,506,529,552,575,598,621,644,667,696,725,754,783,812,841,870",
+			"name": "a(n+1) = next number having largest prime dividing a(n) as a factor, with a(1) = 2.",
+			"comment": [
+				"a(n) satisfies the following inequality: 1/4*(n^2+3*n+1) \u003c= a(n) \u003c= 1/4*(n+2)^2. [Corrected by _M. F. Hasler_, Apr 08 2015]",
+				"The present sequence is the special case a(n) = a(2,n) with a more general a(m, n) := a(m, n-1) + gpf(a(m, n-1)), a(m, 1) := m, where gpf(x) := \"greatest prime factor of x\" = A006530(x). Also a(a(r,k), n)=a(r,n+k-1), for all n,k in N\\{0} and all r in N\\{0,1}; a(prime(k), n)=a(prime(i), n+prime(k)-prime(i)), for all k,i,n in N\\{0}, with k \u003e= i, n \u003e= prime(k-1) and with prime(x) := x-th prime.",
+				"Essentially the same as A076271 and A180107, cf. formula."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A036441/b036441.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = p(m)*(n+2-p(m)), where p(k) is the k-th prime and m is the smallest index such that n+2 \u003c= p(m) + p(m+1). - _Max Alekseyev_, Oct 21 2008",
+				"a(n) = A076271(n+1) = A180107(n+2). - _M. F. Hasler_, Apr 08 2015",
+				"a(n+1) = A070229(a(n)). - _Reinhard Zumkeller_, Nov 07 2015"
+			],
+			"example": [
+				"a(2,2) = 4 because 2 + gpf(2) = 2 + 2 = 4; a(2,3) = 6 because 4 + gpf(4) = 4 + 2 = 6."
+			],
+			"mathematica": [
+				"f[n_]:=Last[First/@FactorInteger[n]];Join[{a=2},Table[a+=f[a],{n,2,100}]] (* _Vladimir Joseph Stephan Orlovsky_, Feb 08 2011*)",
+				"NestList[#+FactorInteger[#][[-1,1]]\u0026,2,60] (* _Harvey P. Dale_, Dec 02 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a036441 n = a036441_list !! (n-1)",
+				"a036441_list = tail a076271_list",
+				"-- _Reinhard Zumkeller_, Nov 08 2015, Nov 14 2011",
+				"(PARI) a(n)=(n+2-if(n\\2+1\u003c(p=nextprime(n\\2+1))\u0026\u0026n+1\u003cp+n=precprime(p-1),p=n,p))*p \\\\ _M. F. Hasler_, Apr 08 2015"
+			],
+			"xref": [
+				"Cf. A006530. See A076271 and A180107 for other versions.",
+				"Cf. A001043, A070229.",
+				"Cf. A123581."
+			],
+			"keyword": "eigen,nice,nonn",
+			"offset": "1,1",
+			"author": "Frederick Magata (frederick.magata(AT)uni-muenster.de)",
+			"ext": [
+				"Better description from _Reinhard Zumkeller_, Feb 04, 2002",
+				"Edited by _M. F. Hasler_, Apr 08 2015"
+			],
+			"references": 5,
+			"revision": 32,
+			"time": "2015-11-07T20:06:41-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36552,
+			"data": "1,2,3,6,4,8,5,10,7,14,9,18,11,22,12,24,13,26,15,30,16,32,17,34,19,38,20,40,21,42,23,46,25,50,27,54,28,56,29,58,31,62,33,66,35,70,36,72,37,74,39,78,41,82,43,86,44,88,45,90,47,94,48,96,49,98,51,102",
+			"name": "List of pairs (m,2m) where m is the least unused positive number.",
+			"comment": [
+				"A permutation of the natural numbers. Inverse permutation is A065037."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A036552/b036552.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"P. Erdős, R. Freud, and N. Hegyvári, \u003ca href=\"https://users.renyi.hu/~p_erdos/1983-02.pdf\"\u003eArithmetical properties of permutations of integers\u003c/a\u003e, Acta Mathematica Hungarica 41:1-2 (1983), pp 169-176.",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"mathematica": [
+				"w = {}; Do[ w = If[ FreeQ[w, k], w = Join[w, {k, 2k}], w], {k, 100}]; w",
+				"(* _Jean-François Alcover_, Nov 04 2011, after _Wouter Meeussen_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a036552 n = a036552_list !! (n-1)",
+				"a036552_list = g [1..] where",
+				"   g (x:xs) = x : (2*x) : (g $ delete (2*x) xs)",
+				"-- _Reinhard Zumkeller_, Feb 07 2011"
+			],
+			"xref": [
+				"Alternating merge of A003159 and A036554. Cf. A064736, A065037."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_Tom Verhoeff_",
+			"references": 5,
+			"revision": 36,
+			"time": "2018-05-07T21:38:49-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36581,
+			"data": "0,2,1,0,1,2,0,2,1,2,0,1,0,2,1,0,1,2,0,1,0,2,1,2,0,2,1,0,1,2,0,2,1,2,0,1,0,2,1,2,0,2,1,0,1,2,0,1,0,2,1,0,1,2,0,2,1,2,0,1,0,2,1,0,1,2,0,1,0,2,1,2,0,2,1,0,1,2,0,1,0,2,1,0,1,2,0,2,1,2,0,1,0,2,1,2,0,2,1",
+			"name": "Ternary Thue-Morse sequence: closed under a-\u003eabc, b-\u003eac, c-\u003eb.",
+			"comment": [
+				"This sequence and A108694 are squarefree (they do not contain any substring XX). - _Bill Gosper_, Jul 22 2005",
+				"Trajectory of 1 under the morphism 0 -\u003e 021, 1 -\u003e 2 \u0026 2 -\u003e 01. - _Robert G. Wilson v_, Apr 06 2008",
+				"I believe that this is the sequence Cummings refers to as the Morse-Hedlund sequence. It can be constructed by starting with the Thue-Morse binary sequence A010060, 0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,1,0,..., reading successive pairs of digits: 01, 11, 10, 01, 10, 00, 01, 11, 10, 00, 01, ..., and mapping 01 to 0, 10 to 1, and both 00 and 11 to 2, getting 0,2,1,0,1,2,0,2,1,... - _N. J. A. Sloane_, Oct 17 2012"
+			],
+			"reference": [
+				"L. J. Cummings, On the construction of Thue sequences, Proc. 9th S-E Conf. Combinatorics, Graph Theory and Computing, pp. 235-242. - From _N. J. A. Sloane_, Oct 17 2012",
+				"M. Lothaire, Combinatorics on Words. Addison-Wesley, Reading, MA, 1983, p. 26."
+			],
+			"link": [
+				"R. J. Mathar, \u003ca href=\"/A036581/b036581.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Marston Morse and Gustav A. Hedlund, \u003ca href=\"http://dx.doi.org/10.1215/S0012-7094-44-01101-4\"\u003eUnending chess, symbolic dynamics and a problem in semigroups\u003c/a\u003e, Duke Math. J., Volume 11, Number 1 (1944), 1-7. - From _N. J. A. Sloane_, Oct 17 2012",
+				"\u003ca href=\"/index/Fi#FIXEDPOINTS\"\u003eIndex entries for sequences that are fixed points of mappings\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A010060(n+1) - A010060(n) - 1 mod 3. - _Bill Gosper_, Jul 22 2005"
+			],
+			"maple": [
+				"A036581 := proc(n)",
+				"    A010060(n+1)-A010060(n)-1 ;",
+				"    % mod 3 ;",
+				"end proc: # _R. J. Mathar_, Oct 17 2012"
+			],
+			"mathematica": [
+				"Nest[ # /. {0 -\u003e {0, 2, 1}, 1 -\u003e {2}, 2 -\u003e {0, 1}} \u0026, {0}, 7] // Flatten (* _Robert G. Wilson v_, Apr 06 2008 *)",
+				"a010060[n_]:=Mod[DigitCount[n, 2, 1], 2]; Table[Mod[a010060[n + 1] - a010060[n] - 1, 3], {n, 0, 100}] (* _Indranil Ghosh_, Apr 25 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a036581 n = a036581_list !! n",
+				"a036581_list = zipWith (\\u v -\u003e if u /= v then 2 * u + v - 1 else 2)",
+				"                       a010060_list $ tail a010060_list",
+				"-- According to _N. J. A. Sloane_'s comment from Oct 17 2012",
+				"-- _Reinhard Zumkeller_, Nov 30 2012",
+				"(Python)",
+				"def a010060(n): return bin(n)[2:].count(\"1\")%2",
+				"def a(n): return (a010060(n + 1) - a010060(n) - 1)%3 # _Indranil Ghosh_, Apr 25 2017"
+			],
+			"xref": [
+				"Cf. A036583, A108694."
+			],
+			"keyword": "nonn,nice",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Robert G. Wilson v_, Apr 06 2008"
+			],
+			"references": 5,
+			"revision": 42,
+			"time": "2018-07-04T12:32:19-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36988,
+			"data": "1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1",
+			"name": "Has simplest possible tree complexity of all transcendental sequences.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A036988/b036988.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"H. Niederreiter and M. Vielhaber, \u003ca href=\"http://dx.doi.org/10.1006/jcom.1996.0014\"\u003eTree complexity and a doubly exponential gap between structured and random sequences\u003c/a\u003e, J. Complexity, 12 (1996), 187-198."
+			],
+			"formula": [
+				"a(n) = 1 iff, in the binary expansion of n, reading from right to left, the number of 1's never exceeds the number of 0's.",
+				"a(n) = A063524(A036989(n)). - _Reinhard Zumkeller_, Jul 31 2013"
+			],
+			"mathematica": [
+				"(* b = A036989 *) b[0] = 1; b[n_?EvenQ] := b[n] = Max[b[n/2] - 1, 1]; b[n_] := b[n] = b[(n-1)/2] + 1; a[n_] := Boole[b[n] == 1]; Table[a[n], {n, 0, 104}] (* _Jean-François Alcover_, Nov 05 2013, after _Reinhard Zumkeller_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a036988 = a063524 . a036989  -- _Reinhard Zumkeller_, Jul 31 2013"
+			],
+			"xref": [
+				"Cf. A036989. Characteristic function of A036990."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Sep 25 2000"
+			],
+			"references": 5,
+			"revision": 17,
+			"time": "2017-03-15T20:24:22-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36989,
+			"data": "1,2,1,3,1,2,2,4,1,2,1,3,1,3,3,5,1,2,1,3,1,2,2,4,1,2,2,4,2,4,4,6,1,2,1,3,1,2,2,4,1,2,1,3,1,3,3,5,1,2,1,3,1,3,3,5,1,3,3,5,3,5,5,7,1,2,1,3,1,2,2,4,1,2,1,3,1,3,3,5,1,2,1,3,1,2,2,4,1,2,2,4,2,4,4,6,1,2,1,3,1,2,2,4,1",
+			"name": "Read binary expansion of n from the right; keep track of the excess of 1's over 0's that have been seen so far; sequence gives 1 + maximum(excess of 1's over 0's).",
+			"comment": [
+				"Associated with A036988 (Remark 4 of the reference)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A036989/b036989.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"H. Niederreiter and M. Vielhaber, \u003ca href=\"http://dx.doi.org/10.1006/jcom.1996.0014\"\u003eTree complexity and a doubly exponential gap between structured and random sequences\u003c/a\u003e, J. Complexity, 12 (1996), 187-198.",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 1 iff, in the binary expansion of n, reading from right to left, the number of 1's never exceeds the number of 0's: a(A036990(n)) = 1.",
+				"a(0) = 1, a(2n) = max(a(n) - 1, 1), a(2n+1) = a(n) + 1. - _Franklin T. Adams-Watters_, Dec 26 2006",
+				"Equals inverse Moebius transform (A051731) of A010060, the Thue-Morse sequence starting with \"1\": (1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1,...). - _Gary W. Adamson_, May 13 2007"
+			],
+			"example": [
+				"59 in binary is 111011, excess from right to left is 1,2,1,2,3,4, maximum is 4, so a(59) = 4."
+			],
+			"mathematica": [
+				"a[0] = 1; a[n_?EvenQ] := a[n] = Max[a[n/2] - 1, 1]; a[n_] := a[n] = a[(n-1)/2] + 1; Table[a[n], {n, 0, 104}] (* _Jean-François Alcover_, Nov 05 2013, after _Franklin T. Adams-Watters_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a036989 n = a036989_list !! n",
+				"a036989_list = 1 : concat (transpose",
+				"   [map (+ 1) a036989_list, map ((max 1) . pred) $ tail a036989_list])",
+				"-- _Reinhard Zumkeller_, Jul 31 2013"
+			],
+			"xref": [
+				"Cf. A036988, A036990, A126387.",
+				"Cf. A010060."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Edited by _Joshua Zucker_, May 11 2006"
+			],
+			"references": 5,
+			"revision": 27,
+			"time": "2017-03-15T20:24:31-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36992,
+			"data": "6,9,14,17,22,25,26,28,30,33,35,37,38,41,46,49,54,57,58,60,62,65,67,69,70,73,78,81,86,89,90,92,94,97,99,101,102,105,106,108,110,113,114,116,118,120,121,122,124,126,129,131,133,134,135,137,139,141,142,145,147",
+			"name": "Numbers not in A036990 nor A036991.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A036992/b036992.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ n. [_Charles R Greathouse IV_, Sep 21 2011]"
+			],
+			"program": [
+				"(Haskell)",
+				"a036992 n = a036992_list !! (n-1)",
+				"a036992_list = c a036990_list (tail a036991_list) [0..] where",
+				"   c us'@(u:us) vs'@(v:vs) (w:ws)",
+				"     | w == u    = c us vs' ws",
+				"     | w == v    = c us' vs ws",
+				"     | otherwise = w : c us' vs' ws",
+				"-- _Reinhard Zumkeller_, Jul 31 2013"
+			],
+			"xref": [
+				"Cf. A036988, A036990, A036991."
+			],
+			"keyword": "nonn,easy,base",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _Erich Friedman_."
+			],
+			"references": 5,
+			"revision": 13,
+			"time": "2013-08-01T09:56:45-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 36998,
+			"data": "1,0,1,1,2,1,4,2,3,2,11,2,17,3,5,5,37,3,53,5,12,7,103,5,70,10,42,11,255,4,339,23,59,22,130,11,759,32,115,22,1259,10,1609,44,94,64,2589,22,1674,40,385,84,5119,30,1309,79,665,162,9791,18,12075,217,556,276",
+			"name": "Decompositions of n into different parts relatively prime to n.",
+			"mathematica": [
+				"Table[ Coefficient[ Series[ Times@@((1+z^#)\u0026/@Select[ Range[ q ], GCD[ #, q ]===1\u0026 ]), { z, 0, q} ], z^q ], {q, 128} ]"
+			],
+			"program": [
+				"(Haskell)",
+				"a036998 n = p (a038566_row n) n where",
+				"   p _      0 = 1",
+				"   p []     _ = 0",
+				"   p (k:ks) m = if m \u003c k then 0 else p ks (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Jul 05 2013"
+			],
+			"xref": [
+				"Cf. A057562, A038566, A079124."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Wouter Meeussen_",
+			"references": 5,
+			"revision": 8,
+			"time": "2013-07-05T14:29:13-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37254,
+			"data": "1,1,2,2,3,4,3,5,6,7,6,9,11,12,13,11,17,20,22,23,24,22,33,39,42,44,45,46,42,64,75,81,84,86,87,88,84,126,148,159,165,168,170,171,172,165,249,291,313,324,330,333,335,336,337,330,495,579,621,643,654,660,663,665",
+			"name": "Triangle read by rows: T(n,k) (n \u003e= 1, 1 \u003c= k\u003c = n) gives number of non-distorting tie-avoiding integer vote weights.",
+			"comment": [
+				"T(n,1) = T(n,floor(n/2)+1) = A002083(n+2). - _Reinhard Zumkeller_, Nov 18 2012"
+			],
+			"reference": [
+				"Author?, Solution to Board of Directors Problem, J. Rec. Math., 9 (No. 3, 1977), 240.",
+				"T. V. Narayana, Lattice Path Combinatorics with Statistical Applications. Univ. Toronto Press, 1979, pp. 100-101."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037254/b037254.txt\"\u003eRows n = 1..150 of triangle, flattened\u003c/a\u003e",
+				"M. Klamkin, ed., \u003ca href=\"http://dx.doi.org/10.1137/1.9781611971729\"\u003eProblems in Applied Mathematics: Selections from SIAM Review\u003c/a\u003e, SIAM, 1990; see pp. 122-123.",
+				"G. Kreweras, \u003ca href=\"http://www.numdam.org/item?id=MSH_1983__84__45_0\"\u003eSur quelques problèmes relatifs au vote pondéré\u003c/a\u003e, [Some problems of weighted voting], Math. Sci. Humaines No. 84 (1983), 45-63.",
+				"B. E. Wynne \u0026 N. J. A. Sloane, \u003ca href=\"/A002083/a002083_1.pdf\"\u003eCorrespondence, 1976-84\u003c/a\u003e",
+				"B. E. Wynne \u0026 T. V. Narayana, \u003ca href=\"/A002083/a002083_2.pdf\"\u003eTournament configuration, weighted voting, and partitioned catalans\u003c/a\u003e, Preprint.",
+				"Bayard Edmund Wynne, and T. V. Narayana, \u003ca href=\"http://www.numdam.org/item?id=BURO_1981__36__75_0\"\u003eTournament configuration and weighted voting\u003c/a\u003e, Cahiers du bureau universitaire de recherche opérationnelle, 36 (1981): 75-78.",
+				"\u003ca href=\"/A005254/a005254.pdf\"\u003eSolution to Board of Directors Problem\u003c/a\u003e, J. Rec. Math., 9 (No. 3, 1977), 240. (Annotated scanned copy)"
+			],
+			"formula": [
+				"T(1,1)=1; T(n,1)=T(n-1,[(n+1)/2]); T(n,k)=T(n,1)+T(n-1,k-1) for k\u003e1."
+			],
+			"example": [
+				"Triangle:",
+				"1;",
+				"1,2;",
+				"2,3,4;",
+				"3,5,6,7;",
+				"6,9,11,12,13; ..."
+			],
+			"mathematica": [
+				"a[1, 1] = 1; a[n_, 1] := a[n, 1] = a[n - 1, Floor[(n + 1)/2]]; a[n_, k_ /; k \u003e 1] := a[n, k] = a[n, 1] + a[n - 1, k - 1]; A037254 = Flatten[ Table[ a[n, k], {n, 1, 11}, {k, 1, n}]] (* _Jean-François Alcover_, Apr 03 2012, after given recurrence *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a037254 n k = a037254_tabl !! (n-1) !! (k-1)",
+				"a037254_row n = a037254_tabl !! (n-1)",
+				"a037254_tabl = map fst $ iterate f ([1], drop 2 a002083_list) where",
+				"   f (row, (x:xs)) = (map (+ x) (0 : row), xs)",
+				"-- _Reinhard Zumkeller_, Nov 18 2012",
+				"(Python)",
+				"from sympy import floor",
+				"def T(n, k):",
+				"    if k==1:",
+				"        if n==1: return 1",
+				"        else: return T(n - 1, floor((n + 1)/2))",
+				"    return T(n, 1) + T(n - 1, k - 1)",
+				"for n in xrange(1, 12): print [T(n, k) for k in xrange(1, n + 1)] # _Indranil Ghosh_, Jun 03 2017"
+			],
+			"xref": [
+				"Row sums give A005254. A002083 is a column. See also A005318, A096858.",
+				"Cf. A005255, A062178."
+			],
+			"keyword": "nonn,tabl,nice",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from (and formula corrected by) _James A. Sellers_, Feb 04 2000"
+			],
+			"references": 5,
+			"revision": 45,
+			"time": "2017-12-20T23:30:21-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37283,
+			"data": "1,1,13,1,15,13,17,1,139,15,111,13,113,17,13515,1,117,139,119,15,13721,111,123,13,1525,113,13927,17,129,13515,131,1,131133,117,15735,139,137,119,131339,15,141,13721,143,111,13591545,123,147,13,1749,1525,131751",
+			"name": "Replace n with concatenation of its odd divisors.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037283/b037283.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"dtn[ L_ ] := Fold[ 10#1+#2\u0026, 0, L ] Array[ dtn[ Flatten[ Map[ IntegerDigits, Select[ Divisors[ # ], OddQ ] ] ] ]\u0026, 50 ]",
+				"cod[n_]:=FromDigits[Flatten[IntegerDigits/@Select[Divisors[n],OddQ]]]; Array[cod,60] (* _Harvey P. Dale_, Jan 24 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a037283 = read . concat . (map show) . a182469_row :: Integer -\u003e Integer",
+				"-- _Reinhard Zumkeller_, May 01 2012]"
+			],
+			"xref": [
+				"Cf. A182469, A037278, A037284, A037285."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Erich Friedman_"
+			],
+			"references": 5,
+			"revision": 16,
+			"time": "2017-03-31T22:43:16-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37284,
+			"data": "0,0,3,0,5,3,7,0,39,5,11,3,13,7,3515,0,17,39,19,5,3721,11,23,3,525,13,3927,7,29,3515,31,0,31133,17,5735,39,37,19,31339,5,41,3721,43,11,3591545,23,47,3,749,525,31751",
+			"name": "Replace n with concatenation of its odd divisors \u003e1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037284/b037284.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Array[FromDigits[Flatten[IntegerDigits/@Rest[Select[Divisors[#], OddQ]]]]\u0026, 60] (* _Harvey P. Dale_, Mar 03 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a037284 n",
+				"   | a209229 n == 1 = 0",
+				"   | otherwise      = read $ concat $ (map show) $ tail $ a182469_row n",
+				"-- _Reinhard Zumkeller_, May 01 2012]"
+			],
+			"xref": [
+				"Cf. A182469, A209229, A037277, A037283, A037285."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"a(36) corrected by _Reinhard Zumkeller_, May 01 2012"
+			],
+			"references": 5,
+			"revision": 12,
+			"time": "2017-03-31T22:42:51-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

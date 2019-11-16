@@ -1,0 +1,339 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4390,
+	"results": [
+		{
+			"number": 191857,
+			"data": "3,1,4,11,5,19,1,6,27,1,2,7,20,43,1,8,51,59,9,67,1,3,1,10,83,29,22,7,2,11,1,52,107,23,1,12,123,1,2,131,5,4,139,13,1,38,53,2,163,1,14,171,25,8,179,187,1,2,15,1,100,26,211,5,54,3,1,16,227,77",
+			"name": "Second factor in happy factorization of n-th rhombic number.",
+			"comment": [
+				"a(n) = A007967(A007970(n)) = A007970(n) / A191856(n);",
+				"(A191856(n), a(n)) is a 2-happy couple;",
+				"notation: E in the Conway link."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191857/b191857.txt\"\u003eTable of n, a(n) for n = 1..99\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/happy.html\"\u003eOn Happy Factorizations\u003c/a\u003e, J. Integer Sequences, Vol. 1, 1998, #1."
+			],
+			"program": [
+				"(Haskell)",
+				"a191857 = a007967 . a007970  -- _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"xref": [
+				"Cf. A007967, A007970, A191856."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 18 2011",
+			"ext": [
+				"Wrong formula removed, thanks to Wolfdieter Lang, who pointed this out. _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"references": 6,
+			"revision": 10,
+			"time": "2016-02-15T12:19:11-05:00",
+			"created": "2011-06-20T16:46:04-04:00"
+		},
+		{
+			"number": 191860,
+			"data": "1,2,2,3,3,1,18,4,4,13,1,3,5,5,3,70,1,1,6,6,3,3,32,59,3,4,7,7,9,182,11,2,1,5,23,1,29718,8,8,221,2,13,7,1,1068,1,39,5,9,9,3,378,7,500,11,5,45,151,1,5604,10,10,5,2,31,5,8890182,1,7,3,776,15",
+			"name": "First member of a pair of numbers occuring in the definition of 1-happy couples.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191860/b191860.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/happy.html\"\u003eOn Happy Factorizations\u003c/a\u003e, J. Integer Sequences, Vol. 1, 1998, #1.",
+				"\u003ca href=\"/A007968/a007968.txt\"\u003eInitial Happy Factorization Data\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a191860 = fst . sqrtPair . a007969",
+				"Function sqrtPair is defined in A007968.",
+				"-- _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"xref": [
+				"Cf. A007968, A007969, A094048 (subsequence)"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 18 2011",
+			"ext": [
+				"Wrong comment and wrong formula removed, thanks to Wolfdieter Lang, who pointed this out. _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"references": 6,
+			"revision": 11,
+			"time": "2016-02-15T12:19:18-05:00",
+			"created": "2011-06-19T02:27:53-04:00"
+		},
+		{
+			"number": 191967,
+			"data": "0,1,4,12,20,35,48,70,88,117,140,176,204,247,280,330,368,425,468,532,580,651,704,782,840,925,988,1080,1148,1247,1320,1426,1504,1617,1700,1820,1908,2035,2128,2262,2360,2501,2604,2752,2860,3015,3128,3290,3408",
+			"name": "n * (numbers that are not divisible by 3).",
+			"comment": [
+				"A033579 and A033570 interleaved."
+			],
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PentagonalNumber.html\"\u003ePentagonal Number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Pentagonal_number\"\u003ePentagonal number\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_05\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,2,-2,-1,1)."
+			],
+			"formula": [
+				"a(n) = n * A001651(n).",
+				"a(n) = A000326(n) - A142150(n).",
+				"a(2*n) = A033579(n) = 4 * A000326(n);",
+				"a(2*n+1) = A033570(n) = A000326(2*n+1).",
+				"G.f.: x*(1+3*x+6*x^2+2*x^3)/((1+x)^2*(1-x)^3). - _Bruno Berselli_, Jul 09 2012",
+				"a(n) = A182079(3n). - _Bruno Berselli_, Jul 09 2012"
+			],
+			"mathematica": [
+				"Table[n (6 n - 3 - (-1)^n)/4, {n, 0, 48}] (* _Bruno Berselli_, Jul 09 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a191967 n = n * a001651 n",
+				"(MAGMA) A001651:=func\u003cn|(6*n-3-(-1)^n)/4\u003e; [n*A001651(n): n in [0..48]]; // _Bruno Berselli_, Jul 09 2012",
+				"(PARI) a(n)=n\\2*3*n+if(n%2,n,-n) \\\\ _Charles R Greathouse IV_, Oct 07 2015"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 07 2012",
+			"references": 6,
+			"revision": 20,
+			"time": "2017-06-18T02:18:51-04:00",
+			"created": "2012-07-07T17:39:37-04:00"
+		},
+		{
+			"number": 192134,
+			"data": "1,1,2,0,4,6,-4,3,10,12,-16,16,18,22,15,0,28,30,-48,36,40,42,46,35,52,58,60,-128,66,70,72,78,-27,82,88,96,100,102,106,108,112,99,50,126,-320,130,136,138,148,150,156,162,166,143,172,178,180,190,192,196",
+			"name": "Difference between n-th prime power and its arithmetic derivative.",
+			"comment": [
+				"a(n) = A000961(n)-A192015(n) = A000961(n)-A003415(A000961(n)) = A192133(n)*A025473(n)^(A025474(n)-1) = A192133(n)*A000961(n)/A025473(n);",
+				"a(A095874(A000040(n))) = A006093(n);",
+				"a(A095874(A001248(n))) = A005722(n) + 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A192134/b192134.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a192134 n = a000961 n - a192015 n  -- _Reinhard Zumkeller_, Apr 16 2014"
+			],
+			"keyword": "sign",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Jun 26 2011",
+			"references": 6,
+			"revision": 10,
+			"time": "2014-04-16T02:33:11-04:00",
+			"created": "2011-07-09T08:33:36-04:00"
+		},
+		{
+			"number": 192719,
+			"data": "1,2,1,3,10,5,16,8,4,2,1,6,3,10,5,16,8,4,2,1,7,22,11,34,17,52,26,13,40,20,10,5,16,8,4,2,1,9,28,14,7,22,11,34,17,52,26,13,40,20,10,5,16,8,4,2,1,12,6,3,10,5,16,8,4,2,1",
+			"name": "Chain of Collatz sequences.",
+			"comment": [
+				"The sequence is a chain of Collatz sequences. The first Collatz sequence in the chain is (1). Each of the subsequent Collatz sequences in the chain starts with the minimum positive integer that does not appear in the previous Collatz sequences. If the Collatz conjecture is true, then each Collatz sequence in the chain will end with 1, and the chain will include an infinite number of distinct Collatz sequences. If the Collatz conjecture is false, then the chain will end with the first Collatz sequence that does not converge to 1.",
+				"T(n,1) = A177729(n). - _Reinhard Zumkeller_, Jan 03 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A192719/b192719.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e",
+				"Robert C. Lyons, \u003ca href=\"/A192719/a192719_2.java.txt\"\u003eChain of Collatz sequences generator program in Java\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"example": [
+				"The first Collatz sequence in the chain is (1). The second Collatz sequence in the chain is (2, 1), which starts with 2, since 2 is the smallest positive integer that doesn't appear the first Collatz sequence. The third Collatz sequence in the chain is (3, 10, 5, 16, 8, 4, 2, 1), which starts with 3, since 3 is the smallest positive integer that doesn't appear the previous Collatz sequences.",
+				"Thus this irregular array starts:",
+				"1;",
+				"2,  1;",
+				"3, 10,  5, 16,  8,  4,  2,  1;",
+				"6,  3, 10,  5, 16,  8,  4,  2,  1;",
+				"7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10,  5, 16,  8, 4,  2, 1;",
+				"9, 28, 14,  7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1;",
+				"..."
+			],
+			"program": [
+				"(Java) See Lyons link.",
+				"(Haskell)",
+				"a192719 n k = a192719_tabf !! (n-1) !! (k-1)",
+				"a192719_row n = a192719_tabf !! (n-1)",
+				"a192719_tabf = f [1..] where",
+				"   f (x:xs) = (a070165_row x) : f (del xs $ a220237_row x)",
+				"   del us [] = us",
+				"   del us'@(u:us) vs'@(v:vs) | u \u003e v     = del us' vs",
+				"                             | u \u003c v     = u : del us vs'",
+				"                             | otherwise = del us vs",
+				"-- _Reinhard Zumkeller_, Jan 03 2013"
+			],
+			"xref": [
+				"Cf. A014682, A070167, A070165, A061641, A177729, A192719.",
+				"Cf. A220263 (row lengths); A070165, A220237."
+			],
+			"keyword": "nonn,easy,tabf",
+			"offset": "1,2",
+			"author": "_Robert C. Lyons_, Dec 31 2012",
+			"references": 6,
+			"revision": 40,
+			"time": "2015-01-11T04:33:28-05:00",
+			"created": "2013-01-02T21:03:48-05:00"
+		},
+		{
+			"number": 193166,
+			"data": "4,8,9,10,12,14,16,18,20,21,22,24,25,26,27,28,32,33,34,36,38,39,40,42,44,45,46,48,49,50,51,52,54,55,56,57,58,60,62,63,64,65,66,68,69,70,72,74,75,76,78,80,81,82,84,85,86,87,88,90,91,92,93,94,95",
+			"name": "Numbers that are not the product of consecutive primes.",
+			"comment": [
+				"A192280(a(n)) = 0: complement of A073485.",
+				"Union of A013929 and A073486."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193166/b193166.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a193166 n = a193166_list !! (n-1)",
+				"a193166_list = filter ((== 0) . a192280) [1..]",
+				"-- _Reinhard Zumkeller_, May 28 2012, Aug 26 2011"
+			],
+			"xref": [
+				"Cf. A025475."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 26 2011",
+			"references": 6,
+			"revision": 15,
+			"time": "2013-07-13T12:04:13-04:00",
+			"created": "2011-08-26T13:03:03-04:00"
+		},
+		{
+			"number": 193581,
+			"data": "0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,18,9,0,0,0,0,0,0,0,0,27,18,9,0,0,0,0,0,0,0,36,27,18,9,0,0,0,0,0,0,45,36,27,18,9,0,0,0,0,0,54,45,36,27,18,9,0,0,0,0,63,54,45,36,27,18,9,0,0",
+			"name": "Sort-and-subtract: a(n) = n - A004185(n).",
+			"comment": [
+				"a(A009994(n) = 0, for n \u003e 9: a(A009995(n) \u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193581/b193581.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"ss[n_]:=n-FromDigits[Sort[Select[IntegerDigits[n],#\u003e0\u0026]]]; Array[ss,80,0] (* _Harvey P. Dale_, Aug 13 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a193581 n = n - a004185 n",
+				"a193581_list = map a193581 [0..]"
+			],
+			"xref": [
+				"Cf. A004185, A065641."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "0,11",
+			"author": "_Reinhard Zumkeller_, Aug 10 2011",
+			"references": 6,
+			"revision": 12,
+			"time": "2014-01-29T04:05:35-05:00",
+			"created": "2011-08-10T19:47:49-04:00"
+		},
+		{
+			"number": 193738,
+			"data": "1,1,1,1,2,2,1,2,3,3,1,2,3,4,4,1,2,3,4,5,5,1,2,3,4,5,6,6,1,2,3,4,5,6,7,7,1,2,3,4,5,6,7,8,8,1,2,3,4,5,6,7,8,9,9,1,2,3,4,5,6,7,8,9,10,10,1,2,3,4,5,6,7,8,9,10,11,11,1,2,3,4,5,6,7,8,9,10,11,12,12,1,2,3,4",
+			"name": "Triangular array:  the fusion of polynomial sequences P and Q given by p(n,x)=q(n,x)=x^n+x^(n-1)+...+x+1.",
+			"comment": [
+				"See A193722 for the definition of fusion of two sequences of polynomials or triangular arrays."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193738/b193738.txt\"\u003eRows n = 0..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"First six rows:",
+				"1",
+				"1....1",
+				"1....2....2",
+				"1....2....3....3",
+				"1....2....3....4...4",
+				"1....2....3....4...5...5"
+			],
+			"mathematica": [
+				"z = 12;",
+				"p[0, x_] := 1",
+				"p[n_, x_] := x*p[n - 1, x] + 1; p[n_, 0] := p[n, x] /. x -\u003e 0",
+				"q[n_, x_] := p[n, x]",
+				"t[n_, k_] := Coefficient[p[n, x], x^(n - k)];",
+				"t[n_, n_] := p[n, x] /. x -\u003e 0;",
+				"w[n_, x_] := Sum[t[n, k]*q[n + 1 - k, x], {k, 0, n}]; w[-1, x_] := 1",
+				"g[n_] := CoefficientList[w[n, x], {x}]",
+				"TableForm[Table[Reverse[g[n]], {n, -1, z}]]",
+				"Flatten[Table[Reverse[g[n]], {n, -1, z}]]  (* A193738 *)",
+				"TableForm[Table[g[n], {n, -1, z}]]",
+				"Flatten[Table[g[n], {n, -1, z}]]   (* A193739 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a193738 n k = a193738_tabl !! n !! k",
+				"a193738_row n = a193738_tabl !! n",
+				"a193738_tabl = map reverse a193739_tabl",
+				"-- _Reinhard Zumkeller_, May 11 2013"
+			],
+			"xref": [
+				"Cf. A193722, A193739."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,5",
+			"author": "_Clark Kimberling_, Aug 04 2011",
+			"references": 6,
+			"revision": 8,
+			"time": "2013-05-11T18:13:24-04:00",
+			"created": "2011-08-04T11:13:23-04:00"
+		},
+		{
+			"number": 194626,
+			"data": "2,3,5,6,8,16,17,19,34,36,39,40,42,49,69,71,74,78,80,85,132,167,175,176,180,181,225,238,261,271,320,331,338,340,341,353,365,371,507,689,690,706,721,738,746,921,932,952,990,1012,1046,1212,1351,1352,1373",
+			"name": "Numbers n such that next term of Hofstadter's Q-sequence differs by 1.",
+			"comment": [
+				"A005185(a(n)+1) = A005185(a(n)) + 1; A081827(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A194626/b194626.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/HofstadtersQ-Sequence.html\"\u003eHofstadter's Q-Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Hofstadter_sequence\"\u003eHofstadter sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a194626 n = a194626_list !! (n-1)",
+				"a194626_list = map (+ 1) $ elemIndices 1 a081827_list"
+			],
+			"xref": [
+				"Cf. A081828, A081829, A081830."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 15 2011",
+			"references": 6,
+			"revision": 18,
+			"time": "2013-07-13T12:04:15-04:00",
+			"created": "2011-09-15T17:24:06-04:00"
+		},
+		{
+			"number": 195066,
+			"data": "0,2,4,8,10,12,16,18,20,24,32,34,36,38,40,42,44,48,52,56,64,66,68,70,72,74,76,80,82,84,88,92,96,100,104,112,128,130,132,134,136,138,140,142,144,146,148,150,152,154,156,160,162,164,168,170,172,176,178",
+			"name": "Numbers n such that BCR(n) is not less than n, where BCR = binary-complement-and-reverse = A036044.",
+			"comment": [
+				"A035928(a(n)) \u003e= n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195066/b195066.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a195066 n = a195066_list !! (n-1)",
+				"a195066_list = filter (\\x -\u003e a036044 x \u003e= x) [0,2..]"
+			],
+			"keyword": "nonn,base,look",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 16 2011",
+			"references": 6,
+			"revision": 9,
+			"time": "2014-01-29T07:49:37-05:00",
+			"created": "2011-09-17T15:04:49-04:00"
+		}
+	]
+}

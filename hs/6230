@@ -1,0 +1,366 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6230,
+	"results": [
+		{
+			"number": 67391,
+			"data": "1,1,2,3,12,20,60,210,840,504,2520,27720,27720,51480,360360,180180,720720,4084080,12252240,232792560,232792560,21162960,232792560,5354228880,5354228880,2059318800,26771144400,80313433200,80313433200",
+			"name": "a(n) is the least common multiple of numbers in {1,2,3,...,n-1} which do not divide n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A067391/b067391.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"Let f(n) = lcm(1, 2, ..., n-1) = A003418(n-1). If n = 2*p^k for some prime p, then a(n) = f(n)/p; otherwise a(n) = f(n)."
+			],
+			"example": [
+				"n=10: non-divisors = {3,4,6,7,8,9}, lcm(3,4,6,7,8,9) = 8*9*7 = 504 = a(10).",
+				"For n=18, a(n) = lcm(4,5,7,8,10,11,12,13,14,15,16,17) = 4084080."
+			],
+			"mathematica": [
+				"a[n_] := LCM@@Select[Range[1, n-1], Mod[n, # ]!=0\u0026 ]",
+				"Join[{1,1},Table[LCM@@Complement[Range[n],Divisors[n]],{n,3,30}]] (* _Harvey P. Dale_, Mar 27 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a067391 n | n \u003c= 2    = 1",
+				"          | otherwise = foldl lcm 1 $ a173540_row n",
+				"-- _Reinhard Zumkeller_, Apr 04 2012"
+			],
+			"xref": [
+				"Cf. A049820 [count], A007978 [min], A024816 [sum], A055067 [product].",
+				"Cf. A003418, A066574, A038610.",
+				"Cf. A173540."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Labos Elemer_, Jan 22 2002",
+			"references": 3,
+			"revision": 16,
+			"time": "2018-03-18T04:06:39-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 67747,
+			"data": "2,4,3,6,5,8,7,9,11,10,13,12,17,14,19,15,23,16,29,18,31,20,37,21,41,22,43,24,47,25,53,26,59,27,61,28,67,30,71,32,73,33,79,34,83,35,89,36,97,38,101,39,103,40,107,42,109,44,113,45,127,46,131,48,137,49,139",
+			"name": "Primes interleaved between composite numbers: n-th prime followed by the n-th composite number.",
+			"comment": [
+				"a(2*n-1) = A000040(n); a(2*n) = A002808(n). - _Reinhard Zumkeller_, Jan 29 2014"
+			],
+			"link": [
+				"Zak Seidov, \u003ca href=\"/A067747/b067747.txt\"\u003eTable of n, a(n) for n = 1..1000.\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(2*n-1) = A000040(n); a(2*n) = A002808(n). - _Reinhard Zumkeller_, Jan 29 2014",
+				"a(n) = A000040(ceiling(n/2))*A000035(n) + A002808(ceiling(n/2))*A059841(n), equivalent to the Zumkeller formula. - _Chayim Lowen_, Jul 29 2015"
+			],
+			"example": [
+				"For n=4, the index is even. Therefore a(n)=A002808(4/2)=A002808(2)=6."
+			],
+			"maple": [
+				"P,C:= selectremove(isprime,[$2..1000]):",
+				"seq(op([P[i],C[i]]),i=1..min(nops(P),nops(C))); # _Robert Israel_, Jul 24 2015"
+			],
+			"mathematica": [
+				"Array[c,1000];pc=-1;nc=0;Do[If[PrimeQ[n],If[pc==999,Break[],pc+=2;c[pc]=n],If[nc\u003c=998,nc+=2;c[nc]=n,Goto[ne]]];Label[ne],{n,2,20000}];Table[c[i],{i,1000}] (* _Zak Seidov_, Mar 22 2008 *)",
+				"Composite[n_Integer] := FixedPoint[n + PrimePi@ # + 1 \u0026, n + PrimePi@ n + 1]; Table[{Prime@ n, Composite@ n}, {n, 35}] // Flatten (* _Robert G. Wilson v_, Jun 08 2008 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a067747 n = a067747_list !! (n-1)",
+				"a067747_list = concat $ transpose [a000040_list, a002808_list]",
+				"-- _Reinhard Zumkeller_, Jan 29 2014"
+			],
+			"xref": [
+				"Cf. A073846, A002808, A000040."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, Feb 26 2002",
+			"references": 3,
+			"revision": 42,
+			"time": "2015-08-04T15:45:12-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 67815,
+			"data": "1,1,1,2,1,2,1,2,3,1,1,3,1,1,3,4,1,2,1,4,1,2,1,4,5,1,1,1,1,5,1,1,1,1,5,6,1,2,3,2,1,6,1,2,3,2,1,6,7,1,1,1,1,1,1,7,1,1,1,1,1,1,7,8,1,2,1,4,1,2,1,8,1,2,1,4,1,2,1,8,9,1,1,3,1,1,3,1,1,9",
+			"name": "a(n) = gcd(n, floor(sqrt(n))).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A067815/b067815.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a067815 n = gcd n $ a000196 n  -- _Reinhard Zumkeller_, Jul 08 2014",
+				"(PARI) a(n) = gcd(n, sqrtint(n)); \\\\ _Altug Alkan_, Dec 19 2017"
+			],
+			"xref": [
+				"Cf. A000196, A073890, A075119."
+			],
+			"keyword": "nonn,look",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, Feb 08 2002",
+			"references": 3,
+			"revision": 15,
+			"time": "2017-12-19T03:06:03-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 68050,
+			"data": "0,1,1,1,2,2,3,2,2,4,5,3,4,5,6,5,6,5,6,6,7,9,10,6,7,9,9,9,10,10,11,9,10,12,14,11,12,13,14,13,14,13,14,14,15,17,18,13,14,16,17,18,19,17,19,18,19,21,22,18,19,20,21,19,21,22,23,23,24,26,27,21,22,23,24,24,26,27",
+			"name": "Number of values of k, 1\u003c=k\u003c=n, for which floor(n/k) is prime.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A068050/b068050.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(10)=4 as floor(10/k) for k = 1 to 10 is 10,5,3,2,2,1,1,1,1,1, respectively; this is prime for k=2,3,4,5."
+			],
+			"mathematica": [
+				"a[n_] := Length[Select[Table[Floor[n/i], {i, 1, n}], PrimeQ]]"
+			],
+			"program": [
+				"(Haskell)",
+				"a068050 n = length [k | k \u003c- [1..n], a010051 (n `div` k) == 1]",
+				"-- _Reinhard Zumkeller_, Jan 31 2012"
+			],
+			"xref": [
+				"Cf. A067514.",
+				"Cf. A010051, A205745."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,5",
+			"author": "_Amarnath Murthy_, Feb 12 2002",
+			"ext": [
+				"Edited by _Dean Hickerson_, Feb 12 2002"
+			],
+			"references": 3,
+			"revision": 12,
+			"time": "2014-06-24T01:08:22-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 68101,
+			"data": "1,1,1,0,1,0,1,0,0,0,1,-1,1,0,0,0,1,-1,1,0,0,0,1,-1,0,0,0,0,1,-2,1,0,0,0,0,0,1,0,0,-1,1,0,1,0,-1,0,1,0,0,-1,0,0,1,0,0,-1,0,0,1,-1,1,0,-1,0,0,0,1,0,0,-2,1,0,1,0,-1,0,0,0,1,-1,0,0,1,-1,0,0,0,0,1,-1,0,0,0,0,0,0,1,-1,0,0,1,0,1",
+			"name": "a(n) = Sum_{k|n, k\u003c=sqrt(n)} mu(k) where mu(k) is the Moebius function and the sum is over the positive divisors k of n with k \u003c= sqrt(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A068101/b068101.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{k=1..A038548(n)} A008683(A161906(n,k)). - _Reinhard Zumkeller_, Jul 30 2013",
+				"G.f.: Sum_{k\u003e=1} mu(k)*x^(k^2)/(1 - x^k). - _Ilya Gutkovskiy_, Jan 03 2017"
+			],
+			"mathematica": [
+				"Table[DivisorSum[n, MoebiusMu, # \u003c= Sqrt[n] \u0026], {n, 103}] (* _Michael De Vlieger_, Sep 24 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a068101 = sum . map a008683 . a161906_row",
+				"-- _Reinhard Zumkeller_, Jul 30 2013",
+				"(PARI) a(n) = sumdiv(n, k, (k\u003c=sqrt(n))*moebius(k)); \\\\ _Michel Marcus_, Jan 03 2017"
+			],
+			"xref": [
+				"Cf. A086956."
+			],
+			"keyword": "sign",
+			"offset": "1,30",
+			"author": "_Leroy Quet_, Mar 22 2002",
+			"references": 3,
+			"revision": 27,
+			"time": "2017-10-09T02:17:52-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 68148,
+			"data": "2,3,5,7,11,23,43,67,89,101,109,211,223,233,433,443,677,787,877,887,1009,1109,1123,1223,2111,2221,2333,3221,3323,3343,3433,4567,5443,7789,7877,8887,8999,9001,9011,9887,9901,10009,10099,10111,10909,10987,12101,12109",
+			"name": "Primes in which neighboring digits differ at most by 1.",
+			"comment": [
+				"Neighbors of 9 are 0 and 8 and 9."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A068148/b068148.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Do[a = IntegerDigits[ Prime[n]]; k = 1; l = Length[a]; While[k \u003c l \u0026\u0026 (Abs[a[[k]]- a[[k + 1]]] \u003c 2 || Abs[a[[k]] - a[[k + 1]]] \u003e 8), k++ ]; If[k == l, Print[ Prime[n]]], {n, 1, 10^4} ]",
+				"Select[Prime[Range[1500]],Max[Abs[Differences[IntegerDigits[#]]]/.{9-\u003e1}] \u003c 2\u0026] (* _Harvey P. Dale_, Jan 31 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a068148 n = a068148_list !! (n-1)",
+				"a068148_list = filter ((== 1) . a010051') a032981_list",
+				"-- _Reinhard Zumkeller_, Feb 14 2015"
+			],
+			"xref": [
+				"Cf. A010051, subsequence of A032981."
+			],
+			"keyword": "base,easy,nonn,nice",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, Feb 23 2002",
+			"ext": [
+				"Edited and extended by _Robert G. Wilson v_ and _Sascha Kurz_, Mar 01 2002",
+				"Corrected by T. D. Noe, Feb 15 2008"
+			],
+			"references": 3,
+			"revision": 14,
+			"time": "2015-02-14T12:46:22-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 68312,
+			"data": "0,0,1,5,7,8,10,32,60,39,16,61,71,20,71,244,212,111,123,143,247,131,34,380,520,155,378,621,275,247,263,1008,1280,271,239,951,795,56,343,1256,1004,431,451,581,1443,942,70,2092,2492,840",
+			"name": "Arithmetic derivative of triangular numbers.",
+			"comment": [
+				"For n \u003e 1: a(n) = A258197(n,2) = A258197(n,n-2). - _Reinhard Zumkeller_, May 26 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A068312/b068312.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A003415(A000217(n))."
+			],
+			"example": [
+				"a(7) = d(7*8/2) = d(28) = d(2*14) = d(2)*14 + 2*d(14) =",
+				"= 1*14 + 2*d(2*7) = 14 + 2*(2*d(7) + d(2)*7) =",
+				"= 14 + 2*(2*1 + 1*7) = 14 + 2*9 = 14 + 18 = 32;",
+				"where d(n) = A003415(n)",
+				"with d(1)=0, d(prime)=1 and d(m*n)=d(m)*n+m*d(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a068312 = a003415 . a000217  -- _Reinhard Zumkeller_, May 26 2015"
+			],
+			"xref": [
+				"Cf. A003415, A007318, A258197."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Feb 25 2002",
+			"ext": [
+				"Offset changed and a(0)=0 prepended by _Reinhard Zumkeller_, May 26 2015"
+			],
+			"references": 3,
+			"revision": 6,
+			"time": "2015-05-26T07:30:56-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 68475,
+			"data": "0,1,5,34,313,3711,54121,937924,18831569,429794605,10987654321,310989720966,9652968253897,326011399456939,11901025061692313,466937872906120456,19594541482740368161,875711370981239308953",
+			"name": "a(n) = Sum_{m=0..n} m*n^(m-1).",
+			"comment": [
+				"The closed form comes from taking the derivative of the closed form of A031972, for which each term of this sequence is a derivative. - _Jonas Whidden_, Oct 18 2011",
+				"a(n) = A062806(n) / n. - _Reinhard Zumkeller_, Nov 22 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A068475/b068475.txt\"\u003eTable of n, a(n) for n = 0..250\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=1. For n\u003e1, a(n) = ((n-1)*(n+1)*n^n - n^(n+1) + 1)/(n-1)^2. - _Jonas Whidden_, Oct 18 2011"
+			],
+			"example": [
+				"a(2)=sum(m*2^(m-1),m=1..2)=1+2*2=5."
+			],
+			"maple": [
+				"a := n-\u003esum(m*n^(m-1),m=1..n);"
+			],
+			"mathematica": [
+				"Join[{0}, Table[Sum[m*n^(m-1), {m,0,n}], {n,1,30}]] (* _G. C. Greubel_, Oct 13 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a068475 n = sum $ zipWith (*) [1..n] $ iterate (* n) 1",
+				"-- _Reinhard Zumkeller_, Nov 22 2014",
+				"(PARI) for(n=0,30, print1(if(n==0, 0, sum(m=0,n, m*n^(m-1))), \", \")) \\\\ _G. C. Greubel_, Oct 13 2018",
+				"(MAGMA) [0] cat [(\u0026+[m*n^(m-1): m in [0..n]]): n in [1..30]]; // _G. C. Greubel_, Oct 13 2018"
+			],
+			"xref": [
+				"Derivative sequence of A031972.",
+				"Cf. A062806, A113630."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "Francois Jooste (phukraut(AT)hotmail.com), Mar 10 2002",
+			"references": 3,
+			"revision": 25,
+			"time": "2018-10-14T11:43:56-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 68636,
+			"data": "1,2,3,4,5,6,7,8,9,1,11,12,13,14,15,16,17,18,19,2,12,22,23,24,25,26,27,28,29,3,13,23,33,34,35,36,37,38,39,4,14,24,34,44,45,46,47,48,49,5,15,25,35,45,55,56,57,58,59,6,16,26,36,46,56,66,67,68,69,7,17,27,37,47,57",
+			"name": "a(n) = Min(n, R(n)), where R(n) (A004086) = digit reversal of n.",
+			"comment": [
+				"a(n) = A004185(n) for n \u003c= 100. - _Reinhard Zumkeller_, Apr 03 2015"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A068636/b068636.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(12) = min(12,21) = 12. a(34632) = min(34632,23643) = 23643."
+			],
+			"maple": [
+				"a:= n-\u003e min(n,(s-\u003e parse(cat(seq(s[-i], i=1..length(s)))))(\"\"||n)):",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Aug 22 2015"
+			],
+			"mathematica": [
+				"Table[Min[n,IntegerReverse[n]],{n,80}] (* The program uses the IntegerReverse function from Mathematica version 10 *) (* _Harvey P. Dale_, Nov 27 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a068636 n = min n $ a004086 n  -- _Reinhard Zumkeller_, Apr 03 2015"
+			],
+			"xref": [
+				"Cf. A068637, A004086, A004185."
+			],
+			"keyword": "base,easy,nonn,look,hear",
+			"offset": "1,2",
+			"author": "_Amarnath Murthy_, Feb 27 2002",
+			"references": 3,
+			"revision": 13,
+			"time": "2015-11-27T12:23:51-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 69158,
+			"data": "1,-1,-1,0,-1,1,-1,0,0,1,-1,0,-1,1,1,0,-1,0,-1,0,1,1,-1,0,0,1,0,0,-1,1,-1,0,1,1,1,0,-1,1,1,0,-1,1,-1,0,0,1,-1,0,0,0,1,0,-1,0,1,0,1,1,-1,0,-1,1,0,0,1,1,-1,0,1,1,-1,0,-1,1,0,0,1,1,-1,0,0,1,-1,0,1,1,1,0,-1,0,1,0,1,1,1,0,-1,0,0,0,-1,1,-1,0,1,1",
+			"name": "a(n) = Product{d|n} mu(d), product over positive divisors, d, of n, where mu(d) = Moebius function (A008683).",
+			"comment": [
+				"Absolute value of a(n) = absolute value of mu(n).",
+				"Differs from A080323 at n=2, 105, 165, 195, 231, ..., 15015,..., 19635,.. (cf. A046389, A046391, ...) [_R. J. Mathar_, Dec 15 2008]",
+				"Not multiplicative: For example a(2)*a(15) \u003c\u003e a(30). - _R. J. Mathar_, Mar 31 2012",
+				"Row products of table A225817. - _Reinhard Zumkeller_, Jul 30 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A069158/b069158.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 0 if mu(n) = 0; a(n) = -1 if n = prime; a(n) = 1 if n = squarefree composite or 1."
+			],
+			"example": [
+				"a(6) = mu(1)*mu(2)*mu(3)*mu(6) = 1*(-1)*(-1)*1 = 1."
+			],
+			"maple": [
+				"A069158 := proc(n)",
+				"    mul(numtheory[mobius](d),d=numtheory[divisors](n)) ;",
+				"end proc: # _R. J. Mathar_, May 28 2016"
+			],
+			"mathematica": [
+				"a[n_] := Product[MoebiusMu[d], {d, Divisors[n]}]; Array[a, 106] (* _Jean-François Alcover_, Feb 22 2018 *)"
+			],
+			"program": [
+				"(MAGMA) f := function(n); t1 := \u0026*[MoebiusMu(d) : d in Divisors(n) ]; return t1; end function;",
+				"(Haskell)",
+				"a069158 = product . a225817_row  -- _Reinhard Zumkeller_, Jul 30 2013"
+			],
+			"keyword": "sign",
+			"offset": "1,1",
+			"author": "_Leroy Quet_, Apr 08 2002",
+			"references": 3,
+			"revision": 28,
+			"time": "2018-02-22T08:01:51-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

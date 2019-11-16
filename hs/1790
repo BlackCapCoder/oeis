@@ -1,0 +1,507 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1790,
+	"results": [
+		{
+			"number": 23607,
+			"data": "0,1,4,9,20,40,78,147,272,495,890,1584,2796,4901,8540,14805,25552,43928,75258,128535,218920,371931,630454,1066464,1800600,3034825,5106868,8580897,14398412,24129160,40388070,67527579,112786496,188195271",
+			"name": "n * Fibonacci(n+1).",
+			"comment": [
+				"Convolution of Fibonacci numbers and Lucas numbers.",
+				"a(n) = central term of the triangle in A119457 for n\u003e0. - _Reinhard Zumkeller_, May 20 2006",
+				"d/dx(1 + x + 2x^2 + 3x^3 + 5x^4 + 8x^5 + ...) = (1 + 4x + 9x^2 + ...). - _Gary W. Adamson_, Jun 27 2009",
+				"For n \u003e 0: sums of rows of the triangle in A108035. - _Reinhard Zumkeller_, Oct 08 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A023607/b023607.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"M. Griffiths, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL14/Griffiths/griffiths16.html\"\u003eA Restricted Random Walk defined via a Fibonacci Process\u003c/a\u003e, Journal of Integer Sequences, Vol. 14 (2011), #11.5.4.",
+				"M. Janjic, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL13/Janjic/janjic33.html\"\u003eHessenberg Matrices and Integer Sequences \u003c/a\u003e, J. Int. Seq. 13 (2010) # 10.7.8, section 3.",
+				"\u003ca href=\"/index/Rec\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,1,-2,-1)."
+			],
+			"formula": [
+				"O.g.f.: x(2x+1)/(1-x-x^2)^2. - _Len Smiley_, Dec 11 2001",
+				"a(n) = n*sum{k=0..n, binomial(k, n-k)}. - _Paul Barry_, Sep 25 2004",
+				"a(n) = A215082(2n-2) + A215082(2n-1). - _Philippe Deléham_, Aug 03 2012",
+				"a(n) = sum(i=1..n, A000045(i)*A000032(n-i+1)). - _Vladimir Kruchinin_, Nov 08 2013"
+			],
+			"maple": [
+				"A023607 := proc(n)",
+				"    n*combinat[fibonacci](n+1) ;",
+				"end proc:",
+				"seq(A023607(n),n=0..10) ; # _R. J. Mathar_, Jul 15 2017"
+			],
+			"mathematica": [
+				"Times@@@Thread[{Range[0, 50], Fibonacci[Range[51]]}]  (* From Harvey P. Dale *)",
+				"Table[n*Fibonacci[n + 1], {n, 0, 50}]"
+			],
+			"program": [
+				"(Haskell)",
+				"a023607 n = a023607_list !! n",
+				"a023607_list = zipWith (*) [0..] $ tail a000045_list",
+				"-- _Reinhard Zumkeller_, Oct 08 2012",
+				"(PARI) a(n)=n*fibonacci(n+1) \\\\ _Charles R Greathouse IV_, Sep 24 2015"
+			],
+			"xref": [
+				"First differences of A094584.",
+				"Second column of triangle A016095.",
+				"Cf. A000045."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"Simpler description from Samuel Lachterman (slachterman(AT)fuse.net), Sep 19 2003",
+				"Name improved by _T. D. Noe_, Mar 08 2011"
+			],
+			"references": 19,
+			"revision": 57,
+			"time": "2017-07-15T12:39:36-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 28393,
+			"data": "8,12,18,27,20,30,45,34,51,38,57,43,32,48,72,108,162,243,182,273,205,154,231,173,130,195,146,219,164,246,369,277,208,312,468,702,1053,790,1185,889,667,500,750,1125,844,1266,1899,1424,2136,3204,4806,7209,5407",
+			"name": "Iterate the map in A006368 starting at 8.",
+			"comment": [
+				"It is conjectured that this trajectory never repeats, but no proof of this has been found. - _N. J. A. Sloane_, Jul 14 2009"
+			],
+			"reference": [
+				"J. H. Conway, Unpredictable iterations, in Proc. Number Theory Conf., Boulder, CO, 1972, pp. 49-52. - _N. J. A. Sloane_, Oct 04 2012",
+				"R. K. Guy, Unsolved Problems in Number Theory, E17. - _N. J. A. Sloane_, Oct 04 2012",
+				"J. C. Lagarias, ed., The Ultimate Challenge: The 3x+1 Problem, Amer. Math. Soc., 2010; see page 5. [From _N. J. A. Sloane_, Jan 21 2011]"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A028393/b028393.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.jstor.org/stable/10.4169/amer.math.monthly.120.03.192\"\u003eOn unsettleable arithmetical problems\u003c/a\u003e, Amer. Math. Monthly, 120 (2013), 192-198.",
+				"D. Gale, \u003ca href=\"http://dx.doi.org/10.1007/978-1-4612-2192-0\"\u003eTracking the Automatic Ant And Other Mathematical Explorations\u003c/a\u003e, A Collection of Mathematical Entertainments Columns from The Mathematical Intelligencer, Springer, 1998; see p. 16. [From _N. J. A. Sloane_, Jul 14 2009]",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A006368(a(n))."
+			],
+			"maple": [
+				"F := proc(n) option remember; if n = 0 then 8 elif 3*F(n-1) mod 2 = 0 then 3*F(n-1)/2 else round(3*F(n-1)/4); fi; end; [ seq(F(i),i=0..80) ];"
+			],
+			"mathematica": [
+				"f[n_?EvenQ] := 3*n/2; f[n_] := Round[3*n/4]; a[0] = 8; a[n_] := a[n] = f[a[n - 1]]; Table[a[n], {n, 0, 52}]  (* _Jean-François Alcover_, Jun 10 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a028393 n = a028393_list !! n",
+				"a028393_list = iterate a006368 8  -- _Reinhard Zumkeller_, Apr 18 2012"
+			],
+			"xref": [
+				"Cf. A006368, A028394, A180864.",
+				"Cf. A028395, A180853, A182205; A028398(4) = 8.",
+				"Trajectories under A006368 and A006369: A180853, A217218, A185590, A180864, A028393, A028394, A094328, A094329, A028396, A028395, A217729, A182205, A223083-A223088, A185589, A185590."
+			],
+			"keyword": "nonn,look",
+			"offset": "0,1",
+			"author": "_J. H. Conway_",
+			"references": 19,
+			"revision": 41,
+			"time": "2018-07-13T11:17:51-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 28394,
+			"data": "8,11,15,10,13,17,23,31,41,55,73,97,129,86,115,153,102,68,91,121,161,215,287,383,511,681,454,605,807,538,717,478,637,849,566,755,1007,1343,1791,1194,796,1061,1415,1887,1258,1677,1118,1491,994,1325,1767,1178",
+			"name": "Iterate the map in A006369 starting at 8.",
+			"comment": [
+				"It is an unsolved problem to determine if this sequence is bounded or unbounded."
+			],
+			"reference": [
+				"J. C. Lagarias, ed., The Ultimate Challenge: The 3x+1 Problem, Amer. Math. Soc., 2010; see page 270."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A028394/b028394.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.jstor.org/stable/10.4169/amer.math.monthly.120.03.192\"\u003eOn unsettleable arithmetical problems\u003c/a\u003e, Amer. Math. Monthly, 120 (2013), 192-198.",
+				"D. Gale, \u003ca href=\"http://dx.doi.org/10.1007/978-1-4612-2192-0\"\u003eTracking the Automatic Ant And Other Mathematical Explorations\u003c/a\u003e, A Collection of Mathematical Entertainments Columns from The Mathematical Intelligencer, Springer, 1998; see p. 16.",
+				"J. C. Lagarias, \u003ca href=\"http://www.cecm.sfu.ca/organics/papers/lagarias/paper/html/paper.html\"\u003eThe 3x+1 problem and its generalizations\u003c/a\u003e, Amer. Math. Monthly, 92 (1985), 3-23.",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"formula": [
+				"The map is: n -\u003e if n mod 3 = 0 then 2*n/3 elif n mod 3 = 1 then (4*n-1)/3 else (4*n+1)/3."
+			],
+			"maple": [
+				"G := proc(n) option remember; if n = 0 then 8 elif 4*G(n-1) mod 3 = 0 then 2*G(n-1)/3 else round(4*G(n-1)/3); fi; end; [ seq(G(i),i=0..80) ];",
+				"f:=proc(N) local n;",
+				"if N mod 3 = 0 then 2*(N/3);",
+				"elif N mod 3 = 2 then 4*((N+1)/3)-1; else",
+				"4*((N+2)/3)-3; fi; end; # _N. J. A. Sloane_, Feb 04 2011"
+			],
+			"mathematica": [
+				"nxt[n_]:=Module[{m=Mod[n,3]},Which[m==0,(2n)/3,m==1,(4n-1)/3,True,(4n+1)/3]]; NestList[nxt,8,60] (* _Harvey P. Dale_, Dec 13 2013 *)",
+				"SubstitutionSystem[{n_ :\u003e Switch[Mod[n, 3], 0, 2n/3, 1, (4n-1)/3, _, (4n+1)/3 ] }, {8}, 60] // Flatten (* _Jean-François Alcover_, Mar 01 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a028394 n = a028394_list !! n",
+				"a028394_list = iterate a006369 8  -- _Reinhard Zumkeller_, Dec 31 2011"
+			],
+			"xref": [
+				"Cf. A006369, A028396, A094328, A094329, A185589, A185590.",
+				"Trajectories under A006368 and A006369: A180853, A217218, A185590, A180864, A028393, A028394, A094328, A094329, A028396, A028395, A217729, A182205, A223083-A223088, A185589, A185590."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_J. H. Conway_",
+			"references": 19,
+			"revision": 37,
+			"time": "2019-03-01T08:04:10-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 28395,
+			"data": "14,21,16,24,36,54,81,61,46,69,52,78,117,88,132,198,297,223,167,125,94,141,106,159,119,89,67,50,75,56,84,126,189,142,213,160,240,360,540,810,1215,911,683,512,768,1152,1728,2592,3888,5832,8748,13122,19683",
+			"name": "Iterate the map in A006368 starting at 14.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A028395/b028395.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.jstor.org/stable/10.4169/amer.math.monthly.120.03.192\"\u003eOn unsettleable arithmetical problems\u003c/a\u003e, Amer. Math. Monthly, 120 (2013), 192-198.",
+				"D. Gale, \u003ca href=\"http://dx.doi.org/10.1007/978-1-4612-2192-0\"\u003eTracking the Automatic Ant And Other Mathematical Explorations\u003c/a\u003e, A Collection of Mathematical Entertainments Columns from The Mathematical Intelligencer, Springer, 1998; see p. 16.",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A006368(a(n))."
+			],
+			"mathematica": [
+				"SubstitutionSystem[{n_ :\u003e If[EvenQ[n], 3n/2, Round[3n/4]]}, {14}, 60] // Flatten (* _Jean-François Alcover_, Mar 01 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a028395 n = a028395_list !! n",
+				"a028395_list = iterate a006368 14  -- _Reinhard Zumkeller_, Apr 18 2012"
+			],
+			"xref": [
+				"Cf. A028393.",
+				"Cf. A180853, A180864, A182205; A028398(5) = 14."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_J. H. Conway_",
+			"references": 19,
+			"revision": 25,
+			"time": "2019-03-01T08:04:35-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 29578,
+			"data": "0,0,1,2,2,4,3,6,4,8,5,10,6,12,7,14,8,16,9,18,10,20,11,22,12,24,13,26,14,28,15,30,16,32,17,34,18,36,19,38,20,40,21,42,22,44,23,46,24,48,25,50,26,52,27,54,28,56,29,58,30,60,31,62,32,64,33,66,34,68,35,70,36,72",
+			"name": "An obvious mixture of two sequences: the natural numbers interleaved with the even numbers.",
+			"comment": [
+				"a(n) = number of ordered, length two, compositions of n with at least one odd summand - _Len Smiley_, Nov 25 2001",
+				"Also number of 0's in n-th row of triangle in A071037. - _Hans Havermann_, May 26 2002",
+				"a(n) = (n - n mod 2)/(2 - n mod 2). - _Reinhard Zumkeller_, Jul 30 2002",
+				"For n \u003e 2: a(n) = number of odd terms in row n-2 of triangle A265705. - _Reinhard Zumkeller_, Dec 15 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A029578/b029578.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Tu#2wis\"\u003eIndex entries for two-way infinite sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,2,0,-1)."
+			],
+			"formula": [
+				"a(n) = (3*n/2-1+(1-n/2)*(-1)^n)/2. a(n+4)=2*a(n+2)-a(n).",
+				"G.f.: x^2*(2x+1)/(1-x^2)^2; a(n)=floor((n+1)/2)+(n is odd)*floor((n+1)/2)",
+				"a(n) = floor(n/2)*binomial(2, mod(n, 2)) - _Paul Barry_, May 25 2003",
+				"a(2*n) = n, a(2*n-1) = 2*n-2. a(-n)=-A065423(n+2).",
+				"a(n) = Sum_{k=0..floor((n-2)/2)} (C(n-k-2, k) mod 2)((1+(-1)^k)/2)*2^A000120(n-2k-2). - _Paul Barry_, Jan 06 2005",
+				"a(n) = Sum_{k=0..n-2} gcd(n-k-1, k+1). - _Paul Barry_, May 03 2005",
+				"For n\u003e6: a(n) = floor(a(n-1)*a(n-2)/a(n-3)). [_Reinhard Zumkeller_, Mar 06 2011]"
+			],
+			"mathematica": [
+				"With[{nn=40},Riffle[Range[0,nn],Range[0,2nn,2]]] (* or *) LinearRecurrence[ {0,2,0,-1},{0,0,1,2},80] (* _Harvey P. Dale_, Aug 23 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n%2,n-1,n/2)",
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a029578 n =  (n - n `mod` 2) `div` (2 - n `mod` 2)",
+				"a029578_list = concat $ transpose [a001477_list, a005843_list]",
+				"-- _Reinhard Zumkeller_, Nov 27 2012"
+			],
+			"xref": [
+				"Cf. A065423 (at least one even summand).",
+				"Cf. A009531.",
+				"Cf. A001477, A005843, A211538 (partial sums).",
+				"Cf. A265705."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Explicated definition by _Reinhard Zumkeller_, Nov 27 2012"
+			],
+			"references": 19,
+			"revision": 42,
+			"time": "2017-01-02T11:06:30-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30096,
+			"data": "3,5,7,11,13,17,19,31,37,53,59,71,73,79,97,113,131,137,139,151,157,173,179,191,193,197,199,311,313,317,331,337,353,359,373,379,397,557,571,577,593,599,719,733,739,751,757,773,797,911,919,937,953,971,977,991",
+			"name": "Primes whose digits are all odd.",
+			"link": [
+				"Seiichi Manyama, \u003ca href=\"/A030096/b030096.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (terms 1..1000 from T. D. Noe)"
+			],
+			"mathematica": [
+				"Select[Prime[Range[500]],And@@OddQ[IntegerDigits[#]]\u0026] (* _Harvey P. Dale_, Jan 28 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a030096 n = a030096_list !! (n-1)",
+				"a030096_list = filter f a000040_list where",
+				"   f x = odd d \u0026\u0026 (x \u003c 10 || f x') where (x', d) = divMod x 10",
+				"-- _Reinhard Zumkeller_, Apr 07 2014, Jan 29 2013",
+				"(PARI) is(n)=isprime(n) \u0026\u0026 #setintersect([0,2,4,6,8],Set(digits(n)))==0 \\\\ _Charles R Greathouse IV_, Feb 07 2017",
+				"(MAGMA) [p: p in PrimesUpTo(1000) | forall{d: d in [0,2,4,6,8] | d notin Set(Intseq(p))}]; // _Vincenzo Librandi_, Apr 29 2019"
+			],
+			"xref": [
+				"Cf. A076704 = odd-digit prime powers of prime numbers; A091296 = odd-digit semiprimes; A000040 = prime numbers; A001358 = semiprimes.",
+				"Intersection of A000040 and A014261."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_",
+			"ext": [
+				"Edited by _N. J. A. Sloane_ at the suggestion of _T. D. Noe_ and _Jonathan Vos Post_, Sep 15 2007"
+			],
+			"references": 19,
+			"revision": 31,
+			"time": "2019-04-29T02:46:04-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33075,
+			"data": "1,2,3,4,5,6,7,8,9,10,12,21,23,32,34,43,45,54,56,65,67,76,78,87,89,98,101,121,123,210,212,232,234,321,323,343,345,432,434,454,456,543,545,565,567,654,656,676,678,765,767,787,789,876",
+			"name": "Positive numbers n such that all pairs of consecutive decimal digits differ by 1.",
+			"comment": [
+				"Number of n-digit terms: 9, 17, 32, 61, 116, 222, 424 (= A090994).",
+				"Also called 10-esthetic numbers (where in general a q-esthetic number has the property that the consecutive digits of its base-q representation differ by 1, see \"Esthetic numbers\" by J. M. De Koninck and N. Doyon). - _Narad Rampersad_, Aug 03 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A033075/b033075.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"J. M. De Koninck and N. Doyon, \u003ca href=\"http://www.jeanmariedekoninck.mat.ulaval.ca/fileadmin/jmdk/Documents/Publications/2009_esthetic_numbers.pdf\"\u003eEsthetic numbers\u003c/a\u003e, Annales des Sciences mathématiques du Québec, 33 (2009), 155-164."
+			],
+			"formula": [
+				"a(n) \u003e\u003e n^3.53267..., where the exponent is log 10/log k and k is the largest root of x^5 - x^4 - 4x^3 + 3x^2 + 3x - 1. - _Charles R Greathouse IV_, Mar 11 2014"
+			],
+			"mathematica": [
+				"Join[Range[9],Select[Range[2000],Union[Abs[Differences[IntegerDigits[#]]]]=={1}\u0026]] (* _Harvey P. Dale_, Dec 28 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"-- import Data.Set (fromList, deleteFindMin, insert)",
+				"a033075 n = a033075_list !! (n-1)",
+				"a033075_list = f (fromList [1..9]) where",
+				"   f s | d == 0    = m : f (insert (10*m+1) s')",
+				"       | d == 9    = m : f (insert (10*m+8) s')",
+				"       | otherwise = m : f (insert (10*m+d-1) (insert (10*m+d+1) s'))",
+				"       where (m,s') = deleteFindMin s",
+				"             d = mod m 10",
+				"-- _Reinhard Zumkeller_, Feb 21 2012",
+				"(PARI) diff(v)=vector(#v-1,i,v[i+1]-v[i])",
+				"is(n)=if(n\u003e9, Set(abs(diff(digits(n))))==[1], n\u003e0) \\\\ _Charles R Greathouse IV_, Mar 11 2014"
+			],
+			"xref": [
+				"Cf. A090994, A048398 (primes), A048411 (squares), A207954 (palindromes)."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 19,
+			"revision": 48,
+			"time": "2018-08-04T03:15:17-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34690,
+			"data": "1,3,4,7,6,12,8,15,13,9,3,19,5,15,15,22,9,30,11,15,14,9,6,33,13,15,22,29,12,27,5,27,12,18,21,46,11,24,20,27,6,33,8,21,33,18,12,52,21,21,18,26,9,48,18,48,26,27,15,42,8,15,32,37,21,36,14,36,24,36,9,69,11,24,34",
+			"name": "Sum of digits of all the divisors of n.",
+			"comment": [
+				"First occurrence of k, or 0 if k never appears: 1, 0, 2, 3, 13, 5, 4, 7, 10, 0, 19, 6, 9, 21, 8, 403, 79, 34, 12, 39, 35, 16, 129, 38, 133, 52, 30, 100, 28, 18, 81, 63, 24, 75, 333, 66, 64, 117, 99, 243, ..., . - _Robert G. Wilson v_, Oct 25 2006",
+				"Numbers k for which there is no a(): {2, 10} with 1834 being the first one in question. - _Robert G. Wilson v_, Oct 25 2006",
+				"The only fixed points are 1 and 15. These are also the only loops of iterations of A034690: see the SeqFan thread \"List the divisors...\". - _M. F. Hasler_, Nov 08 2015",
+				"The following sequence is composed of numbers n such that the sum of digits of all divisors of n equals 15: 8, 14, 15, 20, 26, 59, 62, ... It actually depicts the positions of number 15 in this sequence: see the SeqFan thread \"List the divisors...\". - _V.J. Pohjola_, Nov 09 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A034690/b034690.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"H. Havermann et al, in reply to E. Angelini, \u003ca href=\"http://list.seqfan.eu/pipermail/seqfan/2015-November/015581.html\"\u003eList the dividers, sum the digits\u003c/a\u003e, SeqFan list, Nov. 2015.",
+				"Maxwell Schneider, Robert Schneider, \u003ca href=\"https://arxiv.org/abs/1807.06710\"\u003eDigit sums and generating functions\u003c/a\u003e, arXiv:1807.06710 [math.NT], 2018. See (22) p. 6."
+			],
+			"example": [
+				"a(15) = 1 + 3 + 5 + (1+5) = 15. - _M. F. Hasler_, Nov 08 2015"
+			],
+			"maple": [
+				"with(numtheory); read transforms; f:=proc(n) local t1, t2, i; t1:=divisors(n); t2:=0; for i from 1 to nops(t1) do t2:=t2+digsum(t1[i]); od: t2; end;",
+				"# Alternative:",
+				"sd:= proc(n) option remember; local k; k:= n mod 10; k + procname((n-k)/10) end proc:",
+				"for n from 0 to 9 do sd(n):= n od:",
+				"a:= n -\u003e add(sd(d), d=numtheory:-divisors(n)):",
+				"map(a, [$1..100]); # _Robert Israel_, Nov 17 2015"
+			],
+			"mathematica": [
+				"Table[Plus @@ Flatten@ IntegerDigits@ Divisors@n, {n, 75}] (* _Robert G. Wilson v_, Sep 30 2006 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034690 = sum . map a007953 . a027750_row",
+				"-- _Reinhard Zumkeller_, Jan 20 2014",
+				"(PARI) vector(100, n, sumdiv(n, d, sumdigits(d))) \\\\ _Michel Marcus_, Jun 28 2015",
+				"(PARI) A034690(n)=sumdiv(n,d,sumdigits(d)) \\\\ For use in other sequences. - _M. F. Hasler_, Nov 08 2015"
+			],
+			"xref": [
+				"Cf. A000005, A000203, A007953, A086793.",
+				"Cf. A093653 (Binary equivalent.)"
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,2",
+			"author": "_Erich Friedman_",
+			"references": 19,
+			"revision": 42,
+			"time": "2018-07-19T03:03:55-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 35106,
+			"data": "1,2,3,6,8,12,15,20,24,30,35,42,48,56,63,72,80,90,99,110,120,132,143,156,168,182,195,210,224,240,255,272,288,306,323,342,360,380,399,420,440,462,483,506,528,552,575,600,624,650,675,702,728,756,783,812,840",
+			"name": "1, together with numbers of the form 1 or k*(k+1) or k*(k+2), k \u003e 0.",
+			"comment": [
+				"Largest integer m such that every permutation (p_1, ..., p_n) of (1, ..., n) satisfies p_i * p_{i+1}) \u003e= m for some i, 1 \u003c= i \u003c= n-1. Equivalently, smallest integer m such that there exists a permutation (p_1, ..., p_n) of (1, ..., n) satisfying p_i * p_{i+1} \u003c= m for every i, 1 \u003c= i \u003c= n-1.",
+				"Also, nonsquare positive integers m such that floor(sqrt(m)) divides m. - _Max Alekseyev_, Nov 27 2006"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A035106/b035106.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,-2,1)."
+			],
+			"formula": [
+				"For n \u003e 1, a(n) = n*(n+2)/4 if n is even and (n-1)*(n+3)/4 if n is odd. - _Jud McCranie_, Oct 25 2001",
+				"a(n) = a(n-1) + a(n-2) - a(n-3) + 1 = A002620(n+2) + A004526(n+2). - _Henry Bottomley_, Mar 08 2000",
+				"a(n+2) = (2*n^2 + 12*n + 3*(-1)^n + 13)/8, with a(1)=1, i.e., a(n+2) = (n+2)*(n+4)/4 if n is even and (n+1)*(n+5)/4 if n is odd. - _Vladeta Jovovic_, Oct 23 2001",
+				"From Cecilia Rossiter (cecilia(AT)noticingnumbers.net), Dec 14 2004: (Start)",
+				"a(n) = a(n-2) + (n-1), where a(1) = 0, a(2) = 0.",
+				"a(n) = (2*(n+1)^2 + 3*(-1)^n - 5)/8, n\u003e=2, with a(1)=1. (End)",
+				"For n \u003e 1, a(n) = floor((n+1)^4/(4*(n+1)^2+1)). - _Gary Detlefs_, Feb 11 2010",
+				"For n \u003e 1, a(n) = n + ceiling((1/4)*(n-1)^2) - 1. - _Clark Kimberling_, Jan 07 2011; corrected by _Arkadiusz Wesolowski_, Sep 25 2012",
+				"a(1)=1, a(2)=2, a(3)=3, a(4)=6, a(5)=8; for n \u003e 5, a(n) = 2*a(n-1) - 2*a(n-3) + a(n-4). - _Harvey P. Dale_, May 03 2012",
+				"G.f.: x + x^2*(2-x) / ( (1+x)*(1-x)^3 ) = x*(x^4 - 2*x^3 + x^2 - 1)/((x-1)^3*(x+1)). - _Vladeta Jovovic_, Oct 23 2001; _Harvey P. Dale_, May 03 2012",
+				"a(n) = floor(n/2)*(1 + ceiling(n/2)), a(1) = 1. - _Arkadiusz Wesolowski_, Sep 25 2012",
+				"a(n) = ceiling((n-1)*(n+3)/4), n \u003e 1. - _Wesley Ivan Hurt_, Jun 14 2013",
+				"a(n+1) - a(n) = A052938(n-2) for n \u003e 1. - _Reinhard Zumkeller_, Oct 06 2015",
+				"E.g.f.: (8*x + 3*exp(-x) - (3-6*x-2*x^2)*exp(x))/8. - _G. C. Greubel_, Jun 10 2019"
+			],
+			"example": [
+				"n=5: we must arrange the numbers 1..5 so that the max of the products of pairs of adjacent terms is minimized. The answer is 51324, with max product = 8, so a(5) = 8."
+			],
+			"mathematica": [
+				"Join[{1},LinearRecurrence[{2,0,-2,1},{2,3,6,8},60]] (* or *) Join[{1}, Table[ If[EvenQ[n],(n(n+2))/4,((n-1)(n+3))/4],{n,2,60}]] (* _Harvey P. Dale_, May 03 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List.Ordered (union)",
+				"a035106 n = a035106_list !! (n-1)",
+				"a035106_list = 1 : tail (union a002378_list a005563_list)",
+				"-- _Reinhard Zumkeller_, Oct 05 2015",
+				"(PARI) x='x+O('x^60); Vec(x*(x^4-2*x^3+x^2-1)/((x-1)^3*(x+1))) \\\\ _Altug Alkan_, Oct 23 2015",
+				"(MAGMA) [1] cat [(2*n*(n+2) +3*((-1)^n -1))/8: n in [2..60]]; // _G. C. Greubel_, Jun 10 2019",
+				"(Sage) [1]+[(2*n*(n+2) +3*((-1)^n -1))/8 for n in (2..60)] # _G. C. Greubel_, Jun 10 2019",
+				"(GAP) Concatenation([1], List([2..60], n-\u003e (2*n*(n+2) +3*((-1)^n -1))/8)) # _G. C. Greubel_, Jun 10 2019"
+			],
+			"xref": [
+				"Cf. A006446, A052938, A064764, A064796, A064797, A064817, A004652, A035104, A035107.",
+				"First differences give (essentially) A028242.",
+				"Bisections: A002378 (pronic numbers) and A005563."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, revised Oct 30 2001",
+			"ext": [
+				"Edited by _Max Alekseyev_, Oct 09 2015",
+				"Definition modified to allow for the initial 1. - _N. J. A. Sloane_, May 17 2016"
+			],
+			"references": 19,
+			"revision": 81,
+			"time": "2019-06-10T06:07:29-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 35294,
+			"data": "1,1,2,4,6,10,15,22,32,46,64,89,122,165,222,296,390,512,668,864,1113,1426,1816,2304,2910,3658,4582,5718,7108,8808,10880,13394,16444,20132,24576,29927,36352,44046,53250,64234,77312,92864,111322,133184,159046",
+			"name": "Number of ways to partition 2n into distinct positive integers.",
+			"comment": [
+				"Also, number of partitions of 2n into odd numbers. - _Vladeta Jovovic_, Aug 17 2004",
+				"This sequence was originally defined as the expansion of sum ( q^n / product( 1-q^k, k=1..2*n), n=0..inf ). The present definition is due to _Reinhard Zumkeller_. Michael Somos points out that the equivalence of the two definitions follows from Andrews, page 19.",
+				"Also, number of partitions of 2n with max descent 1 and last part 1. - _Wouter Meeussen_, Mar 31 2013"
+			],
+			"reference": [
+				"G. E. Andrews, The Theory of Partitions, Cambridge University Press, 1998, p. 19."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A035294/b035294.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"M. Somos, \u003ca href=\"/A010815/a010815.txt\"\u003eIntroduction to Ramanujan theta functions\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RamanujanThetaFunctions.html\"\u003eRamanujan Theta Functions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000009(2*n). - _Michael Somos_, Mar 03 2003",
+				"Expansion of sum ( q^n / product( 1-q^k, k=1..2*n), n=0..inf ).",
+				"a(n) = t(2*n, 0), t as defined in A079211.",
+				"G.f.: Product((1 + x^(8 * i + 1)) * (1 + x^(8 * i + 2))^2 * (1 + x^(8 * i + 3))^2 * (1 + x^(8 * i + 4))^3 * (1 + x^(8 * i + 5))^2 * (1 + x^(8 * i + 6))^2 * (1 + x^(8 * i + 7)) * (1 + x^(8 * i + 8))^3, i=0..infinity). - _Vladeta Jovovic_, Oct 10 2004",
+				"G.f.: (Sum_{k\u003e=0} x^A074378(k)) / (Product_{k\u003e0} (1 - x^k)) = f( x^3, x^5) / f(-x, -x^2) where f(, ) is Ramanujan's general theta function. - _Michael Somos_, Nov 01 2005",
+				"Euler transform of period 16 sequence [1, 1, 2, 1, 2, 0, 1, 0, 1, 0, 2, 1, 2, 1, 1, 0, ...]. - _Michael Somos_, Dec 17 2002",
+				"a(n) ~ exp(sqrt(2*n/3)*Pi) / (2^(11/4) * 3^(1/4) * n^(3/4)). - _Vaclav Kotesovec_, Oct 06 2015",
+				"a(n) = A000041(n) + A282893(n). - _Michael Somos_, Feb 24 2017",
+				"Convolution with A000041 is A058696. - _Michael Somos_, Feb 24 2017",
+				"Convolution with A097451 is A262987. - _Michael Somos_, Feb 24 2017"
+			],
+			"example": [
+				"a(4)=6 [8=7+1=6+2=5+3=5+2+1=4+3+1=2*4].",
+				"G.f. = 1 + x + 2*x^2 + 4*x^3 + 6*x^4 + 10*x^5 + 15*x^6 + 22*x^7 + 46*x^9 + ...",
+				"G.f. = q + q^49 + 2*q^97 + 4*q^145 + 6*q^193 + 10*q^241 + 15*q^289 + ..."
+			],
+			"maple": [
+				"b:= proc(n, i) option remember; `if`(n=0, 1,",
+				"     `if`(i\u003c1, 0, b(n, i-2)+`if`(i\u003en, 0, b(n-i, i))))",
+				"    end:",
+				"a:= n-\u003e b(2*n, 2*n-1):",
+				"seq(a(n), n=0..50);  # _Alois P. Heinz_, Feb 11 2015"
+			],
+			"mathematica": [
+				"Table[Count[IntegerPartitions[2 n], q_ /; Union[q] == Sort[q]], {n, 16}];",
+				"Table[Count[IntegerPartitions[2 n], q_ /; Count[q, _?EvenQ] == 0], {n, 16}];",
+				"Table[Count[IntegerPartitions[2 n], q_ /; Last[q] == 1 \u0026\u0026 Max[q - PadRight[Rest[q], Length[q]]] \u003c= 1 ], {n, 16}];",
+				"(* _Wouter Meeussen_, Mar 31 2013 *)",
+				"a[ n_] := SeriesCoefficient[ QPochhammer[ x^2] /QPochhammer[ x], {x, 0, 2 n}]; (* _Michael Somos_, May 06 2015 *)",
+				"a[ n_] := SeriesCoefficient[ QPochhammer[ -x^3, x^8] QPochhammer[ -x^5, x^8] QPochhammer[ x^8] / QPochhammer[ x], {x, 0, n}]; (* _Michael Somos_, May 06 2015 *)",
+				"nmax=60; CoefficientList[Series[Product[(1+x^(8*k+1)) * (1+x^(8*k+2))^2 * (1+x^(8*k+3))^2 * (1+x^(8*k+4))^3 * (1+x^(8*k+5))^2 * (1+x^(8*k+6))^2 * (1+x^(8*k+7)) * (1+x^(8*k+8))^3, {k,0,nmax}],{x,0,nmax}],x] (* _Vaclav Kotesovec_, Oct 06 2015 *)",
+				"b[n_, i_] := b[n, i] = If[n==0, 1, If[i\u003c1, 0, b[n, i-2] + If[i\u003en, 0, b[n-i, i]]]]; a[n_] := b[2n, 2n-1]; Table[a[n], {n, 0, 50}] (* _Jean-François Alcover_, Aug 30 2016, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(PARI) {a(n) = my(A); if( n\u003c0, 0, n*=2; A = x * O(x^n); polcoeff( eta(x^2 + A) / eta(x + A), n))};/* _Michael Somos_, Nov 01 2005 */",
+				"(Haskell)",
+				"import Data.MemoCombinators (memo2, integral)",
+				"a035294 n = a035294_list !! n",
+				"a035294_list = f 1 where",
+				"   f x = (p' 1 (x - 1)) : f (x + 2)",
+				"   p' = memo2 integral integral p",
+				"   p _ 0 = 1",
+				"   p k m = if m \u003c k then 0 else p' k (m - k) + p' (k + 2) m",
+				"-- _Reinhard Zumkeller_, Nov 27 2015"
+			],
+			"xref": [
+				"Cf. A000009, A000041, A058686, A262987, A282893.",
+				"Cf. A078408, A078406, A078407.",
+				"Cf. A079122, A079126, A079124, A079125, A067953.",
+				"Cf. A005408."
+			],
+			"keyword": "nonn,changed",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, _Bill Gosper_",
+			"references": 19,
+			"revision": 48,
+			"time": "2019-11-13T21:58:46-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

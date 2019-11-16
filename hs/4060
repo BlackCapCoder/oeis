@@ -1,0 +1,421 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4060,
+	"results": [
+		{
+			"number": 1444,
+			"data": "1,2,6,15,45,126,378,1107,3321,9882,29646,88695,266085,797526,2392578,7175547,21526641,64573362,193720086,581140575,1743421725,5230206126,15690618378,47071677987,141215033961",
+			"name": "Bending a piece of wire of length n+1 (configurations that can only be brought into coincidence by turning the figure over are counted as different).",
+			"comment": [
+				"The wire stays in the plane, there are n bends, each is R,L or O."
+			],
+			"reference": [
+				"Todd Andrew Simpson, ``Combinatorial Proofs and Generalizations of Weyl's Denominator Formula,'' Ph. D. Dissertation, Penn State University, 1994."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A001444/b001444.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Fo#fold\"\u003eIndex entries for sequences obtained by enumerating foldings\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3, 3, -9)."
+			],
+			"formula": [
+				"(3^n + 3^[ n/2 ] )/2.",
+				"G.f.: G(0) where G(k) = 1 + x*(3*3^k + 1)*(1 + 3*x*G(k+1))/(1 + 3^k) ; - Sergei N. Gladkovskii, Dec 13 2011. [Edited _Michael Somos_, Sep 09 2013]",
+				"E.g.f. E(x)=(exp(3*x)+cosh(x*sqrt(3))+sinh(x*sqrt(3))/sqrt(3))/2=G(0) ; G(k) = 1 + x*(3*3^k+1)/((2*k+1)*(1+3^k) - 3*x*(2*k+1)*(1+3^k)/(3*x + (2*k+2)/G(k+1))) ; (continued fraction); - Sergei N. Gladkovskii, Dec 13 2011.",
+				"a(n) = 3*a(n-1)+3*a(n-2)-9*a(n-3). G.f.: x*(1-x-3*x^2)/((1-3*x)*(1-3*x^2)). [_Colin Barker_, Apr 02 2012]"
+			],
+			"example": [
+				"There are 2 ways to bend a piece of wire of length 2 (bend it or not).",
+				"G.f. = 1 + 2*x + 6*x^2 + 15*x^3 + 45*x^4 + 126*x^5 + 378*x^6 + ..."
+			],
+			"maple": [
+				"f := n-\u003e(3^floor(n/2)+3^n)/2;"
+			],
+			"mathematica": [
+				"CoefficientList[Series[(1-x-3*x^2)/((1-3*x)*(1-3*x^2)),{x,0,30}],x] (* _Vincenzo Librandi_, Apr 15 2012 *)",
+				"LinearRecurrence[{3,3,-9},{1,2,6},40] (* _Harvey P. Dale_, Dec 30 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a001444 n = div (3 ^ n + 3 ^ (div n 2)) 2",
+				"-- _Reinhard Zumkeller_, Jun 30 2013"
+			],
+			"xref": [
+				"Cf. A001997, A001998.",
+				"Cf. A000244."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,2",
+			"author": "todo(AT)tasimpson.com (Todd Andrew Simpson)",
+			"ext": [
+				"Interpretation in terms of bending wire from _Colin Mallows_."
+			],
+			"references": 6,
+			"revision": 37,
+			"time": "2015-07-30T13:15:00-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 1463,
+			"id": "M2438 N0965",
+			"data": "1,3,5,8,11,15,19,23,28,33,38,44,50,56,62,69,76,83,90,98,106,114,122,131,140,149,158,167,177,187,197,207,217,228,239,250,261,272,284,296,308,320,332,344,357,370,383,396,409,422,436,450,464,478,492,506,521,536,551,566,581,596",
+			"name": "Partial sums of A001462; also a(n) is the last occurrence of n in A001462.",
+			"comment": [
+				"Vardi gives several identities satisfied by A001463 and this sequence."
+			],
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A001463/b001463.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"D. Marcus and N. J. Fine, \u003ca href=\"http://www.jstor.org/stable/2314296\"\u003eSolutions to Problem 5407\u003c/a\u003e, Amer. Math. Monthly 74 (1967), 740-743.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/MasterThesis.pdf\"\u003eApproximations de séries génératrices et quelques conjectures\u003c/a\u003e, Dissertation, Université du Québec à Montréal, 1992.",
+				"Simon Plouffe, \u003ca href=\"http://www.lacim.uqam.ca/%7Eplouffe/articles/FonctionsGeneratrices.pdf\"\u003e1031 Generating Functions and Conjectures\u003c/a\u003e, Université du Québec à Montréal, 1992.",
+				"J. L. Rémy, \u003ca href=\"http://dx.doi.org/10.1006/jnth.1997.2154\"\u003eSur la suite autodécrite de Golomb\u003c/a\u003e, J. Number Theory, vol. 66 1997 pp. 1-28.",
+				"N. J. A. Sloane, \u003ca href=\"/A001149/a001149.pdf\"\u003eHandwritten notes on Self-Generating Sequences, 1970\u003c/a\u003e (note that A1148 has now become A005282)",
+				"I. Vardi, \u003ca href=\"http://dx.doi.org/10.1016/0022-314X(92)90024-J\"\u003eThe error term in Golomb's sequence\u003c/a\u003e, J. Number Theory, 40 (1992), 1-11. (See also the Math. Review, 93d:11103)"
+			],
+			"formula": [
+				"a(n) is asymptotic to tau^(1-tau)*n^tau where tau is the golden ratio, tau=(1+sqrt(5))/2. More precisely, a(n)= tau^(1-tau)*n^tau + c*n^(1/tau)+0(n^(1/tau)) where c is a constant around 0.6. Is there any known value for c? - _Benoit Cloitre_, Oct 29 2002"
+			],
+			"mathematica": [
+				"Accumulate[a[1]=1;a[n_]:=a[n]=1+a[n-a[a[n-1]]];Table[a[n],{n,84}]] (* _Harvey P. Dale_, Oct 20 2011, from _Robert G. Wilson v_'s program in A001463 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a001463 n = a001463_list !! (n-1)",
+				"a001463_list = scanl1 (+) a001462_list",
+				"-- _Reinhard Zumkeller_, Apr 28 2012"
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 6,
+			"revision": 45,
+			"time": "2016-05-03T02:17:29-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 2049,
+			"id": "M2633 N1044",
+			"data": "1,3,7,12,20,30,44,59,75,96,118,143,169,197,230,264,299,335,373,413,455,501,549,598,648,701,758,818,880,944,1009,1079,1156,1236,1317,1400,1485,1571,1661,1752,1844,1944,2048,2155,2263,2379,2498,2622,2749,2881",
+			"name": "Prime numbers of measurement.",
+			"comment": [
+				"Partial sums of A002048. - _Reinhard Zumkeller_, May 23 2013"
+			],
+			"reference": [
+				"R. K. Guy, Unsolved Problems in Number Theory, E30.",
+				"Porubský,  Š. On MacMahon's segmented numbers and related sequences. Nieuw Arch. Wisk. (3) 25 (1977), no. 3, 403--408. MR0485763 (58 #5575)",
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A002049/b002049.txt\"\u003eTable of n, a(n) for n = 1..3000\u003c/a\u003e",
+				"G. E. Andrews, \u003ca href=\"http://www.jstor.org/stable/2318498\"\u003eMacMahon's prime numbers of measurement\u003c/a\u003e, Amer. Math. Monthly, 82 (1975), 922-923.",
+				"R. L. Graham and C. B. A. Peck, \u003ca href=\"http://www.jstor.org/stable/2315138\"\u003eProblem E1910\u003c/a\u003e, Amer. Math. Monthly, 75 (1968), 80-81.",
+				"P. A. MacMahon, \u003ca href=\"https://www.biodiversitylibrary.org/item/88477#page/679/mode/1up\"\u003eThe prime numbers of measurement on a scale\u003c/a\u003e, Proc. Camb. Phil. Soc. 21 (1923), 651-654; reprinted in Coll. Papers I, pp. 797-800."
+			],
+			"formula": [
+				"Andrews conjectures that a(n) ~ (1/2) n^2 log n / loglog n. - _N. J. A. Sloane_, Dec 01 2013"
+			],
+			"mathematica": [
+				"A002048[anmax_] := (a = {}; Do[AppendTo[a, i], {i, 1, anmax}]; asum = {a[[1]] + a[[2]], a[[2]]}; Do[AppendTo[asum, 0], {i, 3, anmax}]; piv = 3; While[piv \u003c= Length[a], Do[a = DeleteCases[a, asum[[i]]], {i, 1, piv - 2}]; Do[asum[[i]] += a[[piv]], {i, 1, piv}]; piv = piv + 1;]; a); A002048[200] // Accumulate (* _Jean-François Alcover_, Oct 05 2016, adapted from _R. J. Mathar_'s Maple code in A002048. *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\))",
+				"a002049 n = a002049_list !! (n-1)",
+				"a002049_list = g [1..] [] where",
+				"   g (x:xs) ys = (last zs) : g (xs \\\\ zs) (x : ys) where",
+				"     zs = scanl (+) x ys",
+				"-- _Reinhard Zumkeller_, May 23 2013"
+			],
+			"xref": [
+				"Cf. A002048.",
+				"a(n) = A004978(n+1)-1 = A048204(n-1)+1."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"references": 6,
+			"revision": 33,
+			"time": "2019-07-03T05:05:23-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 2320,
+			"data": "1,3,14,67,321,1538,7369,35307,169166,810523,3883449,18606722,89150161,427144083,2046570254,9805707187,46981965681,225104121218,1078538640409,5167589080827,24759406763726,118629444737803",
+			"name": "a(n) = 5*a(n-1) - a(n-2).",
+			"comment": [
+				"Together with A002310 these are the two sequences satisfying ( a(n)^2+a(n-1)^2 )/(1 - a(n)a(n-1)) is an integer, in both cases this integer is -5. - _Floor van Lamoen_, Oct 26 2001"
+			],
+			"reference": [
+				"From a posting to Netnews group sci.math by ksbrown(AT)seanet.com (K. S. Brown) on Aug 15 1996."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A002320/b002320.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"MathPages, \u003ca href=\"http://www.mathpages.com/home/kmath334.htm\"\u003eN = (x^2 + y^2)/(1+xy) is a Square\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (5,-1)."
+			],
+			"formula": [
+				"Sequences A002310, A002320 and A049685 have this in common: each one satisfies a(n+1) = (a(n)^2+5)/a(n-1) - _Graeme McRae_, Jan 30 2005",
+				"G.f.: (1-2x)/(1-5x+x^2). [From _Philippe Deléham_, Nov 16 2008]",
+				"a(n)=-(1/42)*sqrt(21)*[(5/2)-(1/2)*sqrt(21)]^n+(1/42)*[(5/2)+(1/2)*sqrt(21)]^n*sqrt(21)+(1/2)*[(5/2) +(1/2)*sqrt(21)]^n+(1/2)*[(5/2)-(1/2)*sqrt(21)]^n, with n\u003e=0 [From _Paolo P. Lava_, Nov 21 2008]",
+				"a(n) = Sum_{k = 0..n} A238731(n,k)*2^k. - _Philippe Deléham, Mar 05 2014"
+			],
+			"mathematica": [
+				"LinearRecurrence[{5,-1},{1,3},30] (* _Harvey P. Dale_, Nov 13 2014 *)"
+			],
+			"program": [
+				"(Haskel)",
+				"a002320 n = a002320_list !! n",
+				"a002320_list = 1 : 3 :",
+				"   (zipWith (-) (map (* 5) (tail a002320_list)) a002320_list)",
+				"-- _Reinhard Zumkeller_, Oct 16 2011"
+			],
+			"xref": [
+				"Cf. A054477."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "Joe Keane (jgk(AT)jgk.org)",
+			"references": 6,
+			"revision": 32,
+			"time": "2015-06-13T00:48:06-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 3160,
+			"id": "M0446",
+			"data": "1,1,1,2,3,4,4,4,5,5,5,6,6,6,7,8,9,9,9,10,11,12,12,12,13,14,15,15,15,16,16,16,17,17,17,18,19,20,20,20,21,21,21,22,22,22,23,24,25,25,25,26,26,26,27,27,27,28,29,30,30,30,31,32,33,33,33,34,35,36,36,36,37,37,37,38",
+			"name": "a(1)=a(2)=1, a(n)=n-a(a(n-1))-a(a(n-2)).",
+			"comment": [
+				"Sequence of indices n where a(n-1)\u003ca(n) appears to be given by A003156. [_Joerg Arndt_, May 11 2010]"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A003160/b003160.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"L. Carlitz, R. Scoville, and V. E. Hoggatt, Jr., \u003ca href=\"http://www.fq.math.ca/Scanned/10-5/carlitz3-a.pdf\"\u003eRepresentations for a special sequence\u003c/a\u003e, Fibonacci Quarterly 10.5 (1972), 499-518, 550."
+			],
+			"formula": [
+				"a(n) is asymptotic to n/2."
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c3,1,n-a(a(n-1))-a(a(n-2)))",
+				"(Haskell)",
+				"a003160 n = a003160_list !! (n-1)",
+				"a003160_list = 1 : 1 : zipWith (-) [3..] (zipWith (+) xs $ tail xs)",
+				"   where xs = map a003160 a003160_list",
+				"-- _Reinhard Zumkeller_, Aug 02 2013"
+			],
+			"xref": [
+				"Cf. A005206.",
+				"Cf. A095774, A095775."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Edited by _Benoit Cloitre_, Jan 01 2003"
+			],
+			"references": 6,
+			"revision": 22,
+			"time": "2017-09-06T14:25:54-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 3249,
+			"id": "M4492",
+			"data": "8,21,29,42,50,55,63,76,84,97,110,118,131,139,144,152,165,173,186,194,199,207,220,228,241,254,262,275,283,288,296,309,317,330,338,343,351,364,372,377,385,398,406,419,427,432,440,453,461,474,487,495,508,516",
+			"name": "A001950(A003234(n)) + 1.",
+			"comment": [
+				"This is the function named u' in [Carlitz]. - _Eric M. Schmidt_, Aug 14 2014"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"L. Carlitz, R. Scoville and T. Vaughan, \u003ca href=\"http://www.fq.math.ca/Scanned/11-4/carlitz.pdf\"\u003eSome arithmetic functions related to Fibonacci numbers\u003c/a\u003e, Fib. Quart., 11 (1973), 337-386."
+			],
+			"program": [
+				"(Haskell)",
+				"a003249 = (+ 1) . a001950 . a003234 -- _Reinhard Zumkeller_, Oct 03 2014"
+			],
+			"xref": [
+				"Cf. A242094 (complement), A001950, A003234."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Corrected and extended by, and a definition from _Eric M. Schmidt_, Aug 14 2014"
+			],
+			"references": 6,
+			"revision": 19,
+			"time": "2014-10-05T02:20:41-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 4091,
+			"data": "0,1,1,2,3,5,8,31,12,43,55,98,441,332,773,16,789,7951,4852,1814,5676,64901,11771,75682,86364,52057,393121,814691,118713,922415,40238,9626431,9038712,8754253,7882075,5647229,25303941,71875142,96188093,68954236,551433201,141085561,692419762,734494334,337804107,713094311,3091136381,3705121792",
+			"name": "Fibonacci numbers written backwards.",
+			"comment": [
+				"Or, Fibonacci numbers reversed.",
+				"a(n) = A004086(A000045(n)). - _Reinhard Zumkeller_, Mar 08 2013"
+			],
+			"link": [
+				"N. J. A. Sloane and Alois P. Heinz, \u003ca href=\"/A004091/b004091.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/A004091/a004091.txt\"\u003eMaple program for A004091\u003c/a\u003e"
+			],
+			"maple": [
+				"a:= n-\u003e (s-\u003e parse(cat(s[-i]$i=1..length(s))))(",
+				"         \"\"||((\u003c\u003c0|1\u003e, \u003c1|1\u003e\u003e^n)[1,2])):",
+				"seq(a(n), n=0..50);  # _Alois P. Heinz_, Apr 09 2015"
+			],
+			"mathematica": [
+				"FromDigits[Reverse[IntegerDigits[#]]]\u0026/@Fibonacci[Range[50]] (* _Harvey P. Dale_, Jun 10 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a004091 = a004086 . a000045  -- _Reinhard Zumkeller_, Mar 08 2013",
+				"(MAGMA) [Seqint(Reverse(Intseq(Fibonacci(n)))): n in [0..50]]; // _Vincenzo Librandi_, Jan 17 2016"
+			],
+			"xref": [
+				"Cf. A000045, A004170, A014258."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_",
+			"references": 6,
+			"revision": 34,
+			"time": "2016-01-17T09:19:20-05:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 4233,
+			"data": "0,1,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5",
+			"name": "a(n) = ceiling(log(n)).",
+			"comment": [
+				"Does not satisfy Benford's law [Whyman et al., 2016]. - _N. J. A. Sloane_, Feb 12 2017"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A004233/b004233.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"G. Whyman, N. Ohtori, E. Shulzinger, Ed. Bormashenko, \u003ca href=\"https://doi.org/10.1016/j.physa.2016.06.054\"\u003eRevisiting the Benford law: When the Benford-like distribution of leading digits in sets of numerical data is expectable?\u003c/a\u003e, Physica A: Statistical Mechanics and its Applications, 461 (2016), 595-601.",
+				"\u003ca href=\"/index/Be#Benford\"\u003eIndex entries for sequences related to Benford's law\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a004233 = ceiling . log . fromIntegral  -- _Reinhard Zumkeller_, Mar 17 2015",
+				"(PARI) a(n)=ceil(log(n)) \\\\ _Charles R Greathouse IV_, Apr 29 2015"
+			],
+			"xref": [
+				"Cf. A000193, A000195, A000523."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 6,
+			"revision": 22,
+			"time": "2019-07-04T14:56:05-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 4302,
+			"data": "0,1,12,60,200,525,1176,2352,4320,7425,12100,18876,28392,41405,58800,81600,110976,148257,194940,252700,323400,409101,512072,634800,780000,950625,1149876,1381212,1648360,1955325",
+			"name": "a(n) = n^2*(n+1)^2*(n+2)/12.",
+			"comment": [
+				"Kekulé numbers for certain benzenoids. - _Emeric Deutsch_, Jun 19 2005",
+				"a(n-2), n\u003e=3, is the number of ways to have n identical objects in m=3 of altogether n distinguishable boxes (n-3 boxes stay empty). - _Wolfdieter Lang_, Nov 13 2007",
+				"Starting with offset 1 = row sums of triangle A096948 and binomial transform of {1, 11, 37, 55, 38, 10, 0, 0, 0,...]. - _Gary W. Adamson_, Aug 08 2008",
+				"Product of sum of first n Triangular numbers and Triangular number(n). - _Vladimir Joseph Stephan Orlovsky_, Oct 13 2009"
+			],
+			"reference": [
+				"T. A. Gulliver, Sequences from Cubes of Integers, Int. Math. Journal, 4 (2003), 439-445.",
+				"S. J. Cyvin and I. Gutman, Kekulé structures in benzenoid hydrocarbons, Lecture Notes in Chemistry, No. 46, Springer, New York, 1988 (p.233, # 11)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A004302/b004302.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"P. Aluffi, \u003ca href=\"https://arxiv.org/abs/1408.1702\"\u003eDegrees of projections of rank loci\u003c/a\u003e, arXiv:1408.1702 [math.AG], 2014. [\"After compiling the results of many explicit computations, we noticed that many of the numbers d_{n,r,S} appear in the existing literature in contexts far removed from the enumerative geometry of rank conditions; we owe this surprising (to us) observation to perusal of [Slo14].\"]",
+				"\u003ca href=\"/index/Rec#order_06\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (6,-15,20,-15,6,-1)."
+			],
+			"formula": [
+				"From _Paul Barry_, Feb 03 2005: (Start)",
+				"G.f.: x*(1 + 6*x + 3*x^2)/(1 - x)^6.",
+				"a(n) = C(n, 2)*C(n+1, 3). (End)",
+				"a(n) = 3*C(n,3)^2/n, n\u003e= 2. - _Zerinvary Lajos_, May 09 2008",
+				"a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n\u003e5. - _Harvey P. Dale_, Oct 19 2014",
+				"a(n) = A000217(n)*A000292(n). - _Bruno Berselli_, Jan 13 2015",
+				"a(n) = Sum_{k=0..n} Sum_{i=0..n} i*C(k+1,k-1). - _Wesley Ivan Hurt_, Sep 21 2017",
+				"a(n) = Sum_{i=0..n} (n+2)*(n-i)^3/3. - _Bruno Berselli_, Oct 31 2017"
+			],
+			"example": [
+				"a(3)=60 because n=5 identical balls can be put into m=3 of n=5 distinguishable boxes in binomial(5,3)*(3!/(2!*1!)+ 3!/(1!*2!) ) = 10*(3+3) = 60 ways. The m=3 part partitions of 5, namely (1^2,3) and (1,2^2) specify the filling of each of the 10 possible three-box choices. - _Wolfdieter Lang_, Nov 13 2007"
+			],
+			"maple": [
+				"a:=n-\u003en^2*(n+1)^2*(n+2)/12: seq(a(n),n=0..33); # _Emeric Deutsch_, Jun 19 2005"
+			],
+			"mathematica": [
+				"Table[n^2 (n+1)^2 (n+2)/12,{n,0,30}] (* or *) LinearRecurrence[{6,-15,20,-15,6,-1},{0,1,12,60,200,525},30] (* _Harvey P. Dale_, Oct 19 2014 *)"
+			],
+			"program": [
+				"(MAGMA) [n^2*(n+1)^2*(n+2)/12: n in [0..40]]; // _Vincenzo Librandi_, May 22 2011",
+				"(Haskell)",
+				"a004302 0 = 0",
+				"a004302 n = a103371 (n + 1) 2 -- _Reinhard Zumkeller_, Apr 04 2014",
+				"(PARI) a(n)=n^2*(n+1)^2*(n+2)/12 \\\\ _Charles R Greathouse IV_, Oct 07 2015"
+			],
+			"xref": [
+				"Third column of triangle A103371.",
+				"Cf. A000217, A000292, A096948."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 6,
+			"revision": 63,
+			"time": "2017-10-31T14:00:42-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 4788,
+			"data": "0,0,1,1,2,2,3,3,3,3,4,5,5,5,5,5,6,6,7,7,7,7,8,9,8,8,8,8,9,10,10,10,10,10,10,11,11,11,11,12,12,12,13,13,14,13,14,15,14,14,14,14,15,15,15,16,15,15,16,17,17,17,18,17,17,17,18,18,18,19,19,20,20",
+			"name": "Number of distinct prime divisors of the numbers in row n of Pascal's triangle.",
+			"comment": [
+				"Also the number of prime divisors of A002944(n) = lcm_{j=0..floor(n/2)} binomial(n,j).",
+				"The terms are increasing by intervals, then decrease once. The local maxima are obtained for 23, 44, 47, 55, 62, 79, 83, 89, 104, 119, 131, 134, 139, 143, .... - _Michel Marcus_, Mar 21 2013",
+				"a(A004789(n)) = n and a(m) != n for m \u003c A004789(n). - _Reinhard Zumkeller_, Mar 16 2015"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A004788/b004788.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A001221(A001142(n)). - _Reinhard Zumkeller_, Mar 16 2015"
+			],
+			"mathematica": [
+				"Table[prd = Product[Binomial[n, k], {k, 0, n}]; If[prd == 1, 0, Length[FactorInteger[prd]]], {n, 0, 100}] (* _T. D. Noe_, Mar 21 2013 *)"
+			],
+			"program": [
+				"(PARI) a(n) = {sfp = Set(); for (k=1, n-1, sfp = setunion(sfp, Set(factor(binomial(n, k))[,1]))); return (length(sfp));} \\\\ _Michel Marcus_, Mar 21 2013",
+				"(Haskell)",
+				"a004788 = a001221 . a001142  -- _Reinhard Zumkeller_, Mar 16 2015"
+			],
+			"xref": [
+				"Cf. A004789.",
+				"Cf. A001221, A001142, A256113."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Clark Kimberling_",
+			"references": 6,
+			"revision": 28,
+			"time": "2018-04-01T21:01:32-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		}
+	]
+}

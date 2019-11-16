@@ -1,0 +1,435 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3790,
+	"results": [
+		{
+			"number": 51884,
+			"data": "1,4,9,10,21,22,25,26,27,28,33,34,35,36,49,50,51,52,55,56,57,58,63,64,65,66,85,86,87,88,91,92,93,94,95,96,115,116,117,118,119,120,121,122,123,124,125,126,143,144,145,146,147,148,153,154,155,156,161,162,169",
+			"name": "Smallest number larger than the previous term which is not a prime but is relatively prime to the previous term.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A051884/b051884.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"A. Murthy, \u003ca href=\"http://www.gallup.unm.edu/~smarandache/SN/ScArt5/ExploringNewIdeas.pdf\"\u003eExploring some new ideas on Smarandache type sets, functions and sequences\u003c/a\u003e, Smarandache Notions Journal Vol. 11 N. 1-2-3 Spring 2000."
+			],
+			"maple": [
+				"with(numtheory); i:=4; k:=5; while(k \u003c 100) do while(order(k, i) = FAIL or isprime(k)) do k:=k+1; end do; print(k); i:= k; k:=k+1; end do; # _Ben Paul Thurston_, Feb 08 2007"
+			],
+			"mathematica": [
+				"rPrimeNext[n_]:=Module[{k},k=n+1;While[PrimeQ[k]||GCD[n,k]!=1,k++ ];k]; a=1;lst={a};Do[AppendTo[lst,a=rPrimeNext[a]],{n,0,5!}];lst (* _Vladimir Joseph Stephan Orlovsky_, May 15 2010 *)",
+				"nxt[n_]:=Module[{k=n+1},While[PrimeQ[k]||!CoprimeQ[k,n],k++];k]; NestList[ nxt,1,60] (* _Harvey P. Dale_, Mar 12 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a051884 n = a051884_list !! (n-1)",
+				"a051884_list =  1 : f 1 a002808_list where",
+				"   f x cs = y : f y (dropWhile (\u003c= y) cs) where",
+				"     y = head [z | z \u003c- cs, x `gcd` z == 1]",
+				"-- _Reinhard Zumkeller_, Jun 03 2013"
+			],
+			"xref": [
+				"Sequences with related definitions: A072525, A085084, A126638, A131368, A163643.",
+				"Cf. A002808."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_Felice Russo_, Dec 15 1999",
+			"ext": [
+				"More terms from _James A. Sellers_, Dec 16 1999",
+				"Definition corrected by _Franklin T. Adams-Watters_, Sep 19 2006"
+			],
+			"references": 7,
+			"revision": 28,
+			"time": "2018-08-28T06:43:19-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 51936,
+			"data": "1,6,12,19,27,36,46,57,69,82,96,111,127,144,162,181,201,222,244,267,291,316,342,369,397,426,456,487,519,552,586,621,657,694,732,771,811,852,894,937,981,1026,1072,1119,1167,1216,1266,1317,1369,1422,1476",
+			"name": "Truncated triangular numbers: a(n) = n*(n+1)/2 - 9.",
+			"comment": [
+				"Equals binomial transform of [1, 5, 1, 0, 0, 0, ...]. - _Gary W. Adamson_, Apr 30 2008",
+				"Numbers m \u003e 0 such that 8m+73 is a square. - _Bruce J. Nicholson_, Jul 29 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051936/b051936.txt\"\u003eTable of n, a(n) for n = 4..10000\u003c/a\u003e",
+				"C. Rossiter, \u003ca href=\"http://noticingnumbers.net/300SeriesCube.htm\"\u003eDepictions, Explorations and Formulas of the Euler/Pascal Cube\u003c/a\u003e [Dead link]",
+				"C. Rossiter, \u003ca href=\"/A005581/a005581.pdf\"\u003eDepictions, Explorations and Formulas of the Euler/Pascal Cube\u003c/a\u003e [Cached copy, May 15 2013]",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-3,1)."
+			],
+			"formula": [
+				"G.f.: x^4*(-1-3*x+3*x^2) / (x-1)^3.",
+				"a(n) = n + a(n-1) for n\u003e4, a(4)=1. - _Vincenzo Librandi_, Aug 06 2010",
+				"a(n) = 2*A000217(n-3) - A000217(n-6), with A000217(-2)=1, A000217(-1)=0. - _Bruno Berselli_, Oct 13 2016"
+			],
+			"example": [
+				"Illustration of the initial terms:",
+				"                                                          .",
+				"                              .                         .   .",
+				"      .                     .   .                     o   o   o",
+				"    .   .                 o   o   o                 o   o   o   o",
+				"  .   o   .             .   o   o   .             .   o   o   o   .",
+				".   .   .   .         .   .   o   .   .         .   .   o   o   .   .",
+				"----------------------------------------------------------------------",
+				"      1                       6                           12",
+				"----------------------------------------------------------------------",
+				"- _Bruno Berselli_, Oct 13 2016"
+			],
+			"mathematica": [
+				"Table[n*(n + 1)/2 - 9, {n, 4, 60}] (* _Stefan Steinerberger_, Mar 25 2006 *)",
+				"k = 4; NestList[(k++; # + k) \u0026, 1, 45] (* _Robert G. Wilson v_, Feb 02 2011 *)",
+				"Drop[Accumulate[Range[60]]-9,3] (* _Harvey P. Dale_, Jan 16 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a051936 = (subtract 9) . a000217",
+				"a051936_list = scanl (+) 1 [5..]",
+				"-- _Reinhard Zumkeller_, Oct 25 2012",
+				"(PARI) a(n)=n*(n+1)/2-9 \\\\ _Charles R Greathouse IV_, Oct 07 2015"
+			],
+			"xref": [
+				"Cf. A000217."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "4,2",
+			"author": "Klaus Strassburger (strass(AT)ddfi.uni-duesseldorf.de), Dec 21 1999",
+			"references": 7,
+			"revision": 53,
+			"time": "2017-08-04T10:56:10-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 52021,
+			"data": "2,3,5,7,12,50,70,308,320,364,476,500,605,700,704,715,832,935,1088,1183,1547,1729,2401,2584,2618,2704,2926,3080,3200,3536,3640,3952,4225,4760,4784,4913,5000,5491,5525,5819,5831,6050,6175,6517,6647,7000,7040,7150",
+			"name": "Sum of digits of n is the largest prime factor of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A052021/b052021.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"{n: A007953(n) = A006530(n)}. - _R. J. Mathar_, May 30 2010"
+			],
+			"example": [
+				"13685 has sum of digits '23' and 13685 = 5*7*17*'23'."
+			],
+			"maple": [
+				"A007953 := proc(n) add(d,d=convert(n,base,10)) ; end proc:",
+				"A006530 := proc(n) numtheory[factorset](n) ; max(op(%)) ; end proc:",
+				"for n from 1 to 8000 do if A007953(n) = A006530(n) then printf(\"%d,\",n) ; end if; end do: # _R. J. Mathar_, May 30 2010"
+			],
+			"mathematica": [
+				"Select[Range[2,8000],FactorInteger[#][[-1,1]]==Total[IntegerDigits[#]]\u0026] (* _Harvey P. Dale_, Oct 17 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a052021 n = a052021_list !! (n-1)",
+				"a052021_list = tail $ filter (\\x -\u003e a007953 x == a006530 x) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 06 2011"
+			],
+			"xref": [
+				"Cf. A052018, A052019, A052020, A052022, A007953, A005349, A028834."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_, Nov 15 1999",
+			"ext": [
+				"Single-digit primes added by _R. J. Mathar_, May 30 2010",
+				"Offset corrected by _Reinhard Zumkeller_, Nov 05 2011"
+			],
+			"references": 7,
+			"revision": 20,
+			"time": "2015-11-30T09:39:10-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 52582,
+			"data": "0,2,8,36,192,1200,8640,70560,645120,6531840,72576000,878169600,11496038400,161902540800,2440992153600,39230231040000,669529276416000,12093372555264000,230485453406208000",
+			"name": "a(n) = 2*n*n!.",
+			"comment": [
+				"Total number of pairs (a_i,a_(i+1)) in all permutations on [n] such that a_i,a_(i+1) are consecutive integers. - _David Callan_, Nov 04 2003",
+				"Number of permutations of {1,2,...,n+2} such that there is exactly one entry between the entries 1 and 2. Example: a(2)=8 because we have 1324, 1423, 2314, 2413, 3142, 4132, 3241 and 4231. - _Emeric Deutsch_, Apr 06 2008",
+				"a(n)=A138770(n+2,1). - _Emeric Deutsch_, Apr 06 2008",
+				"Number of permutations of 0 to n distinct letters (ABC...) 1 times (\"-\" (0), A (1), AB (1-1), ABC (1-1-1), ABCD (1-1-1-1 )etc...) and one after the other to resemble motif:( \"-\",... BB (0-2), ABB (1-2-0), AABB (2-2-0-0), AAABB (3-2-0-0-0) AAAABB (4-2-0-0-0-0), AAAAABB (5-2-0-0-0-0-0), AAAAAABB (6-2-0-0-0-0-0-0), etc... 0 fixed point (or free fixed point). Example: if ABC (1-1-1) and motif ABB (1-2-0) then 2 * 0 (free) fixed point, if ABCD (1-1-1-1), and motif AABB (2-2-0-0) then 8 * 0 (free) fixed point, if ABCDE (1-1-1-1-1), and motif AAABB (3-2-0-0-0), then 36 * 0 (free) fixed point, if ABCDEF (1-1-1-1-1-1), and motif AAAABB (4-2-0-0-0-0), then 192 * 0 (free) fixed point, if ABCDEFG (1-1-1-1-1-1-1), and motif AAAAABB (5-2-0-0-0-0-0), then 1200 * 0 (free) fixed point, etc... - _Zerinvary Lajos_, Dec 07 2009"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A052582/b052582.txt\"\u003eTable of n, a(n) for n = 0..250\u003c/a\u003e",
+				"INRIA Algorithms Project, \u003ca href=\"http://ecs.inria.fr/services/structure?nbr=526\"\u003eEncyclopedia of Combinatorial Structures 526\u003c/a\u003e"
+			],
+			"formula": [
+				"E.g.f.: 2*x / (1 - x)^2.",
+				"Recurrence: {a(0)=0, a(1)=2, (-n^2-2*n-1)*a(n)+a(n+1)*n=0.}.",
+				"a(n) = A001339(n) - A007808(n). - _Michael Somos_, Oct 20 2011",
+				"a(n) = (a(n-1)^2 - 2 * a(n-2)^2 + a(n-2) * a(n-3) - 4 * a(n-1) * a(n-3)) / (a(n-2) - a(n-3)) if n\u003e2. - _Michael Somos_, Oct 20 2011",
+				"a(n)=2*n*n!. - _Gary Detlefs_, Sep 16 2010",
+				"a(n+1) = a(n) * (n+1)^2 / n. - _Reinhard Zumkeller_, Nov 12 2011",
+				"0 = a(n)*(+a(n+1) -4*a(n+2) +a(n+3)) +a(n+1)*(+2*a(n+1) -a(n+3)) + a(n+2)*(+a(n+2)) if n\u003e=0. - _Michael Somos_, Jun 26 2017"
+			],
+			"maple": [
+				"spec := [S,{S=Prod(Sequence(Z),Sequence(Z),Union(Z,Z))},labeled]: seq(combstruct[count](spec,size=n), n=0..20);"
+			],
+			"mathematica": [
+				"a[ n_] := If[ n\u003c0, 0, n! SeriesCoefficient[ 2 x / (1 - x)^2, {x, 0, n}]]; (* _Michael Somos_, Oct 20 2011 *)",
+				"a[ n_] := If[ n\u003c0, 0, 2 n n!]; (* _Michael Somos_, Oct 20 2011 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c0, 0, 2 * n * n!)}; /* _Michael Somos_, Oct 20 2011 */",
+				"(Haskell)",
+				"a052582 n = a052582_list !! n",
+				"a052582_list =  0 : 2 : zipWith",
+				"   div (zipWith (*) (tail a052582_list) (drop 2 a000290_list)) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 12 2011"
+			],
+			"xref": [
+				"Cf. A001339, A007808, A138770, A000142, A000290."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "encyclopedia(AT)pommard.inria.fr, Jan 25 2000",
+			"references": 7,
+			"revision": 43,
+			"time": "2017-06-26T08:11:50-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53201,
+			"data": "0,0,0,0,2,0,0,0,0,0,0,3,2,3,0,0,0,0,0,0,0,0,4,0,6,0,4,0,0,0,3,0,0,3,0,0,0,5,0,0,2,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,6,4,3,0,0,0,3,4,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,7,0,7,2,7,0,7,0,7,0,0,0,5,0,3,10,0,0,10,3,0,5,0",
+			"name": "Pascal's triangle (excluding first, last element of each row) read by rows, row n read mod n.",
+			"comment": [
+				"Prime numbered rows contain all zeros."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A053201/b053201.txt\"\u003eRows n=2..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A014410(n,k) mod n, k=1..n-1."
+			],
+			"example": [
+				"0; 0,0; 0,2,0; 0,0,0,0; 0,3,2,3,0; ...",
+				"row 6 = 6 mod 6, 15 mod 6, 20 mod 6, 15 mod 6, 6 mod 6 = 0, 3, 2, 3, 0"
+			],
+			"mathematica": [
+				"row[n_] := Table[ Mod[ Binomial[n, k], n], {k, 1, n-1}]; Table[row[n], {n, 2, 15}] // Flatten (* _Jean-François Alcover_, Aug 12 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a053201 n k = a053201_tabl !! (n-2) !! (k-1)",
+				"a053201_row n = a053201_tabl !! (n-2)",
+				"a053201_tabl = zipWith (map . (flip mod)) [2..] a014410_tabl",
+				"-- _Reinhard Zumkeller_, Aug 17 2013"
+			],
+			"xref": [
+				"Row sums give A053205. Cf. A053200, A053202, A053203, A007318 (Pascal's triangle)",
+				"Cf. A053214 (central terms)."
+			],
+			"keyword": "nonn,nice,tabl,look",
+			"offset": "2,5",
+			"author": "Asher Auel (asher.auel(AT)reed.edu) Dec 12, 1999",
+			"ext": [
+				"a(62) and a(68) corrected by T. D. Noe, Feb 08 2008"
+			],
+			"references": 7,
+			"revision": 13,
+			"time": "2014-01-27T08:33:36-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53868,
+			"data": "2,3,4,5,7,8,11,13,15,16,17,18,19,21,23,27,29,31,32,33,35,36,37,39,41,43,45,47,50,51,53,55,57,59,61,63,64,65,67,69,71,72,73,75,77,79,83,85,87,89,91,93,95,97,98,99,100,101,103,105,107,109,111,113,115,117,119",
+			"name": "Numbers n such that sum of divisors of n less than n is odd.",
+			"comment": [
+				"Numbers which are twice squares, even squares or odd nonsquares.",
+				"In other words: numbers whose sum of proper divisors is odd. [From Omar E. Pol, Aug 14 2009]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053868/b053868.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a053868 n = a053868_list !! (n-1)",
+				"a053868_list = filter (odd . a001065) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 01 2015, Sep 15 2011"
+			],
+			"xref": [
+				"Cf. A001065, A028982.",
+				"Cf. A053869. - Omar E. Pol, Aug 14 2009"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Henry Bottomley_, Mar 29 2000",
+			"references": 7,
+			"revision": 17,
+			"time": "2015-11-02T00:37:17-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54354,
+			"data": "1,0,-1,0,1,-1,1,0,-1,1,0,-1,0,1,-1,0,1,0,-1,1,-1,0,1,-1,1,0,-1,0,1,-1,0,1,-1,1,0,-1,1,0,-1,0,1,-1,1,0,-1,1,-1,0,1,-1,0,1,0,-1,1,0,-1,0,1,-1,1,0,-1,1,0,-1,0,1,-1,0,1,-1,1,0,-1,1,-1,0,1,0,-1,1,0,-1,0,1,-1,1,0,-1,1,0,-1",
+			"name": "First differences of Kolakoski sequence A000002.",
+			"comment": [
+				"The Kolakoski sequence has only 1's and 2's, and is cubefree. Thus, for all n\u003e=1, a(n) is in {-1, 0, 1}, a(n+1) != a(n), and if a(n) = 0, a(n+1) = -a(n-1), while if a(n) != 0, either a(n+1) = 0 and a(n+2) = -a(n) or a(n+1) = -a(n). A further consequence is that the maximum gap between equal values is 4: for all n, there is an integer k, 1\u003ck\u003c=4 such that a(n+k)=a(n). - _Jean-Christophe Hervé_, Oct 05 2014",
+				"From _Daniel Forgues_, Jul 07 2015: (Start)",
+				"Second differences: {-1, -1, 1, 1, -2, 2, -1, -1, 2, -1, -1, 1, 1, ...}",
+				"The sequence of first differences bounces between -1 and 1 with a slope whose absolute value is either 1 or 2. We can compress the information in the second differences into {-1, 1, -2, 2, -1, 2, -1, 1, ...} since the -1 and the 1 come in pairs; which can be compressed further into {1, 1, 2, 2, 1, 2, 1, 1, ...} since the signs alternate, where we only need to know that the initial sign is negative. (End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054354/b054354.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Abs(a(n)) = (A000002(n)+A000002(n+1)) mod 2. - _Benoit Cloitre_, Nov 17 2003"
+			],
+			"mathematica": [
+				"a2 = {1, 2, 2}; Do[ a2 = Join[a2, {1 + Mod[n - 1, 2]}], {n, 3, 70}, {a2[[n]]}]; Differences[a2] (* _Jean-François Alcover_, Jun 18 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a054354 n = a054354_list !! (n-1)",
+				"a054354_list = zipWith (-) (tail a000002_list) a000002_list",
+				"-- _Reinhard Zumkeller_, Aug 03 2013"
+			],
+			"xref": [
+				"Cf. A000002, A054353."
+			],
+			"keyword": "sign",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, May 07 2000",
+			"references": 7,
+			"revision": 36,
+			"time": "2015-07-08T23:10:12-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54744,
+			"data": "1,4,8,16,27,32,64,81,108,128,216,243,256,324,432,512,648,729,864,972,1024,1296,1728,1944,2048,2187,2592,2916,3125,3456,3888,4096,5184,5832,6561,6912,7776,8192,8748,10368,11664,12500,13824,15552,15625,16384",
+			"name": "p-full numbers: numbers such that if any prime p divides it, then so does p^p.",
+			"comment": [
+				"A027748(a(n),k) \u003c= A124010(a(n),k), 1\u003c=k\u003c=A001221(a(n)). [_Reinhard Zumkeller_, Apr 28 2012]",
+				"Heinz numbers of integer partitions where the multiplicity of each part k is at least prime(k). These partitions are counted by A325132. The Heinz number of an integer partition (y_1,...,y_k) is prime(y_1)*...*prime(y_k). - _Gus Wiseman_, Apr 02 2019"
+			],
+			"link": [
+				"Donovan Johnson, \u003ca href=\"/A054744/b054744.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"If n = Product p_i^e_i then p_i\u003c=e_i for all i."
+			],
+			"example": [
+				"8 is an element because 8 = 2^3 and 2\u003c=3, while 25 is not an element because 25 = 5^2 and 5\u003e2.",
+				"From _Gus Wiseman_, Apr 02 2019: (Start)",
+				"The sequence of terms together with their prime indices begins:",
+				"    1: {}",
+				"    4: {1,1}",
+				"    8: {1,1,1}",
+				"   16: {1,1,1,1}",
+				"   27: {2,2,2}",
+				"   32: {1,1,1,1,1}",
+				"   64: {1,1,1,1,1,1}",
+				"   81: {2,2,2,2}",
+				"  108: {1,1,2,2,2}",
+				"  128: {1,1,1,1,1,1,1}",
+				"  216: {1,1,1,2,2,2}",
+				"  243: {2,2,2,2,2}",
+				"  256: {1,1,1,1,1,1,1,1}",
+				"  324: {1,1,2,2,2,2}",
+				"  432: {1,1,1,1,2,2,2}",
+				"  512: {1,1,1,1,1,1,1,1,1}",
+				"  648: {1,1,1,2,2,2,2}",
+				"  729: {2,2,2,2,2,2}",
+				"  864: {1,1,1,1,1,2,2,2}",
+				"  972: {1,1,2,2,2,2,2}",
+				"(End)"
+			],
+			"mathematica": [
+				"Select[Range[1000],And@@Cases[If[#==1,{},FactorInteger[#]],{p_,k_}:\u003ek\u003e=p]\u0026] (* _Gus Wiseman_, Apr 02 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a054744 n = a054744_list !! (n-1)",
+				"a054744_list = filter (\\x -\u003e and $",
+				"   zipWith (\u003c=) (a027748_row x) (map toInteger $ a124010_row x)) [1..]",
+				"-- _Reinhard Zumkeller_, Apr 28 2012"
+			],
+			"xref": [
+				"Cf. A048103, A001694, A036966.",
+				"Cf. A100716.",
+				"Cf. A056239, A109298, A112798, A115584, A117144, A124010, A276078, A324525, A324571, A325127, A325128, A325130, A325131, A325132."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_James A. Sellers_, Apr 22 2000",
+			"references": 7,
+			"revision": 12,
+			"time": "2019-04-02T08:05:06-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 55067,
+			"data": "1,1,2,3,24,20,720,630,13440,36288,3628800,277200,479001600,444787200,5811886080,20432412000,20922789888000,1097800704000,6402373705728000,304112751022080,115852476579840000,2322315553259520000",
+			"name": "Product of numbers \u003c n which do not divide n (or 1 if no such numbers exist).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A055067/b055067.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000142(n)/A007955(n)"
+			],
+			"example": [
+				"a(5)=2*3*4=24, a(6)=4*5=20."
+			],
+			"mathematica": [
+				"Table[Apply[Times, Complement[Range[n], Divisors[n]]], {n, 1, 20}] (* _Geoffrey Critzer_, Dec 13 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a055067 n = product [k | k \u003c- [1..n], mod n k /= 0]",
+				"-- _Reinhard Zumkeller_, Feb 06 2012"
+			],
+			"xref": [
+				"Cf. A024816.",
+				"Cf. A173540, A072046."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,3",
+			"author": "_Henry Bottomley_, Jun 12 2000",
+			"ext": [
+				"More terms from _David Wasserman_, Mar 15 2002"
+			],
+			"references": 7,
+			"revision": 19,
+			"time": "2014-12-13T18:26:26-05:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		},
+		{
+			"number": 55212,
+			"data": "0,0,0,1,0,1,0,2,1,1,0,3,0,1,1,3,0,3,0,3,1,1,0,5,1,1,2,3,0,4,0,4,1,1,1,6,0,1,1,5,0,4,0,3,3,1,0,7,1,3,1,3,0,5,1,5,1,1,0,8,0,1,3,5,1,4,0,3,1,4,0,9,0,1,3,3,1,4,0,7,3,1,0,8,1,1,1,5,0,8,1,3,1,1,1,9,0,3,3,6,0,4,0,5,4",
+			"name": "Number of composite divisors of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A055212/b055212.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = tau(n)-omega(n)-1, where tau=A000005 and omega=A001221. - _Reinhard Zumkeller_, Jun 13 2003",
+				"G.f.: -x/(1 - x) + Sum_{k\u003e=1} (x^k - x^prime(k))/((1 - x^k)*(1 - x^prime(k))). - _Ilya Gutkovskiy_, Mar 21 2017"
+			],
+			"example": [
+				"a[20] = 3 because the composite divisors of 20 are 4, 10, 20."
+			],
+			"mathematica": [
+				"Table[ Count[ PrimeQ[ Divisors[n] ], False] - 1, {n, 1, 105} ]",
+				"Table[Count[Divisors[n],_?CompositeQ],{n,120}] (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Jul 09 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a055212 = subtract 1 . a033273  -- _Reinhard Zumkeller_, Sep 15 2015",
+				"(PARI) a(n) = numdiv(n) - omega(n) - 1; \\\\ _Michel Marcus_, Oct 17 2015"
+			],
+			"xref": [
+				"Complement of A083399.",
+				"A033273(n-1) - 1.",
+				"Cf. A137944, A137945."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,8",
+			"author": "_Leroy Quet_, Jun 23 2000",
+			"references": 7,
+			"revision": 24,
+			"time": "2018-07-09T22:57:31-04:00",
+			"created": "2000-07-22T03:00:00-04:00"
+		}
+	]
+}

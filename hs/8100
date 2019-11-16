@@ -1,0 +1,424 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 8100,
+	"results": [
+		{
+			"number": 259143,
+			"data": "1,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,3,2,2,3,3,3,3,3,3,3,3,2,2,1,2,2,2,2,2,2,2,3,2,2,3,3,3,3,3,3,3,2,2,1,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,3,2,3,2,3,3,3,3,3,3,3,3,2,2,3,3,3,3",
+			"name": "Number of distinct digits needed to write the calendar date of n-th day of a non-leap year in decimal representation, without leading zeros.",
+			"comment": [
+				"a(n) \u003c= 4."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A259143/b259143.txt\"\u003eTable of n, a(n) for n = 1..365\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Calendar_date\"\u003eCalendar date\u003c/a\u003e",
+				"\u003ca href=\"/index/Ca#calendar\"\u003eIndex entries for sequences related to calendars\u003c/a\u003e"
+			],
+			"example": [
+				".      | Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec",
+				".      |   1   2   3   4   5   6   7   8   9  10  11  12",
+				".  ----+-------------------------------------------------",
+				".    1 |   1   2   2   2   2   2   2   2   2   2   1   2",
+				".    2 |   2   1   2   2   2   2   2   2   2   3   2   2",
+				".    3 |   2   2   1   2   2   2   2   2   2   3   2   3",
+				".    4 |   2   2   2   1   2   2   2   2   2   3   2   3",
+				".    5 |   2   2   2   2   1   2   2   2   2   3   2   3",
+				".    6 |   2   2   2   2   2   1   2   2   2   3   2   3",
+				".    7 |   2   2   2   2   2   2   1   2   2   3   2   3",
+				".    8 |   2   2   2   2   2   2   2   1   2   3   2   3",
+				".    9 |   2   2   2   2   2   2   2   2   1   3   2   3",
+				".   10 |   2   3   3   3   3   3   3   3   3   2   2   3",
+				".   11 |   1   2   2   2   2   2   2   2   2   2   1   2",
+				".   12 |   2   2   3   3   3   3   3   3   3   3   2   2",
+				".   13 |   2   3   2   3   3   3   3   3   3   3   2   3",
+				".   14 |   2   3   3   2   3   3   3   3   3   3   2   3",
+				".   15 |   2   3   3   3   2   3   3   3   3   3   2   3",
+				".   16 |   2   3   3   3   3   2   3   3   3   3   2   3",
+				".   17 |   2   3   3   3   3   3   2   3   3   3   2   3",
+				".   18 |   2   3   3   3   3   3   3   2   3   3   2   3",
+				".   19 |   2   3   3   3   3   3   3   3   2   3   2   3",
+				".   20 |   3   2   3   3   3   3   3   3   3   3   3   3",
+				".   21 |   2   2   3   3   3   3   3   3   3   3   2   2",
+				".   22 |   2   1   2   2   2   2   2   2   2   3   2   2",
+				".   23 |   3   2   2   3   3   3   3   3   3   4   3   3",
+				".   24 |   3   2   3   2   3   3   3   3   3   4   3   3",
+				".   25 |   3   2   3   3   2   3   3   3   3   4   3   3",
+				".   26 |   3   2   3   3   3   2   3   3   3   4   3   3",
+				".   27 |   3   2   3   3   3   3   2   3   3   4   3   3",
+				".   28 |   3   2   3   3   3   3   3   2   3   4   3   3",
+				".   29 |   3   _   3   3   3   3   3   3   2   4   3   3",
+				".   30 |   3   _   2   3   3   3   3   3   3   3   3   4",
+				".   31 |   2   _   2   _   3   _   3   3   _   3   _   3  .",
+				"13 days need just 1 digit: {1, 11, 33, 53, 62, 94, 125, 157, 188, 220, 252, 305, 315} = {Jan 1, Jan 11, Feb 2, Feb 22, Mar 3, Apr 4, May 5, Jun 6, Jul 7, Aug 8, Sep 9, Nov 1, Nov 11};",
+				"152 days need 2 digits: the first is the 2nd day = Jan 2, the last one is the 356th day = Dec 22;",
+				"192 days need 3 digits: the first is the 20th day = Jan 20, the last one is the last day of the year = Dec 31;",
+				"8 days need 4 digits: {296 .. 302, 364} = Oct 23 through Oct 29, and also the penultimate day of the year = Dec 30."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (nub)",
+				"a259143 n = a259143_list !! (n-1)",
+				"a259143_list = [length $ nub $ show m ++ show d |",
+				"                m \u003c- [1 .. 12], d \u003c- [1 .. a008685 m]]"
+			],
+			"xref": [
+				"Cf. A008685."
+			],
+			"keyword": "nonn,base,fini,full",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 19 2015",
+			"references": 1,
+			"revision": 13,
+			"time": "2018-05-04T08:11:38-04:00",
+			"created": "2015-06-19T03:18:17-04:00"
+		},
+		{
+			"number": 259966,
+			"data": "0,0,2,7,16,34,72,149,300,593,1158,2239,4292,8168,15450,29072,54456,101597,188878,350038,646880,1192415,2192956,4024583,7371884,13479421,24607048,44853552,81645236,148424000,269497614,488784787,885571340,1602879242,2898512344",
+			"name": "Total binary weight (cf. A000120) of all A005251(n) binary sequences of length n not containing any isolated 1's.",
+			"reference": [
+				"R. K. Guy, Letter to N. J. A. Sloane, Feb 05 1986."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A259966/b259966.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"R. K. Guy, \u003ca href=\"/A005251/a005251.pdf\"\u003eLetter to N. J. A. Sloane, Feb 1986\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_06\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4,-6,6,-5,2,-1)."
+			],
+			"formula": [
+				"a(n) = a(n-1)+a(n-2)+2*b(n)+a(n-4)+3*b(n-2), where b() is A005251().",
+				"G.f.: -x^2*(x-2) / (x^3-x^2+2*x-1)^2. - _Colin Barker_, Jul 21 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a259966 n = a259966_list !! n",
+				"a259966_list = 0 : 0 : 2 : 7 : zipWith (+)",
+				"   (zipWith3 (((+) .) . (+))",
+				"             a259966_list (drop 2 a259966_list) (drop 3 a259966_list))",
+				"   (drop 2 $ zipWith (+)",
+				"             (map (* 2) $ drop 2 a005251_list) (map (* 3) a005251_list))",
+				"-- _Reinhard Zumkeller_, Jul 13 2015",
+				"(PARI) concat([0,0], Vec(-x^2*(x-2)/(x^3-x^2+2*x-1)^2 + O(x^50))) \\\\ _Colin Barker_, Jul 21 2015"
+			],
+			"xref": [
+				"Cf. A005251."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Jul 11 2015",
+			"ext": [
+				"Edited by _Reinhard Zumkeller_, Jul 13 2015"
+			],
+			"references": 1,
+			"revision": 25,
+			"time": "2017-06-28T17:15:17-04:00",
+			"created": "2015-07-11T17:25:04-04:00"
+		},
+		{
+			"number": 260031,
+			"data": "1,4,3,4,5,3,7,4,9,4,11,1,1,4,3,4,5,3,7,4,9,4,11,4,1,4,3,4,5,3,7,4,9,4,11,9,1,4,3,4,5,3,7,4,9,4,11,4,1,4,3,4,5,3,7,4,9,4,11,1,1,4,3,4,5,3,7,4,9,4,11,9,1,4,3,4,5,3,7,4,9,4,11,1",
+			"name": "Final nonzero digit of n^n in base 12.",
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A260031/b260031.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"José María Grau and Antonio M. Oller-Marcén, \u003ca href=\"http://arxiv.org/abs/1203.4066\"\u003eOn the last digit and the last non-zero digit of n^n in base b\u003c/a\u003e, arXiv preprint arXiv:1203.4066 [math.NT], 2012."
+			],
+			"program": [
+				"(Python)",
+				"from gmpy2 import mpz, digits",
+				"def A260031(n):",
+				"....s = digits(mpz(n)**mpz(n),12)",
+				"....t = s[-1]",
+				"....while t == '0':",
+				"........s = s[:-1]",
+				"........t = s[-1]",
+				"....return int(t,12) # _Chai Wah Wu_, Jul 19 2015",
+				"(Haskell)",
+				"import Math.NumberTheory.Moduli (powerMod)",
+				"a260031 n = if x \u003e 0 then x else f $ div (n ^ n) 12",
+				"          where x = powerMod n n 12",
+				"                f z = if m == 0 then f z' else m",
+				"                      where (z', m) = divMod z 12",
+				"-- _Reinhard Zumkeller_, Jul 19 2015"
+			],
+			"xref": [
+				"Cf. A174824, A204819, A230024.",
+				"Cf. A000312, A010881."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Jul 19 2015",
+			"ext": [
+				"More terms from _Chai Wah Wu_, Jul 19 2015"
+			],
+			"references": 1,
+			"revision": 17,
+			"time": "2019-04-25T13:29:47-04:00",
+			"created": "2015-07-19T14:37:24-04:00"
+		},
+		{
+			"number": 260194,
+			"data": "1,1,1,2,3,4,6,9,10,12,15,20,24,27,28,32,33,34,36,39,40,44,45,50,52,53,54,56,57,60,64,65,70,72,73,74,76,77,78,80,81,84,88,89,90,92,93,96,100,101,102,104,105,108,112,119,120,128,129,132",
+			"name": "a(n+1) = a(n) + gcd(a(n),a(n-2)), with a(1) = a(2) = a(3) = 1",
+			"comment": [
+				"Adding gcd(a(n), a(n-1)) gives the natural numbers (with an extra 1).",
+				"Does every positive integer occur as a difference in this sequence? In the first 100000 terms, the maximum difference is 21, and only 14, 15, and 16 are missing up to 21."
+			],
+			"link": [
+				"Franklin T. Adams-Watters, \u003ca href=\"/A260194/b260194.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(PARI) alist(n) = my(r=vector(n));r[1]=r[2]=r[3]=1;for(k=4,n,r[k]=r[k-1]+gcd(r[k-1],r[k-3]));r",
+				"(MAGMA) I:=[1,1,1]; [n le 3 select I[n] else Self(n-1) + Gcd(Self(n-1), Self(n-3)): n in [1..70]]; // _Vincenzo Librandi_, Jul 19 2015",
+				"(Haskell)",
+				"a260194 n = a260194_list !! (n-1)",
+				"a260194_list = 1 : 1 : 1 : f 1 1 1 where",
+				"   f u v v' = w : f w u v where w = u + gcd u (u + v')",
+				"-- _Reinhard Zumkeller_, Jul 19 2015"
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Franklin T. Adams-Watters_, Jul 18 2015",
+			"references": 1,
+			"revision": 11,
+			"time": "2015-07-19T06:06:47-04:00",
+			"created": "2015-07-19T05:02:00-04:00"
+		},
+		{
+			"number": 261518,
+			"data": "1,1,2,6,22,92,508,3674,34452,408104,5925564,103023888,2102941162,49588317960,1332831700026,40376512041704",
+			"name": "a(n+1) = prime(n + a(n)) - prime(n), a(1) = 1.",
+			"mathematica": [
+				"FoldList[(Prime[#2+#1]-Prime[#2])\u0026,1,Range@15] (* _Ivan N. Ianakiev_, Aug 23 2015 *)",
+				"RecurrenceTable[{a[n+1] == Prime[n+a[n]] - Prime[n], a[1]==1}, a, {n, 1,16}] (* _G. C. Greubel_, Aug 24 2015 *)",
+				"nxt[{n_,a_}]:={n+1,Prime[n+a]-Prime[n]}; NestList[nxt,{1,1},16][[All,2]] (* _Harvey P. Dale_, May 15 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a261518 n = a261518_list !! (n - 1)",
+				"a261518_list = 1 : zipWith (-)",
+				"               (map a000040 (zipWith (+) a261518_list [1..])) a000040_list",
+				"(MAGMA) [1] cat [n le 1 select 1 else  NthPrime(n + Self(n-1)) - NthPrime(n): n in [1..12]]; // _Vincenzo Librandi_, Aug 24 2015",
+				"(PARI) a(n) = if(n==1, 1, prime(n-1 + a(n-1)) - prime(n-1));",
+				"vector(12, n, a(n)) \\\\ _Altug Alkan_, Oct 05 2015"
+			],
+			"xref": [
+				"Cf. A000040, A001223, A031131, A031165, A031166, A031167, A031168, A031169, A031170, A031171, A031172."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Aug 23 2015",
+			"ext": [
+				"a(13)-a(16) from _Ivan N. Ianakiev_, Aug 23 2015"
+			],
+			"references": 1,
+			"revision": 22,
+			"time": "2018-05-15T09:32:31-04:00",
+			"created": "2015-08-23T19:07:23-04:00"
+		},
+		{
+			"number": 261893,
+			"data": "1,7,23,55,109,191,307,463,665,919,1231,1607,2053,2575,3179,3871,4657,5543,6535,7639,8861,10207,11683,13295,15049,16951,19007,21223,23605,26159,28891,31807,34913,38215,41719,45431,49357,53503,57875,62479,67321,72407",
+			"name": "a(n) = (n+1)^3 - n^2.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261893/b261893.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4,-6,4,-1)."
+			],
+			"formula": [
+				"a(n) = n^3 + 2*n^2 + 3*n + 1.",
+				"a(n) = A000578(n+1) - A000290(n).",
+				"O.g.f.: (1 + 3*x + x^2 + x^3)/(1 - x)^4. - _Bruno Berselli_, Jul 04 2016",
+				"E.g.f.: (1 + 6*x + 5*x^2 + x^3)*exp(x). - _Bruno Berselli_, Jul 04 2016"
+			],
+			"mathematica": [
+				"Table[n^3 + 2 n^2 + 3 n + 1, {n, 0, 50}] (* _Bruno Berselli_, Jul 04 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a261893 n = n * (n * (n + 2) + 3) + 1",
+				"a261893_list = zipWith (-) (tail a000578_list) a000290_list",
+				"(PARI) vector(50, n, n--; n^3+2*n^2+3*n+1) \\\\ _Bruno Berselli_, Jul 04 2016",
+				"(Sage) [n^3+2*n^2+3*n+1 for n in xrange(50)]; # _Bruno Berselli_, Jul 04 2016",
+				"(Maxima) makelist(n^3+2*n^2+3*n+1, n, 0, 50); /* _Bruno Berselli_, Jul 04 2016 */",
+				"(MAGMA) [n^3+2*n^2+3*n+1: n in [0..50]]; // _Bruno Berselli_, Jul 04 2016"
+			],
+			"xref": [
+				"Cf. A000290, A000578.",
+				"Subsequence of A167222."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Sep 05 2015",
+			"references": 1,
+			"revision": 11,
+			"time": "2016-07-04T03:51:13-04:00",
+			"created": "2015-09-05T16:30:59-04:00"
+		},
+		{
+			"number": 261969,
+			"data": "1,2,3,2,5,6,7,2,3,10,11,2,13,14,15,2,17,3,19,2,21,22,23,2,5,26,3,2,29,30,31,2,33,34,35,6,37,38,39,2,41,42,43,2,3,46,47,2,7,5,51,2,53,3,55,2,57,58,59,2,61,62,3,2,65,66,67,2,69,70,71,2,73,74,5,2,77,78,79,2,3,82,83,2,85,86,87,2,89,3,91",
+			"name": "Product of primes dividing n with maximum multiplicity.",
+			"comment": [
+				"a(1) = 1 by convention.",
+				"If n is prime then a(n) = n; e.g., a(2) = 2, a(3) = 3, a(5) = 5, etc. Also if n is nonsquare semiprime then a(n) = n; e.g., a(6) = 6, a(10) = 10, a(14) = 14, a(15) = 15, etc. - _Zak Seidov_, Sep 07 2015",
+				"a(n)= n precisely when n is squarefree. - _Franklin T. Adams-Watters_, Feb 16 2019"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261969/b261969.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"18 = 2^1 * 3^2. 2 is the maximum exponent, 3 is the only prime with that exponent, so a(18) = 3.",
+				"36 = 2^2 * 3^2, maximum exponent 2 for both 2 and 3, so a(36) = 2*3 = 6."
+			],
+			"maple": [
+				"a:= n-\u003e (l-\u003e(m-\u003emul(`if`(m=j[2], j[1], 1), j=l))(",
+				"         max(seq(i[2], i=l))))(ifactors(n)[2]):",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Sep 07 2015"
+			],
+			"mathematica": [
+				"f[n_] := Block[{pf = FactorInteger@ n}, Times @@ Take[First /@ pf, Flatten@ Position[Last /@ pf, Max[Last /@ pf]]]]; f /@ Range@ 91 (* _Michael De Vlieger_, Sep 07 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n) = my(fm=factor(n),m); if(n\u003c2,return(n)); m=vecmax(fm[,2]~); prod(k=1,#fm[,2]~,if(fm[k,2]==m,fm[k,1],1))",
+				"(PARI) a(n) = {my(f = factor(n)); if (n\u003e1, m = vecmax(f[,2])); for (i=1, #f~, f[i,2] = (f[i,2]==m)); factorback(f);} \\\\ _Michel Marcus_, Sep 08 2015",
+				"(Haskell)",
+				"a261969 n = product $ map fst $ filter ((== emax) . snd) $ zip ps es",
+				"    where emax = maximum es",
+				"          ps = a027748_row n; es = a124010_row n",
+				"-- _Reinhard Zumkeller_, Sep 08 2015"
+			],
+			"xref": [
+				"Cf. A007947.",
+				"Cf. A000040, A001358. - _Zak Seidov_, Sep 07 2015",
+				"Cf. A027748, A124010, A051903."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Franklin T. Adams-Watters_, Sep 07 2015",
+			"references": 1,
+			"revision": 28,
+			"time": "2019-02-16T09:22:39-05:00",
+			"created": "2015-09-07T11:23:42-04:00"
+		},
+		{
+			"number": 262095,
+			"data": "1,2,2,2,2,3,2,3,2,3,2,4,2,3,3,4,2,4,2,4,3,3,2,6,2,3,3,4,2,5,2,5,3,3,3,6,2,3,3,6,2,5,2,4,4,3,2,8,2,4,3,4,2,6,3,6,3,3,2,8,2,3,4,6,3,5,2,4,3,5,2,9,2,3,4,4,3,5,2,8,4,3,2,8,3,3,3,6,2,8,3,4,3,3,3,10,2",
+			"name": "Number of non-semiprime divisors of n.",
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A262095/b262095.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000005(n) - A086971(n).",
+				"A083399(n) \u003c= a(n) \u003c= A000005(n).",
+				"a(n) = Sum_{k=1..A000005(n)} (1 - A064911(A027750(n,k))). - _Reinhard Zumkeller_, Sep 14 2015"
+			],
+			"example": [
+				"(1, 2, 3, 4, 6, 8, 12, 24) are the divisors of n = 24: 1, 2, 3, 8, 12, and 24 are non-semiprimes, therefore a(24) = 6."
+			],
+			"mathematica": [
+				"Table[Count[Divisors@ n, x_ /; PrimeOmega@ x != 2], {n, 97}] (* _Michael De Vlieger_, Sep 14 2015 *)"
+			],
+			"program": [
+				"(PARI) a(n) = sumdiv(n, d, bigomega(d)!=2); \\\\ _Michel Marcus_, Sep 11 2015",
+				"(PARI) a(n)=my(f=factor(n)[,2]); prod(i=1,#f,f[i]+1) - sum(i=1,#f,f[i]\u003e1) - #f*(#f-1)/2 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(Haskell)",
+				"a262095 = sum . map ((1 -) . a064911) . a027750_row",
+				"-- _Reinhard Zumkeller_, Sep 14 2015"
+			],
+			"xref": [
+				"Cf. A000005, A083399, A086971, A100959.",
+				"Cf. A064911, A027750."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Juri-Stepan Gerasimov_, Sep 11 2015",
+			"references": 1,
+			"revision": 25,
+			"time": "2018-10-13T09:14:34-04:00",
+			"created": "2015-09-14T13:44:05-04:00"
+		},
+		{
+			"number": 262530,
+			"data": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,112,113,114,115,116,117,118,119,120,121",
+			"name": "Numbers such that digits occur at most twice in decimal representation.",
+			"comment": [
+				"a(n) = n for n \u003c= 110; a(111) = 112."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A262530/b262530.txt\"\u003eTable of n, a(n) for n = 1..91953\u003c/a\u003e, all terms \u003c= 10^5"
+			],
+			"mathematica": [
+				"nonDigRepQ[n_] := Max[{Take[Flatten[Tally[IntegerDigits[n]]], {2, -1, 2}]}] \u003c 3; Select[Range[1111], nonDigRepQ[#] \u0026] (* _Ivan N. Ianakiev_, Sep 25 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a262530 n = a262530_list !! (n-1)",
+				"a262530_list = filter f [1..] where",
+				"   f = g d10' . show where",
+				"     g _ [] = True",
+				"     g ts (d:ds) = elem d ts \u0026\u0026 g (delete d ts) ds",
+				"   d10' = d10 ++ d10; d10 = \"0123456789\"",
+				"(PARI) isok(n) = {my(v = vecsort(digits(n))); my(d = -1); for(i=1, #v, if (v[i] == d, rl++; if (rl \u003e 2, return (0)); , d = v[i]; rl = 1);); return (1);} \\\\ _Michel Marcus_, Sep 29 2015"
+			],
+			"xref": [
+				"Cf. A010784."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 24 2015",
+			"references": 1,
+			"revision": 13,
+			"time": "2015-09-29T07:20:02-04:00",
+			"created": "2015-09-24T17:14:05-04:00"
+		},
+		{
+			"number": 263774,
+			"data": "1,0,0,-1,0,0,0,-2,-1,0,0,0,0,0,0,-6,0,-2,0,0,0,0,0,6,-1,0,0,0,0,0,0,-54,0,0,0,-5,0,0,0,30,0,0,0,0,0,0,0,114,-1,-2,0,0,0,6,0,126,0,0,0,0,0,0,0,-4470,0,0,0,0,0,0,0,252,0,0,0,0,0,0,0",
+			"name": "Sequence is defined by the condition that Sum_{d|n} a(d)^(n/d) = mu(n)^2, where mu(n) is the Möbius function.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A263774/b263774.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1) = 1.",
+				"If p\u003e2, a(p) = 0, a(p^2) = -1, a(p^n) = 0 for n\u003e2.",
+				"a(p1*p2*..*pn) = 0, a(2*p1*...*pn) = 0, a(4*p1*...*pn) = 0.",
+				"If p1,...,pn are odd it appears that:",
+				"a(p1^2*p2^2*...*pn^2) = (-1)^n,",
+				"a(p1^k1*p2^k2*...*pn^kn) = 0, if one of k1,...,kn \u003e 2,",
+				"a(2*p1^k1*p2^k2*...*pn^kn) \u003e 0 if one of k1,...,kn \u003e 1.",
+				"a(2^n) = A264610(n)."
+			],
+			"example": [
+				"For a prime p, a(p)^1 + a(1)^p = mu(p)^2=1 =\u003e a(p) = 0.",
+				"For n=6, a(1)^6 + a(2)^3 + a(3)^2 + a(6)^1 = mu(6) = 1, so 1 - 0 + 0 + a(6) = 1, so 1 + a(6) = 1, so a(6) = 0."
+			],
+			"maple": [
+				"a := proc (n) option remember; numtheory:-mobius(n)^2-add(procname(n/d)^d, d = `minus`(numtheory:-divisors(n), {1})) end proc; a(1) := 1; La := seq(a(i), i = 1 .. 100)"
+			],
+			"mathematica": [
+				"a[n_]:=If[n\u003c2, 1, MoebiusMu[n]^2 - Sum[If[d==1, 0, a[n/d]^d], {d, Divisors[n]}]]; Table[a[n], {n, 100}] (* _Indranil Ghosh_, Mar 26 2017 *)"
+			],
+			"program": [
+				"(PARI) a(n) = if (n==1, 1, moebius(n)^2- sumdiv(n, d, if (d==1, 0, a(n/d)^d)));",
+				"(Haskell)",
+				"a263774 1 = 1",
+				"a263774 n = foldl (-) (a008966 n) $ zipWith (^) (map a' $ reverse ds) ds",
+				"            where a' x = if x == n then 0 else a263774 x",
+				"                  ds = a027750_row n",
+				"-- _Reinhard Zumkeller_, Dec 06 2015"
+			],
+			"xref": [
+				"Cf. A008683, A264610.",
+				"Cf. A008966, A027750."
+			],
+			"keyword": "sign",
+			"offset": "1,8",
+			"author": "_Gevorg Hmayakyan_, Nov 28 2015",
+			"references": 1,
+			"revision": 45,
+			"time": "2017-03-27T10:25:16-04:00",
+			"created": "2015-12-06T11:18:39-05:00"
+		}
+	]
+}

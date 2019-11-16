@@ -1,0 +1,475 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2000,
+	"results": [
+		{
+			"number": 94727,
+			"data": "1,2,3,3,4,5,4,5,6,7,5,6,7,8,9,6,7,8,9,10,11,7,8,9,10,11,12,13,8,9,10,11,12,13,14,15,9,10,11,12,13,14,15,16,17,10,11,12,13,14,15,16,17,18,19,11,12,13,14,15,16,17,18,19,20,21,12,13,14,15,16,17,18,19,20,21,22",
+			"name": "Triangle read by rows: T(n,k) = n + k, 0 \u003c= k \u003c n.",
+			"comment": [
+				"row sums give A000326;",
+				"all numbers m occur ceiling(m/2) times, see A004526.",
+				"The LCM of the n-th row is A076100. - _Michel Marcus_, Mar 18 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A094727/b094727.txt\"\u003eRows n = 1..150 of triangle, flattened\u003c/a\u003e",
+				"Bruno Berselli, \u003ca href=\"/A094727/a094727.jpg\"\u003eIllustration of the initial terms\u003c/a\u003e.",
+				"László Németh, \u003ca href=\"https://www.emis.de/journals/JIS/VOL20/Nemeth/nemeth2.html\"\u003eOn the Binomial Interpolated Triangles\u003c/a\u003e, Journal of Integer Sequences, Vol. 20 (2017), Article 17.7.8.",
+				"Boris Putievskiy, \u003ca href=\"https://arxiv.org/abs/1212.2732\"\u003eTransformations [of] Integer Sequences And Pairing Functions\u003c/a\u003e, arXiv:1212.2732 [math.CO], 2012."
+			],
+			"formula": [
+				"T(n+1,k) = T(n,k)+1 = T(n,k+1); T(n+1,k+1) = T(n,k)+2;",
+				"T(n, n-A005843(k)) = A005843(n-k) for 0 \u003c= k \u003c= n/2;",
+				"T(n, n-A005408(k)) = A005408(n-k) for 0 \u003c= k \u003c n/2;",
+				"T(A005408(k),k) = A016777(k);",
+				"T(n,k) = A002024(n,k) + A002260(n,k) - 1. - _Reinhard Zumkeller_, Apr 27 2006",
+				"As a sequence rather than as a table: If m = floor((sqrt(8n-7)+1)/2), a(n) = n - m(m-3)/2 - 1. - _Carl R. White_, Jul 30 2009",
+				"T(m,n) = m+n-1, m \u003e= n \u003e= 1. - _Vincenzo Librandi_, Nov 23 2009 [corrected by _Klaus Brockhaus_, Nov 23 2009]",
+				"a(n,k) = A037213((A214604(n,k) + A214661(n,k)) / 2). - _Reinhard Zumkeller_, Jul 25 2012",
+				"From _Boris Putievskiy_, Jan 16 2013: (Start)",
+				"a(n) = A002260(n) + A003056(n).",
+				"a(n) = i+t, where i=n-t*(t+1)/2, t=floor((-1+sqrt(8*n-7))/2). (End)"
+			],
+			"example": [
+				"Triangle begins:",
+				"  1;",
+				"  2,  3;",
+				"  3,  4,  5;",
+				"  4,  5,  6,  7;",
+				"  5,  6,  7,  8,  9;",
+				"  6,  7,  8,  9, 10, 11;",
+				"  7,  8,  9, 10, 11, 12, 13;",
+				"  8,  9, 10, 11, 12, 13, 14, 15;",
+				"  9, 10, 11, 12, 13, 14, 15, 16, 17;",
+				"  ... - _Philippe Deléham_, Mar 30 2013"
+			],
+			"mathematica": [
+				"Table[n + Range[0, n - 1], {n, 12}] // Flatten (* _Michael De Vlieger_, Dec 16 2016 *)"
+			],
+			"program": [
+				"(MAGMA) z:=12; \u0026cat[ [m+n-1: m in [1..n] ]: n in [1..z] ];",
+				"(Haskell)",
+				"a094727 n k = n + k",
+				"a094727_row n = a094727_tabl !! (n-1)",
+				"a094727_tabl = iterate (\\row@(h:_) -\u003e (h + 1) : map (+ 2) row) [1]",
+				"-- _Reinhard Zumkeller_, Jul 22 2012"
+			],
+			"xref": [
+				"Cf. A002260, A004736, A094728."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 24 2004",
+			"references": 17,
+			"revision": 44,
+			"time": "2018-03-18T05:32:40-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 100969,
+			"data": "855,1029,3813,5577,7040,7304,15104,19136,35350,36992,41031,42009,60368,65536,67821,76880,84525,90601,122831,131175,154570,162565,184009,184585,196504,217021,219830,222200,252161,256041,268677,353115,355737",
+			"name": "Integers n that are Rhonda numbers to base 6.",
+			"comment": [
+				"See sequence A099542 for definition of Rhonda numbers and links."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A100969/b100969.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RhondaNumber.html\"\u003eRhonda Number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Senary\"\u003eSenary\u003c/a\u003e"
+			],
+			"example": [
+				"The product of the base 6 digits of 507500 is 1*4*5*1*3*3*1*2=360 and the sum of the prime factors of 507500 is 2*2+4*5+7+29=60 and 360=6*60."
+			],
+			"program": [
+				"(Haskell)",
+				"a100969 n = a100969_list !! (n-1)",
+				"a100969_list = filter (rhonda 6) a248910_list",
+				"-- Function rhonda as in A099542.",
+				"-- _Reinhard Zumkeller_, Mar 08 2015"
+			],
+			"xref": [
+				"Cf. Rhonda numbers to other bases: A100968 (base 4), A100970 (base 8), A100973 (base 9), A099542 (base 10), A100971 (base 12), A100972 (base 14), A100974 (base 15), A100975 (base 16), A255735 (base 18), A255732 (base 20), A255736 (base 30), A255731 (base 60), see also A255872.",
+				"Cf. A001414, A027746, A007092, subsequence of A248910.",
+				"Column k=2 of A291925."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "1,1",
+			"author": "Mark Hudson (mrmarkhudson(AT)hotmail.com), Nov 24 2004",
+			"references": 17,
+			"revision": 13,
+			"time": "2017-09-07T15:45:37-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 100970,
+			"data": "1836,6318,6622,10530,14500,14739,17655,18550,25398,25956,30562,39215,39325,50875,51429,52887,55611,56420,58548,59731,60604,72358,74620,76581,78780,81370,84180,85949,103350,103788,108750,112914,118233",
+			"name": "Integers n that are Rhonda numbers to base 8.",
+			"comment": [
+				"See A099542 for definition of Rhonda numbers and some links."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A100970/b100970.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RhondaNumber.html\"\u003eRhonda Number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Octal\"\u003eOctal\u003c/a\u003e"
+			],
+			"example": [
+				"Product of base 8 digits of 1836 is 3*4*5*4=240 and sum of prime factors of 1826 is 2*2+3*3+17=30 and 240=8*30."
+			],
+			"program": [
+				"(Haskell)",
+				"a100970 n = a100970_list !! (n-1)",
+				"a100970_list = filter (rhonda 8) a255805_list",
+				"-- Function rhonda as in A099542.",
+				"-- _Reinhard Zumkeller_, Mar 08 2015"
+			],
+			"xref": [
+				"Cf. Rhonda numbers to other bases: A100968 (base 4), A100969 (base 6), A100973 (base 9), A099542 (base 10), A100971 (base 12), A100972 (base 14), A100974 (base 15), A100975 (base 16), A255735 (base 18), A255732 (base 20), A255736 (base 30), A255731 (base 60), see also A255872.",
+				"Cf. A001414, A027746, A007094, subsequence of A255805.",
+				"Column k=3 of A291925."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "1,1",
+			"author": "Mark Hudson (mrmarkhudson(AT)hotmail.com), Nov 24 2004",
+			"references": 17,
+			"revision": 12,
+			"time": "2017-09-07T15:47:22-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 100973,
+			"data": "15540,21054,25331,44360,44660,44733,47652,50560,54944,76857,77142,83334,83694,96448,97944,106575,108273,117624,125952,138966,141204,144236,153318,158417,159424,188529,188598,189350,192000,192126,196652",
+			"name": "Integers that are Rhonda numbers to base 9.",
+			"comment": [
+				"See sequence A099542 for definition of Rhonda numbers and for some links."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A100973/b100973.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RhondaNumber.html\"\u003eRhonda Number\u003c/a\u003e"
+			],
+			"example": [
+				"The product of the base 9 digits of 15540 is 2*3*2*7*6=504, the sum of the prime factors of 15540 is 2*2+3+5+7+37=56 and 504=9*56. So 15540 is a Rhonda number to base 9."
+			],
+			"program": [
+				"(Haskell)",
+				"a100973 n = a100973_list !! (n-1)",
+				"a100973_list = filter (rhonda 9) a255808_list",
+				"-- Function rhonda as in A099542.",
+				"-- _Reinhard Zumkeller_, Mar 08 2015"
+			],
+			"xref": [
+				"Cf. Rhonda numbers to other bases: A100968 (base 4), A100969 (base 6), A100970 (base 8), A099542 (base 10), A100971 (base 12), A100972 (base 14), A100974 (base 15), A100975 (base 16), A255735 (base 18), A255732 (base 20), A255736 (base 30), A255731 (base 60), see also A255872.",
+				"Cf. A001414, A027746, A007095, subsequence of A255808.",
+				"Column k=4 of A291925."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "1,1",
+			"author": "Mark Hudson (mrmarkhudson(AT)hotmail.com), Nov 25 2004",
+			"references": 17,
+			"revision": 12,
+			"time": "2017-09-07T15:47:50-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 100975,
+			"data": "1000,1134,6776,15912,19624,20043,20355,23946,26296,29070,31906,32292,34236,34521,36465,39066,50055,50986,52341,54340,58088,59541,75867,85870,87150,88182,93058,95944,99674,101460,109650,109810,119480,124500",
+			"name": "Integers that are Rhonda numbers to base 16.",
+			"comment": [
+				"See A099542 for definition of Rhonda numbers and for some links."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A100975/b100975.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RhondaNumber.html\"\u003eRhonda Number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Hexadecimal\"\u003eHexadecimal\u003c/a\u003e"
+			],
+			"example": [
+				"The product of the base 16 digits of 1000 is 3*14*8=336. The sum of the prime factors of 1000 is 3*2+3*5=21. 336=16*21 and so 1000 is a Rhonda number to base 16."
+			],
+			"program": [
+				"(Haskell)",
+				"a100975 n = a100975_list !! (n-1)",
+				"a100975_list = filter (rhonda 16) $ iterate z 1 where",
+				"   z x = 1 + if r \u003c 15 then x else 16 * z x' where (x', r) = divMod x 16",
+				"-- Function rhonda as in A099542.",
+				"-- _Reinhard Zumkeller_, Mar 07 2015"
+			],
+			"xref": [
+				"Cf. Rhonda numbers to other bases: A100968 (base 4), A100969 (base 6), A100970 (base 8), A100973 (base 9), A099542 (base 10), A100971 (base 12), A100972 (base 14), A100974 (base 15), A255735 (base 18), A255732 (base 20), A255736 (base 30), A255731 (base 60).",
+				"Cf. A001414, A027746, A255872.",
+				"Column k=9 of A291925."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "1,1",
+			"author": "Mark Hudson (mrmarkhudson(AT)hotmail.com), Nov 25 2004",
+			"ext": [
+				"Offset fixed by _Reinhard Zumkeller_, Mar 05 2015"
+			],
+			"references": 17,
+			"revision": 11,
+			"time": "2017-09-07T15:52:37-04:00",
+			"created": "2005-02-20T03:00:00-05:00"
+		},
+		{
+			"number": 105809,
+			"data": "1,1,1,2,2,1,3,4,3,1,5,7,7,4,1,8,12,14,11,5,1,13,20,26,25,16,6,1,21,33,46,51,41,22,7,1,34,54,79,97,92,63,29,8,1,55,88,133,176,189,155,92,37,9,1,89,143,221,309,365,344,247,129,46,10,1,144,232,364,530,674,709,591",
+			"name": "A Fibonacci-Pascal matrix.",
+			"comment": [
+				"Row sums are A027934, antidiagonal sums are A010049(n+1). Inverse is A105810.",
+				"From _Wolfdieter Lang_, Oct 04 2014: (Start)",
+				"In the column k of this triangle (without leading zeros) is the k-fold iterated partial sums of the Fibonacci numbers, starting with 1. A000045(n+1), A000071(n+3), A001924(n+1), A014162(n+1), A014166(n+1),..., n \u003e= 0. See the Riordan property. - _Wolfdieter Lang_, Oct 03 2014",
+				"For a combinatorial interpretation of these iterated partial sums see the H. Belbachir and A. Belkhir link. There table 1 shows in the rows these columns. In their notation (with r=k) f^(k)(n) = T(k,n+k).",
+				"The A-sequence of this Riordan triangle is [1, 1] (see the recurrence for T(n,k), k\u003e=1, given in the formula section). The Z-sequence is A165326 = [1, repeat(1,-1)]. See the W. Lang link under A006232 for Riordan A- and Z-sequences.",
+				"The alternating row sums are A212804. (End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A105809/b105809.txt\"\u003eRows n = 0..120 of table, flattened\u003c/a\u003e",
+				"H. Belbachir and A. Belkhir, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL17/Belbachir/belb2.html\"\u003eCombinatorial Expressions Involving Fibonacci, Hyperfibonacci, and Incomplete Fibonacci Numbers\u003c/a\u003e, Journal of Integer Sequences, Vol. 17 (2014), Article 14.4.3.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"Riordan array (1/(1-x-x^2), x/(1-x)).",
+				"Number triangle T(n, k) = Sum_{j=0..n} binomial(n-j, k+j); T(n, 0)=A000045(n);",
+				"T(n, m) = T(n-1, m-1)+T(n-1, m).",
+				"T(n,k) = Sum_{j=0..n} C(j,n+k-j). - _Paul Barry_, Oct 23 2006",
+				"G.f. of row polynomials sum(T(n,k)*x^k, k=0..n) is (1-z)/((1-z-z^2)*(1-(1+x)*z)) (Riordan property). - _Wolfdieter Lang_, Oct 04 2014",
+				"T(n, k) = binomial(n, k)*hypergeom([1, k/2-n/2, k/2-n/2+1/2],[k+1, -n],-4) for n\u003e0. - _Peter Luschny_, Oct 10 2014"
+			],
+			"example": [
+				"The triangle T(n,k) begins:",
+				"n\\k   0   1   2    3    4    5    6    7    8   9  10 11 12 13 ...",
+				"0:    1",
+				"1:    1   1",
+				"2:    2   2   1",
+				"3:    3   4   3    1",
+				"4:    5   7   7    4    1",
+				"5:    8  12  14   11    5    1",
+				"6:   13  20  26   25   16    6    1",
+				"7:   21  33  46   51   41   22    7    1",
+				"8:   34  54  79   97   92   63   29    8    1",
+				"9:   55  88 133  176  189  155   92   37    9   1",
+				"10:  89 143 221  309  365  344  247  129   46  10   1",
+				"11: 144 232 364  530  674  709  591  376  175  56  11  1",
+				"12: 233 376 596  894 1204 1383 1300  967  551 231  67 12  1",
+				"13: 377 609 972 1490 2098 2587 2683 2267 1518 782 298 79 13  1",
+				"... reformatted and extended - _Wolfdieter Lang_, Oct 03 2014",
+				"------------------------------------------------------------------",
+				"Recurrence from Z-sequence (see a comment above): 8 = T(0,5) = (+1)*5 + (+1)*7 + (-1)*7 + (+1)*4 + (-1)*1 = 8. - _Wolfdieter Lang_, Oct 04 2014"
+			],
+			"maple": [
+				"T := (n,k) -\u003e `if`(n=0,1,binomial(n,k)*hypergeom([1,k/2-n/2,k/2-n/2+1/2], [k+1,-n], -4)); for n from 0 to 13 do seq(simplify(T(n,k)),k=0..n) od; # _Peter Luschny_, Oct 10 2014"
+			],
+			"mathematica": [
+				"T[n_, k_] := Sum[Binomial[n-j, k+j], {j, 0, n}]; Table[T[n, k], {n, 0, 11}, {k, 0, n}] (* _Jean-François Alcover_, Jun 11 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a105809 n k = a105809_tabl !! n !! k",
+				"a105809_row n = a105809_tabl !! n",
+				"a105809_tabl = map fst $ iterate",
+				"   (\\(u:_, vs) -\u003e (vs, zipWith (+) ([u] ++ vs) (vs ++ [0]))) ([1], [1,1])",
+				"-- _Reinhard Zumkeller_, Aug 15 2013"
+			],
+			"xref": [
+				"Some other Fibonacci-Pascal triangles: A027926, A036355, A037027, A074829, A109906, A111006, A114197, A162741, A228074.",
+				"Cf.A165326 (Z-sequence), A027934 (row sums, see comment above), A212804 (alternating row sums). - _Wolfdieter Lang_, Oct 04 2014"
+			],
+			"keyword": "easy,nonn,tabl",
+			"offset": "0,4",
+			"author": "_Paul Barry_, May 04 2005",
+			"references": 17,
+			"revision": 30,
+			"time": "2019-09-03T14:03:44-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 109043,
+			"data": "0,2,2,6,4,10,6,14,8,18,10,22,12,26,14,30,16,34,18,38,20,42,22,46,24,50,26,54,28,58,30,62,32,66,34,70,36,74,38,78,40,82,42,86,44,90,46,94,48,98,50,102,52,106,54,110,56,114,58,118,60,122,62,126,64,130,66,134",
+			"name": "a(n) = lcm(n,2).",
+			"comment": [
+				"For n \u003e 0: a(n) = A186421(n) + A186421(n+2).",
+				"Exponent of the dihedral group D(2n) = \u003cx, y | x^n = y^2 = 1, yxy = x^-1\u003e. - _Arkadiusz Wesolowski_, Sep 10 2013",
+				"Second column of table A210530. - _Boris Putievskiy_, Jan 29 2013"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A109043/b109043.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,2,0,-1)."
+			],
+			"formula": [
+				"a(n) = n*2 / gcd(n, 2).",
+				"a(n) = -(n*((-1)^n-3))/2. - _Stephen Crowley_, Feb 11 2007",
+				"From _R. J. Mathar_, Aug 20 2008: (Start)",
+				"a(n) = A066043(n), n \u003e 1.",
+				"a(n) = 2*A026741(n).",
+				"G.f.: 2x(1+x+x^2)/((1-x)^2*(1+x)^2). (End)",
+				"a(n) = n*A000034(n). - _Paul Curtz_, Mar 25 2011"
+			],
+			"mathematica": [
+				"LCM[Range[0,70],2] (* _Harvey P. Dale_, Aug 19 2012 *)"
+			],
+			"program": [
+				"(Sage) [lcm(n,2) for n in xrange(0, 68)] # _Zerinvary Lajos_, Jun 07 2009",
+				"(MAGMA) [-(n*((-1)^n-3))/2: n in [0..70]]; // _Vincenzo Librandi_, Aug 12 2011",
+				"(Haskell)",
+				"a109043 = (lcm 2)",
+				"a109043_list = zipWith (*) [0..] a000034_list",
+				"-- _Reinhard Zumkeller_, Mar 31 2012",
+				"(MAGMA) [0, 2, 2] cat [Exponent(DihedralGroup(n)) : n in [3..65]] // _Arkadiusz Wesolowski_, Sep 10 2013",
+				"(PARI) a(n)=lcm(n,2) \\\\ _Charles R Greathouse IV_, Sep 24 2015"
+			],
+			"xref": [
+				"Cf. A109042, A000034, A152749 (partial sums).",
+				"Cf. A066043 (essentially the same), A000034 (=a(n)/n), A026741 (=a(n)/2)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Mitch Harris_, Jun 18 2005",
+			"references": 17,
+			"revision": 54,
+			"time": "2018-12-20T10:33:34-05:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 114227,
+			"data": "3,3,3,3,3,5,3,7,3,3,3,5,3,3,7,3,3,13,3,5,3,7,3,3,3,3,11,7,5,3,7,5,7,3,3,5,3,3,7,5,3,3,7,17,11,3,3,5,3,19,5,3,3,3,7,3,3,13,5,7,3,3,17,7,3,5,3,5,3,7,3,3,5,3,37,11,19,5,7,5,13,3,5,3,7,3,3,23,37,31,11,43,5,3,7,13,17",
+			"name": "Smallest odd prime q such that 2q + prime(n) is prime.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A114227/b114227.txt\"\u003eTable of n, a(n) for n = 3..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[p1 = Prime[n1]; n2 = 2; p2 = 3; While[ cp = p1 + 2*p2; ! PrimeQ[cp], n2++; p2 = Prime[n2]]; p2, {n1, 3, 202}]"
+			],
+			"program": [
+				"(Haskell)",
+				"a114227 n = head [p | p \u003c- tail a000040_list,",
+				"                      a010051' (2 * p + a000040 n) == 1]",
+				"-- _Reinhard Zumkeller_, Oct 29 2013"
+			],
+			"xref": [
+				"Cf. A000040, A010051, A114228."
+			],
+			"keyword": "easy,nonn",
+			"offset": "3,1",
+			"author": "_Lei Zhou_, Nov 18 2005",
+			"references": 17,
+			"revision": 8,
+			"time": "2013-10-31T17:29:17-04:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 115944,
+			"data": "1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+			"name": "Number of partitions of n into distinct factorials.",
+			"comment": [
+				"a(A115944(n)) \u003e 0; a(A115944(n)) = 0;",
+				"a(A115647(n)) \u003e 0;",
+				"what is the smallest n such that a(n) \u003e 1?.",
+				"No such n exists as 0 \u003c= a(n) \u003c= 1, cf. formula;",
+				"a(A059590(n)) = 1. - _Reinhard Zumkeller_, Dec 04 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A115944/b115944.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Fa#factorial\"\u003eIndex entries for sequences related to factorial numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: Product_{j\u003e=1} (1 + x^(j!)). - _Emeric Deutsch_, Apr 06 2006",
+				"a(n! + k) = a(k) for k: 0 \u003c= k \u003c (n-1)! and a(n! + k)=0 for k: (n-1)! \u003c= k \u003c n!.",
+				"a(n! + k) = 0 for k: (n-1)! \u003c= k \u003c n!."
+			],
+			"example": [
+				"a(32)=1 because we have [24,6,2]."
+			],
+			"maple": [
+				"g:=product(1+x^(j!),j=1..7): gser:=series(g,x=0,125): seq(coeff(gser,x,n),n=1..122); # _Emeric Deutsch_, Apr 06 2006"
+			],
+			"mathematica": [
+				"max = 7; f[x_] := Product[ 1+x^(j!), {j, 1, max}]; A115944 = Take[ CoefficientList[ Series[ f[x], {x, 0, max!}], x], 106] (* _Jean-François Alcover_, Dec 28 2011, after _Emeric Deutsch_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a115944 = p (tail a000142_list) where",
+				"   p _      0             = 1",
+				"   p (f:fs) m | m \u003c f     = 0",
+				"              | otherwise = p fs (m - f) + p fs m",
+				"-- _Reinhard Zumkeller_, Dec 04 2011"
+			],
+			"xref": [
+				"Cf. A064986.",
+				"Cf. A197183."
+			],
+			"keyword": "nonn",
+			"offset": "0",
+			"author": "_Reinhard Zumkeller_, Feb 02 2006",
+			"ext": [
+				"Offset changed and initial a(0)=1 added by _Reinhard Zumkeller_, Dec 04 2011"
+			],
+			"references": 17,
+			"revision": 23,
+			"time": "2017-10-08T23:47:12-04:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		},
+		{
+			"number": 134204,
+			"data": "2,3,5,7,13,17,19,23,41,31,29,37,11,67,59,61,83,53,73,79,101,109,89,233,103,47,239,139,113,293,97,151,137,127,43,167,157,509,251,373,107,467,163,181,347,193,313,439,281,307,443,271,197,227,367,733,331,353,401,71,229",
+			"name": "a(0)=2; for n \u003e 0, a(n) = smallest prime not occurring earlier in the sequence such that a(n-1) + a(n) is a multiple of n. If no such prime exists, the sequence terminates.",
+			"comment": [
+				"Is this sequence infinite and, if so, is it a permutation of the primes?",
+				"This sequence is infinite if and only if a(n-1) never divides n for any n.",
+				"This sequence exists for at least 800*10^6 terms (see A133242, A133243, A232992). - David Applegate, Nov 01 2007, Nov 15 2007",
+				"The plot of primes less than 10^6 shows an interesting crosshatch pattern. Why? [_T. D. Noe_, Jul 12 2009] See also the graph of A133244. - _N. J. A. Sloane_, Apr 06 2013",
+				"Entries A224221, A224222 are similar sequences which terminate after 20 or so steps, while A224223 and A224229 are similar sequences whose status is also unknown. - _N. J. A. Sloane_, Apr 05 2013",
+				"Empirically, the direction of hatchings is related to the parity of n, and each hatch corresponds to terms with the same value of Sum_{k=1..n} ((-1)^k * (a(k-1)+a(k))/k) (see colorized scatterplots in Links section). - _Rémy Sigrist_, Nov 07 2017"
+			],
+			"link": [
+				"Robert Israel and Reinhard Zumkeller, \u003ca href=\"/A134204/b134204.txt\"\u003eTable of n, a(n) for n = 0..100000\u003c/a\u003e initial 1000 terms from Robert Israel",
+				"David Applegate, \u003ca href=\"/A134204/a134204.cc.txt\"\u003eC++ Program\u003c/a\u003e [For output see A133242, A133243, A232992]",
+				"T. D. Noe, \u003ca href=\"http://www.sspectra.com/math/A134204.png\"\u003eGraph of initial terms (out to 10^6)\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"http://neilsloane.com/doc/g4g8.pdf\"\u003eEight Hateful Sequences\u003c/a\u003e, a short paper for the 8th Gathering for Gardner, May 2008.",
+				"Rémy Sigrist, \u003ca href=\"/A134204/a134204.png\"\u003eColored scatterplot of the sequence (where the color is a function of the parity of n)\u003c/a\u003e",
+				"Rémy Sigrist, \u003ca href=\"/A134204/a134204_1.png\"\u003eColored scatterplot of the sequence (where the color is a function of floor(a(n)/n))\u003c/a\u003e",
+				"Rémy Sigrist, \u003ca href=\"/A134204/a134204_2.png\"\u003eColored scatterplot of the sequence (where the color is a function of floor(2*a(n)/n))\u003c/a\u003e",
+				"Rémy Sigrist, \u003ca href=\"/A134204/a134204_3.png\"\u003eColored scatterplot of the sequence (where the color is a function of Sum_{k=1..n} ((-1)^k * (a(k-1)+a(k))/k))\u003c/a\u003e"
+			],
+			"example": [
+				"The primes that don't occur among terms a(0) through a(6) form the sequence 11,23,29,31,... Of these, 23 is the smallest that when added to a(6)=19 gets a multiple of 7 -- 19+23 = 42 = 6*7. (19+11 = 30, which is not a multiple of 7.) So a(7) = 23."
+			],
+			"mathematica": [
+				"aa = {a[0]=2, a[1]=3}; a[n_] := a[n] = (an = First[ Complement[ Prime[ Range[1 + PrimePi[ Max[aa]]]], aa]]; While[ Not[ FreeQ[aa, an] \u0026\u0026 Divisible[ a[n-1] + an, n]], an = NextPrime[an]]; AppendTo[aa, an]; an); Table[a[n], {n, 0, 60}] (* _Jean-François Alcover_, Oct 17 2012 *)",
+				"_T. D. Noe_, Apr 05 2013, provided the following information about how his plot (see link) was obtained: I computed 500000 points and then plotted up to y = 10^6. Here's the Mma code (which takes a while to run):",
+				"t = {2}; Do[k = Ceiling[t[[-1]]/n];",
+				"  While[p = k*n - t[[-1]]; ! PrimeQ[p] || MemberQ[t, p], k++];",
+				"  If[2 p \u003c n, Print[{n, p, N[n/p]}]];",
+				"  AppendTo[t, p], {n, 500000}]",
+				"ListPlot[t, PlotRange -\u003e {1, 1000000}, Frame -\u003e True,",
+				"PlotStyle -\u003e {PointSize[0.005]}, ImageSize -\u003e 500,",
+				"PlotLabel -\u003e \"\\nA134204(n)\\n\", GridLines -\u003e Automatic]",
+				"With[{nn = 10^3}, Fold[Append[#1, SelectFirst[Prime@ Range[2, Ceiling@ Log2[nn] nn], Function[p, And[FreeQ[#1, p], Divisible[Last@ #1 + p, #2]]]]] \u0026, {2}, Range@ nn]] (* _Michael De Vlieger_, Oct 16 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a134204 n = a134204_list !! n",
+				"a134204_list = 2 : f 1 2 (tail a000040_list) where",
+				"   f x q ps = p' : f (x + 1) p' (delete p' ps) where",
+				"     p' = head [p | p \u003c- ps, mod (p + q) x == 0]",
+				"-- _Reinhard Zumkeller_, Jun 04 2012",
+				"(PARI) A134204(n,show_all=1,a=2,used=[])={for(n=1,n, show_all \u0026 print1(a\",\"); used=setunion(used,Set(a)); forstep(p=(-a)%n,9e19,n,isprime(p)||next; setsearch(used,p)\u0026next; a=p;break));a} \\\\ _M. F. Hasler_, Mar 01 2013"
+			],
+			"xref": [
+				"Cf. A134205, A134206, A134207, A133242, A133243, A131261, A224221, A224222, A224223, A224229, A232992.",
+				"For records see A133244, A133245.",
+				"Cf. A162846 (where prime(n) occurs)."
+			],
+			"keyword": "nonn,nice,look",
+			"offset": "0,1",
+			"author": "_Leroy Quet_, Oct 14 2007",
+			"ext": [
+				"More terms from _Robert Israel_, Oct 14 2007"
+			],
+			"references": 17,
+			"revision": 73,
+			"time": "2017-11-07T19:37:27-05:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		}
+	]
+}

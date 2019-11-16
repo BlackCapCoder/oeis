@@ -1,0 +1,408 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4010,
+	"results": [
+		{
+			"number": 224982,
+			"data": "140,155,168,172,179,185,188,191,195,196,200,203,204,205,211,212,215,217,219,220,224,225,227,230,231,232,233,235,236,239,240,243,244,245,246,247,248,251,252,254,256,257,259,260,263,264,265,267,268,269,270,271",
+			"name": "Numbers that are the sum of exactly 7 distinct nonzero squares.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A224982/b224982.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Paul T. Bateman, Adolf J. Hildebrand, and George B. Purdy, \u003ca href=\"http://matwbn.icm.edu.pl/ksiazki/aa/aa67/aa6745.pdf\"\u003eSums of distinct squares\u003c/a\u003e, Acta Arithmetica 67 (1994), pp. 349-380.",
+				"\u003ca href=\"/index/Su#ssq\"\u003eIndex entries for sequences related to sums of squares\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 1 + 4 + 9 + 16 + 25 + 36 + 49 = 140 = A000330(7);",
+				"a(2) = 1 + 4 + 9 + 16 + 25 + 36 + 64 = 155;",
+				"a(3) = 1 + 4 + 9 + 16 + 25 + 49 + 64 = 168;",
+				"a(4) = 1 + 4 + 9 + 16 + 25 + 36 + 81 = 172;",
+				"a(5) = 1 + 4 + 9 + 16 + 36 + 49 + 64 = 179."
+			],
+			"program": [
+				"(Haskell)",
+				"a224982 n = a224982_list !! (n-1)",
+				"a224982_list = filter (p 7 $ tail a000290_list) [1..] where",
+				"   p k (q:qs) m = k == 0 \u0026\u0026 m == 0 ||",
+				"                  q \u003c= m \u0026\u0026 k \u003e= 0 \u0026\u0026 (p (k - 1) qs (m - q) || p k qs m)"
+			],
+			"xref": [
+				"Cf. A003995, A004431, A004432, A004433, A004434, A224981, A224983, A000290."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 22 2013",
+			"references": 7,
+			"revision": 4,
+			"time": "2013-04-22T13:02:50-04:00",
+			"created": "2013-04-22T13:02:50-04:00"
+		},
+		{
+			"number": 224983,
+			"data": "204,221,236,240,249,255,260,261,268,269,272,276,279,281,284,285,288,289,293,295,296,299,300,303,305,306,309,311,312,316,317,320,321,323,324,325,326,327,329,332,333,335,336,337,338,339,340,341,344,345,347,348",
+			"name": "Numbers that are the sum of exactly 8 distinct nonzero squares.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A224983/b224983.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Paul T. Bateman, Adolf J. Hildebrand, and George B. Purdy, \u003ca href=\"http://matwbn.icm.edu.pl/ksiazki/aa/aa67/aa6745.pdf\"\u003eSums of distinct squares\u003c/a\u003e, Acta Arithmetica 67 (1994), pp. 349-380.",
+				"\u003ca href=\"/index/Su#ssq\"\u003eIndex entries for sequences related to sums of squares\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 1 + 4 + 9 + 16 + 25 + 36 + 49 + 64 = 204 = A000330(8);",
+				"a(2) = 1 + 4 + 9 + 16 + 25 + 36 + 49 + 81 = 221;",
+				"a(3) = 1 + 4 + 9 + 16 + 25 + 36 + 64 + 81 = 236;",
+				"a(4) = 1 + 4 + 9 + 16 + 25 + 36 + 49 + 100 = 240;",
+				"a(5) = 1 + 4 + 9 + 16 + 25 + 49 + 64 + 81 = 249."
+			],
+			"program": [
+				"(Haskell)",
+				"a224983 n = a224983_list !! (n-1)",
+				"a224983_list = filter (p 8 $ tail a000290_list) [1..] where",
+				"   p k (q:qs) m = k == 0 \u0026\u0026 m == 0 ||",
+				"                  q \u003c= m \u0026\u0026 k \u003e= 0 \u0026\u0026 (p (k - 1) qs (m - q) || p k qs m)"
+			],
+			"xref": [
+				"Cf. A003995, A004431, A004432, A004433, A004434, A224981, A224982, A000290."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 22 2013",
+			"references": 7,
+			"revision": 4,
+			"time": "2013-04-22T13:03:28-04:00",
+			"created": "2013-04-22T13:03:28-04:00"
+		},
+		{
+			"number": 225230,
+			"data": "0,0,0,-1,0,1,0,-2,-1,1,0,0,0,1,1,-3,0,0,0,0,1,1,0,-1,-1,1,-2,0,0,2,0,-4,1,1,1,0,0,1,1,-1,0,2,0,0,0,1,0,-2,-1,0,1,0,0,-1,1,-1,1,1,0,1,0,1,0,-5,1,2,0,0,1,2,0,-1,0,1,0,0,1,2,0,-2,-3",
+			"name": "In canonical prime factorization of n: (number of distinct primes) minus (largest prime exponent).",
+			"comment": [
+				"a(n) = A001221(n) - A051903(n);",
+				"a(A212164(n)) \u003c 0; a(A212165(n)) \u003c= 0; a(A212166(n)) = 0; a(A188654(n)) \u003c\u003e 0; a(A212167(n)) \u003e= 0; a(A212168(n)) \u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A225230/b225230.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a225230 n = a001221 n - a051903 n"
+			],
+			"keyword": "sign",
+			"offset": "1,8",
+			"author": "_Reinhard Zumkeller_, May 03 2013",
+			"references": 7,
+			"revision": 4,
+			"time": "2013-05-03T16:49:15-04:00",
+			"created": "2013-05-03T16:49:15-04:00"
+		},
+		{
+			"number": 225243,
+			"data": "1,2,3,2,2,5,2,3,3,7,2,2,2,5,2,3,5,11,2,3,2,3,5,13,2,3,7,3,7,2,2,17,2,2,3,19,2,5,2,5,2,3,5,11,2,3,5,7,11,23,2,3,2,3,2,3,5,13,2,3,5,11,13,2,3,7,2,3,5,7,13,29,2,3,7,3,7,31,2,2,2,17",
+			"name": "Table read by rows, where row n contains the distinct primes that are contained in binary representation of n; first row = [1] by convention.",
+			"comment": [
+				"Row n = primes in row n of tables A165416 or A119709."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A225243/b225243.txt\"\u003eRows n = 1..1024 of table, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".   n   T(n,*)              |  in binary",
+				".  ---  --------------------|-------------------------------------------",
+				".   1:  1                   |  00001:  .",
+				".   2:  2                   |  00100:  ___10",
+				".   3:  3                   |  00011:  ___11",
+				".   4:  2                   |  00100:  __10_",
+				".   5:  2  5                |  00101:  ___10 _11__",
+				".   6:  2  3                |  00110:  ___10 __11_",
+				".   7:  3  7                |  00111:  __11_ __111",
+				".   8:  2                   |  01000:  _10__",
+				".   9:  2                   |  01001:  _10__",
+				".  10:  2  5                |  01010:  _10__ _101_",
+				".  11:  2  3  5 11          |  01011:  _10__ ___11 _101_ 01011",
+				".  12:  2  3                |  01100:  ___10 _11__",
+				".  13:  2  3  5 13          |  01101:  __10_ _11__ __101 01101",
+				".  14:  2  3  7             |  01110:  ___10 _11__ _111_",
+				".  15:  3  7                |  01111:  _11__ _111_",
+				".  16:  2                   |  10000:  10___",
+				".  17:  2 17                |  10001:  10___ 10001",
+				".  18:  2                   |  10010:  10___",
+				".  19:  2  3 19             |  10011:  10___ ___11 10011",
+				".  20:  2  5                |  10100:  10___ 101__",
+				".  21:  2  5                |  10101:  10___ 101__",
+				".  22:  2  3  5 11          |  10110:  10___ __11_ 101__ 10110",
+				".  23:  2  3  5  7 11 23    |  10111:  10___ __11_ 101__ __111 1011_ 10111",
+				".  24:  2  3                |  11000:  _10__ 11___",
+				".  25:  2  3                |  11001:  _10__ 11___ ."
+			],
+			"program": [
+				"(Haskell)",
+				"a225243 n k = a225243_tabf !! (n-1) !! (k-1)",
+				"a225243_row n = a225243_tabf !! (n-1)",
+				"a225243_tabf = [1] : map (filter ((== 1) . a010051')) (tail a165416_tabf)"
+			],
+			"xref": [
+				"Cf. A078826 (row lengths), A078832 (left edge), A078833 (right edge), A004676, A007088."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Aug 14 2013",
+			"references": 7,
+			"revision": 44,
+			"time": "2015-08-11T09:28:25-04:00",
+			"created": "2013-08-14T17:11:38-04:00"
+		},
+		{
+			"number": 226222,
+			"data": "1,1,1,2,2,3,3,3,4,5,5,5,6,6,7,7,8,9,9,9,10,10,11,11,11,12,13,13,13,14,15,16,16,16,17,18,18,18,18,19,20,21,21,21,21,22,22,23,23,24,25,25,25,26,26,27,27,28,29,30,30,30,31,32,32,32,32,33,35,35",
+			"name": "a(1) = a(2) = a(3) = 1, a(n) = a(n-2-a(n-2)) + a(n-1-a(n-3)) for n\u003e3.",
+			"comment": [
+				"First numbers not occurring: 62, 66, 75, 79, 114, 123, ... ."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226222/b226222.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/HofstadtersQ-Sequence.html\"\u003eHofstadter's Q-Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Hofstadter_sequence\"\u003eHofstadter sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a226222 n = a226222_list !! (n-1)",
+				"a226222_list = 1 : 1 : 1 : zipWith (+)",
+				"   (map a226222 $ zipWith (-) [3..] a226222_list)",
+				"   (map a226222 $ zipWith (-) [2..] $ tail a226222_list)",
+				"-- _Reinhard Zumkeller_, May 31 2013"
+			],
+			"xref": [
+				"Cf. A046699, A063892, A070867, A005185."
+			],
+			"keyword": "nonn,look",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, May 31 2013",
+			"references": 7,
+			"revision": 6,
+			"time": "2014-01-29T08:34:33-05:00",
+			"created": "2013-05-31T15:30:45-04:00"
+		},
+		{
+			"number": 226518,
+			"data": "0,1,0,1,0,0,1,0,-1,0,0,1,2,1,2,1,0,0,1,0,1,2,3,2,1,0,1,0,0,1,0,1,2,1,0,-1,-2,-1,0,-1,0,0,1,2,1,2,1,0,-1,0,1,0,-1,-2,-1,-2,-1,0,0,1,0,-1,0,1,2,3,2,3,2,3,2,1,0,-1,0,1,0,0,1,2,3,4,3,4,3,4,5,4,3,4,5,4,3,4,3,4,3,2,1,0",
+			"name": "Irregular triangle read by rows: T(n,k) = Sum_{i=0..k} Legendre(i,prime(n)).",
+			"comment": [
+				"Strictly speaking, the symbol in the definition is the Legendre-Jacobi-Kronecker symbol, since the Legendre symbol is defined only for odd primes.",
+				"The classical Polya-Vinogradov theorem gives an upper bound.",
+				"There is a famous open problem concerning upper bounds on |T(n,k)| for small k."
+			],
+			"reference": [
+				"R. Ayoub, An Introduction to the Analytic Theory of Numbers, Amer. Math. Soc., 1963; p. 320, Theorem 5.1.",
+				"Beck, József. Inevitable randomness in discrete mathematics. University Lecture Series, 49. American Mathematical Society, Providence, RI, 2009. xii+250 pp. ISBN: 978-0-8218-4756-5; MR2543141 (2010m:60026). See page 23.",
+				"Elliott, P. D. T. A. Probabilistic number theory. I. Mean-value theorems. Grundlehren der Mathematischen Wissenschaften, 239. Springer-Verlag, New York-Berlin, 1979. xxii+359+xxxiii pp. (2 plates). ISBN: 0-387-90437-9 MR0551361 (82h:10002a). See Vol. 1, p. 154."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A226518/b226518.txt\"\u003eRows n = 1..70, flattened\u003c/a\u003e",
+				"D. A. Burgess, \u003ca href=\"http://dx.doi.org/10.1112/S0025579300001157\"\u003eThe distribution of quadratic residues and non-residues\u003c/a\u003e, Mathematika 4, 1957, 106--112. MR0093504 (20 #28)",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Legendre_symbol\"\u003eLegendre symbol\u003c/a\u003e."
+			],
+			"example": [
+				"Triangle begins:",
+				"[0, 1],",
+				"[0, 1, 0],",
+				"[0, 1, 0, -1, 0],",
+				"[0, 1, 2, 1, 2, 1, 0],",
+				"[0, 1, 0, 1, 2, 3, 2, 1, 0, 1, 0],",
+				"[0, 1, 0, 1, 2, 1, 0, -1, -2, -1, 0, -1, 0],",
+				"[0, 1, 2, 1, 2, 1, 0, -1, 0, 1, 0, -1, -2, -1, -2, -1, 0],",
+				"[0, 1, 0, -1, 0, 1, 2, 3, 2, 3, 2, 3, 2, 1, 0, -1, 0, 1, 0],",
+				"..."
+			],
+			"maple": [
+				"with(numtheory);",
+				"T:=(n,k)-\u003eadd(legendre(i,ithprime(n)),i=0..k);",
+				"f:=n-\u003e[seq(T(n,k),k=0..ithprime(n)-1)];",
+				"[seq(f(n),n=1..15)];"
+			],
+			"mathematica": [
+				"Table[p = Prime[n]; Table[JacobiSymbol[k, p], {k, 0, p-1}] // Accumulate, {n, 1, 15}] // Flatten (* _Jean-François Alcover_, Mar 07 2014 *)"
+			],
+			"program": [
+				"(PARI) print(\"# A226518 \");",
+				"cnt=1; for(j5=1,9,summ=0; for(i5=0,prime(j5)-1, summ=summ+kronecker(i5,prime(j5)); print(cnt,\"  \",summ); cnt++)); \\\\ _Bill McEachen_, Aug 02 2013",
+				"(Haskell)",
+				"a226518 n k = a226518_tabf !! (n-1) !! k",
+				"a226518_row n = a226518_tabf !! (n-1)",
+				"a226518_tabf = map (scanl1 (+)) a226520_tabf",
+				"-- _Reinhard Zumkeller_, Feb 02 2014"
+			],
+			"xref": [
+				"Partial sums of rows of triangle in A226520.",
+				"Cf. A165582. See A226519 for another version.",
+				"Third and fourth columns give A226914, A226915. See also A226523.",
+				"Cf. A165477 (131071st row)."
+			],
+			"keyword": "sign,tabf",
+			"offset": "1,13",
+			"author": "_N. J. A. Sloane_, Jun 19 2013",
+			"references": 7,
+			"revision": 44,
+			"time": "2015-09-27T10:31:04-04:00",
+			"created": "2013-06-19T08:28:31-04:00"
+		},
+		{
+			"number": 226520,
+			"data": "0,1,0,1,-1,0,1,-1,-1,1,0,1,1,-1,1,-1,-1,0,1,-1,1,1,1,-1,-1,-1,1,-1,0,1,-1,1,1,-1,-1,-1,-1,1,1,-1,1,0,1,1,-1,1,-1,-1,-1,1,1,-1,-1,-1,1,-1,1,1,0,1,-1,-1,1,1,1,1,-1,1,-1,1,-1,-1,-1,-1,1,1,-1",
+			"name": "Irregular triangle read by rows: T(n,k) = Legendre(k,prime(n)), for 0 \u003c= k \u003c prime(n).",
+			"comment": [
+				"Strictly speaking, the symbol in the definition is the Legendre-Jacobi-Kronecker symbol, since the Legendre symbol is defined only for odd primes."
+			],
+			"reference": [
+				"R. Ayoub, An Introduction to the Analytic Theory of Numbers, Amer. Math. Soc., 1963; p. 289.",
+				"Beck, József. Inevitable randomness in discrete mathematics. University Lecture Series, 49. American Mathematical Society, Providence, RI, 2009. xii+250 pp. ISBN: 978-0-8218-4756-5; MR2543141 (2010m:60026). See page 23.",
+				"H. Cohen, A Course in Computational Alg. No. Theory, Springer, 1993, p. 28."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226520/b226520.txt\"\u003eRows n = 1..75 of triangle, flattened\u003c/a\u003e",
+				"D. A. Burgess, \u003ca href=\"http://dx.doi.org/10.1112/S0025579300001157\"\u003eThe distribution of quadratic residues and non-residues\u003c/a\u003e, Mathematika 4, 1957, 106--112. MR0093504 (20 #28)",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Legendre_symbol\"\u003eLegendre symbol\u003c/a\u003e."
+			],
+			"formula": [
+				"See A226518 for bounds."
+			],
+			"example": [
+				"Triangle begins",
+				"[0, 1],",
+				"[0, 1, -1],",
+				"[0, 1, -1, -1, 1],",
+				"[0, 1, 1, -1, 1, -1, -1],",
+				"[0, 1, -1, 1, 1, 1, -1, -1, -1, 1, -1],",
+				"[0, 1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, 1],",
+				"[0, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, 1, 1],",
+				"..."
+			],
+			"maple": [
+				"with(numtheory);",
+				"T:=(n,k)-\u003elegendre(k,ithprime(n));",
+				"f:=n-\u003e[seq(T(n,k),k=0..ithprime(n)-1)];",
+				"[seq(f(n),n=1..15)];"
+			],
+			"mathematica": [
+				"Table[p = Prime[n]; Table[JacobiSymbol[k, p], {k, 0, p-1}], {n, 1, 15}] // Flatten (* _Jean-François Alcover_, Mar 07 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a226520 n k = a226520_tabf !! (n-1) !! k",
+				"a226520_row n = a226520_tabf !! (n-1)",
+				"a226520_tabf =",
+				"   map (\\p -\u003e map (flip legendreSymbol p) [0..p-1]) a000040_list",
+				"-- where the function legendreSymbol is defined in A097343.",
+				"-- _Reinhard Zumkeller_, Feb 02 2014"
+			],
+			"xref": [
+				"Row sums give A226518.",
+				"See A097343 for another version."
+			],
+			"keyword": "sign,tabf",
+			"offset": "1",
+			"author": "_N. J. A. Sloane_, Jun 19 2013",
+			"references": 7,
+			"revision": 21,
+			"time": "2015-08-15T08:01:23-04:00",
+			"created": "2013-06-19T13:12:52-04:00"
+		},
+		{
+			"number": 230953,
+			"data": "3,8,20,53,154,505,1944,8651,44046,252271,1605874,11245261,85907084,710970323,6336648426,60510526207,616355168958,6670526004559,76438597647616,924584128977111,11772170758462928,157382330019694067,2204239468545788024,32275035859881159165",
+			"name": "Boustrophedon transform of odd primes, cf. A065091.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A230953/b230953.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum(A109449(n,k)*A000040(k+2): k=0..n).",
+				"E.g.f.: (sec(x) + tan(x)) * Sum_{k\u003e=0} prime(k+2)*x^k/k!. - _Ilya Gutkovskiy_, Jun 26 2018"
+			],
+			"mathematica": [
+				"t[n_, 0] := Prime[n+2]; t[n_, k_] := t[n, k] = t[n, k-1] + t[n-1, n-k]; a[n_] := t[n, n]; Array[a, 30, 0] (* _Jean-François Alcover_, Feb 12 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a230953 n = sum $ zipWith (*) (a109449_row n) $ tail a000040_list"
+			],
+			"xref": [
+				"Cf. A000747, A230956, A230954, A230955."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Nov 03 2013",
+			"references": 7,
+			"revision": 16,
+			"time": "2019-10-10T11:00:03-04:00",
+			"created": "2013-11-04T08:19:48-05:00"
+		},
+		{
+			"number": 230954,
+			"data": "4,10,24,59,162,526,2016,8978,45696,261760,1666308,11668652,89141580,737740174,6575238599,62788901290,639562492327,6921688171153,79316703841369,959397056891093,12215422719238138,163308172248420391,2287234651735371577",
+			"name": "Boustrophedon transform of composite numbers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A230954/b230954.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum(A109449(n,k)*A002808(k+1): k=0..n)."
+			],
+			"mathematica": [
+				"cc = Select[Range[max = 40], CompositeQ]; t[n_, 0] := cc[[n+1]]; t[n_, k_] := t[n, k] = t[n, k-1] + t[n-1, n-k]; a[n_] := t[n, n]; Array[a, cc // Length, 0] (* _Jean-François Alcover_, Feb 12 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a230954 n = sum $ zipWith (*) (a109449_row n) a002808_list"
+			],
+			"xref": [
+				"Cf. A230955, A000747, A000732, A230953."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Nov 03 2013",
+			"references": 7,
+			"revision": 13,
+			"time": "2019-10-10T10:59:10-04:00",
+			"created": "2013-11-04T08:22:30-05:00"
+		},
+		{
+			"number": 230955,
+			"data": "1,5,15,40,114,371,1422,6334,32238,184655,1175454,8231308,62882262,520416569,4638303786,44292536061,451160065069,4882696090609,55951575728713,676777708544967,8617001415386120,115200823068725262,1613460678695102980,23624702309844184487",
+			"name": "Boustrophedon transform of nonprimes.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A230955/b230955.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum(A109449(n,k)*A018252(k+1): k=0..n)."
+			],
+			"mathematica": [
+				"cc = Select[Range[max = 40], !PrimeQ[#]\u0026]; t[n_, 0] := cc[[n+1]]; t[n_, k_] := t[n, k] = t[n, k-1] + t[n-1, n-k]; a[n_] := t[n, n]; Array[a, cc // Length, 0] (* _Jean-François Alcover_, Feb 12 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a230955 n = sum $ zipWith (*) (a109449_row n) a018252_list"
+			],
+			"xref": [
+				"Cf. A230954, A000747, A000732, A230953."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Nov 03 2013",
+			"references": 7,
+			"revision": 13,
+			"time": "2019-10-10T10:59:06-04:00",
+			"created": "2013-11-04T08:22:12-05:00"
+		}
+	]
+}

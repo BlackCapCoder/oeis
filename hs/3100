@@ -1,0 +1,414 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3100,
+	"results": [
+		{
+			"number": 190016,
+			"data": "1,10,100,1000,10000,1001,1002,1003,1004,1005,1006,1007,1008,1009,101,1010,1011,1012,1013,1014,1015,1016,1017,1018,1019,102,1020,1021,1022,1023,1024,1025,1026,1027,1028,1029,103,1030,1031,1032,1033,1034,1035,1036",
+			"name": "Numbers 1 through 10000 sorted lexicographically in decimal representation.",
+			"comment": [
+				"A190017 = inverse permutation: a(A190017(n)) = A190017(a(n)) = n;",
+				"there are 11 fixed points: {1,9980,9981,9982,9983,9984,9985,9986,9987,9988,9989}."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A190016/b190016.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (full sequence)",
+				"Eric Weisstein, \u003ca href=\"http://mathworld.wolfram.com/LexicographicOrder.html\"\u003eLexicographicOrder\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Lexicographical_order\"\u003eLexicographical order\u003c/a\u003e"
+			],
+			"example": [
+				"a(13) = 1008;",
+				"a(14) = 1009;",
+				"a(15) = 101;",
+				"a(16) = 1010;",
+				"a(17) = 1011;",
+				"largest term a(5) = 10000;",
+				"last term a(10000) = 9999, largest term lexicographically."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ord (comparing)",
+				"import Data.List (sortBy)",
+				"a190016 n = a190016_list !! (n-1)",
+				"a190016_list = sortBy (comparing show) [1..10000]",
+				"(PARI) eval(Set(vector(10^4,n,Str(n)))) \\\\ _M. F. Hasler_, Oct 25 2019"
+			],
+			"xref": [
+				"Cf. A119589 (same for 1..100); A190126 (base 2), A190128 (base 3), A190130 (base 8), A190132 (base 12), A190134 (base 16)."
+			],
+			"keyword": "nonn,base,fini,full",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 06 2011",
+			"references": 10,
+			"revision": 24,
+			"time": "2019-10-26T02:15:32-04:00",
+			"created": "2011-05-07T12:17:13-04:00"
+		},
+		{
+			"number": 192512,
+			"data": "1,2,3,3,4,4,5,5,5,5,6,6,7,7,7,7,8,8,8,8,8,8,9,9,10,10,10,10,11,11,11,11,11,11,11,11,12,12,12,12,13,13,14,14,14,14,15,15,15,15,15,15,16,16,16,16,16,16,16,16,17,17,17,17,17,17,18,18,18,18,19",
+			"name": "Number of ludic numbers (A003309) not greater than n.",
+			"comment": [
+				"a(n) = #{A003309(k): 1\u003c=k\u003c=n} = Sum(A192490(k): 1\u003c=k\u003c=n})"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A192512/b192512.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a192512 n = a192512_list !! (n-1)",
+				"a192512_list = scanl1 (+) $ map a192490 [1..]"
+			],
+			"xref": [
+				"Cf. A192490 (first differences), A000720 (number of primes)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 05 2011",
+			"references": 10,
+			"revision": 6,
+			"time": "2013-07-13T12:04:12-04:00",
+			"created": "2011-07-10T06:19:38-04:00"
+		},
+		{
+			"number": 200745,
+			"data": "1,0,0,0,0,1,0,2,1,2,2,6,1,9,5,6,5,20,4,28,7,19,24,55,6,51,45,49,27,136,16,180,50,117,143,146,28,403,242,260,68,668,91,852,246,260,649,1370,90,1191,493,1110,634,2701,386,1635,462,2160,2486,5154,167",
+			"name": "Number of partitions of n into distinct non-divisors of n.",
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A200745/b200745.txt\"\u003eTable of n, a(n) for n = 0..2000\u003c/a\u003e (terms 0..150 from Reinhard Zumkeller)"
+			],
+			"example": [
+				"a(10) = #{7+3, 6+4} = 2;",
+				"a(11) = #{9+2, 8+3, 7+4, 6+5, 6+3+2, 5+4+2} = 6;",
+				"a(12) = #{7+5} = 1;",
+				"a(13) = #{11+2, 10+3, 9+4, 8+5, 8+3+2, 7+6, 7+4+2, 6+5+2, 6+4+3} = 9;",
+				"a(14) = #{11+3, 10+4, 9+5, 8+6, 6+5+3} = 5;",
+				"a(15) = #{13+2, 11+5, 9+6, 9+4+2, 8+7, 8+5+2} = 6."
+			],
+			"maple": [
+				"a:= proc(n) option remember; local b, l;",
+				"      l:= sort([({$1..n} minus numtheory[divisors](n))[]]);",
+				"      b:= proc(n, i) option remember; `if`(n=0, 1, `if`(i\u003c1, 0,",
+				"             b(n, i-1) +`if`(l[i]\u003en, 0, b(n-l[i], i-1))))",
+				"          end: forget(b):",
+				"      b(n, nops(l))",
+				"    end:",
+				"seq(a(n), n=0..80);  # _Alois P. Heinz_, Jan 18 2013"
+			],
+			"mathematica": [
+				"a[0] = 1; a[n_] := a[n] = Module[{b, l}, l = Sort[Range[n] ~Complement~ Divisors[n]]; b[m_, i_] := b[m, i] = If[m == 0, 1, If[i \u003c 1, 0, b[m, i - 1] + If[l[[i]] \u003e m, 0, b[m - l[[i]], i - 1]]]]; b[n, Length[l]]];",
+				"Table[a[n], {n, 0, 80}] (* _Jean-François Alcover_, Feb 06 2017, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a200745 n = p [nd | nd \u003c- [1..n], mod n nd /= 0] n where",
+				"   p _  0 = 1",
+				"   p [] _ = 0",
+				"   p (k:ks) m | m \u003c k = 0 | otherwise = p ks (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A098743, A033630."
+			],
+			"keyword": "nonn",
+			"offset": "0,8",
+			"author": "_Reinhard Zumkeller_, Nov 22 2011",
+			"references": 10,
+			"revision": 22,
+			"time": "2017-02-06T11:38:45-05:00",
+			"created": "2011-11-22T20:37:26-05:00"
+		},
+		{
+			"number": 204095,
+			"data": "0,8,80,88,800,808,880,888,8000,8008,8080,8088,8800,8808,8880,8888,80000,80008,80080,80088,80800,80808,80880,80888,88000,88008,88080,88088,88800,88808,88880,88888,800000,800008,800080,800088,800800,800808,800880,800888",
+			"name": "Numbers whose set of base 10 digits is {0,8}.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A204095/b204095.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 8 * A007088(n)."
+			],
+			"maple": [
+				"f:= proc(n) local L; L:= convert(n,base,2); add(8*L[i]*10^(i-1),i=1..nops(L)) end proc:",
+				"seq(f(n),n=0..100); # _Robert Israel_, Jul 28 2014"
+			],
+			"mathematica": [
+				"Table[8 FromDigits[IntegerDigits[n, 2]], {n, 0, 39}] (* _Alonso del Arte_, Jan 10 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a204095 n = a204095_list !! n",
+				"a204095_list = map (* 8) a007088_list",
+				"(PARI) a(n)=8*subst(Pol(binary(n)), x, 10);",
+				"for(n=0, 20, print1(a(n), \", \")) \\\\ _Felix Fröhlich_, Jul 26 2014"
+			],
+			"xref": [
+				"Cf. A078247, A169965, A169966, A169967, A169964, A204093, A204094, A097256."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jan 10 2012",
+			"references": 10,
+			"revision": 20,
+			"time": "2014-07-29T03:40:09-04:00",
+			"created": "2012-01-10T20:51:51-05:00"
+		},
+		{
+			"number": 212168,
+			"data": "6,10,14,15,21,22,26,30,33,34,35,38,39,42,46,51,55,57,58,60,62,65,66,69,70,74,77,78,82,84,85,86,87,90,91,93,94,95,102,105,106,110,111,114,115,118,119,122,123,126,129,130,132,133,134,138,140,141,142,143",
+			"name": "Numbers n such that the maximal exponent in its prime factorization is less than the number of positive exponents (A051903(n) \u003c A001221(n)).",
+			"comment": [
+				"A225230(a(n)) \u003e 1; A050326(a(n)) \u003e 1. - _Reinhard Zumkeller_, May 03 2013",
+				"Subsequence of A130092. - _Ivan N. Ianakiev_, Sep 17 2019"
+			],
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 844."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212168/b212168.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy].",
+				"Primefan, \u003ca href=\"http://primefan.tripod.com/500factored.html\"\u003eThe First 2500 Integers Factored\u003c/a\u003e (first of 5 pages)"
+			],
+			"example": [
+				"10 = 2^1*5^1 has 2 distinct prime factors, hence 2 positive exponents in its prime factorization (although the 1s are often left implicit). 2 is larger than the maximal exponent in 10's prime factorization, which is 1. Therefore, 10 belongs to the sequence."
+			],
+			"mathematica": [
+				"okQ[n_] := Module[{f = Transpose[FactorInteger[n]][[2]]}, Max[f] \u003c Length[f]]; Select[Range[1000], okQ] (* _T. D. Noe_, May 24 2012 *)",
+				"Select[Range[200],Max[FactorInteger[#][[All,2]]]\u003cPrimeNu[#]\u0026] (* _Harvey P. Dale_, Nov 21 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a212168 n = a212168_list !! (n-1)",
+				"a212168_list = map (+ 1) $ findIndices (\u003e 0) a225230_list",
+				"-- _Reinhard Zumkeller_, May 03 2013"
+			],
+			"xref": [
+				"Complement of A212165. See also A212164, A212166-A212167.",
+				"Subsequence of A188654."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Matthew Vandermast_, May 22 2012",
+			"references": 10,
+			"revision": 18,
+			"time": "2019-09-23T14:03:03-04:00",
+			"created": "2012-05-24T11:22:47-04:00"
+		},
+		{
+			"number": 213999,
+			"data": "1,1,2,1,2,3,1,2,6,4,1,2,3,12,5,1,2,6,12,60,6,1,2,3,4,10,20,7,1,2,6,12,20,20,140,8,1,2,3,12,15,10,35,280,9,1,2,6,4,20,30,70,280,2520,10,1,2,3,12,10,12,21,56,252,2520,11,1,2,6,12,60,60,84",
+			"name": "Denominators of the triangle of fractions read by rows: pf(n,0) = 1, pf(n,n) = 1/(n+1) and pf(n+1,k) = pf(n,k) + pf(n,k-1) with 0 \u003c k \u003c n; denominators: A213998.",
+			"comment": [
+				"T(n,0) = 1;",
+				"T(n,1) = A007395(n) for n \u003e 0;",
+				"T(n,2) = A010704(n) for n \u003e 1;",
+				"T(n,n-3) = A124838(n-2) for n \u003e 2;",
+				"T(n,n-2) = A027611(n-1) for n \u003e 1;",
+				"T(n,n-1) = A002805(n) for n \u003e 0;",
+				"T(n,n) = n + 1;",
+				"A003418(n+1) = least common multiple of n-th row;",
+				"A214075(n,k) = floor(A213998(n,k) / T(n,k))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A213999/b213999.txt\"\u003eRows n = 0..150 of triangle, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"example": [
+				"See A213998."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), denominator, Ratio)",
+				"a213999 n k = a213999_tabl !! n !! k",
+				"a213999_row n = a213999_tabl !! n",
+				"a213999_tabl = map (map denominator) $ iterate pf [1] where",
+				"   pf row = zipWith (+) ([0] ++ row) (row ++ [-1 % (x * (x + 1))])",
+				"            where x = denominator $ last row"
+			],
+			"keyword": "nonn,frac,tabl,look",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 03 2012",
+			"references": 10,
+			"revision": 8,
+			"time": "2014-01-29T07:54:55-05:00",
+			"created": "2012-07-03T04:19:50-04:00"
+		},
+		{
+			"number": 214511,
+			"data": "8,338,2210,10370,202130,229970,197210,81770,18423410,16046810,12625730,21899930,9549410,370247930,416392730,579994610,338609570,2155919090,601741010,254885930,10083683090,4690939370,29207671610,30431277890,22264417370,23231920010",
+			"name": "Least number having n orderless representations as p^2 + q^2, where p and q are primes.",
+			"comment": [
+				"A045698(a(n)) = n and A045698(m) \u003c n for m \u003c a(n). - _Reinhard Zumkeller_, Jul 29 2012",
+				"a(53) = 3374376505370. a(52) and terms following a(53) are greater than 4*10^13. - _Giovanni Resta_, Jul 02 2018"
+			],
+			"link": [
+				"Giovanni Resta, \u003ca href=\"/A214511/b214511.txt\"\u003eTable of n, a(n) for n = 1..51\u003c/a\u003e",
+				"\u003ca href=\"/index/Su#ssq\"\u003eIndex entries for sequences related to sums of squares\u003c/a\u003e"
+			],
+			"example": [
+				"a(2) = 338 because 338 = 7^2 + 17^2 = 13^2 + 13^2 and 338 is the least number with this property."
+			],
+			"mathematica": [
+				"nn = 10^6; ps = Prime[Range[PrimePi[Sqrt[nn]]]]; t = Flatten[Table[ps[[i]]^2 + ps[[j]]^2, {i, Length[ps]}, {j, i, Length[ps]}]]; t = Select[t, # \u003c= nn \u0026]; t2 = Sort[Tally[t]]; u = Union[Transpose[t2][[2]]]; d = Complement[Range[u[[-1]]], u]; If[d == {}, nLim = u[[-1]], nLim = d[[1]]-1]; t3 = Table[Select[t2, #[[2]] == n \u0026, 1][[1]], {n, nLim}]; Transpose[t3][[1]]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a214511 = (+ 1) . fromJust . (`elemIndex` a045698_list)",
+				"-- _Reinhard Zumkeller_, Jul 29 2012"
+			],
+			"xref": [
+				"Cf. A088919, A045636, A214723.",
+				"Cf. A016032 (p and q integers).",
+				"Cf. A214512, A214513."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_T. D. Noe_, Jul 26 2012",
+			"ext": [
+				"a(21)-a(26) from _Donovan Johnson_, Jul 29 2012"
+			],
+			"references": 10,
+			"revision": 25,
+			"time": "2018-07-02T07:10:27-04:00",
+			"created": "2012-07-26T18:21:35-04:00"
+		},
+		{
+			"number": 215217,
+			"data": "230,285,429,434,609,645,741,805,902,969,986,1001,1022,1065,1085,1105,1130,1221,1245,1265,1309,1310,1334,1406,1434,1442,1462,1490,1505,1533,1581,1598,1605,1614,1634,1729,1742,1833,1885,1886,1946,2013,2014,2054,2085",
+			"name": "Smaller member of a pair of sphenic twins, consecutive integers, each the product of three distinct primes.",
+			"comment": [
+				"455 is not a term of the sequence, since 455 = 5*7*13 is sphenic, i.e., the number of distinct prime factors is 3, though 456 = 2^3*3*19 has 3 distinct prime factors but is not sphenic, because the number of prime factors with repetition is 5 \u003e 3."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A215217/b215217.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"maple": [
+				"Sphenics:= select(t -\u003e (map(s-\u003es[2],ifactors(t)[2])=[1,1,1]), {$1..10000}):",
+				"Sphenics intersect map(`-`,Sphenics,1); # _Robert Israel_, Aug 13 2014"
+			],
+			"mathematica": [
+				"Select[Range[2500], (PrimeNu[#] == PrimeOmega[#] == PrimeNu[#+1] == PrimeOmega[#+1] == 3)\u0026] (* _Jean-François Alcover_, Apr 11 2014 *)",
+				"SequencePosition[Table[If[PrimeNu[n]==PrimeOmega[n]==3,1,0],{n,2500}],{1,1}][[All,1]] (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Aug 02 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"twinLow [] = []",
+				"twinLow [_] = []",
+				"twinLow (n : (m : ns))",
+				"    | m == n + 1 = n : twinLow (m : ns)",
+				"    | otherwise = twinLow (m : ns)",
+				"a215217 n = (twinLow a007304_list) !! (n - 1)",
+				"-- _Peter Dolland_, May 31 2019",
+				"(PARI) is_a033992(n) = omega(n)==3 \u0026\u0026 bigomega(n)==3",
+				"is(n) = is_a033992(n) \u0026\u0026 is_a033992(n+1) \\\\ _Felix Fröhlich_, Jun 10 2019"
+			],
+			"xref": [
+				"Cf. A007304, A066509, A140077."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Martin Renner_, Aug 06 2012",
+			"references": 10,
+			"revision": 30,
+			"time": "2019-06-11T00:25:45-04:00",
+			"created": "2012-08-06T15:20:31-04:00"
+		},
+		{
+			"number": 225244,
+			"data": "1,1,2,2,3,2,8,2,5,4,11,2,27,2,14,14,9,2,64,2,40,18,20,2,125,6,23,10,53,2,742,2,17,26,29,26,343,2,32,30,195,2,1654,2,79,136,38,2,729,8,341,38,92,2,1000,38,265,42,47,2,14188,2,50,184,33,44,5257,2",
+			"name": "Number of partitions of n into squarefree divisors of n.",
+			"comment": [
+				"a(n) \u003c= A018818(n);",
+				"a(n) = A018818(n) iff n is squarefree: a(A005117(n)) = A018818(A005117(n));",
+				"a(A000040(n)) = 2."
+			],
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A225244/b225244.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (300 terms from Reinhard Zumkeller)"
+			],
+			"formula": [
+				"a(n) = [x^n] Product_{d|n, mu(d) != 0} 1/(1 - x^d), where mu() is the Moebius function (A008683). - _Ilya Gutkovskiy_, Jul 26 2017"
+			],
+			"example": [
+				"a(8) = #{2+2+2+2, 2+2+2+1+1, 2+2+1+1+1+1, 2+6x1, 8x1} = 5;",
+				"a(9) = #{3+3+3, 3+3+1+1+1, 3+1+1+1+1+1+1, 9x1} = 4;",
+				"a(10) = #{10, 5+5, 5+2+2+1, 5+2+1+1+1, 5+5x1, 2+2+2+2+2, 2+2+2+2+1+1, 2+2+2+1+1+1+1, 2+2+6x1, 2+8x1, 10x1} = 11;",
+				"a(11) = #{11, 1+1+1+1+1+1+1+1+1+1+1} = 2;",
+				"a(12) = #{6+6, 6+3+3, 6+3+2+1, 6+3+1+1+1, 6+2+2+2, 6+2+2+1+1, 6+2+1+1+1+1, 6+6x1, 3+3+3+3, 3+3+3+2+1, 3+3+3+1+1+1, 3+3+2+2+2, 3+3+2+2+1+1, 3+3+2+4x1, 3+3+6x1, 3+2+2+2+2+1, 3+2+2+2+1+1+1, 3+2+2+5x1, 3+2+7x1, 3+8x1, 2+2+2+2+2+2, 2+2+2+2+2+1+1, 2+2+2+2+1+1+1+1, 2+2+2+6x1, 2+2+8x1, 2+10x1, 12x1} = 27;",
+				"a(13) = #{11, 1+1+1+1+1+1+1+1+1+1+1+1+1} = 2;",
+				"a(14) = #{14, 7+7, 7+2+2+2+1, 7+2+2+1+1+1, 7+2+5x1, 7+7x1, 7x2, 6x2+1+1, 5x2+1+1+1+1, 4x2+6x1, 2+2+2+8x1, 2+2+10x1, 2+12x1, 14x1} = 14;",
+				"a(15) = #{15, 5+5+5, 5+5+3+1+1, 5+5+5x1, 5+3+3+3+1, 5+3+3+1+1+1+1, 5+3+7x1, 5+10x1, 3+3+3+3+3, 3+3+3+3+1+1+1, 3+3+3+6x1, 3+3+9x1, 3+12x1, 15x1} = 14."
+			],
+			"maple": [
+				"with(numtheory):",
+				"a:= proc(n) local b, l; l:= sort([select(issqrfree, divisors(n))[]]):",
+				"      b:= proc(m, i) option remember; `if`(m=0 or i=1, 1,",
+				"            `if`(i\u003c1, 0, b(m, i-1)+`if`(l[i]\u003em, 0, b(m-l[i], i))))",
+				"          end; forget(b):",
+				"      b(n, nops(l))",
+				"    end:",
+				"seq(a(n), n=0..100); # _Alois P. Heinz_, Feb 05 2014"
+			],
+			"mathematica": [
+				"a[0] = 1; a[n_] := Module[{b, l}, l = Select[Divisors[n], SquareFreeQ]; b[m_, i_] := b[m, i] = If[m == 0 || i == 1, 1, If[i \u003c 1, 0, b[m, i - 1] + If[l[[i]] \u003e m, 0, b[m - l[[i]], i]]]]; b[n, Length[l]]]; Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Oct 27 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a225244 n = p (a206778_row n) n where",
+				"   p _          0 = 1",
+				"   p []         _ = 0",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A206778, A005117, A008966, A225245, A073576."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, May 05 2013",
+			"references": 10,
+			"revision": 19,
+			"time": "2017-07-26T09:30:04-04:00",
+			"created": "2013-05-05T19:59:55-04:00"
+		},
+		{
+			"number": 227944,
+			"data": "0,1,1,1,1,1,2,1,2,1,2,1,2,2,1,1,1,2,3,1,2,2,3,1,2,2,3,2,3,1,2,1,2,1,2,2,3,3,2,1,2,2,3,2,2,3,4,1,3,2,1,2,3,3,2,2,3,3,4,1,2,2,3,1,2,2,3,1,3,2,3,2,3,3,2,3,2,2,3,1,4,2,3,2,1,3,3,2,3,2,3,3,2,4,3,1,2,3,2,2",
+			"name": "Number of iterations of \"take odd part of phi\" (A053575) to reach 1 from n.",
+			"comment": [
+				"a(n) \u003e= A256757(n) - 1."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A227944/b227944.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"For n \u003e 1, a(n) = a(A053575(n)) + 1."
+			],
+			"example": [
+				"a(18) = 2 because it takes two steps to reach 1 from 18: phi(18) = 6, the odd part of which is 3, and phi(3) = 2, the odd part of which is 1.",
+				"a(19) = 3 because it takes three steps to reach 1 from 19: phi(19) = 18, the odd part of which is 9, and phi(9) = 6, the odd part of which is 3, and phi(3) = 2, the odd part of which is 1."
+			],
+			"mathematica": [
+				"oddPhi[n_] := Module[{phi = EulerPhi[n]}, phi/2^IntegerExponent[phi, 2]]; Table[Length[NestWhileList[oddPhi[#] \u0026, n, # \u003e 1 \u0026]] - 1, {n, 100}] (* _T. D. Noe_, Oct 07 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a227944 n = fst $",
+				"            until ((== 1) . snd) (\\(i, x) -\u003e (i + 1, a053575 x)) (0, n)",
+				"-- _Reinhard Zumkeller_, Oct 09 2013"
+			],
+			"xref": [
+				"A variant of A049115: a(n) = A049115(n) unless n is a power of 2.",
+				"Cf. A003434, A227946."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,7",
+			"author": "_Max Alekseyev_, Oct 03 2013",
+			"references": 10,
+			"revision": 27,
+			"time": "2016-10-11T15:40:50-04:00",
+			"created": "2013-10-03T21:56:15-04:00"
+		}
+	]
+}

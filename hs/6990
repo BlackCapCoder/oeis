@@ -1,0 +1,350 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6990,
+	"results": [
+		{
+			"number": 261897,
+			"data": "1,1,1,0,2,1,0,2,3,1,0,2,5,4,1,0,0,7,9,5,1,0,0,7,16,14,6,1,0,0,7,23,30,20,7,1,0,0,7,30,53,50,27,8,1,0,0,7,37,83,103,77,35,9,1,0,0,0,44,120,186,180,112,44,10,1,0,0,0,44,164,306,366,292,156,54,11,1",
+			"name": "Triangle read by rows: T(n,k) (1 \u003c= k \u003c= n+1) = number of sequences of length n, dominated by the squares, with entries from [0,k] and largest entry k.",
+			"comment": [
+				"A242105 gives the first nonzero terms per row, without repetitions. - _Reinhard Zumkeller_, Sep 06 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261897/b261897.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"L. Haddad and C. Helou, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL18/Helou/helou7.html\"\u003eFinite Sequences Dominated by the Squares\u003c/a\u003e, Journal of Integer Sequences, Volume 18, 2015, Issue 1, Article 15.1.8."
+			],
+			"example": [
+				"Triangle begins:",
+				"1,",
+				"1,1,",
+				"0,2,1,",
+				"0,2,3,1,",
+				"0,2,5,4,1,",
+				"0,0,7,9,5,1,",
+				"0,0,7,16,14,6,1,",
+				"0,0,7,23,30,20,7,1,",
+				"0,0,7,30,53,50,27,8,1,",
+				"0,0,7,37,83,103,77,35,9,1,",
+				"0,0,0,44,120,186,180,112,44,10,1,",
+				"0,0,0,44,164,306,366,292,156,54,11,1,",
+				"..."
+			],
+			"program": [
+				"(Haskell)",
+				"a261897 n k = a261897_tabl !! n !! (k-1)",
+				"a261897_row n = a261897_tabl !! n",
+				"a261897_tabl = [1] : f 1 0 [1] where",
+				"   f t h xs | t \u003c= (h + 1) ^ 2  = ys : f (t + 1) h ys",
+				"            | otherwise         = ys' : f (t + 1) (h + 1) ys'",
+				"            where ys = zipWith (+) ([0] ++ xs) (xs ++ [0])",
+				"                  ys' = zipWith (+) ([0] ++ xs) (us ++ (0:vs) ++ [0])",
+				"                  (us, _:vs) = splitAt h xs",
+				"-- _Reinhard Zumkeller_, Sep 06 2015"
+			],
+			"xref": [
+				"Cf. A242105, A261930 (row sums)."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_, Sep 05 2015",
+			"references": 3,
+			"revision": 13,
+			"time": "2015-09-08T02:24:47-04:00",
+			"created": "2015-09-05T17:45:06-04:00"
+		},
+		{
+			"number": 261914,
+			"data": "0,0,1,2,3,4,5,6,7,8,9,9,11,11,11,11,11,11,11,11,11,11,11,22,22,22,22,22,22,22,22,22,22,22,33,33,33,33,33,33,33,33,33,33,33,44,44,44,44,44,44,44,44,44,44,44,55,55,55,55,55,55,55,55,55,55,55",
+			"name": "Largest palindrome \u003c n (or 0 if n=0).",
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A261914/b261914.txt\"\u003eTable of n, a(n) for n = 0..20000\u003c/a\u003e",
+				"\u003ca href=\"/index/Pac#palindromes\"\u003eIndex entries for sequences related to palindromes\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A261423(n-1) for all n\u003e0. - _M. F. Hasler_, Sep 11 2015"
+			],
+			"maple": [
+				"# Pal has list of palindromes; palfloor is A261423",
+				"palfloor:=proc(n) global Pal; local i;",
+				"for i from 1 to nops(Pal) do",
+				"   if Pal[i]=n then return(n); fi;",
+				"   if Pal[i]\u003en then return(Pal[i-1]); fi;",
+				"od:",
+				"end;",
+				"prevpal:=proc(n) global palfloor;",
+				"if n=0 then return(0);",
+				"elif member(n,Pal) then return(palfloor(n-1));",
+				"else return(palfloor(n)); fi; end;"
+			],
+			"program": [
+				"(Haskell)",
+				"a261914 n = a261914_list !! n",
+				"a261914_list = f 0 a002113_list where",
+				"   f n ps@(p:ps'@(p':_)) = p : f (n + 1) (if n \u003c p' then ps else ps')",
+				"-- _Reinhard Zumkeller_, Sep 16 2015"
+			],
+			"xref": [
+				"Similar to but of course different from A261423."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_, Sep 10 2015",
+			"references": 3,
+			"revision": 11,
+			"time": "2015-09-16T20:37:25-04:00",
+			"created": "2015-09-10T23:15:09-04:00"
+		},
+		{
+			"number": 261923,
+			"data": "0,1,2,1,2,2,3,1,2,2,2,3,3,3,3,1,2,2,2,3,2,2,3,3,3,3,3,3,3,3,3,1,2,2,2,3,2,2,3,3,2,2,2,3,2,3,3,3,3,3,3,3,2,3,3,3,3,3,3,3,3,3,3,1,2,2,2,3,2,2,3,3,2,2,2,4,3,2,3,3,2,2,2,4,2,2",
+			"name": "Number of steps to reach 0, starting at n, and iteration the map x -\u003e A261922(x).",
+			"comment": [
+				"a(A262279(n)) = n. - _Reinhard Zumkeller_, Sep 17 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A261923/b261923.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"13 -\u003e 4 -\u003e 3 -\u003e 0, which takes 3 steps to reach 0, so a(13)=3."
+			],
+			"program": [
+				"(Haskell)",
+				"a261923 n = fst $ until ((== 0) . snd)",
+				"                        (\\(step, x) -\u003e (step + 1, a261922 x)) (0, n)",
+				"-- _Reinhard Zumkeller_, Sep 17 2015"
+			],
+			"xref": [
+				"Cf. A261922, A261461.",
+				" Cf. A262279."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Sep 17 2015",
+			"references": 3,
+			"revision": 10,
+			"time": "2015-09-17T15:02:00-04:00",
+			"created": "2015-09-17T14:01:12-04:00"
+		},
+		{
+			"number": 262069,
+			"data": "0,1,2,3,4,5,6,7,8,9,11,22,33,44,55,55155,55455,55755,57075,57375,113311,148841,2796972,8372738,11166111,14033041,26233262,28933982,150050051,151141151,152070251,152232251,153161351,153323351,154252451,154414451,155343551,155505551",
+			"name": "Palindromes in base 10 that are also palindromes in base 60.",
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A262069/b262069.txt\"\u003eTable of n, a(n) for n = 1..82\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PalindromicNumber.html\"\u003ePalindromic Number\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Sexagesimal.html\"\u003eSexagesimal\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Palindromic_number\"\u003ePalindromic number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://www.wikipedia.org/wiki/Sexagesimal\"\u003eSexagesimal\u003c/a\u003e",
+				"\u003ca href=\"/index/Pac#palindromes\"\u003eIndex entries for sequences related to palindromes\u003c/a\u003e"
+			],
+			"example": [
+				"n = 22: 41*60^2 + 20*60^1 + 41*60^0 = A262065(2541) = A002113(1148) = 148841 = a(22);",
+				"n = 27: 2*60^4 + 1*60^3 + 27*60^2 + 1*60^1 + 2*60^0 = A262065(7348) = A002113(12623) = 26233262 = a(27)."
+			],
+			"mathematica": [
+				"palQ[n_Integer, base_Integer]:=Module[{idn=IntegerDigits[n, base]}, idn==Reverse[idn]]; Select[Range[10^6], palQ[#, 10]\u0026\u0026 palQ[#, 60] \u0026] (* _Vincenzo Librandi_, Sep 11 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"-- import Data.List.Ordered (isect)",
+				"a262069 n = a262069_list !! (n-1)",
+				"a262069_list = isect a002113_list a262065_list",
+				"(Python)",
+				"def palgen(l,b=10): # generator of palindromes in base b of length \u003c= 2*l",
+				"    if l \u003e 0:",
+				"        yield 0",
+				"        for x in range(1,l+1):",
+				"            n = b**(x-1)",
+				"            n2 = n*b",
+				"            for y in range(n,n2):",
+				"                k, m = y//b, 0",
+				"                while k \u003e= b:",
+				"                    k, r = divmod(k,b)",
+				"                    m = b*m + r",
+				"                yield y*n + b*m + k",
+				"            for y in range(n,n2):",
+				"                k, m = y, 0",
+				"                while k \u003e= b:",
+				"                    k, r = divmod(k,b)",
+				"                    m = b*m + r",
+				"                yield y*n2 + b*m + k",
+				"A262069_list = [n for n in palgen(5,60) if str(n) == str(n)[::-1]] # _Chai Wah Wu_, Sep 10 2015",
+				"(MAGMA) [n: n in [0..2*10^7] | Intseq(n, 60) eq Reverse(Intseq(n, 60)) and Intseq(n, 10) eq Reverse(Intseq(n, 10))]; // _Vincenzo Librandi_, Sep 11 2015",
+				"(PARI) ispal(v) = v == Vecrev(v);",
+				"isok(n) = ispal(digits(n)) \u0026\u0026 ispal(digits(n,60)); \\\\ _Michel Marcus_, Sep 11 2015"
+			],
+			"xref": [
+				"Intersection of A002113 and A262065."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Sep 10 2015",
+			"ext": [
+				"More terms from _Chai Wah Wu_, Sep 10 2015"
+			],
+			"references": 3,
+			"revision": 23,
+			"time": "2019-10-10T08:14:23-04:00",
+			"created": "2015-09-10T18:07:14-04:00"
+		},
+		{
+			"number": 262198,
+			"data": "100,200,300,400,500,600,700,800,900,1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1020,1021,1030,1031,1040,1041,1050,1051,1060,1061,1070,1071,1080,1081,1090,1091,1100,1200,1201,1231,1241,1251,1261,1271",
+			"name": "Numbers such that the number of distinct palindromes contained as substring in their decimal representation differs from the length thereof.",
+			"comment": [
+				"Or, numbers n such that A055642(n) != A262190(n).",
+				"a(22) = 1021 is the first term which differs from \"numbers having at least two digits 0 in their decimal representation\" (not in OEIS). It seems that A043490 is a subsequence. - _M. F. Hasler_, Jun 19 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A262198/b262198.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(39) = 1201, containing just 3 trivial palindromes 0, 1 and 2;",
+				"1202, also of length = 4, contains exactly 4 palindromes 0, 1, 2 and 202, therefore 1202 is not a term."
+			],
+			"program": [
+				"(Haskell)",
+				"a262198 n = a262198_list !! (n-1)",
+				"a262198_list = [x | x \u003c- [0..], a055642 x /= a262190 x]",
+				"(PARI) is(n)=#digits(n)!=A262190(n) \\\\ _M. F. Hasler_, Jun 19 2018"
+			],
+			"xref": [
+				"Cf. A055642, A262190, A262188."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 14 2015",
+			"ext": [
+				"Definition clarified by _M. F. Hasler_, Jun 19 2018"
+			],
+			"references": 3,
+			"revision": 15,
+			"time": "2018-06-20T06:54:21-04:00",
+			"created": "2015-09-14T19:08:09-04:00"
+		},
+		{
+			"number": 262223,
+			"data": "0,2,4,6,8,10,12,14,16,18,11,22,14,16,18,20,22,24,26,28,22,23,44,26,28,30,32,34,36,38,33,34,35,66,38,40,42,44,46,48,44,45,46,47,88,50,52,54,56,58,55,56,57,58,59,110,62,64,66,68,66,67,68,69,70,71",
+			"name": "a(n) = n + largest palindrome contained in decimal representation of n.",
+			"comment": [
+				"a(n) = n + A047813(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A262223/b262223.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a262223 n = n + a047813 n"
+			],
+			"xref": [
+				"Cf. A047813, A262224 (iteration, start = 1)."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Sep 15 2015",
+			"references": 3,
+			"revision": 5,
+			"time": "2015-09-15T20:08:32-04:00",
+			"created": "2015-09-15T20:08:32-04:00"
+		},
+		{
+			"number": 262255,
+			"data": "1,5,10,16,20,24,28,32,36,2,3,4,9,15,21,23,29,31,37,6,8,7,11,17,19,25,27,33,35,12,14,18,13,41,46,39,48,50,52,42,22,26,40,43,44,56,64,54,66,45,30,34,47,55,59,58,60,62,80,57,38,70,49,65,61,69,68",
+			"name": "Inverse permutation to A262323.",
+			"link": [
+				"Paul Tek, \u003ca href=\"/A262255/b262255.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a262255 = (+ 1) . fromJust . (`elemIndex` a262323_list)",
+				"-- _Reinhard Zumkeller_, Sep 21 2015"
+			],
+			"xref": [
+				"Cf. A262323.",
+				"Cf. A262367 (fixed points)."
+			],
+			"keyword": "nonn,look,base",
+			"offset": "1,2",
+			"author": "_Paul Tek_, Sep 19 2015",
+			"references": 3,
+			"revision": 28,
+			"time": "2015-09-21T13:27:12-04:00",
+			"created": "2015-09-20T03:01:07-04:00"
+		},
+		{
+			"number": 262279,
+			"data": "0,1,2,6,75",
+			"name": "Smallest m such that A261923(m) = n.",
+			"comment": [
+				"A261923(n) != 5 for n \u003c= 10^5."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a262279 = fromJust . (`elemIndex` a261923_list)"
+			],
+			"xref": [
+				"Cf. A261923."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Sep 17 2015",
+			"references": 3,
+			"revision": 5,
+			"time": "2015-09-17T16:02:46-04:00",
+			"created": "2015-09-17T15:19:49-04:00"
+		},
+		{
+			"number": 262360,
+			"data": "1,2,3,4,5,6,7,8,9,10,11,12,42,4410,3060996",
+			"name": "Fixed points of A262356 and of A262358.",
+			"comment": [
+				"A261466(a(n)) = a(n)."
+			],
+			"link": [
+				"\u003ca href=\"/A262360/b262360.txt\"\u003eTable of n, a(n) for n = 1..15\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a262360 n = a262360_list !! (n-1)",
+				"a262360_list = [x | x \u003c- [1..], a262356 x == x]"
+			],
+			"xref": [
+				"Cf. A262356, A262358."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 19 2015",
+			"ext": [
+				"a(15) from _Alois P. Heinz_, Sep 20 2015"
+			],
+			"references": 3,
+			"revision": 12,
+			"time": "2015-09-21T11:49:39-04:00",
+			"created": "2015-09-19T15:39:04-04:00"
+		},
+		{
+			"number": 262367,
+			"data": "1,27,86,111,272,547,608,687,808,929,3890,5557,7180,21659,21663,60486",
+			"name": "Fixed points of permutations A262323 and A262255.",
+			"program": [
+				"(Haskell)",
+				"a262367 n = a262367_list !! (n-1)",
+				"a262367_list = [x | x \u003c- [1..], a262323 x == x]"
+			],
+			"xref": [
+				"Cf. A262255, A262323."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 21 2015",
+			"references": 3,
+			"revision": 34,
+			"time": "2015-09-21T13:27:32-04:00",
+			"created": "2015-09-21T13:27:32-04:00"
+		}
+	]
+}

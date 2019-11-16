@@ -1,0 +1,407 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2970,
+	"results": [
+		{
+			"number": 50361,
+			"data": "1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,3,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1,4,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,2,1,1,1,1,1,1,1,3,1,1,1",
+			"name": "Number of factorizations into distinct prime powers greater than 1.",
+			"comment": [
+				"a(n) depends only on prime signature of n (cf. A025487). So a(24) = a(375) since 24 = 2^3*3 and 375 = 3*5^3 both have prime signature (3,1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050361/b050361.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Dirichlet g.f.: Product_{n is a prime power \u003e1}(1 + 1/n^s).",
+				"Multiplicative with a(p^e) = A000009(e).",
+				"a(A002110(k))=1.",
+				"a(n) = A050362(A101296(n)). - _R. J. Mathar_, May 26 2017"
+			],
+			"maple": [
+				"A050361 := proc(n)",
+				"    local a,f;",
+				"    if n = 1 then",
+				"        1;",
+				"    else",
+				"        a := 1 ;",
+				"        for f in ifactors(n)[2] do",
+				"            a := a*A000009(op(2,f)) ;",
+				"        end do:",
+				"    end if;",
+				"end proc: # _R. J. Mathar_, May 25 2017"
+			],
+			"mathematica": [
+				"Table[Times @@ PartitionsQ[Last /@ FactorInteger[n]], {n, 99}] (* _Arkadiusz Wesolowski_, Feb 27 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a050361 = product . map a000009 . a124010_row",
+				"-- _Reinhard Zumkeller_, Aug 28 2014"
+			],
+			"xref": [
+				"Cf. A000961, A050360-A050364.",
+				"Cf. A124010, A000688."
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,8",
+			"author": "_Christian G. Bower_, Oct 15 1999",
+			"references": 10,
+			"revision": 17,
+			"time": "2017-05-26T04:59:37-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 50536,
+			"data": "8,36,666,222111,24666759216,304224505122393846936,46276274758482720006792605816457695217516,1070746802761292462947634762387664148872006333922794021004562705432032738124213886",
+			"name": "Iterated triangular numbers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050536/b050536.txt\"\u003eTable of n, a(n) for n = 0..10\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = binomial(a(n-1)+1, 2), a(0)=8.",
+				"a(n) ~ 2 * c^(2^n), where c = 4.2726038862497240421168669075178596377687659229240586312... . - _Vaclav Kotesovec_, Dec 17 2014"
+			],
+			"mathematica": [
+				"NestList[Binomial[#+1,2]\u0026,8,7] (* _Harvey P. Dale_, Jan 22 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a050536 n = a050536_list !! n",
+				"a050536_list = iterate a000217 8  -- _Reinhard Zumkeller_, Apr 10 2014",
+				"(PARI) a(n)=if(n==0,8,(a(n-1))*(a(n-1)+1)/2) \\\\ _Edward Jiang_, Sep 07 2014"
+			],
+			"xref": [
+				"Cf. A000217.",
+				"Cf. A007501, A013589, A050542, A050548, A050909."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "0,1",
+			"author": "Klaus Strassburger (strass(AT)ddfi.uni-duesseldorf.de), Dec 29 1999",
+			"ext": [
+				"One more term (a(7)) from _Harvey P. Dale_, Jan 22 2016"
+			],
+			"references": 10,
+			"revision": 14,
+			"time": "2016-01-22T16:33:01-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 50909,
+			"data": "9,45,1035,536130,143717956515,10327425512495574450870,53327858858072239299138189326373798809103885",
+			"name": "Iterated triangular numbers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050909/b050909.txt\"\u003eTable of n, a(n) for n = 0..10\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = binomial(a(n-1)+1, 2), a(0)=9.",
+				"a(n) ~ 2 * c^(2^n), where c = 4.770128350983276481977311510917830191429308415174884373259... . - _Vaclav Kotesovec_, Dec 17 2014"
+			],
+			"mathematica": [
+				"NestList[Binomial[#+1,2]\u0026,9,10] (* _Harvey P. Dale_, Oct 12 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a050909 n = a050909_list !! n",
+				"a050909_list = iterate a000217 9  -- _Reinhard Zumkeller_, Apr 10 2014",
+				"(PARI) a(n)=if(n, binomial(a(n-1)+1,2), 9) \\\\ _Charles R Greathouse IV_, Feb 07 2017"
+			],
+			"xref": [
+				"Cf. A000217, A007501, A013589, A050542, A050536, A050548."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "0,1",
+			"author": "Klaus Strassburger (strass(AT)ddfi.uni-duesseldorf.de), Dec 29 1999",
+			"references": 10,
+			"revision": 13,
+			"time": "2017-02-07T22:51:58-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 50925,
+			"data": "1,-1,1,0,-1,0,1,0,-3,0,5,0,-691,0,35,0,-3617,0,43867,0,-1222277,0,854513,0,-1181820455,0,76977927,0,-23749461029,0,8615841276005,0,-84802531453387,0,90219075042845,0,-26315271553053477373,0,38089920879940267,0",
+			"name": "Numerator of (n+1)*Bernoulli(n).",
+			"comment": [
+				"The denominators are in A050932. The e.g.f. for (n+1)*Bernoulli(n), n \u003e= 0, is (d/dx)(x^2/(exp(x)-1)) = x*(2*(exp(x)-1)- x*exp(x))/(exp(x)-1)^2. - _Wolfdieter Lang_, Jul 15 2013",
+				"It can be observed that the rational sequence [0, 1, 1, 1/2, 0, -1/6, 0, 1/6, 0, -3/10, 0, 5/6, ...], derived from a(n)/A050932(n), is an autosequence of the first kind. - _Jean-François Alcover_, Jul 21 2017"
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A050925/b050925.txt\"\u003eTable of n, a(n) for n = 0..200\u003c/a\u003e",
+				"M. Kaneko, \u003ca href=\"https://doi.org/10.3792/pjaa.71.192\"\u003eA recurrence formula for the Bernoulli numbers\u003c/a\u003e, Proc. Japan Acad., 71 A (1995), 192-193.",
+				"OEIS Wiki, \u003ca href=\"https://oeis.org/wiki/Autosequence\"\u003eAutosequence\u003c/a\u003e",
+				"S. C. Woon, \u003ca href=\"http://www.jstor.org/stable/2691054\"\u003eA tree for generating Bernoulli numbers\u003c/a\u003e, Math. Mag., 70 (1997), 51-56.",
+				"\u003ca href=\"/index/Be#Bernoulli\"\u003eIndex entries for sequences related to Bernoulli numbers.\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Numerator[Table[(n+1)BernoulliB[n],{n,0,40}]] (* _Harvey P. Dale_, May 13 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a050925 n = a050925_list !! n",
+				"a050925_list = 1 : -1 : (tail $ map (numerator . sum) $",
+				"   zipWith (zipWith (%))",
+				"   (zipWith (map . (*)) (drop 2 a000142_list) a242179_tabf) a106831_tabf)",
+				"-- _Reinhard Zumkeller_, Jul 04 2014",
+				"(PARI) a(n)=numerator(bernfrac(n)*(n+1)) \\\\ _Charles R Greathouse IV_, Feb 07 2017"
+			],
+			"xref": [
+				"Cf. A050932, A000367/A002445, A002882, A003245, A127187, A127188, A242179, A106831, A000142."
+			],
+			"keyword": "sign,easy,frac,nice",
+			"offset": "0,9",
+			"author": "_N. J. A. Sloane_, Dec 30 1999",
+			"references": 10,
+			"revision": 27,
+			"time": "2018-01-08T21:02:04-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 50932,
+			"data": "1,1,2,1,6,1,6,1,10,1,6,1,210,1,2,1,30,1,42,1,110,1,6,1,546,1,2,1,30,1,462,1,170,1,6,1,51870,1,2,1,330,1,42,1,46,1,6,1,6630,1,22,1,30,1,798,1,290,1,6,1,930930,1,2,1,102,1,966,1,10,1,66,1,1919190",
+			"name": "Denominator of (n+1)*Bernoulli(n).",
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A050932/b050932.txt\"\u003eTable of n, a(n) for n = 0..20000\u003c/a\u003e (terms 0..200 from N. J. A. Sloane)",
+				"M. Kaneko, \u003ca href=\"https://doi.org/10.3792/pjaa.71.192\"\u003eA recurrence formula for the Bernoulli numbers\u003c/a\u003e, Proc. Japan Acad., 71 A (1995), 192-193.",
+				"S. C. Woon, \u003ca href=\"http://www.jstor.org/stable/2691054\"\u003eA tree for generating Bernoulli numbers\u003c/a\u003e, Math. Mag., 70 (1997), 51-56.",
+				"\u003ca href=\"/index/Be#Bernoulli\"\u003eIndex entries for sequences related to Bernoulli numbers.\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Denominator/@Table[(n+1)BernoulliB[n],{n,0,80}] (* _Harvey P. Dale_, May 19 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a050932 n = a050932_list !! n",
+				"a050932_list = 1 : map (denominator . sum) (zipWith (zipWith (%))",
+				"   (zipWith (map . (*)) (drop 2 a000142_list) a242179_tabf) a106831_tabf)",
+				"-- _Reinhard Zumkeller_, Jul 04 2014",
+				"(PARI) a(n)=denominator(bernfrac(n)*(n+1)) \\\\ _Charles R Greathouse IV_, Feb 07 2017"
+			],
+			"xref": [
+				"Cf. A050925, A000367/A002445, A027641/A027642, A002882, A003245, A127187, A127188, A242179, A106831, A000142."
+			],
+			"keyword": "nonn,frac,nice,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Dec 30 1999",
+			"references": 10,
+			"revision": 21,
+			"time": "2018-10-01T06:56:51-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 51338,
+			"data": "1,-6,1,42,-13,1,-336,146,-21,1,3024,-1650,335,-30,1,-30240,19524,-5000,635,-40,1,332640,-245004,74524,-11985,1075,-51,1,-3991680,3272688,-1139292,218344,-24885,1687,-63,1,51891840,-46536624,18083484,-3977764,541849,-46816,2506,-76,1",
+			"name": "Generalized Stirling number triangle of first kind.",
+			"comment": [
+				"a(n,m)= ^6P_n^m in the notation of the given reference with a(0,0) := 1. The monic row polynomials s(n,x) := sum(a(n,m)*x^m,m=0..n) which are s(n,x)= product(x-(6+k),k=0..n-1), n \u003e= 1 and s(0,x)=1 satisfy s(n,x+y) = sum(binomial(n,k)*s(k,x)*S1(n-k,y),k=0..n), with the Stirling1 polynomials S1(n,x)=sum(A008275(n,m)*x^m, m=1..n) and S1(0,x)=1. In the umbral calculus (see the S. Roman reference given in A048854) the s(n,x) polynomials are called Sheffer for (exp(6*t),exp(t)-1)."
+			],
+			"reference": [
+				"Mitrinovic, D. S.; Mitrinovic, R. S.; Tableaux d'une classe de nombres relies aux nombres de Stirling. Univ. Beograd. Pubi. Elektrotehn. Fak. Ser. Mat. Fiz. No. 77 1962, 77 pp."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051338/b051338.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n, m)= a(n-1, m-1) - (n+5)*a(n-1, m), n \u003e= m \u003e= 0; a(n, m) := 0, n\u003cm; a(n, -1) := 0, a(0, 0)=1.",
+				"E.g.f. for m-th column of signed triangle: ((log(1+x))^m)/(m!*(1+x)^6).",
+				"Triangle (signed) = [ -6, -1, -7, -2, -8, -3, -9, -4, -10, ...] DELTA A000035; triangle (unsigned) = [6, 1, 7, 2, 8, 3, 9, 4, 10, 5, 11, ...] DELTA A000035; where DELTA is Deléham's operator defined in A084938.",
+				"If we define f(n,i,a)=sum(binomial(n,k)*stirling1(n-k,i)*product(-a-j,j=0..k-1),k=0..n-i), then T(n,i) = f(n,i,6), for n=1,2,...;i=0...n. - _Milan Janjic_, Dec 21 2008"
+			],
+			"example": [
+				"{1}; {-6,1}; {42,-13,1}; {-336,146,-21,1}; ... s(2,x)= 42-13*x+x^2; S1(2,x)= -x+x^2 (Stirling1)."
+			],
+			"mathematica": [
+				"t[n_, i_] = Sum[(-1)^k*Binomial[n, k]*Pochhammer[6, k]*StirlingS1[n - k, i], {k, 0, n - i}]; Flatten[Table[t[n, i], {n, 0, 8}, {i, 0, n}]][[1 ;; 45]] (* _Jean-François Alcover_, Jun 01 2011, after _Milan Janjic_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a051338 n k = a051338_tabl !! n !! k",
+				"a051338_row n = a051338_tabl !! n",
+				"a051338_tabl = map fst $ iterate (\\(row, i) -\u003e",
+				"   (zipWith (-) ([0] ++ row) $ map (* i) (row ++ [0]), i + 1)) ([1], 6)",
+				"-- _Reinhard Zumkeller_, Mar 11 2014"
+			],
+			"xref": [
+				"Unsigned m=0 column sequence is: A001725. Row sums (signed triangle): A001720(n+4)*(-1)^n. Row sums (unsigned triangle): A001730(n+6).",
+				"Cf. A000035 A084938."
+			],
+			"keyword": "sign,easy,tabl",
+			"offset": "0,2",
+			"author": "_Wolfdieter Lang_",
+			"references": 10,
+			"revision": 23,
+			"time": "2014-03-12T06:29:40-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51339,
+			"data": "1,-7,1,56,-15,1,-504,191,-24,1,5040,-2414,431,-34,1,-55440,31594,-7155,805,-45,1,665280,-434568,117454,-16815,1345,-57,1,-8648640,6314664,-1961470,336049,-34300,2086,-70,1,121080960,-97053936,33775244,-6666156,816249,-63504,3066,-84,1",
+			"name": "Generalized Stirling number triangle of first kind.",
+			"comment": [
+				"a(n,m)= ^7P_n^m in the notation of the given reference with a(0,0) := 1. The monic row polynomials s(n,x) := sum(a(n,m)*x^m,m=0..n) which are s(n,x)= product(x-(7+k),k=0..n-1), n \u003e= 1 and s(0,x)=1 satisfy s(n,x+y) = sum(binomial(n,k)*s(k,x)*S1(n-k,y),k=0..n), with the Stirling1 polynomials S1(n,x)=sum(A008275(n,m)*x^m, m=1..n) and S1(0,x)=1. In the umbral calculus (see the S. Roman reference given in A048854) the s(n,x) polynomials are called Sheffer for (exp(7*t),exp(t)-1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051339/b051339.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"D. S. Mitrinovic, M. S. Mitrinovic, \u003ca href=\"http://pefmath2.etf.rs/files/47/77.pdf\"\u003eTableaux d'une classe de nombres reliés aux nombres de Stirling\u003c/a\u003e, Univ. Beograd. Pubi. Elektrotehn. Fak. Ser. Mat. Fiz. 77 (1962)."
+			],
+			"formula": [
+				"a(n, m)= a(n-1, m-1) - (n+6)*a(n-1, m), n \u003e= m \u003e= 0; a(n, m) := 0, n\u003cm; a(n, -1) := 0, a(0, 0)=1.",
+				"E.g.f. for m-th column of signed triangle: ((log(1+x))^m)/(m!*(1+x)^7).",
+				"Triangle (signed) = [ -7, -1, -8, -2, -9, -3, -10, -4, -11, -5, ...] DELTA A000035; triangle (unsigned) = [7, 1, 8, 2, 9, 3, 10, 4, ...] DELTA A000035; where DELTA is Deléham's operator defined in A084938.",
+				"If we define f(n,i,a)=sum(binomial(n,k)*stirling1(n-k,i)*product(-a-j,j=0..k-1),k=0..n-i), then T(n,i) = f(n,i,7), for n=1,2,...;i=0...n. [From _Milan Janjic_, Dec 21 2008]"
+			],
+			"example": [
+				"{1}; {-7,1}; {56,-15,1}; {-504,191,-24,1}; ... s(2,x)= 56-15*x+x^2; S1(2,x)= -x+x^2 (Stirling1)."
+			],
+			"mathematica": [
+				"a[n_, m_] := Pochhammer[m + 1, n - m] SeriesCoefficient[Log[1 + x]^m/(1 + x)^7, {x, 0, n}];",
+				"Table[a[n, m], {n, 0, 8}, {m, 0, n}] // Flatten (* _Jean-François Alcover_, Oct 29 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a051339 n k = a051339_tabl !! n !! k",
+				"a051339_row n = a051339_tabl !! n",
+				"a051339_tabl = map fst $ iterate (\\(row, i) -\u003e",
+				"   (zipWith (-) ([0] ++ row) $ map (* i) (row ++ [0]), i + 1)) ([1], 7)",
+				"-- _Reinhard Zumkeller_, Mar 11 2014"
+			],
+			"xref": [
+				"The first (m=0) column sequence is A001730. Row sums (signed triangle): A001725(n+5)*(-1)^n. Row sums (unsigned triangle): A049388(n).",
+				"Cf. A000035 A084938."
+			],
+			"keyword": "sign,easy,tabl",
+			"offset": "0,2",
+			"author": "_Wolfdieter Lang_",
+			"references": 10,
+			"revision": 20,
+			"time": "2019-10-29T09:06:29-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51379,
+			"data": "1,-8,1,72,-17,1,-720,242,-27,1,7920,-3382,539,-38,1,-95040,48504,-9850,995,-50,1,1235520,-725592,176554,-22785,1645,-63,1,-17297280,11393808,-3197348,495544,-45815,2527,-77,1,259459200,-188204400,59354028,-10630508,1182769,-83720,3682,-92,1",
+			"name": "Generalized Stirling number triangle of first kind.",
+			"comment": [
+				"a(n,m)= ^8P_n^m in the notation of the given reference with a(0,0) := 1. The monic row polynomials s(n,x) := sum(a(n,m)*x^m,m=0..n) which are s(n,x)= product(x-(8+k),k=0..n-1), n \u003e= 1 and s(0,x)=1 satisfy s(n,x+y) = sum(binomial(n,k)*s(k,x)*S1(n-k,y),k=0..n), with the Stirling1 polynomials S1(n,x)=sum(A008275(n,m)*x^m, m=1..n) and S1(0,x)=1. In the umbral calculus (see the S. Roman reference given in A048854) the s(n,x) polynomials are called Sheffer for (exp(8*t),exp(t)-1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051379/b051379.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"D. S. Mitrinovic, M. S. Mitrinovic, \u003ca href=\"http://pefmath2.etf.rs/files/47/77.pdf\"\u003eTableaux d'une classe de nombres reliés aux nombres de Stirling\u003c/a\u003e, Univ. Beograd. Pubi. Elektrotehn. Fak. Ser. Mat. Fiz. 77 (1962)."
+			],
+			"formula": [
+				"a(n, m)= a(n-1, m-1) - (n+7)*a(n-1, m), n \u003e= m \u003e= 0; a(n, m) := 0, n\u003cm; a(n, -1) := 0, a(0, 0)=1.",
+				"E.g.f. for m-th column of signed triangle: ((log(1+x))^m)/(m!*(1+x)^8).",
+				"Triangle (signed) = [ -8, -1, -9, -2, -10, -3, -11, -4, -12, ...] DELTA A000035; triangle (unsigned) = [8, 1, 9, 2, 10, 3, 11, 4, 12, 5, ...] DELTA A000035; where DELTA is Deléham's operator defined in A084938.",
+				"If we define f(n,i,a)=sum(binomial(n,k)*stirling1(n-k,i)*product(-a-j,j=0..k-1),k=0..n-i), then T(n,i) = f(n,i,8), for n=1,2,...;i=0...n. - _Milan Janjic_, Dec 21 2008"
+			],
+			"example": [
+				"{1}; {-8,1}; {72,-17,1}; {-720,242,-27,1}; ... s(2,x)=72-17*x+x^2; S1(2,x)= -x+x^2 (Stirling1)."
+			],
+			"mathematica": [
+				"a[n_, m_] := Pochhammer[m + 1, n - m] SeriesCoefficient[Log[1 + x]^m/(1 + x)^8, {x, 0, n}];",
+				"Table[a[n, m], {n, 0, 8}, {m, 0, n}] // Flatten (* _Jean-François Alcover_, Oct 29 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a051379 n k = a051379_tabl !! n !! k",
+				"a051379_row n = a051379_tabl !! n",
+				"a051379_tabl = map fst $ iterate (\\(row, i) -\u003e",
+				"   (zipWith (-) ([0] ++ row) $ map (* i) (row ++ [0]), i + 1)) ([1], 8)",
+				"-- _Reinhard Zumkeller_, Mar 12 2014"
+			],
+			"xref": [
+				"The first (m=0) column sequence is: A049388. Row sums (signed triangle): A001730(n+6)*(-1)^n. Row sums (unsigned triangle): A049389(n).",
+				"Cf. A000035 A084938."
+			],
+			"keyword": "sign,easy,tabl",
+			"offset": "0,2",
+			"author": "_Wolfdieter Lang_",
+			"ext": [
+				"Typo fixed in data by _Reinhard Zumkeller_, Mar 12 2014"
+			],
+			"references": 10,
+			"revision": 20,
+			"time": "2019-10-29T09:06:37-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 53230,
+			"data": "1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,2,2,2,2,2,2,2,1,1,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,2,2,2,2,4,2,2,2,2,2,2,2,1,1,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,4,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2",
+			"name": "First differences between n for which sigma(n) \u003c sigma(n+1).",
+			"comment": [
+				"It seems that the expansion consists of only {1,2,3,4}.",
+				"The first exception is a(10010491) = 6, corresponding to the gap from 20021153 to 20021159. - _Charles R Greathouse IV_, Mar 09 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053230/b053230.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A053224(n+1) - A053224(n)."
+			],
+			"maple": [
+				"with(numtheory): f := [seq( `if`((sigma(i+1) \u003e sigma(i)),i,print( )), i=1..5000)];",
+				"seq( f[i+1] - f[i], i=1..2000);"
+			],
+			"mathematica": [
+				"Differences[Select[Range[250],DivisorSigma[1,#]\u003cDivisorSigma[ 1,#+1]\u0026]] (* _Harvey P. Dale_, Apr 30 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a053230 n = a053230_list !! (n-1)",
+				"a053230_list = zipWith (-) (tail a053224_list) a053224_list",
+				"-- _Reinhard Zumkeller_, May 07 2012",
+				"(PARI) last=ls=1; for(n=2,200,ns=sigma(n+1); if(ls\u003e=ns,ls=ns; next); ls=ns; print1(n-last\", \");last=n) \\\\ _Charles R Greathouse IV_, Mar 09 2014"
+			],
+			"xref": [
+				"Cf. A000203, A053224, A053231, A053232, A053233, A053234, A053235, A053236, A053237, A053238."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,3",
+			"author": "Asher Auel (asher.auel(AT)reed.edu), Jan 10 2000",
+			"references": 10,
+			"revision": 15,
+			"time": "2014-03-09T13:00:07-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53238,
+			"data": "2,2,2,2,4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,4,2,2,2,2,4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,1,1,2,2,2,2,2,2,2,4,2,2,2,2,4,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,4,2,2,2,2,4,2,2,2,2,2,2",
+			"name": "First differences between n for which sigma(n) \u003e sigma(n+1).",
+			"comment": [
+				"It seems that the expansion consists of only {1,2,3,4}.",
+				"The first exception is a(18360922) = 6, corresponding to the gap from 36721680 to 36721686. - _Charles R Greathouse IV_, Mar 09 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053238/b053238.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A053226(n+1) - A053226(n)."
+			],
+			"maple": [
+				"with(numtheory): f := [seq( `if`((sigma(i) \u003e sigma(i+1)),i,print( )), i=1..5000)];",
+				"seq( f[i+1] - f[i], i=1..2000);"
+			],
+			"mathematica": [
+				"Differences[Select[Range[250],DivisorSigma[1,#]\u003eDivisorSigma [1,#+1]\u0026]]  (* _Harvey P. Dale_, Apr 22 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a053238 n = a053238_list !! (n-1)",
+				"a053238_list = zipWith (-) (tail a053226_list) a053226_list",
+				"-- _Reinhard Zumkeller_, Oct 16 2011",
+				"(PARI) last=ls=1; for(n=2,200,ns=sigma(n+1); if(ls\u003c=ns,ls=ns; next); ls=ns; print1(n-last\", \");last=n) \\\\ _Charles R Greathouse IV_, Mar 09 2014"
+			],
+			"xref": [
+				"Cf. A000203, A053226, A053230, A053239, A053240, A053241, A053242, A053243, A053244, A053245."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "Asher Auel (asher.auel(AT)reed.edu), Jan 10 2000",
+			"references": 10,
+			"revision": 16,
+			"time": "2014-03-09T12:59:49-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		}
+	]
+}

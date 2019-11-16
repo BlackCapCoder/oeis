@@ -1,0 +1,332 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7860,
+	"results": [
+		{
+			"number": 15632,
+			"data": "1,2,4,6,12,14,26,33,46,52,84,91,137,152,174,199,279,295,397,425,475,513,663,692,819,876,986,1044,1286,1315,1593,1700,1838,1939,2123,2186,2582,2711,2905,3008,3498,3564,4106,4272,4476,4666,5316,5433,5985",
+			"name": "Number of ordered triples of integers from [ 1,n ] with no common factors between pairs.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A015632/b015632.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ k * n^3 where k is 1/6 * A065473 = 0.04779.... [_Charles R Greathouse IV_, Nov 14 2011]"
+			],
+			"program": [
+				"(Haskell)",
+				"a015632 n = length [(x,y,z) | z \u003c- [1..n], y \u003c- [1..z], gcd y z == 1,",
+				"                              x \u003c- [1..y], gcd x z == 1, gcd x y == 1]",
+				"-- _Reinhard Zumkeller_, Nov 14 2011"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Olivier Gérard_",
+			"references": 1,
+			"revision": 15,
+			"time": "2013-07-13T12:01:49-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 15633,
+			"data": "0,2,5,14,21,41,59,89,117,171,209,286,347,432,516,651,744,914,1042,1219,1382,1634,1806,2091,2323,2629,2895,3300,3562,4026,4386,4843,5249,5802,6204,6869,7380,8025,8569,9388,9928,10830,11516,12347,13104",
+			"name": "Number of ordered triples of integers from [ 2,n ] with no global factor.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A015633/b015633.txt\"\u003eTable of n, a(n) for n = 2..250\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a015633 n = length [(x,y,z) | x \u003c- [2..n], y \u003c- [x..n], z \u003c- [y..n],",
+				"                              gcd (gcd x y) z == 1]",
+				"-- _Reinhard Zumkeller_, Nov 28 2011"
+			],
+			"keyword": "nonn",
+			"offset": "2,2",
+			"author": "_Olivier Gérard_",
+			"references": 1,
+			"revision": 11,
+			"time": "2013-07-13T12:01:49-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 19302,
+			"data": "0,1,3,6,11,20,36,64,115,216,430,892,1872,3888,7920,15840,31315,61744,122418,245348,497650,1019032,2096680,4312224,8826320,17925376,36070128,71915616,142239056,279671360,548106816,1073741824,2108053075",
+			"name": "Binomial transform of Thue-Morse sequence A010060.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A019302/b019302.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum(A010060(k) * A007318(n,k) : 0 \u003c= k \u003c= n). - _Reinhard Zumkeller_, May 07 2014",
+				"G.f.: (1/2)*(1/(1 - 2*x) - (1/(1 - x))*Product_{k\u003e=0} (1 - x^(2^k)/(1 - x)^(2^k))). - _Ilya Gutkovskiy_, Aug 20 2018"
+			],
+			"mathematica": [
+				"tm[0] = 0; tm[n_?EvenQ] := tm[n] = tm[n/2]; tm[n_] := tm[n] = 1-tm[(n-1)/2]; a[n_] := Sum[tm[k]*Binomial[n, k], {k, 0, n}]; Table[a[n], {n, 0, 40}] (* _Jean-François Alcover_, Jun 30 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a019302 = sum . zipWith (*) a010060_list . a007318_row",
+				"-- _Reinhard Zumkeller_, May 07 2014"
+			],
+			"xref": [
+				"Cf. A007318, A010060."
+			],
+			"keyword": "nonn,nice",
+			"offset": "0,3",
+			"author": "_Jonas Wallgren_",
+			"ext": [
+				"More terms from _Carl Najafi_, Sep 08 2011"
+			],
+			"references": 1,
+			"revision": 21,
+			"time": "2018-08-20T13:30:29-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 19312,
+			"data": "0,2,3,7,9,15,17,21,30,40,44,50,52,66,81,89,93,111,113,124,144,166,170,182,198,224,251,279,285,301,303,319,352,386,418,442,448,486,503,525,529,571,573,617,660,706,710,734,758,808,833,885,891,940",
+			"name": "Taxman sequence: define T(S) by max{x+T(S \\ {c : c|x})}, where the max is over all x in S for which S also contains a proper divisor of x; if no such x exists, T(S)=0; set T(n)=T({1,...,n}).",
+			"comment": [
+				"In Germany this is called the Number Shark (Zahlenhai) sequence: see the CrypTool link.",
+				"This sequence is associated with the taxman game. The open source cryptography e-learning program JCrypTool (JCT) includes a tutorial and a discussion about strategies for the taxman game, and about how the numbers through 519 were found with a mixture of heuristic and optimal algorithms (van Nek). At least through 359 we could prove they are optimal. - _Bernhard Esslinger_, Mar 17 2015 and Sep 17 2019"
+			],
+			"link": [
+				"Dan Hoey, Timothy Loh, Bernhard Esslinger, and van Nek, \u003ca href=\"/A019312/b019312.txt\"\u003eTable of n, a(n) for n = 1..519\u003c/a\u003e (Terms 1 through 158 were computed by DH; terms 159 through 227 by TL; terms through 404 by BE; terms through 519 by VN.)",
+				"Bernhard Esslinger, \u003ca href=\"http://www.cryptool.org\"\u003eCrypTool\u003c/a\u003e",
+				"Dan Hoey, \u003ca href=\"/A019312/a019312.txt\"\u003eNotes on A019312\u003c/a\u003e",
+				"Robert K. Moniot, \u003ca href=\"http://dsm.dsm.fordham.edu/~moniot/taxman-game.pdf\"\u003eThe Taxman Game\u003c/a\u003e",
+				"Brandee Wilson, \u003ca href=\"http://scimath.unl.edu/MIM/files/MATExamFiles/Wilson_FINAL.pdf\"\u003eThe Taxman Game\u003c/a\u003e"
+			],
+			"formula": [
+				"When you take a number from S, you must give all its proper divisors to the tax man and there must be at least one to give; T(S) is the maximum total income."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), intersect)",
+				"a019312 = t . enumFromTo 1 where",
+				"   t xs = foldl max 0 [z + t (xs \\\\ ds) | z \u003c- xs,",
+				"             let ds = a027750_row z, not $ null $ intersect xs $ init ds]",
+				"-- _Reinhard Zumkeller_, Apr 05 2015"
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_Dan Hoey_",
+			"ext": [
+				"Extended by _Timothy Loh_, Aug 12 2012"
+			],
+			"references": 1,
+			"revision": 50,
+			"time": "2019-09-18T05:28:52-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 20990,
+			"data": "1,0,1,2,3,2,1,0,1,0,1,2,1,2,3,4,5,4,5,6,7,6,5,4,3,4,3,2,3,2,1,0,1,0,1,2,3,2,1,0,1,0,1,2,1,2,3,4,3,4,3,2,1,2,3,4,5,4,5,6,5,6,7,8,9,8,9,10,11,10,9,8,9,8,9,10,9,10,11",
+			"name": "a(n) = Sum_{k=0..n} (-1)^k*A020985(k).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A020990/b020990.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"John Brillhart, Patrick Morton, \u003ca href=\"http://projecteuclid.org/euclid.ijm/1256048841\"\u003eÜber Summen von Rudin-Shapiroschen Koeffizienten\u003c/a\u003e, (German) Illinois J. Math. 22 (1978), no. 1, 126--148. MR0476686 (57 #16245). - _N. J. A. Sloane_, Jun 06 2012",
+				"J. Brillhart and P. Morton, \u003ca href=\"http://www.maa.org/programs/maa-awards/writing-awards/a-case-study-in-mathematical-research-the-golay-rudin-shapiro-sequence\"\u003eA case study in mathematical research: the Golay-Rudin-Shapiro sequence\u003c/a\u003e, Amer. Math. Monthly, 103 (1996) 854-869."
+			],
+			"formula": [
+				"Brillhart and Morton (1978) list many properties."
+			],
+			"program": [
+				"(Haskell)",
+				"a020990 n = a020990_list !! n",
+				"a020990_list = scanl1 (+) $ zipWith (*) a033999_list a020985_list",
+				"-- _Reinhard Zumkeller_, Jun 06 2012",
+				"(PARI) a(n) = sum(k=0, n, (-1)^(k+hammingweight(bitand(k, k\u003e\u003e1)))); \\\\ _Michel Marcus_, Oct 07 2017"
+			],
+			"xref": [
+				"Cf. A033999."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Jun 06 2012"
+			],
+			"references": 1,
+			"revision": 19,
+			"time": "2017-10-07T07:07:34-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		},
+		{
+			"number": 27665,
+			"data": "0,30103,47712,60206,69897,77815,84510,90309,95424,100000,104139,107918,111394,114613,117609,120412,123045,125527,127875,130103,132222,134242,136173,138021,139794,141497,143136,144716,146240",
+			"name": "a(n)/100000 gives log_10(n) to 5 places.",
+			"comment": [
+				"A tribute to 5-place logarithm tables which served many generations of students and technical people. - _Michael Somos_, Sep 21 2002",
+				"a(10*n) = a(n) + 100000, virtually. - _Reinhard Zumkeller_, Nov 12 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A027665/b027665.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/CommonLogarithm.html\"\u003eCommon Logarithm\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Common_logarithm\"\u003eCommon logarithm\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Mathematical_table#Tables_of_logarithms\"\u003eTables of logarithms\u003c/a\u003e"
+			],
+			"maple": [
+				"lprint(round(evalf(100000*log(n)/log(10))));"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c1,0,round(10^5*log(n)/log(10)))",
+				"(Haskell)",
+				"a027665 n = round $ 100000 * log (fromInteger n) / (log 10)",
+				"-- _Reinhard Zumkeller_, Nov 12 2011"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 1,
+			"revision": 14,
+			"time": "2015-03-05T08:09:51-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 27990,
+			"data": "1,2,7,21,65,194,573,1668,4809,13745,39011,110052,308857,862886,2401195,6658509,18406373,50738918,139513269,382731240,1047768621,2862908777,7808872007,21265115976,57822787825,157010774474,425795804623",
+			"name": "Sum{T(n,k)*T(n,2n-k)}, 0\u003c=k\u003c=n, T given by A027926.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A027990/b027990.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_05\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (5,-5,-5,5,-1)."
+			],
+			"formula": [
+				"(1/5)[n*F(2n+2) - n*F(2n-2) + 4*F(2n+1) + (-1)^n], F(n)=A000045(n). - _Ralf Stephan_, May 13 2004",
+				"G.f. ( 1-3*x+2*x^2+x^3 ) / ( (1+x)*(x^2-3*x+1)^2 ). - _R. J. Mathar_, May 22 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a027990 n = a027990_list !! n",
+				"a027990_list = c [1] a000045_list where",
+				"   c us (v:vs) = (sum $ zipWith (*) us vs) : c (v:us) vs",
+				"-- _Reinhard Zumkeller_, Nov 01 2013"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Clark Kimberling_",
+			"references": 1,
+			"revision": 13,
+			"time": "2015-06-13T00:49:08-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 29854,
+			"data": "1,4,6,6,6,6,6,2,4,4,2,6,6,10,4,8,8,2,6,8,2,2,2,6,6,6,6,6,6,6,2,4,12,12,4,4,10,10,4,8,12,12,6,6,2,2,2,6,6,2,8,12,4,4,4,4,4,2,6,12,24,6,6,6,18,4,4,12,6,2,2,2,4,2,2,2,6,6,18,12,12,12,8",
+			"name": "gcd(prime(n)+prime(n+1), prime(n+1)+prime(n+2)).",
+			"comment": [
+				"a(n) = gcd(A001043(n), A001043(n+1))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A029854/b029854.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(20) = gcd(71+73, 73+79) = gcd(144,152) = 8*gcd(18,19) = 8."
+			],
+			"mathematica": [
+				"GCD[#[[1]]+#[[2]],#[[2]]+#[[3]]]\u0026/@Partition[Prime[Range[90]],3,1] (* _Harvey P. Dale_, Mar 06 2014 *)"
+			],
+			"program": [
+				"(PARI) a(n) = gcd(prime(n)+prime(n+1), prime(n+1)+prime(n+2)); \\\\ _Michel Marcus_, Aug 04 2013",
+				"(Haskell)",
+				"a029854 n = a029854_list !! (n-1)",
+				"a029854_list = zipWith gcd a001043_list $ tail a001043_list",
+				"-- _Reinhard Zumkeller_, Aug 08 2013"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Feb 14, 2002",
+			"references": 1,
+			"revision": 14,
+			"time": "2014-03-06T16:33:47-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 30293,
+			"data": "0,1,8,27,64,343,1000,1331,8000,1000000,8000000,1000000000,8000000000,1000000000000,8000000000000,1000000000000000,8000000000000000,1000000000000000000,8000000000000000000",
+			"name": "Cubes with at most two different digits.",
+			"comment": [
+				"A043537(a(n)) \u003c= 2. [_Reinhard Zumkeller_, May 11 2012]"
+			],
+			"program": [
+				"(Haskell)",
+				"a030293 n = a030293_list !! (n-1)",
+				"a030293_list = filter ((\u003c= 2) . a043537) a000578_list",
+				"-- _Reinhard Zumkeller_, May 11 2012"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,3",
+			"author": "_Patrick De Geest_",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, May 11 2012"
+			],
+			"references": 1,
+			"revision": 5,
+			"time": "2012-08-24T10:47:39-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 31359,
+			"data": "1,4,6,8,12,12,14,24,18,20,32,24,30,36,30,32,48,48,38,56,42,44,72,48,56,72,54,72,80,60,62,96,84,68,96,72,74,120,96,80,108,84,108,120,90,112,128,120,98,144,102,104,192,108,110,152,114,144,168,144,132,168",
+			"name": "Bisection of A001615.",
+			"comment": [
+				"Number of coincidence site lattices of index 2n-1 in lattice Z^3."
+			],
+			"reference": [
+				"M. Baake, \"Solution of coincidence problem...\", in R. V. Moody, ed., Math. of Long-Range Aperiodic Order, Kluwer 1997, pp. 9-44.",
+				"Baake, Michael, and Peter AB Pleasants. \"Algebraic solution of the coincidence problem in two and three dimensions.\" Zeitschrift für Naturforschung A 50.8 (1995): 711-717. See page 715, the Dirichlet g.f. following Eq. (18)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A031359/b031359.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"M. Baake, \u003ca href=\"https://arxiv.org/abs/math/0605222\"\u003eSolution of coincidence problem in dimensions d\u003c=4\u003c/a\u003e, arXiv:math/0605222 [math.MG], 2006."
+			],
+			"formula": [
+				"a(n) = b(2*n - 1) where b(n) is multiplicative with b(2^e) = 0^e, b(p^e) = p^(e-1) * (p+1) if p \u003e 2. - _Michael Somos_, Nov 22 2013",
+				"Dirichlet series: Product (1+p^(-s))/(1-p^(1-s)); p != 2.",
+				"a(n) = A001615(2*n - 1).",
+				"From _Peter Bala_, Mar 19 2019: (Start)",
+				"a(n) = (2*n - 1)*Product_{p|(2*n-1), p prime} (1 + 1/p).",
+				"a(n) = Sum_{ d|(2*n-1) } mu(d)^2*(2*n-1)/d, where mu(n) = A008683(n) is the Möbius function.",
+				"a(n) = Sum_{ d^2|(2*n-1) } mu(d)*sigma((2*n-1)/d^2), where sigma(n) = A000203(n) is the sum of the divisors of n, and also",
+				"a(n) = Sum_{ d|(2*n-1) } 2^omega(d)*phi((2*n-1)/d), where omega(n) = A001221(n) is the number of different primes dividing n and phi(n) = A000010 is the Euler totient function.",
+				"O.g.f.: Sum_{n \u003e= 1} mu(2*n-1)^2*x^n*(1 + x^(2*n-1))/(1 - x^(2*n-1))^2.",
+				"Bisection of A159634. (End)"
+			],
+			"example": [
+				"G.f. = x + 4*x^2 + 6*x^3 + 8*x^4 + 12*x^5 + 12*x^6 + 14*x^7 + 24*x^8 + ...",
+				"G.f. = q + 4*q^3 + 6*q^5 + 8*q^7 + 12*q^9 + 12*q^11 + 14*q^13 + 24*q^15 + ..."
+			],
+			"maple": [
+				"A001615 := n -\u003e mul((op(1,i)+1)*op(1,i)^(op(2,i)-1),i=op(2,numtheory[ifactors](n)));",
+				"A031359 := n -\u003e A001615(2*n-1); # _Peter Luschny_, Oct 23 2010"
+			],
+			"mathematica": [
+				"a[n_] := (2n-1)*Sum[ MoebiusMu[d]^2/d, {d, Divisors[2n-1]}]; Table[a[n], {n, 1, 62}] (* _Jean-François Alcover_, Jan 18 2012, after _Michael Somos_ *)",
+				"a[ n_] := If[ n \u003c 1, 0, With[{m = 2 n - 1}, m Sum[ MoebiusMu[ d]^2 / d, {d, Divisors[m]}]]] (* _Michael Somos_, Nov 22 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a031359 = a001615 . (subtract 1) . (* 2)",
+				"-- _Reinhard Zumkeller_, Jun 03 2013",
+				"(PARI) {a(n) = my(m); if( n\u003c1, 0, m = 2*n - 1; m * sumdiv( m, d, moebius(d)^2 / d))} /* _Michael Somos_, Nov 22 2013 */",
+				"(PARI) {a(n) = my(m); if( n\u003c1, 0, m = 2*n - 1; direuler( p=2, m, (1 + X) / (1 - p*X))[ m])} /* _Michael Somos_, Nov 22 2013 */",
+				"(PARI) {a(n) = my(A, p, e); if( n\u003c1, 0, n = 2*n - 1; A = factor(n); prod( k=1, matsize(A)[1], if( p=A[k, 1], e=A[k, 2]; if( p==2, 0, p^(e-1) * (p + 1)))))} /* _Michael Somos_, Nov 22 2013 */"
+			],
+			"xref": [
+				"Cf. A001615, A159634."
+			],
+			"keyword": "nonn,easy,nice,changed",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Better description from _Vladeta Jovovic_, Jan 25 2002",
+				"More terms from _Sascha Kurz_, Mar 24 2002"
+			],
+			"references": 1,
+			"revision": 33,
+			"time": "2019-11-14T22:32:37-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

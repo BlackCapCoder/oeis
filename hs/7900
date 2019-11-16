@@ -1,0 +1,268 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7900,
+	"results": [
+		{
+			"number": 53385,
+			"data": "0,1,0,3,0,1,0,3,0,1,0,4,0,1,0,4,0,1,0,3,0,1,0,3,0,1,0,5,0,1,0,5,0,1,0,3,0,1,0,3,0,1,0,4,0,1,0,4,0,1,0,3,0,1,0,3,0,1,0,6,0,1,0,6,0,1,0,3,0,1,0,3,0,1,0,4,0,1,0,4,0,1,0,3,0,1,0,3,0,1,0,5,0,1,0,5,0,1,0,3,0,1,0,3,0",
+			"name": "A053398(5, n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053385/b053385.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a053385 = flip a053398 5 . (+ 4)  -- _Reinhard Zumkeller_, Aug 04 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_David W. Wilson_",
+			"references": 1,
+			"revision": 7,
+			"time": "2014-08-04T08:23:09-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53386,
+			"data": "1,1,3,3,1,1,3,3,1,1,4,4,1,1,4,4,1,1,3,3,1,1,3,3,1,1,5,5,1,1,5,5,1,1,3,3,1,1,3,3,1,1,4,4,1,1,4,4,1,1,3,3,1,1,3,3,1,1,6,6,1,1,6,6,1,1,3,3,1,1,3,3,1,1,4,4,1,1,4,4,1,1,3,3,1,1,3,3,1,1,5,5,1,1,5,5,1,1,3,3,1,1,3,3,1",
+			"name": "A053398(6, n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053386/b053386.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a053386 = flip a053398 6 . (+ 5)  -- _Reinhard Zumkeller_, Aug 04 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_David W. Wilson_",
+			"references": 1,
+			"revision": 7,
+			"time": "2014-08-04T08:20:45-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53387,
+			"data": "0,3,0,3,0,3,0,3,0,4,0,4,0,4,0,4,0,3,0,3,0,3,0,3,0,5,0,5,0,5,0,5,0,3,0,3,0,3,0,3,0,4,0,4,0,4,0,4,0,3,0,3,0,3,0,3,0,6,0,6,0,6,0,6,0,3,0,3,0,3,0,3,0,4,0,4,0,4,0,4,0,3,0,3,0,3,0,3,0,5,0,5,0,5,0,5,0,3,0,3,0,3,0,3,0",
+			"name": "A053398(7, n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053387/b053387.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a053387 = flip a053398 7 . (+ 6)  -- ~"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_David W. Wilson_",
+			"references": 1,
+			"revision": 7,
+			"time": "2014-08-04T08:22:49-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53388,
+			"data": "3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,5,5,5,5,5,5,5,5,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,6,6,6,6,6,6,6,6,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,5,5,5,5,5,5,5,5,3,3,3,3,3,3,3,3,4",
+			"name": "A053398(8, n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053388/b053388.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				" (Haskell)",
+				"a053388 = flip a053398 8 . (+ 7)  -- _Reinhard Zumkeller_, Aug 04 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 1,
+			"revision": 7,
+			"time": "2014-08-04T08:22:33-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53389,
+			"data": "0,1,0,2,0,1,0,4,0,1,0,2,0,1,0,4,0,1,0,2,0,1,0,5,0,1,0,2,0,1,0,5,0,1,0,2,0,1,0,4,0,1,0,2,0,1,0,4,0,1,0,2,0,1,0,6,0,1,0,2,0,1,0,6,0,1,0,2,0,1,0,4,0,1,0,2,0,1,0,4,0,1,0,2,0,1,0,5,0,1,0,2,0,1,0,5,0,1,0,2,0,1,0,4,0",
+			"name": "A053398(9, n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053389/b053389.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a053389 = flip a053398 9 . (+ 8)  -- _Reinhard Zumkeller_, Aug 04 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_David W. Wilson_",
+			"references": 1,
+			"revision": 7,
+			"time": "2014-08-04T08:22:08-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53390,
+			"data": "1,1,2,2,1,1,4,4,1,1,2,2,1,1,4,4,1,1,2,2,1,1,5,5,1,1,2,2,1,1,5,5,1,1,2,2,1,1,4,4,1,1,2,2,1,1,4,4,1,1,2,2,1,1,6,6,1,1,2,2,1,1,6,6,1,1,2,2,1,1,4,4,1,1,2,2,1,1,4,4,1,1,2,2,1,1,5,5,1,1,2,2,1,1,5,5,1,1,2,2,1,1,4,4,1",
+			"name": "A053398(10, n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053390/b053390.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a053390 = flip a053398 10 . (+ 9)  -- _Reinhard Zumkeller_, Aug 04 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_David W. Wilson_",
+			"references": 1,
+			"revision": 7,
+			"time": "2014-08-04T08:21:35-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53621,
+			"data": "-1,-7,30,10,8,8,7,7,8,8,8,8,8,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,15,16,16,16,16,16,17,17,17,17,18,18,18,18,19,19,19,19,19,20,20,20,20,20,21,21,21,21,22,22,22",
+			"name": "Nearest integer to n/(log(n)-1).",
+			"comment": [
+				"n/(log(n)-1) is a better approximation than n/log(n) to pi(n) the number of primes \u003c= n, though worse than the logarithmic integral or the Riemann prime number formula"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053621/b053621.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"C. K. Caldwell, \u003ca href=\"http://www.utm.edu/research/primes/howmany.shtml\"\u003eHow Many Primes Are There?\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[Round[n/(Log[n]-1)], {n,1,80}] (* _G. C. Greubel_, May 17 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a053621 = round . (\\x -\u003e x / (log x - 1)) . fromIntegral",
+				"-- _Reinhard Zumkeller_, Apr 30 2014",
+				"(PARI) vector(80, n, round(n/(log(n)-1))) \\\\ _G. C. Greubel_, May 17 2019",
+				"(MAGMA) [Round(n/(Log(n)-1)): n in [1..80]]; // _G. C. Greubel_, May 17 2019",
+				"(Sage) [round(n/(log(n)-1)) for n in (1..80)] # _G. C. Greubel_, May 17 2019"
+			],
+			"xref": [
+				"Cf. A000720, A047784, A050499."
+			],
+			"keyword": "sign",
+			"offset": "1,2",
+			"author": "_Henry Bottomley_, Mar 21 2000",
+			"references": 1,
+			"revision": 10,
+			"time": "2019-05-17T19:58:50-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 59401,
+			"data": "1197,2510,2570,5210,5230,5290,12590,14673,15230,20530,21530,22510,23510,23570,24590,25030,25210,25310,25390,25430,25490,25510,25570,25790,25910,25930,26570,26590,27530,28510,28570,29530,29570,32510",
+			"name": "Numbers that contains as proper substrings every maximal prime power dividing them.",
+			"comment": [
+				"Most end in 0, since 2*5*prime will work if prime contains 2 and 5 as substrings",
+				"There must be at least two maximal prime powers dividing each term. - ~~~"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059401/b059401.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"1197 = 9 * 7 * 19 and all of these are substrings."
+			],
+			"mathematica": [
+				"psmppQ[n_]:=Module[{pp=#[[1]]^#[[2]]\u0026/@FactorInteger[n], idn= IntegerDigits[ n]}, Length[pp]\u003e1\u0026\u0026And@@Table[ SequenceCount[ idn, IntegerDigits[pp[[i]]]]\u003e0,{i,Length[pp]}]]; Select[Range[ 33000], psmppQ] (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Dec 04 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a059401 n = a059401_list !! (n-1)",
+				"a059401_list = filter (\\x -\u003e a010055 x == 0 \u0026\u0026",
+				"               all (`isInfixOf` show x) (map show $ a141809_row x)) [1..]",
+				"-- _Reinhard Zumkeller_, Dec 16 2013"
+			],
+			"xref": [
+				"Cf. A141809, A010055, subsequence of A024619."
+			],
+			"keyword": "base,nice,nonn",
+			"offset": "1,1",
+			"author": "_Erich Friedman_, Jan 29 2001",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, Dec 16 2013"
+			],
+			"references": 1,
+			"revision": 10,
+			"time": "2016-12-04T14:47:01-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59402,
+			"data": "1197,14673,83731,129717,167835,322794,429635,831328,1127125,1183497,1184128,1319825,1344837,1371294,1724786,1731195,1943795,2597175,2971137,2993715,3161907,3181437,3719193,4609731,4913928,5037365,5912739,5981125,6193563",
+			"name": "Numbers with more than one prime factor that do not end in 0 and contain as substrings every maximal prime power dividing them.",
+			"link": [
+				"Reinhard Zumkeller and Donovan Johnson, \u003ca href=\"/A059402/b059402.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e (first 100 terms from Reinhard Zumkeller)",
+				"Reinhard Zumkeller, \u003ca href=\"/A059402/a059402.txt\"\u003eDemonstration of first 100 terms\u003c/a\u003e"
+			],
+			"example": [
+				"1197 = 9 * 7 * 19 and all of these are substrings."
+			],
+			"mathematica": [
+				"ok[n_] := If[id = IntegerDigits[n]; Last[id] == 0, False, If[ff = IntegerDigits /@ Apply[ Power, FactorInteger[n], {1}]; Length[ff] == 1, False, And @@ (MatchQ[id, {___, Sequence @@ #, ___}] \u0026 ) /@ ff]]; A059402 = {}; Do[ If[ok[n], Print[n]; AppendTo[A059402, n]], {n, 1, 6*10^6}] (* _Jean-François Alcover_, Nov 24 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a059402 n = a059402_list !! (n-1)",
+				"a059402_list = filter chi [1..] where",
+				"  chi n = n `mod` 10 \u003e 0 \u0026\u0026 f n 1 0 a000040_list where",
+				"    f :: Integer -\u003e Integer -\u003e Int -\u003e [Integer] -\u003e Bool",
+				"    f 1 1 o _    = o \u003e 1",
+				"    f m x o ps'@(p:ps)",
+				"     | r == 0    = f m' (p*x) o ps'",
+				"     | x \u003e 1     = show x `isInfixOf` show n \u0026\u0026 f m 1 (o+1) ps",
+				"     | m \u003c p * p = f 1 m o ps",
+				"     | otherwise = f m 1 o ps",
+				"     where (m',r) = divMod m p",
+				"-- _Reinhard Zumkeller_, Jul 21 2011"
+			],
+			"keyword": "base,nice,nonn",
+			"offset": "1,1",
+			"author": "_Erich Friedman_, Jan 29 2001",
+			"ext": [
+				"Offset corrected and a(6)-a(26) from _Donovan Johnson_, Jul 09 2010",
+				"Definition stated more precisely by _Reinhard Zumkeller_, Jul 19 2011"
+			],
+			"references": 1,
+			"revision": 24,
+			"time": "2013-11-21T13:11:35-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59983,
+			"data": "1,0,6,7,8,9,12,13,14,15,18,19,22,23,24,25,28,29,32,33,36,37,40,41,42,43,46,47,50,51,54,55,58,59,62,63,66,67,70,71,74,75,76,77,80,81,84,85,88,89,92,93,96,97,100,101,104,105,108,109,112,113,116,117,120,121,124",
+			"name": "First occurrence of n in A007599.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059983/b059983.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(5) does not appear in A007599 until the 9th entry, keeping in mind the offset."
+			],
+			"mathematica": [
+				"a[n_Integer] := a[n] = (a[n - 1] + Nest[a, n - 2, Floor[n/2] ] ); a[0] = 1; a[1] = 0; b[n_Integer] := (k = 0; While[ a[k] != n, k++ ]; k); Table[ b[n], {n, 0, 75} ]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (mapMaybe)",
+				"a059983 n = a059983_list !! n",
+				"a059983_list = mapMaybe (`elemIndex` a007599_list) [0..]",
+				"-- _Reinhard Zumkeller_, Jan 05 2012"
+			],
+			"xref": [
+				"Cf. A007599."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Robert G. Wilson v_, Mar 07 2001",
+			"references": 1,
+			"revision": 8,
+			"time": "2013-07-13T12:02:37-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,341 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6280,
+	"results": [
+		{
+			"number": 76398,
+			"data": "0,1,1,1,1,1,1,1,2,1,1,1,2,1,1,1,2,1,2,2,2,1,1,1,2,1,1,2,2,2,1,1,2,1,2,1,2,1,3,1,2,1,2,2,2,2,1,1,2,2,2,1,2,3,1,2,2,1,2,1,1,1,2,1,2,2,2,2,1,2,2,1,2,2,2,2,1,3,1,2,2,1,2,3,1,2,2,3,1,1,2,1,2,2,2,2,2,3,1,2,1,2,1,1,3",
+			"name": "Number of distinct prime factors of n-th perfect power.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076398/b076398.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PerfectPower.html\"\u003ePerfect Powers\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/DistinctPrimeFactors.html\"\u003eDistinct Prime Factors\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = A001221(A001597(n)).",
+				"a(n) = A001221(A025478(n))."
+			],
+			"mathematica": [
+				"ppQ[1] = True; ppQ[n_] := GCD @@ FactorInteger[n][[All, 2]] \u003e 1; PrimeNu /@ Select[Range[10^4], ppQ] (* _Jean-François Alcover_, Jul 15 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a076398 = a001221 . a025478  -- _Reinhard Zumkeller_, Mar 28 2014",
+				"(PARI) lista(nn) = for(n=1, nn, if ((n==1) || ispower(n), print1(omega(n), \", \"))); \\\\ _Michel Marcus_, Jul 15 2017"
+			],
+			"xref": [
+				"Cf. A001221, A001597, A025478, A076399, A076400."
+			],
+			"keyword": "nonn",
+			"offset": "1,9",
+			"author": "_Reinhard Zumkeller_, Oct 09 2002",
+			"references": 3,
+			"revision": 14,
+			"time": "2017-07-15T11:07:05-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76399,
+			"data": "0,2,3,2,4,2,3,5,4,2,6,4,4,2,3,7,6,2,4,6,4,5,8,2,6,3,2,6,4,4,9,2,8,4,4,6,6,2,6,2,6,10,4,4,4,8,3,2,4,4,8,2,9,6,2,6,6,11,4,7,3,2,10,4,6,4,6,6,2,8,4,5,8,4,4,6,2,8,2,4,6,12,4,6,2,6,4,6,3,2,10,2,4,6,6,9,4,6,2,10,8",
+			"name": "Number of prime factors of n-th perfect power (with repetition).",
+			"comment": [
+				"a(n) = A001222(A001597(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076399/b076399.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PerfectPower.html\"\u003ePerfect Powers\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimeFactor.html\"\u003ePrime Factor\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = A001222(A025478(n))*A025479(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a076399 n = a001222 (a025478 n) * a025479 n",
+				"-- _Reinhard Zumkeller_, Mar 28 2014"
+			],
+			"xref": [
+				"Cf. A076398, A076400."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 09 2002",
+			"references": 3,
+			"revision": 7,
+			"time": "2014-03-28T17:17:29-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76403,
+			"data": "1,2,2,3,2,5,3,2,6,7,2,3,10,11,5,2,6,13,14,6,15,3,2,17,6,7,19,10,21,22,2,23,6,5,26,3,14,29,30,31,10,2,33,34,35,6,11,37,38,39,10,41,6,42,43,22,15,2,46,3,13,47,6,7,10,51,26,14,53,6,55,5,14,57,58,15,59,30,61,62",
+			"name": "Squarefree kernel of n-th perfect power.",
+			"comment": [
+				"a(n) = A007947(A001597(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076403/b076403.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PerfectPower.html\"\u003ePerfect Powers\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/SquarefreePart.html\"\u003eSquarefree Part\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = A007947(A025478(n))."
+			],
+			"mathematica": [
+				"Prepend[Map[Times @@ FactorInteger[#][[All, 1]] \u0026, DeleteCases[#, 0]], 1] \u0026@ Table[If[Set[e, GCD @@ #[[All, -1]]] \u003e 1, Power[n, 1/e], 0] \u0026@ FactorInteger[n], {n, 4000}] (* _Michael De Vlieger_, Apr 25 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a076403 = a007947 . a025478 -- _Reinhard Zumkeller_, Mar 28 2014"
+			],
+			"xref": [
+				"Cf. A025478."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 09 2002",
+			"references": 3,
+			"revision": 11,
+			"time": "2017-04-25T19:00:24-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76490,
+			"data": "0,0,0,0,1,1,1,0,1,0,1,0,1,1,0,1,0,1,1,1,1,0,1,1,0,2,2,2,1,1,1,2,2,2,1,2,1,2,2,2,1,1,2,2,2,1,1,1,1,1,2,1,2,2,1,2,1,2,1,2,2,1,1,2,2,2,1,2,2,1,2,1,2,2,1,2,2,0,2,2,2,2,2,2,2,1,1,1,2,2,2,2,1,2,0,2,1,2,1,2,2,1,2,1,2",
+			"name": "Number of common (distinct) digits of consecutive prime numbers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076490/b076490.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"1 to 9 common digits for {11 and 13},{101,103},{1031,1033}, {10223,10243},{97213,97231},{126079,126097},{1206479,1206497}, {10186237,10186273},{100438279,100438297} respectively."
+			],
+			"mathematica": [
+				"Table[Length[Intersection[IntegerDigits[Prime[w]], IntegerDigits[ Prime[ w+1]]]], {w, 1, 200}]",
+				"Length[Intersection@@IntegerDigits[#]]\u0026/@Partition[Prime[Range[110]],2,1] (* _Harvey P. Dale_, May 14 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersect, nub); import Data.Function (on)",
+				"a076490 n = a076490_list !! n",
+				"a076490_list = map (length . nub) $",
+				"   zipWith (intersect `on` show) (tail a000040_list) a000040_list",
+				"-- _Reinhard Zumkeller_, Sep 01 2013"
+			],
+			"xref": [
+				"Cf. A006880, A076489."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,26",
+			"author": "_Labos Elemer_, Oct 21 2002",
+			"ext": [
+				"First Mathematica program corrected by _Harvey P. Dale_, May 14 2014"
+			],
+			"references": 3,
+			"revision": 10,
+			"time": "2014-05-14T10:45:52-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76566,
+			"data": "3,3,3,5,3,7,3,3,5,11,3,13,7,5,3,17,3,19,5,7,11,23,3,5,13,3,7,29,5,31,3,11,17,7,3,37,19,13,5,41,7,43,11,5,23,47,3,7,5,17,13,53,3,11,7,19,29,59,5,61,31,7,3,13,11,67,17,23,7,71,3,73,37,5,19,11,13,79,5,3,41,83,7",
+			"name": "Greatest prime divisor of 3n+3 (sum of three successive integers).",
+			"comment": [
+				"a(n) = A006530(A000082(n+1)). - _Reinhard Zumkeller_, Oct 03 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076566/b076566.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"FactorInteger[Total[#]][[-1,1]]\u0026/@Partition[Range[100],3,1]  (* _Harvey P. Dale_, Apr 03 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a076566 = a006530 . (* 3) . (+ 1)  -- _Reinhard Zumkeller_, Oct 03 2012"
+			],
+			"xref": [
+				"Cf. A008585."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Zak Seidov_, Oct 19 2002",
+			"references": 3,
+			"revision": 12,
+			"time": "2013-11-21T12:47:54-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76644,
+			"data": "1,3,6,7,11,13,18,21,22,28,32,34,41,46,49,50,58,64,68,70,79,86,91,94,95,105,113,119,123,125,136,145,152,157,160,161,173,183,191,197,201,203,216,227,236,243,248,251,252,266,278,288,296,302,306,308,323,336",
+			"name": "a(1)=1; for n\u003e1, a(n) = a(n-floor(sqrt(n))) + n.",
+			"comment": [
+				"a(n) = floor(2/3*n*(sqrt(n)+1)) for n=1,2,4,6,17,24,26,29,43,83,88,193,207,243,357,534,806,1082,1197,1377... Sign of a(n) - floor(2/3*n*(sqrt(n)+1)) changes often.",
+				"Cumulative sums of A122196. - _Franklin T. Adams-Watters_, Aug 25 2006"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076644/b076644.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Write n=r^2+s with -r \u003c s \u003c= r; then a(n) = r(r+1)(4r-1)/6 + x, where x = -s^2 if s \u003c= 0, x = s(2r+1-s) if s \u003e= 0. - _Dean Hickerson_, Nov 11 2002",
+				"a(n) is asymptotic to 2/3*n^(3/2)."
+			],
+			"mathematica": [
+				"a[n_] := Module[{r, s}, r=Floor[1/2+Sqrt[n]]; s=n-r^2; (r(r+1)(4r-1))/6+If[s\u003c=0, -s^2, s(2r+1-s)]]"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c2,n\u003e0,n+a(n-sqrtint(n)))",
+				"(Haskell)",
+				"a076644 n = a076644_list !! (n-1)",
+				"a076644_list = scanl1 (+) a122196_list"
+			],
+			"xref": [
+				"Cf. A122196.",
+				"Cf. A000196."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Benoit Cloitre_, Oct 23 2002",
+			"references": 3,
+			"revision": 17,
+			"time": "2014-06-24T01:08:32-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76846,
+			"data": "3,5,7,29,11,13,71,17,19,131,23,181,2177953337809371149,29,31,83537,5849,37,419,41,43,279863,47,15649,701,53,811,420707233300229,59,61",
+			"name": "Primes of the form n^k + n - 1, where k\u003e0 is minimal.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076846/b076846.txt\"\u003eTable of n, a(n) for n = 2..100\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a076846 n = n ^ (a076845 n) + n - 1",
+				"-- _Reinhard Zumkeller_, Jul 17 2014"
+			],
+			"xref": [
+				"Cf. A076845, A078179, A010051, A002327."
+			],
+			"keyword": "nonn",
+			"offset": "2,1",
+			"author": "Benoit Cloitre, Nov 20 2002",
+			"ext": [
+				"The next term is too large to include.",
+				"Offset corrected by _Reinhard Zumkeller_, Jul 17 2014"
+			],
+			"references": 3,
+			"revision": 8,
+			"time": "2016-07-19T10:51:10-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76948,
+			"data": "1,1,0,0,1,0,0,0,0,1,0,0,2,0,0,0,1,0,0,0,0,0,0,0,2,1,0,0,5,0,0,0,0,5,0,0,1,0,0,0,2,0,0,0,0,0,0,0,0,1,0,0,10,0,0,0,0,5,0,0,2,0,0,0,1,0,0,0,0,0,0,0,10,13,0,0,0,0,0,0,0,1,0,0,2,0,0,0,13,0,0,0,0,0,0,0,5,0,0,0,1,0",
+			"name": "Smallest k such that nk-1 is a square, or 0 if no such number exists.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076948/b076948.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Do[k = 1; While[k \u003c 10^4 \u0026\u0026 !IntegerQ[Sqrt[n*k - 1]], k++ ]; If[k != 10^4, Print[k], Print[0]], {n, 1, 105}]"
+			],
+			"program": [
+				"(Haskell)",
+				"a076948 1 = 1",
+				"a076948 n = if null qs then 0 else head qs",
+				"            where qs = filter ((\u003e 0) . a037213 . subtract 1 . (* n)) [1..n]",
+				"-- _Reinhard Zumkeller_, Oct 25 2015"
+			],
+			"xref": [
+				"Cf. A008784.",
+				"Cf. A037213."
+			],
+			"keyword": "nonn",
+			"offset": "1,13",
+			"author": "_Amarnath Murthy_, Oct 20 2002",
+			"ext": [
+				"Edited and extended by _Robert G. Wilson v_, Oct 21 2002"
+			],
+			"references": 3,
+			"revision": 6,
+			"time": "2015-10-25T20:14:06-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76974,
+			"data": "2,3,7,13,19,25,31,39,43,49,55,61,69,73,81,85,91,99,103,109,115,123,129,133,139,147,151,159,165,169,175,181,187,193,199,207,213,225,229,235,241,253,259,265,271,279,283,291,295,309,313,319,333,337,349,355",
+			"name": "Increasing sequence where each number is unequal to 2 mod all previous numbers.",
+			"comment": [
+				"Can be generated quickly by modified sieve of Eratosthenes. Note that eliminating numbers that equal zero mod any previous number is exactly the sieve of Eratosthenes and generates the primes; eliminating numbers that equal one mod any previous number just gives the even numbers."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076974/b076974.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Si#sieve\"\u003eIndex entries for sequences generated by sieves\u003c/a\u003e"
+			],
+			"example": [
+				"a(4)=13 because the smaller numbers after a(3)=7 are eliminated: 8=2 (mod 2 or 3), 9=2 (mod 7), 10=2 (mod 2), 11=2 (mod 3), 12=2 (mod 2)."
+			],
+			"program": [
+				"(Python: replace leading dots by blanks before running)",
+				".def A076974():",
+				"... D = {}",
+				"... q = 2",
+				"... while True:",
+				"....... if q not in D:",
+				"........... yield q",
+				"........... D.setdefault(q+2,[]).append(q)",
+				"....... else:",
+				"........... for p in D[q]:",
+				"............... D.setdefault(p+q,[]).append(p)",
+				"........... del D[q]",
+				"....... q += 1",
+				"(Haskell)",
+				"a076974 n = a076974_list !! (n-1)",
+				"a076974_list = 2 : s [3, 5 ..] where",
+				"   s (x:xs) = x : s [z | z \u003c- xs, mod z x /= 2]",
+				"-- _Reinhard Zumkeller_, Feb 28 2014"
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_David Eppstein_, Nov 28 2002",
+			"ext": [
+				"Offset changed by _Reinhard Zumkeller_, Feb 28 2014"
+			],
+			"references": 3,
+			"revision": 9,
+			"time": "2014-02-28T14:49:20-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 77039,
+			"data": "0,-3,2,-5,-16,-3,14,-5,-28,1,-30,7,48,5,-42,11,-48,13,-54,-125,-52,-131,-214,-125,-28,73,-30,-137,-28,85,-42,-173,-36,-175,-26,-177,-20,-183,-350,-177,-356,-175,-366,-173,24,-175,-386,-609,-836,-607,-374,-613,-372,-623",
+			"name": "Sums of first n signatured primes (A073579).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A077039/b077039.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = -Sum_{k=2..n} A000040(k)*i^(A000040(k)+1) where i is the imaginary unit. - _Anthony Browne_, May 17 2016"
+			],
+			"example": [
+				"a(5) = 2*0+3*(-1)+5*1+7*(-1)+11*(-1) = 0-3+5-7-11 = -16."
+			],
+			"mathematica": [
+				"Accumulate[Join[{0},If[Mod[#,4]==1,#,-#]\u0026/@Prime[Range[2,60]]]] (* _Harvey P. Dale_, Feb 27 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a077039 n = a077039_list !! (n-1)",
+				"a077039_list = scanl1 (+) a073579_list",
+				"-- _Reinhard Zumkeller_, Feb 28 2012"
+			],
+			"xref": [
+				"Cf. A007504, A077040, A077041."
+			],
+			"keyword": "sign,look",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 21 2002",
+			"references": 3,
+			"revision": 19,
+			"time": "2016-05-24T16:23:46-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,384 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5200,
+	"results": [
+		{
+			"number": 7957,
+			"data": "1,3,5,7,9,10,11,12,13,14,15,16,17,18,19,21,23,25,27,29,30,31,32,33,34,35,36,37,38,39,41,43,45,47,49,50,51,52,53,54,55,56,57,58,59,61,63,65,67,69,70,71,72,73,74,75,76,77,78,79,81,83,85,87,89,90,91,92,93,94,95,96,97,98,99,100",
+			"name": "Numbers that contain an odd digit.",
+			"comment": [
+				"Complement of A014263; a196564(a(n)) \u003e 0; A103181(a(n)) \u003e 0. - _Reinhard Zumkeller_, Oct 04 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A007957/b007957.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"F. Smarandache, \u003ca href=\"http://www.gallup.unm.edu/~smarandache/OPNS.pdf\"\u003eOnly Problems, Not Solutions!\u003c/a\u003e, Xiquan Publ., Phoenix-Chicago, 1993.",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = n + O(n^0.69897...) where the constant is A153268. - _Charles R Greathouse IV_, Jul 25 2012"
+			],
+			"mathematica": [
+				"Select[Range[100],Count[IntegerDigits[#],_?OddQ]\u003e0\u0026] (* _Harvey P. Dale_, Sep 06 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List findIndices)",
+				"a007957 n = a007957_list !! (n-1)",
+				"a007957_list = findIndices (\u003e 0) a196564_list",
+				"-- _Reinhard Zumkeller_, Oct 04 2011",
+				"(PARI) is(n)=my(v=vecsort(eval(Vec(Str(n)))%2,,8));v[#v] \\\\ _Charles R Greathouse IV_, Jul 25 2012"
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "R. Muller",
+			"references": 4,
+			"revision": 19,
+			"time": "2017-09-06T11:41:33-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 8233,
+			"data": "0,0,0,0,1,2,4,8,16,24,36,54,81,108,144,192,256,320,400,500,625,750,900,1080,1296,1512,1764,2058,2401,2744,3136,3584,4096,4608,5184,5832,6561,7290,8100,9000,10000,11000,12100,13310,14641,15972,17424,19008,20736",
+			"name": "a(n) = floor(n/4)*floor((n+1)/4)*floor((n+2)/4)*floor((n+3)/4).",
+			"comment": [
+				"a(n) is the maximal product of four nonnegative integers whose sum is n. - _Andres Cicuttin_, Sep 26 2018"
+			],
+			"reference": [
+				"Mubayi, Dhruv. Counting substructures II: Hypergraphs, Combinatorica 33 (2013), no. 5, 591--612. MR3132928."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A008233/b008233.txt\"\u003eTable of n, a(n) for n = 0..3000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_14\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2, -1, 0, 3, -6, 3, 0, -3, 6, -3, 0, 1, -2, 1)."
+			],
+			"formula": [
+				"Let b(n) = A002620(n), the quarter-squares. Then this sequence is b(0)*b(0), b(0)*b(1), b(1)*b(1), b(1)*b(2), b(2)*b(2), b(2)*b(3), ...",
+				"From _R. J. Mathar_, Feb 20 2011: (Start)",
+				"a(n) = 2*a(n-1) - a(n-2) + 3*a(n-4) - 6*a(n-5) + 3*a(n-6) - 3*a(n-8) + 6*a(n-9) - 3*a(n-10) + a(n-12) - 2*a(n-13) + a(n-14).",
+				"G.f. -x^4*(1+x^6+x^2+2*x^3+x^4) / ( (1+x)^3*(x^2+1)^3*(x-1)^5 ). (End)"
+			],
+			"maple": [
+				"A008233:=n-\u003efloor(n/4)*floor((n+1)/4)*floor((n+2)/4)*floor((n+3)/4); seq(A008233(n), n=0..50); # _Wesley Ivan Hurt_, Dec 31 2013"
+			],
+			"mathematica": [
+				"Table[Floor[n/4]*Floor[(n + 1)/4]*Floor[(n + 2)/4]*Floor[(n + 3)/4], {n, 0, 50}] (* _Stefan Steinerberger_, Apr 03 2006 *)",
+				"Table[Times@@Floor[Range[n,n+3]/4],{n,0,50}] (* _Harvey P. Dale_, Mar 30 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a008233 n = product $ map (`div` 4) [n..n+3]",
+				"-- _Reinhard Zumkeller_, Jun 08 2011",
+				"(MAGMA) [Floor(n/4)*Floor((n+1)/4)*Floor((n+2)/4)*Floor((n+3)/4): n in [0..50]]; // _Vincenzo Librandi_, Jun 09 2011",
+				"(PARI) a(n) = prod(i=0, 3, (n+i)\\4); \\\\ _Altug Alkan_, Sep 27 2018"
+			],
+			"xref": [
+				"Cf. A002620."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,6",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Stefan Steinerberger_, Apr 03 2006"
+			],
+			"references": 4,
+			"revision": 42,
+			"time": "2019-03-30T15:48:42-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 8318,
+			"data": "1,2,5,26,29,677,680,701,842,845,866,1517,458330,458333,458354,459005,459170,462401,462404,462425,463076,463241,491402,491405,491426,492077,492242,708965,708968,708989,709640,709805,714026,714029,714050,714701",
+			"name": "Smallest number strictly greater than previous one which is the sum of squares of two previous distinct terms (a(1)=1, a(2)=2).",
+			"comment": [
+				"A003095 is a subsequence apart from the initial term. - _Reinhard Zumkeller_, Jan 17 2008",
+				"The subsequence of primes begins: 2, 5, 29, 677, 701, 458333, 462401, 492077, 708989, 714029, ... - _Jonathan Vos Post_, Nov 21 2012"
+			],
+			"reference": [
+				"F. Smarandache, Definitions solved and unsolved problems, conjectures and theorems in number theory and geometry, edited by M. Perez, Xiquan Publishing House 2000",
+				"F. Smarandache, Sequences of Numbers Involved in Unsolved Problems, Hexis, Phoenix, 2006."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A008318/b008318.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"Mihaly Bencze [Beneze], \u003ca href=\"http://www.gallup.unm.edu/~smarandache/mihalyb.htm\"\u003eSmarandache Recurrence Type Sequences\u003c/a\u003e, in Bull. Pure Appl. Sciences, Vol. 16E, No. 2, 231-236, 1997.",
+				"F. Smarandache, \u003ca href=\"http://www.gallup.unm.edu/~smarandache/Definitions-book.pdf\"\u003eDefinitions, Solved and Unsolved Problems, Conjectures, ...\u003c/a\u003e",
+				"F. Smarandache, \u003ca href=\"http://www.gallup.unm.edu/~smarandache/Sequences-book.pdf\"\u003eSequences of Numbers Involved in Unsolved Problems\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/SmarandacheSequences.html\"\u003eSmarandache Sequences.\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a[1]=1; a[2]=2; a[n_] := a[n] = First[ Select[ Sort[ Flatten[ Table[a[j]^2 + a[k]^2, {j, 1, n-1}, {k, j+1, n-1}]]], # \u003e a[n-1] \u0026 , 1]]; Table[a[n], {n, 1, 36}](* _Jean-François Alcover_, Nov 10 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a008318 n = a008318_list !! (n-1)",
+				"a008318_list = f [1] (singleton 1) where",
+				"   f xs s =",
+				"     m : f (m:xs) (foldl (flip insert) s' (map (+ m^2) (map (^ 2) xs)))",
+				"     where (m,s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Aug 15 2011"
+			],
+			"xref": [
+				"Cf. A192476."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "R. Muller",
+			"ext": [
+				"More terms from _David W. Wilson_"
+			],
+			"references": 4,
+			"revision": 43,
+			"time": "2015-11-26T20:29:13-05:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 8874,
+			"data": "63,190,95,286,143,430,215,646,323,970,485,1456,728,364,182,91,274,137,412,206,103,310,155,466,233,700,350,175,526,263,790,395,1186,593,1780,890,445,1336,668,334,167,502,251,754,377,1132,566,283,850,425,1276,638,319,958,479,1438,719,2158,1079",
+			"name": "3x+1 sequence starting at 63.",
+			"comment": [
+				"a(n) = A008875(n - 2) for n \u003e 1.",
+				"Doesn't reach a power of 2 until a(103) = 16. - _Alonso del Arte_, May 18 2015"
+			],
+			"reference": [
+				"Richard K. Guy, Unsolved Problems in Number Theory, E16."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A008874/b008874.txt\"\u003eTable of n, a(n) for n=0..107\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"maple": [
+				"f := proc(n) option remember; if n = 0 then 63; elif f(n-1) mod 2 = 0 then f(n-1)/2 else 3*f(n-1)+1; fi; end;"
+			],
+			"mathematica": [
+				"NestList[If[EvenQ[#], #/2, 3# + 1] \u0026, 63, 100] (* _Vincenzo Librandi_, Jul 29 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a008874 n = a008874_list !! n",
+				"a008874_list = 63 : iterate a006370 63",
+				"-- _Reinhard Zumkeller_, Aug 30 2012",
+				"(MAGMA) [n eq 1 select 63 else IsOdd(Self(n-1)) select 3*Self(n-1)+1 else Self(n-1) div 2: n in [1..70]]; // _Vincenzo Librandi_, Jul 29 2014"
+			],
+			"xref": [
+				"Cf. A006370."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Apr 27 2001"
+			],
+			"references": 4,
+			"revision": 25,
+			"time": "2015-05-30T13:52:22-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 8935,
+			"data": "1,4,5,9,10,13,14,16,17,20,21,25,26,29,30,25,26,29,30,34,35,38,39,41,42,45,46,50,51,54,55,36,37,40,41,45,46,49,50,52,53,56,57,61,62,65,66,61,62,65,66,70,71,74,75,77,78,81,82,86,87,90,91,49,50,53,54,58,59,62",
+			"name": "If 2n = Sum 2^e(k) then a(n) = Sum e(k)^2.",
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A008935/b008935.txt\"\u003eTable of n, a(n) for n=1..1023\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f. 1/(1-x) * sum(k\u003e=0, (k+1)^2*x^2^k/(1+x^2^k)). - _Ralf Stephan_, Jun 23 2003"
+			],
+			"example": [
+				"To get a(5), we write 10 = 2+8 = 2^1 + 2^3 so a(5) = 1^2+3^2 = 10."
+			],
+			"mathematica": [
+				"a[n_] := Total[Flatten[Position[Reverse[IntegerDigits[n, 2]], 1]]^2]; Table[a[n],{n,1,70}] (* Jean-François Alcover  Mar 21 2011 *)"
+			],
+			"program": [
+				"(C): #include \u003cstdio.h\u003e #include \u003cstdlib.h\u003e #define USAGE \"Usage: 'A008935 num'\\n where num is the index of the desired ending value in the sequence.\\n\" #define MAX 1023 #define SHIFT_MAX 9",
+				"int main(int argc, char *argv[]) { unsigned short mask, i, j, end; unsigned long sum; if (argc \u003c 2) { fprintf(stderr, USAGE); return EXIT_FAILURE; } end = atoi(argv[1]); end = (end \u003e= MAX) ? MAX : end;",
+				"fprintf(stdout, \"Values: \"); for (i = 1; i \u003c= end; i++) { sum = 0; mask = 1; for (j = 0; j \u003c SHIFT_MAX; j++, mask *= 2) if (i \u0026 mask) sum += (j+1) * (j+1); fprintf(stdout, \"%ld\", sum); if (i \u003c end) fprintf(stdout, \",\"); } fprintf(stdout, \"\\n\"); return EXIT_SUCCESS; }",
+				"(Haskell)",
+				"a008935 = f 1 where",
+				"   f k x | x == 0    = 0",
+				"         | r == 0    = f (k+1) x'",
+				"         | otherwise = k^2 + f (k+1) x' where (x',r) = divMod x 2",
+				"-- _Reinhard Zumkeller_, Jul 05 2011"
+			],
+			"xref": [
+				"Gives A003995 if sorted and duplicates removed."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"Corrected and extended by Larry Reeves (larryr(AT)acm.org), Mar 22 2000"
+			],
+			"references": 4,
+			"revision": 22,
+			"time": "2013-02-22T21:36:24-05:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 9299,
+			"data": "2,6,14,30,38,62,78,86,126,158,174,182,198,230,254,318,350,366,374,398,422,462,470,510,518,534,638,702,734,750,758,798,846,870,902,926,942,950,1022,1038,1046,1070,1094,1142,1190,1206,1278,1382,1406,1446,1470,1502",
+			"name": "If a, b in sequence, so is a*b+2.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A009299/b009299.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a009299 n = a009299_list !! (n-1)",
+				"a009299_list = f [2] (singleton 2) where",
+				"   f xs s = m : f xs' (foldl (flip insert) s' (map ((+ 2) . (* m)) xs'))",
+				"     where xs' = m : xs",
+				"           (m,s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Aug 15 2011"
+			],
+			"xref": [
+				"Cf. A009293, A192476."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 4,
+			"revision": 11,
+			"time": "2013-07-13T12:01:47-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 9388,
+			"data": "2,3,5,8,9,14,15,17,23,24,26,27,29,33,39,41,44,45,47,50,51,53,57,63,65,68,69,71,74,77,80,81,84,86,87,89,93,98,99,101,105,111,113,114,116,119,122,125,129,131,134,135,137,140,141,144,147,149,152,153,158,159,161,164",
+			"name": "If a, b in sequence, so is a*b-1.",
+			"comment": [
+				"All terms are congruent to 0 or 2 mod 3. It follows that no three consecutive integers are in the sequence. - _Franklin T. Adams-Watters_, Aug 31 2016, conjectured by _David W. Wilson_."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A009388/b009388.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"f[l_] := Block[{k = l}, Select[ Union[ Flatten[ AppendTo[k, Table[ k[[i]]*k[[j]] - 1, {i, 1, Length[k]}, {j, 1, i}]]]], # \u003c 170 \u0026]]; NestList[f, {2}, 6][[ -1]] (* _Robert G. Wilson v_, May 23 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a009388 n = a009388_list !! (n-1)",
+				"a009388_list = f [2] (singleton 2) where",
+				"   f xs s = m : f xs' (foldl (flip insert) s' (map (pred . (* m)) xs'))",
+				"     where xs' = m : xs",
+				"           (m,s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Aug 15 2011"
+			],
+			"xref": [
+				"Cf. A009293. This is superset of A005659 - 1.",
+				"Cf. A009299, A192476."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 4,
+			"revision": 23,
+			"time": "2016-09-01T13:15:37-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 10078,
+			"data": "1,2,5,4,11,10,9,8,23,22,21,20,19,18,17,16,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,191,190,189",
+			"name": "Shortest representation of -n in 2's-complement format.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A010078/b010078.txt\"\u003eTable of n, a(n) for n = 1..8192\u003c/a\u003e",
+				"R. Stephan, \u003ca href=\"/somedcgf.html\"\u003eSome divide-and-conquer sequences ...\u003c/a\u003e",
+				"R. Stephan, \u003ca href=\"/A079944/a079944.ps\"\u003eTable of generating functions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 2^(ceiling(log_2(n)+1)) - n.",
+				"a(n) = b(n-1), where b(n) = 1 if n = 0, otherwise 2*b(floor(n/2)) + 1 - n mod 2. - _Reinhard Zumkeller_, Feb 19 2003",
+				"G.f.: (x/(1-x)) * (1/x + Sum_{k\u003e=0} 2^k*(x^2^k + 2x^2^(k+1))/(1+x^2^k)). - _Ralf Stephan_, Jun 15 2003",
+				"a(1) = 1; for n \u003e 1, a(2n-1) = 2*a(n) + 1; for n \u003e= 1, a(2n) = 2*a(n). - _Philippe Deléham_, Feb 29 2004"
+			],
+			"mathematica": [
+				"Array[2^(Ceiling[Log2[#] + 1]) - # \u0026, 67] (* _Michael De Vlieger_, Oct 15 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a010078 = x . subtract 1 where",
+				"   x m = if m == 0 then 1 else 2 * x m' + 1 - b",
+				"            where (m',b) = divMod m 2",
+				"-- _Reinhard Zumkeller_, Feb 21 2014"
+			],
+			"xref": [
+				"Cf. A004754, A008687."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,2",
+			"author": "_Leonid Broukhis_",
+			"references": 4,
+			"revision": 37,
+			"time": "2018-10-15T22:09:03-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 11262,
+			"data": "1,4,9,2,25,36,49,16,3,100,121,18,169,196,225,8,289,12,361,50,441,484,529,144,5,676,81,98,841,900,961,64,1089,1156,1225,6,1369,1444,1521,400,1681,1764,1849,242,75,2116,2209,72,7,20,2601,338,2809,324,3025,784,3249",
+			"name": "In the prime factorization of n, increment odd powers and decrement even powers (multiplicative and self-inverse).",
+			"link": [
+				"Paul Tek, \u003ca href=\"/A011262/b011262.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative with f(p^k) = p^(k-1) if k even, p^(k+1) if k odd.",
+				"a(n) = product(A027748(n,k) ^ A103889(A124010(n,k)): k = 1..A001221(n)). - _Reinhard Zumkeller_, Jun 23 2013"
+			],
+			"mathematica": [
+				"f[n_, k_] := n^(If[EvenQ[k], k - 1, k + 1]); Table[Times @@ f @@@ FactorInteger[n], {n, 57}] (* _Jayanta Basu_, Aug 14 2013 *)"
+			],
+			"program": [
+				"(PARI) a(n)=my(f=factor(n));return(prod(i=1,#f[,1],f[i,1]^(f[i,2]-(-1)^f[i,2]))) /* _Paul Tek_, Jun 01 2013 */",
+				"(Haskell)",
+				"a011262 n = product $ zipWith (^)",
+				"                      (a027748_row n) (map a103889 $ a124010_row n)",
+				"-- _Reinhard Zumkeller_, Jun 23 2013"
+			],
+			"xref": [
+				"Cf. A011264."
+			],
+			"keyword": "nonn,easy,mult",
+			"offset": "1,2",
+			"author": "_Marc LeBrun_",
+			"references": 4,
+			"revision": 19,
+			"time": "2013-08-14T12:37:37-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 14237,
+			"data": "1,-1,-1,-1,2,3,5,5,8,13,13,17,20,21,23,28,33,34,39,41,41,46,49,54,61,63,64,67,67,69,82,85,89,90,99,100,105,109,112,117,122,123,131,131,134,135,146,157,159,160,163,167,167,176,181,186,191,191,196",
+			"name": "a(n) = (n-th prime) - (n-th nonprime).",
+			"comment": [
+				"a(n) = A000040(n) - A018252(n). - _Reinhard Zumkeller_, Apr 30 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A014237/b014237.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"nonPrime[n_Integer] := FixedPoint[n + PrimePi@# \u0026, n+PrimePi@n];",
+				"Table[Prime[n] - nonPrime[n], {n, 1, 70}] (* _G. C. Greubel_, Jun 22 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a014237 n = a000040 n - a018252 n  -- _Reinhard Zumkeller_, Apr 30 2014",
+				"(Python)",
+				"from sympy import prime, composite",
+				"def A014237(n):",
+				"    return 1 if n == 1 else prime(n)-composite(n-1) # _Chai Wah Wu_, Dec 27 2018"
+			],
+			"xref": [
+				"Cf. A038529, A026233, A127118."
+			],
+			"keyword": "sign",
+			"offset": "1,5",
+			"author": "_Clark Kimberling_",
+			"references": 4,
+			"revision": 12,
+			"time": "2019-06-22T23:13:43-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		}
+	]
+}

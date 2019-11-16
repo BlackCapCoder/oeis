@@ -1,0 +1,453 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1780,
+	"results": [
+		{
+			"number": 8282,
+			"data": "1,1,1,1,2,2,2,4,5,5,5,10,14,16,16,16,32,46,56,61,61,61,122,178,224,256,272,272,272,544,800,1024,1202,1324,1385,1385,1385,2770,4094,5296,6320,7120,7664,7936,7936,7936,15872",
+			"name": "Triangle of Euler-Bernoulli or Entringer numbers read by rows: T(n,k) is the number of down-up permutations of n+1 starting with k+1.",
+			"comment": [
+				"Triangle begins",
+				"   1",
+				"   1  1",
+				"   1  2  2",
+				"   2  4  5  5",
+				"   5 10 14 16 16",
+				"  16 32 46 56 61 61",
+				"  ...",
+				"Each row is constructed by forming the partial sums of the previous row, reading from the right and repeating the final term."
+			],
+			"reference": [
+				"R. C. Entringer, A combinatorial interpretation of the Euler and Bernoulli numbers, Nieuw Archief voor Wiskunde, 14 (1966), 241-246."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A008282/b008282.txt\"\u003eRows n=1..120 of triangle, flattened\u003c/a\u003e",
+				"V. I. Arnold, \u003ca href=\"http://mi.mathnet.ru/eng/umn4470\"\u003eThe calculus of snakes and the combinatorics of Bernoulli, Euler and Springer numbers of Coxeter groups\u003c/a\u003e, Uspekhi Mat. nauk., 47 (#1, 1992), 3-45 = Russian Math. Surveys, Vol. 47 (1992), 1-51.",
+				"J. L. Arregui, \u003ca href=\"http://arXiv.org/abs/math.NT/0109108\"\u003eTangent and Bernoulli numbers related to Motzkin and Catalan numbers by means of numerical triangles\u003c/a\u003e, arXiv:math/0109108 [math.NT], 2001.",
+				"B. Bauslaugh and F. Ruskey, \u003ca href=\"http://dx.doi.org/10.1007/BF01932127\"\u003eGenerating alternating permutations lexicographically\u003c/a\u003e, Nordisk Tidskr. Informationsbehandling (BIT) 30 16-26 1990.",
+				"Carolina Benedetti, Rafael S. González D’León, Christopher R. H. Hanusa, Pamela E. Harris, Apoorva Khare, Alejandro H. Morales, Martha Yip, \u003ca href=\"https://www.cs.ox.ac.uk/people/dan.olteanu/papers/mo-amw18.pdf\"\u003eThe volume of the caracol polytope\u003c/a\u003e, Séminaire Lotharingien de Combinatoire XX (2018), Article #YY, Proceedings of the 30th Conference on Formal Power, Series and Algebraic Combinatorics (Hanover), 2018.",
+				"Beáta Bényi, Péter Hajnal, \u003ca href=\"https://arxiv.org/abs/1804.01868\"\u003ePoly-Bernoulli Numbers and Eulerian Numbers\u003c/a\u003e, arXiv:1804.01868 [math.CO], 2018.",
+				"Neil J. Y. Fan, Liao He, \u003ca href=\"http://www.combinatorics.org/ojs/index.php/eljc/article/view/v22i2p45\"\u003eThe Complete cd-Index of Boolean Lattices\u003c/a\u003e, Electron. J. Combin., 22 (2015), #P2.45.",
+				"Dominique Foata and Guo-Niu Han, \u003ca href=\"http://www-irma.u-strasbg.fr/~foata/paper/pub123Seidel.pdf\"\u003eSeidel Triangle Sequences and Bi-Entringer Numbers\u003c/a\u003e, November 20, 2013.",
+				"Dominique Foata, Guo-Niu Han, \u003ca href=\"http://arxiv.org/abs/1601.04371\"\u003eAndré Permutation Calculus; a Twin Seidel Matrix Sequence\u003c/a\u003e, arXiv:1601.04371 [math.CO], 2016.",
+				"B. Gourevitch, \u003ca href=\"http://www.pi314.net\"\u003eL'univers de Pi\u003c/a\u003e",
+				"G. Kreweras, \u003ca href=\"http://archive.numdam.org/article/MSH_1976__53__5_0.pdf\"\u003eLes préordres totaux compatibles avec un ordre partiel\u003c/a\u003e, Math. Sci. Humaines No. 53 (1976), 5-30.",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon on transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"C. Poupard, \u003ca href=\"http://dx.doi.org/10.1016/0012-365X(82)90293-X\"\u003eDe nouvelles significations énumeratives des nombres d'Entringer\u003c/a\u003e, Discrete Math., 38 (1982), 265-271.",
+				"C. Poupard, \u003ca href=\"http://dx.doi.org/10.1006/eujc.1997.0147\"\u003eTwo other interpretations of the Entringer numbers\u003c/a\u003e, Eur. J. Combinat. 18 (1997) 939-943.",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n, k)=sum((-1)^i*binomial(k, 2i+1)*E[n-2i-1], i=0..floor((k-1)/2))= sum((-1)^i*binomial(n-k, 2i)*E[n-2i], i=0..floor((n-k)/2)) (k\u003cn), T(n, n)=E[n]. T(n, n)=E[n]; T(n, k)=sum((-1)^i*binomial(n-k, 2i)*E[n-2i], i=0..floor((n-k)/2)) (k\u003cn), T(n, n)=E[n]. where E(j)=A000111(j)=j!*[x^j]((sec(x)+tan(x)) are the up/down or Euler numbers. - _Emeric Deutsch_, May 15 2004"
+			],
+			"example": [
+				"T(4,3)=5 because we have 41325,41523,42314,42513 and 43512."
+			],
+			"maple": [
+				"f:=series(sec(x)+tan(x),x=0,25): E[0]:=1: for n from 1 to 20 do E[n]:=n!*coeff(f,x^n) od: T:=proc(n,k) if k\u003cn then sum((-1)^i*binomial(k,2*i+1)*E[n-2*i-1],i=0..floor((k-1)/2)) elif k=n then E[n] else 0 fi end: seq(seq(T(n,k),k=1..n),n=1..10);",
+				"# Alternatively:",
+				"T := proc(n, k) option remember; if k = 0 then `if`(n = 0, 1, 0) else",
+				"T(n, k - 1) + T(n - 1, n - k) fi end:",
+				"for n from 1 to 6 do seq(T(n,k), k=1..n) od; # _Peter Luschny_, Aug 03 2017"
+			],
+			"mathematica": [
+				"ro[1] = {1}; ro[n_] := ro[n] = (s = Accumulate[ Reverse[ ro[n-1]]]; Append[ s, Last[s]]); Flatten[ Table[ ro[n], {n, 1, 10}]] (* _Jean-François Alcover_, Oct 03 2011 *)",
+				"nxt[lst_]:=Module[{lst2=Accumulate[Reverse[lst]]},Flatten[Join[ {lst2,Last[ lst2]}]]]; Flatten[NestList[nxt,{1},10]] (* _Harvey P. Dale_, Aug 17 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a008282 n k = a008282_tabl !! (n-1) !! (k-1)",
+				"a008282_row n = a008282_tabl !! (n-1)",
+				"a008282_tabl = iterate f [1] where",
+				"   f xs = zs ++ [last zs] where zs = scanl1 (+) (reverse xs)",
+				"-- _Reinhard Zumkeller_, Dec 28 2011"
+			],
+			"xref": [
+				"Cf. A010094, A000111, A099959, A009766, A236935."
+			],
+			"keyword": "nonn,tabl,easy,nice",
+			"offset": "1,5",
+			"author": "_N. J. A. Sloane_",
+			"references": 19,
+			"revision": 61,
+			"time": "2019-10-13T02:28:43-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 8905,
+			"data": "1,1,2,6,2,1,7,5,4,3,3,3,4,6,8,1,2,3,6,1,2,5,1,2,6,1,4,1,3,8,2,8,2,8,2,1,3,1,5,2,8,3,1,6,2,1,5,2,1,6,3,1,8,4,2,1,7,4,2,1,8,5,3,1,1,8,5,3,2,1,1,8,6,4,3,2,1,1,1,8,7,5,4,3,3,2,2,2,1,1,1,1,1,1,1,1,9,9,9,9,9,9,9,9,1",
+			"name": "Leading digit of n!.",
+			"comment": [
+				"Kunoff proved that the distribution of terms of this sequence follows Benford's law, i.e., the asymptotic density of terms with value d (between 1 and 9) is log_10(1+1/d). - _Amiram Eldar_, Sep 23 2019"
+			],
+			"link": [
+				"Seiichi Manyama, \u003ca href=\"/A008905/b008905.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (terms 0..1000 from T. D. Noe)",
+				"Sharon Kunoff, \u003ca href=\"https://www.fq.math.ca/Scanned/25-4/kunoff.pdf\"\u003eN! has the first digit property\u003c/a\u003e, The Fibonacci Quarterly, Vol. 25, No. 4 (1987), pp. 365-367.",
+				"\u003ca href=\"/index/Fa#factorial\"\u003eIndex entries for sequences related to factorial numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000030(A000142(n)). - _Reinhard Zumkeller_, Apr 08 2012"
+			],
+			"mathematica": [
+				"f[n_] := Quotient[n!, 10^Floor@ Log[10, n!]]; Array[f, 105, 0]"
+			],
+			"program": [
+				"(Haskell)",
+				"a008905 = a000030 . a000142  -- _Reinhard Zumkeller_, Apr 08 2012"
+			],
+			"xref": [
+				"Cf. A000966, A000142, A018799, A202021 (leading digit of (10^n)!), A213201."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "0,3",
+			"author": "_Russ Cox_",
+			"ext": [
+				"Two less-efficient Mathematica codings removed by _Robert G. Wilson v_, Nov 05 2010"
+			],
+			"references": 19,
+			"revision": 58,
+			"time": "2019-09-24T02:45:33-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 8975,
+			"data": "1,1,1,1,2,1,1,3,3,1,1,4,6,4,1,1,5,0,0,5,1,1,6,5,0,5,6,1,1,7,1,5,5,1,7,1,1,8,8,6,0,6,8,8,1,1,9,6,4,6,6,4,6,9,1,1,0,5,0,0,2,0,0,5,0,1,1,1,5,5,0,2,2,0,5,5,1,1,1,2,6,0,5,2,4,2,5,0,6,2,1,1,3,8,6,5,7,6,6",
+			"name": "Pascal's triangle mod 10.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A008975/b008975.txt\"\u003eRows n=0..150 of triangle, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(i, j) = binomial(i, j) (mod 10)"
+			],
+			"mathematica": [
+				"Mod[ Flatten[ Table[ Binomial[n, k], {n, 0, 13}, {k, 0, n}]], 10] (* _Robert G. Wilson v_, May 26 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a008975 n k = a008975_tabl !! n !! k",
+				"a008975_row n = a008975_tabl !! n",
+				"a008975_tabl = iterate",
+				"   (\\row -\u003e map (`mod` 10) $ zipWith (+) ([0] ++ row) (row ++ [0])) [1]",
+				"-- _Reinhard Zumkeller_, Feb 24 2012"
+			],
+			"xref": [
+				"Cf. A007318, A047999, A083093, A034931, A034930, A034932.",
+				"Cf. A208278 (row sums), A208279 (central terms), A208134 (number of zeros per row), A208280 (distinct terms per row).",
+				"Sequences based on the triangles formed by reading Pascal's triangle mod m: A047999 (m = 2), A083093 (m = 3), A034931 (m = 4), A095140 (m = 5), A095141 (m = 6), A095142 (m = 7), A034930 (m = 8), A095143 (m = 9), A008975 (m = 10), A095144 (m = 11), A095145 (m = 12), A275198 (m = 14), A034932 (m = 16)."
+			],
+			"keyword": "nonn,tabl,base",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_",
+			"references": 19,
+			"revision": 25,
+			"time": "2017-08-05T12:31:46-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 9223,
+			"data": "1,1,2,1,2,2,2,1,1,2,2,4,2,6,8,1,2,3,2,2,4,2,2,4,1,6,2,4,2,8,2,1,4,2,24,1,2,6,8,2,2,12,2,4,6,2,2,4,3,1,8,2,2,6,8,24,4,2,2,8,2,6,4,1,12,4,2,2,4,24,2,3,2,6,4,4,12,24,2,2,1,2,2,8,4,6,8,20,2,6,8,4,4,2,24,4,2,3,12,1,2,8",
+			"name": "a(n) = gcd(sigma(n), phi(n)).",
+			"comment": [
+				"a(n) = gcd(A000203(n),A000010(n))."
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A009223/b009223.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[GCD[DivisorSigma[1,n],EulerPhi[n]],{n,110}] (* _Harvey P. Dale_, Aug 10 2011 *)"
+			],
+			"program": [
+				"(PARI) a(n)=gcd(sigma(n=factor(n)), eulerphi(n)) \\\\ _Charles R Greathouse IV_, Nov 27 2013",
+				"(Haskell)",
+				"a009223 n = gcd (a000203 n) (a000010 n)",
+				"-- _Reinhard Zumkeller_, Jan 19 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_David W. Wilson_",
+			"references": 19,
+			"revision": 14,
+			"time": "2017-03-30T16:37:49-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 10882,
+			"data": "1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3",
+			"name": "Period 3: repeat [1, 2, 3].",
+			"comment": [
+				"Partial sums are given by A130481(n)+n+1. - _Hieronymus Fischer_, Jun 08 2007",
+				"41/333 = 0.123123123... - _Eric Desbiaux_, Nov 03 2008",
+				"Terms of the simple continued fraction for 3/(sqrt(37)-4). - _Paolo P. Lava_, Feb 16 2009",
+				"This is the lexicographically earliest sequence with no substring of more than 1 term being a palindrome. - _Franklin T. Adams-Watters_, Nov 24 2013"
+			],
+			"link": [
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,0,1).",
+				"\u003ca href=\"/index/Fi#FIXEDPOINTS\"\u003eIndex entries for sequences that are fixed points of mappings\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: (1+2x+3x^2)/(1-x^3). - _Paul Barry_, May 25 2003",
+				"a(n) = 1 + (n mod 3). - _Paolo P. Lava_, Nov 21 2006",
+				"a(n) = A010872(n) + 1. - _Hieronymus Fischer_, Jun 08 2007",
+				"a(n) = 6 - a(n-1) - a(n-2) for n \u003e 1. - _Reinhard Zumkeller_, Apr 13 2008",
+				"a(n) = n+1-3*floor(n/3) = floor(41*10^(n+1)/333)-floor(41*10^n/333)*10; a(n)-a(n-3)=0 with n\u003e2. - _Bruno Berselli_, Jun 28 2010",
+				"a(n) = A180593(n+1)/3. - _Reinhard Zumkeller_, Oct 25 2010",
+				"a(n) = floor((4*n+3)/3) mod 4. - _Gary Detlefs_, May 15 2011",
+				"a(n) = -cos(2/3*Pi*n)-1/3*3^(1/2)*sin(2/3*Pi*n)+2. - _Leonid Bedratyuk_, May 13 2012",
+				"E.g.f.: 2*(3*exp(3*x/2) - sqrt(3)*cos(Pi/6-sqrt(3)*x/2))*exp(-x/2)/3. - _Ilya Gutkovskiy_, Jul 05 2016"
+			],
+			"maple": [
+				"seq(op([1, 2, 3]), n=0..50); # _Wesley Ivan Hurt_, Jul 05 2016"
+			],
+			"mathematica": [
+				"Nest[ Flatten[ # /. {1 -\u003e {1, 2}, 2 -\u003e {3, 1}, 3 -\u003e {2, 3}}] \u0026, {1}, 7] (* _Robert G. Wilson v_, Mar 08 2005 *)",
+				"PadRight[{},120,{1,2,3}] (* _Harvey P. Dale_, Apr 09 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a010882 = (+ 1) . (`mod` 3)",
+				"a010882_list = cycle [1,2,3]",
+				"-- _Reinhard Zumkeller_, Mar 20 2013",
+				"(PARI) a(n) = 1 + n%3; \\\\ _Michel Marcus_, Feb 04 2016",
+				"(MAGMA) \u0026cat[[1..3]^^30]; // _Vincenzo Librandi_, Feb 04 2016"
+			],
+			"xref": [
+				"Cf. A010872, A010873, A010874, A010875, A010876, A004526, A002264, A002265, A002266, A177036 (decimal expansion of (4+sqrt(37))/7), A214090.",
+				"Cf. A130481, A180593."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 19,
+			"revision": 61,
+			"time": "2018-04-09T10:29:26-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 13610,
+			"data": "1,1,3,1,6,9,1,9,27,27,1,12,54,108,81,1,15,90,270,405,243,1,18,135,540,1215,1458,729,1,21,189,945,2835,5103,5103,2187,1,24,252,1512,5670,13608,20412,17496,6561,1,27,324,2268,10206,30618,61236,78732,59049,19683",
+			"name": "Triangle of coefficients in expansion of (1+3*x)^n.",
+			"comment": [
+				"T(n,k) is the number of lattice paths from (0,0) to (n,k) with steps (1,0) and three kinds of steps (1,1). The number of paths with steps (1,0) and s kinds of steps (1,1) corresponds to the expansion of (1+s*x)^n. - _Joerg Arndt_, Jul 01 2011",
+				"Rows of A027465 reversed. - _Michael Somos_, Feb 14 2002",
+				"T(n,k) equals the number of n-length words on {0,1,2,3} having n-k zeros. - _Milan Janjic_, Jul 24 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A013610/b013610.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"J. Goldman, J. Haglund, \u003ca href=\"http://dx.doi.org/10.1006/jcta.2000.3113\"\u003eGeneralized rook polynomials\u003c/a\u003e, J. Combin. Theory A91 (2000), 509-530, 1-rook coefficients on the 3xn board (all heights 3) with k rooks"
+			],
+			"formula": [
+				"G.f.: 1 / (1 - x*(1+3*y)).",
+				"Row sums are 4^n. - _Joerg Arndt_, Jul 01 2011",
+				"T(n,k) = 3^k*C(n,k) = Sum_{i=n-k..n} C(i,n-k)*C(n,i)*2^(n-i). - _Mircea Merca_, Apr 28 2012",
+				"From _Peter Bala_, Dec 22 2014: (Start)",
+				"Riordan array ( 1/(1 - x), 3*x/(1 - x) ).",
+				"exp(3*x) * e.g.f. for row n = e.g.f. for diagonal n. For example, for n = 3 we have exp(3*x)*(1 + 9*x + 27*x^2/2! + 27*x^3/3!) = 1 + 12*x + 90*x^2/2! + 540*x^3/3! + 2835*x^4/4! + .... The same property holds more generally for Riordan arrays of the form ( f(x), 3*x/(1 - x) ). (End)",
+				"T(n,k) = Sum_{j=0..k} (-1)^(k-j) * binomial(n,k) * binomial(k,j) * 4^j. - _Kolosov Petro_, Jan 28 2019"
+			],
+			"example": [
+				"Triangle begins",
+				"  1;",
+				"  1,    3;",
+				"  1,    6,    9;",
+				"  1,    9,   27,   27;",
+				"  1,   12,   54,  108,   81;",
+				"  1,   15,   90,  270,  405,  243;",
+				"  1,   18,  135,  540, 1215, 1458,  729;",
+				"  1,   21,  189,  945, 2835, 5103, 5103, 2187;"
+			],
+			"maple": [
+				"T:= n-\u003e (p-\u003e seq(coeff(p, x, k), k=0..n))((1+3*x)^n):",
+				"seq(T(n), n=0..10);  # _Alois P. Heinz_, Jul 25 2015"
+			],
+			"mathematica": [
+				"t[n_, k_] := Binomial[n, k]*3^(n-k); Table[t[n, n-k], {n, 0, 9}, {k, 0, n}] // Flatten (* _Jean-François Alcover_, Mar 05 2013 *)",
+				"BinomialROW[n_, k_, t_] := Sum[Binomial[n, k]*Binomial[k, j]*(-1)^(k - j)*t^j, {j, 0, k}]; Column[Table[BinomialROW[n, k, 4], {n, 0, 10}, {k, 0, n}], Center] (* _Kolosov Petro_, Jan 28 2019 *)"
+			],
+			"program": [
+				"(PARI) {T(n, k) = polcoeff((1 + 3*x)^n, k)}; /* _Michael Somos_, Feb 14 2002 */",
+				"(PARI) /* same as in A092566 but use */",
+				"steps=[[1,0], [1,1], [1,1], [1,1]]; /* note triple [1,1] */",
+				"/* _Joerg Arndt_, Jul 01 2011 */",
+				"(Haskell)",
+				"a013610 n k = a013610_tabl !! n !! k",
+				"a013610_row n = a013610_tabl !! n",
+				"a013610_tabl = iterate (\\row -\u003e",
+				"   zipWith (+) (map (* 1) (row ++ [0])) (map (* 3) ([0] ++ row))) [1]",
+				"-- _Reinhard Zumkeller_, May 26 2013"
+			],
+			"xref": [
+				"Cf. A007318, A013609, A027465, etc."
+			],
+			"keyword": "tabl,nonn,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 19,
+			"revision": 44,
+			"time": "2019-01-29T02:15:32-05:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 17089,
+			"data": "2,10,18,26,34,42,50,58,66,74,82,90,98,106,114,122,130,138,146,154,162,170,178,186,194,202,210,218,226,234,242,250,258,266,274,282,290,298,306,314,322,330,338,346,354,362,370,378,386,394,402,410,418,426",
+			"name": "a(n) = 8*n+2.",
+			"comment": [
+				"Apart from initial term(s), dimension of the space of weight 2n cusp forms for Gamma_0( 33 ).",
+				"Apart from initial term(s), dimension of the space of weight 2n cuspidal newforms for Gamma_0( 81 ).",
+				"First differences of A002939. - _Aaron David Fairbanks_, May 13 2014"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A017089/b017089.txt\"\u003eTable of n, a(n) for n = 0..5000\u003c/a\u003e",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"William A. Stein, \u003ca href=\"http://wstein.org/Tables/dimskg0n.gp\"\u003eDimensions of the spaces S_k(Gamma_0(N))\u003c/a\u003e",
+				"William A. Stein, \u003ca href=\"http://wstein.org/Tables/dimskg0new.gp\"\u003eDimensions of the spaces S_k^{new}(Gamma_0(N))\u003c/a\u003e",
+				"William A. Stein, \u003ca href=\"http://wstein.org/Tables/\"\u003eThe modular forms database\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-1)."
+			],
+			"formula": [
+				"a(n) = 8*n+2; a(n) = 2*a(n-1)-a(n-2). - _Vincenzo Librandi_, May 28 2011"
+			],
+			"maple": [
+				"A017089:=n-\u003e8*n+2; seq(A017089(n), n=0..50); # _Wesley Ivan Hurt_, May 13 2014"
+			],
+			"mathematica": [
+				"Range[2, 1000, 8] (* _Vladimir Joseph Stephan Orlovsky_, May 27 2011 *)"
+			],
+			"program": [
+				"(MAGMA) [8*n+2: n in [0..60]]; // _Vincenzo Librandi_, May 28 2011",
+				"(Haskell)",
+				"a017089 = (+ 2) . (* 8)",
+				"a017089_list = [2, 10 ..]  -- _Reinhard Zumkeller_, Jun 07 2015",
+				"(PARI) a(n) = 8*n+2; \\\\ _Michel Marcus_, Sep 17 2015"
+			],
+			"xref": [
+				"Cf. A008589, A016993, A017005, A017017, A017077."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Dec 11 1996",
+			"references": 19,
+			"revision": 38,
+			"time": "2019-08-22T12:18:12-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 17137,
+			"data": "6,14,22,30,38,46,54,62,70,78,86,94,102,110,118,126,134,142,150,158,166,174,182,190,198,206,214,222,230,238,246,254,262,270,278,286,294,302,310,318,326,334,342,350,358,366,374,382,390,398,406,414,422,430",
+			"name": "a(n) = 8*n+6.",
+			"comment": [
+				"First differences of A002943. - _Aaron David Fairbanks_, May 13 2014"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A017137/b017137.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-1)."
+			],
+			"formula": [
+				"a(n) = 2*A004767(n) = A000290(A017245(n)) - A156676(n+1). - _Reinhard Zumkeller_, Jul 13 2010",
+				"a(n) = 2*a(n-1) - a(n-2). - _Vincenzo Librandi_, Jun 07 2011",
+				"A089911(3*a(n)) = 4. - _Reinhard Zumkeller_, Jul 05 2013",
+				"G.f.: (6 + 2*x) / (1 - x)^2. E.g.f.: (6 + 8*x) * exp(x). - _Michael Somos_, May 15 2014"
+			],
+			"example": [
+				"G.f. = 6 + 14*x + 22*x^2 + 30*x^3 + 38*x^4 + 46*x^5 + 54*x^6 + 62*x^7 + ..."
+			],
+			"maple": [
+				"A017137:=n-\u003e8*n+6; seq(A017137(n), n=0..50); # _Wesley Ivan Hurt_, May 13 2014"
+			],
+			"mathematica": [
+				"Range[6, 1000, 8] (* _Vladimir Joseph Stephan Orlovsky_, May 27 2011 *)"
+			],
+			"program": [
+				"(MAGMA) [8*n+6: n in [0..60]]; // _Vincenzo Librandi_, Jun 07 2011",
+				"(Haskell)",
+				"a017137 = (+ 6) . (* 8)  -- _Reinhard Zumkeller_, Jul 05 2013",
+				"(PARI) a(n) = 8*n+6; \\\\ _Michel Marcus_, Sep 17 2015",
+				"(PARI) Vec((6+2*x)/(1-x)^2 + O(x^100)) \\\\ _Altug Alkan_, Oct 23 2015"
+			],
+			"xref": [
+				"Cf. A008590, A017101, A017113, A004770.",
+				"Cf. A017629, A047595 (complement)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Dec 11 1996",
+			"references": 19,
+			"revision": 52,
+			"time": "2015-10-24T03:53:01-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 20757,
+			"data": "5,8,14,17,19,23,26,32,33,35,40,41,44,47,50,52,53,54,59,62,63,68,71,74,75,77,80,82,85,86,89,95,96,98,103,104,107,109,113,116,117,118,122,124,125,128,129,131,134,138,140,143,145,147,149,152,155,158,161,162,166,167",
+			"name": "Numbers that are not the sum of two triangular numbers.",
+			"comment": [
+				"A052343(a(n)) = 0. - _Reinhard Zumkeller_, May 15 2006",
+				"Numbers of the form (p^(2k+1)s-1)/4, where p is a prime number of the form 4n+3, and s is a number of the form 4m+3 and prime to p, are not expressible as the sum of two triangular numbers. See Satyanarayana (1961), Theorem 2. - _Hans J. H. Tuenter_, Oct 11 2009",
+				"An integer n is in this sequence if and only if at least one 4k+3 prime factor in the canonical form of 4n+1 occurs with an odd exponent. - _Ant King_, Dec 02 2010",
+				"A nonnegative integer n is in this sequence if and only if A000729(n) = 0. - _Michael Somos_, Feb 13 2011",
+				"Terms of the form 4*a(n) + 1 are terms of A022544. - _XU Pingya_, Aug 05 2018"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A020757/b020757.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"John A. Ewell, \u003ca href=\"http://www.jstor.org/stable/2324243\"\u003eOn Sums of Triangular Numbers and Sums of Squares\u003c/a\u003e, The American Mathematical Monthly, Vol. 99, No. 8 (October 1992), pp. 752-757. [From _Ant King_, Dec 02 2010]",
+				"U. V. Satyanarayana, \u003ca href=\"http://www.jstor.org/stable/3614771\"\u003eOn the representation of numbers as sums of triangular numbers\u003c/a\u003e, The Mathematical Gazette, 45(351):40-43, February 1961. [From _Hans J. H. Tuenter_, Oct 11 2009]"
+			],
+			"mathematica": [
+				"data = Reduce[m (m + 1) + n (n + 1) == 2 # \u0026\u0026 0 \u003c= m \u0026\u0026 0 \u003c= n, {m, n}, Integers] \u0026 /@ Range[167]; Position[data, False] // Flatten  (* _Ant King_, Dec 05 2010 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a020757 n = a020757_list !! (n-1)",
+				"a020757_list = filter ((== 0) . a052343) [0..]",
+				"-- _Reinhard Zumkeller_, Jul 25 2014"
+			],
+			"xref": [
+				"Complement of A020756.",
+				"Cf. A052343."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 19,
+			"revision": 42,
+			"time": "2018-08-23T17:09:55-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 22329,
+			"data": "0,0,1,0,1,0,2,1,0,2,1,3,0,2,1,3,0,2,4,1,3,0,2,4,1,3,5,0,2,4,1,3,5,0,2,4,6,1,3,5,0,2,4,6,1,3,5,0,7,2,4,6,1,3,5,0,7,2,4,6,1,8,3,5,0,7,2,4,6,1,8,3,5,0,7,2,9,4,6,1,8,3,5,0,7,2,9,4,6,1,8,3,10,5,0,7,2,9,4,6,1,8,3,10,5,0,7",
+			"name": "Exponent of 3 (value of j) in n-th number of form 2^i*3^j (see A003586).",
+			"comment": [
+				"a(n) = A069352(n) - A022328(n). - _Reinhard Zumkeller_, May 16 2015"
+			],
+			"link": [
+				"Franklin T. Adams-Watters and Reinhard Zumkeller, \u003ca href=\"/A022329/b022329.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e, first 1000 terms from Franklin T. Adams-Watters"
+			],
+			"formula": [
+				"a(n) = A134583(n) - 1. - _Franklin T. Adams-Watters_, Mar 19 2009"
+			],
+			"program": [
+				"(Haskell)",
+				"a022329 n = a022329_list !! (n-1)",
+				"-- Where a022329_list is defined in A022328.",
+				"-- _Reinhard Zumkeller_, Nov 19 2015, May 16 2015"
+			],
+			"xref": [
+				"A003586(n) = 2^A022328(n)*3^A022329(n). - _N. J. A. Sloane_, Mar 19 2009",
+				"Cf. A003586, A022328, A134583. - _Franklin T. Adams-Watters_, Mar 19 2009",
+				"Cf. A069352."
+			],
+			"keyword": "nonn",
+			"offset": "1,7",
+			"author": "_Clark Kimberling_",
+			"references": 19,
+			"revision": 17,
+			"time": "2018-01-16T02:47:46-05:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		}
+	]
+}

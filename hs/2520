@@ -1,0 +1,477 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2520,
+	"results": [
+		{
+			"number": 109925,
+			"data": "0,0,1,2,1,2,2,1,2,1,2,1,2,1,3,0,1,2,3,1,4,0,2,1,2,0,3,0,1,1,2,1,3,1,3,0,2,1,4,0,1,1,2,1,5,0,2,1,3,0,3,0,1,1,3,0,2,0,1,1,3,1,4,0,1,1,2,1,5,0,2,1,2,1,6,0,3,0,2,1,3,0,3,1,2,0,4,0,1,1,3,0,3,0,2,0,1,1,3,0,2,1,2,1,6",
+			"name": "Number of primes of the form n - 2^k.",
+			"comment": [
+				"Erdos conjectures that the numbers in A039669 are the only n for which n-2^r is prime for all 2^r\u003cn. - _T. D. Noe_ and _Robert G. Wilson v_, Jul 19 2005",
+				"a(A006285(n)) = 0. - _Reinhard Zumkeller_, May 27 2015"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A109925/b109925.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(A118954(n))=0, a(A118955(n))\u003e0; A118952(n)\u003c=a(n); A078687(n)=a(A000040(n)). - _Reinhard Zumkeller_, May 07 2006"
+			],
+			"example": [
+				"a(21) = 4, 21-2 =19, 21-4 = 17, 21-8 = 13, 21-16 = 5, four primes.",
+				"127 is the smallest odd number \u003e 1 such that a(n) = 0: A006285(2) = 127. - _Reinhard Zumkeller_, May 27 2015"
+			],
+			"mathematica": [
+				"Table[cnt=0; r=1; While[r\u003cn, If[PrimeQ[n-r], cnt++ ]; r=2r]; cnt, {n, 150}] (Noe)",
+				"f[n_] := Count[ PrimeQ[n - 2^Range[0, Floor[ Log[2, n]]]], True]; Table[ f[n], {n, 105}] (* _Robert G. Wilson v_, Jul 21 2005 *)"
+			],
+			"program": [
+				"(MAGMA) a109925:=function(n); count:=0; e:=1; while e le n do if IsPrime(n-e) then count+:=1; end if; e*:=2; end while; return count; end function; [ a109925(n): n in [1..105] ]; // _Klaus Brockhaus_, Oct 30 2010",
+				"(PARI) a(n)=sum(k=0,log(n)\\log(2),isprime(n-2^k)) \\\\ _Charles R Greathouse IV_, Feb 19 2013",
+				"(Haskell)",
+				"a109925 n = sum $ map (a010051' . (n -)) $ takeWhile (\u003c n)  a000079_list",
+				"-- _Reinhard Zumkeller_, May 27 2015"
+			],
+			"xref": [
+				"Cf. A109926, A175956, A156695.",
+				"Cf. A000079, A010051, A006285."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,4",
+			"author": "_Amarnath Murthy_, Jul 17 2005",
+			"ext": [
+				"Corrected and extended by _T. D. Noe_ and _Robert G. Wilson v_, Jul 19 2005"
+			],
+			"references": 13,
+			"revision": 24,
+			"time": "2017-02-18T11:32:18-05:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 114102,
+			"data": "1,2,2,3,2,4,2,4,3,4,3,7,4,5,7,6,5,8,5,8,11,8,7,16,9,10,13,12,10,22,11,15,23,16,16,26,16,18,32,22,21,41,24,27,40,28,26,55,30,36,59,40,38,65,41,45,77,48,51,95,57,60,97,66,63,119,68,80,131,89,85,150,91,96,166,104",
+			"name": "Number of partitions of n such that all parts of a partition have the same digital root.",
+			"comment": [
+				"a(n) = A116371(n) + A116372(n) + A116373(n) + A116374(n) + A116375(n) + A116376(n) + A116377(n) + A116378(n) + A114099(n)."
+			],
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/DigitalRoot.html\"\u003eDigital Root\u003c/a\u003e"
+			],
+			"example": [
+				"a(10) = #{10, 5+5, 2+2+2+2+2, 10x1} = 4;",
+				"a(11) = #{11, 10+1, 11x1} = 3;",
+				"a(12) = #{12, 10+1+1, 6+6, 4+4+4, 3+3+3+3, 2+2+2+2+2+2, 12x1} = 7."
+			],
+			"program": [
+				"(Haskell)",
+				"a114102 n = length $ filter (== 1) $",
+				"            map (length . nub . (map a010888)) $ ps 1 n",
+				"   where ps x 0 = [[]]",
+				"         ps x y = [t:ts | t \u003c- [x..y], ts \u003c- ps t (y - t)]",
+				"-- _Reinhard Zumkeller_, Feb 04 2014"
+			],
+			"xref": [
+				"Cf. A010888.",
+				"A147706. [From _Reinhard Zumkeller_, Nov 11 2008]",
+				"A156144. [From _Reinhard Zumkeller_, Feb 05 2009]"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Feb 12 2006",
+			"references": 13,
+			"revision": 7,
+			"time": "2014-02-04T08:57:17-05:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		},
+		{
+			"number": 116371,
+			"data": "1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,3,4,4,4,4,4,4,4,4,5,6,7,7,7,7,7,7,7,8,10,11,12,12,12,12,12,12,13,15,17,18,19,19,19,19,19,20,23,26,28,29,30,30,30,30,31,34,38,41,43,44,45,45,45,46,50,55,60,63,65,66,67,67,68",
+			"name": "Number of partitions of n into parts with digital root = 1.",
+			"comment": [
+				"a(n) = A114102(n) - A116372(n) - A116373(n) - A116374(n) - A116375(n) - A116376(n) - A116377(n) - A116378(n) - A114099(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A116371/b116371.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/DigitalRoot.html\"\u003eDigital Root\u003c/a\u003e"
+			],
+			"example": [
+				"a(18) = #{10+8x1, 18x1} = 2;",
+				"a(19) = #{19, 10+9x1, 19x1} = 3;",
+				"a(20) = #{19+1, 10+10, 10+10x1, 19x1} = 4."
+			],
+			"program": [
+				"(Haskell)",
+				"a116371 n = p a017173_list n where",
+				"   p _  0 = 1",
+				"   p [] _ = 0",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Feb 04 2014"
+			],
+			"xref": [
+				"Cf. A010888.",
+				"A147706. [From _Reinhard Zumkeller_, Nov 11 2008]",
+				"A017173, A156144, A156145. [From _Reinhard Zumkeller_, Feb 05 2009]"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,10",
+			"author": "_Reinhard Zumkeller_, Feb 12 2006",
+			"references": 13,
+			"revision": 8,
+			"time": "2014-02-04T08:59:25-05:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		},
+		{
+			"number": 122535,
+			"data": "3,47,151,167,199,251,257,367,557,587,601,647,727,941,971,1097,1117,1181,1217,1361,1499,1741,1747,1901,2281,2411,2671,2897,2957,3301,3307,3631,3727,4007,4397,4451,4591,4651,4679,4987,5101,5107,5297,5381,5387",
+			"name": "Smallest prime of a triple of successive primes, where the middle one is the arithmetic mean of the other two.",
+			"comment": [
+				"Subsets are A047948, A052188, A052189, A052190, A052195, A052197, A052198, etc. - _R. J. Mathar_, Apr 11 2008",
+				"Could be generated by searching for cases A001223(i) = A001223(i+1), writing down A000040(i). - _R. J. Mathar_, Dec 20 2008",
+				"a(n) = A006562(n) - A117217(n). - _Zak Seidov_, Feb 12 2013",
+				"These are primes for which the subsequent prime gaps are equal, so (p(k+2)-p(k+1))/(p(k+1)-p(k)) = 1. It is conjectured that prime gaps ratios equal to one are less frequent than those equal to 1/2, 2, 3/2, 2/3, 1/3 and 3. - _Andres Cicuttin_, Nov 07 2016"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A122535/b122535.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"{A000040(i): A000040(i+1)= (A000040(i)+A000040(i+2))/2 }. - _R. J. Mathar_, Dec 20 2008",
+				"a(n) = A000040(A064113(n)). - _Reinhard Zumkeller_, Jan 20 2012"
+			],
+			"example": [
+				"The prime 7 is not in the list, because in the triple (7, 11, 13) of successive primes, 11 is not equal (7 + 13)/2 = 10.",
+				"The second term, 47, is the first prime in the triple (47, 53, 59) of primes, where 53 is the mean of 47 and 59."
+			],
+			"mathematica": [
+				"Clear[d2, d1, k]; d2[n_] = Prime[n + 2] - 2*Prime[n + 1] + Prime[n]; d1[n_] = Prime[n + 1] - Prime[n]; k[n_] = -d2[n]/(1 + d1[n])^(3/2); Flatten[Table[If[k[n] == 0, Prime[n], {}], {n, 1, 1000}]] (* _Roger L. Bagula_, Nov 13 2008 *)",
+				"Transpose[Select[Partition[Prime[Range[750]], 3, 1], #[[2]] == (#[[1]] + #[[3]])/2 \u0026]][[1]]  (* _Harvey P. Dale_, Jan 09 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a122535 = a000040 . a064113  -- _Reinhard Zumkeller_, Jan 20 2012",
+				"(PARI) A122535()={n=3;ctr=0;while(ctr\u003c50, avgg=( prime(n-2)+prime(n) )/2;",
+				"if( prime(n-1) ==avgg, ctr+=1;print( ctr,\"  \",prime(n-2) )  );n+=1); } \\\\ _Bill McEachen_, Jan 19 2015"
+			],
+			"xref": [
+				"Cf. A006562, A062839, A102552, A117217, A181424."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Miklos Kristof_, Sep 18 2006",
+			"ext": [
+				"More terms from _Roger L. Bagula_, Nov 13 2008",
+				"Definition rephrased by _R. J. Mathar_, Dec 20 2008"
+			],
+			"references": 13,
+			"revision": 45,
+			"time": "2016-11-08T07:53:52-05:00",
+			"created": "2006-09-29T03:00:00-04:00"
+		},
+		{
+			"number": 122953,
+			"data": "1,2,2,3,3,4,3,4,4,4,5,6,6,6,4,5,5,5,6,6,5,7,7,8,8,8,8,9,9,8,5,6,6,6,7,6,7,8,8,8,8,6,8,10,9,10,9,10,10,10,10,11,10,10,11,12,12,12,12,12,12,10,6,7,7,7,8,7,8,9,9,8,7,9,10,10,11,11,10,10,10,10,11,9,7,11,11,13,13,12",
+			"name": "a(n) = number of distinct positive integers represented in binary which are substrings of binary expansion of n.",
+			"comment": [
+				"a(n) = A078822(n) if n is of the form 2^k - 1. Otherwise, a(n) = A078822(n) - 1.",
+				"First occurrence of k: 1, 2, 4, 6, 11, 12, 22, 24, 28, 44, 52, 56, 88, 92, 112, 116, 186, 184, 220, 232, 244, 368, 376, 440, 472, ... (See A292924 for the corresponding sequence. - _Rémy Sigrist_, Mar 09 2018)",
+				"Last occurrence of k: 2^k - 1.",
+				"a(n) = sum (A057427(A213629(n,k): k = 1 .. n). - _Reinhard Zumkeller_, Jun 17 2012",
+				"Length of n-th row in triangle A165416. - _Reinhard Zumkeller_, Jul 17 2015"
+			],
+			"link": [
+				"Jeremy Gardiner, \u003ca href=\"/A122953/b122953.txt\"\u003eTable of n, a(n) for n = 1..2000\u003c/a\u003e"
+			],
+			"example": [
+				"Binary 1 = 1, binary 2 = 10, binary 4 = 100 and binary 9 = 1001 are all substrings of binary 9 = 1001. So a(9) = 4."
+			],
+			"mathematica": [
+				"f[n_] := Length@ Select[ Union[ FromDigits /@ Flatten[ Table[ Partition[ IntegerDigits[n, 2], i, 1], {i, Floor[ Log[2, n] + 1]}], 1]], # \u003e 0 \u0026]; Array[f, 90]"
+			],
+			"program": [
+				"(Haskell)",
+				"a122953 = length . a165416_row",
+				"-- _Reinhard Zumkeller_, Jul 17 2015, Jan 22 2012",
+				"(PARI) a(n) = my (v=0, s=0, x=Set()); while (n, my (r=n); while (r, if (r \u003c 100 000, if (bittest(s,r), break, s+=2^r), if (setsearch(x,r), break, x=setunion(x, Set(r)))); v++; r \\= 2); n -= 2^(#binary(n)-1)); v \\\\ _Rémy Sigrist_, Mar 08 2018"
+			],
+			"xref": [
+				"Cf. A078822, A292924.",
+				"Cf. A057427, A213629, A165416."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Oct 25 2006",
+			"ext": [
+				"More terms from _Robert G. Wilson v_, Nov 01 2006",
+				"Keyword base added by _Rémy Sigrist_, Mar 08 2018"
+			],
+			"references": 13,
+			"revision": 29,
+			"time": "2018-03-10T07:13:39-05:00",
+			"created": "2006-12-06T03:00:00-05:00"
+		},
+		{
+			"number": 127936,
+			"data": "1,2,3,5,6,8,9,11,15,21,30,39,50,63,83,95,99,156,173,350,854,1308,1769,2903,5250,5345,5639,6195,7239,21368,41669,47684,58619,63515,69468,70539,133508,134993,187160,493095",
+			"name": "Numbers n such that 1 + Sum_{i=1..n} 2^(2i-1) is prime.",
+			"comment": [
+				"If this sequence is infinite then so is A124401.",
+				"Equals A127965(n)/2.",
+				"The sum has the simple closed form 1 + 2/3*(4^n-1). - _Stefan Steinerberger_, Nov 24 2007",
+				"Terms beyond a(30) correspond to probable primes, cf. A000978. - _M. F. Hasler_, Aug 29 2008"
+			],
+			"formula": [
+				"a(n) = floor(A000978(n)/2) = ceiling(log(4)(A000979(n))); A000978(n) = 2 a(n) + 1; A000979(n) = (2*4^a(n)+1)/3. - _M. F. Hasler_, Aug 29 2008"
+			],
+			"example": [
+				"a(1)=1 because 1 + 2 = 3 is prime;",
+				"a(2)=2 because 1 + 2 + 2^3 = 11 is prime;",
+				"a(3)=3 because 1 + 2 + 2^3 + 2^5 = 43 is prime;",
+				"a(4)=5 because 1 + 2 + 2^3 + 2^5 + 2^7 + 2^9 = 683 is prime;",
+				"..."
+			],
+			"mathematica": [
+				"a = {}; Do[If[PrimeQ[1 + Sum[2^(2n - 1), {n, 1, x}]], AppendTo[a, x]], {x, 1, 1000}]; a",
+				"b = {}; Do[c = 1 + Sum[2^(2n - 1), {n, 1, x}]; If[PrimeQ[c], AppendTo[b, c]], {x, 0, 1000}]; a = {}; Do[AppendTo[a, FromDigits[IntegerDigits[b[[x]], 2]]], {x, 1, Length[b]}]; d = {}; Do[AppendTo[d, (1/2)(DigitCount[a[[x]], 10, 0]+DigitCount[a[[x]], 10, 1]]), {x, 1, Length[a]}]; d"
+			],
+			"program": [
+				"(PARI) for(n=1,999, ispseudoprime(2^(2*n+1)\\3+1) \u0026 print1(n\",\")) \\\\ _M. F. Hasler_, Aug 29 2008",
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a127936 n = a127936_list !! (n-1)",
+				"a127936_list = findIndices ((== 1) . a010051'') a007583_list",
+				"-- _Reinhard Zumkeller_, Mar 24 2013",
+				"(Python)",
+				"from sympy import isprime",
+				"A127936 = [i for i in range(1,10**3) if isprime(int('01'*i+'1',2))]",
+				"# _Chai Wah Wu_, Sep 05 2014"
+			],
+			"xref": [
+				"Cf. A127962, A127963, A127964, A127965, A127961, A000979, A000978, A124400, A126614, A127955, A127956, A127957, A127958, A127936, A127936, A124401, A010051, A007583."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Artur Jasinski_, Feb 08 2007, Feb 09 2007",
+			"ext": [
+				"Edited by _N. J. A. Sloane_ at the suggestion of _Andrew S. Plewe_, Jun 11 2007",
+				"2 more terms from _Stefan Steinerberger_, Nov 24 2007",
+				"6 more terms from _Dmitry Kamenetsky_, Jul 12 2008",
+				"a(30)-a(40) calculated from A000978 by _M. F. Hasler_, Aug 29 2008"
+			],
+			"references": 13,
+			"revision": 23,
+			"time": "2018-09-24T16:53:14-04:00",
+			"created": "2007-05-11T03:00:00-04:00"
+		},
+		{
+			"number": 132231,
+			"data": "7,37,67,97,127,157,277,307,337,367,397,457,487,547,577,607,727,757,787,877,907,937,967,997,1087,1117,1237,1297,1327,1447,1567,1597,1627,1657,1747,1777,1867,1987,2017,2137,2287,2347,2377,2437,2467,2557,2617,2647",
+			"name": "Primes congruent to 7 (mod 30).",
+			"comment": [
+				"Primes ending in 7 with (SOD-1)/3 integer where SOD is sum of digits. - _Ki Punches_, Feb 07 2009",
+				"Intersection of A030432 and A002476. - _Ray Chandler_, Apr 07 2009",
+				"Only from 4927 on, there are more composite numbers than primes in {7+30k}, see A227869. - _M. F. Hasler_, Nov 02 2013",
+				"Terms are non-twin primes A007510, except for 7. - _Jonathan Sondow_, Oct 27 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A132231/b132231.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"C. K. Caldwell, \u003ca href=\"http://primes.utm.edu\"\u003eThe Prime Pages\u003c/a\u003e",
+				"Omar E. Pol, \u003ca href=\"http://www.polprimos.com/imagenes/cribade30columnas.jpg\"\u003ePrime numbers in a sieve with 30 columns\u003c/a\u003e",
+				"Omar E. Pol, \u003ca href=\"http://www.polprimos.com\"\u003eSobre el patrón de los números primos\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A158573(n)*30 + 7. - _Ray Chandler_, Apr 07 2009",
+				"a(n) = A211890(4,n-1) for n \u003c= 5. - _Reinhard Zumkeller_, Jul 13 2012"
+			],
+			"mathematica": [
+				"Select[30*Range[0,100]+7,PrimeQ] (* _Harvey P. Dale_, Feb 01 2012 *)",
+				"Select[Prime[Range[1000]],MemberQ[{7},Mod[#,30]]\u0026] (* _Vincenzo Librandi_, Aug 14 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a132231 n = a132231_list !! (n-1)",
+				"a132231_list = [x | k \u003c- [0..], let x = 30 * k + 7, a010051' x == 1]",
+				"-- _Reinhard Zumkeller_, Jul 13 2012",
+				"(MAGMA) [p: p in PrimesUpTo(3000) | p mod 30 eq 7 ]; // _Vincenzo Librandi_, Aug 14 2012",
+				"(PARI) forstep(p=7,1999,30,isprime(p)\u0026\u0026print1(p\",\")) \\\\ - _M. F. Hasler_, Nov 02 2013"
+			],
+			"xref": [
+				"Cf. A007510, A007528, A010051, A068229, A117047, A129807, A039949, A132230-A132236, A214360."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Omar E. Pol_, Aug 15 2007",
+			"ext": [
+				"Extended by _Ray Chandler_, Apr 07 2009"
+			],
+			"references": 13,
+			"revision": 41,
+			"time": "2019-07-24T06:18:00-04:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 138511,
+			"data": "10,14,22,26,33,34,38,39,46,51,57,58,62,69,74,82,86,87,93,94,106,111,118,122,123,129,134,141,142,145,146,155,158,159,166,177,178,183,185,194,201,202,205,206,213,214,215,218,219,226,235,237,249,254,262,265,267,274,278,291,295,298,302,303,305",
+			"name": "Semiprimes where the larger prime factor is greater than the square of the smaller prime factor, short: semiprimes p*q, p^2 \u003c q.",
+			"comment": [
+				"From _Antti Karttunen_, Dec 17 2014, further edited Jan 01 \u0026 04 2014: (Start)",
+				"Semiprimes p*q, p \u003c q, such that the smallest r for which r^k \u003c= p and q \u003c r^(k+1) [for some k \u003e= 0] is q+1, and thus k = 0. In other words, semiprimes whose both prime factors do not fit (simultaneously) between any two consecutive powers of any natural number r less than or equal to the larger prime factor. This condition forces the larger prime factor q to be greater than the square of the smaller prime factor because otherwise the opposite condition given in A251728 would hold.",
+				"Assuming that A054272(n), the number of primes in interval [p(n), p(n)^2], is nondecreasing (implied for example if Legendre's or Brocard's conjecture is true), these are also \"unsettled\" semiprimes that occur in a square array A083221 constructed from the sieve of Eratosthenes, \"above the line A251719\", meaning that if and only if row \u003c A251719(col) then a semiprime occurring at A083221(row, col) is in this sequence, and conversely, all the semiprimes that occur at any position A083221(row, col) where row \u003e= A251719(col) are in the complementary sequence A251728.",
+				"(End)",
+				"Semiprimes p*q, p \u003c q, such that b = q+1 is the minimal base with the property that p and q have equal length representations in base b. This was the original definition, which is based primarily on A138510: A138510(A174956(a(n))) = A084127(A174956(a(n))) + 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A138511/b138511.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Other identities. For all n \u003e= 1 it holds that:",
+				"A138510(A174956(a(n))) = A084127(A174956(a(n))) + 1."
+			],
+			"example": [
+				"See A138510."
+			],
+			"program": [
+				"(Haskell)",
+				"a138511 n = a138511_list !! (n-1)",
+				"a138511_list = filter f [1..] where",
+				"                      f x = p ^ 2 \u003c q \u0026\u0026 a010051' q == 1",
+				"                            where q = div x p; p = a020639 x",
+				"-- _Reinhard Zumkeller_, Jan 06 2015",
+				"(Scheme, with _Antti Karttunen_'s IntSeq-library, two alternatives)",
+				"(define A138511 (MATCHING-POS 1 2 (lambda (n) (and (= 2 (A001222 n)) (= (A252375 n) (+ 1 (A006530 n)))))))",
+				"(define A138511 (COMPOSE A001358 (MATCHING-POS 1 1 (lambda (n) (= (A138510 n) (+ 1 (A006530 (A001358 n))))))))",
+				";; _Antti Karttunen_, Dec 16-17 2014",
+				"(define A138511 (MATCHING-POS 1 2 (lambda (n) (and (= 2 (A001222 n)) (\u003e (A006530 n) (A000290 (A020639 n))))))) ;; Based on the new alternative definition - _Antti Karttunen_, Jan 01 2015"
+			],
+			"xref": [
+				"Cf. A138510.",
+				"Complement of A251728 in A001358.",
+				"Subsequence of A088381.",
+				"An intersection of A001358 (semiprimes) and A251727.",
+				"Also an intersection of A001358 and A253569, from the latter which this sequence differs for the first time at n=60, where A253569(60) = 290, while here a(60) = 291.",
+				"Also an intersection A001358 and A245729.",
+				"Cf. also A006530, A020639, A054272,  A083221, A083140, A084127, A138510, A162319, A174956, A251719."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Mar 21 2008",
+			"ext": [
+				"Wrong comment corrected by _Reinhard Zumkeller_, Dec 16 2014",
+				"New definition by Antti Karttunen, Jan 01 2015; old definition moved to comment.",
+				"More terms from _Antti Karttunen_, Jan 09 2015"
+			],
+			"references": 13,
+			"revision": 47,
+			"time": "2015-01-11T15:15:46-05:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 139351,
+			"data": "0,1,0,1,1,2,1,2,0,1,0,1,1,2,1,2,1,2,1,2,2,3,2,3,1,2,1,2,2,3,2,3,0,1,0,1,1,2,1,2,0,1,0,1,1,2,1,2,1,2,1,2,2,3,2,3,1,2,1,2,2,3,2,3,1,2,1,2,2,3,2,3,1,2,1,2,2,3,2,3,2,3,2,3,3,4,3,4,2,3,2,3,3,4,3,4,1,2,1",
+			"name": "Let the binary expansion of n be n = Sum_{k} 2^{r_k}, let e(n) be the number of r_k's that are even, o(n) the number that are odd; sequence gives e(n).",
+			"comment": [
+				"e(n)+o(n) = A000120(n), the binary weight of n.",
+				"a(n) is also number of 1's and 3's in 4-ary representation of n. - _Frank Ruskey_, May 02 2009"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A139351/b139351.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"F. T. Adams-Waters, F. Ruskey, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL12/Ruskey2/ruskey14.html\"\u003eGenerating Functions for the Digital Sum and Other Digit Counting Sequences\u003c/a\u003e, JIS 12 (2009) 09.5.6",
+				"N. J. A. Sloane, \u003ca href=\"/A139351/a139351.f.txt\"\u003eFortran program for this and related sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: (1/(1-z))*SUM( z^(4^m)/(1+z^(4^m)), m \u003e= 0 ). - _Frank Ruskey_, May 03 2009",
+				"Recurrence relation: a(0)=0, a(4m) = a(4m+2) = a(m), a(4m+1) = a(4m+3) = 1+a(m). - _Frank Ruskey_, May 11 2009",
+				"a(n)=Sum_k {A030308(n,k)*A059841(k)}. - From _Philippe Deléham_, Oct 14 2011."
+			],
+			"example": [
+				"If n = 43 = 2^0+2^1+2^3+2^5, e(43)=1, o(43)=3."
+			],
+			"maple": [
+				"A139351 := proc(n)",
+				"    local a,bdgs,r;",
+				"    a := 0 ;",
+				"    bdgs := convert(n,base,2) ;",
+				"    for r from 1 to nops(bdgs) by 2 do",
+				"        if op(r,bdgs) = 1 then",
+				"            a := a+1 ;",
+				"        end if;",
+				"    end do:",
+				"    a;",
+				"end proc: # _R. J. Mathar_, Jul 21 2016"
+			],
+			"mathematica": [
+				"terms = 99; s = (1/(1-z))*Sum[z^(4^m)/(1+z^(4^m)), {m, 0, Log[4, terms] // Ceiling}] + O[z]^terms; CoefficientList[s, z] (* _Jean-François Alcover_, Jul 21 2017 *)"
+			],
+			"program": [
+				"(Fortran) See Sloane link.",
+				"(Haskell)",
+				"import Data.List (unfoldr)",
+				"a139351 = sum . map (`mod` 2) .",
+				"   unfoldr (\\x -\u003e if x == 0 then Nothing else Just (x, x `div` 4)",
+				"-- _Reinhard Zumkeller_, Apr 22 2011",
+				"(PARI) a(n)=if(n\u003e3,a(n\\4))+n%2 \\\\ _Charles R Greathouse IV_, Apr 21 2016"
+			],
+			"xref": [
+				"Cf. A000120, A139352-A139355, A039004, A139370-A139373."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,6",
+			"author": "_Nadia Heninger_ and _N. J. A. Sloane_, Jun 07 2008",
+			"ext": [
+				"Typo in example fixed by _Reinhard Zumkeller_, Apr 22 2011"
+			],
+			"references": 13,
+			"revision": 29,
+			"time": "2017-07-21T11:18:23-04:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 142983,
+			"data": "1,2,10,44,288,1896,15888,137952,1419840,15255360,186693120,2387093760,33898314240,502247692800,8123141376000,136785729024000,2483065912320000,46822564905984000,942853671825408000,19678282007924736000,435355106182520832000",
+			"name": "a(1) = 1, a(2) = 2, a(n+2) = 2*a(n+1) + (n+1)*(n+2)*a(n).",
+			"comment": [
+				"This is the case m = 1 of the general recurrence a(1) = 1, a(2) = 2*m, a(n+2) = 2*m*a(n+1) + (n+1)*(n+2)*a(n) (we suppress the dependence of a(n) on m), which arises when accelerating the convergence of the series 1/2 + 1/2*sum {k = 1..inf} (-1)^(k+1)/(k*(k+1)) = log(2). For other cases see A142984 (m=2), A142985 (m=3), A142986 (m=4) and A142987 (m=5). The solution to the general recurrence may be expressed as a sum: a(n) = n!*p_m(n+1)*sum {k = 1..n} (-1)^(k+1)/(p_m(k)*p_m(k+1)), where p_m(x) = sum {k = 1..m} 2^(k-1)*C(m-1,k-1)*C(x,k) is the polynomial that gives the regular polytope numbers for the m-dimensional cross polytope as defined by [Kim](see A142978). The first few values are p_1(x) = x, p_2(x) = x^2, p_3(x) = (2*x^3+x)/3 and p_4(x) = (x^4+2*x^2)/3.",
+				"The polynomial p_m(x) is the unique polynomial solution of the difference equation x*(f(x+1)-f(x-1)) = 2*m*f(x), normalized so that f(1) = 1. The o.g.f. for the p_m(x) is 1/2*((1+t)/(1-t))^x = 1/2 + x*t + x^2*t^2 + (2*x^3+x)/3*t^3 + ... . Thus p_m(x) is, apart from a constant factor, the Meixner polynomial of the first kind M_m(x;b,c) at b = 0, c = -1, also known as a Mittag-Leffler polynomial.",
+				"The general recurrence in the first paragraph above has a second solution b(n) = n!*p_m(n+1) with b(1) = 2*m, b(2) = m^2+2. Hence the behavior of a(n) for large n is given by lim n-\u003e infinity a(n)/b(n) = sum {k = 1..inf} (-1)^(k+1)/(p_m(k)*p_m(k+1)) = 1/((2*m)+ 1*2/((2*m)+ 2*3/((2*m)+ 3*4/((2*m)+...+ *n*(n+1)/((2*m)+...))))) = 1 + (-1)^(m+1) * (2*m)*(log(2) - (1-1/2+1/3- ...+ (-1)^(m+1)/m)), where the final equality follows by a result of Ramanujan (see [Berndt, Chapter 12, Entry 32(i)]).",
+				"See A142979, A142988 and A142992 for similar results. For corresponding results for Napier's constant e, the constant zeta(2) and Apery's constant zeta(3) refer to A000522, A142995 and A143003 respectively."
+			],
+			"reference": [
+				"Bruce C. Berndt, Ramanujan's Notebooks Part II, Springer-Verlag."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A142983/b142983.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"Hyun Kwang Kim, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9939-02-06710-2\"\u003eOn Regular Polytope Numbers\u003c/a\u003e, Proc. Amer. Math. Soc., 131 (2002), 65-75.",
+				"Weisstein Eric, W. \u003ca href=\"http://mathworld.wolfram.com/MeixnerPolynomialoftheFirstKind.html\"\u003eMeixner polynomial of the first kind\u003c/a\u003e",
+				"Weisstein Eric, W. \u003ca href=\"http://mathworld.wolfram.com/Mittag-LefflerPolynomial.html\"\u003eMittag-Leffler polynomial\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n!*p(n+1)*sum {k = 1..n} (-1)^(k+1)/(p(k)*p(k+1)), where p(n) = n. Recurrence: a(1) = 1, a(2) = 2, a(n+2) = 2*a(n+1)+(n+1)*(n+2)*a(n). The sequence b(n):= n!*p(n+1) satisfies the same recurrence with b(1) = 2, b(2) = 6. Hence we obtain the finite continued fraction expansion a(n)/b(n) = 1/(2 +1*2/(2 +2*3/(2 +3*4/(2 +...+(n-1)*n/2)))), for n \u003e=2. The behavior of a(n) for large n is given by lim n -\u003e infinity a(n)/b(n) = 1/(2 +1*2/(2 +2*3/(2 +3*4/(2 +...+n*(n+1)/(2 +...))))) = sum {k = 1..inf} (-1)^(k+1)/(k*(k+1)) = 2*log(2) - 1;",
+				"E.g.f.: (2*log(x+1)-x)/(x-1)^2. - _Vaclav Kotesovec_, Oct 21 2012"
+			],
+			"maple": [
+				"a := n -\u003e (n+1)!*sum ((-1)^(k+1)/(k*(k+1)), k = 1..n): seq(a(n), n = 1..20);"
+			],
+			"mathematica": [
+				"Rest[CoefficientList[Series[(-x+2*Log[x+1])/(x-1)^2,{x,0,20}],x]*Range[0,20]!] (* _Vaclav Kotesovec_, Oct 21 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a142983 n = a142983_list !! (n-1)",
+				"a142983_list = 1 : 2 : zipWith (+)",
+				"                       (map (* 2) $ tail a142983_list)",
+				"                       (zipWith (*) (drop 2 a002378_list) a142983_list)",
+				"-- _Reinhard Zumkeller_, Jul 17 2015"
+			],
+			"xref": [
+				"Cf. A000522, A142979, A142984, A142985, A142986, A142987, A142988, A142992.",
+				"Cf. A002378."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Peter Bala_, Jul 17 2008",
+			"references": 13,
+			"revision": 25,
+			"time": "2015-12-11T06:05:14-05:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		}
+	]
+}

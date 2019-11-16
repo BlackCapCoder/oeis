@@ -1,0 +1,350 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4940,
+	"results": [
+		{
+			"number": 188643,
+			"data": "10,13,14,16,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99",
+			"name": "Numbers which are not a multiple of the product of their digits.",
+			"comment": [
+				"Complement of A007602; A188642(a(n)) = 0; A011540 is a subsequence."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188643/b188643.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"t={};Do[p=Times@@IntegerDigits[n];If[p==0,AppendTo[t,n], If[!IntegerQ[n/p],AppendTo[t,n]]],{n,99}];t (* _Jayanta Basu_, May 05 2013 *)",
+				"nmpQ[n_]:=Module[{idn=IntegerDigits[n],pr},pr=If[MemberQ[idn,0],Pi, Times@@ idn];Mod[n,pr]!=0]; Select[Range[100],nmpQ] (* _Harvey P. Dale_, Oct 13 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a188643 n = a188643_list !! (n-1)",
+				"a188643_list = map succ $ elemIndices 0 $ map a188642 [1..]"
+			],
+			"xref": [
+				"Cf. A065877."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 07 2011",
+			"references": 5,
+			"revision": 13,
+			"time": "2018-10-13T15:35:01-04:00",
+			"created": "2011-04-09T14:53:20-04:00"
+		},
+		{
+			"number": 188650,
+			"data": "1,2,3,4,5,6,7,8,9,10,11,20,22,33,40,44,55,66,77,88,99,101,110,121,131,151,181,191,202,220,242,262,303,313,353,363,373,383,393,404,440,484,505,606,626,707,727,757,787,797,808,909,919,929,939,1010,1111,1331,1441,1661,1991,2020,2222,2662,2882,3333,3443,3883,3993,4040,4444,5555,6666,6886,7777,7997,8888",
+			"name": "Fixed points of A188649: numbers divisible by the reverse of all their divisors.",
+			"comment": [
+				"A188649(a(n)) = a(n);",
+				"A002385 and A046376 are subsequences; subsequence of A002113."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a188650 n = a188650_list !! (n-1)",
+				"a188650_list =",
+				"   map succ $ elemIndices 0 $ zipWith (-) [1..] $ map a188649 [1..]",
+				"(PARI) rev(n:int,B=10)=my(m=n%B);n\\=B;while(n\u003e0,m=m*B+n%B;n\\=B);m",
+				"is(n)=fordiv(n,d,if(n%rev(d),return(0)));1 \\\\ _Charles R Greathouse IV_, Jul 14 2011"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 11 2011",
+			"references": 5,
+			"revision": 7,
+			"time": "2013-05-13T01:49:34-04:00",
+			"created": "2011-04-13T11:38:02-04:00"
+		},
+		{
+			"number": 188652,
+			"data": "0,1,2,-1,6,-5,12,-11,20,-19,30,-29,42,-41,56,-55,72,-71,90,-89,110,-109,132,-131,156,-155,182,-181,210,-209,240,-239,272,-271,306,-305,342,-341,380,-379,420,-419,462,-461,506,-505,552,-551,600,-599,650,-649,702,-701,756,-755,812,-811,870,-869,930,-929,992,-991,1056,-1055,1122,-1121,1190,-1189,1260,-1259,1332,-1331,1406",
+			"name": "First differences of A000463.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188652/b188652.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (-1,2,2,-1,-1)"
+			],
+			"formula": [
+				"a(2n) = 1 - a(2n-1), a(2n+1) = 2*n + 1 - a(2n).",
+				"a(n) = A000463(n+1) - A000463(n).",
+				"a(2n-1) = A002378(n-1), a(2n) = - A165900(n).",
+				"G.f.: -x^2*(-1-3*x+x^2+x^3) / ( (x-1)^2*(1+x)^3 ). - R. J. Mathar, Apr 14 2011",
+				"a(n) = (2*n+3-(2*n^2-2*n-5)*(-1)^n)/8. - _Luce ETIENNE_, Dec 18 2014"
+			],
+			"mathematica": [
+				"Differences[Flatten[Array[{#,#^2}\u0026,40]]] (* _Harvey P. Dale_, Aug 04 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a188652 n = a188652_list !! (n-1)",
+				"a188652_list = zipWith (-) (tail a000463_list) a000463_list"
+			],
+			"xref": [
+				"Cf. A188653 (first differences)."
+			],
+			"keyword": "sign,easy",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Apr 13 2011",
+			"references": 5,
+			"revision": 21,
+			"time": "2015-06-13T00:53:51-04:00",
+			"created": "2011-04-13T17:27:41-04:00"
+		},
+		{
+			"number": 188915,
+			"data": "0,1,2,4,8,9,16,25,32,36,49,64,81,100,121,128,144,169,196,225,256,289,324,361,400,441,484,512,529,576,625,676,729,784,841,900,961,1024,1089,1156,1225,1296,1369,1444,1521,1600,1681,1764,1849,1936,2025,2048,2116,2209,2304,2401,2500,2601,2704,2809,2916",
+			"name": "Union of squares and powers of 2.",
+			"comment": [
+				"Union of A000290 and A000079;",
+				"A188916 and A188917 give positions where squares and powers of 2 occur:",
+				"n^2: a(A188916(n)) = A000290(n);",
+				"2^n: a(A188917(n)) = A000079(n);",
+				"4^n: a(A006127(n)) = A000302(n), A006127 is the intersection of A188916 and A188917.",
+				"A010052(a(n)) + A209229(a(n)) \u003e 0. - _Reinhard Zumkeller_, May 19 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188915/b188915.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List.Ordered (union)",
+				"a188915 n = a188915_list !! n",
+				"a188915_list = union a000290_list a000079_list",
+				"_Reinhard Zumkeller_, May 19 2015, Apr 14 2011"
+			],
+			"xref": [
+				"Cf. A000290, A000079, A010052, A209229, A006127, A188916, A188917."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Apr 14 2011",
+			"references": 5,
+			"revision": 10,
+			"time": "2015-05-19T17:12:53-04:00",
+			"created": "2011-04-14T08:51:13-04:00"
+		},
+		{
+			"number": 189710,
+			"data": "2,3,5,7,9,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,185,191,193,197,199,211,223,227,229,233,239,241,251,257,263",
+			"name": "Numbers n such that n'' = n'-1 where n' and n'' are respectively the first and the second arithmetic derivative of n (A003415).",
+			"comment": [
+				"The composite numbers in the sequences are: 9, 185, 341, 377, 437, 9005, 30413, 33953, 41009, 51533, 82673, 92909,...."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A189710/b189710.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"9' = 6, 9''= 6'= 5, 9\" = 9'- 1 -\u003e 9 is in the sequence."
+			],
+			"maple": [
+				"#using _Michael B. Porter_'s code from A003415",
+				"der:=n-\u003en*add(op(2,p)/op(1,p),p=ifactors(n)[2])",
+				"for i from 1 to n do a:=der(der(i))-der(i)+1; if a=0 then j:=j+1; B[j]:=i; end if od"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a189710 n = a189710_list !! (n-1)",
+				"a189710_list = elemIndices 0 $",
+				"   zipWith (-) (map a003415 a003415_list) (map pred a003415_list)",
+				"-- _Reinhard Zumkeller_, May 09 2011"
+			],
+			"xref": [
+				"Cf. A003415, A007850, A054377, A189639."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Giorgio Balzarotti_, Apr 25 2011",
+			"references": 5,
+			"revision": 12,
+			"time": "2018-03-07T13:24:51-05:00",
+			"created": "2011-04-25T16:56:28-04:00"
+		},
+		{
+			"number": 190017,
+			"data": "1,1113,2224,3335,4446,5557,6668,7779,8890,2,114,225,336,447,558,669,780,891,1002,1114,1225,1336,1447,1558,1669,1780,1891,2002,2113,2225,2336,2447,2558,2669,2780,2891,3002,3113,3224,3336,3447,3558,3669,3780,3891",
+			"name": "Inverse permutation to A190016: lexicographical ordering of integers 1 .. 10^4.",
+			"comment": [
+				"a(A190016(n)) = A190016(a(n)) = n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A190017/b190017.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (full sequence)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a190017 n = a190017_list !! (n-1)",
+				"a190017_list =",
+				"   map (succ . fromJust . (`elemIndex` a190016_list)) [1..10000]",
+				"(PARI) A190017=vecsort(A190016=vecsort(vector(10^4,n,Str(n)),,1),,1) \\\\ _M. F. Hasler_, Oct 26 2019"
+			],
+			"xref": [
+				"Cf. A190016 (inverse: integers 1..10^4 in lexicographical order).",
+				"Cf. A119589, A119590 (integers 1..100 in lexicographical order, and inverse)."
+			],
+			"keyword": "nonn,base,fini,full",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 06 2011",
+			"references": 5,
+			"revision": 16,
+			"time": "2019-10-26T02:39:50-04:00",
+			"created": "2011-05-07T12:15:07-04:00"
+		},
+		{
+			"number": 190808,
+			"data": "1,2,4,7,8,13,14,16,22,25,26,28,32,40,43,44,49,50,52,56,64,67,76,79,80,85,86,88,97,98,100,104,112,121,128,130,133,134,148,151,152,157,158,160,169,170,172,176,193,194,196,200,202,208,224,229,238,241,242,256",
+			"name": "Increasing sequence generated by these rules:  a(1)=1, and if x is in a then 2x and 3x+1 are in a.",
+			"comment": [
+				"See A190803."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A190808/b190808.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"h = 2; i = 0; j = 3; k = 1; f = 1; g = 9 ;",
+				"a = Union[Flatten[NestList[{h # + i, j # + k} \u0026, f, g]]]  (* A190808 *)",
+				"b = a/2; c = (a - 1)/3; r = Range[1, 900];",
+				"d = Intersection[b, r] (* A190851 *)",
+				"e = Intersection[c, r] (* A190852 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a190808 n = a190808_list !! (n-1)",
+				"a190808_list = f $ singleton 1",
+				"   where f s = m : (f $ insert (2*m) $ insert (3*m+1) s')",
+				"             where (m, s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Jun 01 2011"
+			],
+			"xref": [
+				"Cf. A190803, A190851, A190852."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, May 20 2011",
+			"ext": [
+				"a(55)=224 inserted by _Reinhard Zumkeller_, Jun 01 2011"
+			],
+			"references": 5,
+			"revision": 10,
+			"time": "2013-07-13T12:04:09-04:00",
+			"created": "2011-05-25T17:59:34-04:00"
+		},
+		{
+			"number": 191119,
+			"data": "1,2,5,14,17,41,50,53,65,122,149,158,161,194,197,209,257,365,446,473,482,485,581,590,593,626,629,641,770,773,785,833,1025,1094,1337,1418,1445,1454,1457,1742,1769,1778,1781,1877,1886,1889,1922,1925,1937,2309,2318,2321,2354,2357,2369,2498,2501,2513,2561,3074,3077",
+			"name": "Increasing sequence generated by these rules:  a(1)=1, and if x is in a then 3x-1 and 4x-3 are in a.",
+			"comment": [
+				"See A191113."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191119/b191119.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"h = 3; i = -1; j = 4; k = -3; f = 1; g = 9;",
+				"a = Union[Flatten[NestList[{h # + i, j # + k} \u0026, f, g]]]  (* A191119 *)",
+				"b = (a + 1)/3; c = (a + 3)/4; r = Range[1, 1500];",
+				"d = Intersection[b, r] (* A191120 *)",
+				"e = Intersection[c, r] (* A191163 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a191119 n = a191119_list !! (n-1)",
+				"a191119_list = 1 : f (singleton 2)",
+				"   where f s = m : (f $ insert (3*m-1) $ insert (4*m-3) s')",
+				"             where (m, s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Jun 01 2011"
+			],
+			"xref": [
+				"Cf. A191113."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, May 27 2011",
+			"references": 5,
+			"revision": 10,
+			"time": "2013-07-13T12:04:09-04:00",
+			"created": "2011-05-27T16:44:05-04:00"
+		},
+		{
+			"number": 191120,
+			"data": "1,2,5,6,14,17,18,22,41,50,53,54,65,66,70,86,122,149,158,161,162,194,197,198,209,210,214,257,258,262,278,342,365,446,473,482,485,486,581,590,593,594,626,629,630,641,642,646,770,773,774,785,786,790,833,834,838,854,1025,1026,1030,1046,1094,1110,1337,1366,1418,1445",
+			"name": "Increasing sequence generated by these rules:  a(1)=1, and if x is in a then 3x-1 and 4x-2 are in a.",
+			"comment": [
+				"See A191113."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191120/b191120.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"h = 3; i = -1; j = 4; k = -2; f = 1; g = 9;",
+				"a = Union[Flatten[NestList[{h # + i, j # + k} \u0026, f, g]]]  (* A191120 *)",
+				"b = (a + 1)/3; c = (a + 2)/4; r = Range[1, 1500];",
+				"d = Intersection[b, r] (* A191229 *)",
+				"e = Intersection[c, r] (* A191165 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a191120 n = a191120_list !! (n-1)",
+				"a191120_list = f $ singleton 1",
+				"   where f s = m : (f $ insert (3*m-1) $ insert (4*m-2) s')",
+				"             where (m, s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Jun 01 2011"
+			],
+			"xref": [
+				"Cf. A191113, A191229, A191165."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, May 27 2011",
+			"references": 5,
+			"revision": 11,
+			"time": "2013-07-13T12:04:09-04:00",
+			"created": "2011-05-27T16:43:25-04:00"
+		},
+		{
+			"number": 191121,
+			"data": "1,2,3,5,7,8,11,14,19,20,23,27,31,32,41,43,55,56,59,68,75,79,80,91,92,95,107,122,123,127,128,163,164,167,171,176,203,219,223,224,235,236,239,271,272,275,284,299,315,319,320,363,365,367,368,379,380,383,427,487,488,491,500,507,511,512,527,608,651,655,656,667,668",
+			"name": "Increasing sequence generated by these rules:  a(1)=1, and if x is in a then 3x-1 and 4x-1 are in a.",
+			"comment": [
+				"See A191113."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191121/b191121.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"h = 3; i = -1; j = 4; k = -1; f = 1; g = 9;",
+				"a = Union[Flatten[NestList[{h # + i, j # + k} \u0026, f, g]]]  (* A191121 *)",
+				"b = (a + 1)/3; c = (a + 1)/4; r = Range[1, 1500];",
+				"d = Intersection[b, r] (* A191166 *)",
+				"e = Intersection[c, r] (* A191167 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a191121 n = a191121_list !! (n-1)",
+				"a191121_list = f $ singleton 1",
+				"   where f s = m : (f $ insert (3*m-1) $ insert (4*m-1) s')",
+				"             where (m, s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Jun 01 2011"
+			],
+			"xref": [
+				"Cf. A191113, A191166, A191167."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, May 27 2011",
+			"references": 5,
+			"revision": 9,
+			"time": "2013-07-13T12:04:10-04:00",
+			"created": "2011-05-27T16:46:29-04:00"
+		}
+	]
+}

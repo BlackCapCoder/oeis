@@ -1,0 +1,391 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6710,
+	"results": [
+		{
+			"number": 226272,
+			"data": "1,1,4,27,256,3125,46656,823543,16777216,387420489,0,1,1,1,2,4,1,3,27,1,4,256,1,5,3125,1,6,46656,1,7,823543,1,8,16777216,1,9,387420489,0,1,4,1,2,4,4,4,8,9,27,4,16,256,4,25,32,3125,4,36,64,46656",
+			"name": "Distinct numbers that can be written as u^v, where u and v are not necessarily distinct digits of n in decimal representation, table read by rows.",
+			"comment": [
+				"Row lengths: A226273;",
+				"T(n,k) \u003c= 9^9 = 387420489;",
+				"largest term of n-th row = A054055(n)^A054055(n);",
+				"row(n) is contained in row(10*n+d), 0 \u003c= d \u003c= 9;",
+				"see A226277 for numbers m such that m is contained in m-th row."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226272/b226272.txt\"\u003eRows n = 0..1000 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".   n          row(n)                                    A226273(n)",
+				". ---   ---------------------   -----------------------  ----------",
+				".   0   [1]                     {0^0}                          1",
+				".   1   [1]                     {1^1}                          1",
+				".   2   [4]                     {2^2}                          1",
+				".   3   [27]                    {3^3}                          1",
+				".   4   [256]                   {4^4}                          1",
+				".   5   [3125]                  {5^5}                          1",
+				".   6   [46656]                 {6^6}                          1",
+				".   7   [823543]                {7^7}                          1",
+				".   8   [16777216]              {8^8}                          1",
+				".   9   [387420489]             {9^9}                          1",
+				".  10   [0,1]                   {0^1, 0^0=1^0=1^1}             2",
+				".  11   [1]  = row(1)           {1^1}                          1",
+				".  12   [1,2,4]                 {1^1=1^2, 2^1, 2^2}            3",
+				".  13   [1,3,27]                {1^1=1^3, 3^1, 3^3}            3",
+				".  14   [1,4,256]               {1^1=1^4, 4^1, 4^4}            3",
+				".  15   [1,5,3125]              {1^1=1^5, 5^1, 5^5}            3",
+				".  16   [1,6,46656]             {1^1=1^6, 6^1, 6^6}            3",
+				".  17   [1,7,823543]            {1^1=1^7, 7^1, 7^7}            3",
+				".  18   [1,8,16777216]          {1^1=1^8, 8^1, 8^8}            3",
+				".  19   [1,9,387420489]         {1^1=1^9, 9^1, 9^9}            3",
+				".  20   [0,1,4]                 {0^2, 0^0=2^0, 2^2}            3",
+				".  21   [1,2,4]  = row(12)      {1^1=1^2, 2^1, 2^2}            3",
+				".  22   [4]  = row(2)           {2^2}                          1",
+				".  23   [4,8,9,27]              {2^2, 2^3, 3^2, 3^3}           4",
+				".  24   [4,16,256]              {2^2, 2^4=4^2, 4^4}            3",
+				".  25   [4,25,32,3125]          {2^2, 5^2, 2^5, 5^5}           4",
+				".  26   [4,36,64,46656]         {2^2, 6^6, 2^6, 6^6}           4",
+				".  27   [4,49,128,823543]       {2^2, 7^2, 2^7, 7^7}           4",
+				".  28   [4,64,256,16777216]     {2^2, 8^2, 2^8, 8^8}           4",
+				".  29   [4,81,512,387420489]    {2^2, 9^2, 2^9, 9^9}           4",
+				".  30   [0,1,27]                {0^3, 0^0=3^0, 3^3}            3 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (nub, sort)",
+				"a226272 n k = a226272_tabf !! n !! k",
+				"a226272_row n = sort $ nub [u ^ v | u \u003c- digs, v \u003c- digs]",
+				"                where digs = nub $ map (read . return) $ show n",
+				"a226272_tabf = map a226272_row [0..]"
+			],
+			"xref": [
+				"Cf. A000312."
+			],
+			"keyword": "nonn,base,tabf",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 09 2013",
+			"references": 3,
+			"revision": 5,
+			"time": "2013-07-09T14:59:55-04:00",
+			"created": "2013-07-09T14:59:55-04:00"
+		},
+		{
+			"number": 226387,
+			"data": "1,2,3,4,7,11,8,16,5,12,9,22,10,13,14,29,37,23,38,24,15,46,39,56,6,47,17,25,40,67,41,79,48,49,50",
+			"name": "Inverse Permutation of A085612.",
+			"link": [
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a226387 = (+ 1) . fromJust . (`elemIndex` a085612_list)"
+			],
+			"xref": [
+				"Cf. A224401."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 05 2013",
+			"references": 3,
+			"revision": 4,
+			"time": "2013-06-05T17:09:36-04:00",
+			"created": "2013-06-05T17:09:36-04:00"
+		},
+		{
+			"number": 226452,
+			"data": "1,2,2,4,6,12,20,36,62,116,204,364,664,1220,2240,4132,7646,14244,26644,49984,94132,177788,336756,639720,1218228,2325048,4446776,8520928,16356260,31447436,60552616,116753948,225404486,435677408,843029104,1632918624,3165936640",
+			"name": "Number of closed binary words of length n.",
+			"comment": [
+				"A word is closed if it contains a proper factor that occurs both as a prefix and as a suffix but does not have internal occurrences.",
+				"a(n+1) \u003c= 2*a(n); for n \u003e 1: a(n) \u003c= A094536(n). - _Reinhard Zumkeller_, Jun 15 2013"
+			],
+			"link": [
+				"Lars Blomberg, \u003ca href=\"/A226452/b226452.txt\"\u003eTable of n, a(n) for n = 0..38\u003c/a\u003e",
+				"G. Badkobeh, G. Fici, Z. Lipták, \u003ca href=\"http://dx.doi.org/10.1007/978-3-319-15579-1_29\"\u003eOn the number of closed factors in a word\u003c/a\u003e, in A.-H. Dediu et al., eds., LATA 2015, LNCS 8977, 2015, pp. 381-390. Available at \u003ca href=\"http://arxiv.org/abs/1305.6395\"\u003earXiv\u003c/a\u003e, arXiv:1305.6395 [cs.FL], 2013-2014.",
+				"Gabriele Fici, \u003ca href=\"http://bulletin.eatcs.org/index.php/beatcs/article/viewFile/508/497\"\u003eOpen and Closed Words\u003c/a\u003e, in Giovanni Pighizzini, ed., The Formal Language Theory Column, Bulletin of EATCS, 2017."
+			],
+			"example": [
+				"a(4) = 6 because the only closed binary words of length 4 are 0000, 0101, 0110, and their complements."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, tails, isInfixOf)",
+				"a226452 n = a226452_list !! n",
+				"a226452_list = 1 : 2 : f [[0,0],[0,1],[1,0],[1,1]] where",
+				"   f bss = sum (map h bss) : f ((map (0 :) bss) ++ (map (1 :) bss)) where",
+				"   h bs = fromEnum $ or $ zipWith",
+				"           (\\xs ys -\u003e xs == ys \u0026\u0026 not (xs `isInfixOf` (init $ tail bs)))",
+				"           (init $ inits bs) (reverse $ tails $ tail bs)",
+				"-- _Reinhard Zumkeller_, Jun 15 2013"
+			],
+			"xref": [
+				"Cf. A297183, A297184, A297185."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Jeffrey Shallit_, Jun 07 2013",
+			"ext": [
+				"a(17)-a(23) from _Reinhard Zumkeller_, Jun 15 2013",
+				"a(24)-a(36) from _Lars Blomberg_, Dec 28 2015"
+			],
+			"references": 3,
+			"revision": 41,
+			"time": "2019-09-18T04:58:33-04:00",
+			"created": "2013-06-13T15:11:00-04:00"
+		},
+		{
+			"number": 226482,
+			"data": "1,1,3,3,5,5,7,5,7,9,11,11,13,13,15,13,13,15,19,17,17,21,27,23,21,23,29,31,27,29,33,27,29,33,39,35,35,35,41,41,33,37,41,39,45,43,45,43,45,41,53,59,51,53,57,57,55,55,65,61,59,61,71,63,55,57,65",
+			"name": "Number of runs of consecutive ones and zeros in successive states of cellular automaton generated by \"Rule 30\".",
+			"comment": [
+				"Row lengths in table A226481."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226482/b226482.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Rule30.html\"\u003eRule 30\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a226482 = length . a226481_row"
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jun 09 2013",
+			"references": 3,
+			"revision": 4,
+			"time": "2013-06-10T05:43:00-04:00",
+			"created": "2013-06-10T05:43:00-04:00"
+		},
+		{
+			"number": 226532,
+			"data": "1,2,6,4,30,3,210,8,36,15,2310,24,30030,105,5,16,510510,72,9699690,120,35,1155,223092870,12,900,15015,216,840,6469693230,10,200560490130,32,385,255255,7,9,7420738134810,4849845,5005,60,304250263527210,70,13082761331670030,9240,1080,111546435,614889782588491410",
+			"name": "If n = Prod_{i\u003e0} prime(i)^e(i), then a(n) = Prod_{i\u003e0} prime(i)^(XOR_{j\u003e=i} e(j)), where XOR is bitwise XOR.",
+			"comment": [
+				"This sequence is a permutation of the natural numbers.",
+				"The powers of 2 are the fixed points of this sequence.",
+				"a(prime(i)) = A002110(i) for any i\u003e0.",
+				"a(i^2) = a(i)^2 for any i\u003e0.",
+				"a(A019565(n))=A019565(A006068(n)) for any n\u003e=0."
+			],
+			"link": [
+				"Paul Tek, \u003ca href=\"/A226532/b226532.txt\"\u003eTable of n, a(n) for n = 1..2370\u003c/a\u003e",
+				"Paul Tek, \u003ca href=\"/A226532/a226532.txt\"\u003ePERL program for this sequence\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"example": [
+				"a(50) = a(2^1 * 3^0 * 5^2)",
+				"      = 2^xor(1,0,2) * 3^xor(0,2) * 5^xor(2)",
+				"      = 2^3          * 3^2        * 5^2",
+				"      = 1800."
+			],
+			"program": [
+				"(Perl) See link.",
+				"(Haskell)",
+				"import Data.Bits (xor)",
+				"a226532 n = product $ zipWith (^)",
+				"            a000040_list (scanr1 xor $ a067255_row n :: [Integer])",
+				"-- _Reinhard Zumkeller_, Jun 11 2013"
+			],
+			"xref": [
+				"Cf. A006068.",
+				"Cf. A226569 (inverse), A067255, A000040."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Paul Tek_, Jun 10 2013",
+			"references": 3,
+			"revision": 17,
+			"time": "2016-04-25T12:00:15-04:00",
+			"created": "2013-06-10T21:27:13-04:00"
+		},
+		{
+			"number": 226538,
+			"data": "1,1,2,3,4,6,7,11,12,19,20,32,33,53,54,87,88,142,143,231,232,375,376,608,609,985,986,1595,1596,2582,2583,4179,4180,6763,6764,10944,10945,17709,17710,28655,28656,46366,46367,75023,75024,121391,121392,196416,196417",
+			"name": "a(2t) = a(2t-1) + 1, a(2t+1) = a(2t) + a(2t-2) for t \u003e= 1, with a(0) = a(1) = 1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226538/b226538.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_06\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,2,0,0,0,-1)."
+			],
+			"formula": [
+				"a(2n) = A000071(n+3), a(2n+1) = A001911(n+1). - _Philippe Deléham_, Jun 18 2013",
+				"G.f.: (1+x+x^3)/((1-x)*(1+x)*(1-x^2-x^4)). - _Philippe Deléham_, Jun 18 2013",
+				"a(n) = a(n-1) + a(n-3)*(1-(-1)^n)/2 + (1+(-1)^n)/2. - _Paolo P. Lava_, Jun 27 2013"
+			],
+			"maple": [
+				"f:= proc(n) option remember;",
+				"      if n \u003c= 1 then 1",
+				"    elif n mod 2 = 0 then f(n-1)+1",
+				"    else f(n-1)+f(n-3)",
+				"      fi",
+				"    end:",
+				"t21:=[seq(f(n),n=0..60)];"
+			],
+			"mathematica": [
+				"LinearRecurrence[{0, 2, 0, 0, 0, -1}, {1, 1, 2, 3, 4, 6}, 50] (* _Jean-François Alcover_, Feb 13 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a226538 n = a226538_list !! n",
+				"a226538_list = concat $ transpose [drop 2 a000071_list, tail a001911_list]",
+				"-- _Reinhard Zumkeller_, Jun 18 2013"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_V. T. Jayabalaji_, Jun 10 2013",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Jun 18 2013"
+			],
+			"references": 3,
+			"revision": 29,
+			"time": "2018-02-13T04:02:24-05:00",
+			"created": "2013-06-18T02:50:22-04:00"
+		},
+		{
+			"number": 226555,
+			"data": "1,5,4,13,7,25,10,33,17,45,16,69,19,65,38,81,25,109,28,125,55,105,34,177,53,125,68,181,43,241,46,193,89,165,100,301,55,185,106,321,61,349,64,293,167,225,70,433,109,341,140,349,79,433,162,465,157,285,88",
+			"name": "Numerators of row sums of the triangular enumeration of rational numbers A226314(n,k) / A054531(n,k), 1 \u003c= k \u003c= n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226555/b226555.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				".   n         A226314(n,k) / A054531(n,k), 1\u003c=k\u003c=n\u003c=12           row sums",
+				".  --   -------------------------------------------------------- --------",
+				".   1:  1                                                           1",
+				".   2:  1/2 2                                                       5/2",
+				".   3:  1/3 2/3 3                                                   4",
+				".   4:  1/4 3/2 3/4 4                                              13/2",
+				".   5:  1/5 2/5 3/5 4/5 5                                           7",
+				".   6:  1/6 4/3 5/2 5/3 5/6 6                                      25/2",
+				".   7:  1/7 2/7 3/7 4/7 5/7 6/7 7                                  10",
+				".   8:  1/8 5/4 3/8 7/2 5/8 7/4 7/8 8                              33/2",
+				".   9:  1/9 2/9 7/3 4/9 5/9 8/3 7/9 8/9 9                          17",
+				".  10:  1/10 6/5 3/10 7/5 9/2 8/5 7/10 9/5 9/10 10                 45/2",
+				".  11:  1/11 2/11 3/11 4/11 5/11 6/11 7/11 8/11 9/11 10/11 11      16",
+				".  12:  1/12 7/6 9/4 10/3 5/12 11/2 7/12 11/3 11/4 11/6 11/12 12   69/2 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator); import Data.Function (on)",
+				"a226555 n = numerator $ sum $",
+				"            zipWith ((%) `on` toInteger) (a226314_row n) (a054531_row n)"
+			],
+			"xref": [
+				"Cf. A040001 (denominators)."
+			],
+			"keyword": "nonn,frac",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 10 2013",
+			"references": 3,
+			"revision": 4,
+			"time": "2013-06-10T17:31:09-04:00",
+			"created": "2013-06-10T17:31:09-04:00"
+		},
+		{
+			"number": 226569,
+			"data": "1,2,6,4,15,3,35,8,36,30,77,24,143,70,10,16,221,72,323,60,210,154,437,12,225,286,216,140,667,5,899,32,462,442,21,9,1147,646,858,120,1517,105,1763,308,540,874,2021,96,1225,450,1326,572,2491,108,1155,280",
+			"name": "Inverse Permutation of A226532.",
+			"link": [
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"-- import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a226569 = (+ 1) . fromJust . (`elemIndex` a226532_list)"
+			],
+			"xref": [
+				"Cf. A000079 (fixed points)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 11 2013",
+			"references": 3,
+			"revision": 3,
+			"time": "2013-06-11T20:20:46-04:00",
+			"created": "2013-06-11T20:20:46-04:00"
+		},
+		{
+			"number": 226749,
+			"data": "1,1,0,0,1,1,1,1,1,1,2,2,2,2,2,2,2,2,3,4,4,3,3,4,4,4,4,5,5,5,6,7,6,6,6,7,7,8,8,9,9,9,9,9,9,11,11,11,12,13,13,12,12,13,15,15,16,17,17,16,18,18,19,19,21,21,23,24,25,24,24,24,26,26,29,32",
+			"name": "Number of partitions of n into distinct Platonic numbers, cf. A053012.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226749/b226749.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"example": [
+				"First Platonic numbers: 1, 4, 6, 8, 10, 12, 19, 20, 27, ...",
+				"a(10) = #{10, 6+4} = 2;",
+				"a(11) = #{10+1, 6+4+1} = 2;",
+				"a(12) = #{12, 8+4} = 2;",
+				"a(13) = #{12+1, 8+4+1} = 2;",
+				"a(14) = #{10+4, 8+6} = 2;",
+				"a(15) = #{10+4+1, 8+6+1} = 2;",
+				"a(16) = #{12+4, 10+6} = 2;",
+				"a(17) = #{12+4+1, 10+6+1} = 2;",
+				"a(18) = #{12+6, 10+8, 8+6+4} = 3;",
+				"a(19) = #{19, 12+6+1, 10+8+1, 8+6+4+1} = 4;",
+				"a(20) = #{20, 19+1, 12+8, 10+6+4} = 4."
+			],
+			"program": [
+				"(Haskell)",
+				"a226749 = p a053012_list where",
+				"   p _      0 = 1",
+				"   p (k:ks) m = if m \u003c k then 0 else p ks (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A226748."
+			],
+			"keyword": "nonn",
+			"offset": "0,11",
+			"author": "_Reinhard Zumkeller_, Jun 17 2013",
+			"references": 3,
+			"revision": 4,
+			"time": "2013-06-17T08:40:57-04:00",
+			"created": "2013-06-17T08:40:57-04:00"
+		},
+		{
+			"number": 226777,
+			"data": "243,2744,6561,177147,185193,474552,614656,810000,941192,1124864,1419857,1500625,3241792,4782969,7962624,11239424,16003008,17850625,21952000,26873856,28372625,52200625,68574961,82312875,117649000,129140163,162771336,200201625,238328000",
+			"name": "Higher powers that are sums of two distinct higher powers.",
+			"comment": [
+				"x is in the sequence iff there are distinct y,z such that x = y + z and x,y,z are all in A076467."
+			],
+			"link": [
+				"Robert Israel and Reinhard Zumkeller, \u003ca href=\"/A226777/b226777.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e (first 264 terms from Robert Israel)"
+			],
+			"example": [
+				"243 is in the sequence because 243 = 3^5 = 3^3 + 6^3."
+			],
+			"maple": [
+				"N :=  10^12: # to get terms up to N",
+				"S := {seq(seq(a^x, a=1 .. floor(N^(1/x))), x = 3 .. floor(log[2](N)))}:",
+				"f:= proc(n) local L; L:= S[1..n-1] minus {S[n]/2}; nops(map2(`-`,S[n],L) intersect L) \u003e 0 end proc;",
+				"A:= map(t -\u003e S[t], select(f,[$1..nops(S)]));"
+			],
+			"mathematica": [
+				"max = 3*10^8; pp = Join[{1}, Table[n^k, {k, 3, Floor[Log[2, max]]}, {n, 2, Floor[max^(1/k)]}] // Flatten // Union]; Select[Total /@ Subsets[pp, {2}], MemberQ[pp, #]\u0026] // Union (* _Jean-François Alcover_, Feb 14 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import qualified Data.Set as Set (null, split, filter)",
+				"import Data.Set (Set, empty, insert, member)",
+				"a226777 n = a226777_list !! (n-1)",
+				"a226777_list = f a076467_list empty where",
+				"   f (x:xs) s | Set.null $ Set.filter ((`member` s) . (x -)) s'",
+				"                          = f xs (x `insert` s)",
+				"              | otherwise = x : f xs (x `insert` s)",
+				"              where (s', _) = Set.split (x `div` 2) s",
+				"-- _Reinhard Zumkeller_, Sep 13, Jun 19 2013"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Robert Israel_, Jun 17 2013",
+			"references": 3,
+			"revision": 21,
+			"time": "2018-02-14T04:02:29-05:00",
+			"created": "2013-06-17T18:19:26-04:00"
+		}
+	]
+}

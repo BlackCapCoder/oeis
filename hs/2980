@@ -1,0 +1,458 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2980,
+	"results": [
+		{
+			"number": 54685,
+			"data": "1,0,1,1,1,2,1,3,2,4,3,5,5,6,7,7,10,9,12,12,15,15,18,19,22,24,26,30,32,36,39,43,48,51,57,61,68,73,79,87,93,103,108,121,127,140,148,162,173,187,200,215,232,247,266,283,306,324,348,371,397,423,450,480,512,543,579,614",
+			"name": "Number of partitions of n into distinct prime powers (1 not considered a power).",
+			"link": [
+				"T. D. Noe and Reinhard Zumkeller, \u003ca href=\"/A054685/b054685.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e, first 1000 terms from T. D. Noe"
+			],
+			"formula": [
+				"G.f.: Prod(p prime, Prod(k \u003e= 1, 1 + x^(p^k)))"
+			],
+			"mathematica": [
+				"CoefficientList[Series[Product[Product[1 +x^(Prime[n]^k), {k, 1, 9}], {n, 1, 25}], {x, 0, 100}], x] (* _G. C. Greubel_, May 09 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.MemoCombinators (memo2, integral)",
+				"a054685 n = a054685_list !! n",
+				"a054685_list = map (p' 2) [0..] where",
+				"   p' = memo2 integral integral p",
+				"   p _ 0 = 1",
+				"   p k m = if m \u003c pp then 0 else p' (k + 1) (m - pp) + p' (k + 1) m",
+				"           where pp = a000961 k",
+				"-- _Reinhard Zumkeller_, Nov 23 2015"
+			],
+			"xref": [
+				"Cf. A051613.",
+				"Cf. A106244.",
+				"Cf. A000961."
+			],
+			"keyword": "nonn",
+			"offset": "0,6",
+			"author": "_David W. Wilson_, Apr 19 2000",
+			"references": 10,
+			"revision": 22,
+			"time": "2019-05-09T15:00:51-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 55897,
+			"data": "1,2,12,108,1280,18750,326592,6588344,150994944,3874204890,110000000000,3423740047332,115909305827328,4240251492291542,166680102383370240,7006302246093750000,313594649253062377472,14890324713954061755186,747581753430634213933056",
+			"name": "a(n) = n*(n-1)^(n-1).",
+			"comment": [
+				"Total number of leaves in all labeled rooted trees with n nodes.",
+				"Number of endofunctions of [n] such that no element of [n-1] is fixed. E.g., a(3)=12: 123 -\u003e 331, 332, 333, 311, 312, 313, 231, 232, 233, 211, 212, 213.",
+				"Number of functions f: {1, 2, ..., n} --\u003e {1, 2, ..., n} such that f(1) != f(2), f(2) != f(3), ..., f(n-1) != f(n). - _Warut Roonguthai_, May 06 2006",
+				"Determinant of the n X n matrix ((2n, n^2, 0, ..., 0), (1, 2n, n^2, 0, ..., 0), (0, 1, 2n, n^2, 0, ..., 0), ..., (0, ..., 0, 1, 2n)). - _Michel Lagneau_, May 04 2010",
+				"For n \u003e 1: a(n) = A240993(n-1) / A240993(n-2). - _Reinhard Zumkeller_, Aug 31 2014"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A055897/b055897.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"F. Ellermann, \u003ca href=\"/A001792/a001792.txt\"\u003eIllustration of binomial transforms\u003c/a\u003e",
+				"\u003ca href=\"/index/Ro#rooted\"\u003eIndex entries for sequences related to rooted trees\u003c/a\u003e"
+			],
+			"formula": [
+				"E.g.f.: x/(1-T), where T=T(x) is Euler's tree function (see A000169).",
+				"a(n) = Sum_{k=1..n} A055302(n, k)*k.",
+				"a(n) = the n-th term of the (n-1)-th binomial transform of {1, 1, 4, 18, 96, ..., (n-1)*(n-1)!, ...} (cf. A001563). - _Paul D. Hanna_, Nov 17 2003",
+				"a(n) = (n-1)^(n-1) + Sum_{i=2..n} (n-1)^(n-i)*binomial(n-1, i-1)*(i-1) *(i-1)!. - _Paul D. Hanna_, Nov 17 2003",
+				"a(n) = [x^(n-1)] 1/(1 - (n-1)*x)^2. - _Paul D. Hanna_, Dec 27 2012",
+				"a(n) ~ exp(-1) * n^n. - _Vaclav Kotesovec_, Nov 14 2014"
+			],
+			"maple": [
+				"A055897:=n-\u003e`if`(n=1,1,n*(n-1)^(n-1)); seq(A055897(n), n=1..20); # _Wesley Ivan Hurt_, Jun 26 2014"
+			],
+			"mathematica": [
+				"Join[{1},Table[n(n-1)^(n-1), {n,2,20}]] (* _Harvey P. Dale_, Jul 18 2011 *)"
+			],
+			"program": [
+				"(PARI) {a(n)=polcoeff(1/(1-n*x+x*O(x^n))^2, n)} \\\\ _Paul D. Hanna_, Dec 27 2012",
+				"(MAGMA) [n*(n-1)^(n-1): n in [1..20]] // _Wesley Ivan Hurt_, Jun 26 2014",
+				"(Haskell)",
+				"a055897 n = n * (n - 1) ^ (n - 1) -- _Reinhard Zumkeller_, Aug 31 2014",
+				"(Sage) [n*(n-1)^(n-1) for n in (1..20)] # _G. C. Greubel_, Aug 10 2019",
+				"(GAP) List([1..20], n-\u003e n*(n-1)^(n-1)); # _G. C. Greubel_, Aug 10 2019"
+			],
+			"xref": [
+				"Cf. A003227, A003228, A055314, A055540, A055541, A060226, A118537.",
+				"Cf. A240993. Diagonal of A265583."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Christian G. Bower_, Jun 12 2000",
+			"ext": [
+				"Additional comments from _Vladeta Jovovic_, Mar 31 2001 and _Len Smiley_, Dec 11 2001"
+			],
+			"references": 10,
+			"revision": 52,
+			"time": "2019-08-10T19:13:36-04:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		},
+		{
+			"number": 55975,
+			"data": "1,2,-1,4,1,-2,-1,8,1,2,-1,-4,1,-2,-1,16,1,2,-1,4,1,-2,-1,-8,1,2,-1,-4,1,-2,-1,32,1,2,-1,4,1,-2,-1,8,1,2,-1,-4,1,-2,-1,-16,1,2,-1,4,1,-2,-1,-8,1,2,-1,-4,1,-2,-1,64,1,2,-1,4,1,-2,-1,8,1,2,-1,-4,1,-2,-1,16,1,2,-1,4,1,-2,-1,-8,1,2,-1,-4,1,-2,-1,-32,1,2,-1,4",
+			"name": "First differences of A003188 (decimal equivalent of the Gray Code).",
+			"comment": [
+				"Multiplicative with a(2^e) = 2^e, a(p^e) = (-1)^((p^e-1)/2) otherwise. - _Mitch Harris_, May 17 2005",
+				"a(A091072(n)) \u003e 0; a(A091067(n)) \u003c 0. - _Reinhard Zumkeller_, Apr 28 2012",
+				"In the binary representation of n, clear everything left of the least significant 1 bit, and negate if the bit left of it was set originally. - _Ralf Stephan_, Aug 23 2013",
+				"This sequence is the trace of n in the minimal alternating binary representation of n (defined at A256696). - _Clark Kimberling_, Apr 07 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A055975/b055975.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"formula": [
+				"a(2n) = 2a(n), a(2n+1) = (-1)^n. G.f. sum(k\u003e=0, 2^k*t/(1+t^2), t=x^2^k). a(n) = 2^A007814(n) * (-1)^((n/2^A007814(n)-1)/2). - _Ralf Stephan_, Oct 29 2003",
+				"a((2*n-1)*2^p) = (-1)^(n+1)*2^p, p \u003e= 0. - _Johannes W. Meijer_, Jan 27 2013"
+			],
+			"example": [
+				"Since A003188(n) is 0, 1, 3, 2, 6, 7, 5, 4, 12, 13, 15, 14, 10, ..., a(n) begins 1, 2, -1, 4, 1, -2, -1, 8, 1, 2, -1, 4, ... ."
+			],
+			"maple": [
+				"nmax:=100: for p from 0 to ceil(simplify(log[2](nmax))) do for n from 1 to ceil(nmax/(p+2)) do a((2*n-1)*2^p) := (-1)^(n+1)*2^p od: od: seq(a(n), n=1..nmax); # _Johannes W. Meijer_, Jan 27 2013"
+			],
+			"mathematica": [
+				"f[n_]:=BitXor[n,Floor[n/2]];Differences[Array[f,120,0]] (* _Harvey P. Dale_, Jul 18 2011, applying _Robert G. Wilson v_'s program from A003188 *)"
+			],
+			"program": [
+				"(PARI) a(n)=((-1)^((n/2^valuation(n,2)-1)/2)*2^valuation(n,2) \\\\ _Ralf Stephan_",
+				"(Haskell)",
+				"a055975 n = a003188 n - a003188 (n-1)",
+				"a055975_list = zipWith (-) (tail a003188_list) a003188_list",
+				"-- _Reinhard Zumkeller_, Apr 28 2012"
+			],
+			"xref": [
+				"The unsigned sequence |a(n)| is A006519(n) = 2^A007814(n).",
+				"Cf. A003188, A006519 and A007814.",
+				"MASKTRANSi transform of A053644 (conjectural).",
+				"Cf. A119972, A119974, A220466."
+			],
+			"keyword": "easy,nice,sign,mult",
+			"offset": "1,2",
+			"author": "_Alford Arnold_, Jul 22 2000",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Sep 05 2000"
+			],
+			"references": 10,
+			"revision": 31,
+			"time": "2015-04-13T09:38:29-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 56577,
+			"data": "0,1,1,11,17,115,217,139,2465,3299,26281,46075,7153,545747,588665,5960299,9492289,62031299,118985033,88519643,1339300753,1870418611,14201190425,25423702091,7551629537",
+			"name": "Difference between 3^n and highest power of 2 less than or equal to 3^n.",
+			"comment": [
+				"a(n) = A227048(n,1). - _Reinhard Zumkeller_, Jun 30 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A056577/b056577.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 3^n - 2^floor(log_2(3^n)) = A000244(n) - 2^A056576(n)."
+			],
+			"example": [
+				"a(3)=11 because 3^3 = 27 and 27 - 16 = 11."
+			],
+			"mathematica": [
+				"Table[# - 2^Floor@ Log2@ # \u0026[3^n], {n, 0, 24}] (* _Michael De Vlieger_, Sep 30 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a056577 = head . a227048_row  -- _Reinhard Zumkeller_, Jun 30 2013"
+			],
+			"xref": [
+				"Cf. A000244, A056576, A063005, A227048."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_Henry Bottomley_, Jun 29 2000",
+			"references": 10,
+			"revision": 15,
+			"time": "2017-09-30T23:55:12-04:00",
+			"created": "2000-07-22T03:00:00-04:00"
+		},
+		{
+			"number": 56815,
+			"data": "3,7,17,23,113,127,137,193,199,223,233,271,311,313,331,359,367,373,431,433,439,463,479,499,503,523,587,607,641,677,691,733,757,773,797,809,821,823,829,853,919,997,1009,1069,1123,1129,1171,1181,1187,1223,1277",
+			"name": "Primes with prime \"look and say\" descriptions.",
+			"comment": [
+				"The \"look and say\" descriptions of some of these primes are themselves also terms of this sequence (for example, the one for 373). - _Alonso del Arte_, Mar 01 2012"
+			],
+			"reference": [
+				"David Wells, Prime Numbers: The Most Mysterious Figures in Math. Hoboken, New Jersey: John Wiley \u0026 Sons (2005): 41"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A056815/b056815.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"A010051(a(n)) * A010051(A045918(a(n))) = 1. - _Reinhard Zumkeller_, Apr 14 2014"
+			],
+			"example": [
+				"193 is prime and its \"look and say\" description A045918(193) = 111913, is also prime, so 193 belongs to the sequence."
+			],
+			"mathematica": [
+				"LookAndSayA[ n_] := FromDigits@Flatten@((Through[ {Length, First}[ # ] ] \u0026) /@ Split@IntegerDigits@n); Select[Prime@Range[210], PrimeQ@LookAndSayA@# \u0026] (* _Ray Chandler_, Jan 12 2007 *)",
+				"(* _Emmanuel Vantieghem_, Jan 26 2012, reports that the above Mma program is incorrect, because the LookAndSayA function can give wrong answers. Here is a better function (b and c to be substituted by suitable numbers): *)",
+				"LookAndSayA[n_] := FromDigits@Flatten@(IntegerDigits/@Flatten@",
+				"((Through[{Length, First}[#]]\u0026)/@Split@IntegerDigits@n)); W=Select[Prime@Range[b, c], PrimeQ@LookAndSayA@#\u0026]",
+				"(* _Robert G. Wilson v_ then commented (Jan 27 2012) that the following version is cleaner: *)",
+				"LookAndSayA[n_] := FromDigits@ Flatten@ IntegerDigits@ Flatten[",
+				"Through[{Length, First}[#]] \u0026 /@ Split@ IntegerDigits@ n]"
+			],
+			"program": [
+				"(PARI) forprime(p=1,999, isprime(A045918(p)) \u0026 print1(p\",\"))  \\\\ _M. F. Hasler_, Jan 27 2012",
+				"(Haskell)",
+				"a056815 n = a056815_list !! (n-1)",
+				"a056815_list = filter ((== 1) . a010051' . a045918) a000040_list",
+				"-- _Reinhard Zumkeller_, Apr 14 2014"
+			],
+			"xref": [
+				"Cf. A045918, A005150, A127175, A127176.",
+				"Cf. A127355."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Joseph L. Pe_, Jan 30 2003",
+			"ext": [
+				"Discussion of Mma program added Feb 02 2012 by _N. J. A. Sloane_"
+			],
+			"references": 10,
+			"revision": 25,
+			"time": "2019-06-01T01:45:21-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 57153,
+			"data": "1,3,9,26,73,194,485,1150,2617,5779,12497,26653,56355,118545,248605,520365,1087853,2272770,4748677,9930475,20800122,43658310,91836751,193549010,408449129,862455193,1820771343,3840569196,8089327515",
+			"name": "Construct difference array so that (1) first row begins with 1, (2) every row is monotonic increasing, (3) no number appears more than once, (4) smallest number not yet used begins a new row. Sequence gives first row of array.",
+			"comment": [
+				"This is the limit of the family of sequences starting with A005228, A037257, A037260. Adjoin next free number as the first element in a new level of differences unless it would produce a duplicate in which case ignore."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A057153/b057153.txt\"\u003eTable of n, a(n) for n = 1..150\u003c/a\u003e"
+			],
+			"formula": [
+				"Row sums of triangle A133544. - _Gary W. Adamson_, Sep 14 2007"
+			],
+			"example": [
+				"Array begins",
+				"1 3 9 26 73 194 ...",
+				".2 6 17 47 121 ...",
+				". 4 11 30 74 ...",
+				".. 7 19 44 ...",
+				"... 12 25 ...",
+				".... 13 ..."
+			],
+			"program": [
+				"(Haskell)",
+				"a057153 n = a056230_tabl !! (n-1) !! (n-1)",
+				"-- _Reinhard Zumkeller_, Nov 19 2011"
+			],
+			"xref": [
+				"Cf. A057154 (numbers not used), A052474 (main diagonal), A056230 (array). See also A005228, A037257, A037260, A057267, A056231, A056232, A056233, A056234.",
+				"Cf. A133544.",
+				"Cf. A200379 (first differences)."
+			],
+			"keyword": "nice,nonn,easy",
+			"offset": "1,2",
+			"author": "_Jonas Wallgren_, Jul 30 2000",
+			"ext": [
+				"More terms from Rob Speer (rob(AT)twcny.rr.com) and Loren Merritt, Aug 14 2000"
+			],
+			"references": 10,
+			"revision": 15,
+			"time": "2014-12-06T01:34:20-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 58294,
+			"data": "1,1,1,1,1,2,3,2,1,1,3,7,10,7,3,1,1,4,13,30,43,30,13,4,1,1,5,21,68,157,225,157,68,21,5,1,1,6,31,130,421,972,1393,972,421,130,31,6,1,1,7,43,222,931,3015,6961,9976,6961,3015,931,222,43,7,1",
+			"name": "Successive rows of a triangle, the columns of which are generalized Fibonacci sequences S(j).",
+			"comment": [
+				"T(n,k)=A102473(n,k), k=1..n; T(n,k)=A102472(n,k-n+1), k=n..2*n-1; T(n,n)=A001040(n).  - _Reinhard Zumkeller_, Sep 14 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A058294/b058294.txt\"\u003e\u003eRows n = 1..125 of table, flattened\u003c/a\u003e",
+				"Russell Walsmith, \u003ca href=\"/A058294/a058294.pdf\"\u003eCL-Chemy Transforms Fibonacci-Type Sequences to Arrays\u003c/a\u003e"
+			],
+			"formula": [
+				"The j-th column S(j) is generated by a(n+1) = (n+j)*a(n) + a(n-1), a(0)=0, a(1)=1."
+			],
+			"example": [
+				"1;",
+				"1,1,1;",
+				"1,2,3,2,1;",
+				"1,3,7,10,7,3,1;",
+				"..."
+			],
+			"mathematica": [
+				"t[n_, n_] = 1; t[n_, k_] := t[n, k] = If[n\u003ck, 0, (n-1)*t[n-1, k] + t[n-2, k]]; row[n_] := With[{ro = Table[t[n, k], {k, 1, n}]}, Join[Reverse[ro], Rest[ro]]]; Array[row, 8] // Flatten (* _Jean-François Alcover_, Oct 05 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a058294 n k = a058294_tabf !! (n-1) !! (k-1)",
+				"a058294_row n = a058294_tabf !! (n-1)",
+				"a058294_tabf = [1] : zipWith (++) xss (map (tail . reverse) xss)",
+				"               where xss = tail a102473_tabl",
+				"-- _Reinhard Zumkeller_, Sep 14 2014"
+			],
+			"xref": [
+				"A001040, A001053, A058307, A058308, A058309 are columns of this triangle.",
+				"Cf. A102472, A102473"
+			],
+			"keyword": "nonn,tabf,nice,easy",
+			"offset": "1,6",
+			"author": "_Russell Walsmith_, Dec 07 2000",
+			"references": 10,
+			"revision": 13,
+			"time": "2016-10-05T08:55:40-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 58971,
+			"data": "3,2,6,3,3,4,10,87,6,6,9,7,6,6,87,9,6,10,7,8,9,12,9,15,12,10,16,15,9,16,12,12,15,12,87,19,15,14,19,21,12,22,14,13,18,24,34,19,12,18,0,27,15,18,15,20,24,30,14,31,24,18,51,21,18,34,21,24,18,36,24,37,30,21,37",
+			"name": "For a rational number p/q let f(p/q) = sum of divisors of p+q divided by number of divisors of p+q; a(n) is obtained by iterating f, starting at n/1, until an integer is reached, or if no integer is ever reached then a(n) = 0.",
+			"comment": [
+				"a(p-1) = (p+1)/2 for all odd primes p. Thus there are infinitely many distinct terms. - _Ely Golden_, Mar 03 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A058971/b058971.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"P. Schogt, \u003ca href=\"http://arxiv.org/abs/1211.6583\"\u003eThe Wild Number Problem: math or fiction?\u003c/a\u003e, arXiv preprint arXiv:1211.6583 [math.HO], 2012. - From _N. J. A. Sloane_, Jan 03 2013"
+			],
+			"example": [
+				"1 -\u003e (1+2)/2 = 3/2 -\u003e (1+5)/2 = 3, so a(1) = 3. 51 -\u003e 49/3 -\u003e 49/3 -\u003e ..., so a(51) = 0."
+			],
+			"maple": [
+				"with(numtheory); f := proc(n) if whattype(n) = integer then sigma(n+1)/sigma[0](n+1) else sigma(numer(n)+denom(n))/sigma[0](numer(n)+denom(n)); fi; end;"
+			],
+			"mathematica": [
+				"f[x_] := With[{p = Numerator[x], q = Denominator[x]}, DivisorSigma[1, p+q]/DivisorSigma[0, p+q]]; a[n_] := If[ IntegerQ[ r = FixedPoint[f, n, SameTest -\u003e (#1 == #2 || IntegerQ[#2] \u0026)]], r, 0]; Table[a[n], {n, 1, 75}] (* _Jean-François Alcover_, Jul 18 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"a058971 n = f [n % 1] where",
+				"   f xs@(x:_) | denominator y == 1 = numerator y",
+				"              | y `elem` xs        = 0",
+				"              | otherwise          = f (y : xs)",
+				"              where y = (a000203 x') % (a000005 x')",
+				"                    x' = numerator x + denominator x",
+				"-- _Reinhard Zumkeller_, Aug 02 2012"
+			],
+			"xref": [
+				"Cf. A058972, A058977."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Jan 14 2001",
+			"ext": [
+				"More terms from _Matthew Conroy_, Apr 18 2001, who remarks that a(51) = a(655) = a(1039) = 0 are all the zeros of a(n) for n\u003c10^5.",
+				"No more zero terms \u003c= 10^6 found by _Reinhard Zumkeller_, Aug 02 2012"
+			],
+			"references": 10,
+			"revision": 26,
+			"time": "2018-04-15T22:03:20-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 60432,
+			"data": "1,3,5,8,11,14,18,22,26,30,35,40,45,50,55,61,67,73,79,85,91,98,105,112,119,126,133,140,148,156,164,172,180,188,196,204,213,222,231,240,249,258,267,276,285,295,305,315,325,335,345,355,365,375,385,396,407,418",
+			"name": "Partial sums of A002024.",
+			"comment": [
+				"In other words, first differences give A002024.",
+				"Equals A010054 convolved with [1, 2, 3,...]. [_Gary W. Adamson_, Mar 16 2010]"
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A060432/b060432.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e",
+				"Gorka Zamora-López, Romain Brasselet, \u003ca href=\"https://arxiv.org/1810.12825\"\u003eSizing the length of complex networks\u003c/a\u003e, arXiv:1810.12825 [physics.soc-ph], 2018."
+			],
+			"formula": [
+				"Let f(n) = floor(1/2 + sqrt(2*n)), then this function is S(n) = f(1) + f(2) + f(3) + ... + f(n).",
+				"a(n) is asymptotic to c*n^(3/2) with c=0.9428.... - _Benoit Cloitre_, Dec 18 2002",
+				"a(n) is asymptotic to c*n^{3/2} with c = (2/3)*sqrt(2) = .942809.... - _Franklin T. Adams-Watters_, Sep 07 2006",
+				"Set R = round(sqrt(2*n),0), then a(n) = ((6*n+1)*R-R^3)/6. [_Gerald Hillier_, Nov 28 2008]",
+				"G.f.: W(0)/(2*(1-x)^2) , where W(k) = 1 + 1/( 1 - x^(k+1)/( x^(k+1) + 1/W(k+1) )); (continued fraction). - _Sergei N. Gladkovskii_, Aug 21 2013",
+				"a(n) = A000330(A003056(n)) + (A003056(n) + 1) * (n - A057944(n)). This represents a closed form, because all of the constituent sequences (i.e. A003056, A000330, A057944) have a known closed form. - _Peter Kagey_, Jan 28 2016",
+				"G.f.: x^(7/8)*Theta_2(0,x^(1/2))/(2*(1-x)^2) where Theta_2 is a Jacobi theta function. - _Robert Israel_, Jan 28 2016",
+				"G.f.: (x/(1 - x)^2)*Product_{k\u003e=1} (1 - x^(2*k))/(1 - x^(2*k-1)). - _Ilya Gutkovskiy_, May 30 2017"
+			],
+			"example": [
+				"a(7) = 1 + 2 + 2 + 3 + 3 + 3 + 4 = 18."
+			],
+			"maple": [
+				"ListTools:-PartialSums([seq(n$n,n=1..10)]); # _Robert Israel_, Jan 28 2016"
+			],
+			"mathematica": [
+				"a[n_] := Sum[Floor[1/2 + Sqrt[2*k]], {k, 1, n}]; Array[a, 60] (* _Jean-François Alcover_, Jan 10 2016 *)"
+			],
+			"program": [
+				"(PARI) f(n) = floor(1/2+sqrt(2*n)) for(n=1,100,print1(sum(k=1,n,f(k)),\",\"))",
+				"(PARI) { default(realprecision, 100); for (n=1, 1000, a=sum(k=1, n, floor(1/2 + sqrt(2*k))); write(\"b060432.txt\", n, \" \", a); ) } \\\\ _Harry J. Smith_, Jul 05 2009",
+				"(Haskell)",
+				"a060432 n = sum $ zipWith (*) [n,n-1..1] a010054_list",
+				"-- _Reinhard Zumkeller_, Dec 17 2011"
+			],
+			"xref": [
+				"Cf. A002024, A006463, A010054."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "Robert A. Stump (bobess(AT)netzero.net), Apr 06 2001",
+			"ext": [
+				"More terms from _Jason Earls_, Jan 08 2002"
+			],
+			"references": 10,
+			"revision": 51,
+			"time": "2019-01-08T19:10:11-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61394,
+			"data": "0,1,1,2,1,2,1,2,3,1,2,2,3,1,2,2,3,1,2,3,2,4,2,3,1,2,3,2,4,2,3,1,2,3,2,4,2,3,3,1,3,2,4,2,3,2,4,2,3,3,1,3,2,5,4,2,3,2,4,2,3,3,1,3,2,5,4,2,3,3,2,4,3,4,2,3,4,3,2,1,3,2,5,4,2,3,3,2,4,3,4,2,5,3,4,3,2,1,3,2,5,4,2,3,3",
+			"name": "Number of distinct prime factors of n-th least prime signature (A025487); also a(n)-th prime is largest prime factor of n-th least prime signature; also a(n)-th primorial number is largest primorial factor of n-th least product of primorial numbers.",
+			"comment": [
+				"A002110(a(n)) = A247451(n). - _Reinhard Zumkeller_, Sep 17 2014",
+				"Number of parts of the associated prime signature. - _Álvar Ibeas_, Nov 01 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061394/b061394.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A061395(A025487(n)) = A001221(A025487(n)) = A051903(A181822(n)).",
+				"A000040(a(n)) = A006530(A025487(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a061394 = fromJust . (`elemIndex` a002110_list) . a247451",
+				"-- _Reinhard Zumkeller_, Sep 17 2014",
+				"(PARI) isA025487(n)=my(k=valuation(n, 2), t); n\u003e\u003e=k; forprime(p=3, default(primelimit), t=valuation(n, p); if(t\u003ek, return(0), k=t); if(k, n/=p^k, return(n==1)))",
+				"[omega(n) | n \u003c- [1..1000], isA025487(n)]",
+				"\\\\ Or, for older versions:",
+				"apply(omega, select(isA025487, [1..1000])) \\\\ _Charles R Greathouse IV_, Nov 07 2014"
+			],
+			"xref": [
+				"Cf. A002110, A247451, A006530, A061395, A025487, A000040, A051903. A001221 by prime signature."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Henry Bottomley_, Apr 30 2001",
+			"ext": [
+				"Offset updated by _Matthew Vandermast_, Nov 08 2008"
+			],
+			"references": 10,
+			"revision": 19,
+			"time": "2014-11-07T12:00:57-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

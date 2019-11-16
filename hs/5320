@@ -1,0 +1,360 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5320,
+	"results": [
+		{
+			"number": 59707,
+			"data": "0,1,2,3,4,5,6,7,8,9,0,11,2,13,4,15,6,17,8,19,20,2,22,6,24,0,26,4,28,8,0,31,6,33,2,35,8,37,24,39,40,4,42,2,44,20,46,28,48,8,0,51,0,53,20,55,0,57,40,59,60,6,62,8,64,0,66,42,68,20,0,71,4,73,28,75,42",
+			"name": "If all digits have the same parity, stop; otherwise write down the number formed by the even digits and the number formed by the odd digits and multiply them; repeat.",
+			"comment": [
+				"a(A059708(n)) = A059708(n). - _Reinhard Zumkeller_, Jun 15 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059707/b059707.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"89 -\u003e 8*9 = 72 -\u003e 7*2 = 14 -\u003e 1*4 = 4, stop, so a(89) = 4.",
+				"33278 -\u003e 28*337 = 9436 -\u003e 46*93 = 4278 -\u003e 42*78 -\u003e 2996 -\u003e 26*99 = 2574 -\u003e 24*57 = 1368 -\u003e 68*13 = 884, stop, so a(33278) = 884."
+			],
+			"mathematica": [
+				"f[n_] := (id = IntegerDigits[n]; oddDigits = Select[id, OddQ]; evenDigits = Select[id, EvenQ]; Which[oddDigits == {}, FromDigits[evenDigits], evenDigits == {}, FromDigits[oddDigits], True, FromDigits[evenDigits] * FromDigits[oddDigits]]); a[n_] := FixedPoint[f, n]; Table[a[n], {n, 0, 76}] (* _Jean-François Alcover_, May 16 2013 *)",
+				"sp[n_]:=Module[{idn=IntegerDigits[n],e,o},e=Select[idn,EvenQ];o= Select[ idn,OddQ];If[Min[Length[o],Length[e]]\u003e0,FromDigits[o] FromDigits[e], n]]; Table[FixedPoint[sp,i],{i,0,80}] (* _Harvey P. Dale_, Jun 05 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (unfoldr)",
+				"a059707 n = if u == n || v == n then n else a059707 (u * v) where",
+				"   (u,v) = foldl (\\(x,y) d -\u003e if odd d then (10*x+d,y) else (x,10*y+d))",
+				"        (0,0) $ reverse $ unfoldr",
+				"        (\\z -\u003e if z == 0 then Nothing else Just $ swap $ divMod z 10) n",
+				"-- _Reinhard Zumkeller_, Jun 15 2012"
+			],
+			"xref": [
+				"Cf. A059708, A059717."
+			],
+			"keyword": "nonn,base,easy,nice,look",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Feb 07 2001",
+			"ext": [
+				"a(50) corrected by _Reinhard Zumkeller_, Jun 15 2012"
+			],
+			"references": 4,
+			"revision": 17,
+			"time": "2014-07-07T12:32:19-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59717,
+			"data": "0,1,2,3,4,5,6,7,8,9,1,11,3,13,5,15,7,17,9,19,20,3,22,5,24,7,26,9,28,11,3,31,5,33,7,35,9,37,11,39,40,5,42,7,44,9,46,11,48,13,5,51,7,53,9,55,11,57,13,59,60,7,62,9,64,11,66,13,68,15,7,71,9,73,11,75",
+			"name": "Start with decimal expansion of n; if all digits have the same parity, stop; otherwise write down the number formed by the even digits and the number formed by the odd digits and add them; repeat.",
+			"comment": [
+				"a(A011557(n)) = 1; a(A059708(n)) = A059708(n). [_Reinhard Zumkeller_, Jul 05 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059717/b059717.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"For example, 59708 -\u003e (0)8 + 597 = 605 -\u003e 60 + 5 = 65 -\u003e 6 + 5 = 11, stop, so a(59708) = 11."
+			],
+			"mathematica": [
+				"f[n_] := (id = IntegerDigits[n]; oddDigits = Select[id, OddQ]; evenDigits = Select[id, EvenQ]; Which[ oddDigits == {}, FromDigits[ evenDigits ], evenDigits == {}, FromDigits[ oddDigits ], True, FromDigits[ evenDigits ] + FromDigits[ oddDigits ]]); a[n_] := FixedPoint[f, n]; Table[a[n], {n, 0, 75}] (* _Jean-François Alcover_, May 31 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (unfoldr)",
+				"a059717 n = if u == n || v == n then n else a059717 (u + v) where",
+				"   (u,v) = foldl (\\(x,y) d -\u003e if odd d then (10*x+d,y) else (x,10*y+d))",
+				"        (0,0) $ reverse $ unfoldr",
+				"        (\\z -\u003e if z == 0 then Nothing else Just $ swap $ divMod z 10) n",
+				"-- _Reinhard Zumkeller_, Nov 16 2011 (corrected), Jul 05 2011"
+			],
+			"xref": [
+				"Cf. A059707, A059708."
+			],
+			"keyword": "nonn,base,easy,nice,look",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Feb 08 2001",
+			"references": 4,
+			"revision": 19,
+			"time": "2014-01-27T10:21:13-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59727,
+			"data": "0,2,2,6,12,30,72,182,462,1190,3080,8010,20880,54522,142506,372710,975156,2552006,6679640,17484942,45771990,119825862,313697232,821252306,2150037792,5628825650,14736381842,38580227142,101004149532,264431978670",
+			"name": "a(n) = Fibonacci(n)*(Fibonacci(n) + 1).",
+			"reference": [
+				"L. Euler, Observationes analyticae, reprinted in: Opera Omnia. Teubner, Leipzig, 1911, Series (1), Vol. 15, p. 54."
+			],
+			"link": [
+				"Nathaniel Johnston, \u003ca href=\"/A059727/b059727.txt\"\u003eTable of n, a(n) for n = 0..300\u003c/a\u003e [replacing table for n = 0..200 by Harry J. Smith]",
+				"G. E. Andrews, \u003ca href=\"http://www.mat.univie.ac.at/~slc/opapers/s25andrews.html\"\u003eThree aspects of partitions\u003c/a\u003e, Séminaire Lotharingien de Combinatoire, B25f (1990), 1 p.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/TrinomialCoefficient.html\"\u003eTrinomial Coefficient\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: 2*x*(1-2*x-x^2+x^3)/((1+x)*(1-3*x+x^2)*(1-x-x^2)).",
+				"a(n) = Fibonacci(n) + (1/5)*(Lucas(2*n) - 2*(-1)^n)."
+			],
+			"program": [
+				"(PARI) a(n)=2*binomial(fibonacci(n)+1,2)",
+				"(PARI) { for (n=0, 200, f=fibonacci(n); write(\"b059727.txt\", n, \" \", f*(f + 1)); ) } \\\\ _Harry J. Smith_, Jun 29 2009",
+				"(MAGMA) [ Fibonacci(n)*(Fibonacci(n)+1): n in [0..100]]; // _Vincenzo Librandi_, Apr 15 2011",
+				"(Haskell)",
+				"a059727 n = a059727_list !! n",
+				"a059727_list = zipWith (*) a000045_list $ map (+ 1) a000045_list",
+				"-- _Reinhard Zumkeller_, Dec 17 2011"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Feb 09 2001",
+			"references": 4,
+			"revision": 43,
+			"time": "2018-03-01T14:21:16-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59941,
+			"data": "1,1,11,10,10,11,111,100,101,100,100,101,100,111,1111,1000,1001,1000,1001,1010,1001,1000,1000,1001,1010,1001,1000,1001,1000,1111,11111,10000,10001,10000,10011,10000,10001,10000,10001,10010,10101,10000",
+			"name": "Take the n-th number which is just a sequence of 1's and 2's (A007931): if the first k digits in order are the same as the last k digits in order then put 1 in the k-th from right digit of a(n), otherwise put a zero.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059941/b059941.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(35)=10011 since the 35th number with 1's and 2's is 11211, the first digit and last digit are the same (1), the first two and the last two are the same (11), the first three and last three are not (112 and 211), the first four and last four are not (1121 and 1211) and the first five and last five are (11211)."
+			],
+			"mathematica": [
+				"a[n_] := (id = Drop[ IntegerDigits[n+1, 2], 1] + 1; an = {}; Do[ PrependTo[an, If[Take[id, k] == Take[id, -k], 1, 0]], {k, 1, Length[id]}]; FromDigits[an]); Table[a[n], {n, 1, 42}](* _Jean-François Alcover_, Nov 21 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, tails)",
+				"a059941 n = a059941_list !! (n-1)",
+				"a059941_list = map (foldr (\\d v -\u003e v * 10 + d) 0) $ f a030341_tabf where",
+				"   f (xs:xss)",
+				"     | 0 `elem` xs = f xss",
+				"     | otherwise = map fromEnum (zipWith (==)",
+				"                   (tail $ inits xs) (reverse $ init $ tails xs)) : f xss",
+				"-- _Reinhard Zumkeller_, Apr 03 2014"
+			],
+			"xref": [
+				"A059942 is this sequence translated from binary to decimal. Cf. A007931, A059943."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,3",
+			"author": "_Henry Bottomley_, Feb 14 2001",
+			"references": 4,
+			"revision": 15,
+			"time": "2014-04-03T03:44:49-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59943,
+			"data": "2,2,6,4,4,6,14,8,10,8,8,10,8,14,30,16,18,16,18,20,18,16,16,18,20,18,16,18,16,30,62,32,34,32,38,32,34,32,34,36,42,32,34,36,34,32,32,34,36,34,32,42,36,34,32,34,32,38,32,34,32,62,126,64,66,64,70,64,66,64,70,72",
+			"name": "Toss a fair coin and calculate the expected time until the n-th possible finite sequence of Heads and Tails first appears (ordered by length of sequence and alphabetical order so H, T, HH, HT, TH, TT, HHH, etc.).",
+			"comment": [
+				"Note the apparent paradox: HHHHHH, HTHTHT and HHHFFF are all equally likely to appear in six tosses of the coin (1/64) and in a long sequence each is expected to appear as a subsequence roughly as many times as the others, but the expected time for HHHHHH to first appear (126) is almost twice as long as for HHHFFF (64), with HTHTHT between the two (84). This is related to the fact that in a sequence of, say, 8 successive tosses, HHHHHH could appear as a subsequence 3 times simultaneously, HTHTHT twice but HHHTTT only once."
+			],
+			"reference": [
+				"M. Gardner, Chapter 5 in Time Travel and Other Mathematical Bewilderments, W. H. Freeman, 1988, pp. 63-67.",
+				"Michael Hochster in sci.math and sci.stat.math quoting from Stochastic Processes by Sheldon Ross."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059943/b059943.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 2*A059942(n). For the n-th sequence S (e.g., the 35th is HHTHH), create the set X consisting of subsequences of S which appear both at the beginning and end of S (e.g., X={H, HH, HHTHH}), then a(n) = sum_x(2^length(x)|x is in X) (e.g., a(35)=2^1+2^2+2^5=38)."
+			],
+			"example": [
+				"a(35)=38 since the expected time from xxxHHTH to completion of xxxHHTHH is 20, from xxxHHT to completion is 30, from xxxHH to completion is 32, from xxxH to completion is 36 and from xxx to completion is 38 (xxx is an earlier subsequence, perhaps empty, which cannot contribute to completion)."
+			],
+			"mathematica": [
+				"a[n_] := (id = Drop[ IntegerDigits[n+1, 2], 1]+1; an={}; Do[PrependTo[an, If[Take[id, k] == Take[id, -k], 1, 0]], {k, 1, Length[id]}]; 2*FromDigits[an, 2]); Table[a[n], {n, 1, 72}] (* _Jean-François Alcover_, Nov 21 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a059943 = (* 2) . a059942  -- _Reinhard Zumkeller_, Apr 03 2014"
+			],
+			"xref": [
+				"Cf. A007931, A059941, A059942."
+			],
+			"keyword": "nice,nonn",
+			"offset": "1,1",
+			"author": "_Henry Bottomley_, Feb 14 2001",
+			"references": 4,
+			"revision": 22,
+			"time": "2014-12-20T03:35:55-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 60372,
+			"data": "0,1,3,3,4,9,9,10,9,9,10,12,12,13,27,27,28,27,27,28,30,30,31,27,27,28,27,27,28,30,30,31,36,36,37,36,36,37,39,39,40,81,81,82,81,81,82,84,84,85,81,81,82,81,81,82,84,84,85,90,90,91,90,90,91,93,93,94,81,81,82,81",
+			"name": "p(n), positive part of n when n=p(n)-q(n) with p(n), q(n), p(n)+q(n) in A005836, integers written without 2 in base 3.",
+			"comment": [
+				"The graphs of p(n), q(n) are fractals; the graph of p(n)+q(n) is Sierpiński-like."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A060372/b060372.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"Example: 14=27-13=3^3 -(3^0+3^1+3^2), 16=28-12=3^3+3^0 -(3^1+3^2), 20=30-10=3^3+3^1 -(3^0+3^2); 27+13=28+12=30+10=40; 10,12,13, 27, 28, 30 are written without 2 in base 3."
+			],
+			"program": [
+				"(Haskell)",
+				"a060372 n = (a060374 n + n) `div` 2  -- _Reinhard Zumkeller_, Jun 09 2012"
+			],
+			"xref": [
+				"Cf. A005836, A060373, A060374."
+			],
+			"keyword": "easy,nice,nonn",
+			"offset": "0,3",
+			"author": "Claude Lenormand (claude.lenormand(AT)free.fr), Apr 02 2001",
+			"references": 4,
+			"revision": 11,
+			"time": "2015-03-06T23:08:00-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 60373,
+			"data": "0,0,1,0,0,4,3,3,1,0,0,1,0,0,13,12,12,10,9,9,10,9,9,4,3,3,1,0,0,1,0,0,4,3,3,1,0,0,1,0,0,40,39,39,37,36,36,37,36,36,31,30,30,28,27,27,28,27,27,31,30,30,28,27,27,28,27,27,13,12,12,10,9,9,10,9,9,4,3,3,1,0,0,1,0",
+			"name": "q(n), negative part of n when n=p(n)-q(n) with p(n), q(n), p(n)+q(n) in A005836, integers written without 2 in base 3.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A060373/b060373.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a060373 n = a060372 n - n  -- _Reinhard Zumkeller_, Jun 09 2012"
+			],
+			"xref": [
+				"Cf. A005836, A060372, A060374."
+			],
+			"keyword": "easy,nice,nonn,look",
+			"offset": "0,6",
+			"author": "Claude Lenormand (claude.lenormand(AT)free.fr), Apr 02 2001",
+			"references": 4,
+			"revision": 9,
+			"time": "2014-01-27T10:21:30-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 60441,
+			"data": "0,1,1,2,3,5,2,2,2,13,3,7,2,17,5,11,89,2,2,2,2,3,3,233,13,29,2,5,61,3,7,47,1597,2,2,2,17,19,37,113,3,5,11,41,2,13,421,89,199,28657,2,2,2,2,2,3,3,7,23,5,5,3001,233,521,2,17,53,109,3,13,29,281,514229,2,2,2,5,11,31,61",
+			"name": "Triangle T(n,k), n \u003e= 0, in which n-th row (for n \u003e= 3) lists prime factors of Fibonacci(n) (see A000045), with repetition.",
+			"comment": [
+				"Rows have irregular lengths.",
+				"T(n,k) = A027746(A000045(n),k), k = 1 .. A038575(n)). - _Reinhard Zumkeller_, Aug 30 2014"
+			],
+			"link": [
+				"Blair Kelly, \u003ca href=\"http://mersennus.net/fibonacci//\"\u003eFibonacci and Lucas factorizations\u003c/a\u003e"
+			],
+			"example": [
+				"0; 1; 1; 2; 3; 5; 2,2,2; 13; 3,7; 2,17; ..."
+			],
+			"maple": [
+				"with(combinat); A060441 := n-\u003eifactor(fibonacci(n));",
+				"with(numtheory): with(combinat): for i from 3 to 50 do for j from 1 to nops(ifactors(fibonacci(i))[2]) do for k from 1 to ifactors(fibonacci(i))[2][j][2] do printf(`%d,`, ifactors(fibonacci(i))[2][j][1]) od: od: od:"
+			],
+			"program": [
+				"(Haskell)",
+				"a060441 n k = a060441_tabf !! (n-1) !! (k-1)",
+				"a060441_row n = a060441_tabf !! (n-1)",
+				"a060441_tabf = [0] : [1] : [1] : map a027746_row (drop 3 a000045_list)",
+				"-- _Reinhard Zumkeller_, Aug 30 2014"
+			],
+			"xref": [
+				"A000045, A060442.",
+				"Cf. A038575 (row lengths), A027746, A001222."
+			],
+			"keyword": "nonn,tabf,easy",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_, Apr 07 2001",
+			"ext": [
+				"More terms from _James A. Sellers_, Apr 09 2001"
+			],
+			"references": 4,
+			"revision": 10,
+			"time": "2017-01-26T02:44:07-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 60448,
+			"data": "1,1,1,2,1,5,1,5,2,5,1,13,1,5,5,9,1,13,1,13,5,5,1,62,2,5,5,13,1,59,1,16,5,5,5,90,1,5,5,62,1,59,1,13,13,5,1,192,2,13,5,13,1,62,5,62,5,5,1,817,1,5,13,32,5,59,1,13,5,59,1,885,1,5,13,13,5,59,1,192,9,5,1,817,5,5",
+			"name": "Each c(i) is \"multiply\" (*) or \"divide\" (/); d(1) = 1 \u003c d(2) \u003c ... \u003c d(m) = n are the divisors of n; a(n) is number of choices for c(1), ..., c(m-1) so that d(1) c(1) d(2) c(2) d(3), .., c(m-1) d(m) is an integer.",
+			"comment": [
+				"a(n) = number of partitions of the set of divisors of n into two subsets U and V such that min(U) \u003c min(V) and product(V) divides product(U). [_Reinhard Zumkeller_, Apr 05 2012]",
+				"It would appear that a(n) depends only on n's prime signature. - _Charlie Neder_, Oct 02 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A060448/b060448.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Reinhard Zumkeller, \u003ca href=\"/A060448/a060448.lhs.txt\"\u003eExample for n = 120\u003c/a\u003e"
+			],
+			"formula": [
+				"a(A008578(n)) = 1; a(A002808(n)) \u003e 1. [_Reinhard Zumkeller_, Apr 05 2012]"
+			],
+			"example": [
+				"For n = 6 there are 5 possibilities: 1*2*3*6=36, 1/2*3*6=9, 1*2/3*6=4, 1/2/3*6=1, 1*2*3/6=1 For n = 18 there are 13 possibilities: 1*2*3*6*9*18 1/2*3*6*9*18 1*2/3*6*9*18 1*2*3/6*9*18 1*2*3*6/9*18 1*2*3*6*9/18 1/2/3*6*9*18 1/2/3*6/9*18 1/2*3*6/9*18 1*2/3/6*9*18 1*2/3*6/9*18 1*2/3*6*9/18 1*2*3/6/9*18"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (subsequences, (\\\\))",
+				"a060448 n = length [us | let ds = a027750_row n,",
+				"                         us \u003c- init $ tail $ subsequences ds,",
+				"                         let vs = ds \\\\ us, head us \u003c head vs,",
+				"                         product us `mod` product vs == 0] + 1",
+				"-- _Reinhard Zumkeller_, Apr 05 2012"
+			],
+			"xref": [
+				"Cf. A058524, A060636."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,4",
+			"author": "_Naohiro Nomoto_, Apr 14 2001",
+			"references": 4,
+			"revision": 16,
+			"time": "2018-10-03T03:38:55-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 60684,
+			"data": "2,4,6,2,10,12,2,16,18,2,22,4,2,28,30,2,2,36,2,40,42,2,46,6,2,52,4,2,58,60,2,4,66,2,70,72,2,4,78,2,82,4,2,88,6,2,4,96,2,100,102,2,106,108,2,112,4,2,6,10,2,4,126,2,130,6,2,136,138,2,2,4,2,148,150,2,4,156,2,6",
+			"name": "Smallest difference between consecutive divisors (ordered by size) of 2n+1.",
+			"comment": [
+				"Successively greater values of a(n) occur when 2n+1 is prime."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A060684/b060684.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"A060680(2n+1)"
+			],
+			"example": [
+				"For n=38, 2n+1=77; divisors={1,7,11,77}; differences={6,4,66}; a(38) = smallest difference = 4."
+			],
+			"mathematica": [
+				"a[n_ ] := Min@@(Drop[d=Divisors[2n+1], 1]-Drop[d, -1])",
+				"Array[Min[Differences[Divisors[2*#+1]]]\u0026,80] (* _Harvey P. Dale_, Dec 08 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a060684 = minimum . a193829_row . (+ 1) . (* 2)",
+				"-- _Reinhard Zumkeller_, Jun 25 2015"
+			],
+			"xref": [
+				"Cf. A060680.",
+				"Different from A071294.",
+				"Cf. A193829, A027750."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Labos Elemer_, Apr 19 2001",
+			"ext": [
+				"Edited by _Dean Hickerson_, Jan 22 2002"
+			],
+			"references": 4,
+			"revision": 16,
+			"time": "2015-06-25T16:35:45-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

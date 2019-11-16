@@ -1,0 +1,330 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3760,
+	"results": [
+		{
+			"number": 37381,
+			"data": "1,2,7,27,28,30,35,40,51,54,55,60,71,121,127,132,135,136,137,138,139,142,147,152,157,160,161,175,176,177,178,179,180,185,190,195,202,210,211,212,214,227,232,235,238,239,242,251,255",
+			"name": "Numbers n such that every base 3 digit of n is a base 5 digit of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037381/b037381.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[300],SubsetQ[IntegerDigits[#,5],IntegerDigits[#,3]]\u0026] (* _Harvey P. Dale_, Dec 31 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037381 n = a037381_list !! (n-1)",
+				"a037381_list = filter f [1..] where",
+				"   f x = null $ nub (ds 3 x) \\\\ nub (ds 5 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013"
+			],
+			"xref": [
+				"Cf. A037380, A037382, A037383, A037384, A037385, A037386."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 10,
+			"time": "2017-12-31T17:10:35-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37382,
+			"data": "1,2,8,13,26,36,37,38,39,40,44,48,49,50,52,53,68,72,73,74,78,79,80,109,121,152,157,182,218,224,228,229,230,231,232,233,236,242,243,244,246,247,248,252,253,254,255,256,264,270,282,288",
+			"name": "Numbers n such that every base 3 digit of n is a base 6 digit of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037382/b037382.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[300],SubsetQ[IntegerDigits[#,6],IntegerDigits[#,3]]\u0026 (* _Harvey P. Dale_, Jun 05 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037382 n = a037382_list !! (n-1)",
+				"a037382_list = filter f [1..] where",
+				"   f x = null $ nub (ds 3 x) \\\\ nub (ds 6 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013"
+			],
+			"xref": [
+				"Cf. A037380, A037381, A037383, A037384, A037385, A037386."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 10,
+			"time": "2015-06-05T17:01:36-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37383,
+			"data": "1,2,13,51,63,67,68,79,84,91,99,105,134,205,211,246,252,345,351,352,354,355,357,358,359,360,361,362,363,364,366,373,380,387,394,401,406,441,442,443,444,445,446,447,448,449,454,455,457",
+			"name": "Numbers n such that every base 3 digit of n is a base 7 digit of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037383/b037383.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037383 n = a037383_list !! (n-1)",
+				"a037383_list = filter f [1..] where",
+				"   f x = null $ nub (ds 3 x) \\\\ nub (ds 7 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013"
+			],
+			"xref": [
+				"Cf. A037380, A037381, A037382, A037384, A037385, A037386."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 8,
+			"time": "2013-05-30T17:40:09-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37384,
+			"data": "1,2,13,17,26,66,80,112,120,121,122,129,136,161,168,202,242,328,394,401,458,514,522,528,529,530,531,532,533,534,535,538,546,554,562,570,578,592,610,634,640,641,642,643,644,645,646,647",
+			"name": "Numbers n such that every base 3 digit of n is a base 8 digit of n.",
+			"link": [
+				"Harvey P. Dale, \u003ca href=\"/A037384/b037384.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"b3b8Q[n_]:=Module[{b3=Union[IntegerDigits[n,3]],b8=Union[ IntegerDigits[n,8]]}, And@@Table[ MemberQ[b8,b3[[i]]],{i,Length[b3]}]]; Select[Range[700],b3b8Q] (* _Harvey P. Dale_, Apr 17 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037384 n = a037384_list !! (n-1)",
+				"a037384_list = filter f [1..] where",
+				"   f x = null $ nub (ds 3 x) \\\\ nub (ds 8 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013",
+				"(PARI) is(n)=#setminus(Set(digits(n,3)), Set(digits(n,8)))==0 \\\\ _Charles R Greathouse IV_, Feb 11 2017"
+			],
+			"xref": [
+				"Cf. A037380, A037381, A037382, A037383, A037385, A037386."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 11,
+			"time": "2017-02-11T15:08:08-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37385,
+			"data": "1,2,9,13,18,26,81,82,83,84,85,90,99,108,117,121,162,163,164,168,170,171,180,216,234,242,244,252,325,333,488,504,650,666,729,730,731,732,733,738,739,740,741,742,747,748,749,750,751",
+			"name": "Numbers n such that every base 3 digit of n is a base 9 digit of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037385/b037385.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[1000],SubsetQ[IntegerDigits[#,9],IntegerDigits[#,3]]\u0026] (* _Harvey P. Dale_, Dec 19 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037385 n = a037385_list !! (n-1)",
+				"a037385_list = filter f [1..] where",
+				"   f x = null $ nub (ds 3 x) \\\\ nub (ds 9 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013"
+			],
+			"xref": [
+				"Cf. A037380, A037381, A037382, A037383, A037384, A037386."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 10,
+			"time": "2015-12-19T12:26:26-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37386,
+			"data": "1,2,10,13,20,26,102,108,109,120,121,122,124,125,152,201,210,211,212,214,215,240,241,242,702,720,728,810,1000,1002,1003,1008,1009,1011,1012,1020,1021,1022,1023,1024,1025,1026,1027,1028",
+			"name": "Every base 3 digit of n is a base 10 digit of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037386/b037386.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037386 n = a037386_list !! (n-1)",
+				"a037386_list = filter f [1..] where",
+				"   f x = null $ nub (ds 3 x) \\\\ nub (ds 10 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013"
+			],
+			"xref": [
+				"Cf. A037380, A037381, A037382, A037383, A037384, A037385."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 7,
+			"time": "2013-05-30T17:41:22-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37392,
+			"data": "1,2,3,13,21,31,42,63,102,123,203,213,231,234,235,238,239,341,351,381,421,520,682,1013,1023,1024,1025,1026,1028,1029,1031,1032,1036,1037,1039,1040,1041,1042,1043,1044,1045,1053,1062",
+			"name": "Every base 4 digit of n is a base 10 digit of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037392/b037392.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037392 n = a037392_list !! (n-1)",
+				"a037392_list = filter f [1..] where",
+				"   f x = null $ nub (ds 4 x) \\\\ nub (ds 10 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013"
+			],
+			"xref": [
+				"Cf. A037387, A037388, A037389, A037390, A037391."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 8,
+			"time": "2013-05-30T17:43:07-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37396,
+			"data": "1,2,3,4,11,22,93,121,124,126,156,181,199,317,362,598,750,751,752,755,756,758,768,770,771,775,776,780,781,785,796,812,831,841,843,849,859,895,900,906,907,911,912,918,922,927,931,932",
+			"name": "Numbers n such that every base 5 digit of n is a base 9 digit of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037396/b037396.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037396 n = a037396_list !! (n-1)",
+				"a037396_list = filter f [1..] where",
+				"   f x = null $ nub (ds 5 x) \\\\ nub (ds 9 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013",
+				"(PARI) is(n)=#setminus(Set(digits(n,5)), Set(digits(n,9)))==0 \\\\ _Charles R Greathouse IV_, Feb 11 2017"
+			],
+			"xref": [
+				"Cf. A037393, A037394, A037395, A037397."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 7,
+			"revision": 10,
+			"time": "2017-02-11T02:21:21-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 38220,
+			"data": "1,3,2,9,12,4,27,54,36,8,81,216,216,96,16,243,810,1080,720,240,32,729,2916,4860,4320,2160,576,64,2187,10206,20412,22680,15120,6048,1344,128,6561,34992,81648,108864,90720,48384,16128,3072,256",
+			"name": "Triangle whose (i,j)-th entry is binomial(i,j)*3^(i-j)*2^j.",
+			"comment": [
+				"Row sums give A000351; central terms give A119309. - _Reinhard Zumkeller_, May 14 2006",
+				"Triangle of coefficients in expansion of (3 + 2x)^n, where n is a nonnegative integer. - _Zagros Lalo_, Jul 23 2018"
+			],
+			"reference": [
+				"Shara Lalo and Zagros Lalo, Polynomial Expansion Theorems and Number Triangles, Zana Publishing, 2018, ISBN: 978-1-9995914-0-3, pp. 44, 48"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A038220/b038220.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"B. N. Cyvin et al., \u003ca href=\"http://match.pmf.kg.ac.rs/electronic_versions/Match34/match34_109-121.pdf\"\u003eIsomer enumeration of unbranched catacondensed polygonal systems with pentagons and heptagons\u003c/a\u003e, Match, No. 34 (Oct 1996), pp. 109-121.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A007318(n,k) * A036561(n,k). - _Reinhard Zumkeller_, May 14 2006",
+				"G.f.: 1/(1 - 3*x - 2*x*y). - _Ilya Gutkovskiy_, Apr 21 2017",
+				"T(0,0) = 1; T(n,k) = 3 T(n-1,k) + 2 T(n-1,k-1) for k = 0...n; T(n,k)=0 for n or k \u003c 0. - _Zagros Lalo_, Jul 23 2018"
+			],
+			"example": [
+				"Triangle begins:",
+				"   1;",
+				"   3,   2;",
+				"   9,  12,   4;",
+				"  27,  54,  36,   8;",
+				"  81, 216, 216,  96,  16;",
+				"  ..."
+			],
+			"mathematica": [
+				"t[0, 0] = 1; t[n_, k_] := t[n, k] = If[n \u003c 0 || k \u003c 0, 0, 3 t[n - 1, k] + 2 t[n - 1, k - 1]]; Table[t[n, k], {n, 0, 9}, {k, 0, n}] // Flatten (* _Zagros Lalo_, Jul 23 2018 *)",
+				"Table[CoefficientList[ Expand[(3 + 2x)^n], x], {n, 0, 9}] // Flatten  (* _Zagros Lalo_, Jul 23 2018 *)",
+				"Table[CoefficientList[Binomial[i, j] *3^(i - j)*2^j, x], {i, 0, 9}, {j, 0, i}] // Flatten (* _Zagros Lalo_, Jul 23 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a038220 n k = a038220_tabl !! n !! k",
+				"a038220_row n = a038220_tabl !! n",
+				"a038220_tabl = iterate (\\row -\u003e",
+				"   zipWith (+) (map (* 3) (row ++ [0])) (map (* 2) ([0] ++ row))) [1]",
+				"-- _Reinhard Zumkeller_, May 26 2013, Apr 02 2011",
+				"(PARI) T(i,j)=binomial(i,j)*3^(i-j)*2^j \\\\ _Charles R Greathouse IV_, Jul 19 2016"
+			],
+			"xref": [
+				"Cf. A013620, A000079, A000244, A013613, A038221."
+			],
+			"keyword": "nonn,tabl,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 7,
+			"revision": 33,
+			"time": "2018-07-28T11:53:25-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 38399,
+			"data": "1,11,211,3211,53211,853211,13853211,2113853211,342113853211,55342113853211,8955342113853211,1448955342113853211,2331448955342113853211,3772331448955342113853211,6103772331448955342113853211,9876103772331448955342113853211",
+			"name": "Concatenate first n nonzero Fibonacci numbers in reverse order.",
+			"reference": [
+				"Mihaly Bencze [Beneze], L. Tutescu, Some Notions and Questions in Number Theory, Sequence 7."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A038399/b038399.txt\"\u003eTable of n, a(n) for n = 1..96\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Module[{nn=20,fibs},fibs=Fibonacci[Range[nn]];Table[FromDigits[ Flatten[ IntegerDigits/@ Reverse[Take[fibs,n]]]],{n,nn}]] (* _Harvey P. Dale_, Aug 30 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a038399 n = a038399_list !! (n-1)",
+				"a038399_list = h \"\" $ tail a000045_list where",
+				"   h xs (f:fs) = (read ys :: Integer) : h ys fs",
+				"     where ys = show f ++ xs",
+				"-- _Reinhard Zumkeller_, Mar 01 2014"
+			],
+			"xref": [
+				"Cf. A000045, A019523."
+			],
+			"keyword": "nonn,base,easy,less",
+			"offset": "1,2",
+			"author": "M. I. Petrescu (mipetrescu(AT)yahoo.com)",
+			"ext": [
+				"More terms from Andrew Gacek (andrew(AT)dgi.net), Feb 21 2000",
+				"Offset changed by _Reinhard Zumkeller_, Mar 01 2014",
+				"More terms from _Harvey P. Dale_, Aug 30 2016"
+			],
+			"references": 7,
+			"revision": 12,
+			"time": "2016-08-30T16:51:02-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

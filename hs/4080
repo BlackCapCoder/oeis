@@ -1,0 +1,448 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4080,
+	"results": [
+		{
+			"number": 7000,
+			"id": "M1045",
+			"data": "1,2,4,7,11,17,25,35,49,66,88,115,148,189,238,297,368,451,550,665,799,956,1136,1344,1583,1855,2167,2520,2920,3373,3882,4455,5097,5814,6617,7509,8502,9604,10823,12173,13662,15302,17110,19093,21271,23657,26266",
+			"name": "Number of partitions of n into Fibonacci parts (with 2 types of 1).",
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A007000/b007000.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e, first 1000 terms from T . D. Noe",
+				"James Propp and N. J. A. Sloane, \u003ca href=\"/A006997/a006997.pdf\"\u003eEmail, March 1994\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 1/n*Sum_{k=1..n} (A005092(k)+1)*a(n-k), n \u003e 1, a(0)=1. - _Vladeta Jovovic_, Aug 22 2002",
+				"G.f.: 1/product_{j\u003e=1} (1-x^fibonacci(j)). - _Emeric Deutsch_, Mar 05 2006",
+				"G.f.: Sum_{i\u003e=0} x^Fibonacci(i) / Product_{j=1..i} (1 - x^Fibonacci(j)). - _Ilya Gutkovskiy_, May 07 2017"
+			],
+			"example": [
+				"a(2)=4 because we have [2],[1',1'],[1',1],[1,1] (the two types of 1 are denoted 1 and 1')."
+			],
+			"maple": [
+				"with(combinat): gf := 1/product((1-q^fibonacci(k)), k=1..20): s := series(gf, q, 200): for i from 0 to 199 do printf(`%d,`,coeff(s, q, i)) od: # _James A. Sellers_, Feb 08 2002"
+			],
+			"mathematica": [
+				"CoefficientList[ Series[ 1/Product[1 - x^Fibonacci[i], {i, 1, 15}], {x, 0, 50}], x]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.MemoCombinators (memo2, integral)",
+				"a007000 n = a007000_list !! n",
+				"a007000_list = map (p' 1) [0..] where",
+				"   p' = memo2 integral integral p",
+				"   p _ 0 = 1",
+				"   p k m | m \u003c fib   = 0",
+				"         | otherwise = p' k (m - fib) + p' (k + 1) m where fib = a000045 k",
+				"-- _Reinhard Zumkeller_, Dec 09 2015"
+			],
+			"xref": [
+				"Cf. A003107.",
+				"Cf. A000045."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, _Mira Bernstein_",
+			"ext": [
+				"More terms from _James A. Sellers_, Feb 08 2002"
+			],
+			"references": 6,
+			"revision": 37,
+			"time": "2017-11-18T15:53:23-05:00",
+			"created": "1994-05-09T03:00:00-04:00"
+		},
+		{
+			"number": 7421,
+			"id": "M0067",
+			"data": "2,1,1,2,1,2,1,1,2,2,1,1,1,2,2,2,1,1,1,1,2,2,1,2,2,2,1,1,1,1,1,1,2,2,2,2,1,2,2,2,1,1,1,1,1,2,1,1,2,1,2,1,1,2,2,2,2,2,1,2,1,2,1,2,2,1,1,1,2,1,1,1,1,2,1,1,2,1,1,1,2,2,1,2,2,2,2,2,1,2,2,1,2,2,2,2,1,1,1,2,1,1,1,2,1",
+			"name": "Liouville's function: parity of number of primes dividing n (with multiplicity).",
+			"reference": [
+				"J. Roberts, Lure of the Integers, Math. Assoc. America, 1992, p. 279.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A007421/b007421.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"H. Gupta, \u003ca href=\"/A002053/a002053.pdf\"\u003eOn a table of values of L(n)\u003c/a\u003e, Proceedings of the Indian Academy of Sciences. Section A, 12 (1940), 407-409. [Annotated scanned copy]",
+				"R. S. Lehman, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-1960-0120198-5\"\u003eOn Liouville's function\u003c/a\u003e, Math. Comp., 14 (1960), 311-320."
+			],
+			"formula": [
+				"a(n) = ((-1)^bigomega(n)+3)/2, where bigomega(n) is the number of prime divisors of the integer n counted with multiplicity.",
+				"a(n) = 2 - A001222(n) mod 2. - _Reinhard Zumkeller_, Nov 10 2011"
+			],
+			"mathematica": [
+				"a[1] = 2; a[n_] := ((-1)^Total[FactorInteger[n][[All, 2]]] + 3)/2; (* or, from version 7 on : *) a[n_] := Boole[ EvenQ[ PrimeOmega[n]]] + 1; (* or *) a[n_] := (LiouvilleLambda[n] + 3)/2; a[1] = 2; Table[a[n], {n, 1, 105}] (* _Jean-François Alcover_, Apr 08 2013, updated Jan 27 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a007421 = (2 -) . (`mod` 2) . a001222 -- _Reinhard Zumkeller_, Nov 10 2011"
+			],
+			"xref": [
+				"Cf. A008836.",
+				"A065043(n) + 1."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Vladeta Jovovic_, Dec 01 2001"
+			],
+			"references": 6,
+			"revision": 37,
+			"time": "2015-11-25T01:46:50-05:00",
+			"created": "1994-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 7423,
+			"id": "M0011",
+			"data": "2,0,0,1,0,2,0,1,1,2,0,1,0,2,2,1,0,1,0,1,2,2,0,1,1,2,1,1,0,0,0,1,2,2,2,1,0,2,2,1,0,0,0,1,1,2,0,1,1,1,2,1,0,1,2,1,2,2,0,1,0,2,1,1,2,0,0,1,2,0,0,1,0,2,1,1,2,0,0,1,1,2,0,1,2,2,2,1,0,1,2,1,2,2,2,1,0,1,1,1",
+			"name": "mu(n) + 1, where mu is the Moebius function.",
+			"reference": [
+				"G. H. Hardy and E. M. Wright, An Introduction to the Theory of Numbers. 3rd ed., Oxford Univ. Press, 1954, p. 234.",
+				"K. Ireland and M. Rosen, A Classical Introduction to Modern Number Theory. Springer-Verlag, NY, 1982, p. 19.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A007423/b007423.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"with(numtheory); A007423:=n-\u003emobius(n)+1; seq(A007423(k), k=1..100); # _Wesley Ivan Hurt_, Oct 24 2013"
+			],
+			"mathematica": [
+				"MoebiusMu[Range[100]]+1 (* _Harvey P. Dale_, Nov 08 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a007423 = (+ 1) . a008683  -- _Reinhard Zumkeller_, Jul 30 2014",
+				"(PARI) a(n)=moebius(n)+1 \\\\ _Charles R Greathouse IV_, Feb 25 2018"
+			],
+			"xref": [
+				"Cf. A008683.",
+				"a(n) = abs(A007423(n))"
+			],
+			"keyword": "easy,nonn,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 6,
+			"revision": 22,
+			"time": "2018-02-25T22:58:27-05:00",
+			"created": "1994-05-24T03:00:00-04:00"
+		},
+		{
+			"number": 7461,
+			"id": "M0117",
+			"data": "1,1,2,1,2,4,0,5,2,4,0,10,0,12,4,13,6,12,0,18,12,20,20,36,20,36,16,44,32,60,40,73,50,56,40,58,44,52,60,84,36,112,88,108,136,132,152,178,136,232,108,260,244,256,304,288",
+			"name": "Shifts left under AND-convolution with itself.",
+			"comment": [
+				"a(A000225(n)) mod 2 = 1, a(A062289(n)) mod 2 = 0. [_Reinhard Zumkeller_, Apr 02 2012]"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A007461/b007461.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"M. Bernstein and N. J. A. Sloane, \u003ca href=\"http://arXiv.org/abs/math.CO/0205301\"\u003eSome canonical sequences of integers\u003c/a\u003e, Linear Alg. Applications, 226-228 (1995), 57-72; erratum 320 (2000), 210. [Link to arXiv version]",
+				"M. Bernstein and N. J. A. Sloane, \u003ca href=\"/A003633/a003633_1.pdf\"\u003eSome canonical sequences of integers\u003c/a\u003e, Linear Alg. Applications, 226-228 (1995), 57-72; erratum 320 (2000), 210. [Link to Lin. Alg. Applic. version together with omitted figures]"
+			],
+			"maple": [
+				"a:= proc(n) option remember; `if`(n=0, 1, add(",
+				"      Bits[And](a(i), a(n-1-i)), i=0..n-1))",
+				"    end:",
+				"seq(a(n), n=0..80);  # _Alois P. Heinz_, Jun 16 2018"
+			],
+			"mathematica": [
+				"a[0]=1; a[1]=1; a[n_] := a[n] = Sum[BitAnd[a[k], a[n-k-1]], {k, 0, n-1}]; Table[a[n], {n, 0, 60}] (* _Jean-François Alcover_, Sep 07 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Bits ((.\u0026.))",
+				"a007461 n = a007461_list !! n",
+				"a007461_list = 1 : f [1,1] where",
+				"   f xs = x : f (x:xs) where",
+				"     x = sum $ zipWith (.\u0026.) xs $ tail $ reverse xs :: Integer",
+				"-- _Reinhard Zumkeller_, Apr 02 2012"
+			],
+			"xref": [
+				"Cf. A007460, A199770."
+			],
+			"keyword": "nonn,nice,eigen",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_.",
+			"references": 6,
+			"revision": 28,
+			"time": "2018-06-16T19:33:18-04:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 7466,
+			"id": "M3478",
+			"data": "1,4,14,44,128,352,928,2368,5888,14336,34304,80896,188416,434176,991232,2244608,5046272,11272192,25034752,55312384,121634816,266338304,580911104,1262485504,2734686208,5905580032,12717129728",
+			"name": "Exponential-convolution of natural numbers with themselves.",
+			"comment": [
+				"Define a triangle T by T(n,1) = n*(n-1)+1 and T(r,c) = T(r,c-1) + T(r-1,c-1), then a(n) = T(n,n). - _J. M. Bergot_, Mar 03 2013",
+				"This is triangle A228643: a(n) = A228643(n,n). - Aug 29 2013",
+				"With offset 0, a(n) is the number of 2 X n 0-1 matrices that do not contain, as a 2 X 2 submatrix,",
+				"  1 1 or 0 0",
+				"  0 0 .. 1 1.",
+				"(See Ju and Seo link, Theorem 3.2.) - _David Callan_, Jul 11 2014",
+				"a(n) = the sum of all ways of adding the k-tuples of the terms in the (n-1)-st row of Pascal's triangle A007318. For n=4 take row 3 of A007318: 1,3,3,1, giving (1)+(3)+(3)+(1)=8; (1+3)+(3+3)+(3+1)=14; (1+3+3)+(3+3+1)=14; (1+3+3+1)=8. The sum of these four terms is 8+14+14+8=44. - _J. M. Bergot_, Jun 17 2017"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A007466/b007466.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"M. Bernstein and N. J. A. Sloane, \u003ca href=\"http://arXiv.org/abs/math.CO/0205301\"\u003eSome canonical sequences of integers\u003c/a\u003e, Linear Alg. Applications, 226-228 (1995), 57-72; erratum 320 (2000), 210. [Link to arXiv version]",
+				"M. Bernstein and N. J. A. Sloane, \u003ca href=\"/A003633/a003633_1.pdf\"\u003eSome canonical sequences of integers\u003c/a\u003e, Linear Alg. Applications, 226-228 (1995), 57-72; erratum 320 (2000), 210. [Link to Lin. Alg. Applic. version together with omitted figures]",
+				"Hyeong-Kwan Ju and Seunghyun Seo, \u003ca href=\"http://arxiv.org/abs/1107.1299\"\u003eEnumeration of 0/1-matrices avoiding some 2x2 matrices\u003c/a\u003e, arXiv:1107.1299 [math.CO], 2011.",
+				"Hyeong-Kwan Ju and Seunghyun Seo, \u003ca href=\"http://dx.doi.org/10.1016/j.disc.2012.04.019\"\u003eEnumeration of (0,1)-matrices avoiding some 2 X 2 matrices\u003c/a\u003e, Discrete Math., 312 (2012), 2473-2481.",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (6,-12,8)"
+			],
+			"formula": [
+				"E.g.f.: (Sum_{n \u003e= 1} n*x^(n-1)/(n-1)!)^2.",
+				"a(n) = 2^(n-1)*n+1/4*2^(n-1)*(n-1)*(n-2).",
+				"a(n) = Sum_{k=0..(n+2)} C(n+2, k) * floor(k/2)^2. - _Paul Barry_, Mar 06 2003",
+				"E.g.f.: (1+x)^2*exp(2*x). - _Vladeta Jovovic_, Sep 09 2003",
+				"G.f.: -(2*x^3-2*x^2+x)/(2*x-1)^3. - _Vladimir Kruchinin_, Sep 28 2011",
+				"E.g.f.: U(0) where U(k)= 1 + 2*x/( 1 - x/(2 + x - 4/( 2 + x*(k+1)/U(k+1)))) ; (continued fraction, 3rd kind, 4-step). - _Sergei N. Gladkovskii_, Oct 28 2012"
+			],
+			"maple": [
+				"A007466:=n-\u003e2^(n-1)*n+1/4*2^(n-1)*(n-1)*(n-2): seq(A007466(n), n=1..30);"
+			],
+			"mathematica": [
+				"Table[2^(n - 1)*n + 1/4*2^(n - 1)*(n - 1)*(n - 2), {n, 30}] (* _Wesley Ivan Hurt_, Jul 11 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a007466 n = a228643 n n  -- _Reinhard Zumkeller_, Aug 29 2013",
+				"(MAGMA) [2^(n-1)*n+1/4*2^(n-1)*(n-1)*(n-2) : n in [1..30]]; // _Wesley Ivan Hurt_, Jul 11 2014"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 6,
+			"revision": 66,
+			"time": "2017-06-26T01:11:46-04:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 7604,
+			"id": "M0567",
+			"data": "1,2,3,4,6,9,12,16,22,31,40,52,68,90,121,152,192,244,312,402,523,644,796,988,1232,1544,1946,2469,2992,3636,4432,5420,6652,8196,10142,12611,15080,18072,21708,26140,31560,38212,46408,56550,69161,81772,96852",
+			"name": "a(n)=a(n-1)+a(n-1- number of odd terms so far).",
+			"comment": [
+				"A003056(n) gives the number of odd terms in the first n terms of this sequence. Modulo 2, this sequence becomes A023531. - T. D. Noe, Jul 24 2007",
+				"The present definition was the original definition of this sequence. It was later changed to \"Sequence formed from rows of triangle A046936\", but this seems less satisfactory. - _N. J. A. Sloane_, Oct 26 2014"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A007604/b007604.txt\"\u003eTable of n, a(n) for n=1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a[n_Integer] := a[n] = Block[{c, k}, c = 0; k = 1; While[k \u003c n, If[ OddQ[ a[k] ], c++ ]; k++ ]; Return[a[n - 1] + a[n - 1 - c] ] ]; a[1] = 1; a[2] = 2; Table[ a[n], {n, 0, 60} ]"
+			],
+			"program": [
+				"(Haskell)",
+				"a007604 n = a007604_list !! (n-1)",
+				"a007604_list = concat $ map tail $ tail a046936_tabl",
+				"-- _Reinhard Zumkeller_, Jan 01 2014"
+			],
+			"xref": [
+				"Cf. A006336, A046936, A003056."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, _Robert G. Wilson v_",
+			"ext": [
+				"Entry revised by _N. J. A. Sloane_, Oct 26 2014"
+			],
+			"references": 6,
+			"revision": 19,
+			"time": "2014-10-26T16:58:16-04:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 8520,
+			"data": "0,1,3,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,33,35,37,38,39,41,43,45,47,48,49,51,53,55,57,58,59,61,63,65,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90",
+			"name": "Numbers that contain the letter 'e'.",
+			"comment": [
+				"A085513(a(n)) \u003e 0. - _Reinhard Zumkeller_, Jan 23 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A008520/b008520.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Roel and Bas van Dijk, \u003ca href=\"http://hackage.haskell.org/package/numerals\"\u003eNumerals package\u003c/a\u003e, Hackage (Haskell packages)",
+				"\u003ca href=\"/index/Lc#letters\"\u003eIndex entries for sequences related to number of letters in n\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Maybe (fromJust)",
+				"import Data.Text (Text); import qualified Data.Text as T (any)",
+				"import Text.Numeral.Grammar.Reified (defaultInflection)",
+				"import qualified Text.Numeral.Language.EN as EN  -- see link",
+				"a008520 n = a008520_list !! (n-1)",
+				"a008520_list = filter (T.any (== 'e') . numeral) [0..] where",
+				"   numeral :: Integer -\u003e Text",
+				"   numeral = fromJust . EN.gb_cardinal defaultInflection",
+				"-- _Reinhard Zumkeller_, Jan 23 2015"
+			],
+			"xref": [
+				"Cf. A006933 (complement), A085513."
+			],
+			"keyword": "nonn,word",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_",
+			"references": 6,
+			"revision": 15,
+			"time": "2018-12-23T07:27:57-05:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 8957,
+			"data": "1,1,1,1,5,1,1,14,21,1,1,30,147,85,1,1,55,627,1408,341,1,1,91,2002,11440,13013,1365,1,1,140,5278,61490,196053,118482,5461,1,1,204,12138,251498,1733303,3255330,1071799,21845,1,1,285,25194,846260,10787231",
+			"name": "Triangle of central factorial numbers T(2*n,2*n-2*k), k \u003e= 0, n \u003e= 1 (in Riordan's notation).",
+			"comment": [
+				"D. E. Knuth [1992] on page 10 gives the formula Sum n^(2m-1) = Sum_{k=1..m} (2k-1)! T(2m,2k) binomial(n+k, 2k) where T(m, k) is the central factorial number of the second kind. - _Michael Somos_, May 08 2018"
+			],
+			"reference": [
+				"J. Riordan, Combinatorial Identities, Wiley, 1968, p. 217, Table 6.2(a).",
+				"R. P. Stanley, Enumerative Combinatorics, Cambridge, Vol. 2, 1999; see Problem 5.8."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A008957/b008957.txt\"\u003eRows n = 1..100 of triangle, flattened\u003c/a\u003e",
+				"F. Alayont and N. Krzywonos, \u003ca href=\"http://faculty.gvsu.edu/alayontf/notes/rook_polynomials_higher_dimensions_preprint.pdf\"\u003eRook Polynomials in Three and Higher Dimensions\u003c/a\u003e, 2012. [From _N. J. A. Sloane_, Jan 02 2013]",
+				"D. Dumont, \u003ca href=\"http://dx.doi.org/10.1215/S0012-7094-74-04134-9\"\u003eInterprétations combinatoires des nombres de Genocchi\u003c/a\u003e, Duke Math. J., 41 (1974), 305-318.",
+				"D. E. Knuth, \u003ca href=\"https://arxiv.org/abs/math/9207222\"\u003eJohann Faulhaber and Sums of Powers\u003c/a\u003e, arXiv:math/9207222, Jul 1992. See bottom of page 10. [From _Michael Somos_, May 08 2018]"
+			],
+			"formula": [
+				"From _Michael Somos_, May 08 2018: (Start)",
+				"T(n, k) = T(n-1, k-1) + k^2 * T(n-1, k), where T(n, n) = T(n, 1) = 1.",
+				"E.g.f.: x^2 * cosh(sinh(y*x/2) / (x/2)) - 1) = (1*x^2)*y^2/2! + (1*x^2 + 1*x^4)*y^4/4! +(1*x^2 + 5*x^4 + x^6)*y^6/6! + (1*x^2 + 14*x^4 + 21*x^6 + 1*x^8)*y^8/8! + ... (End)"
+			],
+			"example": [
+				"The triangle starts:",
+				"1;",
+				"1,  1;",
+				"1,  5,    1;",
+				"1, 14,   21,     1;",
+				"1, 30,  147,    85,     1;",
+				"1, 55,  627,  1408,   341,    1;",
+				"1, 91, 2002, 11440, 13013, 1365, 1;"
+			],
+			"maple": [
+				"A036969 := proc(n,k) local j; 2*add(j^(2*n)*(-1)^(k-j)/((k-j)!*(k+j)!),j=1..k); end; # Gives rows of triangle in reversed order"
+			],
+			"mathematica": [
+				"t[n_, n_] = t[n_, 1] = 1;",
+				"t[n_, k_] := t[n-1, k-1] + k^2 t[n-1, k];",
+				"Flatten[Table[t[n, k], {n, 1, 10}, {k, n, 1, -1}]][[1 ;; 50]] (* _Jean-François Alcover_, Jun 16 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a008957 n k = a008957_tabl !! (n-1) (k-1)",
+				"a008957_row n = a008957_tabl !! (n-1)",
+				"a008957_tabl = map reverse a036969_tabl",
+				"-- _Reinhard Zumkeller_, Feb 18 2013",
+				"(PARI) {T(n, k) = if( n\u003c1 || k\u003en, 0, n==k || k==1, 1, T(n-1, k-1) + k^2 * T(n-1, k))}; \\\\ _Michael Somos_, May 08 2018",
+				"(Sage)",
+				"def A008957(n, k):",
+				"    m = n - k",
+				"    return 2*sum((-1)^(j+m)*(j+1)^(2*n)/(factorial(j+m+2)*factorial(m-j)) for j in (0..m))",
+				"for n in (1..7): print([A008957(n, k) for k in (1..n)]) # _Peter Luschny_, May 10 2018"
+			],
+			"xref": [
+				"Row reversed version of A036969. Cf. A008955."
+			],
+			"keyword": "nonn,nice,easy,tabl",
+			"offset": "1,5",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Vladeta Jovovic_, Apr 16 2000"
+			],
+			"references": 6,
+			"revision": 39,
+			"time": "2018-05-10T08:45:06-04:00",
+			"created": "1996-03-15T03:00:00-05:00"
+		},
+		{
+			"number": 11199,
+			"data": "1,24,105,280,585,1056,1729,2640,3825,5320,7161,9384,12025,15120,18705,22816,27489,32760,38665,45240,52521,60544,69345,78960,89425,100776,113049,126280,140505,155760,172081,189504,208065,227800,248745,270936,294409,319200",
+			"name": "(n+1)*(2*n+1)*(3*n+1).",
+			"link": [
+				"Ivan Panchenko, \u003ca href=\"/A011199/b011199.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: (1+20*x+15*x^2)/(x-1)^4. - _Alois P. Heinz_, Sep 04 2014",
+				"a(n) = 6*n^3 + 11*n^2 + 6*n + 1. - _Reinhard Zumkeller_, Jun 08 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a011199 n = product $ map ((+ 1) . (* n)) [1, 2, 3]",
+				"-- _Reinhard Zumkeller_, Jun 08 2015"
+			],
+			"xref": [
+				" Cf. A079588."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"references": 6,
+			"revision": 10,
+			"time": "2015-06-08T08:25:25-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 14413,
+			"data": "1,1,3,1,4,1,10,5,1,15,6,1,35,21,7,1,56,28,8,1,126,84,36,9,1,210,120,45,10,1,462,330,165,55,11,1,792,495,220,66,12,1,1716,1287,715,286,78,13,1,3003,2002,1001,364,91,14,1,6435,5005,3003,1365,455,105,15,1",
+			"name": "Triangular array formed from elements to right of middle of Pascal's triangle.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A014413/b014413.txt\"\u003eRows n = 1..200 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"1;",
+				"1;",
+				"3, 1;",
+				"4, 1;",
+				"10, 5, 1;",
+				"15, 6, 1;",
+				"35, 21, 7, 1;",
+				"56, 28, 8, 1;",
+				"126, 84, 36, 9, 1;",
+				"210, 120, 45, 10, 1;",
+				"462, 330, 165, 55, 11, 1;",
+				"792, 495, 220, 66, 12, 1."
+			],
+			"program": [
+				"(Haskell)",
+				"a014413 n k = a014413_tabf !! (n-1) !! (k-1)",
+				"a014413_row n = a014413_tabf !! (n-1)",
+				"a014413_tabf = [1] : f 1 [1] where",
+				"   f 0 us'@(_:us) = ys : f 1 ys where",
+				"                    ys = zipWith (+) us' (us ++ [0])",
+				"   f 1 vs@(v:_) = ys' : f 0 ys where",
+				"                  ys@(_:ys') = zipWith (+) (vs ++ [0]) ([v] ++ vs)",
+				"-- _Reinhard Zumkeller_, Dec 24 2015"
+			],
+			"xref": [
+				"Cf. A014462.",
+				"Cf. A007318, A034868, A034869, A265848."
+			],
+			"keyword": "tabf,nonn,easy",
+			"offset": "1,3",
+			"author": "_Mohammad K. Azarian_",
+			"ext": [
+				"More terms from _James A. Sellers_"
+			],
+			"references": 6,
+			"revision": 12,
+			"time": "2016-02-15T12:17:12-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,416 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5940,
+	"results": [
+		{
+			"number": 251595,
+			"data": "2,3,4,5,6,7,10,11,13,17,18,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257",
+			"name": "Distinct terms in A251416.",
+			"comment": [
+				"A251417(n) gives number of repetitions of a(n) in A251416;",
+				"a(n) = prime(n-4) for n \u003e 11 according Bradley Klee's conjecture, empirically confirmed for the first 10000 primes;",
+				"equivalent: A098551(a(n)) = A251239(n-4) for n \u003e 11."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A251595/b251595.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				".   n |     a(n)     | A151417(n) | A098551(a(n))",
+				". ----+--------------+------------+--------------",
+				".   1 |    2         |          1 |             2",
+				".   2 |    3         |          1 |             3",
+				".   3 |    4 = 2*2   |          1 |             4",
+				".   4 |    5         |          5 |             9",
+				".   5 |    6 = 2*3   |          1 |            10",
+				".   6 |    7         |          5 |            15",
+				".   7 |   10 = 2*5   |          1 |            16",
+				".   8 |   11         |          6 |            22",
+				".   9 |   13         |          1 |            23",
+				".  10 |   17         |          7 |            30",
+				".  11 |   18 = 2*3*3 |          1 |            31",
+				".  12 |   19         |         12 |            43",
+				".  13 |   23         |          8 |            51",
+				".  14 |   29         |         10 |            61",
+				".  15 |   31         |          1 |            62",
+				".  16 |   37         |         17 |            79",
+				".  17 |   41         |          8 |            87",
+				".  18 |   43         |          1 |            88",
+				".  19 |   47         |         13 |           101",
+				".  20 |   53         |         13 |           114",
+				".  21 |   59         |         13 |           127",
+				".  22 |   61         |          5 |           132",
+				".  23 |   67         |         10 |           142",
+				".  24 |   71         |         11 |           153",
+				".  25 |   73         |          5 |           158",
+				"The last column gives the position of a(n) in A098550."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a251595 n = a251595_list !! (n-1)",
+				"a251595_list = map head $ group a251416_list"
+			],
+			"xref": [
+				"Cf. A098550, A098551, A251416, A251417, A251239."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 05 2014",
+			"references": 4,
+			"revision": 6,
+			"time": "2014-12-05T09:58:38-05:00",
+			"created": "2014-12-05T09:58:38-05:00"
+		},
+		{
+			"number": 252078,
+			"data": "1,22,33,41,56,57,58,91,92,93,94,95,96,97,98,99,102,113,123,126,150,151,152,153,154,203,206,224,243,246,304,325,332,340,344,405,412,445,901,902,903,904,905,906,907,908,909,910,911,912,913,914,915,916,917",
+			"name": "Fixed points of permutations A252001 and A252002.",
+			"comment": [
+				"A252001(a(n)) = A252002(a(n)) = a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A252078/b252078.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a252078 n = a252078_list !! (n-1)",
+				"a252078_list = [x | x \u003c- [1..], a252001 x == x]"
+			],
+			"xref": [
+				" Cf. A252001, A252002, A252079."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 13 2014",
+			"references": 4,
+			"revision": 5,
+			"time": "2014-12-13T15:26:45-05:00",
+			"created": "2014-12-13T15:26:45-05:00"
+		},
+		{
+			"number": 252079,
+			"data": "1,2,3,4,5,36,72,125,136,900,4454,8021,27223,33905,73222,127536,146353,180177,234668,273241",
+			"name": "Fixed points of permutations A252022 and A252023.",
+			"program": [
+				"(Haskell)",
+				"a252079 n = a252079_list !! (n-1)",
+				"a252079_list = [x | x \u003c- [1..], a252022 x == x]",
+				"(Python)",
+				"A252079_list, l, s, b = [1], [1], 2, set()",
+				"for n in range(2,10**5):",
+				"....i = s",
+				"....while True:",
+				"........if i not in b:",
+				"............li = [int(d) for d in str(i)[::-1]]",
+				"............for x,y in zip(li,l):",
+				"................if x+y \u003e 9:",
+				"....................break",
+				"............else:",
+				"................l = li",
+				"................b.add(i)",
+				"................if i == n:",
+				"....................A252079_list.append(i)",
+				"................while s in b:",
+				"....................b.remove(s)",
+				"....................s += 1",
+				"................break",
+				"........i += 1 # _Chai Wah Wu_, Dec 14 2014"
+			],
+			"xref": [
+				"Cf. A252022, A252023, A252078."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 13 2014",
+			"ext": [
+				"a(16)-a(20) from _Chai Wah Wu_, Dec 14 2014"
+			],
+			"references": 4,
+			"revision": 8,
+			"time": "2014-12-14T23:17:27-05:00",
+			"created": "2014-12-13T15:30:26-05:00"
+		},
+		{
+			"number": 252865,
+			"data": "1,2,3,10,21,5,6,35,22,7,11,14,33,26,15,13,30,91,34,39,17,42,85,38,51,19,66,95,46,55,23,65,69,70,57,58,93,29,31,87,62,105,74,77,37,110,111,82,129,41,43,123,86,141,106,47,53,94,159,118,165,59,78,295",
+			"name": "a(n) = n if n \u003c= 3, otherwise the smallest squarefree number not occurring earlier having at least one common factor with a(n-2), but none with a(n-1).",
+			"comment": [
+				"Similar to A098550, but the restriction to squarefree makes it more a sequence of sets of primes, represented by their product.",
+				"The sequence has consecutive primes at indices 2 (2 \u0026 3), 10 (7 \u0026 11), 38 (29 \u0026 31), 50 (41 \u0026 43), and 56 (47 \u0026 53). We conjecture that there are no further such pairs."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A252865/b252865.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"David L. Applegate, Hans Havermann, Bob Selcoe, Vladimir Shevelev, N. J. A. Sloane, and Reinhard Zumkeller, \u003ca href=\"http://arxiv.org/abs/1501.01669\"\u003eThe Yellowstone Permutation\u003c/a\u003e, arXiv preprint arXiv:1501.01669, 2015 and \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL18/Sloane/sloane9.html\"\u003eJ. Int. Seq. 18 (2015) 15.6.7\u003c/a\u003e."
+			],
+			"mathematica": [
+				"a[n_ /; n \u003c= 3] = n;",
+				"a[n_] := a[n] = For[k = 1, True, k++, If[SquareFreeQ[k], If[FreeQ[Array[a, n-1], k], If[!CoprimeQ[k, a[n-2]] \u0026\u0026 CoprimeQ[k, a[n-1]], Return[k]]]]];",
+				"Array[a, 100] (* _Jean-François Alcover_, Sep 02 2018 *)"
+			],
+			"program": [
+				"(PARI) invecn(v, k, x)=for(i=1, k, if(v[i]==x, return(i))); 0",
+				"alist(n)=local(v=vector(n,i,i), x); for(k=4, n, x=4; while(!issquarefree(x)||invecn(v, k-1, x)||gcd(v[k-2], x)==1||gcd(v[k-1],x)!=1, x++); v[k]=x); v",
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a252865 n = a252865_list !! (n-1)",
+				"a252865_list = 1 : 2 : 3 : f 2 3 (drop 3 a005117_list) where",
+				"   f u v ws = g ws where",
+				"     g (x:xs) = if gcd x u \u003e 1 \u0026\u0026 gcd x v == 1",
+				"                   then x : f v x (delete x ws) else g xs",
+				"-- _Reinhard Zumkeller_, Dec 24 2014",
+				"(Python)",
+				"from fractions import gcd",
+				"from sympy import factorint",
+				"A252865_list, l1, l2, s, b = [1,2,3], 3, 2, 4, set()",
+				"for _ in range(10**2):",
+				"....i = s",
+				"....while True:",
+				"........if max(factorint(i).values()) == 1:",
+				"............if not i in b and gcd(i,l1) == 1 and gcd(i,l2) \u003e 1:",
+				"................A252865_list.append(i)",
+				"................l2, l1 = l1, i",
+				"................b.add(i)",
+				"................while s in b:",
+				"....................b.remove(s)",
+				"....................s += 1",
+				"................break",
+				"........else:",
+				"............b.add(i)",
+				"........i += 1 # _Chai Wah Wu_, Dec 24 2014"
+			],
+			"xref": [
+				"Cf. A098550, A005117, A252867, A252868.",
+				"Cf. A251391."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Franklin T. Adams-Watters_, Dec 23 2014",
+			"references": 4,
+			"revision": 23,
+			"time": "2018-09-02T16:40:13-04:00",
+			"created": "2014-12-23T19:46:31-05:00"
+		},
+		{
+			"number": 252912,
+			"data": "1,22,23,87,88,108,117,119,125,127,130,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,151,153,154,155,156,157,158,159,160,161,162,163,339,795,905,1170,1386,1981,1985,2092,2525,3248",
+			"name": "Numbers m such that A098550(m) = A251555(m).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A252912/b252912.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a252912 n = a252912_list !! (n-1)",
+				"a252912_list = filter (\\x -\u003e a098550 x == a251555 x) [1..]"
+			],
+			"xref": [
+				"Cf. A098550, A251555, A252939 (first differences)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 25 2014",
+			"references": 4,
+			"revision": 5,
+			"time": "2014-12-26T15:45:33-05:00",
+			"created": "2014-12-26T15:45:33-05:00"
+		},
+		{
+			"number": 252939,
+			"data": "21,1,64,1,20,9,2,6,2,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,176,456,110,265,216,595,4,107,433,723,252,75,432,51,298,2405,780,431,866,78,135,723,29,842,224,5,467,672",
+			"name": "First differences of A252912.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A252939/b252939.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a252939 n = a252939_list !! (n-1)",
+				"a252939_list = zipWith (-) (tail a252912_list) a252912_list"
+			],
+			"xref": [
+				"Cf. A252940 (run lengths)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 25 2014",
+			"references": 4,
+			"revision": 5,
+			"time": "2014-12-26T15:45:55-05:00",
+			"created": "2014-12-26T15:45:55-05:00"
+		},
+		{
+			"number": 253048,
+			"data": "4,6,10,33,18,42,48,58,70,82,90,102,110,120,126,140,144,154,150,182,180,198,200,220,216,228,272,252,280,270,300,306,312,330,336,340,348,360,390,392,396,400,442,438,468,440,506,480,484,500,486,518,528,540,574,546,570,572,616",
+			"name": "List of composite numbers in A098550 which appear immediately after a prime.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A253048/b253048.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"David L. Applegate, Hans Havermann, Bob Selcoe, Vladimir Shevelev, N. J. A. Sloane, and Reinhard Zumkeller, The Yellowstone Permutation, arXiv preprint arXiv:1501.01669, 2015 and \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL18/Sloane/sloane9.html\"\u003eJ. Int. Seq. 18 (2015) 15.6.7\u003c/a\u003e."
+			],
+			"mathematica": [
+				"f[lst_] := Block[{k = 4}, While[GCD[lst[[-2]], k] == 1 || GCD[lst[[-1]], k] \u003e 1 || MemberQ[lst, k], k++]; Append[lst, k]];",
+				"A098550 = Nest[f, {1, 2, 3}, 1000];",
+				"sp = SequencePosition[A098550, {_?PrimeQ, _?CompositeQ}] [[All, 2]];",
+				"A098550[[sp]] (* _Jean-François Alcover_, Sep 03 2018, after _Robert G. Wilson v_ in A098550 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a253048 n = a253048_list !! (n-1)",
+				"a253048_list = filter ((== 0) . a010051') $ map a253049 [1..]",
+				"-- _Reinhard Zumkeller_, Dec 30 2014"
+			],
+			"xref": [
+				"Cf. A098550. Subsequence of A253049.",
+				"Cf. A010051, A251239."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Dec 27 2014",
+			"references": 4,
+			"revision": 13,
+			"time": "2018-09-03T02:53:43-04:00",
+			"created": "2014-12-27T17:47:47-05:00"
+		},
+		{
+			"number": 253074,
+			"data": "0,1,3,5,4,2,6,8,7,9,11,10,12,13,14,16,17,15,18,20,19,21,23,22,24,25,26,28,27,29,31,32,30,33,35,34,36,38,37,39,41,40,42,43,44,46,45,47,48,50,49,51,53,52,54,56,55,57,58,59,60,61,62,63,65,64,66",
+			"name": "Lexicographically earliest sequence of distinct numbers such that a(n-1)+a(n) is not prime.",
+			"comment": [
+				"Conjecture: this is a permutation of the nonnegative numbers. [Proof outline below due to Patrick Devlin and Semeon Artamonov]",
+				"Let x be a number that's missing.",
+				"Then eventually every term must be of the form PRIME - x. (Otherwise, x would appear as that next term.)",
+				"In particular, this means there are only finitely many multiples of x that appear in the sequence. To make this cleaner, let Y be a multiple of x larger than all multiples of x appearing in the sequence.",
+				"Let q be a prime not dividing Y. Then since none of the terms Y, 2Y, 3Y, ..., 2qY appear, it must be that, eventually, every term in the sequence is of the form PRIME - Y and also of the form PRIME - 2Y and also of the form PRIME - 3Y, ... and also of the form PRIME - 2qY.",
+				"That means we have a prime p and a number Y such that p, p+Y, p+2Y, p + 3Y, p+4Y, ..., p+2qY are all prime. But take this sequence mod q. Since q does not divide Y, the terms 0, Y, ..., 2qY cover every residue class mod q twice. Therefore, p + kY covers each residue class mod q twice. Consequently, there are two terms congruent to 0 mod q. One can be q, but the other must be a multiple of it (contradicting its primality).",
+				"Essentially the same as A055266. - _R. J. Mathar_, Feb 13 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A253074/b253074.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a253074 n = a253074_list !! (n-1)",
+				"a253074_list = 0 : f 0 [1..] where",
+				"   f u vs = g vs where",
+				"     g (w:ws) | a010051' (u + w) == 1 = g ws",
+				"              | otherwise = w : f w (delete w vs)",
+				"-- _Reinhard Zumkeller_, Feb 02 2015"
+			],
+			"xref": [
+				"Cf. A055266, A254337, A253073, A010051."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_N. J. A. Sloane_, Feb 01 2015, based on a suggestion from _Patrick Devlin_",
+			"references": 4,
+			"revision": 33,
+			"time": "2015-02-15T00:22:11-05:00",
+			"created": "2015-02-01T11:51:30-05:00"
+		},
+		{
+			"number": 253146,
+			"data": "1,2,3,4,1,5,6,2,3,7,8,4,1,5,9,10,6,2,3,7,11,12,8,4,1,5,9,13,14,10,6,2,3,7,11,15,16,12,8,4,1,5,9,13,17,18,14,10,6,2,3,7,11,15,19,20,16,12,8,4,1,5,9,13,17,21,22,18,14,10,6,2,3,7,11,15",
+			"name": "A fractal tree, read by rows: for n \u003e 2, T(n,1) = T(n-1,1)+2, T(n,n) = T(n-1,1)+3, and for k=2..n-1, T(n,k) = T(n-2,k-1).",
+			"comment": [
+				"It appears that:",
+				"1) partial sums of terms, situated on the outer leftmost leftwise triangle diagonal are equal to A002061(k), k\u003e=1;",
+				"2) partial sums of terms, situated on the second (from the left) leftwise triangle diagonal represent recurrence a(k+1) = ((k-1)*a(k))/(k-3)-(2*(k+3))/(k-3), k\u003e=3",
+				"3) partial sums of terms, situated on the outer rightmost rightwise triangle diagonal are equal to A000290(k)=k^2, k\u003e=1. - _Alexander R. Povolotsky_, Dec 28 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A253146/b253146.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e",
+				"Éric Angelini, \u003ca href=\"http://list.seqfan.eu/pipermail/seqfan/2014-December/014202.html\"\u003eA fractal tree\u003c/a\u003e, SeqFan list, Dec 27 2014."
+			],
+			"example": [
+				".   1:                         1",
+				".   2:                       2   3",
+				".   3:                     4   1   5",
+				".   4:                   6   2   3   7",
+				".   5:                 8   4   1   5   9",
+				".   6:              10   6   2   3   7  11",
+				".   7:            12   8   4   1   5   9  13",
+				".   8:          14  10   6   2   3   7  11  15",
+				".   9:        16  12   8   4   1   5   9  13  17",
+				".  10:      18  14  10   6   2   3   7  11  15  19",
+				".  11:    20  16  12   8   4   1   5   9  13  17  21",
+				".  12:  22  18  14  10   6   2   3   7  11  15  19  23 .",
+				"Removing the first and last entries from each row gives the same tree back again.",
+				"From _N. J. A. Sloane_, Jan 04 2015: (Start)",
+				"Eric Angelini's original posting to the Sequence Fans mailing list gave a different sequence, as follows:",
+				"..................................1,",
+				".................................2,3,",
+				"................................4,1,5,",
+				"...............................6,2,3,7,",
+				"..................................8,",
+				"..............................9,4,1,5,10,",
+				"............................11,6,2,3,7,12,",
+				"................................13,14,",
+				"...............................15,8,16,",
+				"...........................17,9,4,1,5,10,18,",
+				".........................19,11,6,2,3,7,12,20,",
+				"........................21,13,8,4,1,5,9,14,22,",
+				".............................23,15,16,24,",
+				".................................25,",
+				"...........................26,17,10,18,27,",
+				"......................28,19,11,6,2,3,7,12,20,29,",
+				".....................30,21,13,8,4,1,5,9,14,22,31,",
+				"..........................32,23,15,16,24,33,",
+				"................................34,35,",
+				"..............................36,25,37,",
+				"........................38,26,17,10,18,27,39,",
+				"...................40,28,19,11,6,2,3,7,12,20,29,41,",
+				"..................42,30,21,13,8,4,1,5,9,14,22,31,43,",
+				"................44,32,23,15,10,6,2,3,7,11,16,24,33,45,",
+				"...............46,34,25,17,12,8,4,1,5,9,13,18,26,35,47,",
+				".......................48,36,27,19,20,28,37,49,",
+				".............50,38,29,21,14,10,6,2,3,7,11,15,22,30,39,51,",
+				"............52,40,31,23,16,12,8,4,1,5,9,13,17,24,32,41,53,",
+				".....................54,42,33,25,18,26,34,43,55,",
+				".............................56,44,45,57,",
+				".................................58,",
+				".....................................",
+				"The idea is that the n-th term is equal to the number of terms in the n-th row of the tree. This lovely sequence (whose precise definition is not clear to me) is not yet in the OEIS. (End)",
+				"The sequence referred to is A253028. - _Felix Fröhlich_, May 23 2016"
+			],
+			"program": [
+				"(Haskell)",
+				"a253146 n k = a253146_tabl !! (n-1) !! (k-1)",
+				"a253146_row n = a253146_tabl !! (n-1)",
+				"a253146_tabl = [1] : [2,3] : f [1] [2,3] where",
+				"   f us vs@(v:_) = ws : f vs ws where",
+				"                   ws = [v + 2] ++ us ++ [v + 3]"
+			],
+			"xref": [
+				"Cf. A253028. Row sums appear to be A035608."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,2",
+			"author": "_Eric Angelini_ and _Reinhard Zumkeller_, Dec 27 2014",
+			"references": 4,
+			"revision": 33,
+			"time": "2016-05-25T10:25:28-04:00",
+			"created": "2014-12-27T17:01:15-05:00"
+		},
+		{
+			"number": 253170,
+			"data": "1,1,2,3,5,7,10,13,17,22,28,35,42,50,60,72,85,101,119,139,162,187,215,246,279,315,353,394,437,482,529,579,632,688,748,810,875,944,1016,1094,1177,1263,1351,1443,1538,1637,1742,1852,1966,2083,2205,2330,2460",
+			"name": "Row sums of table A030717.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A253170/b253170.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a253170 = sum . a030717_row"
+			],
+			"xref": [
+				" Cf. A030717, A126027, A030719 (first differences)."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Dec 28 2014",
+			"references": 4,
+			"revision": 4,
+			"time": "2014-12-28T20:28:00-05:00",
+			"created": "2014-12-28T20:28:00-05:00"
+		}
+	]
+}

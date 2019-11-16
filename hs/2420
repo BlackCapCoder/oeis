@@ -1,0 +1,531 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2420,
+	"results": [
+		{
+			"number": 6343,
+			"id": "M3400",
+			"data": "1,0,1,1,4,10,34,112,398,1443,5387,20482,79177,310102,1228187,4910413,19792582,80343445,328159601,1347699906,5561774999,23052871229,95926831442,400587408251,1678251696379,7051768702245,29710764875014",
+			"name": "Arkons: number of elementary maps with n-1 nodes.",
+			"reference": [
+				"K. Appel and W. Haken, Every planar map is four colorable. With the collaboration of J. Koch. Contemporary Mathematics, 98. American Mathematical Society, Providence, RI, 1989. xvi+741 pp. ISBN: 0-8218-5103-9.",
+				"F. R. Bernhart, Topics in Graph Theory Related to the Five Color Conjecture. Ph.D. Dissertation, Kansas State Univ., 1974.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A006343/b006343.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"F. R. Bernhart, \u003ca href=\"http://dx.doi.org/10.1016/S0012-365X(99)00054-0\"\u003eCatalan, Motzkin and Riordan numbers\u003c/a\u003e, Discr. Math., 204 (1999), 73-112.",
+				"F. R. Bernhart, \u003ca href=\"/A000296/a000296_1.pdf\"\u003eFundamental chromatic numbers\u003c/a\u003e, Unpublished. (Annotated scanned copy)",
+				"F. R. Bernhart \u0026 N. J. A. Sloane, \u003ca href=\"/A001683/a001683.pdf\"\u003eCorrespondence, 1977\u003c/a\u003e",
+				"F. R. Bernhart \u0026 N. J. A. Sloane, \u003ca href=\"/A006343/a006343.pdf\"\u003eEmails, April-May 1994\u003c/a\u003e",
+				"G. D. Birkhoff and D. C. Lewis, \u003ca href=\"http://dx.doi.org/10.1090/S0002-9947-1946-0018401-4\"\u003eChromatic polynomials\u003c/a\u003e, Trans. Amer. Math. Soc. 60, (1946). 355-451."
+			],
+			"formula": [
+				"a(n-1) = Sum (n-k-1)^(-1)*binomial(n, k)*binomial(2*n-3*k-4, n-2*k-2); k = 0..[ (n-2)/2 ], n \u003e= 3.",
+				"From _Peter Bala_, Jun 22 2015: (Start)",
+				"O.g.f. A(x) equals 1/x * series reversion ( x/(1 + x^2*C(x) ), where C(x) = (1 - sqrt(1 - 4*x))/(2*x) is the o.g.f. for A000108.",
+				"A(x) is an algebraic function satisfying x^3*A^3(x) - (x - 1)*A^2(x) + (x - 2)*A(x) + 1 = 0. (End)",
+				"a(n) ~ sqrt(s*(1 - s + 3*r^2*s^2) / (1 - r + 3*r^3*s)) / (2*sqrt(Pi) * n^(3/2) * r^(n - 1/2)), where r = 0.2229935155751761877673240243525445951244491757706... and s = 1.116796494086474135831052534637944909439048671327... are real roots of the system of equations 1 + (r-2)*s + r^3*s^3 = (r-1)*s^2, r + 2*s + 3*r^3*s^2 = 2 + 2*r*s. - _Vaclav Kotesovec_, Nov 27 2017"
+			],
+			"maple": [
+				"A006343:=n-\u003eadd(binomial(n,k)*binomial(2*n-3*k-4,n-2*k-2)/(n-k-1), k=0..(n-2)/2): (1, seq(A006343(n), n=1..30)); # _Wesley Ivan Hurt_, Jun 22 2015"
+			],
+			"mathematica": [
+				"a[n_] := Sum[ Binomial[n, k]*Binomial[2*n-3*k-4, n-2*k-2]/(n-k-1), {k, 0, (n-2)/2}]; a[0] = 1; Table[a[n], {n, 0, 26}] (* _Jean-François Alcover_, Dec 14 2012, from formula *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a006343 0 = 1",
+				"a006343 n = sum $ zipWith div",
+				"   (zipWith (*) (map (a007318 n) ks)",
+				"                (map (\\k -\u003e a007318 (2*n - 3*k - 4) (n - 2*k - 2)) ks))",
+				"   (map (toInteger . (n - 1 -)) ks)",
+				"   where ks = [0 .. (n - 2) `div` 2]",
+				"-- _Reinhard Zumkeller_, Aug 23 2012"
+			],
+			"xref": [
+				"Cf. A000108, A000934, A007318."
+			],
+			"keyword": "easy,nonn,nice",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"Erroneously duplicated term 4 removed per Frank Bernhart's report by _Max Alekseyev_, Feb 11 2010"
+			],
+			"references": 13,
+			"revision": 49,
+			"time": "2017-11-27T11:16:52-05:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 6590,
+			"id": "M2522",
+			"data": "1,3,6,9,13,16,21,24,29,33,38,41,48,51,56,61,67,70,77,80,87,92,97,100,109,113,118,123,130,133,142,145,152,157,162,167,177,180,185,190,199,202,211,214,221,228,233,236,247,251,258,263,270,273,282,287,296,301",
+			"name": "a(n) = Sum_{k=1..n} ceiling(n/k).",
+			"comment": [
+				"The following sequences all have the same parity: A004737, A006590, A027052, A071028, A071797, A078358, A078446. - _Jeremy Gardiner_, Mar 16 2003",
+				"Given the fact that ceiling(x) \u003c= x+1, we can, using well known results for the harmonic series, easily derive that n*log(n) \u003c= a(n) \u003c= n*(1+log(n)) + n = n(log(n)+2). - _Stefan Steinerberger_, Apr 08 2006"
+			],
+			"reference": [
+				"_Marc LeBrun_, personal communication.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A006590/b006590.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"M. Le Brun, \u003ca href=\"/A006577/a006577.pdf\"\u003eEmail to N. J. A. Sloane, Jul 1991\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n+Sum_{k=1..n-1} tau(k). - _Vladeta Jovovic_, Oct 17 2002",
+				"a(n) = 1 + a(n-1) + tau(n-1), a(n) = A006218(n-1) + n. - _T. D. Noe_, Jan 05 2007",
+				"a(n) = a(n-1) + A000005(n) + 1 for n \u003e= 2. a(n) = A161886(n) - A000005(n) + 1 = A161886(n-1) + 2 = A006218(n) + A049820(n) for n \u003e= 1. - _Jaroslav Krizek_, Nov 14 2009"
+			],
+			"maple": [
+				"seq(add(ceil(n/j), j = 1..n), n = 1..60); # _G. C. Greubel_, Nov 07 2019"
+			],
+			"mathematica": [
+				"Table[Sum[Ceiling[n/i], {i, 1, n}], {n, 1, 60}] (* _Stefan Steinerberger_, Apr 08 2006 *)",
+				"nxt[{n_,a_}]:={n+1,a+DivisorSigma[0,n]+1}; Transpose[NestList[nxt,{1,1},60]][[2]] (* _Harvey P. Dale_, Aug 23 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a006590 n = sum $ map f [1..n] where",
+				"   f x = y + 1 - 0 ^ r where (y, r) = divMod n x",
+				"-- _Reinhard Zumkeller_, Feb 18 2013",
+				"(PARI) first(n)=my(v=vector(n,i,i),s); for(i=1,n-1,v[i+1]+=s+=numdiv(i)); v \\\\ _Charles R Greathouse IV_, Feb 07 2017",
+				"(MAGMA) [\u0026+[Ceiling(n/j): j in [1..n]] : n in [1..60]]; // _G. C. Greubel_, Nov 07 2019",
+				"(Sage) [sum(ceil(n/j) for j in (1..n)) for n in (1..60)] # _G. C. Greubel_, Nov 07 2019"
+			],
+			"xref": [
+				"Cf. A000005, A006218."
+			],
+			"keyword": "nonn,nice,easy,changed",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Stefan Steinerberger_, Apr 08 2006"
+			],
+			"references": 13,
+			"revision": 35,
+			"time": "2019-11-07T21:11:20-05:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 6601,
+			"id": "M5420",
+			"data": "242,3655,4503,5943,6853,7256,8392,9367,10983,11605,11606,12565,12855,12856,12872,13255,13782,13783,14312,16133,17095,18469,19045,19142,19143,19940,20165,20965,21368,21494,21495,21512,22855,23989,26885",
+			"name": "Numbers n such that n, n+1, n+2 and n+3 have the same number of divisors.",
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 840.",
+				"J.-M. De Koninck, Ces nombres qui nous fascinent, Entry 242, p. 67, Ellipses, Paris 2008.",
+				"R. K. Guy, Unsolved Problems in Number Theory, B18.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A006601/b006601.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy].",
+				"Victor Meally, \u003ca href=\"/A006556/a006556.pdf\"\u003eLetter to N. J. A. Sloane\u003c/a\u003e, no date."
+			],
+			"maple": [
+				"with(numtheory);  A006601:=proc(q) local n;",
+				"for n from 1 to q do",
+				"  if tau(n)=tau(n+1) and tau(n+1)=tau(n+2) and tau(n+2)=tau(n+3) then print(n); fi;",
+				"od; end: A006601(10^4); # _Paolo P. Lava_, May 03 2013"
+			],
+			"mathematica": [
+				"f[n_]:=Length[Divisors[n]]; lst={};Do[If[f[n]==f[n+1]==f[n+2]==f[n+3],AppendTo[lst,n]],{n,8!}];lst (* _Vladimir Joseph Stephan Orlovsky_, Dec 14 2009 *)",
+				"dsQ[n_]:=Length[Union[DivisorSigma[0,Range[n,n+3]]]]==1; Select[Range[ 30000],dsQ] (* _Harvey P. Dale_, Nov 23 2011 *)",
+				"Flatten[Position[Partition[DivisorSigma[0,Range[27000]],4,1],_?(Union[ Differences[ #]]=={0}\u0026),{1},Heads-\u003eFalse]] (* Faster, because the number of divisors for each number is only calculated once *) (* _Harvey P. Dale_, Nov 06 2013 *)",
+				"SequencePosition[DivisorSigma[0,Range[27000]],{x_,x_,x_,x_}][[All,1]] (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Jul 03 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a006601 n = a006601_list !! (n-1)",
+				"a006601_list = map (+ 1) $ elemIndices 0 $",
+				"   zipWith3 (((+) .) . (+)) ds (tail ds) (drop 2 ds) where",
+				"   ds = map abs $ zipWith (-) (tail a000005_list) a000005_list",
+				"-- _Reinhard Zumkeller_, Jan 18 2014",
+				"(PARI) is(n)=my(t=numdiv(n)); numdiv(n+1)==t \u0026\u0026 numdiv(n+2)==t \u0026\u0026 numdiv(n+3)==t \\\\ _Charles R Greathouse IV_, Jun 25 2017"
+			],
+			"xref": [
+				"Cf. A000005, A005237, A005238."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Olivier Gérard_"
+			],
+			"references": 13,
+			"revision": 38,
+			"time": "2018-05-08T15:11:54-04:00",
+			"created": "1991-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 7367,
+			"id": "M2163",
+			"data": "2,44,56,92,104,116,140,164,204,212,260,296,332,344,356,380,392,444,452,476,524,536,564,584,588,620,632,684,692,716,744,764,776,836,860,884,932,956,980,1004,1016,1112,1124,1136,1172,1196,1284,1292,1304",
+			"name": "Numbers k such that phi(x) = k has exactly 3 solutions.",
+			"comment": [
+				"From _Torlach Rush_, Jul 23 2018: (Start)",
+				"For known terms:",
+				"- The greatest common divisor of the three solutions is the distance of the middle solution from the least solution and is half the distance of the middle solution to the largest solution.",
+				"- If the number of distinct prime factors of k equals the number of solutions of k = phi(x), then the greatest common divisor of the solutions is the least solution divided by the number of solutions.",
+				"- Except for a(1), if the largest prime factor is the same for all solutions and is equal to the greatest common divisor of all solutions then the distance from a(n) to the least solution is gcd({k: phi(k) = a(n)}) + 2.  (End)",
+				"By Ford's theorem on Euler totient function, this sequence is infinite. - _Jianing Song_, Jul 18 2018"
+			],
+			"reference": [
+				"M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions, National Bureau of Standards Applied Math. Series 55, 1964 (and various reprintings), p. 840.",
+				"J.-M. De Koninck, Ces nombres qui nous fascinent, Entry 44, p. 17, Ellipses, Paris 2008.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A007367/b007367.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"M. Abramowitz and I. A. Stegun, eds., \u003ca href=\"http://www.convertit.com/Go/ConvertIt/Reference/AMS55.ASP\"\u003eHandbook of Mathematical Functions\u003c/a\u003e, National Bureau of Standards, Applied Math. Series 55, Tenth Printing, 1972 [alternative scanned copy].",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Euler%27s_totient_function#Ford\u0026#39;s_theorem\"\u003eFord's theorem\u003c/a\u003e",
+				"R. G. Wilson, V, \u003ca href=\"/A007015/a007015.pdf\"\u003eLetter to N. J. A. Sloane, Jul. 1992\u003c/a\u003e"
+			],
+			"example": [
+				"phi(69) = phi(92) = phi(138) = 44, so 44 is a term."
+			],
+			"mathematica": [
+				"a = Table[ 0, {1500} ]; Do[ p = EulerPhi[ n ]; If[ p \u003c 1501, a[ [ p ] ]++ ], {n, 1, 1500} ]; Select[ Range[ 1500 ], a[ [ # ] ] == 3 \u0026 ]",
+				"Take[Select[Tally[EulerPhi[Range[50000]]],#[[2]]==3\u0026][[All,1]],50]//Sort (* _Harvey P. Dale_, Apr 02 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a007367 n = a007367_list !! (n-1)",
+				"a007367_list = map fst $",
+				"               filter ((== 3) . snd) $ zip a002202_list a058277_list",
+				"-- _Reinhard Zumkeller_, Nov 25 2015"
+			],
+			"xref": [
+				"Cf. A000010, A007366, A060667-A060671.",
+				"Cf. A002202, A058277, A085713."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, _Mira Bernstein_, _Robert G. Wilson v_",
+			"references": 13,
+			"revision": 70,
+			"time": "2018-07-24T10:01:12-04:00",
+			"created": "1994-05-09T03:00:00-04:00"
+		},
+		{
+			"number": 7428,
+			"id": "M2271",
+			"data": "1,-3,-3,3,-3,9,-3,-1,3,9,-3,-9,-3,9,9,0,-3,-9,-3,-9,9,9,-3,3,3,9,-1,-9,-3,-27,-3,0,9,9,9,9,-3,9,9,3,-3,-27,-3,-9,-9,9,-3,0,3,-9,9,-9,-3,3,9,3,9,9,-3,27,-3,9,-9,0,9,-27,-3,-9,9,-27,-3,-3,-3,9,-9,-9,9,-27",
+			"name": "Moebius transform applied thrice to sequence 1,0,0,0,....",
+			"comment": [
+				"Dirichlet inverse of A007425. - _R. J. Mathar_, Jul 15 2010",
+				"abs(a(n)) is the number of ways to write n=xyz where x,y,z are squarefree numbers. - _Benoit Cloitre_, Jan 02 2018"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Enrique Pérez Herrero, \u003ca href=\"/A007428/b007428.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/transforms.txt\"\u003eTransforms\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative with a(p^e) = (3 choose e) (-1)^e.",
+				"Dirichlet g.f.: 1/zeta(s)^3.",
+				"From _Enrique Pérez Herrero_, Jul 12 2010: (Start)",
+				"a(n^3) = A008683(n).",
+				"a(s) = (-3)^A001221(s) provided s is a squarefree number (A005117). (End)",
+				"a(A046101(n)) = 0. - _Enrique Pérez Herrero_, Sep 07 2017"
+			],
+			"maple": [
+				"möbius := proc(a)  local b, i, mo: b := NULL:",
+				"mo := (m,n) -\u003e `if`(irem(m,n) = 0, numtheory:-mobius(m/n), 0);",
+				"for i to nops(a) do b := b, add(mo(i,j)*a[j], j=1..i) od: [b] end:",
+				"(möbius@@3)([1, seq(0, i=1..77)]); # _Peter Luschny_, Sep 08 2017"
+			],
+			"mathematica": [
+				"tau[1,n_Integer]:=1; SetAttributes[tau, Listable];",
+				"tau[k_Integer,n_Integer]:=Plus@@(tau[k-1,Divisors[n]])/; k \u003e 1;",
+				"tau[k_Integer,n_Integer]:=Plus@@(tau[k+1,Divisors[n]]*MoebiusMu[n/Divisors[n]]); k\u003c1;",
+				"A007428[n_]:=tau[ -3,n]; (* _Enrique Pérez Herrero_, Jul 12 2010 *)",
+				"a[n_] := Which[n==1, 1, PrimeQ[n], -3, True, Times @@ Map[Function[e, Binomial[3, e] (-1)^e], FactorInteger[n][[All, 2]]]];",
+				"Array[a, 100] (* _Jean-François Alcover_, Jun 20 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a007428 n = product",
+				"   [a007318' 3 e * cycle [1,-1] !! fromIntegral e | e \u003c- a124010_row n]",
+				"-- _Reinhard Zumkeller_, Oct 09 2013",
+				"(PARI) a(n) = {my(f=factor(n)); for (k=1, #f~, e = f[k,2]; f[k,1] = binomial(3, e)*(-1)^e; f[k,2] = 1); factorback(f);} \\\\ _Michel Marcus_, Jan 03 2018"
+			],
+			"xref": [
+				"Consecutive nested Dirichlet convolution: A063524, A008683 or A007427. - _Enrique Pérez Herrero_, Jul 12 2010",
+				"Cf. A124010."
+			],
+			"keyword": "sign,easy,nice,mult",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 13,
+			"revision": 47,
+			"time": "2018-06-20T09:44:08-04:00",
+			"created": "1994-05-24T03:00:00-04:00"
+		},
+		{
+			"number": 7538,
+			"id": "M0432",
+			"data": "2,3,3,2,3,3,3,2,3,3,3,2,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2,3,3,2,3,3,3,2,3,3,3,2,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2,3,3,2,3,3,3,2,3,3,3,2,3,3,3,2,3",
+			"name": "A self-generating sequence: there are a(n) 3's between successive 2's.",
+			"comment": [
+				"a(A188069(n)) = 2; a(A188070(n)) = 3. [_Reinhard Zumkeller_, Feb 14 2012]",
+				"(a(n)) is the unique fixed point of the morphism 2-\u003e233, 3-\u003e2333 (immediate from its definition). - _Michel Dekking_, Feb 21 2017"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A007538/b007538.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Bryce Emerson Blackham, \u003ca href=\"https://scholarsarchive.byu.edu/cgi/viewcontent.cgi?article=7735\u0026amp;context=etd\"\u003eSubtraction Games: Range and Strict Periodicity\u003c/a\u003e, masters thesis, 2018.",
+				"The Fifty-Fourth William Lowell Putnam Mathematical Competition, \u003ca href=\"http://www.jstor.org/stable/2974527\"\u003eProblem A-6\u003c/a\u003e, Amer. Math. Monthly, 101 (1994), 727-728.",
+				"The Fifty-Fourth William Lowell Putnam Mathematical Competition, \u003ca href=\"http://www.jstor.org/stable/2690693\"\u003eProblem A-6\u003c/a\u003e, Math. Mag., 67 (No. 2, 1994), 157-158."
+			],
+			"formula": [
+				"a(n) = floor( n*(1+sqrt(3)) )-floor( (n-1)*(1+sqrt(3)) ).",
+				"a(n) = f(n,2,2,2) with f(n,b,c,i) = if n=1 then b else (if c=0 then f(n-1,2,a(i),i+1) else f(n-1,3,c-1,i)). [From _Reinhard Zumkeller_, May 25 2009]",
+				"a(n) = A080757(n-1) + 1; a(n) = A188068(n) + 2. [_Reinhard Zumkeller_, Feb 14 2012]"
+			],
+			"mathematica": [
+				"f[n_, b_, c_, i_] := f[n, b, c, i] = If[n == 1, b, If[c == 0 , f[n-1, 2, a[i], i+1], f[n-1, 3, c-1, i]]]; a[n_] := f[n, 2, 2, 2]; Table[a[n], {n, 1, 100}] (* _Jean-François Alcover_, Oct 15 2013, after _Reinhard Zumkeller_ *)",
+				"Table[Floor[n (1 + Sqrt@ 3)] - Floor[(n - 1) (1 + Sqrt@ 3)], {n, 120}] (* _Michael De Vlieger_, Oct 08 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a007538 n = f n 2 2 2 where",
+				"   f 1 b _ _ = b",
+				"   f n b 0 i = f (n - 1) 2 (a007538 i) (i + 1)",
+				"   f n b c i = f (n - 1) 3 (c - 1) i",
+				"-- _Reinhard Zumkeller_, Feb 14 2012"
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, _Simon Plouffe_",
+			"references": 13,
+			"revision": 36,
+			"time": "2018-07-31T18:36:41-04:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 7542,
+			"id": "M2084",
+			"data": "2,15,825,725,1925,2275,425,390,330,290,770,910,170,156,132,116,308,364,68,4,30,225,12375,10875,28875,25375,67375,79625,14875,13650,2550,2340,1980,1740,4620,4060,10780,12740,2380,2184,408,152",
+			"name": "Successive integers produced by Conway's PRIMEGAME.",
+			"comment": [
+				"Conway's PRIMEGAME produces the terms 2^prime in increasing order.",
+				"From _Daniel Forgues_, Jan 20 2016: (Start)",
+				"Pairs (n, a(n)) such that a(n) = 2^k are (1, 2^1), (20, 2^2), (70, 2^3), (282, 2^5), (711, 2^7), (2376, 2^11), (3894, 2^13), (8103, 2^17), ...",
+				"Numbers n such that a(n) = 2^k are 1, 20, 70, 282, 711, 2376, 3894, 8103, ... [This is 1 + A007547. - _N. J. A. Sloane_, Jan 25 2016] (End)"
+			],
+			"reference": [
+				"D. Olivastro, Ancient Puzzles. Bantam Books, NY, 1993, p. 21.",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A007542/b007542.txt\"\u003eTable of n, a(n) for n=1..8103\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://dx.doi.org/10.1007/978-1-4612-4808-8_2\"\u003eFRACTRAN: a simple universal programming language for arithmetic\u003c/a\u003e, in T. M. Cover and Gopinath, eds., Open Problems in Communication and Computation, Springer, NY 1987, pp. 4-26.",
+				"Richard K. Guy, \u003ca href=\"http://www.jstor.org/stable/2690263\"\u003eConway's prime producing machine\u003c/a\u003e, Math. Mag. 56 (1983), no. 1, 26-33. [Gives slightly different version of the program which produces different terms, starting from n=132.]",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/FRACTRAN.html\"\u003eFRACTRAN\u003c/a\u003e",
+				"OEIS Wiki, \u003ca href=\"https://oeis.org/wiki/Conway\u0026#39;s_PRIMEGAME\"\u003eConway's PRIMEGAME\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/FRACTRAN\"\u003eFRACTRAN\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A203907(a(n)), a(1) = 2. [_Reinhard Zumkeller_, Jan 24 2012]"
+			],
+			"maple": [
+				"l:= [17/91, 78/85, 19/51, 23/38, 29/33, 77/29, 95/23, 77/19, 1/17, 11/13, 13/11, 15/2, 1/7, 55]: a:= proc(n) option remember; global l; local p, k; if n=1 then 2 else p:= a(n-1); for k while not type(p*l[k], integer) do od; p*l[k] fi end: seq(a(n), n=1..50); # _Alois P. Heinz_, Aug 12 2009"
+			],
+			"mathematica": [
+				"conwayFracs := {17/91, 78/85, 19/51, 23/38, 29/33, 77/29, 95/23, 77/19, 1/17, 11/13, 13/11, 15/2, 1/7, 55}; a[1] = 2; A007542[n_] := A007542[n] = (p = A007542[n - 1]; k = 1; While[ ! IntegerQ[p * conwayFracs[[k]]], k++]; p * conwayFracs[[k]]); Table[A007542[n], {n, 42}] (* _Jean-François Alcover_, Jan 23 2012, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a007542 n = a007542_list !! (n-1)",
+				"a007542_list = iterate a203907 2  -- _Reinhard Zumkeller_, Jan 24 2012"
+			],
+			"xref": [
+				"Cf. A007546, A007547, A183132, A202138, A203363."
+			],
+			"keyword": "easy,nonn,look,nice",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 13,
+			"revision": 64,
+			"time": "2019-04-22T09:49:45-04:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 7628,
+			"id": "M4892",
+			"data": "13,31,113,311,1031,1033,1103,1181,1301,1381,1811,1831,3011,3083,3301,3803,10333,11003,11083,11833,18013,18133,18803,30011,30881,31033,31081,31183,33013,33181,33301,33811,38011,38113",
+			"name": "Reflectable emirps.",
+			"comment": [
+				"Subsequence of A125308, the reflectable primes. - _Reinhard Zumkeller_, Jul 16 2014"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"C. W. Trigg, \"Reflective Primes\", J. Rec. Math., 15 (1983), 251-256."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A007628/b007628.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Prime Glossary, \u003ca href=\"http://primes.utm.edu/glossary/xpage/ReflectablePrime.html\"\u003eReflectable prime\u003c/a\u003e",
+				"C. W. Trigg, \u003ca href=\"/A007628/a007628.pdf\"\u003eReflectable primes\u003c/a\u003e, J. Recreational Mathematics 15.4 (1983), 253. (Annotated scanned copy)"
+			],
+			"program": [
+				"(Haskell)",
+				"a007628 n = a007628_list !! (n-1)",
+				"a007628_list = filter f a125308_list where",
+				"   f p = a010051' q == 1 \u0026\u0026 q /= p  where q = a004086 p",
+				"-- _Reinhard Zumkeller_, Jul 16 2014"
+			],
+			"xref": [
+				"Cf. A003684, A006567, A046732, A048051, A048052, A048053, A048054, A048895.",
+				"Cf. A010051, A004086, A125308."
+			],
+			"keyword": "nonn,base,nice,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, _Mira Bernstein_, _Robert G. Wilson v_",
+			"ext": [
+				"Missing 1811 inserted by _Reinhard Zumkeller_, Jul 16 2014"
+			],
+			"references": 13,
+			"revision": 19,
+			"time": "2017-12-20T23:29:46-05:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 7660,
+			"id": "M0853",
+			"data": "0,0,1,1,2,3,7,22,155,3411,528706,1803416167,953476947989903,1719515742866809222961802,1639518622529236077952144318816050685207,2819178082162327154499022366029959843954512194276761760087463015",
+			"name": "a(n) = a(n-1)*a(n-2) + 1 with a(0) = a(1) = 0.",
+			"comment": [
+				"If we omit the first three terms of the sequence, a(n)/a(n-1) can be expressed as the continued fraction [a(n-2); a(n-1)]. - _Eric Angelini_, Feb 10 2005",
+				"This may be regarded as a multiplicative dual of the Fibonacci sequence A000045. Write Fibonacci's formula as F(0)=0, F(1)=1; F(n)=[F(n-1)+F(n-2)]*1 with n\u003e1. Swap '+' and '*' and we have the present sequence! - B. Joshipura (bhushit(AT)yahoo.com), Aug 29 2007"
+			],
+			"reference": [
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A007660/b007660.txt\"\u003eTable of n, a(n) for n = 0..19\u003c/a\u003e (shortened by _N. J. A. Sloane_, Jan 13 2019)",
+				"A. V. Aho and N. J. A. Sloane, \u003ca href=\"http://neilsloane.com/doc/doubly.html\"\u003eSome doubly exponential sequences\u003c/a\u003e, Fib. Quart., 11 (1973), 429-437.",
+				"B. Joshipura, \u003ca href=\"http://groups.google.co.in/group/sci.math/browse_thread/thread/4244f16b6d174374/56544d5b49e6435e\"\u003eMy non-mathematician's posting\u003c/a\u003e",
+				"S. Kak, \u003ca href=\"https://arxiv.org/abs/physics/0411195\"\u003eThe Golden Mean and the Physics of Aesthetics\u003c/a\u003e, arXiv:physics/0411195 [physics.hist-ph], 2004."
+			],
+			"formula": [
+				"a(n) is asymptotic to c^(phi^n) where phi = (1 + sqrt(5))/2 and c = A258113 = 1.1130579759029319... - _Benoit Cloitre_, Sep 26 2003",
+				"b(n) = a(n+1) is a divisibility sequence. - _Michael Somos_, Dec 29 2012"
+			],
+			"example": [
+				"b(10) / b(5) = 1803416167 / 7 = 257630881. - _Michael Somos_, Dec 29 2012"
+			],
+			"mathematica": [
+				"a[0] = a[1] = 0; a[n_] := a[n - 1]*a[n - 2] + 1; Table[ a[n], {n, 0, 15} ]",
+				"RecurrenceTable[{a[0]==a[1]==0,a[n]==a[n-1]a[n-2]+1},a,{n,20}] (* _Harvey P. Dale_, Nov 12 2011 *)"
+			],
+			"program": [
+				"(MAGMA) I:=[0,0]; [n le 2 select I[n] else Self(n-1)*Self(n-2)+1: n in [1..20]]; // _Vincenzo Librandi_, Nov 14 2011",
+				"(Haskell)",
+				"a007660 n = a007660_list !! n",
+				"a007660_list = 0 : 0 : map (+ 1)",
+				"                       (zipWith (*) a007660_list $ tail a007660_list)",
+				"-- _Reinhard Zumkeller_, Jan 17 2015",
+				"(Maxima) a(n) := if (n=0 or n=1) then 0 else a(n-1)*a(n-2)+1 $",
+				"makelist(a(n),n,0,18); /* _Emanuele Munarini_, Mar 24 2017 */"
+			],
+			"xref": [
+				"Cf. A250309, A253853, A258113."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,5",
+			"author": "_N. J. A. Sloane_, _Robert G. Wilson v_",
+			"references": 13,
+			"revision": 49,
+			"time": "2019-01-13T15:59:13-05:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		},
+		{
+			"number": 7664,
+			"id": "M2449",
+			"data": "0,1,3,5,9,13,17,25,33,41,49,65,81,97,113,129,161,193,225,257,289,321,385,449,513,577,641,705,769,897,1025,1153,1281,1409,1537,1665,1793,2049,2305,2561,2817,3073,3329,3585,3841,4097,4609,5121,5633",
+			"name": "Reve's puzzle: number of moves needed to solve the Towers of Hanoi puzzle with 4 pegs and n disks, according to the Frame-Stewart algorithm.",
+			"comment": [
+				"The Frame-Stewart algorithm minimizes the number of moves a(n) needed to first move k disks to an intermediate peg (requiring a(k) moves), then moving the remaining n-k disks to the destination peg without touching the k smallest disks (requiring 2^(n-k)-1 moves) and finally moving the k smaller disks to the destination.",
+				"This leads to the given recursive formula a(n) = min{...}. It follows that the sequence of first differences is A137688 = (1,2,2,4,4,4,...) = 2^A003056(n), which in turn gives the explicit formulas for a(n) as partial sums of A137688.",
+				"\"Numerous others have rediscovered this algorithm over the years [several references omitted]; many of these failed to derive the correct value for the parameter i, most mistakenly thought that they had actually proved optimality and almost none contributed anything new to what was done by Frame and Stewart\". [Stockmeyer]",
+				"Numbers of the form 2^k+1 appear for n = 2, 3, 4, 6, 8, 11, 15, 15+4 = 19, 19+5 = 24, 24+6 = 30, 30+7 = 37, 37+8 = 45, ... - _Max Alekseyev_, Feb 06 2008",
+				"The Frame-Stewart algorithm indeed gives the optimal solution, i.e., the minimal possible number of moves for the case of four pegs [Bousch, 2014]. - _Andrey Zabolotskiy_, Sep 18 2017"
+			],
+			"reference": [
+				"A. Brousseau, Tower of Hanoi with more pegs, J. Recreational Math., 8 (1975-1976), 169-176.",
+				"Cull, Paul; Ecklund, E. F. On the Towers of Hanoi and generalized Towers of Hanoi problems. Proceedings of the thirteenth Southeastern conference on combinatorics, graph theory and computing (Boca Raton, Fla., 1982). Congr. Numer. 35 (1982), 229--238. MR0725883(85a:68059).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence).",
+				"D. Wood, Towers of Brahma and Hanoi revisited, J. Recreational Math., 14 (1981), 17-24."
+			],
+			"link": [
+				"M. F. Hasler and Gheorghe Coserea, \u003ca href=\"/A007664/b007664.txt\"\u003eTable of n, a(n) for n = 0..10012\u003c/a\u003e (first 1001 terms from M. F. Hasler)",
+				"S. Alejandre, \u003ca href=\"http://web.archive.org/web/20040314132214/http://www.rialto.k12.ca.us/frisbie/mathfair/hanoilegend.html\"\u003eLegend of Towers of Hanoi\u003c/a\u003e",
+				"J.-P. Allouche, \u003ca href=\"http://dx.doi.org/10.1016/0304-3975(94)90064-7\"\u003eNote on the cyclic towers of Hanoi\u003c/a\u003e, Theoret. Comput. Sci., 123 (1994), 3-7.",
+				"T. Bousch, \u003ca href=\"https://pdfs.semanticscholar.org/fb87/0a772baf96a2e11901122a2b04c3dd25596d.pdf\"\u003eLa quatrième tour de Hanoi\u003c/a\u003e, Bull. Belg. Math. Soc. Simon Stevin 21 (2014) 895-912.",
+				"A. Brousseau, \u003ca href=\"/A007664/a007664.pdf\"\u003eTower of Hanoi with more pegs\u003c/a\u003e, J. Recreational Math 8.3 (1975-6), 169-176. (Annotated scanned copy)",
+				"A. M. Hinz, \u003ca href=\"https://doi.org/10.1007/BF02239743\"\u003eAn iterative algorithm for the Tower of Hanoi with four pegs\u003c/a\u003e, Computing, June 1989, Volume 42, Issue 2-3, pp 133-140.",
+				"A. M. Hinz, S. Klavžar, U. Milutinović, C. Petr, \u003ca href=\"http://tohbook.info\"\u003eThe Tower of Hanoi - Myths and Maths\u003c/a\u003e, \u003ca href=\"http://dx.doi.org/10.1007/978-3-0348-0237-6\"\u003eBirkhäuser\u003c/a\u003e 2013.",
+				"B. Houston and H. Masum, \u003ca href=\"https://pdfs.semanticscholar.org/072a/c5bd021bec39eaaa9a776e26b460e4191e42.pdf\"\u003eExplorations in 4-peg Tower of Hanoi\u003c/a\u003e [Paper]",
+				"B. Houston and H. Masum, \u003ca href=\"http://www.exocortex.org/toh/\"\u003eExplorations in 4-peg Tower of Hanoi\u003c/a\u003e [Web site]",
+				"S. Klavzar et al., \u003ca href=\"https://doi.org/10.1016/j.exmath.2005.05.003\"\u003eHanoi graphs and some classical numbers\u003c/a\u003e",
+				"S. Klavzar and U. Milutinovic, \u003ca href=\"https://pdfs.semanticscholar.org/ee65/d3ca949092f51485a5d2f7cddba192d9db99.pdf\"\u003eSimple explicit formulas for the Frame-Stewart's numbers\u003c/a\u003e",
+				"S. Klavzar, U. Milutinovic and C. Petr, \u003ca href=\"https://doi.org/10.1016/S0166-218X(01)00287-6\"\u003eOn the Frame-Stewart algorithm for the multi-peg Tower of Hanoi problem\u003c/a\u003e, Discrete Appl. Math. 120, 1-3 (2002), 141 - 157.",
+				"Mathnet at U. Toronto, \u003ca href=\"http://www.math.toronto.edu/mathnet/questionCorner/genhanoi.html\"\u003eGeneralizing the Towers of Hanoi Problem\u003c/a\u003e",
+				"Richard E. Korf and Ariel Felner. \u003ca href=\"http://www.ijcai.org/papers07/Papers/IJCAI07-374.pdf\"\u003eRecent Progress in Heuristic Search: a Case Study of the Four-Peg Towers of Hanoi Problem\u003c/a\u003e. IJCAI 2007: 2324-2329.",
+				"B. M. Stewart, \u003ca href=\"http://www.jstor.org/stable/2302907\"\u003eAdvanced Problem 3918\u003c/a\u003e, Amer. Math. Monthly, 46 (1939), 363.",
+				"B. M. Stewart \u0026 J. S. Frame, \u003ca href=\"http://www.jstor.org/stable/2304268\"\u003eSolution to Problem 3918\u003c/a\u003e, Amer. Math. Monthly, 48 (1941), 217-219.",
+				"P. Stockmeyer, \u003ca href=\"http://www.cs.wm.edu/~pkstoc/boca.ps\"\u003eVariations on the Four-Post Tower of Hanoi Puzzle\u003c/a\u003e, CONGRESSUS NUMERANTIUM 102 (1994), pp. 3-12. [Has extensive bibliography]",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/TowersofHanoi.html\"\u003eTowers of Hanoi\u003c/a\u003e",
+				"Janez Žerovnik, \u003ca href=\"http://arxiv.org/abs/1601.04298\"\u003eSelf Similarities of the Tower of Hanoi Graphs and a proof of the Frame-Stewart Conjecture\u003c/a\u003e, arXiv:1601.04298 [math.CO], 2016."
+			],
+			"formula": [
+				"a(n) = min{ 2 a(k) + 2^(n-k) - 1 ; k \u003c n}, which is always odd. - _M. F. Hasler_, Feb 06 2008",
+				"a(n) = sum(2^A003056(i), i=0..n-1). - Daniele Parisse (daniele.parisse(AT)m.eads.net), May 09 2003",
+				"a(n) = 1 + (n + A003056(n) - 1 - A003056(n)*(A003056(n) + 1)/2)*2^A003056(n). - Daniele Parisse (daniele.parisse(AT)m.dasa.de), Feb 06 2001",
+				"a(n) = 1 + (n - 1 - A003056(n)*(A003056(n) - 1)/2)*2^A003056(n). - Daniele Parisse (daniele.parisse(AT)t-online.de), Jul 07 2007"
+			],
+			"maple": [
+				"A007664:=proc(n) option remember;min(seq(2*A007664(k)+2^(n-k)-1,k=0..n-1)) end; A007664(0):=0; # _M. F. Hasler_, Feb 06 2008",
+				"A007664 := n -\u003e 1 + (n - 1 - A003056(n)*(A003056(n) - 1)/2)*2^A003056(n); A003056 := n -\u003e round(sqrt(2*n+2))-1; # _M. F. Hasler_, Feb 06 2008"
+			],
+			"mathematica": [
+				"a[n_] := a[n] = Min[ Table[ 2*a[k] + 2^(n-k) - 1, {k, 0, n-1}]]; a[0] = 0; Table[a[n], {n, 0, 48}] (* _Jean-François Alcover_, Dec 06 2011, after _M. F. Hasler_ *)"
+			],
+			"program": [
+				"(PARI) A007664(n) = (n - 1 - (n=A003056(n))*(n-1)/2)*2^n +1",
+				"A003056(n) = (sqrt(2*n+2)-.5)\\1 \\\\ _M. F. Hasler_, Feb 06 2008",
+				"(PARI) print_7664(n,s=0,t=1,c=1,d=1)=while(n--\u003e=0,print1(s+=t,\",\");c--\u0026next;c=d++;t\u003c\u003c=1)",
+				"(PARI) A007664(n,c=1,d=1,t=1)=sum(i=c,n,i\u003ec\u0026(t\u003c\u003c=1)\u0026c+=d++;t) \\\\ _M. F. Hasler_, Feb 06 2008",
+				"(Haskell)",
+				"a007664 = sum . map (a000079 . a003056) . enumFromTo 0 . subtract 1",
+				"-- _Reinhard Zumkeller_, Feb 17 2013"
+			],
+			"xref": [
+				"Cf. A007665, A182058, A003056, A000225 (analog for 3 pegs), A137688 (first differences)."
+			],
+			"keyword": "nonn,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, _Mira Bernstein_ and _Robert G. Wilson v_",
+			"ext": [
+				"Edited, corrected and extended by _M. F. Hasler_, Feb 06 2008",
+				"Further edits by _N. J. A. Sloane_, Feb 08 2008",
+				"Upper bound updated with a reference by _Max Alekseyev_, Nov 23 2008"
+			],
+			"references": 13,
+			"revision": 69,
+			"time": "2018-01-10T03:27:43-05:00",
+			"created": "1994-09-19T03:00:00-04:00"
+		}
+	]
+}

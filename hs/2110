@@ -1,0 +1,468 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2110,
+	"results": [
+		{
+			"number": 63995,
+			"data": "1,1,0,1,1,0,1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,0,1,1,2,1,2,1,1,0,1,1,0,1,1,2,1,3,1,2,1,1,0,1,1,0,1,1,2,2,3,2,3,2,2,1,1,0,1,1,0,1,1,2,2,3,3,4,3,3,2,2,1,1,0,1,1,0,1,1,2,2,4,3,5,4,5,3,4,2,2,1,1,0,1,1,0,1,1,2",
+			"name": "Triangle read by rows: T(n,k), n \u003e= 1, -(n-1) \u003c= k \u003c= n-1, = number of partitions of n with rank k.",
+			"comment": [
+				"The rank of a partition is the largest part minus the number of parts.",
+				"The rows are symmetric: for every partition of rank r there is its conjugate with rank -r. [_Joerg Arndt_, Oct 07 2012]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A063995/b063995.txt\"\u003eRows n = 1..72 of triangle, flattened\u003c/a\u003e",
+				"G. E. Andrews, \u003ca href=\"http://www.math.psu.edu/vstein/alg/antheory/preprint/andrews/17.pdf\"\u003eThe number of smallest parts in the partitions of n\u003c/a\u003e. [Also Selected Works, p. 603, see N(m,n).] - _N. J. A. Sloane_, Dec 16 2013",
+				"A. O. L. Atkin and P. Swinnerton-Dyer, \u003ca href=\"https://doi.org/10.1112/plms/s3-4.1.84\"\u003eSome properties of partitions\u003c/a\u003e, Proc. London Math. Soc. (3) 4, (1954). 84-106. Math. Rev. 15,685d."
+			],
+			"example": [
+				"The partition 5 = 4+1 has largest summand 4 and 2 summands, hence has rank 4-2 = 2.",
+				"Triangle begins:",
+				"[ 1]                               1,",
+				"[ 2]                            1, 0, 1,",
+				"[ 3]                         1, 0, 1, 0, 1,",
+				"[ 4]                      1, 0, 1, 1, 1, 0, 1,",
+				"[ 5]                   1, 0, 1, 1, 1, 1, 1, 0, 1,",
+				"[ 6]                1, 0, 1, 1, 2, 1, 2, 1, 1, 0, 1,",
+				"[ 7]             1, 0, 1, 1, 2, 1, 3, 1, 2, 1, 1, 0, 1,",
+				"[ 8]          1, 0, 1, 1, 2, 2, 3, 2, 3, 2, 2, 1, 1, 0, 1,",
+				"[ 9]       1, 0, 1, 1, 2, 2, 3, 3, 4, 3, 3, 2, 2, 1, 1, 0, 1,",
+				"[10]    1, 0, 1, 1, 2, 2, 4, 3, 5, 4, 5, 3, 4, 2, 2, 1, 1, 0, 1,",
+				"[11] 1, 0, 1, 1, 2, ...",
+				"Row 20 is:",
+				"T(20, k) = 1, 0, 1, 1, 2, 2, 4, 4, 7, 8, 12, 14, 20, 22, 30, 33, 40, 42, 48, 45, 48, 42, 40, 33, 30, 22, 20, 14, 12, 8, 7, 4, 4, 2, 2, 1, 1, 0, 1; -19 \u003c= k \u003c= 19."
+			],
+			"mathematica": [
+				"Table[ Count[ (First[ # ]-Length[ # ]\u0026 /@ IntegerPartitions[ k ]), # ]\u0026 /@ Range[ -k+1, k-1 ], {k, 16} ]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (sort, group)",
+				"a063995 n k = a063995_tabf !! (n-1) !! (n-1+k)",
+				"a063995_row n = a063995_tabf !! (n-1)",
+				"a063995_tabf = [[1], [1, 0, 1]] ++ (map",
+				"   (\\rs -\u003e [1, 0] ++ (init $ tail $ rs) ++ [0, 1]) $ drop 2 $ map",
+				"   (map length . group . sort . map rank) $ tail pss) where",
+				"      rank ps = maximum ps - length ps",
+				"      pss = [] : map (\\u -\u003e [u] : [v : ps | v \u003c- [1..u],",
+				"                             ps \u003c- pss !! (u - v), v \u003c= head ps]) [1..]",
+				"-- _Reinhard Zumkeller_, Jul 24 2013"
+			],
+			"xref": [
+				"For the number of partitions of n with rank 0 (balanced partitions) see A047993.",
+				"Cf. A005408 (row lengths), A000041 (row sums), A047993 (central terms)."
+			],
+			"keyword": "nonn,nice,tabf",
+			"offset": "1,30",
+			"author": "_N. J. A. Sloane_, Sep 19 2001",
+			"ext": [
+				"More terms from _Vladeta Jovovic_ and _Wouter Meeussen_, Sep 19 2001"
+			],
+			"references": 16,
+			"revision": 26,
+			"time": "2018-06-10T04:33:11-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64680,
+			"data": "0,2,1,6,2,10,3,14,4,18,5,22,6,26,7,30,8,34,9,38,10,42,11,46,12,50,13,54,14,58,15,62,16,66,17,70,18,74,19,78,20,82,21,86,22,90,23,94,24,98,25,102,26,106,27,110,28,114,29,118,30,122,31,126,32,130,33,134,34,138,35",
+			"name": "Halve every even number, double every odd number.",
+			"comment": [
+				"a(a(m)) = m for all m with gcd(m, 4) \u003c= 2."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A064680/b064680.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e, (corrected by _Peter Luschny_, Jan 19 2019)",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,2,0,-1)."
+			],
+			"formula": [
+				"a(n) = n * 2^(2 * (n mod 2) - 1).",
+				"G.f.: x*(2+x+2*x^2)/(1-x^2)^2.",
+				"a(n) = 2*a(n-2) - a(n-4) for n\u003e3.",
+				"a(n)*a(n+3) = -2 + a(n+1)*a(n+2).",
+				"a(2*n) = A001477(n), a(1+2*n) = A016825(n). - _Paul Curtz_, Mar 09 2011",
+				"a(n) = n*(5-3*(-1)^n)/4. - _Bruno Berselli_, Mar 09 2011",
+				"a(n)= (period 4 sequence: repeat 2, 2, 1, 2) * (A060819(n)=0,1,1,3,1,5,...). - _Paul Curtz_, Mar 10 2011",
+				"E.g.f.: x*(sinh(x) + 4*cosh(x))/2. - _Ilya Gutkovskiy_, Jul 24 2016",
+				"a(n) = lcm(numerator(n/2), denominator(n/2)). - _Wesley Ivan Hurt_, Jul 24 2016",
+				"a(n) = A176447(n) + n. - _Filip Zaludek_, Dec 10 2016"
+			],
+			"maple": [
+				"A064680:=n-\u003en*(5-3*(-1)^n)/4: seq(A064680(n), n=0..100); # _Wesley Ivan Hurt_, Jul 24 2016"
+			],
+			"mathematica": [
+				"f[n_] := 2^(2 Mod[n, 2] - 1) n; Array[f, 70, 0] (* Or *)",
+				"f[n_] := If[ OddQ@ n, 2 n, n/2]; Array[f, 71, 0] (* Or *)",
+				"CoefficientList[ Series[x (2 + x + 2 x^2)/(1 - x^2)^2, {x, 0, 70}], x] (* _Robert G. Wilson v_ *)"
+			],
+			"program": [
+				"(PARI) a(n) = if (n%2, 2*n, n/2); \\\\ _Harry J. Smith_, Sep 22 2009",
+				"(MAGMA) [IsEven(n) select n/2 else 2*n: n in [0..70]]; // _Bruno Berselli_, Mar 09 2011",
+				"(Haskell)",
+				"a064680 n = a064680_list !! n",
+				"a064680_list = zipWith ($) (cycle [(`div` 2), (* 2)]) [0..]",
+				"-- _Reinhard Zumkeller_, Jul 25 2012"
+			],
+			"xref": [
+				"Cf. A001477, A016825, A026741, A060819."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Oct 16 2001",
+			"references": 16,
+			"revision": 51,
+			"time": "2019-01-19T09:35:02-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 64736,
+			"data": "1,2,6,3,12,4,20,5,35,7,56,8,72,9,90,10,110,11,143,13,182,14,210,15,240,16,272,17,306,18,342,19,399,21,462,22,506,23,552,24,600,25,650,26,702,27,756,28,812,29,870,30,930,31,992,32,1056,33,1122,34,1224,36",
+			"name": "a(1)=1, a(2)=2; for n\u003e0, a(2*n+2) = smallest number missing from {a(1), ... ,a(2*n)}, and a(2*n+1) = a(2*n)*a(2*n+2).",
+			"comment": [
+				"Let c be the smallest positive constant such that for all permutations {a_n} of the positive integers, lim inf_{n -\u003e infinity} gcd(a_n, a_{n+1})/n \u003c= c. This sequence shows c \u003e= 1/2.",
+				"The definition implies that if a(n) is prime then n is even. - _N. J. A. Sloane_, May 23 2017",
+				"a(2n) ~ n+1 ~ n has asymptotic density 1 and a(2n-1) ~ n(n+1) ~ n^2 has asymptotic density zero. - _M. F. Hasler_, May 23 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A064736/b064736.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Ray Chandler, \u003ca href=\"/A064736/a064736.txt\"\u003eTable of n, a(n) for n = 1..200000\u003c/a\u003e (large file, 2.8 MB)",
+				"Ray Chandler, \u003ca href=\"/A064736/a064736.gz\"\u003eTable of n, a(n) for n = 1..2000000\u003c/a\u003e (large gzipped file)",
+				"P. Erdős, R. Freud, and N. Hegyvári, \u003ca href=\"https://users.renyi.hu/~p_erdos/1983-02.pdf\"\u003eArithmetical properties of permutations of integers\u003c/a\u003e, Acta Mathematica Hungarica 41:1-2 (1983), pp 169-176.",
+				"Pierre Mazet, Eric Saias, \u003ca href=\"https://arxiv.org/abs/1803.10073\"\u003eEtude du graphe divisoriel 4\u003c/a\u003e, arXiv:1803.10073 [math.NT], 2018.",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"mathematica": [
+				"A064736 = {a[1]=1, a[2]=2}; a[n_] := a[n] = (an = If[OddQ[n], a[n-1]*a[n+1], First[ Complement[ Range[n], A064736]]]; AppendTo[A064736, an]; an); Table[a[n], {n, 1, 62}] (*_Jean-François Alcover_, Aug 07 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a064736 n = a064736_list !! (n-1)",
+				"a064736_list = 1 : 2 : f 1 2 [3..] where",
+				"   f u v (w:ws) = u' : w : f u' w (delete u' ws) where u' = v * w",
+				"-- _Reinhard Zumkeller_, Mar 23 2012"
+			],
+			"xref": [
+				"A064745 gives inverse permutation.",
+				"Interleaving of A286290 and A286291. See also A286292, A286293.",
+				"Cf. A064764, A210770."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "J. C. Lagarias (lagarias(AT)umich.edu), Oct 21 2001",
+			"ext": [
+				"More terms from _Vladeta Jovovic_, Oct 21 2001",
+				"Definition clarified by _N. J. A. Sloane_, May 23 2017"
+			],
+			"references": 16,
+			"revision": 60,
+			"time": "2018-05-07T21:33:55-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 65733,
+			"data": "0,1,4,25,64,121,196,324,484,729,961,1296,1681,2116,2704,3364,4096,4900,5776,6724,7921,9216,10609,12100,13689,15625,17424,19600,21904,24336,26896,29584,32761,35721,39204,42849,46656,50625,54756,59049,63504",
+			"name": "Largest square \u003c= n^3.",
+			"comment": [
+				"a(n) + A077116(n) = n^3."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A065733/b065733.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A048760(A000578(n)) = A048760(n^3)."
+			],
+			"example": [
+				"a(10)=961, as 961=31^2 is the largest square \u003c= 1000 = 10^3."
+			],
+			"mathematica": [
+				"Table[Floor[Sqrt[w^3]//N]^2, {w, 1, 50}]"
+			],
+			"program": [
+				"(PARI) { for (n=0, 1000, a=sqrtint(n^3)^2; write(\"b065733.txt\", n, \" \", a) ) } \\\\ _Harry J. Smith_, Oct 28 2009",
+				"(PARI) A065733(n)=sqrtint(n^3)^2  \\\\ _M. F. Hasler_, Oct 05 2013",
+				"(Haskell) a065733 n = head [x | x \u003c- reverse [0.. n^3], a010052 x == 1] -- _Reinhard Zumkeller_, Oct 10 2013"
+			],
+			"xref": [
+				"Cf. A048760, A000578, A065730-A065741, A087285.",
+				"Cf. A000290, A000578, A077115, A077116, A077118, A077121."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,3",
+			"author": "_Labos Elemer_, Nov 15 2001",
+			"references": 16,
+			"revision": 16,
+			"time": "2018-06-15T02:54:57-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 66246,
+			"data": "0,0,0,1,0,2,0,3,4,5,0,6,0,7,8,9,0,10,0,11,12,13,0,14,15,16,17,18,0,19,0,20,21,22,23,24,0,25,26,27,0,28,0,29,30,31,0,32,33,34,35,36,0,37,38,39,40,41,0,42,0,43,44,45,46,47,0,48,49,50,0,51,0,52,53,54,55,56,0,57",
+			"name": "0 unless n is a composite number A002808(k) when a(n) = k.",
+			"comment": [
+				"a(n) = A239968(n) + A010051(n) - 1. - _Reinhard Zumkeller_, Mar 30 2014"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A066246/b066246.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Module[{k=1},Table[If[CompositeQ[n],k;k++,0],{n,100}]] (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Jan 03 2019 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(isprime(n),0,max(0,n-primepi(n)-1)) \\\\ _Charles R Greathouse IV_, Aug 21 2011",
+				"(Haskell)",
+				"import Data.List (unfoldr, genericIndex)",
+				"a066246 n = genericIndex a066246_list (n - 1)",
+				"a066246_list = unfoldr x (1, 1, a002808_list) where",
+				"   x (i, z, cs'@(c:cs)) | i == c = Just (z, (i + 1, z + 1, cs))",
+				"                        | i /= c = Just (0, (i + 1, z, cs'))",
+				"-- _Reinhard Zumkeller_, Jan 29 2014"
+			],
+			"xref": [
+				"Cf. A049084.",
+				"Cf. A026233, A026238."
+			],
+			"keyword": "nonn",
+			"offset": "1,6",
+			"author": "_Reinhard Zumkeller_, Dec 09 2001",
+			"references": 16,
+			"revision": 17,
+			"time": "2019-01-03T16:33:22-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 66839,
+			"data": "1,1,1,3,1,3,1,3,4,3,1,6,1,3,4,7,1,6,1,7,4,3,1,10,6,3,4,7,1,11,1,7,4,3,6,16,1,3,4,12,1,12,1,7,9,3,1,16,8,8,4,7,1,12,6,14,4,3,1,21,1,3,11,15,6,12,1,7,4,15,1,24,1,3,9,7,8,12,1,20,13,3,1,23,6,3,4,15,1,26,8,7,4,3",
+			"name": "a(n) = sum of positive divisors k of n where k \u003c= sqrt(n).",
+			"comment": [
+				"Row sums of the table in A161906. - _Reinhard Zumkeller_, Mar 08 2013"
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A066839/b066839.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Douglas E. Iannucci, \u003ca href=\"https://arxiv.org/abs/1910.11835\"\u003eOn sums of the small divisors of a natural number\u003c/a\u003e, arXiv:1910.11835 [math.NT], 2019."
+			],
+			"formula": [
+				"G.f.: Sum_{k\u003e0} k x^(k^2)/(1-x^k). - _Michael Somos_, Nov 19 2005"
+			],
+			"example": [
+				"a(9) = 4 = 1 + 3 because 1 and 3 are the positive divisors of 9 that are \u003c= sqrt(9).",
+				"a(20) = 7: the divisors of 20 are 1, 2, 4, 5, 10 and 20. a(20) = 1 + 2 + 4 = 7."
+			],
+			"maple": [
+				"with(numtheory):for n from 1 to 200 do c[n] := 0:d := divisors(n):for i from 1 to nops(d) do if d[i]\u003c=n^.5+10^(-10) then c[n] := c[n]+d[i]:fi:od:od:seq(c[i],i=1..200);"
+			],
+			"mathematica": [
+				"f[n_] := Plus @@ Select[ Divisors@n, # \u003c= Sqrt@n \u0026]; Array[f, 94] (* _Robert G. Wilson v_, Mar 04 2010 *)"
+			],
+			"program": [
+				"(PARI) a(n)=sumdiv(n,d, (d^2\u003c=n)*d) /* _Michael Somos_, Nov 19 2005 */",
+				"(PARI) { for (n=1, 1000, d=divisors(n); s=sum(k=1, ceil(length(d)/2), d[k]); write(\"b066839.txt\", n, \" \", s) ) } \\\\ _Harry J. Smith_, Mar 31 2010",
+				"(Haskell)",
+				"a066839 = sum . a161906_row  -- _Reinhard Zumkeller_, Mar 08 2013",
+				"(Sage) [sum(k for k in divisors(n) if k^2\u003c=n) for n in (1..94)] # _Giuseppe Coppoletta_, Jan 21 2015"
+			],
+			"xref": [
+				"Cf. A000203, A070038, A038548, A072499."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Leroy Quet_, Jan 20 2002",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Apr 12 2002"
+			],
+			"references": 16,
+			"revision": 30,
+			"time": "2019-10-28T04:26:30-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 67259,
+			"data": "4,9,12,18,20,25,28,36,44,45,49,50,52,60,63,68,75,76,84,90,92,98,99,100,116,117,121,124,126,132,140,147,148,150,153,156,164,169,171,172,175,180,188,196,198,204,207,212,220,225,228",
+			"name": "Cubefree numbers which are not squarefree.",
+			"comment": [
+				"a(n)=m iff A051903(m)=2.",
+				"Let us introduce a function D(n)=sigma_0(n)/(2^(alpha(1)+...+alpha(r)), sigma_0(n) number of divisors of n (A000005), prime factorization of n=p(1)^alpha(1) * ... * p(r)^alpha(r), alpha(1)+...+alpha(r) is sequence (A086436). This function splits the set of positive integers into subsets, according to the value of D(n). Squarefree numbers (005117) has D(n)=1, other numbers are \"deviated\" from the squarefree ideal and have 0 \u003c D(n) \u003c 1. So for D(n)=1/2 we have A048109, D(n)=3/4 we have A067295. - _Ctibor O. Zizka_, Sep 21 2008"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A067259/b067259.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Cubefree.html\"\u003eCubefree\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Squarefree.html\"\u003eSquarefree\u003c/a\u003e"
+			],
+			"formula": [
+				"A212793(a(n)) * (1 - A008966(a(n))) = 1. - _Reinhard Zumkeller_, May 27 2012"
+			],
+			"mathematica": [
+				"f[n_]:=Union[Last/@FactorInteger[n]][[ -1]]; lst={}; Do[If[f[n]==2,AppendTo[lst,n]],{n,2,6!}]; lst (* _Vladimir Joseph Stephan Orlovsky_, Feb 12 2010 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a067259 n = a067259_list !! (n-1)",
+				"a067259_list = filter ((== 2) . a051903) [1..]",
+				"-- _Reinhard Zumkeller_, May 27 2012",
+				"(PARI) is(n)=n\u003e3 \u0026\u0026 vecmax(factor(n)[,2])==2 \\\\ _Charles R Greathouse IV_, Oct 15 2015"
+			],
+			"xref": [
+				"Cf. A004709, A005117."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Feb 20 2002",
+			"references": 16,
+			"revision": 24,
+			"time": "2015-10-15T16:32:06-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 67599,
+			"data": "21,31,22,51,2131,71,23,32,2151,111,2231,131,2171,3151,24,171,2132,191,2251,3171,21111,231,2331,52,21131,33,2271,291,213151,311,25,31111,21171,5171,2232,371,21191,31131,2351,411,213171,431,22111,3251,21231",
+			"name": "Decimal encoding of the prime factorization of n: concatenation of prime factors and exponents.",
+			"comment": [
+				"If n has prime factorization p_1^e_1 * ... * p_r^e_r with p_1 \u003c ... \u003c p_r, then its decimal encoding is p_1 e_1...p_r e_r. For example, 15 = 3^1 * 5^1, so has decimal encoding 3151.",
+				"Sequence A068633 is a duplicate, up to a conventional initial term a(1)=11.",
+				"a(31) = a(177147) = 311. Is there any solution to a(n) = n? - _Franklin T. Adams-Watters_, Dec 18 2006",
+				"The earliest duplicate is a(223) = 2231 = a(12). There is no fixed point below 3*10^6. - _M. F. Hasler_, Oct 06 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A067599/b067599.txt\"\u003eTable of n, a(n) for n = 2..10000\u003c/a\u003e"
+			],
+			"example": [
+				"The prime factorization of 24 = 2^3 * 3^1 has corresponding encoding 2331. So a(24) = 2331.",
+				"a(42) = 213171 since 42 = 2^1*3^1*7^1. - _Amarnath Murthy_, Feb 27 2002"
+			],
+			"maple": [
+				"with(ListTools): with(MmaTranslator[Mma]): seq(FromDigits(FlattenOnce(ifactors(n)[2])), n=2..46); # _Wolfdieter Lang_, Aug 16 2014",
+				"# second Maple program:",
+				"a:= n-\u003e parse(cat(map(i-\u003e i[], sort(ifactors(n)[2]))[])):",
+				"seq(a(n), n=2..60);  # _Alois P. Heinz_, Mar 16 2018"
+			],
+			"mathematica": [
+				"f[n_] := FromDigits[ Flatten[ IntegerDigits[ FactorInteger[ n]]]]; Table[ f[n], {n, 2, 50} ]"
+			],
+			"program": [
+				"(PARI) A067599(n)=eval(concat(concat([\"\"],concat(Vec(factor(n)~))~))) \\\\ - _M. F. Hasler_, Oct 06 2013",
+				"(Haskell)",
+				"import Data.Function (on)",
+				"a067599 n = read $ foldl1 (++) $",
+				"   zipWith ((++) `on` show) (a027748_row n) (a124010_row n) :: Integer",
+				"-- _Reinhard Zumkeller_, Oct 27 2013"
+			],
+			"xref": [
+				"Cf. A037276, A080670, A112375.",
+				"Cf. A027748, A124010."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "2,1",
+			"author": "_Joseph L. Pe_, Jan 31 2002",
+			"ext": [
+				"Edited by _Robert G. Wilson v_, Feb 02 2002",
+				"Merged contributions from A068633 to here, and minor edits by _M. F. Hasler_, Oct 06 2013"
+			],
+			"references": 16,
+			"revision": 21,
+			"time": "2018-03-16T08:22:55-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 70048,
+			"data": "1,1,1,2,1,2,3,3,4,5,6,7,8,9,11,13,16,18,21,24,27,32,36,41,48,54,61,70,78,88,100,112,127,143,159,179,199,222,248,276,308,342,380,421,465,516,570,629,697,767,845,932,1022,1124,1236,1355,1488,1631,1785,1954,2136",
+			"name": "Number of partitions of n into odd parts in which no part appears more than thrice.",
+			"comment": [
+				"Also number of partitions of n into distinct parts in which no part is multiple of 4. - _Vladeta Jovovic_, Jul 31 2004",
+				"McKay-Thompson series of class 64a for the Monster group.",
+				"Ramanujan theta functions: f(q) (see A121373), phi(q) (A000122), psi(q) (A010054), chi(q) (A000700)."
+			],
+			"link": [
+				"Seiichi Manyama, \u003ca href=\"/A070048/b070048.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (terms 0..220 from Reinhard Zumkeller)",
+				"G. E. Andrews and R. P. Lewis, \u003ca href=\"http://dx.doi.org/10.1016/S0012-365X(00)00295-8\"\u003eAn algebraic identity of F. H. Jackson and its implications for partitions\u003c/a\u003e, Discrete Math., 232 (2001), 77-83.",
+				"D. Ford, J. McKay and S. P. Norton, \u003ca href=\"http://dx.doi.org/10.1080/00927879408825127\"\u003eMore on replicable functions\u003c/a\u003e, Commun. Algebra 22, No. 13, 5175-5193 (1994).",
+				"M. D. Hirschhorn, J. A. Sellers, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL17/Sellers/sellers32.html\"\u003eA Congruence Modulo 3 for Partitions into Distinct Non-Multiples of Four\u003c/a\u003e, Article 14.9.6, Journal of Integer Sequences, Vol. 17 (2014).",
+				"Vaclav Kotesovec, \u003ca href=\"http://arxiv.org/abs/1509.08708\"\u003eA method of finding the asymptotics of q-series based on the convolution of generating functions\u003c/a\u003e, arXiv:1509.08708 [math.CO], Sep 30 2015, p. 12.",
+				"\u003ca href=\"/index/Mat#McKay_Thompson\"\u003eIndex entries for McKay-Thompson series for Monster simple group\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: Product_{i\u003e0} (1+x^i)/(1+x^(4*i)). - _Vladeta Jovovic_, Jul 31 2004",
+				"Expansion of chi(x) * chi(x^2) = psi(x) / psi(-x^2) = phi(-x^4) / psi(-x) = chi(-x^4) / chi(-x) in powers of x where phi(), psi(), chi() are Ramanujan theta functions. - _Michael Somos_, Jul 01 2014",
+				"Expansion of q^(1/8) * eta(q^2) * eta(q^4) / (eta(q) * eta(q^8)) in powers of q.",
+				"Euler transform of period 8 sequence [1, 0, 1, -1, 1, 0, 1, 0, ...].",
+				"Given g.f. A(x), then B(q) = A(q^8) / q satisifes 0 = f(B(q), B(q^3)) where f(u, v) = (u - v^3) * (u^3 - v) + 3*u*v. - _Michael Somos_, Jul 01 2014",
+				"G.f.: Product_{k\u003e0} (1 - x^(8*k - 4)) / (1 - x^(2*k - 1)).",
+				"a(n) ~ exp(sqrt(n)*Pi/2) / (4*n^(3/4)) * (1 - (3/(4*Pi) + Pi/32) / sqrt(n)). - _Vaclav Kotesovec_, Aug 31 2015, extended Jan 21 2017"
+			],
+			"example": [
+				"G.f. = 1 + x + x^2 + 2*x^3 + x^4 + 2*x^5 + 3*x^6 + 3*x^7 + 4*x^8 + 5*x^9 + ...",
+				"T64a = 1/q + q^7 + q^15 + 2*q^23 + q^31 + 2*q^39 + 3*q^47 + 3*q^55 + 4*q^63 + ..."
+			],
+			"mathematica": [
+				"a[ n_] := SeriesCoefficient[ QPochhammer[ -x, x^2] QPochhammer[ -x^2, x^4]), {x, 0, n}]; (* _Michael Somos_, Jul 01 2014 *)",
+				"a[ n_] := SeriesCoefficient[ QPochhammer[ x^2] QPochhammer[ x^4] / (QPochhammer[ x] QPochhammer[ x^8]), {x, 0, n}]; (* _Michael Somos_, Jul 01 2014 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = local(A); if( n\u003c0, 0 ,A = x * O(x^n); polcoeff( eta(x^2 + A) * eta(x^4 + A) / (eta(x + A) * eta(x^8 + A)), n))};",
+				"(Haskell)",
+				"a070048 = p a042968_list where",
+				"   p _      0 = 1",
+				"   p (k:ks) m = if m \u003c k then 0 else p ks (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Oct 01 2012"
+			],
+			"xref": [
+				"Cf. A042968, A001935, A261734.",
+				"Cf. A000700 (m=2), A003105 (m=3), A096938 (m=5), A261770 (m=6), A097793 (m=7), A261771 (m=8), A112193 (m=9), A261772 (m=10)."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_, May 09 2002",
+			"ext": [
+				"Additional comments from _Michael Somos_, Dec 04 2002"
+			],
+			"references": 16,
+			"revision": 51,
+			"time": "2017-07-28T07:44:17-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 71364,
+			"data": "1,2,2,4,2,6,2,8,4,6,2,12,2,6,6,16,2,18,2,12,6,6,2,24,4,6,8,12,2,30,2,32,6,6,6,36,2,6,6,24,2,30,2,12,12,6,2,48,4,18,6,12,2,54,6,24,6,6,2,60,2,6,12,64,6,30,2,12,6,30,2,72,2,6,18,12,6,30,2,48,16,6,2,60,6,6,6,24",
+			"name": "Smallest number with same sequence of exponents in canonical prime factorization as n.",
+			"comment": [
+				"A046523(a(n))=A046523(n); A046523(n)\u003c=a(n)\u003c=n; A001221(a(n))=A001221(n), A001222(a(n))=A001222(n); A020639(a(n))=2, A006530(a(n))=A000040(A001221(n))\u003c=A006530(n); A000005(a(n))=A000005(n);",
+				"a(a(n))=a(n); a(n)=2^k iff n=p^k, p prime, k\u003e0 (A000961); if n\u003e1 is not a prime power, then a(n) mod 6 = 0; range of values = A055932, as distinct prime factors of a(n) are consecutive: a(n)=n iff n=A055932(k) for some k;",
+				"a(A003586(n))=A003586(n)."
+			],
+			"link": [
+				"Daniel Forgues, \u003ca href=\"/A071364/b071364.txt\"\u003eTable of n, a(n) for n=1..100000\u003c/a\u003e"
+			],
+			"formula": [
+				"In prime factorization of n, replace least prime by 2, next least by 3, etc.",
+				"a(n) = product(A000040(k)^A124010(k): k=1..A001221(n)). - _Reinhard Zumkeller_, Apr 27 2013"
+			],
+			"example": [
+				"a(105875) = a(5*5*5*7*11*11) = 2*2*2*3*5*5 = 600."
+			],
+			"mathematica": [
+				"Table[ e = Last /@ FactorInteger[n]; Product[Prime[i]^e[[i]], {i, Length[e]}], {n, 88}] (* _Ray Chandler_, Sep 23 2005 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a071364 = product . zipWith (^) a000040_list . a124010_row",
+				"-- _Reinhard Zumkeller_, Feb 19 2012",
+				"(PARI) a(n) = f = factor(n); for (i=1, #f~, f[i,1] = prime(i)); factorback(f); \\\\ _Michel Marcus_, Jun 13 2014"
+			],
+			"xref": [
+				"Cf. A071365, A071366.",
+				"Cf. A000040, A124010.",
+				"Cf. A085079, A089247."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 21 2002",
+			"ext": [
+				"Extended by _Ray Chandler_, Sep 23 2005"
+			],
+			"references": 16,
+			"revision": 19,
+			"time": "2015-07-07T11:07:31-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,407 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4660,
+	"results": [
+		{
+			"number": 58257,
+			"data": "1,0,1,0,0,1,1,1,1,0,3,2,1,0,0,0,3,5,6,6,6,0,0,3,8,14,20,26,71,71,71,68,60,46,26,0,413,342,271,200,132,72,26,0,0,0,413,755,1026,1226,1358,1430,1456,1456,1456,0,0,413,1168,2194,3420,4778,6208,7664,9120,10576",
+			"name": "Triangle read by rows: this is a variant of A008280 in which 2 rows go from left to right, 2 from right to left, 2 from left to right, etc.",
+			"comment": [
+				"Suggested by Atkinson article in Information Processing Letters."
+			],
+			"reference": [
+				"M. D. Atkinson, Partial orders and comparison problems, Sixteenth Southeastern Conference on Combinatorics, Graph Theory and Computing, (Boca Raton, Feb 1985), Congressus Numerantium 47, 77-88."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A058257/b058257.txt\"\u003eRows n = 0..120 of triangle, flattened\u003c/a\u003e",
+				"M. D. Atkinson, \u003ca href=\"https://doi.org/10.1016/0020-0190(85)90057-2\"\u003eZigzag permutations and comparisons of adjacent elements\u003c/a\u003e, Information Processing Letters 21 (1985), 187-189.",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon on transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"example": [
+				"Triangle begins:",
+				"  1;",
+				"  0,1;",
+				"  0,0,1;",
+				"  1,1,1,0;",
+				"  3,2,1,0,0;",
+				"  0,3,5,6,6,6;",
+				"  ..."
+			],
+			"program": [
+				"(Haskell)",
+				"a058257 n k = a058257_tabl !! n !! k",
+				"a058257_row n = a058257_tabl !! n",
+				"a058257_tabl = [1] : ox 0 [1] where",
+				"   ox turn xs = ys : ox (mod (turn + 1) 4) ys",
+				"      where ys | turn \u003c= 1 = scanl (+) 0 xs",
+				"               | otherwise = reverse $ scanl (+) 0 $ reverse xs",
+				"-- _Reinhard Zumkeller_, Nov 01 2013"
+			],
+			"xref": [
+				"Cf. A058258, A008280, A000111."
+			],
+			"keyword": "nonn,easy,tabl,nice",
+			"offset": "0,11",
+			"author": "_N. J. A. Sloane_, Dec 06 2000",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Dec 12 2000"
+			],
+			"references": 5,
+			"revision": 12,
+			"time": "2019-03-12T06:34:29-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 58842,
+			"data": "1,3,1,3,9,27,81,243,217,651,1953,1763,5289,15867,14833,44499,2425,7275,21825,65475,196425,589275,1767825,5303475,15910425,47731275,8976097,26928291,80784873,242354619,727063857,2181191571,6543574713",
+			"name": "From Renyi's \"beta expansion of 1 in base 3/2\": sequence gives a(1), a(2), ... where x(n) = a(n)/2^n, with 0 \u003c a(n) \u003c 2^n, a(1) = 1, a(n) = 3*a(n-1) modulo 2^n.",
+			"comment": [
+				"Let r be a real number strictly between 1 and 2, x any real number between 0 and 1; define y = (y(i)) by x(0) = x; x(i+1) = r*x(i)-1 if r*x(i)\u003e1 and r*x(i) otherwise; y(i) = integer part of x(i+1): y = (y(i)) is an infinite word on the alphabet (0,1). Here we take r = 3/2 and x = 1.",
+				"It seems that the sequence x(n) = a(n)/2^n which satisfies 0 \u003c x(n) \u003c 1 is not equidistributed in (0,1) and perhaps lim_{n -\u003e infinity} Sum_{k=1..n} x(k)/n = C \u003c 0.4 \u003c 1/2. - _Benoit Cloitre_, Aug 27 2002"
+			],
+			"reference": [
+				"A. Renyi (1957), Representation for real numbers and their ergodic properties, Acta. Math. Acad. Sci. Hung., 8, 477-493."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A058842/b058842.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"Let x(1)=1, x(n+1) = (3/2)*x(n) - floor((3/2)*x(n)); then a(n) = x(n)*2^n - _Benoit Cloitre_, Aug 27 2002"
+			],
+			"mathematica": [
+				"x[1] = 1; x[n_] := x[n] = (3/2)*x[n-1] - Floor[(3/2)*x[n-1]]; a[n_] := x[n+1]*2^(n); Table[a[n], {n, 1, 33}] (* _Jean-François Alcover_, Oct 13 2011, after _Benoit Cloitre_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"a058842 n = a058842_list !! (n-1)",
+				"a058842_list = map numerator (renyi 1 []) where",
+				"   renyi :: Rational -\u003e [Rational] -\u003e [Rational]",
+				"   renyi x xs = r : renyi r (x:xs) where",
+				"      r = q - fromInteger ((numerator q) `div` (denominator q))",
+				"      q = 3%2 * x",
+				"-- _Reinhard Zumkeller_, Jun 28 2011"
+			],
+			"xref": [
+				"Cf. A058841, A058840."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "Claude Lenormand (claude.lenormand(AT)free.fr), Jan 05 2001",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), Feb 22 2001"
+			],
+			"references": 5,
+			"revision": 18,
+			"time": "2017-10-08T05:55:08-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59405,
+			"data": "1,2,3,4,5,6,7,8,9,128,135,175,384,432,672,735,1296,1715,6144,6912,13824,18432,23328,34992,82944,93312,131712,248832,442368,1492992,2239488,2333772,2612736,3981312,4128768,4741632,9289728,12192768",
+			"name": "Numbers that are the product of their digits raised to positive integer powers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A059405/b059405.txt\"\u003eTable of n, a(n) for n = 1..120\u003c/a\u003e"
+			],
+			"example": [
+				"a(17) = 1296 = (1)(2^2)(9)(6^2);",
+				"a(32) = 2333772 = (2)(3)(3)(3^3)(7)(7^3)(2)."
+			],
+			"program": [
+				"(Haskell)",
+				"a059405 n = a059405_list !! (n-1)",
+				"a059405_list = filter f a238985_list where",
+				"   f x = all (== 0) (map (mod x) digs) \u0026\u0026 g x digs where",
+				"         g z []         = z == 1",
+				"         g z ds'@(d:ds) = r == 0 \u0026\u0026 (h z' ds' || g z' ds)",
+				"                          where (z', r) = divMod z d",
+				"         h z []         = z == 1",
+				"         h z ds'@(d:ds) = r == 0 \u0026\u0026 h z' ds' || g z ds",
+				"                          where (z', r) = divMod z d",
+				"         digs = map (read . return) $ filter (/= '1') $ show x",
+				"-- _Reinhard Zumkeller_, Apr 29 2015"
+			],
+			"xref": [
+				"Subsequence of A238985."
+			],
+			"keyword": "base,nice,nonn",
+			"offset": "1,2",
+			"author": "_Erich Friedman_, Jan 29 2001",
+			"ext": [
+				"More terms from _Erich Friedman_, Apr 01 2003",
+				"Offset changed by _Reinhard Zumkeller_, Apr 29 2015"
+			],
+			"references": 5,
+			"revision": 7,
+			"time": "2016-01-03T15:00:29-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 59436,
+			"data": "108,540,1140,1890,3420,5460,7980,11760,16380,23520,23520,23760,38220,38220,41580,41580,41580,71820,71820,71820,83160,83160,83160,124740,124740,143640,166320,166320,249480,249480,249480,249480,311220,335160,415800,415800",
+			"name": "Smallest number whose set of divisors contains each digit 0-9 at least n times.",
+			"link": [
+				"Giovanni Resta, \u003ca href=\"/A059436/b059436.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Erich Friedman, \u003ca href=\"http://www2.stetson.edu/~efriedma/numbers.html\"\u003eWhat's Special About This Number?\u003c/a\u003e (See entry 7980.)"
+			],
+			"example": [
+				"The divisors of 540 are 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 27, 30, 36, 45, 54, 60, 90, 108, 135, 180, 270, 540 and every digit appears at least twice in this list."
+			],
+			"mathematica": [
+				"T = 0*Range[25]; Do[d = Last /@ Tally@ Flatten[ IntegerDigits /@ Divisors@ n]; If[Length@d == 10, m = Min[25, d]; While[m \u003e 0 \u0026\u0026 (T[[m]] == 0 || n \u003c T[[m]]), T[[m--]] = n]], {n, 125000}]; T (* _Giovanni Resta_, May 15 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group, sort)",
+				"a059436 n = head [x | x \u003c- [1..],",
+				"   let dds = map length $ group $ sort $ concatMap show $ a027750_row x,",
+				"   minimum dds == n, length dds == 10]",
+				"-- _Reinhard Zumkeller_, Feb 04 2012"
+			],
+			"xref": [
+				"Cf. A027750; subsequence of A095050, A095048."
+			],
+			"keyword": "base,nonn,nice",
+			"offset": "1,1",
+			"author": "_Erich Friedman_, Feb 01 2001",
+			"ext": [
+				"More terms from _David W. Wilson_, Aug 31 2001",
+				"Offset corrected by _R. J. Mathar_, Jun 02 2010",
+				"a(10)-a(36) corrected by _Giovanni Resta_, May 15 2016"
+			],
+			"references": 5,
+			"revision": 29,
+			"time": "2016-05-15T18:01:03-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 60000,
+			"data": "1,2,3,5,4,9,6,7,8,15,10,11,12,13,14,27,16,17,18,19,20,21,22,23,24,25,26,51,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,99,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71",
+			"name": "If the numbers a(1)...a(n) contain a hole, then a(n+1) is the smallest hole; otherwise a(n+1) = a(n-1) + a(n).",
+			"comment": [
+				"Let H be the set of positive numbers less than a(n) which are not equal to some a(i), i \u003c n. This H is the 'set of holes so far'. If H is nonempty, then define a(n+1) = minimum(H). Otherwise define a(n+1) = a(n-1) + a(n).",
+				"Permutation of the natural numbers with inverse A099424.",
+				"A060013(n+1) = a(A060013(n)+1). - _Reinhard Zumkeller_, Mar 04 2008"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A060000/b060000.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(k)=k-1 if k\u003e=7 and k \u003c\u003e 2^m * 3 + 4; a(k)=(k-1)*2-3 if k\u003e=7 and k == 2^m * 3 + 4. - _Alfred Heiligenbrunner_, Jun 08 2004"
+			],
+			"example": [
+				"a(6)=9 because the sequence a(1)..a(5) contains no holes. a(7)=6 because 6 is the first hole in a(1)..a(6). [Subscripts corrected by _Paolo P. Lava_, Jun 13 2012]"
+			],
+			"mathematica": [
+				"h = {1, 2}; a = 1; b = 2; Do[ g = Sort[ h ]; If[ g[ [ -1 ] ] + 1 == n, c = a + b, k = 1; While[ g[ [ k ] ] == k, k++ ]; c = k ]; a = b; b = c; h = Append[ h, c ], { n, 3, 100} ]; h",
+				"(* faster program *) h = {1, 2, 3, 5, 4, 9}; lastSum = 9; Do[AppendTo[h, If[ ++akt \u003c lastSum, akt, ++akt; lastSum = 2*lastSum - 3]], {akt, 5, 100}]; h (* _Alfred Heiligenbrunner_, Jun 05 2004 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a060000 n = a060000_list !! (n-1)",
+				"a060000_list = 1 : 2 : f 1 2 2 [] where",
+				"   f x y m []     = z : f y z z [m+1..z-1] where z = x + y",
+				"   f x y m (h:hs) = h : f y h m hs",
+				"-- _Reinhard Zumkeller_, Sep 22 2011"
+			],
+			"xref": [
+				"Cf. A060013, A060030, A000045."
+			],
+			"keyword": "easy,nonn,nice",
+			"offset": "1,2",
+			"author": "_Rainer Rosenthal_, Mar 09 2001",
+			"ext": [
+				"More terms from _Robert G. Wilson v_ and Larry Reeves (larryr(AT)acm.org), Mar 15 2001"
+			],
+			"references": 5,
+			"revision": 30,
+			"time": "2017-06-18T10:08:52-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 60418,
+			"data": "2,3,5,7,1,3,7,9,3,9,3,7,4,4,7,5,9,6,7,7,7,9,8,9,9,1,3,7,9,3,7,3,7,9,9,5,7,6,7,7,9,8,9,9,9,9,2,3,7,9,3,9,4,5,7,6,9,7,7,8,8,9,7,3,3,7,3,7,7,9,5,9,7,7,9,8,9,9,4,9,9,4,4,4,9,4,9,7,6,6,7,9,8,9,9,5,9,5,5,5,7,7,6,9,7",
+			"name": "Largest decimal digit in n-th prime.",
+			"comment": [
+				"a(n) = A054055(A000040(n)) = A262410(A000040(n)). - _Reinhard Zumkeller_, Sep 25 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A060418/b060418.txt\"\u003eTable of n, a(n) for n = 1..78498\u003c/a\u003e, all primes \u003c 10^6."
+			],
+			"mathematica": [
+				"Table[Max[IntegerDigits[Prime[w]]], {w, 1, 1000}]"
+			],
+			"program": [
+				"(PARI) a(n) = vecmax(digits(prime(n))); \\\\ _Michel Marcus_, Dec 26 2013",
+				"(Haskell)",
+				"a060418 = a054055 . a000040  -- _Reinhard Zumkeller_, Sep 25 2015"
+			],
+			"xref": [
+				"Cf. A054055.",
+				"Cf. A262401."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,1",
+			"author": "_Labos Elemer_, Apr 05 2001",
+			"ext": [
+				"Offset corrected to 1 by _Michel Marcus_, Dec 26 2013"
+			],
+			"references": 5,
+			"revision": 14,
+			"time": "2015-09-25T15:24:56-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61019,
+			"data": "1,-2,-3,4,-5,6,-7,-8,9,10,-11,-12,-13,14,15,16,-17,-18,-19,-20,21,22,-23,24,25,26,-27,-28,-29,-30,-31,-32,33,34,35,36,-37,38,39,40,-41,-42,-43,-44,-45,46,-47,-48,49,-50,51,-52,-53,54,55,56,57,58,-59,60,-61,62,-63,64,65,-66,-67,-68,69,-70",
+			"name": "Negate primes in factorization of n.",
+			"comment": [
+				"Inverse Moebius transform of A001615.",
+				"a(n) = n*lambda(n), where lambda is Liouville's function: A008836.",
+				"Totally multiplicative sequence with a(p) = -p for prime p. [_Jaroslav Krizek_, Nov 01 2009]"
+			],
+			"formula": [
+				"a(n) = (-1)^(number of primes dividing n)*n = n * (-1)^A001222(n) = n*A008836(n).",
+				"Dirichlet g.f.: zeta(2*s-2)/zeta(s-1). Dirichlet inverse of A055615, all terms turned positive there. - _R. J. Mathar_, Apr 16 2011",
+				"a(n) = Sum_{d|n} lambda(d)*psi(d) = sum_{d|n} A008836(d)* A001615(d) = n/lambda(n). - _Enrique Pérez Herrero_, Sep 18 2012"
+			],
+			"example": [
+				"a(6)=(-2)(-3) = +6, while a(8)=(-2)^3 = -8."
+			],
+			"maple": [
+				"with(numtheory): P:=proc(n) local p; mul(op(1,p)^op(2,p)*(-1)^op(2,p),p=ifactors(n)[2]); end: seq(P(i),i=1..70); # _Paolo P. Lava_, Mar 22 2018"
+			],
+			"mathematica": [
+				"Table[n (-1)^PrimeOmega[n],{n,70}] (* _Harvey P. Dale_, Oct 05 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a061019 1 = 1",
+				"a061019 n = product $ map negate $ a027746_row n",
+				"-- _Reinhard Zumkeller_, Feb 08 2012",
+				"(PARI) a(n) = if( bitand(bigomega(n),1), - n, n ); /* _Joerg Arndt_, Sep 19 2012 */"
+			],
+			"xref": [
+				"Cf. A000027, A001222, A061020, A001615.",
+				"Cf. A027746.",
+				"Cf. A239122 (partial sums)."
+			],
+			"keyword": "easy,nice,sign,mult",
+			"offset": "1,2",
+			"author": "_Marc LeBrun_, Apr 13 2001",
+			"references": 5,
+			"revision": 36,
+			"time": "2019-10-18T13:58:08-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61258,
+			"data": "1,3,7,11,21,21,43,27,61,63,111,53,157,129,87,91,273,183,343,151,175,333,507,117,521,471,547,305,813,261,931,347,447,819,483,431,1333,1029,631,327,1641,525,1807,781,681,1521,2163,373,2101,1563,1095,1103,2757",
+			"name": "a(n)=Sum_{d|n} d*psi(d), where psi(d) is reduced totient function, cf. A002322.",
+			"comment": [
+				"a(n) = sum(A027750(n,k)*A002322(A027750(n,k)): k = 1..A000005(n)). - _Reinhard Zumkeller_, Sep 02 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061258/b061258.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a061258 n = sum $ zipWith (*) ds $ map a002322 ds",
+				"            where ds = a027750_row n",
+				"-- _Reinhard Zumkeller_, Sep 02 2014"
+			],
+			"xref": [
+				"Cf. A002322, A057660, A001001, A060640, A061259.",
+				"Cf. A027750, A141258."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Vladeta Jovovic_, Apr 21 2001",
+			"references": 5,
+			"revision": 6,
+			"time": "2014-09-02T20:35:15-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61681,
+			"data": "1,2,4,8,16,17,18,19,20,22,24,26,28,30,33,36,39,42,46,50,55,60,66,72,79,86,94,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134",
+			"name": "a(0)=1; a(n) = a(n-1) + lead(a(n-1)) for n \u003e 0 where for an integer x lead(x) is the leading digit in base 10.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061681/b061681.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1) = A182324(a(n)), a(0) = 1."
+			],
+			"example": [
+				"a(100)=176; a(307)=996; a(1000)=1697; a(3132)=9995; a(10000)=16871."
+			],
+			"mathematica": [
+				"NestList[#+First[IntegerDigits[#]]\u0026,1,60] (* _Harvey P. Dale_, Aug 18 2011 *)"
+			],
+			"program": [
+				"(PARI) { default(realprecision, 100); r=log(10); for (n=0, 1000, if (n==0, a=1, a+=a\\10^(log(a)\\r)); write(\"b061681.txt\", n, \" \", a) ) } \\\\ _Harry J. Smith_, Jul 26 2009",
+				"(Haskell)",
+				"a061681 n = a061681_list !! n",
+				"a061681_list = iterate a182324 1  -- _Reinhard Zumkeller_, Apr 25 2012"
+			],
+			"keyword": "base,easy,nonn,nice,look",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jun 18 2001",
+			"ext": [
+				"More terms from _Naohiro Nomoto_, Sep 10 2001"
+			],
+			"references": 5,
+			"revision": 22,
+			"time": "2018-07-01T17:19:45-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 62055,
+			"data": "11,22,23,44,45,46,88,90,92,93,176,180,181,184,186,201,352,360,362,368,369,372,373,401,402,403,704,720,724,725,736,738,739,744,746,753,802,803,804,805,806,1408,1440,1448,1450,1472,1476,1477,1478,1488,1492,1493,1506",
+			"name": "Numbers with 5 odd integers in their Collatz (or 3x+1) trajectory.",
+			"comment": [
+				"The Collatz (or 3x+1) function is f(x) = x/2 if x is even, 3x+1 if x is odd.",
+				"The Collatz trajectory of n is obtained by applying f repeatedly to n until 1 is reached.",
+				"A078719(a(n)) = 5; A006667(a(n)) = 4."
+			],
+			"reference": [
+				"J. Shallit and D. Wilson, The \"3x+1\" Problem and Finite Automata, Bulletin of the EATCS #46 (1992) pp. 182-185."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A062055/b062055.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"J. Shallit and D. Wilson, \u003ca href=\"http://www.cs.uwaterloo.ca/~shallit/Papers/wilson.ps\"\u003eThe \"3x+1\" Problem and Finite Automata\u003c/a\u003e, Bulletin of the EATCS #46 (1992) pp. 182-185.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/CollatzProblem.html\"\u003eCollatz Problem\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Collatz_conjecture\"\u003eCollatz conjecture\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#2-automatic\"\u003eIndex entries for 2-automatic sequences\u003c/a\u003e."
+			],
+			"example": [
+				"The Collatz trajectory of 11 is (11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1), which contains 5 odd integers."
+			],
+			"mathematica": [
+				"Collatz[n_] := NestWhileList[If[EvenQ[#], #/2, 3 # + 1] \u0026, n, # \u003e 1 \u0026]; countOdd[lst_] := Length[Select[lst, OddQ]]; Select[Range[2000], countOdd[Collatz[#]] == 5 \u0026] (* _T. D. Noe_, Dec 03 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a062055 n = a062055_list !! (n-1)",
+				"a062055_list = map (+ 1) $ elemIndices 5 a078719_list",
+				"-- _Reinhard Zumkeller_, Oct 08 2011"
+			],
+			"xref": [
+				"Cf. A062052-A062060."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 5,
+			"revision": 24,
+			"time": "2018-10-15T15:29:36-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,345 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5910,
+	"results": [
+		{
+			"number": 247451,
+			"data": "1,2,2,6,2,6,2,6,30,2,6,6,30,2,6,6,30,2,6,30,6,210,6,30,2,6,30,6,210,6,30,2,6,30,6,210,6,30,30,2,30,6,210,6,30,6,210,6,30,30,2,30,6,2310,210,6,30,6,210,6,30,30,2,30,6,2310,210,6,30,30,6",
+			"name": "Largest primorial factor of n-th least product of primorial numbers, cf. A025487.",
+			"comment": [
+				"a(n) = A007947(A025487(n)) = A002110(A061394(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247451/b247451.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				" (Haskell)",
+				"a247451 n = a247451_list !! (n-1)",
+				"a247451_list = map a007947 a025487_list"
+			],
+			"xref": [
+				"Cf. A007947, A025487, A002110, A061394."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 17 2014",
+			"references": 4,
+			"revision": 4,
+			"time": "2014-09-17T12:52:25-04:00",
+			"created": "2014-09-17T12:52:25-04:00"
+		},
+		{
+			"number": 247453,
+			"data": "1,-1,1,1,-2,1,-2,3,-3,1,5,-8,6,-4,1,-16,25,-20,10,-5,1,61,-96,75,-40,15,-6,1,-272,427,-336,175,-70,21,-7,1,1385,-2176,1708,-896,350,-112,28,-8,1,-7936,12465,-9792,5124,-2016,630,-168,36,-9,1,50521",
+			"name": "T(n,k) = binomial(n,k)*A000111(n-k)*(-1)^(n-k), 0 \u003c= k \u003c= n.",
+			"comment": [
+				"Matrix inverse of A109449, the unsigned version of this sequence. More precisely, consider both of these triangles as the nonzero lower left of an infinite square array / matrix, filled with zeros above/right of the diagonal. Then these are mutually inverse of each other; in matrix notation: A247453 . A109449 = A109449 . A247453 = Identity matrix. In more conventional notation, for any m,n \u003e= 0, Sum_{k=0..n} A247453(n,k)*A109449(k,m) = Sum_{k=0..n} A109449(n,k)*A247453(k,m) = delta(m,n), the Kronecker delta (= 1 if m = n, 0 else). - _M. F. Hasler_, Oct 06 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247453/b247453.txt\"\u003eRows n = 0..125 of table, flattened\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"OEIS Wiki, \u003ca href=\"/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = (-1)^(n-k) * A007318(n,k) * A000111(n-k), k = 0..n;",
+				"T(n,k) = (-1)^(n-k) * A109449(n,k); A109449(n,k) = abs(T(n,k));",
+				"abs(sum of row n) = A062162(n);",
+				"Sum_{k=0..n} T(n,k)*A000111(k) = 0^n."
+			],
+			"example": [
+				".   0:      1",
+				".   1:     -1      1",
+				".   2:      1     -2      1",
+				".   3:     -2      3     -3      1",
+				".   4:      5     -8      6     -4      1",
+				".   5:    -16     25    -20     10     -5     1",
+				".   6:     61    -96     75    -40     15    -6     1",
+				".   7:   -272    427   -336    175    -70    21    -7    1",
+				".   8:   1385  -2176   1708   -896    350  -112    28   -8   1",
+				".   9:  -7936  12465  -9792   5124  -2016   630  -168   36  -9   1",
+				".  10:  50521 -79360  62325 -32640  12810 -4032  1050 -240  45 -10  1  ."
+			],
+			"mathematica": [
+				"a111[n_] := n! SeriesCoefficient[(1+Sin[x])/Cos[x], {x, 0, n}];",
+				"T[n_, k_] := (-1)^(n-k) Binomial[n, k] a111[n-k];",
+				"Table[T[n, k], {n, 0, 10}, {k, 0, n}] // Flatten (* _Jean-François Alcover_, Aug 03 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a247453 n k = a247453_tabl !! n !! k",
+				"a247453_row n = a247453_tabl !! n",
+				"a247453_tabl = zipWith (zipWith (*)) a109449_tabl a097807_tabl",
+				"(PARI) A247453(n,k)=(-1)^(n-k)*binomial(n,k)*if(n\u003ek, 2*abs(polylog(k-n, I)), 1) \\\\ _M. F. Hasler_, Oct 06 2017"
+			],
+			"xref": [
+				"Cf. A000111, A007318, A062162, A109449."
+			],
+			"keyword": "sign,tabl",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Sep 17 2014",
+			"ext": [
+				"Edited by _M. F. Hasler_, Oct 06 2017"
+			],
+			"references": 4,
+			"revision": 15,
+			"time": "2018-08-03T08:14:44-04:00",
+			"created": "2014-09-17T16:54:36-04:00"
+		},
+		{
+			"number": 247485,
+			"data": "3,4,5,6,7,8,9,9,10,11,12,13,13,14,14,15,16,16,17,17,18,18,19,19,20,21,21,21,21,22,23,23,24,24,25,25,26,26,26,27,27,27,28,28,29,29,30,30,31,31,31,31,32,32,33,33,33,33,34,34,34,35,36,36,36,36,37",
+			"name": "Integer part of 2*sqrt(prime(n)) + 1.",
+			"comment": [
+				" A117767(n) = 2*floor(sqrt(prime(n))) + 1 \u003c= a(n);",
+				"a(A247514(n))=A117767(A247514(n)); a(A247515(n))\u003eA117767(A247515(n)).",
+				"Andrica's conjecture: a(n) \u003c= A001223(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247485/b247485.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/AndricasConjecture.html\"\u003eAndrica's Conjecture\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LegendresConjecture.html\"\u003eLegendre's Conjecture\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Andrica\u0026#39;s_conjecture\"\u003eAndrica's conjecture\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a247485 = (+ 1) . floor . (* 2) . sqrt . fromIntegral . a000040"
+			],
+			"xref": [
+				"Cf. A117767, A001223, A000040, A000006, A247514, A247515."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 20 2014",
+			"references": 4,
+			"revision": 4,
+			"time": "2014-09-20T17:13:17-04:00",
+			"created": "2014-09-20T17:13:17-04:00"
+		},
+		{
+			"number": 247514,
+			"data": "1,3,5,7,8,10,12,13,16,19,20,23,24,26,27,28,29,31,32,35,36,40,41,42,45,46,49,50,51,52,55,56,57,58,62,67,68,73,74,75,79,80,81,86,87,88,89,93,94,95,96,100,101,106,107,108,109,115,116,117,118,123,124",
+			"name": "Where 2*floor(sqrt(prime(n))) = floor(2*sqrt(prime(n))).",
+			"comment": [
+				" A117767(a(n)) = A247485(a(n)); complement of A247515."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247514/b247514.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a247514 n = a247514_list !! (n-1)",
+				"a247514_list = filter (\\x -\u003e a117767 x == a247485 x) [1..]"
+			],
+			"xref": [
+				" Cf. A117767, A247485, A000196, A000040, A000006, A247515."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 20 2014",
+			"references": 4,
+			"revision": 5,
+			"time": "2014-09-20T17:13:44-04:00",
+			"created": "2014-09-20T17:13:44-04:00"
+		},
+		{
+			"number": 247515,
+			"data": "2,4,6,9,11,14,15,17,18,21,22,25,30,33,34,37,38,39,43,44,47,48,53,54,59,60,61,63,64,65,66,69,70,71,72,76,77,78,82,83,84,85,90,91,92,97,98,99,102,103,104,105,110,111,112,113,114,119,120,121,122,127",
+			"name": "Where 2*floor(sqrt(prime(n))) \u003c floor(2*sqrt(prime(n))).",
+			"comment": [
+				"A117767(a(n)) \u003c A247485(a(n)); complement of A247514."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247515/b247515.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a247515 n = a247515_list !! (n-1)",
+				"a247515_list = filter (\\x -\u003e a117767 x \u003c a247485 x) [1..]"
+			],
+			"xref": [
+				"Cf. A117767, A247485, A000196, A000040, A000006, A247514."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 20 2014",
+			"references": 4,
+			"revision": 4,
+			"time": "2014-09-20T17:14:33-04:00",
+			"created": "2014-09-20T17:14:33-04:00"
+		},
+		{
+			"number": 247560,
+			"data": "1,1,-1,-7,-17,-23,-1,89,271,457,287,-967,-4049,-8279,-8641,7193,56143,139657,194399,24569,-703889,-2209943,-3814273,-2603047,7447951,32756041,68476319,74404793,-50690897,-449691863,-1146312001,-1640168551,-335257649,5554901257",
+			"name": "a(n) = 3*a(n-1) - 4*a(n-2) with a(0) = a(1) = 1.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247560/b247560.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"F. Beukers, \u003ca href=\"http://www.numdam.org/item?id=CM_1980__40_2_251_0\"\u003eThe multiplicity of binary recurrences\u003c/a\u003e, Compositio Mathematica, Tome 40 (1980) no. 2, pp. 251-267. See Theorem 2, p. 259.",
+				"M. Mignotte, \u003ca href=\"http://pmb.univ-fcomte.fr/1989/Mignotte.pdf\"\u003ePropriétés arithmétiques des suites récurrentes\u003c/a\u003e, Besançon, 1988-1989, see p. 14. In French.",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-4)."
+			],
+			"formula": [
+				"G.f.: (1 - 2*x) / (1 - 3*x + 4*x^2).",
+				"a(n) = 3*a(n-1) - 4*a(n-2) for all n in Z.",
+				"a(n) = a(-1-n) * 2^(2*n + 1)  for all n in Z.",
+				"a(n) = (-1)^n * A087168(n) for all n in Z.",
+				"A247565(n) = 2^n + a(n) for all n in Z.",
+				"a(n) = A247487(2*n + 1) = A247564(2*n + 1) for all n in Z.",
+				"a(n) = (1/14)*i*sqrt(7)*((3/2 + (1/2)*i*sqrt(7))^n - (3/2 - (1/2)*i*sqrt(7))^n) + (1/2)*((3/2 + (1/2)*i*sqrt(7))^n + (3/2 - (1/2)*i*sqrt(7))^n). - _Paolo P. Lava_, Oct 02 2014"
+			],
+			"example": [
+				"G.f. = 1 + x - x^2 - 7*x^3 - 17*x^4 - 23*x^5 - x^6 + 89*x^7 + 271*x^8 + ..."
+			],
+			"maple": [
+				"A247560:=n-\u003esimplify((1/14*I)*sqrt(7)*((3/2+(1/2*I)*sqrt(7))^n-(3/2-(1/2*I)*sqrt(7))^n)+1/2*((3/2+(1/2*I)*sqrt(7))^n+(3/2-(1/2*I)*sqrt(7))^n)): seq(A247560(n), n=0..40); # _Wesley Ivan Hurt_, Oct 02 2014"
+			],
+			"mathematica": [
+				"a[ n_] := Re[ (1 - 1/Sqrt[-7]) (3 + Sqrt[-7])^n / 2^n];",
+				"LinearRecurrence[{3,-4},{1,1},40] (* _Harvey P. Dale_, Jun 13 2017 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = real( (1 + quadgen(-7))^n )};",
+				"(Haskell)",
+				"a247560 n = a247560_list !! n",
+				"a247560_list = 1 : 1 : zipWith (-) (map (* 3) $ tail a247560_list)",
+				"                                   (map (* 4) a247560_list)",
+				"-- _Reinhard Zumkeller_, Sep 20 2014",
+				"(Sage)",
+				"[((1-1/sqrt(-7))*(3+sqrt(-7))^n/2^n).real() for n in range(34)] # _Peter Luschny_, Oct 02 2014 (after Somos)",
+				"(MAGMA) I:=[1, 1]; [n le 2 select I[n] else 3*Self(n-1) - 4*Self(n-2): n in [1..30]]; // _G. C. Greubel_, Aug 04 2018"
+			],
+			"xref": [
+				"Cf. A087168, A247487, A247564, A247565."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,4",
+			"author": "_Michael Somos_, Sep 19 2014",
+			"references": 4,
+			"revision": 34,
+			"time": "2018-08-04T20:06:29-04:00",
+			"created": "2014-09-19T21:44:19-04:00"
+		},
+		{
+			"number": 247815,
+			"data": "0,1,1,3,2,5,3,5,5,7,4,9,5,9,7,10,6,14,7,13,10,13,8,18,10,14,11,16,9,26,10,17,14,18,13,26,11,20,16,23,12,31,13,22,21,22,14,32,15,28,20,27,15,35,19,29,22,28,16,45,17,29,27,30,21,44,18,32,26",
+			"name": "Number of primes in n-th row of triangle A077581.",
+			"comment": [
+				"a(n) = n - A247892(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A247815/b247815.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000720(A069213(n)) - A001221(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a247815 = sum . map a010051' . a077581_row"
+			],
+			"xref": [
+				"Cf. A000720, A001221, A010051, A069213, A077581, A247892."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, Sep 26 2014",
+			"references": 4,
+			"revision": 4,
+			"time": "2014-09-26T13:27:26-04:00",
+			"created": "2014-09-26T13:27:26-04:00"
+		},
+		{
+			"number": 248973,
+			"data": "0,1,1,2,3,2,-2,-2,3,5,5,4,7,8,6,8,5,-4,-20,-28,-45,-52,-70,-76,-69,-48,-42,-52,-79,-124,-150,-196,-221,-268,-292,-292,5,9,11,10,13,11,3,-12,-19,-35,-41,-58,-63,-55,-33,-26,-35,-61,-105,-130,-175,-199,-245,-268,-267,-241,-241",
+			"name": "Table read by rows: row n contains the partial sums of the wrecker ball sequences starting with n, cf. A248939.",
+			"comment": [
+				"A228474(n) + 1 = length of row n;",
+				"row n = partial sums of row n in A248939;",
+				"T(n,A228474(n)) = A248961(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A248973/b248973.txt\"\u003eRows n = 0..16 of triangle, flattened\u003c/a\u003e",
+				"Gordon Hamilton, \u003ca href=\"http://www.youtube.com/watch?v=mQdNaofLqVc\"\u003eWrecker Ball Sequences\u003c/a\u003e, Video, 2013"
+			],
+			"formula": [
+				"T(n,0) = n; T(n,k) = T(n,k-1) + A248939(n,k) for k=1..A228474(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a248973 n k = a248973_tabf !! n !! k",
+				"a248973_row n = a248973_tabf !! n",
+				"a248973_tabf = map (scanl1 (+)) a248939_tabf"
+			],
+			"xref": [
+				"Cf. A228474 (row lengths - 1), A248961 (right edge)."
+			],
+			"keyword": "sign,tabf",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Oct 20 2014",
+			"references": 4,
+			"revision": 8,
+			"time": "2019-05-16T01:32:32-04:00",
+			"created": "2014-10-20T14:05:47-04:00"
+		},
+		{
+			"number": 249031,
+			"data": "1,2,4,5,6,7,8,10,11,12,14,15,16,17,19,20,21,22,24,25,26,27,28,30,31,32,34,35,36,37,38,40,41,42,44,45,46,47,48,50,51,52,54,55,56,57,59,60,61,62,64,65,66,67,68,70,71,72,74,75,76,77,79,80,81,82,84,85,86,87,88,90,91,92,94,95,96,97,99,100",
+			"name": "The non-anti-Fibonacci numbers: numbers not in A075326.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249031/b249031.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"D. R. Hofstadter, \u003ca href=\"/A075326/a075326_1.pdf\"\u003eAnti-Fibonacci numbers\u003c/a\u003e, Oct 23 2014",
+				"Thomas Zaslavsky, \u003ca href=\"/A075326/a075326_2.pdf\"\u003eAnti-Fibonacci Numbers: A Formula\u003c/a\u003e, Sep 26 2016"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\))",
+				"a249031 n = a249031_list !! (n-1)",
+				"a249031_list = f [1..] where",
+				"   f ws@(u:v:_) = u : v : f (ws \\\\ [u, v, u + v])",
+				"-- _Reinhard Zumkeller_, Oct 26 2014"
+			],
+			"xref": [
+				"Cf. A075326, A249032."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Oct 26 2014",
+			"references": 4,
+			"revision": 19,
+			"time": "2016-09-27T09:52:13-04:00",
+			"created": "2014-10-26T12:41:35-04:00"
+		},
+		{
+			"number": 249032,
+			"data": "3,6,4,5,5,6,4,6,4,6,4,5,5,6,4,5,5,6,4,5,5,6,4,6,4,6,4,5,5,6,4,6,4,6,4,5,5,6,4,6,4,6,4,5,5,6,4,5,5,6,4,5,5,6,4,6,4,6,4,5,5,6,4,5,5,6,4,5,5,6,4,6,4,6,4,5,5,6,4,5,5,6,4,5,5,6",
+			"name": "First differences of A075326.",
+			"comment": [
+				"Can be constructed as follows. Apart from the initial \"3\", one always has either \"6-4\" (i.e., a 6 followed by a 4), or else \"5-5\". The 6-4's always come either alone (6-4) or triply (6-4, 6-4, 6-4), while the 5-5's always come alone. So if we let \"6-4, 5-5\" be represented by the numeral \"1\", and \"6-4, 6-4, 6-4, 5-5\" by the numeral \"3\", then the sequence of first differences, in this compressed code, is A080426, which itself is defined by a simple substitution rule. - D. R. Hofstadter, Oct 23 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A249032/b249032.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"D. R. Hofstadter, \u003ca href=\"/A075326/a075326_1.pdf\"\u003eAnti-Fibonacci numbers\u003c/a\u003e, Oct 23 2014",
+				"Thomas Zaslavsky, \u003ca href=\"/A075326/a075326_2.pdf\"\u003eAnti-Fibonacci Numbers: A Formula\u003c/a\u003e, Sep 26 2016"
+			],
+			"program": [
+				"(Haskell)",
+				"a249032 n = a249032_list !! n",
+				"a249032_list = zipWith (-) (tail a075326_list) a075326_list",
+				"-- _Reinhard Zumkeller_, Oct 26 2014"
+			],
+			"xref": [
+				"Cf. A075326, A080426, A249031."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Oct 26 2014",
+			"references": 4,
+			"revision": 16,
+			"time": "2016-09-27T09:53:09-04:00",
+			"created": "2014-10-26T12:49:32-04:00"
+		}
+	]
+}

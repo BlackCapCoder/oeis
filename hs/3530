@@ -1,0 +1,437 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3530,
+	"results": [
+		{
+			"number": 72608,
+			"data": "0,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0",
+			"name": "Parity of remainder Mod[p(n),n]=A004648(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A072608/b072608.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)=Mod[Mod[p(n), n], 2]=Mod[A004648(n), 2]"
+			],
+			"example": [
+				"n=25:p(25)=97,Mod[97,25]=22, a(25)=Mod[22,2]=0. With increasing n, a(n) alternates:...010101..,followed after by a range consisting only of 1-s. This secondary alternation also goes on."
+			],
+			"mathematica": [
+				"mm[x_] := Mod[Mod[Prime[x], x], 2] Table[mm[w], {w, 1, 256}]",
+				"Table[Mod[Mod[Prime[n],n],2],{n,110}] (* _Harvey P. Dale_, Apr 22 2016 *)"
+			],
+			"program": [
+				"(Haskell",
+				"a072608 n = a000040 n `mod` n `mod` 2 -- _Reinhard Zumkeller_, Dec 16 2013",
+				"(PARI) a(n)=prime(n)%n%2 \\\\ _Charles R Greathouse IV_, Feb 09 2017"
+			],
+			"xref": [
+				"Cf. A004648."
+			],
+			"keyword": "nice,nonn",
+			"offset": "1,1",
+			"author": "_Labos Elemer_, Jun 24 2002",
+			"references": 8,
+			"revision": 12,
+			"time": "2017-02-09T03:03:47-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 72762,
+			"data": "0,1,3,6,13,26,53,106,212,424,849,1698,3397,6794,13588,27176,54353,108706,217413,434826,869652,1739304,3478609,6957218,13914436,27828872,55657744,111315488,222630977,445261954,890523909,1781047818,3562095636,7124191272",
+			"name": "n coded as binary word of length=n with k-th bit set iff k is prime (1\u003c=k\u003c=n), decimal value.",
+			"comment": [
+				"a(n) is odd iff n is prime.",
+				"a(p) where p is prime is the numerator of Sum_{q \u003c= p} 1/2^q where the sum is over primes up to p. - _Alexander Adamchuk_, Aug 22 2006",
+				"The n-th approximation to the Prime Constant is given by a(n)/2^n. - Anton Vrba (antonvrba(AT)yahoo.com), Nov 24 2006"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A072762/b072762.txt\"\u003eTable of n, a(n) for n = 1..300\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimeConstant.html\"\u003ePrime Constant\u003c/a\u003e."
+			],
+			"formula": [
+				"a(1) = 0 and a(n) = a(n-1)*2 + A010051(n) for n\u003e1.",
+				"a(n) = (1/2)*(pi(n) + Sum_{i=1..n} 2^(n-i)*pi(i)), where pi = A000720. - _Ridouane Oudra_, Aug 26 2019"
+			],
+			"example": [
+				"a(6) = '011010' = (((0*2+1)*2+1)*2*2+1)*2 = 26.",
+				"a(7) = '0110101' = (((0*2+1)*2+1)*2*2+1)*2*2+1 = 53.",
+				"a(8) = '01101010' = ((((0*2+1)*2+1)*2*2+1)*2*2+1)*2 = 106."
+			],
+			"maple": [
+				"a:= proc(n) option remember;",
+				"      `if`(n\u003c2, 0, 2 * a(n-1) + `if`(isprime(n), 1, 0))",
+				"    end:",
+				"seq(a(n), n=1..40);  #  _Alois P. Heinz_, Jan 18 2011"
+			],
+			"mathematica": [
+				"a[1] = 0; a[n_] := a[n] = 2*a[n-1] + Boole[PrimeQ[n]]; Table[a[n], {n, 1, 31}] (* _Jean-François Alcover_, Jun 14 2013 *)",
+				"nxt[{n_,a_}]:={n+1,Boole[PrimeQ[n+1]]+2a}; Transpose[NestList[nxt,{1,0},30]][[2]] (* _Harvey P. Dale_, Jan 07 2015 *)"
+			],
+			"program": [
+				"(PARI) an=0; print1(an,\", \"); for(n=2,31, an=2*an+isprime(n); print1(an,\", \")) \\\\ _Washington Bomfim_, Jan 18 2011",
+				"(PARI) a(n)=my(s=1,p=2);forprime(q=3,n,s=s\u003c\u003c(q-p)+1;p=q);s\u003c\u003c(n-p) \\\\ _Charles R Greathouse IV_, Jun 03 2013",
+				"(Haskell)",
+				"a072762 n = foldl (\\v d -\u003e 2*v + d) 0 $ map a010051 [1..n]",
+				"-- _Reinhard Zumkeller_, Sep 17 2011"
+			],
+			"xref": [
+				"Cf. A100634, A010051, A000720, A118255."
+			],
+			"keyword": "nonn,nice,base",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Aug 08 2002",
+			"references": 8,
+			"revision": 43,
+			"time": "2019-08-26T17:43:27-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 72777,
+			"data": "4,8,9,16,25,27,32,36,49,64,81,100,121,125,128,169,196,216,225,243,256,289,343,361,441,484,512,529,625,676,729,841,900,961,1000,1024,1089,1156,1225,1296,1331,1369,1444,1521,1681,1764,1849",
+			"name": "Powers of squarefree numbers that are not squarefree.",
+			"comment": [
+				"For all n exists k: a(n) = A072774(k) and A072776(k) \u003e 1."
+			],
+			"link": [
+				"Stanislav Sykora and Reinhard Zumkeller, \u003ca href=\"/A072777/b072777.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e (first 10000 terms from Reinhard Zumkeller)"
+			],
+			"example": [
+				"The number 144 = 12^2 is not a member because 12 is not squarefree.",
+				"64 = 2^6 and 49 = 7^2 are members because, though not squarefree, they are powers of the squarefree numbers 2 and 7, respectively. Note that 64 is included even though it is also a square of a nonsquarefree number. - _Stanislav Sykora_, Jul 11 2014"
+			],
+			"mathematica": [
+				"Select[Range[2000], Length[u = Union[FactorInteger[#][[All, 2]]]] == 1 \u0026\u0026 u[[1]] \u003e 1 \u0026] (* _Jean-François Alcover_, Mar 27 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Map (singleton, findMin, deleteMin, insert)",
+				"a072777 n = a072777_list !! (n-1)",
+				"a072777_list = f 9 (drop 2 a005117_list) (singleton 4 (2, 2)) where",
+				"   f vv vs'@(v:ws@(w:_)) m",
+				"    | xx \u003c vv = xx : f vv vs' (insert (bx*xx) (bx, ex+1) $ deleteMin m)",
+				"    | xx \u003e vv = vv : f (w*w) ws (insert (v^3) (v, 3) m)",
+				"    where (xx, (bx, ex)) = findMin m",
+				"-- _Reinhard Zumkeller_, Apr 06 2014",
+				"(PARI) BelongsToA(n) = {my(f, k, e); if(n == 1, return(0));",
+				"f = factor(n); e = f[1, 2]; if(e == 1, return(0));",
+				"for(k = 2, #f[, 2], if(f[k, 2] != e, return(0))); return(1);}",
+				"Ntest(nmax, test) = {my(k = 1, n = 0, v); v = vector(nmax); while(1, n++; if(test(n), v[k] = n; k++; if(k \u003e nmax, break)); ); return(v); }",
+				"a = Ntest(20000, BelongsToA) \\\\ Note: not very efficient. - _Stanislav Sykora_, Jul 11 2014",
+				"(PARI) is(n)=ispower(n,,\u0026n) \u0026\u0026 issquarefree(n) \\\\ _Charles R Greathouse IV_, Oct 16 2015"
+			],
+			"xref": [
+				"Cf. A013929.",
+				"Cf. A005117, subsequence of A001597 and A072774."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 10 2002",
+			"references": 8,
+			"revision": 40,
+			"time": "2018-01-16T02:50:31-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 73493,
+			"data": "10,14,20,21,22,26,28,33,34,38,39,40,42,44,46,50,51,52,55,56,57,58,62,63,65,66,68,69,70,74,76,78,80,82,84,85,86,87,88,91,92,93,94,95,98,99,100,102,104,106,111,112,114,115,116,117,118,119,122,123,124,126,129",
+			"name": "Numbers having exactly one prime gap in their factorization.",
+			"comment": [
+				"A073490(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A073493/b073493.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"200 is a term, as 200 = 2*2*2*5*5 with one gap between 2 and 5."
+			],
+			"mathematica": [
+				"pa[n_, k_] := If[k == NextPrime[n], 0, 1]; Select[Range[130], Total[pa @@@ Partition[First /@ FactorInteger[#], 2, 1]] == 1 \u0026] (* _Jayanta Basu_, Jul 01 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a073493 n = a073493_list !! (n-1)",
+				"a073493_list = filter ((== 1) . a073490) [1..]",
+				"-- _Reinhard Zumkeller_, Dec 20 2013"
+			],
+			"xref": [
+				"Cf. A005117, A073492, A073494, A073495, A073487."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 03 2002",
+			"references": 8,
+			"revision": 9,
+			"time": "2013-12-21T05:51:53-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 74294,
+			"data": "1,2,1,2,3,4,1,2,3,4,5,6,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,13,14,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,1,2",
+			"name": "Integers 1 to 2*k followed by integers 1 to 2*k + 2 and so on.",
+			"comment": [
+				"From _Cino Hilliard_, Sep 13 2004: (Start)",
+				"Also the numerator of the fraction in the continued fraction expansion of sqrt(n) for nonsquare n = 2,3,5,6,7... . E.g., for n = 7,",
+				"sqrt(7).=.2.+._3_................",
+				"...............4..+._3_..........",
+				".....................4..+._3_....",
+				"...........................4.....",
+				"3 is the 5th entry in the table. sqrt(1) and sqrt(4) are not included because 1 and 4 are squares.\" (End)",
+				"A074294 is the natural fractal sequence of A002061; the corresponding natural interspersion is A194011; see A194029 for definitions. - _Clark Kimberling_, Aug 17 2011",
+				"It appears that this is also a triangle read by rows in which row n lists the first 2*n positive integers, n \u003e= 1 (see example). - _Omar E. Pol_, May 29 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A074294/b074294.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n - 2*binomial(floor(1/2 + sqrt(n)), 2).",
+				"a(n^2 + n) = 2*n.",
+				"a(n) = n - 2 - floor(sqrt(n)+3/2)*floor(sqrt(n)-3/2). - _Mikael Aaltonen_, Jan 02 2015",
+				"G.f.: x/(1-x)^2 - (2*x/(1-x))*sum(k\u003e=1, k*x^(k^2+k)).  That sum is related to Jacobi theta functions. - _Robert Israel_, Jan 05 2015",
+				"a(n) = n + A000194(n) - A053187(n). - _Robert Israel_, Jan 05 2015"
+			],
+			"example": [
+				"From _Omar E. Pol_, May 29 2012: (Start)",
+				"Written as a triangle the sequence begins:",
+				"1, 2;",
+				"1, 2, 3, 4;",
+				"1, 2, 3, 4, 5, 6;",
+				"1, 2, 3, 4, 5, 6, 7, 8;",
+				"1, 2, 3, 4, 5, 6, 7, 8, 9, 10;",
+				"1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;",
+				"1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14;",
+				"1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16;",
+				"Row n has length 2*n = A005843(n). (End)"
+			],
+			"maple": [
+				"seq(seq((j-n^2-n),j=n^2+n+1..(n+1)^2+n+1),n=0..20); # _Robert Israel_, Jan 05 2015"
+			],
+			"mathematica": [
+				"A074294[n_] := n - 2*Binomial[Floor[1/2 + Sqrt[n]], 2] (* _Enrique Pérez Herrero_, Apr 14 2010 *)",
+				"Table[Range[2n],{n,10}]//Flatten (* _Harvey P. Dale_, Oct 20 2018 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = n - 2 * binomial( floor( 1/2 + sqrt(n)), 2)}",
+				"(PARI) c(n) = for(x=2,n,if(issquare(x)==0,a=floor(sqrt(x));print1(x-a^2\", \"))) /* _Cino Hilliard_, Sep 13 2004 */",
+				"(Haskell)",
+				"import Data.List (inits)",
+				"a074294 n = a074294_list !! (n-1)",
+				"a074294_list = f $ inits [1..] where",
+				"   f (xs:_:xss) = xs ++ f xss",
+				"-- _Reinhard Zumkeller_, Apr 14 2014"
+			],
+			"xref": [
+				"Cf. A002061, A194011.",
+				"Cf. A071797.",
+				"Cf. A000194, A053187."
+			],
+			"keyword": "nonn,easy,tabf",
+			"offset": "1,2",
+			"author": "_Michael Somos_, Aug 20 2002",
+			"references": 8,
+			"revision": 43,
+			"time": "2018-10-20T19:44:14-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75109,
+			"data": "1,9,25,27,49,81,121,125,169,225,243,289,343,361,441,529,625,729,841,961,1089,1225,1331,1369,1521,1681,1849,2025,2187,2197,2209,2401,2601,2809,3025,3125,3249,3375,3481,3721,3969,4225,4489,4761,4913,5041",
+			"name": "Odd perfect powers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075109/b075109.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Take[Union[Flatten[Table[a^b, {a, 1, 99, 2}, {b, 2, 15}]]], 50] (* _Alonso del Arte_, Nov 22 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a075109 n = a075109_list !! (n-1)",
+				"a075109_list = filter odd a001597_list  -- _Reinhard Zumkeller_, Oct 04 2012",
+				"(MAGMA) [1] cat [n : n in [3..6000 by 2] | IsPower(n) ]; // _Vincenzo Librandi_, Mar 31 2014"
+			],
+			"xref": [
+				"Cf. A001597, A075090."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Zak Seidov_, Oct 11 2002",
+			"references": 8,
+			"revision": 19,
+			"time": "2014-03-31T03:07:50-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75369,
+			"data": "16,36,144,324,900,1764,3600,5184,10404,11664,19044,22500,32400,36864,39204,51984,57600,72900,79524,97344,121104,176400,186624,213444,272484,324900,360000,381924,412164,435600,656100,675684,685584,736164",
+			"name": "Square associated with twin primes (p,p+2): p(p+2) + 1. Square of the average of twin primes.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075369/b075369.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A037074(n) + 1. - _Jon E. Schoenfield_, Jan 13 2015",
+				"a(n) = A014574(n)^2. - _Jon E. Schoenfield_, Jan 14 2015",
+				"a(n) = A120875(n) + 2. - _Jason Kimberley_, Oct 22 2015"
+			],
+			"maple": [
+				"P:= select(isprime,{seq(2*i+1,i=1..1000)}):",
+				"T:= P intersect map(`+`,P,2):",
+				"sort(convert(map(t -\u003e (t-1)^2, T), list)); # _Robert Israel_, Nov 18 2015"
+			],
+			"mathematica": [
+				"f[n_]:=Prime[n]*Prime[n+1]+1; lst={}; Do[If[IntegerQ[Sqrt[f[n]]],AppendTo[lst,f[n]]],{n,4*5!}]; lst (* _Vladimir Joseph Stephan Orlovsky_, Feb 10 2010 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a075369 = (^ 2) . a014574  -- _Reinhard Zumkeller_, Feb 10 2015",
+				"(PARI) p=2; forprime(b=3, 1e3, if(b-p==2, print1(b*p+1\", \")); p=b) \\\\ _Altug Alkan_, Nov 10 2015",
+				"(MAGMA) [a: n in [1..300] | IsSquare(a) where a is NthPrime(n)*NthPrime(n+1)+1]; // _Vincenzo Librandi_, Nov 19 2015"
+			],
+			"xref": [
+				"Cf. A014574, A037074, A120875."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, Sep 20 2002",
+			"references": 8,
+			"revision": 31,
+			"time": "2015-11-19T03:34:06-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76309,
+			"data": "0,-2,-4,-6,-8,-10,-12,-14,-16,-18,1,-1,-3,-5,-7,-9,-11,-13,-15,-17,2,0,-2,-4,-6,-8,-10,-12,-14,-16,3,1,-1,-3,-5,-7,-9,-11,-13,-15,4,2,0,-2,-4,-6,-8,-10,-12,-14,5,3,1,-1,-3,-5,-7,-9,-11,-13,6,4,2,0,-2,-4,-6,-8,-10",
+			"name": "a(n) = floor(n/10) - 2*(n mod 10).",
+			"comment": [
+				"Delete the last digit from n and subtract twice this digit from the shortened number. - _N. J. A. Sloane_, May 25 2019",
+				"(n==0 modulo 7) iff (a(n)==0 modulo 7); applied recursively, this property provides a useful test for divisibility by 7."
+			],
+			"reference": [
+				"Erdős, Paul, and János Surányi. Topics in the Theory of Numbers. New York: Springer, 2003. Problem 6, page 3.",
+				"Karl Menninger, Rechenkniffe, Vandenhoeck \u0026 Ruprecht in Goettingen (1961), 79A."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076309/b076309.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/DivisibilityTests.html\"\u003eDivisibility Tests\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Divisibility_rule\"\u003eDivisibility rule\u003c/a\u003e"
+			],
+			"formula": [
+				"From _R. J. Mathar_, Nov 23 2010: (Start)",
+				"a(n) = a(n-1) + a(n-10) - a(n-11).",
+				"G.f.: x*(-2 -2*x -2*x^2 -2*x^3 -2*x^4 -2*x^5 -2*x^6 -2*x^7 -2*x^8 +19*x^9)/((1+x)*(x^4-x^3+x^2-x+1)*(x^4+x^3+x^2+x+1)*(x-1)^2). (End)"
+			],
+			"example": [
+				"695591 is not a multiple of 7, as 695591 -\u003e 69559-2*1=69557 -\u003e 6955-2*7=6941 -\u003e 694-2*1=692 -\u003e 69-2*2=65=7*9+2, therefore the answer is NO.",
+				"Is 3206 divisible by 7? 3206 -\u003e 320-2*6=308 -\u003e 30-2*8=14=7*2, therefore the answer is YES, indeed 3206=2*7*229."
+			],
+			"mathematica": [
+				"Table[Floor[n/10] - 2*Mod[n, 10], {n, 0, 100}] (* _G. C. Greubel_, Apr 07 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a076309 n =  n' - 2 * m where (n', m) = divMod n 10",
+				"-- _Reinhard Zumkeller_, Jun 01 2013",
+				"(PARI) a(n) = n\\10 - 2*(n % 10); \\\\ _Michel Marcus_, Apr 07 2016"
+			],
+			"xref": [
+				"Cf. A008589, A076310, A076311, A076312."
+			],
+			"keyword": "sign",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Oct 06 2002",
+			"references": 8,
+			"revision": 26,
+			"time": "2019-05-25T01:52:42-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76311,
+			"data": "0,-5,-10,-15,-20,-25,-30,-35,-40,-45,1,-4,-9,-14,-19,-24,-29,-34,-39,-44,2,-3,-8,-13,-18,-23,-28,-33,-38,-43,3,-2,-7,-12,-17,-22,-27,-32,-37,-42,4,-1,-6,-11,-16,-21,-26,-31,-36,-41,5,0,-5,-10,-15,-20,-25,-30,-35",
+			"name": "a(n) = floor(n/10) - 5*(n mod 10).",
+			"comment": [
+				"(n==0 modulo 17) iff (a(n)==0 modulo 17); applied recursively, this property provides a divisibility test for numbers given in base 10 notation."
+			],
+			"reference": [
+				"Karl Menninger, Rechenkniffe, Vandenhoeck \u0026 Ruprecht in Goettingen (1961), 79A."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076311/b076311.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/DivisibilityTests.html\"\u003eDivisibility Tests\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Divisibility_rule\"\u003eDivisibility rule\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_11\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1)."
+			],
+			"formula": [
+				"a(n)= +a(n-1) +a(n-10) -a(n-11). G.f. x *(-5-5*x-5*x^2-5*x^3-5*x^4-5*x^5-5*x^6-5*x^7-5*x^8+46*x^9) / ( (1+x) *(x^4+x^3+x^2+x+1) *(x^4-x^3+x^2-x+1) *(x-1)^2 ). - _R. J. Mathar_, Feb 20 2011"
+			],
+			"example": [
+				"12808 is not a multiple of 17, as 12808 -\u003e 1280-5*8=1240 -\u003e 124-5*0=124 -\u003e 12-5*4=-8=17*(-1)+9, therefore the answer is NO.",
+				"Is 9248 divisible by 17? 9248 -\u003e 924-5*8=884 -\u003e 88-5*4=68=17*4, therefore the answer is YES."
+			],
+			"mathematica": [
+				"Table[Floor[n/10]-5Mod[n,10],{n,0,60}] (* or *) LinearRecurrence[ {1,0,0,0,0,0,0,0,0,1,-1},{0,-5,-10,-15,-20,-25,-30,-35,-40,-45,1},60] (* _Harvey P. Dale_, Dec 21 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a076311 n =  n' - 5 * m where (n', m) = divMod n 10",
+				"-- _Reinhard Zumkeller_, Jun 01 2013",
+				"(MAGMA) [Floor(n/10)-5*(n mod 10): n in [0..50]]; // _Vincenzo Librandi_, Jun 23 2015",
+				"(PARI) a(n)=n\\10 - n%10*5 \\\\ _Charles R Greathouse IV_, Oct 07 2015"
+			],
+			"xref": [
+				"Cf. A008599, A076309, A076310, A076312."
+			],
+			"keyword": "sign,easy",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Oct 06 2002",
+			"references": 8,
+			"revision": 24,
+			"time": "2015-10-07T11:09:27-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76493,
+			"data": "1,1,0,0,0,1,1,0,0,0,2,1,1,1,1,1,1,0,0,1,1,1,0,1,0,2,1,2,1,0,1,1,1,0,0,1,1,1,0,0,1,1,1,1,0,1,1,0,1,1,2,1,1,0,0,1,1,0,0,0,2,1,0,2,2,1,1,0,1,1,1,1,0,1,2,1,2,0,1,0,1,1,1,1,0,1,1,1,0,1,1,1,0,1,0,2,2,1,1,1,2,2,2,2,2,3,2,1,1,1",
+			"name": "Number of common (distinct) decimal digits of n and n^2.",
+			"comment": [
+				"a(A029783(n)) = 0, a(A189056(n)) \u003e 0; 0 \u003c= a(n) \u003c= 10, see example for first occurrences.  [_Reinhard Zumkeller_, Apr 16 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076493/b076493.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(2) = #{} = 0: 2^2 = 4;",
+				"a(0) = #{0} = 1: 0^2 = 0;",
+				"a(10) = #{0,1} = 2: 10^2 = 100;",
+				"a(105) = #{0,1,5} = 3: 105^2 = 11025;",
+				"a(1025) = #{0,1,2,5} = 4: 1025^2 = 1050625;",
+				"a(10245) = #{0,1,2,4,5} = 5: 10245^2 = 104960025;",
+				"a(102384) = #{0,1,2,3,4,8} = 6: 102384^2 = 10482483456;",
+				"a(1023456789) = #{0 .. 9} = 10: 1023456789^2 = 1047463798950190521."
+			],
+			"mathematica": [
+				"Table[Length[Intersection[IntegerDigits[n], IntegerDigits[n^2]]], {n, 1, 100}]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersect, nub)",
+				"import Data.Function (on)",
+				"a076493 n = length $ (intersect `on` nub . show) n (n^2)",
+				"-- _Reinhard Zumkeller_, Apr 16 2011"
+			],
+			"xref": [
+				"Cf. A006880, A076489-A076491.",
+				"Cf. A000290, A043537."
+			],
+			"keyword": "base,nonn",
+			"offset": "0,11",
+			"author": "_Labos Elemer_, Oct 21 2002",
+			"ext": [
+				"Initial 1 added and offset adjusted by _Reinhard Zumkeller_, Apr 16 2011"
+			],
+			"references": 8,
+			"revision": 12,
+			"time": "2013-10-15T22:31:34-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

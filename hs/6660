@@ -1,0 +1,354 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6660,
+	"results": [
+		{
+			"number": 214084,
+			"data": "0,1,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56",
+			"name": "Triangle read by rows: n-th row = {m: n^2 \u003c= m \u003c= n^3}.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214084/b214084.txt\"\u003eRows n = 0..15 of triangle, flattened\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a214084 n k = a214084_tabf !! n !! k",
+				"a214084_row n = a214084_tabf !! n",
+				"a214084_tabf = zipWith enumFromTo a000290_list a000578_list"
+			],
+			"xref": [
+				"Cf. A100104 (row lengths), A214085 (row sums), A000290 (left edge), A000578 (right edge), A079648 (number of primes per row)."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 07 2012",
+			"references": 3,
+			"revision": 7,
+			"time": "2013-07-13T12:04:28-04:00",
+			"created": "2012-07-07T17:36:27-04:00"
+		},
+		{
+			"number": 214178,
+			"data": "0,1,0,1,1,0,2,2,2,0,3,5,6,6,0,5,10,18,24,24,0,8,20,44,84,120,120,0,13,38,102,240,480,720,720,0,21,71,222,630,1560,3240,5040,5040,0,34,130,466,1536,4560,11760,25200,40320,40320,0,55,235,948,3564,12264",
+			"name": "Triangle T(n,k) by rows: the k-th derivative of the Fibonacci Polynomial F_n(x) evaluated at x=1.",
+			"comment": [
+				"T(n,0) = A000045(n), Fibonacci numbers;",
+				"T(n,1) = A001629(n) for n \u003e 0;",
+				"T(n,n-3) = A038720(n-2) for n \u003e 2;",
+				"T(n,n-2) = A000142(n-1) for n \u003e 1;",
+				"T(n,n-1) = A000142(n-1) for n \u003e 0;",
+				"T(n,n) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214178/b214178.txt\"\u003eRows n = 0..150 of triangle, flattened\u003c/a\u003e",
+				"P. Filipponi, A. F. Horadam, \u003ca href=\"http://www.fq.math.ca/31-3.html\"\u003eSecond derivative sequences of Fibonacci and Lucas Polynomials\u003c/a\u003e, Fib. Quart. 31 (1993), 194-204."
+			],
+			"formula": [
+				"T(n,k) = A037027(n,k)*k!, 0 \u003c= k \u003c n; T(n,n) = 0."
+			],
+			"example": [
+				"The triangle begins:",
+				".   0: [0]",
+				".   1: [1, 0]",
+				".   2: [1, 1, 0]",
+				".   3: [2, 2, 2, 0]",
+				".   4: [3, 5, 6, 6, 0]",
+				".   5: [5, 10, 18, 24, 24, 0]",
+				".   6: [8, 20, 44, 84, 120, 120, 0]",
+				".   7: [13, 38, 102, 240, 480, 720, 720, 0]",
+				".   8: [21, 71, 222, 630, 1560, 3240, 5040, 5040, 0]",
+				".   9: [34, 130, 466, 1536, 4560, 11760, 25200, 40320, 40320, 0]",
+				".  10: [55, 235, 948, 3564, 12264, 37800, 100800, 221760, 362880, 362880, 0]",
+				"       ..."
+			],
+			"program": [
+				"(Haskell)",
+				"a214178 n k = a214178_tabl !! n !! k",
+				"a214178_row n = a214178_tabl !! n",
+				"a214178_tabl = [0] : map f a037027_tabl where",
+				"   f row = (zipWith (*) a000142_list row) ++ [0]"
+			],
+			"xref": [
+				"Cf. A000142, A037027."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,7",
+			"author": "_R. J. Mathar_, _L. Edson Jeffery_, _Reinhard Zumkeller_, Jul 07 2012",
+			"references": 3,
+			"revision": 18,
+			"time": "2019-09-04T01:57:42-04:00",
+			"created": "2012-07-07T13:43:23-04:00"
+		},
+		{
+			"number": 214320,
+			"data": "1,1,1,2,3,2,2,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3,5,2,5,5,7,3,2,3,3",
+			"name": "a(0)=a(1)=a(2)=1; thereafter a(n) = gpf(a(n-1)+a(n-3)), where gpf = \"greatest prime factor\".",
+			"comment": [
+				"Suggested by A214551 and A177904."
+			],
+			"formula": [
+				"After 7 terms, cycles with period 9."
+			],
+			"maple": [
+				"with(numtheory, divisors); A006530 := proc(n) local i, t1, t2, t3, t4, t5; t1 := divisors(n); t2 := convert(t1, list); t3 := sort(t2); t4 := nops(t3); t5 := 1; for i from 1 to t4 do if isprime(t3[t4+1-i]) then RETURN(t3[t4+1-i]); fi; od; 1; end;",
+				"f:=proc(n) option remember; if n \u003c= 2 then 1 else A006530(f(n-1)+f(n-3)); fi; end;",
+				"[seq(f(n),n=0..120)];"
+			],
+			"mathematica": [
+				"nxt[{a_,b_,c_}]:={b,c,FactorInteger[c+a][[-1,1]]}; NestList[nxt,{1,1,1},120][[All,1]] (* or *) PadRight[{1,1,1,2,3,2,2},130,{3,2,3,3,5,2,5,5,7}] (* _Harvey P. Dale_, Jul 08 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a214320 n = a214320_list !! n",
+				"a214320_list = 1 : 1 : 1 : (map a006530 $",
+				"   zipWith (+) a214320_list (drop 2 $ a214320_list))",
+				"-- _Reinhard Zumkeller_, Jul 24 2012"
+			],
+			"xref": [
+				"Cf. A000930, A006530, A177904, A214320."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_, Jul 22 2012",
+			"references": 3,
+			"revision": 15,
+			"time": "2017-07-08T10:52:34-04:00",
+			"created": "2012-07-22T22:46:04-04:00"
+		},
+		{
+			"number": 214322,
+			"data": "1,1,1,2,3,4,6,6,6,6,4,5,7,9,14,21,12,18,12,8,11,15,17,28,43,60,88,65,125,47,112,137,184,296,174,358,216,390,244,460,180,280,185,73,143,180,253,396,216,259,295,301,560,375,376,456,132,420,162,98,154,76,87,109,147,234,187,334,412,393,727,933,1326,1169,2102,2544,2441,4543,5815,8256,12799",
+			"name": "a(n) = A214551(n-1) + A214551(n-3), with a(0) = a(1) = a(2) = 1.",
+			"comment": [
+				"A214551(n) = A214322(n)/A214323(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214322/b214322.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a214322 n = a214322_list !! n",
+				"a214322_list = 1 : 1 : 1 : zipWith (+) a214551_list (drop 2 a214551_list)",
+				"-- _Reinhard Zumkeller_, Jul 24 2012"
+			],
+			"xref": [
+				"Cf. A214551, A214323."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_, Jul 23 2012",
+			"references": 3,
+			"revision": 10,
+			"time": "2013-07-13T12:04:28-04:00",
+			"created": "2012-07-23T00:44:11-04:00"
+		},
+		{
+			"number": 214416,
+			"data": "0,1,3,2,4,7,6,5,15,10,9,8,11,14,13,12,22,17,16,31,18,21,20,19,30,25,24,23,26,29,28,27,37,32,63,46,33,36,35,34,45,40,39,38,41,44,43,42,53,48,47,62,49,52,51,50,61,56,55,54,57,60,59,58,68,127,94",
+			"name": "Inverse permutation of A105025.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214416/b214416.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a214416 = fromJust . (`elemIndex` a105025_list)"
+			],
+			"xref": [
+				"Cf. A214417, A105271 (fixed points)."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 21 2012",
+			"references": 3,
+			"revision": 7,
+			"time": "2013-07-13T12:04:28-04:00",
+			"created": "2012-07-21T15:59:16-04:00"
+		},
+		{
+			"number": 214659,
+			"data": "0,1,14,53,132,265,466,749,1128,1617,2230,2981,3884,4953,6202,7645,9296,11169,13278,15637,18260,21161,24354,27853,31672,35825,40326,45189,50428,56057,62090,68541,75424,82753,90542,98805,107556,116809,126578,136877",
+			"name": "a(n) = n*(7*n^2 - 3*n - 1)/3.",
+			"comment": [
+				"a(n) = sum of n-th row of triangle A214604 for n \u003e 0.",
+				"a(n) = A051673(n) + A002378(n).",
+				"a(n) = the sum of the n X n matrices of A204008. For example, for n = 3, the sum of the 9 elements of the 3 X 3 submatrix of A204008 is 1 + 4 + 7 + 4 + 5 + 8 + 7 + 8 + 9 = 53. - _J. M. Bergot_, Jul 15 2013"
+			],
+			"link": [
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4,-6,4,-1)."
+			],
+			"formula": [
+				"From _Wesley Ivan Hurt_, Apr 11 2015: (Start)",
+				"a(n) = (7*n^3-3*n^2-n)/3.",
+				"G.f.: x*(1+10*x+3*x^2)/(x-1)^4.",
+				"a(n) = 4*a(n-1)-6*a(n-2)+4*a(n-3)-a(n-4). (End)"
+			],
+			"maple": [
+				"A214659:=n-\u003e(7*n^3-3*n^2-n)/3: seq(A214659(n), n=0..50); # _Wesley Ivan Hurt_, Apr 11 2015"
+			],
+			"mathematica": [
+				"Table[(7 n^3 - 3 n^2 - n)/3, {n, 0, 50}] (* _Wesley Ivan Hurt_, Apr 11 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a214659 n = ((7 * n - 3) * n - 1) * n `div` 3",
+				"(MAGMA) [(7*n^3-3*n^2-n)/3 : n in [0..50]]; // _Wesley Ivan Hurt_, Apr 11 2015"
+			],
+			"xref": [
+				"Cf. A002378, A051673, A204008, A214604, A214675."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 25 2012",
+			"references": 3,
+			"revision": 20,
+			"time": "2016-12-16T02:49:12-05:00",
+			"created": "2012-07-25T15:14:44-04:00"
+		},
+		{
+			"number": 214772,
+			"data": "1,0,0,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,2,0,1,1,0,0,2,0,1,2,0,1,2,0,1,2,0,1,3,0,2,2,1,1,3,0,2,3,1,2,3,1,2,3,1,2,4,1,3,3,2,2,5,1,3,4,2,3,5,2,3,5,2,3,6,2,4,5,3,3,7,2,5,6,3,4,7,3",
+			"name": "Number of partitions of n into parts 6, 9 or 20.",
+			"comment": [
+				"a(A065003(n)) = 0; a(A214777(n)) \u003e 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214772/b214772.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/McNuggetNumber.html\"\u003eMcNugget Numbers\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Coin_problem\"\u003eCoin problem\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f. 1/((1-x^6)*(1-x^9)*(1-x^20)). - _R. J. Mathar_, Jul 30 2012"
+			],
+			"example": [
+				"a(10) = 0, cf. A065003(8) = 10;",
+				"a(20) = #{20} = 1;",
+				"a(30) = #{6+6+6+6+6, 6+6+9+9} = 2;",
+				"a(40) = #{20+20} = 1;",
+				"a(50) = #{5*6+20, 6+6+9+9+20} = 2;",
+				"a(60) = #{10*6, 7*6+9+9, 4*6+4*9, 6+6*9, 20+20+20} = 5;",
+				"a(70) = #{5*6+20+20, 6+6+9+9+20+20} = 2",
+				"a(80) = #{10*6+20], 7*6+9+9+20, 4*6+4*9+20, 6+6*99+20, 4*20} = 5;",
+				"a(90) = #{15*6, 12*6+9+9, 9*6+4*9, 6*6+6*99, 5*6+3*20, 3*6+8*9, 6+6+9+9+3*20, 10*9} = 8;",
+				"a(100) = #{10*6+2*20, 7*6+9+9+2*20, 4*6+4*9+2*20, 6+6*9+2*20, 5*20} = 5."
+			],
+			"program": [
+				"(Haskell)",
+				"a214772 = p [6, 9, 20] where",
+				"   p _      0 = 1",
+				"   p []     _ = 0",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,19",
+			"author": "_Reinhard Zumkeller_, Jul 28 2012",
+			"references": 3,
+			"revision": 10,
+			"time": "2013-07-13T12:04:29-04:00",
+			"created": "2012-07-28T17:01:49-04:00"
+		},
+		{
+			"number": 214777,
+			"data": "0,6,9,12,15,18,20,21,24,26,27,29,30,32,33,35,36,38,39,40,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86",
+			"name": "McNugget numbers: numbers of the form 6*x + 9*y + 20*z for nonnegative integers x, y, z.",
+			"comment": [
+				"A214772(a(n)) \u003e 0;",
+				"complement of A065003; all numbers greater than 43 are McNugget numbers: Frobenius(6,9,20) = 43."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214777/b214777.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"Scott Chapman, Christopher O'Neill, \u003ca href=\"https://arxiv.org/abs/1709.01606\"\u003eFactoring in the Chicken McNugget monoid\u003c/a\u003e, arXiv:1709.01606 [math.AC], 2017.",
+				"Anita Wah and Henri Picciotto, \u003ca href=\"http://www.mathedpage.org/attc/lessons/ch.05/5.08-building-blocks.pdf\"\u003eLesson in Algebra: Themes, Tools, Concepts\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/FrobeniusNumber.html\"\u003eFrobenius Number\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/McNuggetNumber.html\"\u003eMcNugget Numbers\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Coin_problem\"\u003eCoin problem\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-1)."
+			],
+			"formula": [
+				"G.f.: -x^2*(x^22-x^21+x^17-x^16+x^15-x^14+x^13-x^12+x^11-x^10+x^9+x^8-2*x^7+x^6+x^5+3*x-6) / (x-1)^2. [_Colin Barker_, Dec 13 2012]",
+				"a(n) = n + 21 for n \u003e= 23. - _Robert Israel_, May 01 2015"
+			],
+			"mathematica": [
+				"CoefficientList[Series[- x (x^22 - x^21 + x^17 - x^16 + x^15 - x^14 + x^13 - x^12 + x^11 - x^10 + x^9 + x^8 - 2 x^7 + x^6 + x^5 + 3 x - 6)/(1 - x)^2, {x, 0, 70}], x] (* _Vincenzo Librandi_, Apr 27 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a214777 n = a214777_list !! (n-1)",
+				"a214777_list = findIndices (\u003e 0) a214772_list"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 28 2012",
+			"references": 3,
+			"revision": 26,
+			"time": "2017-09-07T02:48:47-04:00",
+			"created": "2012-07-28T17:02:52-04:00"
+		},
+		{
+			"number": 214866,
+			"data": "0,84,102,141,167,173,228,246,250,358,366,372,388,421,424,444,502,599,610,617,640,653,660,685,804,865,866,867,875,920,941,1002,1041,1059,1067,1162,1186,1208,1236,1238,1308,1409,1445,1464,1473,1523,1640,1671,1757",
+			"name": "Numbers m such that A059175(m) = 0.",
+			"comment": [
+				"A059175(a(n)) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A214866/b214866.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a214866 n = a214866_list !! (n-1)",
+				"a214866_list = elemIndices 0 a059175_list"
+			],
+			"xref": [
+				"Cf. A216183."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Mar 11 2013",
+			"references": 3,
+			"revision": 13,
+			"time": "2013-03-19T02:56:13-04:00",
+			"created": "2013-03-19T02:56:13-04:00"
+		},
+		{
+			"number": 215403,
+			"data": "312211322212221121123222114,13112221133211322112211213322114,312211322212221121123222115,13112221133211322112211213322115,312211322212221121123222116,13112221133211322112211213322116,312211322212221121123222117,13112221133211322112211213322117",
+			"name": "Isotopes of Conway's audioactive transuranic elements, in reversed lexicographic order.",
+			"comment": [
+				"The transuranic elements Pu=31221132221222112112322211 and Np=1311222113321132211221121332211 are alternating prefixes;",
+				"n is suffix of a(2*n - 1) and of a(2*n) in decimal representation."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A215403/b215403.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://dx.doi.org/10.1007/978-1-4612-4808-8_53\"\u003eThe weird and wonderful chemistry of audioactive decay\u003c/a\u003e, in T. M. Cover and Gopinath, eds., Open Problems in Communication and Computation, Springer, NY 1987, pp. 173-188.",
+				"Kevin Watkins, \u003ca href=\"http://www.cs.cmu.edu/~kw/pubs/conway.pdf\"\u003eAbstract Interpretation Using Laziness: Proving Conway's Lost Cosmological Theorem, \u003c/a\u003e",
+				"Kevin Watkins, \u003ca href=\"http://www.cs.cmu.edu/~kw/pubs/conwayslides.pdf\"\u003eProving Conway's Lost Cosmological Theorem, POP seminar talk, CMU, Dec 2006\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LookandSaySequence.html\"\u003eLook and Say Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Look-and-say_sequence\"\u003eLook-and-say sequence\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a215403 n k = a215403_list !! (n-1)",
+				"a215403_list = map (foldr (\\d v -\u003e 10 * v + d) 0) $",
+				"                   concatMap (\\x -\u003e map (x :) [plut', nept']) [4..] where",
+				"  plut' = [1,1,2,2,2,3,2,1,1,2,1,1,2,2,2,1,2,2,2,3,1,1,2,2,1,3]",
+				"  nept' = [1,1,2,2,3,3,1,2,1,1,2,2,1,1,2,2,3,1,1,2,3,3,1,1,2,2,2,1,1,3,1]"
+			],
+			"xref": [
+				"Cf. A119566, A213979."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 09 2012",
+			"references": 3,
+			"revision": 11,
+			"time": "2014-05-02T03:57:47-04:00",
+			"created": "2012-08-09T13:07:34-04:00"
+		}
+	]
+}

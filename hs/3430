@@ -1,0 +1,427 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3430,
+	"results": [
+		{
+			"number": 37379,
+			"data": "1,10,15,31,100,101,102,103,104,105,106,107,108,109,110,120,127,130,140,150,160,170,180,190,201,210,301,310,401,410,501,510,511,601,610,701,710,801,810,901,910,1000,1001,1002,1003,1004",
+			"name": "n-th number k such that every base 2 digit of k is a base 10 digit of k.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A037379/b037379.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List ((\\\\), nub)",
+				"a037379 n = a037379_list !! (n-1)",
+				"a037379_list = filter f [1..] where",
+				"   f x = null $ nub (ds 2 x) \\\\ nub (ds 10 x)",
+				"   ds b x = if x \u003e 0 then d : ds b x' else []  where (x', d) = divMod x b",
+				"-- _Reinhard Zumkeller_, May 30 2013"
+			],
+			"xref": [
+				"Cf. A037372, A037373, A037374, A037375, A037376, A037377, A037378."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_",
+			"references": 8,
+			"revision": 7,
+			"time": "2013-05-30T17:38:08-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 39686,
+			"data": "49,169,361,1225,1444,1681,3249,4225,4900,15625,16900,36100,42025,49729,64009,81225,93025,122500,144400,168100,225625,237169,324900,422500,490000,519841,819025,950625,970225,1024144,1442401,1562500",
+			"name": "Squares which are the concatenation of two nonzero squares.",
+			"comment": [
+				"Intersection of A191933 and A000290; A193095(a(n))\u003e0 and A010052(a(n))=1. - _Reinhard Zumkeller_, Jul 17 2011",
+				"Note that \"leading zeros\" are not allowed, e.g., 9025 = 95^2 is not in the sequence although it is the concatenation of 9 = 3^2 and 025 = 5^2. - _M. F. Hasler_, Jan 25 2016"
+			],
+			"reference": [
+				"D. Wells, Curious and interesting numbers, Penguin Books, p. 152."
+			],
+			"link": [
+				"Giovanni Resta, \u003ca href=\"/A039686/b039686.txt\"\u003eTable of n, a(n) for n = 1..3000\u003c/a\u003e (first 1000 terms from David W. Wilson)"
+			],
+			"formula": [
+				"a(n) = A048375(n)^2. - _M. F. Hasler_, Jan 25 2016"
+			],
+			"example": [
+				"1225=35^2, 225=15^2, 1=1^2."
+			],
+			"mathematica": [
+				"t = Table[n^2, {n, 750}]; f[j_, k_] := Block[{n = j*10^Floor[1 + Log10@ k] + k}, If[IntegerQ@ Sqrt@ n, n, 0]]; Take[ Union@ Flatten@ Table[ f[t[[j]], t[[k]]], {j, 250}, {k, 750}], {2, 33}] (* _Robert G. Wilson v_, Jul 18 2011 *)",
+				"squareQ[n_] := IntegerQ[Sqrt[n]]; okQ[n_] := MatchQ[IntegerDigits[n], {a__ /; squareQ[FromDigits[{a}]], b__ /; First[{b}] \u003e 0 \u0026\u0026 squareQ[FromDigits[ {b}]]}]; Select[Range[2000]^2, okQ] (* _Jean-François Alcover_, Dec 13 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a039686 n = a039686_list !! (n-1)",
+				"a039686_list = filter ((== 1) . a010052) a191933_list",
+				"-- _Reinhard Zumkeller_, Jul 17 2011",
+				"(PARI) is_A039686(n)={my(p=10);until(n\u003c=p*=10,issquare(n%p)\u0026\u0026issquare(n\\p)\u0026\u0026n%p*10\u003e=p\u0026\u0026issquare(n)\u0026\u0026return(n\u003e10))} \\\\ We must check whether n is a square but in practice this will be sure a priori (cf below) so we put this test at the end. The same applies for \"n\u003e10\". - _M. F. Hasler_, Jan 25 2016",
+				"(PARI) {for(m=4,999, is_A039686(m^2)\u0026\u0026print1(m^2,\",\"))} \\\\ Here the final checks issquare(n) \u0026 n\u003e10 in the above function are superfluous, but they will only be done in the (\"few\") positive cases. - _M. F. Hasler_, Jan 25 2016"
+			],
+			"xref": [
+				"Cf. A048375."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Felice Russo_",
+			"ext": [
+				"More terms from _Patrick De Geest_, March 1999"
+			],
+			"references": 8,
+			"revision": 33,
+			"time": "2017-04-26T04:38:50-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 39955,
+			"data": "1,5,13,17,21,29,33,37,41,53,57,61,65,69,73,77,85,89,93,97,101,105,109,113,129,133,137,141,145,149,157,161,165,173,177,181,185,193,197,201,205,209,213,217,221,229,233,237,241,249,253,257,265,269",
+			"name": "Squarefree numbers congruent to 1 mod 4.",
+			"comment": [
+				"The subsequence of primes is A002144.",
+				"The subsequence of semiprimes (intersection with A001358) begins: 21, 33, 57, 65, 69, 77, 85, 93, 129, 133, 141, 145, 161, 177, 185, 201, 205, 209, 213, 217, 221, 237, 249, 253, 265.",
+				"The subsequence with more than two prime factors (intersection with A033942) begins: 105 = 3 * 5 * 7, 165 = 3 * 5 * 11, 273, 285, 345, 357, 385, 429, 465. [Jonathan Vos Post, Feb 19 2011].",
+				"Except for a(1) = 1 these are the squarefree members of A079896 (i.e., squarefree determinants D of indefinite binary quadratic forms). - _Wolfdieter Lang_, Jun 01 2013"
+			],
+			"reference": [
+				"R. A. Mollin, Quadratics, CRC Press, 1996, Tables B1-B3."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A039955/b039955.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"A. M. Legendre, \u003ca href=\"https://archive.org/details/essaisurlathor00lege/page/n511\"\u003eDiviseurs de la formule t^2+a*u^2, a étant de la forme 4 n + 1\u003c/a\u003e, Essai sur la Théorie des Nombres An VI, Table IV. See first column. [_Paul Curtz_, Aug 14 2019]"
+			],
+			"mathematica": [
+				"fQ[n_] := Max[Last /@ FactorInteger@ n] == 1 \u0026\u0026 Mod[n, 4] == 1; Select[ Range@ 272, fQ] (* _Robert G. Wilson v_ *)",
+				"Select[Range[300],SquareFreeQ[#]\u0026\u0026Mod[#,4]==1\u0026] (* _Harvey P. Dale_, May 24 2012 *)"
+			],
+			"program": [
+				"(MAGMA) [4*n+1: n in [0..67] | IsSquarefree(4*n+1)];  // Bruno Berselli, Mar 03 2011",
+				"(Haskell)",
+				"a039955 n = a039955_list !! (n-1)",
+				"a039955_list = filter ((== 1) . (`mod` 4)) a005117_list",
+				"-- _Reinhard Zumkeller_, Aug 15 2011",
+				"(PARI) list(lim)=my(v=List([1])); forfactored(n=5,lim\\1, if(vecmax(n[2][,2])==1 \u0026\u0026 n[1]%4==1, listput(v,n[1]))); Vec(v) \\\\ _Charles R Greathouse IV_, Nov 05 2017",
+				"(PARI) is(n)=n%4==1 \u0026\u0026 issquarefree(n) \\\\ _Charles R Greathouse IV_, Nov 05 2017"
+			],
+			"xref": [
+				"Cf. A002144, A039956, A039957."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_R. K. Guy_",
+			"references": 8,
+			"revision": 37,
+			"time": "2019-08-18T17:33:45-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45844,
+			"data": "1,2,4,8,16,22,24,28,36,42,46,52,57,64,70,77,84,92,101,102,104,108,116,122,124,128,136,142,146,152,157,164,170,177,184,192,201,203,206,212,214,218,226,232,235,240,244,248,256,262,268,276,283,291,300,303,306",
+			"name": "a(n+1) = a(n) + largest digit of a(n); a(0) = 1.",
+			"comment": [
+				"a(n+1) = A095815(a(n)). [_Reinhard Zumkeller_, Aug 23 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A045844/b045844.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(0) = 1; a(n) = a(n-1) + MaxDigit(a(n-1)) for n \u003e 0 where MaxDigit(x) is the largest digit in decimal notation for an integer x."
+			],
+			"example": [
+				"a(17) = 92; a(18) = 92 + 9 = 101; a(19) = 101 + 1 = 102; a(20) = 102 + 2 = 104"
+			],
+			"mathematica": [
+				"NestList[#+Max[IntegerDigits[#]]\u0026,1,60] (* _Harvey P. Dale_, Oct 25 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a045844 n = a045844_list !! n",
+				"a045844_list = iterate a095815 1",
+				"-- _Reinhard Zumkeller_, Aug 23 2011",
+				"(PARI) print1(a=1);for(i=1,99,print1(\",\"a+=vecmax(digits(a)))) \\\\ - _M. F. Hasler_, Jan 14 2014"
+			],
+			"xref": [
+				"Cf. A095815, A061681."
+			],
+			"keyword": "base,easy,nonn,nice",
+			"offset": "0,2",
+			"author": "_Erich Friedman_",
+			"references": 8,
+			"revision": 15,
+			"time": "2014-01-15T01:15:24-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 45928,
+			"data": "1,2,5,8,9,12,15,18,21,22,25,28,31,34,37,40,41,44,47,50,53,56,59,62,65,66,69,72,75,78,81,84,87,90,93,96,97,100,103,106,109,112,115,118,121,124,127,130,133,134,137,140,143,146,149,152,155,158,161,164,167,170,173,176,177",
+			"name": "The generalized Connell sequence C_{3,2}.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A045928/b045928.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Douglas E. Iannucci and Donna Mills-Taylor, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/IANN/iann1.html\"\u003eOn Generalizing the Connell Sequence\u003c/a\u003e, J. Integer Sequences, Vol. 2, 1999, #99.1.7."
+			],
+			"formula": [
+				"C(n, m, r) = n*m - (m - 1)*floor((3*r - 2 + sqrt(8*r*(n - 1) + (r - 2)^2)) / (2*r)) with m=3 and r=2, thus a(n) = 3*n - 2*floor(1 + sqrt(n-1)). - _Michel Marcus_, Apr 02 2013"
+			],
+			"example": [
+				"As a triangle, sequence begins:",
+				"1;",
+				"2, 5, 8;",
+				"9, 12, 15, 18, 21; - _Michel Marcus_, Apr 02 2013"
+			],
+			"mathematica": [
+				"Table[3*n-2*Floor[1+Sqrt[n-1]],{n,70}] (* _Harvey P. Dale_, Apr 19 2019 *)"
+			],
+			"program": [
+				"(PARI) lista(nrow, m=3, r=2) = {a = 1; for (irow = 1, nrow, for (k = 1, 1 + r*(irow -1), print1(a, \", \"); a += m;); a += 1 - m;);} \\\\ _Michel Marcus_, Apr 02 2013",
+				"(Haskell)",
+				"a045928 n = 3 * n - 2 * floor (1 + sqrt (fromIntegral n - 1))",
+				"-- _Reinhard Zumkeller_, Aug 09 2015"
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from jeroen.lahousse(AT)icl.com.",
+				"Typo in formula fixed by _Reinhard Zumkeller_, Aug 09 2015"
+			],
+			"references": 8,
+			"revision": 17,
+			"time": "2019-04-19T09:57:20-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 46316,
+			"data": "27,45,63,75,99,105,117,125,147,153,165,171,175,195,207,231,245,255,261,273,275,279,285,325,333,343,345,357,363,369,385,387,399,423,425,429,435,455,465,475,477,483,507,531,539,549,555,561,575,595,603,605",
+			"name": "Numbers of the form p*q*r where p,q,r are (not necessarily distinct) odd primes.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A046316/b046316.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a046316 n = a046316_list !! (n-1)",
+				"a046316_list = filter ((== 3) . a001222) [1, 3 ..]",
+				"-- _Reinhard Zumkeller_, May 05 2015",
+				"(PARI) list(lim)=my(v=List(),pq); forprime(p=3,lim\\9, forprime(q=3,min(lim\\3\\p,p), pq=p*q; forprime(r=3,lim\\pq, listput(v, pq*r)))); Set(v) \\\\ _Charles R Greathouse IV_, Aug 23 2017"
+			],
+			"xref": [
+				"Subsequence of A014612 and of A046340.",
+				"Cf. A255646 (final digits)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_, Jun 15 1998",
+			"ext": [
+				"Definition clarified by _N. J. A. Sloane_, Dec 19 2017"
+			],
+			"references": 8,
+			"revision": 22,
+			"time": "2018-11-23T05:37:31-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 46851,
+			"data": "0,1,10,11,95,96,100,101,105,110,125,950,960,976,995,996,1000,1001,1005,1006,1010,1011,1021,1025,1026,1036,1046,1050,1100,1101,1105,1201,1205,1250,1276,1305,1316,1376,1405,9500,9505,9511,9525,9600,9605,9625",
+			"name": "Numbers n such that n^2 can be obtained from n by inserting internal (but not necessarily contiguous) digits.",
+			"comment": [
+				"Contains A038444.  In particular, the sequence is infinite. - _Robert Israel_, Oct 20 2016",
+				"If n is any positive term, then b_n(k) := n*10^k (k \u003e= 0) is an infinite subsequence. - _Rick L. Shepherd_, Nov 01 2016",
+				"From Robert Israel's comment it follows that the subsequence of terms with no trailing zeros is also infinite (contains A000533). - _Rick L. Shepherd_, Nov 01 2016"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A046851/b046851.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"110^2 = 12100 (insert \"2\" and \"0\" into \"1_1_0\")."
+			],
+			"maple": [
+				"IsSublist:= proc(a, b)",
+				"  local i,bp,j;",
+				"  bp:= b;",
+				"  for i from 1 to nops(a) do",
+				"    j:= ListTools:-Search(a[i],bp);",
+				"    if j = 0 then return false fi;",
+				"    bp:= bp[j+1..-1];",
+				"  od;",
+				"  true",
+				"end proc:",
+				"filter:= proc(n) local A,B;",
+				"  A:= convert(n,base,10);",
+				"  B:= convert(n^2,base,10);",
+				"  if not(A[1] = B[1] and A[-1] = B[-1]) then return false fi;",
+				"  if nops(A) \u003c= 2 then return true fi;",
+				"  IsSublist(A[2..-2],B[2..-2])",
+				"end proc:",
+				"select(filter, [$0..10^4]); # _Robert Israel_, Oct 20 2016"
+			],
+			"mathematica": [
+				"id[n_]:=IntegerDigits[n];",
+				"insQ[n_]:=First[id[n]]==First[id[n^2]]\u0026\u0026Last[id[n]]==Last[id[n^2]];",
+				"sort[n_]:=Flatten/@Table[Position[id[n^2],id[n][[i]]],{i,1,Length[id[n]]}];",
+				"takeQ[n_]:=Module[{lst={First[sort[n][[1]]]}},",
+				"   Do[",
+				"    Do[",
+				"     If[Last[lst]\u003csort[n][[i]][[h]],AppendTo[lst,sort[n][[i]][[h]]];Break[]],",
+				"     {h,1,Length[sort[n][[i]]]}",
+				"     ],",
+				"    {i,2,Length[sort[n]]}",
+				"    ];",
+				"   If[Length[lst]==Length[id[n]]\u0026\u0026lst==Sort[lst],True,False]",
+				"];",
+				"Select[Range[0,9625],insQ[#]\u0026\u0026takeQ[#]\u0026] (* _Ivan N. Ianakiev_, Oct 19 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a046851 n = a046851_list !! (n-1)",
+				"a046851_list = filter chi a008851_list where",
+				"   chi n = (x == y \u0026\u0026 xs `isSub` ys) where",
+				"      x:xs = show $ div n 10",
+				"      y:ys = show $ div (n^2) 10",
+				"   isSub [] ys       = True",
+				"   isSub _  []       = False",
+				"   isSub us'@(u:us) (v:vs)",
+				"         | u == v    = isSub us vs",
+				"         | otherwise = isSub us' vs",
+				"-- _Reinhard Zumkeller_, Jul 27 2011"
+			],
+			"xref": [
+				"Cf. A045953, A008851, A018834, A038444, A086457 (subsequence)."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "1,3",
+			"author": "_David W. Wilson_",
+			"references": 8,
+			"revision": 32,
+			"time": "2016-11-05T12:53:02-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 47261,
+			"data": "2,4,5,8,10,11,14,16,17,20,22,23,26,28,29,32,34,35,38,40,41,44,46,47,50,52,53,56,58,59,62,64,65,68,70,71,74,76,77,80,82,83,86,88,89,92,94,95,98,100,101,104,106,107,110,112,113,116,118,119,122,124",
+			"name": "Numbers that are congruent to {2, 4, 5} mod 6.",
+			"comment": [
+				"A214090(a(n)) = 1. - _Reinhard Zumkeller_, Jul 06 2012",
+				"If B and C are terms in the sequence then 2*B*C is a term. B (resp. C) is a term iff B (resp. C) mod 6 = 2, 4 or 5. It follows that (2*B*C) mod 6 = (2*(B mod 6)*(C mod 6)) mod 6 = 2 or 4 and therefore 2*B*C is a term. Examples: for B=16 and C=29, 2*16*29 = 928 is a term: (2*B*C) mod 6 = (2*16*29) mod 6 = 4; (2*2*2) mod 6 = 2. - _Jerzy R Borysowicz_, May 24 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A047261/b047261.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,0,1,-1)."
+			],
+			"formula": [
+				"G.f.: x*(1+x)*(x^2+2) / ((1+x+x^2)*(x-1)^2). - _R. J. Mathar_, Oct 08 2011",
+				"From _Wesley Ivan Hurt_, Jun 14 2016: (Start)",
+				"a(n) = a(n-1) + a(n-3) - a(n-4) for n\u003e4.",
+				"a(n) = (6*n - 1 - 2*cos(2*n*Pi/3))/3.",
+				"a(3k) = 6k-1, a(3k-1) = 6k-2, a(3k-2) = 6k-4. (End)"
+			],
+			"maple": [
+				"A047261:=n-\u003e(6*n-1-2*cos(2*n*Pi/3))/3: seq(A047261(n), n=1..100); # _Wesley Ivan Hurt_, Jun 14 2016"
+			],
+			"mathematica": [
+				"CoefficientList[Series[(1 + x)*(x^2 + 2)/((1 + x + x^2)*(x - 1)^2), {x, 0, 50}], x] (* _Wesley Ivan Hurt_, Aug 16 2014 *)",
+				"Select[ Range@ 125, MemberQ[{2, 4, 5}, Mod[#, 6]] \u0026] (* or *)",
+				"LinearRecurrence[{1, 0, 1, -1}, {2, 4, 5, 8}, 62] (* _Robert G. Wilson v_, Jun 13 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a047261 n = a047261_list !! n",
+				"a047261_list = 2 : 4 : 5 : map (+ 6) a047261_list",
+				"-- _Reinhard Zumkeller_, Feb 19 2013, Jul 06 2012",
+				"(MAGMA) [n : n in [0..150] | n mod 6 in [2, 4, 5]]; // _Wesley Ivan Hurt_, Jun 14 2016"
+			],
+			"xref": [
+				"Cf. A047242 (complement).",
+				"Cf. A007310, A047228, A047241, A047273, A056970, A214090."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Wesley Ivan Hurt_, Aug 16 2014"
+			],
+			"references": 8,
+			"revision": 37,
+			"time": "2018-06-21T03:34:30-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 47916,
+			"data": "1,2,2,6,0,6,8,8,0,24,20,0,0,0,120,12,36,48,0,0,720,42,0,0,0,0,0,5040,32,64,0,384,0,0,0,40320,54,0,324,0,0,0,0,0,362880,40,200,0,0,3840,0,0,0,0,3628800,110,0,0,0,0,0,0,0,0,0,39916800,48,144",
+			"name": "Triangular array read by rows: a(n,k) = phi(n/k)*(n/k)^k*k! if k|n else 0 (1\u003c=k\u003c=n).",
+			"comment": [
+				"T(n,k) = A054523(n,k) * A010766(n,k)^A002260(n,k) *  A166350(n,k). - _Reinhard Zumkeller_, Jan 20 2014"
+			],
+			"reference": [
+				"J. E. A. Steggall, On the numbers of patterns which can be derived from certain elements, Mess. Math., 37 (1907), 56-61."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A047916/b047916.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e",
+				"C. L. Mallows and N. J. A. Sloane, \u003ca href=\"/A002618/a002618_1.pdf\"\u003eNotes on A002618, A002619, etc.\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/A002618/a002618_2.pdf\"\u003eNotes on A002618, A002619, etc.\u003c/a\u003e",
+				"J. E. A. Steggall, \u003ca href=\"http://www.handweaving.net/DAItemDetail.aspx?ItemID=3237\"\u003eOn the numbers of patterns which can be derived from certain elements\u003c/a\u003e, Mess. Math., 37 (1907), 56-61.",
+				"J. E. A. Steggall, \u003ca href=\"/A002618/a002618.pdf\"\u003eOn the numbers of patterns which can be derived from certain elements\u003c/a\u003e, Mess. Math., 37 (1907), 56-61. [Annotated scanned copy. Note that the scanned pages are out of order]"
+			],
+			"example": [
+				"1; 2,2; 6,0,6; 8,8,0,24; 20,0,0,0,120; 12,36,48,0,0,720; ..."
+			],
+			"mathematica": [
+				"a[n_, k_] := If[Divisible[n, k], EulerPhi[n/k]*(n/k)^k*k!, 0]; Flatten[ Table[ a[n, k], {n, 1, 12}, {k, 1, n}]] (* _Jean-François Alcover_, May 04 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (zipWith4)",
+				"a047916 n k = a047916_tabl !! (n-1) !! (k-1)",
+				"a047916_row n = a047916_tabl !! (n-1)",
+				"a047916_tabl = zipWith4 (zipWith4 (\\x u v w -\u003e x * v ^ u * w))",
+				"               a054523_tabl a002260_tabl a010766_tabl a166350_tabl",
+				"-- _Reinhard Zumkeller_, Jan 20 2014",
+				"(PARI) a(n,k)=if(n%k, 0, eulerphi(n/k)*(n/k)^k*k!) \\\\ _Charles R Greathouse IV_, Feb 09 2017"
+			],
+			"xref": [
+				"A064649 gives the row sums.",
+				"Cf. A002618 (left edge), A000142 (right edge), A049820 (zeros per row), A000005 (nonzeros per row).",
+				"See also A247917, A047918, A047919."
+			],
+			"keyword": "nonn,tabl,nice,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 8,
+			"revision": 22,
+			"time": "2017-06-24T13:23:45-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 48728,
+			"data": "0,0,0,4,0,0,8,12,0,0,0,4,16,16,24,28,0,0,0,4,0,0,8,12,32,32,32,36,48,48,56,60,0,0,0,4,0,0,8,12,0,0,0,4,16,16,24,28,64,64,64,68,64,64,72,76,96,96,96,100,112,112,120",
+			"name": "Differences between A008585 (multiples of 3) and A048724.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A048728/b048728.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = n*3 - Xmult(n, 3)."
+			],
+			"program": [
+				"(Haskell)",
+				"a048728 n = a008585 n - a048724 n  -- _Reinhard Zumkeller_, May 13 2014",
+				"(PARI) a(n)=3*n - bitxor(2*n, n) \\\\ _Charles R Greathouse IV_, Oct 03 2016",
+				"(Python)",
+				"def a(n): return 3*n - (2*n^n) # _Indranil Ghosh_, Jun 13 2017"
+			],
+			"xref": [
+				"Positions of zeros are given by A003714. Cf. A048735, A242400.",
+				"Diagonal 3 of A061858."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,4",
+			"author": "_Antti Karttunen_, Apr 26 1999",
+			"references": 8,
+			"revision": 18,
+			"time": "2017-06-14T07:14:51-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

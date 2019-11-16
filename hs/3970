@@ -1,0 +1,359 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3970,
+	"results": [
+		{
+			"number": 191856,
+			"data": "1,7,2,1,3,1,23,4,1,31,16,5,2,1,47,6,1,1,7,1,71,25,79,8,1,3,4,13,48,9,103,2,1,5,119,10,1,127,64,1,27,34,1,11,151,4,3,80,1,167,12,1,7,22,1,1,191,96,13,199,2,8,1,43,4,73,223,14,1,3,2,5,239",
+			"name": "First factor in happy factorization of n-th rhombic number.",
+			"comment": [
+				"a(n) = A007966(A007970(n)) = A007970(n) / A191857(n);",
+				"(a(n), A191857(n)) is a 2-happy couple;",
+				"notation: D in the Conway link."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191856/b191856.txt\"\u003eTable of n, a(n) for n = 1..99\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/happy.html\"\u003eOn Happy Factorizations\u003c/a\u003e, J. Integer Sequences, Vol. 1, 1998, #1."
+			],
+			"program": [
+				"(Haskell)",
+				"a191856 = a007966 . a007970  -- _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"xref": [
+				"Cf. A007966, A007970, A191857."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 18 2011",
+			"ext": [
+				"Wrong formula removed, thanks to Wolfdieter Lang, who pointed this out. _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"references": 7,
+			"revision": 10,
+			"time": "2016-02-15T12:19:02-05:00",
+			"created": "2011-06-20T16:45:50-04:00"
+		},
+		{
+			"number": 192015,
+			"data": "0,1,1,4,1,1,12,6,1,1,32,1,1,1,10,27,1,1,80,1,1,1,1,14,1,1,1,192,1,1,1,1,108,1,1,1,1,1,1,1,1,22,75,1,448,1,1,1,1,1,1,1,1,26,1,1,1,1,1,1,1,1,1,1,1,1,1,1,405,1,1024,1,1,1,1,1,1,1,34",
+			"name": "Arithmetic derivative of prime powers: a(n) = A003415(A000961(n)).",
+			"comment": [
+				"a(A000040(n)) = 1; a(A002808(n)) \u003e 1;",
+				"A001787, A027471, A100484, A079705 and A051674 are subsequences;",
+				"A001787 and A024622 give record values and where they occur;",
+				"A192016(n) = A003415(a(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A192015/b192015.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimePower.html\"\u003ePrime Power\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A025474(n) * A025473(n)^(A025474(n) - 1)."
+			],
+			"mathematica": [
+				"Join[{0}, Reap[For[n = 1, n \u003c= 300, n++, f = FactorInteger[n]; If[Length[f] == 1, Sow[n*Total[Apply[#2/#1\u0026, f, {1}]]]]]][[2, 1]]] (* _Jean-François Alcover_, Feb 21 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a192015 = a003415 . a000961  -- _Reinhard Zumkeller_, Apr 16 2014"
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, Jun 26 2011",
+			"references": 7,
+			"revision": 19,
+			"time": "2014-04-16T02:32:36-04:00",
+			"created": "2011-07-09T08:36:32-04:00"
+		},
+		{
+			"number": 192505,
+			"data": "19,31,59,73,79,101,103,109,113,137,139,151,163,167,191,197,199,229,241,251,263,269,271,281,293,311,317,347,349,367,373,379,401,409,439,443,449,457,461,479,487,491,499,521,523,547,557,563,569,571,587,599,601",
+			"name": "Non-ludic numbers that are prime numbers.",
+			"comment": [
+				"Intersection of A000040 and A192607; (1-A010051(a(n)))*A192490(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A192505/b192505.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a192505 n = a192505_list !! (n-1)",
+				"a192505_list = filter ((== 1) . a010051) a192607_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 05 2011",
+			"references": 7,
+			"revision": 10,
+			"time": "2018-03-14T03:50:01-04:00",
+			"created": "2011-07-10T06:18:53-04:00"
+		},
+		{
+			"number": 192506,
+			"data": "4,6,8,9,10,12,14,15,16,18,20,21,22,24,26,27,28,30,32,33,34,35,36,38,39,40,42,44,45,46,48,49,50,51,52,54,55,56,57,58,60,62,63,64,65,66,68,69,70,72,74,75,76,78,80,81,82,84,85,86,87,88,90,92,93,94",
+			"name": "Numbers that are neither ludic nor prime.",
+			"comment": [
+				"Intersection of A002808 and A192607; (1-A010051(a(n)))*(1-A192490(a(n)))=1;",
+				"a(n) = A091212(n) for n \u003c= 60.",
+				"a(n) = A175526(n) for n \u003c= 53. [_Reinhard Zumkeller_, Jul 12 2011]",
+				"In other words, composite numbers that are nonludic. - _Antti Karttunen_, May 11 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller (first 1000 terms) \u0026 Antti Karttunen, \u003ca href=\"/A192506/b192506.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a192506 n = a192506_list !! (n-1)",
+				"a192506_list = filter ((== 0) . a010051) a192607_list",
+				"(Scheme, with Antti Karttunen's IntSeq-library)",
+				"(define A192506 (MATCHING-POS 1 1 (lambda (n) (and (zero? (A192490 n)) (zero? (A010051 n))))))",
+				";; _Antti Karttunen_, May 07 2015"
+			],
+			"xref": [
+				"Cf. A257689 (complement, either ludic or prime), A192503 (ludic and prime), A192504 (ludic and nonprime), A192505 (nonludic and prime).",
+				"Cf. A010051, A192490, A002808, A192607.",
+				"a(n) differs from A091212(n) and A205783(n+1) for the first time at n=37, where a(37) = 55, while 55 is missing from both A091212 and A205783.",
+				"Differs from A175526 for the first time at n=54, where a(54) = 78, while A175526(54) = 77, a term which is missing from here."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 05 2011",
+			"references": 7,
+			"revision": 21,
+			"time": "2015-05-14T15:57:00-04:00",
+			"created": "2011-07-10T06:18:32-04:00"
+		},
+		{
+			"number": 195043,
+			"data": "0,1,11,23,44,67,99,133,176,221,275,331,396,463,539,617,704,793,891,991,1100,1211,1331,1453,1584,1717,1859,2003,2156,2311,2475,2641,2816,2993,3179,3367,3564,3763,3971,4181,4400,4621,4851,5083,5324,5567",
+			"name": "Concentric 11-gonal numbers.",
+			"comment": [
+				"Also concentric hendecagonal numbers. A033584 and A069173 interleaved.",
+				"Partial sums of A175885. - _Reinhard Zumkeller_, Jan 07 2012"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A195043/b195043.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,-2,1)."
+			],
+			"formula": [
+				"a(n) = 11*n^2/4 + 7*((-1)^n - 1)/8.",
+				"a(n) = -a(n-1) + A069125(n). - _Vincenzo Librandi_, Sep 30 2011",
+				"From _Colin Barker_, Sep 15 2013: (Start)",
+				"a(n) = 2*a(n-1) - 2*a(n-3) + a(n-4).",
+				"G.f.: -x*(x^2+9*x+1) / ((x-1)^3*(x+1)). (End)"
+			],
+			"mathematica": [
+				"LinearRecurrence[{2,0,-2,1},{0,1,11,23},50] (* _Harvey P. Dale_, May 20 2019 *)"
+			],
+			"program": [
+				"(MAGMA) [11*n^2/4+7*((-1)^n-1)/8: n in [0..50]]; // _Vincenzo Librandi_, Sep 30 2011",
+				"(Haskell)",
+				"a195043 n = a195043_list !! n",
+				"a195043_list = scanl (+) 0 a175885_list",
+				"-- _Reinhard Zumkeller_, Jan 07 2012",
+				"(PARI) Vec(-x*(x^2+9*x+1)/((x-1)^3*(x+1)) + O(x^100)) \\\\ _Colin Barker_, Sep 15 2013"
+			],
+			"xref": [
+				"Column 11 of A195040.",
+				"Cf. A032527, A032528, A195042, A195142, A195143, A195045."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Omar E. Pol_, Sep 27 2011",
+			"references": 7,
+			"revision": 31,
+			"time": "2019-05-20T17:51:45-04:00",
+			"created": "2011-09-28T18:24:51-04:00"
+		},
+		{
+			"number": 195437,
+			"data": "2,5,7,10,12,14,17,19,21,23,26,28,30,32,34,37,39,41,43,45,47,50,52,54,56,58,60,62,65,67,69,71,73,75,77,79,82,84,86,88,90,92,94,96,98,101,103,105,107,109,111,113,115,117,119,122,124,126,128,130,132",
+			"name": "Triangle formed by: 1 even, 2 odd, 3 even, 4 odd... starting with 2.",
+			"comment": [
+				"A127366(T(n,k)) mod 2 = 1;",
+				"T(n,k) mod 2 + A000196(T(n,k)) mod 2 = 1;",
+				"complement of A133280."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195437/b195437.txt\"\u003eRows n=0..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a195437 n k = a195437_tabl !! n !! k",
+				"a195437_tabl = tail $ g 1 1 [0..] where",
+				"   g m j xs = (filter ((== m) . (`mod` 2)) ys) : g (1 - m) (j + 2) xs'",
+				"     where (ys,xs') = splitAt j xs",
+				"b195437 = bFile' \"A195437\" (concat $ take 101 a195437_tabl) 0",
+				"-- _Reinhard Zumkeller_, Nov 23 2011 (fixed), Oct 12 2011"
+			],
+			"xref": [
+				"Cf. A002522 (left edge), A008865 (right edge), A011379 (row sums), A002939 (central terms)."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Oct 12 2011",
+			"references": 7,
+			"revision": 17,
+			"time": "2013-07-13T12:04:16-04:00",
+			"created": "2011-10-12T16:35:06-04:00"
+		},
+		{
+			"number": 196368,
+			"data": "1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1",
+			"name": "Characteristic function of numbers having in decimal representation only distinct adjacent digits.",
+			"comment": [
+				"a(A043096(n)) = 1; a(A171901(n)) = 0;",
+				"A178788(n) \u003c= a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A196368/b196368.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e"
+			],
+			"mathematica": [
+				"If[MemberQ[Differences[IntegerDigits[#]],0]==True,0,1]\u0026/@Range[0,90] (* _Harvey P. Dale_, Sep 05 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a196368 n = fromEnum $ and $ zipWith (/=) (tail $ show n) (show n)",
+				"a196368_list = map a196368 [0..]",
+				"(Python)",
+				"A196368_list = [int(all(str(n)[i] != str(n)[i-1] for i in range(1,len(str(n))))) for n in range(10000)] # _Chai Wah Wu_, Feb 14 2019"
+			],
+			"keyword": "nonn,base",
+			"offset": "0",
+			"author": "_Reinhard Zumkeller_, Oct 28 2011",
+			"references": 7,
+			"revision": 19,
+			"time": "2019-02-14T23:41:04-05:00",
+			"created": "2011-10-28T18:37:54-04:00"
+		},
+		{
+			"number": 196415,
+			"data": "1,4,7,10,13,15,16,21,32,33,56,57,60,70,77,80,83,84,88,92,93,97,112,114,115,120,122,130,134,141,147,153,155,164,165,188,191,196,201,202,213,222,225,226,229,243,245,248,252,260,264,265,268,273,274,281",
+			"name": "Values of n such that (product of first n composite numbers) / (sum of first n composite numbers) is an integer.",
+			"comment": [
+				"A036691(a(n)) mod A053767(a(n)) = 0, A141092(n) = A036691(a(n)) / A053767(a(n)). [_Reinhard Zumkeller_, Oct 03 2011]"
+			],
+			"link": [
+				"Arkadiusz Wesolowski, \u003ca href=\"/A196415/b196415.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"# First define list of composite numbers:",
+				"tc:=[4,6,8,9,10,12,14,15,16,18,20,21,22,24,25,26,27,",
+				"28,30,32,33,34,35,36,38,39,40,42,44,45,46,48,49,",
+				"50,51,52,54,55,56,57,58,60,62,63,64,65,66,68,69,",
+				"70,72,74,75,76,77,78,80,81,82,84,85,86,87,88];",
+				"a1:=n-\u003emul(tc[i],i=1..n);",
+				"a2:=n-\u003eadd(tc[i],i=1..n);",
+				"sn:=[];",
+				"s0:=[];",
+				"s1:=[];",
+				"s2:=[];",
+				"for n from 1 to 40 do",
+				"  t1:=a1(n)/a2(n);",
+				"  if whattype(t1) = integer then",
+				"   sn:= [op(sn),n];",
+				"   s0:= [op(s0),t1];",
+				"   s1:= [op(s1),a1(n)];",
+				"   s2:= [op(s2),a2(n)];",
+				"fi;",
+				"od:",
+				"sn; s0; s1; s2;",
+				"# alternatively",
+				"for n from 1 to 1000 do",
+				"        if type(A036691(n)/A053767(n),'integer') then",
+				"                printf(\"%d,\",n);",
+				"        end if;",
+				"end do: # _R. J. Mathar_, Oct 03 2011"
+			],
+			"mathematica": [
+				"c = Select[Range[2,355], ! PrimeQ@# \u0026]; p = 1; s = 0; Select[Range@ Length@c, Mod[p *= c[[#]], s += c[[#]]] == 0 \u0026] (* _Giovanni Resta_, Apr 03 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a196415 n = a196415_list !! (n-1)",
+				"a196415_list =",
+				"   map (+ 1) $ elemIndices 0 $ zipWith mod a036691_list a053767_list",
+				"-- _Reinhard Zumkeller_, Oct 03 2011"
+			],
+			"xref": [
+				"Cf. A051838, A141090, A141091, A141092."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Oct 02 2011",
+			"ext": [
+				"More terms from _Arkadiusz Wesolowski_, Oct 03 2011"
+			],
+			"references": 7,
+			"revision": 34,
+			"time": "2019-05-04T21:51:11-04:00",
+			"created": "2011-10-02T15:28:45-04:00"
+		},
+		{
+			"number": 198390,
+			"data": "7,14,17,21,23,28,31,34,35,41,42,46,47,49,49,51,56,62,63,68,69,70,71,73,77,79,82,84,85,89,91,92,93,94,97,98,98,102,103,105,112,113,115,119,119,119,119,123,124,126,127,133,136,137,138,140,141,142,146",
+			"name": "Square root of third term of a triple of squares in arithmetic progression.",
+			"comment": [
+				"A198386(n) = a(n)^2.",
+				"A198441(n) = a(A198409(n)).",
+				"There is a connection to the leg sums of Pythagorean triangles.",
+				"See a comment on the primitive case under A198439, which applies mutatis mutandis. - _Wolfdieter Lang_, May 23 2013",
+				"Are these just the positive multiples of A001132? - _Charles R Greathouse IV_, May 28 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198384/a198384_2.txt\"\u003eTable of initial values\u003c/a\u003e",
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e"
+			],
+			"example": [
+				"Connection to leg sums of Pythagorean triangles: a(2) = 14 because (in the notation of the Zumkeller link) (u,v,w)= (2,10,14) = 2*(1,5,7), and this corresponds to the non-primitive Pythagorean triangle 2*(x=(7-1)/1,y=(1+7)/2,z=5) = 2*(3,4,5) with leg sum 2*(3+4) = 14. - _Wolfdieter Lang_, May 23 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a198390 n = a198390_list !! (n-1)",
+				"a198390_list = map (\\(_,_,x) -\u003e x) ts where",
+				"   ts = [(u,v,w) | w \u003c- [1..], v \u003c- [1..w-1], u \u003c- [1..v-1],",
+				"                   w^2 - v^2 == v^2 - u^2]",
+				"(PARI) is(n)=my(t=n^2);forstep(i=2-n%2,n-2,2, if(issquare((t+i^2)/2), return(1))); 0 \\\\ _Charles R Greathouse IV_, May 28 2013"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 24 2011",
+			"references": 7,
+			"revision": 24,
+			"time": "2017-05-15T11:32:20-04:00",
+			"created": "2011-10-24T11:10:45-04:00"
+		},
+		{
+			"number": 198436,
+			"data": "25,169,289,625,841,1369,1681,3721,2809,4225,4225,7225,5329,7225,7921,10201,12769,9409,11881,15625,21025,21025,22201,18769,32761,24649,29929,38809,34225,28561,48841,34225,37249,42025,52441,66049,70225,42025,48841,54289",
+			"name": "Second term of a triple of squares in arithmetic progression, which is not a multiple of another triple in (A198384, A198385, A198386).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198435/a198435.txt\"\u003eTable of initial values\u003c/a\u003e",
+				"Keith Conrad, \u003ca href=\"http://www.math.uconn.edu/~kconrad/blurbs/ugradnumthy/3squarearithprog.pdf\"\u003eArithmetic progressions of three squares\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A198440(n)^2 = A198385(A198409(n)).",
+				"a(n) - A198435(n) = A198437(n) - a(n) = A198438(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a198436 n = a198436_list !! (n-1)",
+				"a198436_list = map a198385 a198409_list"
+			],
+			"xref": [
+				"Cf. A198385, A198409, A198435, A198437, A198438, A198440."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Oct 25 2011",
+			"references": 7,
+			"revision": 17,
+			"time": "2016-10-31T04:08:03-04:00",
+			"created": "2011-10-25T17:34:53-04:00"
+		}
+	]
+}

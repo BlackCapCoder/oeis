@@ -1,0 +1,402 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2700,
+	"results": [
+		{
+			"number": 153727,
+			"data": "1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2,1,4,2",
+			"name": "Period 3: repeat [1, 4, 2] ; Trajectory of 3x+1 sequence starting at 1.",
+			"comment": [
+				"From _Klaus Brockhaus_, May 23 2010: (Start)",
+				"Continued fraction expansion of (7+sqrt(229))/18.",
+				"Decimal expansion of 142/999. (End)",
+				"a(A008585(n)) = 1; a(A016777(n)) = 4; a(A016789(n)) = 2. - _Reinhard Zumkeller_, Oct 08 2011"
+			],
+			"reference": [
+				"C. A. Pickover, The Math Book, 2009; Collatz Conjecture, pp 374-375."
+			],
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/CollatzProblem.html\"\u003eCollatz Problem\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Collatz_conjecture\"\u003eCollatz conjecture\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0, 0, 1)."
+			],
+			"formula": [
+				"a(3n)=1, a(3n+1)=4, a(3n+2)=2. G.f.: (1+4*x+2*x^2)/(1-x^3).",
+				"a(n) = 4^n mod 7. - _Zerinvary Lajos_, Nov 25 2009",
+				"a(n) = (1/9)*{10*(n mod 3)+13*[(n+1) mod 3]-2*[(n+2) mod 3]}, with n\u003e=0. - _Paolo P. Lava_, Jun 17 2009",
+				"a(n) = A130196(n) * A131534(n). - _Reinhard Zumkeller_, Nov 12 2009",
+				"a(n) = 2^(-n mod 3) = 2^A080425(n). - _Wesley Ivan Hurt_, Jun 20 2014",
+				"a(n) = sqrt(4^(5*n) mod 21). - _Gary Detlefs_, Jul 07 2014",
+				"From _Wesley Ivan Hurt_, Jun 30 2016: (Start)",
+				"a(n) = a(n-3) for n\u003e2.",
+				"a(n) = (7 - 4*cos(2*n*Pi/3) + 2*sqrt(3)*sin(2*n*Pi/3))/3. (End)"
+			],
+			"maple": [
+				"A153727:=n-\u003e2^(-n mod 3); seq(A153727(n), n=0..50); # _Wesley Ivan Hurt_, Jun 20 2014"
+			],
+			"mathematica": [
+				"a[n_] := {1, 4, 2}[[Mod[n, 3] + 1]]; Table[a[n], {n, 0, 104}] (* _Jean-François Alcover_, Jul 19 2013 *)",
+				"LinearRecurrence[{0, 0, 1},{1, 4, 2},105] (* _Ray Chandler_, Aug 25 2015 *)"
+			],
+			"program": [
+				"(Sage) [power_mod(2,-n,7)for n in xrange(0, 105)] # _Zerinvary Lajos_, Jun 07 2009",
+				"(Sage) [power_mod(4, n, 7)for n in xrange(0, 105)] # _Zerinvary Lajos_, Nov 25 2009",
+				"(PARI) A153727(n)=[1,4,2][n%3+1] \\\\ _M. F. Hasler_, Feb 10 2011",
+				"(Haskell)",
+				"a153727 n = a153727_list !! n",
+				"a153727_list = iterate a006370 1 -- _Reinhard Zumkeller_, Oct 08 2011",
+				"(MAGMA) [2^(-n mod 3) : n in [0..50]]; // _Wesley Ivan Hurt_, Jun 20 2014"
+			],
+			"xref": [
+				"Cf. A178236 (decimal expansion of (7+sqrt(229))/18). Appears in A179133 (n\u003e=1).",
+				"Cf. A006370, A080425, A130196, A131534."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Philippe Deléham_, Dec 30 2008",
+			"references": 12,
+			"revision": 47,
+			"time": "2018-10-15T16:30:05-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		},
+		{
+			"number": 157726,
+			"data": "3,4,4,5,6,8,11,16,24,37,58,92,147,236,380,613,990,1600,2587,4184,6768,10949,17714,28660,46371,75028,121396,196421,317814,514232,832043,1346272,2178312,3524581,5702890,9227468,14930355,24157820,39088172,63245989,102334158",
+			"name": "a(n) = Fibonacci(n) + 3.",
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A157726/b157726.txt\"\u003eTable of n, a(n) for n = 0..285\u003c/a\u003e",
+				"Ivana Jovović and Branko Malešević, \u003ca href=\"http://nntdm.net/volume-23-2017/number-1/28-38/\"\u003eSome enumerations of non-trivial composition of the differential operations and the directional derivative\u003c/a\u003e, Notes on Number Theory and Discrete Mathematics, Vol. 23, 2017, No. 1, 28-38.",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,-1)."
+			],
+			"formula": [
+				"G.f.: ( 3-2*x-4*x^2 ) / ( (x-1)*(x^2+x-1) ). - _R. J. Mathar_, Aug 08 2012",
+				"a(0) = 3, a(1) = 4, a(n) = a(n - 2) + a(n - 1) - 3. - _Reinhard Zumkeller_, Jul 30 2013"
+			],
+			"mathematica": [
+				"Fibonacci[Range[0,45]]+3 (* _Harvey P. Dale_, Oct 26 2011 *)"
+			],
+			"program": [
+				"(MAGMA) [ Fibonacci(n) + 3: n in [0..40] ]; // _Vincenzo Librandi_, Apr 24 2011",
+				"(PARI) a(n)=fibonacci(n)+3 \\\\ _Charles R Greathouse IV_, Jul 02 2013",
+				"(Haskell)",
+				"a157726 = (+ 3) . a000045",
+				"a157726_list = 3 : 4 : map (subtract 3)",
+				"                       (zipWith (+) a157726_list $ tail a157726_list)",
+				"-- _Reinhard Zumkeller_, Jul 30 2013"
+			],
+			"xref": [
+				"Cf. A000045, A001611, A000071, A157725, A001911, A157726, A006327, A157727, A157728, A157729, A167616."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Jun 26 2010",
+			"references": 12,
+			"revision": 28,
+			"time": "2017-10-21T21:00:53-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 157728,
+			"data": "1,4,9,17,30,51,85,140,229,373,606,983,1593,2580,4177,6761,10942,17707,28653,46364,75021,121389,196414,317807,514225,832036,1346265,2178305,3524574,5702883,9227461,14930348,24157813,39088165,63245982,102334151",
+			"name": "a(n) = Fibonacci(n) - 4.",
+			"comment": [
+				"Partial sums of A071679. - _R. J. Mathar_, Oct 12 2010"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A157728/b157728.txt\"\u003eTable of n, a(n) for n = 5..287\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,-1)."
+			],
+			"formula": [
+				"From _R. J. Mathar_, Oct 12 2010: (Start)",
+				"a(n) = 2*a(n-1) - a(n-3).",
+				"G.f.: x^5*(1+x)^2/((x-1)*(x^2+x-1)). (End)"
+			],
+			"program": [
+				"(MAGMA) [ Fibonacci(n) - 4: n in [5..50] ]; // _Vincenzo Librandi_, Apr 24 2011",
+				"(Haskell)",
+				"a157728 = subtract 4 . a000045  -- _Reinhard Zumkeller_, Oct 31 2013",
+				"(PARI) a(n)=fibonacci(n) - 4 \\\\ _Charles R Greathouse IV_, Jun 11 2015"
+			],
+			"xref": [
+				"Cf. A000045, A001611, A000071, A157725, A001911, A157726, A006327, A157727, A157728, A157729, A167616."
+			],
+			"keyword": "nonn,easy",
+			"offset": "5,2",
+			"author": "_N. J. A. Sloane_, Jun 26 2010",
+			"references": 12,
+			"revision": 19,
+			"time": "2018-09-01T17:38:57-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 157729,
+			"data": "5,6,6,7,8,10,13,18,26,39,60,94,149,238,382,615,992,1602,2589,4186,6770,10951,17716,28662,46373,75030,121398,196423,317816,514234,832045,1346274,2178314,3524583,5702892,9227470,14930357,24157822,39088174,63245991,102334160",
+			"name": "a(n) = Fibonacci(n) + 5.",
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A157729/b157729.txt\"\u003eTable of n, a(n) for n = 0..285\u003c/a\u003e",
+				"Ivana Jovović and Branko Malešević, \u003ca href=\"http://nntdm.net/volume-23-2017/number-1/28-38/\"\u003eSome enumerations of non-trivial composition of the differential operations and the directional derivative\u003c/a\u003e, Notes on Number Theory and Discrete Mathematics, Vol. 23, 2017, No. 1, 28-38.",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,-1)."
+			],
+			"formula": [
+				"G.f.: ( 5-4*x-6*x^2 ) / ( (x-1)*(x^2+x-1) ). - _R. J. Mathar_, Aug 09 2012",
+				"a(0)=5, a(1)=6, a(2)=6, a(n)=2*a(n-1)+0*a(n-2)-a(n-3). - _Harvey P. Dale_, Aug 17 2012",
+				"a(0) = 5, a(1) = 6, a(n) = a(n - 2) + a(n - 1) - 5. - _Reinhard Zumkeller_, Jul 30 2013"
+			],
+			"mathematica": [
+				"Fibonacci[Range[0,40]]+5 (* or *) LinearRecurrence[{2,0,-1},{5,6,6},50] (* _Harvey P. Dale_, Aug 17 2012 *)"
+			],
+			"program": [
+				"(MAGMA) [ Fibonacci(n) + 5: n in [0..40] ]; // _Vincenzo Librandi_, Apr 24 2011",
+				"(PARI) a(n)=fibonacci(n)+5 \\\\ _Charles R Greathouse IV_, Jul 02 2013",
+				"(Haskell)",
+				"a157729 = (+ 5) . a000045",
+				"a157729_list = 5 : 6 : map (subtract 5)",
+				"                       (zipWith (+) a157729_list $ tail a157729_list)",
+				"-- _Reinhard Zumkeller_, Jul 30 2013"
+			],
+			"xref": [
+				"Cf. A000045, A001611, A000071, A157725, A001911, A157726, A006327, A157727, A157728, A157729, A167616."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Jun 26 2010",
+			"references": 12,
+			"revision": 22,
+			"time": "2017-10-21T21:01:11-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 161594,
+			"data": "1,2,3,4,5,6,7,8,9,1,11,21,13,41,51,61,17,81,19,2,12,22,23,42,52,26,72,82,29,3,31,23,33,241,53,63,37,281,39,4,41,24,43,44,54,46,47,84,94,5,312,421,53,45,55,65,372,481,59,6,61,62,36,46,551,66,67,482,69,7,71,27",
+			"name": "a(n) = R(f(n)), where R = A004086 = reverse (decimal) digits, f = A071786 = reverse digits of prime factors.",
+			"comment": [
+				"Might be called TITO(n), turning n inside out then turning outside in.",
+				"Here is the operation: take a number n and find its prime factors. Reverse the digits of every prime factor (for example, replace 17 by 71). Multiply the factors respecting multiplicities. For example, if the original number was 17^2*43^3, the new product will be 71^2*34^3. After that, reverse the resulting number."
+			],
+			"link": [
+				"M. F. Hasler, \u003ca href=\"/A161594/b161594.txt\"\u003eTable of n, a(n) for n=1..5000\u003c/a\u003e. [From _M. F. Hasler_, Jun 24 2009]",
+				"T. Khovanova, \u003ca href=\"http://blog.tanyakhovanova.com/?p=144\"\u003eTurning Numbers Inside Out\u003c/a\u003e [From _Tanya Khovanova_, Jul 07 2009]"
+			],
+			"formula": [
+				"a(p) = p, for prime p.",
+				"a(A161598(n)) \u003c\u003e A161598(n); a(A161597(n)) = A161597(n); A010051(a(A161600(n))) = 1.",
+				"From _M. F. Hasler_, Jun 25 2009: (Start)",
+				"a( p*10^k ) = p for any prime p.",
+				"Proof: if gcd( p, 2*5) = 1, then a( p * 10^k ) = R( R(p) * R(2)^k * R(5)^k ) = R( R(p) * 10^k ) = R(R(p)) = p;",
+				"if gcd(p, 2*5) = 2, then p=2 and a( p * 10^k ) = R( R(2)^(k+1) * R(5)^k ) = R( 2 * 10^k ) = 2 = p and mutatis mutandis for gcd(p, 2*5) = 5. (End)"
+			],
+			"example": [
+				"a(34) = 241, because 34 = 2*17, f(34) = 2*71 = 142, and reversing gives 241."
+			],
+			"maple": [
+				"read(\"transforms\") ; A071786 := proc(n) local ifs,a,d ; ifs := ifactors(n)[2] ; a := 1 ; for d in ifs do a := a*digrev(op(1,d))^op(2,d) ; od: a ; end: A161594 := proc(n) digrev(A071786(n)) ; end: seq(A161594(n),n=1..80) ; # _R. J. Mathar_, Jun 16 2009",
+				"# second Maple program:",
+				"r:= n-\u003e (s-\u003e parse(cat(seq(s[-i], i=1..length(s)))))(\"\"||n):",
+				"a:= n-\u003e r(mul(r(i[1])^i[2], i=ifactors(n)[2])):",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Jun 19 2017"
+			],
+			"mathematica": [
+				"reversepower[{n_, k_}] := FromDigits[Reverse[IntegerDigits[n]]]^k f[n_] := FromDigits[ Reverse[IntegerDigits[Times @@ Map[reversepower, FactorInteger[n]]]]] Table[f[n], {n, 100}]",
+				"Table[IntegerReverse[Times@@Flatten[Table[IntegerReverse[#[[1]]],#[[2]]]\u0026 /@FactorInteger[n]]],{n,100}] (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Aug 21 2016 *)"
+			],
+			"program": [
+				"(PARI) R=A004086; A161594(n)={n=factor(n);n[,1]=apply(R,n[,1]);R(factorback(n))} \\\\  _M. F. Hasler_, Jun 24 2009. Removed code for R here, see A004086 for most recent \u0026 efficient version. - _M. F. Hasler_, May 11 2015",
+				"(Haskell) a161594 = a004086 . a071786  -- _Reinhard Zumkeller_, Oct 14 2011"
+			],
+			"xref": [
+				"Cf. A161597, A161598, A161600, A071786, A004086, A151764."
+			],
+			"keyword": "nonn,base,nice,look",
+			"offset": "1,2",
+			"author": "_J. H. Conway_ \u0026 _Tanya Khovanova_, Jun 14 2009",
+			"ext": [
+				"Simpler definition from _R. J. Mathar_, Jun 16 2009",
+				"Edited by _N. J. A. Sloane_, Jun 23 2009"
+			],
+			"references": 12,
+			"revision": 35,
+			"time": "2017-06-19T08:44:44-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 167392,
+			"data": "0,1,1,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0",
+			"name": "Characteristic function of partition numbers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A167392/b167392.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(A000041(n)) = 1; a(A167376(n)) = 0."
+			],
+			"mathematica": [
+				"nmax = 14;",
+				"(* nmax=14 gives P(nmax)+1 = 136 terms; nmax=33 gives 10144 terms *)",
+				"PP = Table[PartitionsP[n], {n, 0, nmax}];",
+				"a[n_] := Boole[MemberQ[PP, n]];",
+				"Table[a[n], {n, 0, PartitionsP[nmax]}] (* _Jean-François Alcover_, Mar 02 2019 *)"
+			],
+			"program": [
+				"(PARI) a(n) = {k=0; while ((pk=numbpart(k)) != n, if (pk \u003e n, return(0)); k++); return (1);} \\\\ _Michel Marcus_, Nov 03 2015",
+				"(Haskell)",
+				"import Data.List.Ordered (member)",
+				"a167392 = fromEnum . flip member a000041_list",
+				"-- _Reinhard Zumkeller_, Nov 03 2015"
+			],
+			"xref": [
+				"Cf. A167393.",
+				"For n \u003e= 1, column 1 of A186114, also right border of A193870. - _Omar E. Pol_, Aug 14 2011"
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Nov 03 2009",
+			"references": 12,
+			"revision": 17,
+			"time": "2019-03-03T03:44:30-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 169966,
+			"data": "0,3,30,33,300,303,330,333,3000,3003,3030,3033,3300,3303,3330,3333,30000,30003,30030,30033,30300,30303,30330,30333,33000,33003,33030,33033,33300,33303,33330,33333,300000,300003,300030,300033,300300,300303,300330,300333",
+			"name": "Numbers whose decimal expansion contains only 0's and 3's.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A169966/b169966.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1)=Sum_ k\u003e=0 {A030308(n,k)*A093138(k+1)}. - From _Philippe Deléham_, Oct 16 2011.",
+				"a(n) = 3 * A007088(n-1)."
+			],
+			"program": [
+				"(PARI) print1(0);for(d=1,5,for(n=2^(d-1),2^d-1,print1(\", \");forstep(i=d-1,0,-1,print1((n\u003e\u003ei)%2*3)))) \\\\ _Charles R Greathouse IV_, Nov 16 2011",
+				"(Haskell)",
+				"a169966 n = a169966_list !! (n-1)",
+				"a169966_list = map (* 3) a007088_list",
+				"-- _Reinhard Zumkeller_, Jan 10 2012"
+			],
+			"xref": [
+				"Cf. A007088, A014263, A169964, A169965, A169967.",
+				"Cf. A078242, A204093, A204094, A204095, A097256."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Aug 07 2010",
+			"references": 12,
+			"revision": 20,
+			"time": "2013-09-08T19:59:25-04:00",
+			"created": "2010-08-27T03:00:00-04:00"
+		},
+		{
+			"number": 171865,
+			"data": "1,2,4,6,11,13,18,21,25,31,36,42,45,48,53,57,60,64,67,73,82,85,90,93,99,102,106,111,117,122,126,130,135,139,143,149,153,157,163,169,174,180,184,188,197,200,203,209,213,216,226,229,233,237,243,247,252,255,258,264,270",
+			"name": "Positions of 0's in A181391.",
+			"comment": [
+				"A181391(a(n)) = 0; the sequence is infinite, proof by Jan Ritsema van Eck in comments in A181391."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A171865/b171865.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a171865 n = a171865_list !! (n-1)",
+				"a171865_list = map (+ 1) $ elemIndices 0 a181391_list",
+				"-- _Reinhard Zumkeller_, Oct 31 2011",
+				"(Python)",
+				"A181391_list, A171865_list = [0, 0], [1,2]",
+				"for n in range(1, 10**4):",
+				"....for m in range(n-1, -1, -1):",
+				"........if A181391_list[m] == A181391_list[n]:",
+				"............A181391_list.append(n-m)",
+				"............break",
+				"....else:",
+				"........A181391_list.append(0)",
+				"........A171865_list.append(n+2) # _Chai Wah Wu_, Jan 02 2015"
+			],
+			"xref": [
+				"Cf. A181391, A171868."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Oct 17 2010",
+			"references": 12,
+			"revision": 16,
+			"time": "2016-04-17T09:04:05-04:00",
+			"created": "2010-10-20T03:00:00-04:00"
+		},
+		{
+			"number": 171901,
+			"data": "11,22,33,44,55,66,77,88,99,100,110,111,112,113,114,115,116,117,118,119,122,133,144,155,166,177,188,199,200,211,220,221,222,223,224,225,226,227,228,229,233,244,255,266,277,288,299,300,311,322,330,331,332,333",
+			"name": "Numbers with at least two identical neighboring digits in their decimal representation.",
+			"comment": [
+				"A171902(n) = a(n+1) - a(n) \u003c= 11.",
+				"Complement of A043096; A196368(a(n)) = 0."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A171901/b171901.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[350],SequenceCount[IntegerDigits[#],{___,x_,x_,___}]\u003e0\u0026] (* The program uses the SequenceCount function from Mathematica version 10 *) (* _Harvey P. Dale_, May 14 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a171901 n = a171901_list !! n",
+				"a171901_list = elemIndices 0 a196368_list",
+				"-- _Reinhard Zumkeller_, Oct 29 2001",
+				"(Python)",
+				"A171901_list = [n for n in range(10000) if any(str(n)[i] == str(n)[i-1] for i in range(1,len(str(n))))] # _Chai Wah Wu_, Feb 14 2019"
+			],
+			"xref": [
+				"Cf. A044821, A171903, A171904."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Feb 07 2010",
+			"references": 12,
+			"revision": 18,
+			"time": "2019-02-14T23:40:55-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 174956,
+			"data": "0,0,0,1,0,2,0,0,3,4,0,0,0,5,6,0,0,0,0,0,7,8,0,0,9,10,0,0,0,0,0,0,11,12,13,0,0,14,15,0,0,0,0,0,0,16,0,0,17,0,18,0,0,0,19,0,20,21,0,0,0,22,0,0,23,0,0,0,24,0,0,0,0,25,0,0,26,0,0,0,0,27,0,0,28,29,30,0,0,0,31,0,32,33",
+			"name": "0 unless n is the k-th semiprime when a(n) = k.",
+			"comment": [
+				"a(A001358(n)) = n; a(A100959(n)) = 0."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A174956/b174956.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A064911(n)*A072000(n)."
+			],
+			"mathematica": [
+				"nn = 100; With[{tbl = Table[If[PrimeOmega[n] == 2, 1, 0], {n, nn}]},",
+				"Table[If[tbl[[i]] == 0, 0, Total[Take[tbl, i]]], {i, nn}]] (* _Harvey P. Dale_, Oct 13 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (unfoldr)",
+				"a174956 n = a174956_list !! (fromInteger n - 1)",
+				"a174956_list = unfoldr x (1, 1, a001358_list) where",
+				"   x (i, z, ps'@(p:ps)) | i == p = Just (z, (i + 1, z + 1, ps))",
+				"                        | i /= p = Just (0, (i + 1, z, ps'))",
+				"-- _Reinhard Zumkeller_, Oct 27 2012",
+				"(PARI) first(n)=my(v=List(),u=vector(n)); forprime(p=2,n\\2, forprime(q=2,min(p,n\\p), listput(v,p*q))); v=Set(v); for(i=1,#v, u[v[i]]=i); u \\\\ _Charles R Greathouse IV_, Sep 02 2015"
+			],
+			"xref": [
+				"Cf. A049084."
+			],
+			"keyword": "nonn",
+			"offset": "1,6",
+			"author": "_Reinhard Zumkeller_, Apr 03 2010",
+			"references": 12,
+			"revision": 9,
+			"time": "2015-09-02T11:24:04-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		}
+	]
+}

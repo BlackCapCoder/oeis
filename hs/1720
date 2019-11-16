@@ -1,0 +1,520 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1720,
+	"results": [
+		{
+			"number": 48647,
+			"data": "0,3,2,1,12,15,14,13,8,11,10,9,4,7,6,5,48,51,50,49,60,63,62,61,56,59,58,57,52,55,54,53,32,35,34,33,44,47,46,45,40,43,42,41,36,39,38,37,16,19,18,17,28,31,30,29,24,27,26,25,20,23,22,21,192,195,194,193,204,207,206",
+			"name": "Write n in base 4, then replace each digit with its base-4 negative.",
+			"comment": [
+				"The graph of a(n) on [ 1..4^k ] resembles a plane fractal of fractal dimension 1.",
+				"Self-inverse considered as a permutation of the integers.",
+				"First 4^n terms of the sequence form a permutation s(n) of 0..4^n-1, n\u003e=1; the number of inversions of s(n) is A115490(n). - _Gheorghe Coserea_, Apr 23 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A048647/b048647.txt\"\u003eTable of n, a(n) for n = 0..16383\u003c/a\u003e",
+				"J. W. Layman, \u003ca href=\"http://www.math.vt.edu/people/layman/sequences/sequences.htm\"\u003eView fractal-like graph\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = if n = 0 then 0 else 4*a(floor(n/4)) + if m = 0 then 0 else 4 - m, where m = n mod 4. - _Reinhard Zumkeller_, Apr 08 2013",
+				"G.f. g(x) satisfies: g(x) = 4*(1+x+x^2+x^3)*g(x^4) + (3*x+2*x^2+x^3)/(1-x^4). - _Robert Israel_, Nov 03 2014"
+			],
+			"example": [
+				"a(15)=5, since 15 = 33(base 4) -\u003e 11(base 4) = 5."
+			],
+			"maple": [
+				"f:= proc(n)",
+				"option remember;",
+				"local m, r;",
+				"m:= n mod 4;",
+				"r:= 4*procname((n-m)/4);",
+				"if m = 0 then r else r + 4-m fi;",
+				"end proc:",
+				"f(0):= 0:",
+				"seq(f(n),n=0..100); # _Robert Israel_, Nov 03 2014"
+			],
+			"mathematica": [
+				"Table[FromDigits[If[#==0,0,4-#]\u0026/@IntegerDigits[n,4],4],{n,0,70}] (* _Harvey P. Dale_, Jul 23 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a048647 0 = 0",
+				"a048647 n = 4 * a048647 n' + if m == 0 then 0 else 4 - m",
+				"            where (n', m) = divMod n 4",
+				"-- _Reinhard Zumkeller_, Apr 08 2013",
+				"(PARI) a(n)=fromdigits(apply(d-\u003eif(d,4-d),digits(n,4)),4) \\\\ _Charles R Greathouse IV_, Jun 23 2017",
+				"(Python)",
+				"from sympy.ntheory.factor_ import digits",
+				"def a(n): return int(\"\".join([str(4 - d) if d!=0 else '0' for d in digits(n, 4)[1:]]), 4)",
+				"print [a(n) for n in xrange(101)] # _Indranil Ghosh_, Jun 26 2017"
+			],
+			"xref": [
+				"Cf. A065256, A007090.",
+				"Column k=4 of A248813."
+			],
+			"keyword": "nonn,easy,nice,base,look",
+			"offset": "0,2",
+			"author": "_John W. Layman_, Jul 05 1999",
+			"references": 20,
+			"revision": 41,
+			"time": "2018-04-27T17:19:30-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49363,
+			"data": "1,2,11,75,694,8345,123717,2177399,44317196,1023456789,26432593615,754777787027,23609224079778,802772380556705,29480883458974409,1162849439785405935,49030176097150555672,2200618769387072998445",
+			"name": "a(1) = 1; for n\u003e1, smallest digitally balanced number in base n.",
+			"comment": [
+				"A037968(a(n)) = n and A037968(m) \u003c n for m \u003c a(n). - _Reinhard Zumkeller_, Oct 27 2003",
+				"Also smallest pandigital number in base n. - _Franklin T. Adams-Watters_, Nov 15 2006"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A049363/b049363.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PandigitalNumber.html\"\u003ePandigital Number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Pandigital_number\"\u003ePandigital number\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (102345....n-1) in base n. - Ulrich Schimke (ulrschimke(AT)aol.com)",
+				"For n\u003e1, a(n) = (n^n-n)/(n-1)^2 + n^(n-2)*(n-1) - 1 = A023811(n) + A053506(n). - _Franklin T. Adams-Watters_, Nov 15 2006"
+			],
+			"example": [
+				"a(6) = (102345) in base 6 = 6^5 + 2*6^3 + 3*6^2 + 4*6 + 5 = 8345."
+			],
+			"mathematica": [
+				"Table[FromDigits[Join[{1,0},Range[2,n-1]],n],{n,20}] (* _Harvey P. Dale_, Oct 12 2012 *)"
+			],
+			"program": [
+				"(PARI) A049363(n)=n^(n-1)+sum(i=1,n-2,n^(i-1)*(n-i))  \\\\ _M. F. Hasler_, Jan 10 2012",
+				"(PARI) A049363(n)=if(n\u003e1,(n^n-n)/(n-1)^2+n^(n-2)*(n-1)-1,1)  \\\\ _M. F. Hasler_, Jan 12 2012",
+				"(Haskell)",
+				"a049363 n = foldl (\\v d -\u003e n * v + d) 0 (1 : 0 : [2..n-1])",
+				"-- _Reinhard Zumkeller_, Apr 04 2012"
+			],
+			"xref": [
+				"Cf. A031443, A049354, A049355, A023811."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "1,2",
+			"author": "_Harvey P. Dale_",
+			"ext": [
+				"More terms from Ulrich Schimke (ulrschimke(AT)aol.com)"
+			],
+			"references": 20,
+			"revision": 25,
+			"time": "2015-03-05T12:18:16-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49445,
+			"data": "1,2,4,6,8,10,12,16,18,20,21,24,32,34,36,40,42,48,55,60,64,66,68,69,72,80,81,84,92,96,108,110,115,116,120,126,128,130,132,136,138,144,155,156,160,162,168,172,180,184,185,192,204,205,212,216,220,222,228",
+			"name": "Numbers n with property that the number of 1's in binary expansion of n (see A000120) divides n.",
+			"comment": [
+				"If instead of base 2 we take base 10, then we have the so-called Harshad or Niven numbers (i.e., positive integers divisible by the sum of their digits; A005349). - _Emeric Deutsch_, Apr 11 2007",
+				"A199238(a(n)) = 0. - _Reinhard Zumkeller_, Nov 04 2011"
+			],
+			"link": [
+				"Indranil Ghosh, \u003ca href=\"/A049445/b049445.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e (first 1000 terms from T. D. Noe)",
+				"Paul Dalenberg, Tom Edgar, \u003ca href=\"https://www.fq.math.ca/56-2.html\"\u003eConsecutive factorial base Niven numbers\u003c/a\u003e, Fibonacci Quart. (2018) Vol. 56, No. 2, 163-166."
+			],
+			"formula": [
+				"{n: A000120(n) | n}. - _R. J. Mathar_, Mar 03 2008",
+				"a(n) seems to be asymptotic to c*n*log(n) where 0.7 \u003c c \u003c 0.8. - _Benoit Cloitre_, Jan 22 2003",
+				"Heuristically, c should be 1/(2*log(2)), since a random d-bit number should have probability approximately 2/d of being in the sequence. - _Robert Israel_, Aug 22 2014",
+				"A049445 = { n: A199238(n)=0 }. - _M. F. Hasler_, Oct 09 2012"
+			],
+			"example": [
+				"20 is in the sequence because 20 is written 10100 in binary and 1 + 1 = 2, which divides 20.",
+				"21 is in the sequence because 21 is written 10101 in binary and 1 + 1 + 1 = 3, which divides 21.",
+				"22 is not in the sequence because 22 is written 10110 in binary 1 + 1 + 1 = 3, which does not divide 22."
+			],
+			"maple": [
+				"a:=proc(n) local n2: n2:=convert(n,base,2): if n mod add(n2[i],i=1..nops(n2)) = 0 then n else fi end: seq(a(n),n=1..300); # _Emeric Deutsch_, Apr 11 2007"
+			],
+			"mathematica": [
+				"binHarshadQ[n_] := Divisible[n, Count[IntegerDigits[n, 2], 1]]; Select[Range[228], binHarshadQ] (* _Jean-François Alcover_, Dec 01 2011 *)",
+				"Select[Range[300],Divisible[#,DigitCount[#,2,1]]\u0026] (* _Harvey P. Dale_, Mar 20 2016 *)"
+			],
+			"program": [
+				"(PARI) for(n=1,1000,b=binary(n):l=length(b); if(n%sum(i=1,l, component(b,i))==0,print1(n,\",\")))",
+				"(PARI) is_A049445(n)={n%norml2(binary(n))==0} \\\\ _M. F. Hasler_, Oct 09 2012",
+				"(PARI) isok(n) = ! (n % hammingweight(n)); \\\\ _Michel Marcus_, Feb 10 2016",
+				"(Haskell)",
+				"a049445 n = a049445_list !! (n-1)",
+				"a049445_list = map (+ 1) $ elemIndices 0 a199238_list",
+				"-- _Reinhard Zumkeller_, Nov 04 2011",
+				"(Python)",
+				"A049445 = [n for n in range(1,10**5) if not n % sum([int(d) for d in bin(n)[2:]])] # _Chai Wah Wu_, Aug 22 2014"
+			],
+			"xref": [
+				"Cf. A000120, A005349, A199238."
+			],
+			"keyword": "nonn,easy,nice,base",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Michael Somos_",
+				"Edited by _N. J. A. Sloane_, Oct 07 2005 and May 16 2008"
+			],
+			"references": 20,
+			"revision": 68,
+			"time": "2018-12-12T14:23:10-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 50292,
+			"data": "0,1,1,2,3,4,4,5,5,6,6,7,8,9,9,10,11,12,12,13,14,15,15,16,16,17,17,18,19,20,20,21,21,22,22,23,24,25,25,26,26,27,27,28,29,30,30,31,32,33,33,34,35,36,36,37,37,38,38,39,40,41,41,42,43,44,44,45,46,47,47,48,48,49,49,50,51,52,52,53,54",
+			"name": "a(2n) = 2n - a(n), a(2n+1) = 2n + 1 - a(n) (for n \u003e= 0).",
+			"comment": [
+				"Note that the first equation implies a(0)=0, so there is no need to specify an initial value.",
+				"Maximal cardinality of a double-free subset of {1, 2, ..., n}, or in other words, maximal size of a subset S of {1, 2, ..., n} with the property that if x is in S then 2x is not. a(0)=0 by convention.",
+				"Least k such that a(k)=n is equal to A003159(n).",
+				"To construct the sequence: let [a, b, c, a, a, a, b, c, a, b, c, ...] be the fixed point of the morphism a -\u003e abc, b -\u003ea, c -\u003e a, starting from a(1) = a, then write the indices of a, b, c, that of a being written twice; see A092606 . - _Philippe Deléham_, Apr 13 2004",
+				"Number of integers from {1,...,n} for which the subtraction of 1 changes the parity of the number of 1's in their binary expansion. - _Vladimir Shevelev_, Apr 15 2010",
+				"Number of integers from {1,...,n} the factorization of which over different terms of A050376 does not contain 2. - _Vladimir Shevelev_, Apr 16 2010",
+				"a(n) modulo 2 is the Prouhet-Thue-Morse sequence A010060. Each number n appears A026465(n+1) times. - _Philippe Deléham_, Oct 19 2011",
+				"Another way of stating the last two comments from _Philippe Deléham_: the sequence can be obtained by replacing each term of the Thue-Morse sequence A010060 by the run number that term is in. - _N. J. A. Sloane_, Dec 31 2013"
+			],
+			"reference": [
+				"S. R. Finch, Mathematical Constants, Cambridge, 2003, Section 2.26.",
+				"Wang, E. T. H. \"On Double-Free Sets of Integers.\" Ars Combin. 28, 97-100, 1989."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A050292/b050292.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Steven R. Finch, \u003ca href=\"/FinchTriple.html\"\u003eTriple-Free Sets of Integers\u003c/a\u003e [From Steven Finch, Apr 20 2019]",
+				"R. Stephan, \u003ca href=\"/somedcgf.html\"\u003eSome divide-and-conquer sequences ...\u003c/a\u003e",
+				"R. Stephan, \u003ca href=\"/A079944/a079944.ps\"\u003eTable of generating functions\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Double-FreeSet.html\"\u003eDouble-Free Set.\u003c/a\u003e"
+			],
+			"formula": [
+				"Partial sums of A035263. Close to (2/3)*n.",
+				"From _Benoit Cloitre_, Nov 24 2002: (Start)",
+				"a(1)=1, a(n) = n - a(floor(n/2));",
+				"a(n) = (2/3)*n + (1/3)*A065359(n);",
+				"more generally, for m\u003e=0, a(2^m*n) - 2^m*a(n) = A001045(m)*A065359(n) where A001045(m) = (2^m - (-1)^m)/3 is the Jacobsthal sequence;",
+				"a(A039004(n)) = (2/3)*A039004(n);",
+				"a(2*A039004(n)) = 2*a(A039004(n));",
+				"a(A003159(n)) = n;",
+				"a(A003159(n)-1) = n-1;",
+				"a(n) mod 2 = A010060(n) the Thue-Morse sequence;",
+				"a(n+1) - a(n) = A035263(n+1);",
+				"a(n+2) - a(n) = abs(A029884(n)).",
+				"(End)",
+				"G.f.: Sum_{k=0..oo} a(n)*x^n = (1/(x-1)) * Sum_{i=0..oo} (-1)^i*x^(2^i)/(x^(2^i)-1) ). - Antonio G. Astudillo (afg_astudillo(AT)hotmail.com), Feb 17 2003",
+				"a(n) = sum(k=\u003e0, (-1)^k*floor(n/2^k)), - _Benoit Cloitre_, Jun 03 2003",
+				"a(A091785(n)) = 2n; a(A091855(n)) = 2n-1. - _Philippe Deléham_, Mar 26 2004",
+				"a(2^n) = (2^(n+1) + (-1)^n)/3. - _Vladimir Shevelev_, Apr 15 2010",
+				"If n = Sum{i\u003e=0} b_i*2^i is the binary expansion of n, then a(n) = 2n/3 + (1/3)Sum{i\u003e=0} b_i*(-1)^i. Thus a(n) = 2n/3 + O(log(n)). - _Vladimir Shevelev_, Apr 15 2010",
+				"Moreover, the equation a(3m)=2m has infinitely many solutions, e.g., a(3*2^k)=2*2^k; on the other hand, a((4^k-1)/3)=(2*(4^k-1))/9+k/3, i.e., limsup|a(n)-2n/3| = infinity. - _Vladimir Shevelev_, Feb 23 2011",
+				"a(n) = Sum_k\u003e=0 {A030308(n,k)*A001045(k+1)}. - _Philippe Deléham_, Oct 19 2011",
+				"From _Peter Bala_, Feb 02 2013: (Start)",
+				"Product {n \u003e= 1} (1 + x^((2^n - (-1)^n)/3 )) = (1 + x)^2(1 + x^3)(1 + x^5)(1 + x^11)(1 + x^21)... = 1 + sum {n \u003e= 1} x^a(n) = 1 + 2x + x^2 + x^3 + 2x^4 + 2x^5 + .... Hence this sequence lists the numbers representable as a sum of distinct Jacobsthal numbers A001045 = [1, 1', 3, 5, 11, 21, ...], where we distinguish between the two occurrences of 1 by writing them as 1 and 1'. For example, 9 occurs twice in the present sequence because 9 = 5 + 3 + 1 and 9 = 5 + 3 + 1'. Cf. A197911 and A080277. See also A120385.",
+				"(End)"
+			],
+			"example": [
+				"Examples for n = 1 through 8: {1}, {1}, {1,3}, {1,3,4}, {1,3,4,5}, {1,3,4,5}, {1,3,4,5,7}, {1,3,4,5,7}.",
+				"Binary expansion of 5 is 101, so Sum{i\u003e=0} b_i*(-1)^i = 2. Therefore a(5) = 10/3 + 2/3 = 4. - _Vladimir Shevelev_, Apr 15 2010"
+			],
+			"maple": [
+				"A050292:=n-\u003eadd((-1)^k*floor(n/2^k), k=0..n); seq(A050292(n), n=0..100); # _Wesley Ivan Hurt_, Feb 14 2014"
+			],
+			"mathematica": [
+				"a[n_] := a[n] = If[n \u003c 2, 1, n - a[Floor[n/2]]]; Table[ a[n], {n, 1, 75}]",
+				"Join[{0},Accumulate[Nest[Flatten[#/.{0-\u003e{1,1},1-\u003e{1,0}}]\u0026,{0},7]]] (* _Harvey P. Dale_, Apr 29 2018 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c2,1,n-a(floor(n/2)))",
+				"(Haskell)",
+				"a050292 n = a050292_list !! (n-1)",
+				"a050292_list = scanl (+) 0 a035263_list",
+				"-- _Reinhard Zumkeller_, Jan 21 2013"
+			],
+			"xref": [
+				"Cf. A001045, A050291-A050296, A050321, A035263.",
+				"Cf. A121701, A030308, A080277, A120385, A197911."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "0,4",
+			"author": "_Eric W. Weisstein_",
+			"ext": [
+				"Extended with formula by _Christian G. Bower_, Sep 15 1999",
+				"Corrected and extended by _Reinhard Zumkeller_, Aug 16 2006",
+				"Extended with formula by _Philippe Deléham_, Oct 19 2011",
+				"Entry revised to give a simpler definition by _N. J. A. Sloane_, Jan 03 2014"
+			],
+			"references": 20,
+			"revision": 75,
+			"time": "2019-04-20T11:54:08-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51532,
+			"data": "1,2,3,4,5,7,9,11,13,15,17,19,23,25,29,31,33,35,37,41,43,45,47,49,51,53,59,61,65,67,69,71,73,77,79,83,85,87,89,91,95,97,99,101,103,107,109,113,115,119,121,123,127,131,133,137,139,141,143,145,149,151,153,157,159,161",
+			"name": "The Abelian orders (or Abelian numbers): n such that every group of order n is Abelian.",
+			"comment": [
+				"Except for a(2)=2 and a(4)=4, all of the terms in the sequence are odd. This is because of the existence of a non-Abelian dihedral group of order 2n for each n\u003e2.",
+				"Cubefree terms of A056867; A212793(a(n)) = 1. - _Reinhard Zumkeller_, Jun 28 2013"
+			],
+			"reference": [
+				"W. R. Scott, Group Theory, Dover, 1987, page 217."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A051532/b051532.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"J. Pakianathan and K. Shankar, \u003ca href=\"http://www.jstor.org/stable/2589118\"\u003eNilpotent Numbers\u003c/a\u003e, Amer. Math. Monthly, 107, August-September 2000, pp. 631-634.",
+				"\u003ca href=\"/index/Gre#groups\"\u003eIndex entries for sequences related to groups\u003c/a\u003e"
+			],
+			"formula": [
+				"n must be cubefree and its prime divisors must satisfy certain congruences.",
+				"Let the prime factorization of n be p1^e1...pr^er. Then n is in this sequence if ei\u003c3 for all i and pi^k does not equal 1 (mod pj) for all i and j and 1 \u003c= k \u003c= ei. - _T. D. Noe_, Mar 25 2007"
+			],
+			"example": [
+				"a(4)=4 because every group of order 4 is Abelian."
+			],
+			"mathematica": [
+				"isA051532[n_] := Catch[f = FactorInteger[n]; v = f[[All, 1]]; lv = Length[v]; For[i = 1, i \u003c= lv, i++, If[f[[i, 2]] \u003e 2, Throw[False], v[[i]] = f[[i, 1]]^f[[i, 2]]]]; For[i = 1, i \u003c= lv, i++, For[j = i + 1, j \u003c= lv, j++, If[Mod[v[[i]], f[[j, 1]]] == 1 || Mod[v[[j]], f[[i, 1]]] == 1, Throw[False]]]]; Throw[True]]; Select[Range[200], isA051532] (* _Jean-François Alcover_, May 03 2012, after PARI *)"
+			],
+			"program": [
+				"(PARI) is(n)=my(f=factor(n),v=vector(#f[,1])); for(i=1,#v, if(f[i,2]\u003e2, return(0), v[i]=f[i,1]^f[i,2])); for(i=1,#v, for(j=i+1,#v, if(v[i]%f[j,1]==1 || v[j]%f[i,1]==1, return(0)))); 1 \\\\ _Charles R Greathouse IV_, Feb 13 2011",
+				"(Haskell)",
+				"a051532 n = a051532_list !! (n-1)",
+				"a051532_list = filter ((== 1) . a212793) a056867_list",
+				"-- _Reinhard Zumkeller_, Jun 28 2013"
+			],
+			"xref": [
+				"Subsequence of A056867; complement of A060652.",
+				"Cf. A003277, A064899."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,2",
+			"author": "_Des MacHale_",
+			"references": 20,
+			"revision": 34,
+			"time": "2017-05-05T10:57:38-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 53220,
+			"data": "1,5,16,44,112,272,640,1472,3328,7424,16384,35840,77824,167936,360448,770048,1638400,3473408,7340032,15466496,32505856,68157440,142606336,297795584,620756992,1291845632,2684354560,5570035712,11542724608,23890755584,49392123904",
+			"name": "a(n) = (3*n-1) * 2^(n-2).",
+			"comment": [
+				"Coefficients in the hypergeometric series identity 1 - 5*x/(x + 4) + 16*x*(x - 1)/((x + 4)*(x + 6)) - 44*x*(x - 1)*(x - 2)/((x + 4)*(x + 6)*(x + 8)) + ... = 0, valid in the half-plane Re(x) \u003e 0. Cf. A276289. - _Peter Bala_, May 30 2019"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A053220/b053220.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e",
+				"F. K. Hwang and C. L. Mallows, \u003ca href=\"http://dx.doi.org/10.1016/0097-3165(95)90097-7\"\u003eEnumerating nested and consecutive partitions\u003c/a\u003e, J. Combin. Theory Ser. A 70 (1995), no. 2, 323-333.",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (4,-4)."
+			],
+			"formula": [
+				"G.f.: x*(1+x)/(1-2*x)^2.",
+				"a(n) = (3*n-1) * 2^(n-2).",
+				"E.g.f.: exp(2*x)*(1+3*x). The sequence 0, 1, 5, 16, ... has a(n) = ((3n-1)*2^n + 0^n)/4 (offset 0). It is the binomial transform of A032766. The sequence 1, 5, 16, ... has a(n) = (2+3n)*2^(n-1) (offset 0). It is the binomial transform of A016777. - _Paul Barry_, Jul 23 2003",
+				"Row sums of A132776(n-1). - _Gary W. Adamson_, Aug 29 2007",
+				"a(n+1) = det(f(i-j+1))_{1 \u003c= i, j \u003c= n}, where f(0) = 1, f(1) = 5 and for k \u003e 0, we have f(k+1) = 9 and f(-k) = 0. - _Mircea Merca_, Jun 23 2012"
+			],
+			"mathematica": [
+				"ListCorrelate[{1, 1}, Table[n 2^(n - 1), {n, 0, 28}]] (* or *) ListConvolve[{1, 1}, Table[n 2^(n - 1), {n, 0, 28}]] (* _Ross La Haye_, Feb 24 2007 *)",
+				"LinearRecurrence[{4, -4}, {1, 5}, 35] (* _Vladimir Joseph Stephan Orlovsky_, Jan 29 2012 *)",
+				"Array[(3# - 1) 2^(# - 2) \u0026, 35] (* _Alonso del Arte_, Sep 04 2018 *)",
+				"CoefficientList[Series[(1 + x)/(1 - 2 * x)^2, {x, 0, 50}], x] (* _Stefano Spezia_, Sep 04 2018 *)"
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c1,0,(3*n-1)*2^(n-2))",
+				"(PARI) a(n)=(3*n-1)\u003c\u003c(n-2) \\\\ _Charles R Greathouse IV_, Apr 17 2012",
+				"(MAGMA) [(3*n-1)*2^(n-2): n in [1..50]]; // _Vincenzo Librandi_, May 09 2011",
+				"(Haskell)",
+				"a053220 n = a056242 (n + 1) n  -- _Reinhard Zumkeller_, May 08 2014"
+			],
+			"xref": [
+				"Cf. A053219, A053221, A132776, A276289.",
+				"Center elements from triangle A053218. Also a diagonal of triangle A056242."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "Asher Auel (asher.auel(AT)reed.edu), Jan 01 2000",
+			"references": 20,
+			"revision": 53,
+			"time": "2019-06-03T01:17:44-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 55483,
+			"data": "1,2,3,4,5,6,7,8,9,1,11,3,1,1,3,1,1,9,1,2,3,22,1,6,1,2,9,2,1,3,1,1,33,1,1,9,1,1,3,4,1,6,1,44,9,2,1,12,1,5,3,1,1,9,55,1,3,1,1,6,1,2,9,2,1,66,1,2,3,7,1,9,1,1,3,1,77,3,1,8,9,2,1,12,1,2,3,88,1,9,1,1,3,1,1,3,1,1,99,1,101,3,1,1,3,1,1,9,1,11,111",
+			"name": "GCD of n and the reverse of n.",
+			"comment": [
+				"a(A226778(n)) = 1; a(A071249(n)) \u003e 1. - _Reinhard Zumkeller_, Jun 18 2013",
+				"a(n) == n iff n is in A002113. - _Felix Fröhlich_, Oct 28 2014"
+			],
+			"link": [
+				"T. D. Noe and Indranil Ghosh, \u003ca href=\"/A055483/b055483.txt\"\u003eTable of n, a(n) for n = 1..50000\u003c/a\u003e (first 1000 terms from T. D. Noe)"
+			],
+			"formula": [
+				"a(n) = gcd(n, A004086(n)). - _Felix Fröhlich_, Oct 28 2014"
+			],
+			"example": [
+				"a(12) = 3 since gcd(12,21) = 3. a(101) = gcd(101,101) = 101."
+			],
+			"maple": [
+				"R:=proc(q) local x,k; x:=convert(q,base,10);",
+				"add(x[k]*10^(nops(x)-k),k=1..nops(x)); end:",
+				"seq(gcd(i,R(i)),i=1..111); # _Paolo P. Lava_, Mar 02 2018"
+			],
+			"mathematica": [
+				"gcn[n_]:=GCD[n,IntegerReverse[n]]; Array[gcn,120] (* _Harvey P. Dale_, Jan 23 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a055483 n = gcd n $ a004086 n  -- _Reinhard Zumkeller_, Jun 18 2013",
+				"(PARI) a004086(n)=eval(concat(Vecrev(Str(n))))",
+				"a(n)=gcd(n, a004086(n)) \\\\ _Felix Fröhlich_, Oct 28 2014",
+				"(MAGMA) [Gcd(n, Seqint(Reverse(Intseq(n)))): n in [1..100]]; // _Vincenzo Librandi_, Oct 29 2014"
+			],
+			"xref": [
+				"Different from A069652."
+			],
+			"keyword": "base,easy,nonn,nice",
+			"offset": "1,2",
+			"author": "_Erich Friedman_, Jun 27 2000",
+			"ext": [
+				"Edited by _Robert G. Wilson v_, Apr 10 2002"
+			],
+			"references": 20,
+			"revision": 39,
+			"time": "2018-03-02T03:22:47-05:00",
+			"created": "2000-07-22T03:00:00-04:00"
+		},
+		{
+			"number": 56768,
+			"data": "1,1,2,3,6,9,17,23,40,87,111,219,336,413,614,1083,1850,2198,3630,5007,5861,9282,12488,19232,33439,43709,49871,64671,73506,94625,221265,279516,394170,441250,766262,853692,1175344,1608014,1975108,2675925",
+			"name": "Number of partitions of the n-th prime into prime parts.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A056768/b056768.txt\"\u003eTable of n, a(n) for n = 1..4000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000607(prime(n)).",
+				"a(n) = A168470(n) + 1. - _Alonso del Arte_, Feb 15 2014, restating the corresponding formula given by _R. J. Mathar_ for A168470.",
+				"a(n) = [x^prime(n)] Product_{k\u003e=1} 1/(1 - x^prime(k)). - _Ilya Gutkovskiy_, Jun 05 2017"
+			],
+			"example": [
+				"a(4) = 3 because the 4th prime is 7 which can be partitioned using primes in 3 ways: 7, 5 + 2, or 3 + 2 + 2.",
+				"In connection with the 6th prime 13, for instance, we have the a(6) = 9 prime partitions: 13 = 2 + 2 + 2 + 2 + 2 + 3 = 2 + 2 + 2 + 2 + 5 = 2 + 2 + 2 + 7 = 2 + 2 + 3 + 3 + 3 = 2 + 3 + 3 + 5 = 2 + 11 = 3 + 3 + 7 = 3 + 5 + 5."
+			],
+			"maple": [
+				"b:= proc(n, i) option remember; `if`(n=0 or i=2",
+				"       and n::even, 1, `if`(i=2 or n=1, 0,",
+				"       b(n, prevprime(i)))+`if`(i\u003en, 0, b(n-i, i)))",
+				"    end:",
+				"a:= n-\u003e b(ithprime(n)$2):",
+				"seq(a(n), n=1..50);  # _Alois P. Heinz_, Sep 15 2016"
+			],
+			"mathematica": [
+				"Table[Count[IntegerPartitions[n],_?(AllTrue[#,PrimeQ]\u0026)],{n,Prime[ Range[ 40]]}] (* The program uses the AllTrue function from Mathematica version 10 *) (* _Harvey P. Dale_, Mar 07 2015 *)",
+				"n=40;ser=Product[1/(1-x^Prime[i]),{i,1,n}];Table[SeriesCoefficient[ser,{x,0,Prime[i]}],{i,1,n}] (* _Gus Wiseman_, Sep 14 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a056768 = a000607 . a000040  -- _Reinhard Zumkeller_, Aug 05 2012"
+			],
+			"xref": [
+				"Cf. A000041, A000607, A100118, A276687, A070215 (distinct parts)."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Brian Galebach_, Aug 16 2000",
+			"ext": [
+				"More terms from _James A. Sellers_, Aug 25 2000"
+			],
+			"references": 20,
+			"revision": 29,
+			"time": "2019-09-03T12:42:42-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 57705,
+			"data": "5,29,2309,30029,304250263527209,23768741896345550770650537601358309,19361386640700823163471425054312320082662897612571563761906962414215012369856637179096947335243680669607531475629148240284399976569",
+			"name": "Primorial primes: primes p such that p+1 is a primorial number (A002110).",
+			"link": [
+				"Chris K. Caldwell's The Top Twenty, \u003ca href=\"http://primes.utm.edu/top20/page.php?id=5\"\u003ePrimorial\u003c/a\u003e.",
+				"Romeo Mestrovic, \u003ca href=\"https://arxiv.org/abs/1202.3670\"\u003eEuclid's theorem on the infinitude of primes: a historical survey of its proofs (300 BC--2012) and another new proof\u003c/a\u003e, arXiv preprint arXiv:1202.3670 [math.HO], 2012. - _N. J. A. Sloane_, Jun 13 2012"
+			],
+			"formula": [
+				"a(n) = A002110(A057704(n)) - 1."
+			],
+			"mathematica": [
+				"Select[FoldList[Times, 1, Prime[Range[70]]], PrimeQ[# - 1] \u0026] - 1 (* _Harvey P. Dale_, Jan 27 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a057705 n = a057705_list !! (n-1)",
+				"a057705_list = filter ((== 1) . a010051) a057588_list",
+				"-- _Reinhard Zumkeller_, Mar 27 2013"
+			],
+			"xref": [
+				"See A006794 and A057704 (the main entries for this sequence) for more terms. Cf. A014545, A002110.",
+				"Cf. A010051; subsequence of A057588."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_Labos Elemer_, Oct 24 2000",
+			"references": 20,
+			"revision": 28,
+			"time": "2018-03-16T04:35:28-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 58369,
+			"data": "0,1,9,10,18,19,45,46,55,90,99,100,145,180,189,190,198,199,289,351,361,369,379,388,450,451,459,460,468,495,496,550,558,559,568,585,595,639,729,739,775,838,855,900,954,955,990,999,1000,1098,1099,1179,1188,1189",
+			"name": "Numbers n such that n and n^2 have same digit sum.",
+			"comment": [
+				"A007953(a(n)) = A004159(a(n)). - _Reinhard Zumkeller_, Apr 25 2009",
+				"It is interesting that the graph of this sequence appears almost identical as the maximum value of n increases by factors of 10. Compare the graph of the b-file (having numbers up to 10^6) with the plot of the terms up to 10^8. - _T. D. Noe_, Apr 28 2012",
+				"If iterated digit sum (A010888, A056992) is used instead of just digit sum (A007953, A004159), we get A090570 of which this sequence is a subset. - _Jeppe Stig Nielsen_, Feb 18 2015",
+				"Hare, Laishram, \u0026 Stoll show that this sequence (indeed, even its subsequence A254066) is infinite. In particular for each k in {846, 847, 855, 856, 864, 865, 873, ...} there are infinitely many terms in this sequence not divisible by 10 that have digit sum k. - _Charles R Greathouse IV_, Aug 25 2015",
+				"There are infinitely many n such that both n and n+1 are in the sequence.  This includes A002283. - _Robert Israel_, Aug 26 2015"
+			],
+			"link": [
+				"Zak Seidov, \u003ca href=\"/A058369/b058369.txt\"\u003eTable of n, a(n) for n = 1..8354\u003c/a\u003e (to a(n) = 10^6)",
+				"K. G. Hare, S. Laishram, and T. Stoll, \u003ca href=\"http://arxiv.org/abs/1001.4170\"\u003eThe sum of digits of n and n^2\u003c/a\u003e, International Journal of Number Theory 7:7 (2011), pp. 1737-1752.",
+				"T. D. Noe, \u003ca href=\"/A058369/a058369.gif\"\u003ePlot of terms up to 10^8\u003c/a\u003e"
+			],
+			"example": [
+				"Digit sum of 9 = 9 9^2 = 81, 8+1 = 9 digit sum of 145 = 1+4+5 = 10 145^2 = 21025, 2+1+0+2+5 = 10 digit sum of 954 = 9+5+4 = 18 954^2 = 910116, 9+1+0+1+1+6 = 18. - Florian Roeseler (hazz_dollazz(AT)web.de), May 03 2010"
+			],
+			"maple": [
+				"P:=proc(n) local i,k,w,x; for i from 1 by 1 to n do w:=0; k:=i; while k\u003e0 do w:=w+k-(trunc(k/10)*10); k:=trunc(k/10); od; x:=0; k:=i^2; while k\u003e0 do x:=x+k-(trunc(k/10)*10); k:=trunc(k/10); od; if x=w then print(i); fi; od; end: P(10000); # _Paolo P. Lava_, Nov 30 2007",
+				"sd := proc (n) options operator, arrow: add(convert(n, base, 10)[j], j = 1 .. nops(convert(n, base, 10))) end proc: a := proc (n) if sd(n) = sd(n^2) then n else end if end proc; seq(a(n), n = 0 .. 1400); # _Emeric Deutsch_, May 11 2010",
+				"select(t -\u003e convert(convert(t,base,10),`+`)=convert(convert(t^2,base,10),`+`),",
+				"[seq(seq(9*i+j,j=0..1),i=0..1000)]); # _Robert Israel_, Aug 26 2015"
+			],
+			"mathematica": [
+				"Select[Range[0,1200],Total[IntegerDigits[#]]==Total[IntegerDigits[ #^2]]\u0026] (* _Harvey P. Dale_, Jun 14 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"import Data.Function (on)",
+				"a058369 n = a058369_list !! (n-1)",
+				"a058369_list =",
+				"   elemIndices 0 $ zipWith ((-) `on` a007953) [0..] a000290_list",
+				"-- _Reinhard Zumkeller_, Aug 17 2011",
+				"(PARI) is(n)=sumdigits(n)==sumdigits(n^2) \\\\ _Charles R Greathouse IV_, Aug 25 2015",
+				"(MAGMA) [n: n in [0..1200] |(\u0026+Intseq(n)) eq (\u0026+Intseq(n^2))]; // _Vincenzo Librandi_, Aug 26 2015"
+			],
+			"xref": [
+				"Cf. A002283, A007953, A058370, A058852, A077436, A254066.",
+				"Cf. A147523 (number of numbers in each decade)."
+			],
+			"keyword": "base,easy,nice,nonn",
+			"offset": "1,3",
+			"author": "_G. L. Honaker, Jr._, Dec 17 2000",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, May 30 2010"
+			],
+			"references": 20,
+			"revision": 63,
+			"time": "2015-08-26T04:00:09-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

@@ -1,0 +1,404 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4590,
+	"results": [
+		{
+			"number": 30099,
+			"data": "1,11,15,33,39,71,91,173,175,179,211,259,335,3337,4631,5597,7353,12415,21353,22893,25799,69491,110011,124975,199831,227353,237151,462815,492415,708415,1100033,2393695,2620611,5088493,5828415,7204417,8320335,11164415,11689633",
+			"name": "Numbers n such that n^3 has only odd digits.",
+			"link": [
+				"Max Alekseyev, \u003ca href=\"/A030099/b030099.txt\"\u003eTable of n, a(n) for n = 1..151\u003c/a\u003e"
+			],
+			"mathematica": [
+				"fQ[n_] := Union@ OddQ@ IntegerDigits[n^3] == {True}; Select[2 Range[3*10^6] - 1, fQ] (* _Robert G. Wilson v_, Aug 13 2011 *)",
+				"Select[Range[12*10^6],AllTrue[IntegerDigits[#^3],OddQ]\u0026] (* The program uses the AllTrue function from Mathematica version 10 *) (* _Harvey P. Dale_, Apr 14 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersect)",
+				"a030099 n = a030099_list !! (n-1)",
+				"a030099_list = filter (null . (intersect \"86420\") . show . (^ 3)) [1,3..]",
+				"-- _Reinhard Zumkeller_, Aug 13 2011"
+			],
+			"xref": [
+				"Cf. A000578, A030100, A034376, A052004."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "1,2",
+			"author": "_Patrick De Geest_",
+			"ext": [
+				"a(36)-a(75) from _Reinhard Zumkeller_, Aug 13 2011",
+				"a(76)-a(151) from _Max Alekseyev_, Oct 17 2017"
+			],
+			"references": 5,
+			"revision": 25,
+			"time": "2017-10-17T16:08:38-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 31444,
+			"data": "4,17,18,20,24,67,69,70,73,74,76,81,82,84,88,97,98,100,104,112,263,267,269,270,275,277,278,281,282,284,291,293,294,297,298,300,305,306,308,312,323,325,326,329,330,332,337,338,340,344",
+			"name": "In base 2 has one more 0's than 1's.",
+			"comment": [
+				"If m is a term, then also 4*m+1; A037861(a(n)) = 1. - _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A031444/b031444.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a031444 n = a031444_list !! (n-1)",
+				"a031444_list = filter ((== 1) . a037861) [1..]",
+				"-- _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"xref": [
+				" Cf. A023416, A000120, A031448, A095072 (subsequence), subsequence of A089648."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Clark Kimberling_",
+			"references": 5,
+			"revision": 7,
+			"time": "2015-03-31T17:32:45-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 31944,
+			"data": "11,15,19,21,29,32,33,34,35,38,42,45,46,47,48,51,55,57,58,59,61,63,64,65,66,69,73,75,83,86,87,88,89,92,95,96,97,98,99,100,101,102,103,104,105,106,107,110,113,114,115,116,119,123,126",
+			"name": "n-th number in which 0,1,2 all occur in base 3.",
+			"comment": [
+				"A043530(a(n)) = 3; complement of A154314. [From _Reinhard Zumkeller_, Jan 07 2009]",
+				"A212193(a(n)) = 3. [_Reinhard Zumkeller_, May 04 2012]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A031944/b031944.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Ternary.html\"\u003eTernary\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PandigitalNumber.html\"\u003ePandigital Number\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ternary_numeral_system\"\u003eTernary numeral system\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Pandigital_number\"\u003ePandigital number\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[200],Min[DigitCount[#,3]]\u003e0\u0026] (* _Harvey P. Dale_, Nov 21 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a031944 n = a031944_list !! (n-1)",
+				"a031944_list = elemIndices 3 a212193_list",
+				"-- _Reinhard Zumkeller_, May 04 2012"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Clark Kimberling_",
+			"references": 5,
+			"revision": 13,
+			"time": "2015-11-21T09:27:47-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 32358,
+			"data": "0,1,1,2,1,2,2,2,2,3,2,3,2,3,3,4,2,3,3,3,3,4,3,4,3,3,3,4,3,4,4,4,4,4,3,4,3,4,4,5,3,4,4,4,4,5,4,4,4,5,4,5,3,5,4,4,4,5,4,5,4,4,5,5,4,5,5,5,4,5,4,5,4,5,4,5,4,5,5",
+			"name": "Number of iterations of phi(n) needed to reach 2.",
+			"comment": [
+				"This sequence is additive (but not completely additive). [_Charles R Greathouse IV_, Oct 28 2011]",
+				"Shapiro asks for a proof that for every n \u003e 1 there is a prime p such that a(p) = n. [_Charles R Greathouse IV_, Oct 28 2011]",
+				"This is A003434(n)-1 for n\u003e1. - _N. J. A. Sloane_, Sep 02 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A032358/b032358.txt\"\u003eTable of n, a(n) for n = 2..10000\u003c/a\u003e",
+				"P. A. Catlin, \u003ca href=\"http://www.jstor.org/stable/2316857\"\u003eConcerning the iterated phi-function\u003c/a\u003e, Amer Math. Monthly 77 (1970), pp. 60-61.",
+				"Paul Erdős, Andrew Granville, Carl Pomerance and Claudia Spiro, \u003ca href=\"http://math.dartmouth.edu/~carlp/iterate.pdf\"\u003eOn the normal behavior of the iterates of some arithmetic functions\u003c/a\u003e, Analytic number theory, Birkhäuser Boston, 1990, pp. 165-204.",
+				"Paul Erdos, Andrew Granville, Carl Pomerance and Claudia Spiro, \u003ca href=\"/A000010/a000010_1.pdf\"\u003eOn the normal behavior of the iterates of some arithmetic functions\u003c/a\u003e, Analytic number theory, Birkhäuser Boston, 1990, pp. 165-204. [Annotated copy with A-numbers]",
+				"T. D. Noe, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL11/Noe/noe080107.html\"\u003ePrimes in classes of the iterated totient function\u003c/a\u003e, JIS 11 (2008) 08.1.2, sequence C(x).",
+				"Harold Shapiro, \u003ca href=\"http://www.jstor.org/stable/2303988\"\u003eAn arithmetic function arising from the phi function\u003c/a\u003e, Amer. Math. Monthly, Vol. 50, No. 1 (1943), 18-30."
+			],
+			"formula": [
+				"a(n) = a(phi(n))+1, a(1) = -1. - _Vladeta Jovovic_, Apr 29 2003",
+				"a(n) = A003434(n) - 1 = A049108(n) - 2.",
+				"From _Charles R Greathouse IV_, Oct 28 2011:  (Start)",
+				"Shapiro proves that log_3(n/2) \u003c= a(n) \u003c log_2(n) and also",
+				"a(mn) = a(m) + a(n) if either m or n is odd and a(mn) = a(m) + a(n) + 1 if m and n are even.",
+				"(End)"
+			],
+			"maple": [
+				"A032358 := proc(n)",
+				"    local a,phin ;",
+				"    if n \u003c=2 then",
+				"        0;",
+				"    else",
+				"        phin := n ;",
+				"        a := 0 ;",
+				"        for a from 1 do",
+				"            phin := numtheory[phi](phin) ;",
+				"            if phin = 2 then",
+				"                return a;",
+				"            end if;",
+				"        end do:",
+				"    end if;",
+				"end proc:",
+				"seq(A032358(n),n=1..30) ; # _R. J. Mathar_, Aug 28 2015"
+			],
+			"mathematica": [
+				"Table[Length[NestWhileList[EulerPhi[#]\u0026,n,#\u003e2\u0026]]-1,{n,3,80}] (* _Harvey P. Dale_, May 01 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a032358 = length . takeWhile (/= 2) . (iterate a000010)",
+				"-- _Reinhard Zumkeller_, Oct 27 2011",
+				"(PARI) a(n)=my(t);while(n\u003e2,n=eulerphi(n);t++);t \\\\ _Charles R Greathouse IV_, Oct 28 2011"
+			],
+			"xref": [
+				"Cf. A000010, A003434."
+			],
+			"keyword": "nice,nonn,easy",
+			"offset": "2,4",
+			"author": "Ursula Gagelmann (gagelmann(AT)altavista.net)",
+			"ext": [
+				"a(2) = 0 added and offset adjusted, suggested by _David W. Wilson_"
+			],
+			"references": 5,
+			"revision": 48,
+			"time": "2017-09-02T14:26:09-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 33958,
+			"data": "1,3,7,9,25,27,73,97,129,171,231,313,327,703,871,1161,2463,2919,3711,6171,10971,13255,17647,23529,26623,34239,35655,52527,77031,106239,142587,156159,216367,230631,410011,511935,626331,837799,1117065,1501353,1723519,2298025,3064033",
+			"name": "In the '3x+1' problem, these values for the starting value set new records for number of steps to reach 1.",
+			"comment": [
+				"Only the 3x+1 steps, not the halving steps, are counted."
+			],
+			"reference": [
+				"D. R. Hofstadter, Goedel, Escher, Bach: an Eternal Golden Braid, Random House, 1980, p. 400.",
+				"B. Hayes, Computer Recreations: On the ups and downs of hailstone numbers, Scientific American, 250 (No. 1, 1984), pp. 10-16.",
+				"G. T. Leavens and M. Vermeulen, 3x+1 search problems, Computers and Mathematics with Applications, 24 (1992), 79-99."
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A033958/b033958.txt\"\u003eTable of n, a(n) for n = 1..71\u003c/a\u003e",
+				"\u003ca href=\"/index/Go#GEB\"\u003eIndex entries for sequences from \"Goedel, Escher, Bach\"\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"mathematica": [
+				"f[ nn_ ] := Module[ {c, n}, c = 0; n = nn; While[ n != 1, If[ Mod[ n, 2 ] == 0, n /= 2, n = 3*n + 1; c++ ] ]; Return[ c ] ] maxx = -1; For[ n = 1, n \u003c= 10^8, n++, Module[ {val}, val = f[ n ]; If[ val \u003e maxx, maxx = val; Print[ n, \" \", val ] ] ] ] (* Winston C. Yang (winston(AT)cs.wisc.edu), Aug 27 2000 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033958 n = a033958_list !! (n-1)",
+				"-- For definition of a033958_list: see A033959.",
+				"-- _Reinhard Zumkeller_, Jan 08 2014"
+			],
+			"xref": [
+				"Cf. A006884, A006885, A006877, A006878, A033492, A033959."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _Jud McCranie_, Jan 26 2000",
+				"Corrected with Mathematica code by Winston C. Yang (winston(AT)cs.wisc.edu), Aug 27 2000",
+				"a(40)-a(43) from _Charles R Greathouse IV_, Oct 07 2013"
+			],
+			"references": 5,
+			"revision": 30,
+			"time": "2019-10-22T19:45:43-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34304,
+			"data": "22,25,27,32,33,35,52,55,57,72,75,77,111,117,119,171,371,411,413,417,437,471,473,611,671,711,713,731,1379,1397,1673,1739,1937,1991,2233,2277,2571,2577,2811,3113,3131,3173,3311,3317,3479,4199,4331,4433,4439",
+			"name": "Nonprime; becomes prime if any digit is deleted (zeros not allowed in the number).",
+			"comment": [
+				"From _David A. Corneth_, Sep 14 2019: (Start)",
+				"Terms can't contain digits of the form 0 (mod 3), 1 (mod 3) and 2 (mod 3) as then one can remove a digit to get a multiple of 3. Classifying digits mod 3 could give further restrictions on the frequency of digits per class.",
+				"For example, let (d0, d1, d2) be the frequency of digits from each residue class mod 3 respectively. Then a term can't be of the form (0, 2, 3) as removing a digit from the class 2 (mod 3) gives a multiple of 3. (End)"
+			],
+			"link": [
+				"David A. Corneth, \u003ca href=\"/A034304/b034304.txt\"\u003eTable of n, a(n) for n = 1..502\u003c/a\u003e (first 200 terms from T. D. Noe, terms n = 201..299 from R. Zumkeller, terms \u003c= 10^11)."
+			],
+			"mathematica": [
+				"With[{nn=5000},Select[Complement[Range[10,nn],Prime[Range[ PrimePi[ nn]]]], DigitCount[#,10,0]==0\u0026\u0026And@@PrimeQ[FromDigits/@Subsets[ IntegerDigits[#],{IntegerLength[#]-1}]]\u0026]] (* _Harvey P. Dale_, Apr 06 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034304 n = a034304_list !! (n-1)",
+				"a034304_list = map read $ filter (f \"\") $",
+				"               map show $ dropWhile (\u003c 10) a259315_list :: [Integer] where",
+				"   f _ \"\" = True",
+				"   f us (v:vs) = a010051' (read (us ++ vs)) == 1 \u0026\u0026 f (us ++ [v]) vs",
+				"-- _Reinhard Zumkeller_, Jun 24 2015"
+			],
+			"xref": [
+				"Cf. A034302-A034305.",
+				"Cf. A010051, A259315."
+			],
+			"keyword": "base,nonn,nice",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"ext": [
+				"Definition corrected by _T. D. Noe_, Apr 02 2008"
+			],
+			"references": 5,
+			"revision": 34,
+			"time": "2019-09-27T02:53:37-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34676,
+			"data": "1,5,10,17,26,50,50,65,82,130,122,170,170,250,260,257,290,410,362,442,500,610,530,650,626,850,730,850,842,1300,962,1025,1220,1450,1300,1394,1370,1810,1700,1690,1682,2500,1850,2074,2132,2650,2210,2570,2402,3130",
+			"name": "Sum of squares of unitary divisors of n.",
+			"comment": [
+				"Also sum of unitary divisors of n^2. - _Vladeta Jovovic_, Nov 13 2001",
+				"If b(n,k)=sum of k-th powers of unitary divisors of n then b(n,k) is multiplicative with b(p^e,k)=p^(k*e)+1. - _Vladeta Jovovic_, Nov 13 2001"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A034676/b034676.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UnitaryDivisorFunction.html\"\u003eUnitary Divisor Function\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Unitary_divisor\"\u003eUnitary divisor\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative with a(p^e)=p^(2*e)+1.",
+				"Dirichlet g.f.: zeta(s)*zeta(s-2)/zeta(2*s-2). - _R. J. Mathar_, Mar 04 2011",
+				"Sum_{k=1..n} a(k) ~ 30 * Zeta(3) * n^3 / Pi^4. - _Vaclav Kotesovec_, Jan 11 2019"
+			],
+			"mathematica": [
+				"f[n_] := Block[{d = Divisors@ n}, Plus @@ (Select[d, GCD[#, n/#] == 1 \u0026]^2)]; Array[f, 50] (* _Robert G. Wilson v_, Mar 04 2011 *)"
+			],
+			"program": [
+				"(PARI) A034676_vec(len)={",
+				"        a000012=direuler(p=2,len, 1/(1-X)) ;",
+				"        a000290=direuler(p=2,len, 1/(1-p^2*X)) ;",
+				"        a000290x=direuler(p=2,len, 1-p^2*X^2) ;",
+				"        dirmul(dirmul(a000012,a000290),a000290x)",
+				"}",
+				"A034676_vec(70) ; /* via D.g.f., _R. J. Mathar_, Mar 05 2011 */",
+				"(Haskell)",
+				"a034676 = sum . map (^ 2) . a077610_row",
+				"-- _Reinhard Zumkeller_, Feb 12 2012"
+			],
+			"xref": [
+				"Cf. A034444, A034448, A034677, A034678-A034682.",
+				"Cf. A077610."
+			],
+			"keyword": "nonn,mult",
+			"offset": "1,2",
+			"author": "_Erich Friedman_",
+			"references": 5,
+			"revision": 24,
+			"time": "2019-01-11T12:59:20-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34871,
+			"data": "1,1,1,3,3,1,1,5,10,10,5,1,1,7,21,35,35,21,7,1,1,9,36,84,126,126,84,36,9,1,1,11,55,165,330,462,462,330,165,55,11,1,1,13,78,286,715,1287,1716,1716,1287,715,286,78,13,1,1,15,105,455,1365,3003,5005",
+			"name": "Odd-numbered rows of Pascal's triangle.",
+			"link": [
+				"Eduardo H. M. Brietzke, \u003ca href=\"http://www.fq.math.ca/Papers1/44-2/quarteduardobrietzke02_2006.pdf\"\u003eGeneralization of an identity of Andrews\u003c/a\u003e, Fibonacci Quart. 44 (2006), no. 2, 166-171."
+			],
+			"mathematica": [
+				"Take[Table[Binomial[n,m],{n,0,20},{m,0,n}],{2,-1,2}]//Flatten (* _Harvey P. Dale_, Dec 10 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a034871 n = a034871_list !! n",
+				"a034871_list = concat $ map ([1,1] ^) [1,3..]",
+				"instance Num a =\u003e Num [a] where",
+				"   fromInteger k = [fromInteger k]",
+				"   (p:ps) + (q:qs) = p + q : ps + qs",
+				"   ps + qs         = ps ++ qs",
+				"   (p:ps) * qs'@(q:qs) = p * q : ps * qs' + [p] * qs",
+				"   _ * _               = []",
+				"-- _Reinhard Zumkeller_, Apr 02 2011"
+			],
+			"xref": [
+				"Cf. A007318, A034870."
+			],
+			"keyword": "nonn,tabf,easy",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_.",
+			"references": 5,
+			"revision": 13,
+			"time": "2018-12-10T17:20:46-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 34877,
+			"data": "1,1,1,2,2,2,2,4,4,2,3,6,10,6,3,3,9,16,16,9,3,4,12,28,32,28,12,4,4,16,40,60,60,40,16,4,5,20,60,100,126,100,60,20,5,5,25,80,160,226,226,160,80,25,5,6,30,110,240,396,452,396,240,110,30,6,6,36,140,350,636,848",
+			"name": "Rows of (Pascal's triangle - Losanitsch's triangle) (n \u003e= 0, k \u003e= 0).",
+			"comment": [
+				"Same as A034852, but omitting the border of 0's."
+			],
+			"reference": [
+				"S. M. Losanitsch, Die Isomerie-Arten bei den Homologen der Paraffin-Reihe, Chem. Ber. 30 (1897), 1917-1926."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A034877/b034877.txt\"\u003eRows n=0..25 of triangle, flattened\u003c/a\u003e",
+				"Johann Cigler, \u003ca href=\"https://arxiv.org/abs/1711.03340\"\u003eSome remarks on Rogers-Szegö polynomials and Losanitsch's triangle\u003c/a\u003e, arXiv:1711.03340 [math.CO], 2017.",
+				"Johann Cigler, \u003ca href=\"https://homepage.univie.ac.at/johann.cigler/preprints/losanitsch3.pdf\"\u003eSome Pascal-like triangles\u003c/a\u003e, 2018.",
+				"S. M. Losanitsch, \u003ca href=\"/A000602/a000602_1.pdf\"\u003eDie Isomerie-Arten bei den Homologen der Paraffin-Reihe\u003c/a\u003e, Chem. Ber. 30 (1897), 1917-1926. (Annotated scanned copy)",
+				"N. J. A. Sloane, \u003ca href=\"/classic.html#LOSS\"\u003eClassic Sequences\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Lozani%C4%87%27s_triangle\"\u003eLosanitsch's triangle\u003c/a\u003e"
+			],
+			"example": [
+				"1; 1,1; 2,2,2; 2,4,4,2; 3,6,10,6,3; 3,9,16,16,9,3; ..."
+			],
+			"program": [
+				"(Haskell)",
+				"a034877 n k = a034877_tabl !! n !! k",
+				"a034877_row n = a034877_tabl !! n",
+				"a034877_tabl = map (init . tail) $ drop 2 a034852_tabl",
+				"-- _Reinhard Zumkeller_, Dec 16 2013"
+			],
+			"xref": [
+				"Cf. A007318, A034851, A034852.",
+				"Row sums are essentially A032085. Central column is A032095."
+			],
+			"keyword": "nonn,tabl,easy",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_.",
+			"ext": [
+				"More terms from _James A. Sellers_, May 04 2000"
+			],
+			"references": 5,
+			"revision": 21,
+			"time": "2018-07-31T18:36:49-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 35515,
+			"data": "0,1,2,3,13,5,15,25,8,18,28,38,138,13,113,213,313,1313,513,1513,2513,21,121,221,321,1321,521,1521,2521,821,1821,2821,3821,13821,34,134,234,334,1334,534,1534,2534,834,1834,2834,3834,13834,1334,11334,21334",
+			"name": "Zeckendorf expansion of n: repeatedly subtract the largest Fibonacci number you can until nothing remains.",
+			"reference": [
+				"Zeckendorf, E., Représentation des nombres naturels par une somme des nombres de Fibonacci ou de nombres de Lucas, Bull. Soc. Roy. Sci. Liège 41, 179-182, 1972."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A035515/b035515.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"N. J. A. Sloane, \u003ca href=\"/classic.html#WYTH\"\u003eClassic Sequences\u003c/a\u003e"
+			],
+			"example": [
+				"16 = 13 + 3, so a(16)=3_13 =\u003e 313."
+			],
+			"program": [
+				"(Haskell)",
+				"a035515 n = a035515_list !! (n-1)",
+				"a035515_list = map (read . concatMap show) a035517_tabf :: [Integer]",
+				"-- _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"xref": [
+				"Cf. A035517, A035514, A035516."
+			],
+			"keyword": "nonn,easy,base",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _James A. Sellers_, Dec 13 1999"
+			],
+			"references": 5,
+			"revision": 15,
+			"time": "2018-09-29T18:43:37-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		}
+	]
+}

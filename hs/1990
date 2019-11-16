@@ -1,0 +1,498 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1990,
+	"results": [
+		{
+			"number": 73490,
+			"data": "0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,1,1,0,0,0,1,0,1,0,0,0,0,1,1,0,0,0,1,1,1,0,1,0,1,0,1,0,0,0,1,1,1,0,0,1,1,1,1,0,0,0,1,1,0,1,1,0,1,1,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,0,0,1,1,1,1,1,0,0,1,1,1,0,1,0,1,0,1,0,0,0,2,1,1,0,1,1,1,1,1,1,0",
+			"name": "Number of prime gaps in factorization of n.",
+			"comment": [
+				"a(A000040(n))=0; a(A000961(n))=0; a(A006094(n))=0; a(A002110(n))=0; a(A073485(n))=0; a(A073486(n))\u003e0; a(A073487(n)) = 1; a(A073488(n))=2; a(A073489(n))=3;",
+				"a(n)=0 iff A073483(n) = 1.",
+				"a(A097889(n)) = 0. - _Reinhard Zumkeller_, Nov 20 2004",
+				"A137723(n) is the smallest number of the first occurring set of exactly n consecutive numbers with at least one prime gap in their factorization: a(A137723(n)+k)\u003e0 for 0\u003c=k\u003cn and a(A137723(n)-1)=a(A137723(n)+n)=0. - _Reinhard Zumkeller_, Feb 09 2008"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A073490/b073490.txt\"\u003eTable of n, a(n) for n = 1..50000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A073484(A007947(n)).",
+				"0 \u003c= a(m*n) \u003c= a(m) + a(n) + 1. A137794(n) = 0^a(n). - _Reinhard Zumkeller_, Feb 11 2008"
+			],
+			"example": [
+				"84=2*2*3*7 with one gap between 3 and 7, therefore a(84) = 1;",
+				"110=2*5*11 with two gaps: between 2 and 5 and between 5 and 11, therefore a(110)=2."
+			],
+			"maple": [
+				"A073490 := proc(n)",
+				"    local a,plist ;",
+				"    plist := sort(convert(numtheory[factorset](n),list)) ;",
+				"    a := 0 ;",
+				"    for i from 2 to nops(plist) do",
+				"        if op(i,plist) \u003c\u003e nextprime(op(i-1,plist)) then",
+				"            a := a+1 ;",
+				"        end if;",
+				"    end do:",
+				"    a;",
+				"end proc:",
+				"seq(A073490(n),n=1..110) ; # _R. J. Mathar_, Oct 27 2019"
+			],
+			"mathematica": [
+				"gaps[n_Integer/;n\u003e0]:=If[n===1, 0, Complement[Prime[PrimePi[Rest[ # ]]-1], # ]\u0026[First/@FactorInteger[n]]]; Table[Length[gaps[n]], {n, 1, 105}] (_Wouter Meeussen_, Oct 30 2004)",
+				"pa[n_, k_] := If[k == NextPrime[n], 0, 1]; Table[Total[pa @@@ Partition[First /@ FactorInteger[n], 2, 1]], {n, 120}] (* _Jayanta Basu_, Jul 01 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a073490 1 = 0",
+				"a073490 n = length $ filter (\u003e 1) $ zipWith (-) (tail ips) ips",
+				"   where ips = map a049084 $ a027748_row n",
+				"-- _Reinhard Zumkeller_, Jul 04 2012"
+			],
+			"xref": [
+				"Cf. A073491, A073492, A073493, A073494, A073495, A137721, A137722, A027748, A049084."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,110",
+			"author": "_Reinhard Zumkeller_, Aug 03 2002",
+			"ext": [
+				"More terms from _Franklin T. Adams-Watters_, May 19 2006"
+			],
+			"references": 17,
+			"revision": 24,
+			"time": "2019-10-27T08:49:52-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 73846,
+			"data": "1,2,4,3,6,5,8,7,9,11,10,13,12,17,14,19,15,23,16,29,18,31,20,37,21,41,22,43,24,47,25,53,26,59,27,61,28,67,30,71,32,73,33,79,34,83,35,89,36,97,38,101,39,103,40,107,42,109,44,113,45,127,46,131,48,137,49,139,50",
+			"name": "a(1) = 1; thereafter, every even-indexed term is prime and every odd-indexed term is composite.",
+			"comment": [
+				"Equals A067747 shifted by one position. a(n) = A067747(n-1) [for n\u003e1]. - _R. J. Mathar_, Apr 01 2007",
+				"From _Chayim Lowen_, Aug 12 2015: (Start)",
+				"Consider f(n,k) = a(f(n,k-1)) with f(n,0) = n. Let us also define f(n,k) for negative values of k as well using: f(n,k-1) = A073898(f(n,k)) where A073898(a(n)) = a(A073898(n)) = n. Let us denote the sequence {f(n,i)} for integers i by R#(n). It is clear that if a is a value in R#(b), R#(a) is just R#(b) with a different offset. Therefore, unless there is a need to do otherwise, let us denote each sequence by its lowest value. These sequences can only behave in one of two ways. They can either be periodic with f(n,m) = f(n,0) for some m, or they can include infinitely many distinct values. Here is the behavior of R#(n) for n\u003c=100:",
+				"   * R#(1), R#(2) and R#(9) are 1-cycles.",
+				"   * R#(3), R#(5), R#(7), R#(10) and R#(12) are 2-cycles.",
+				"   * R#(14), R#(62) and R#(84) are 3-cycles.",
+				"   * R#(92) is a 6-cycle.",
+				"   * R#(18) is a 22-cycle.",
+				"   * R#(34) (A261314) has been checked up to f(34,86) = 1091595086717, R#(42) up to f(42,108) = 106838266736, R#(50) up to f(50,98) = 1078406742163, R#(60) up to f(60,80) = 765456394363, R#(74) up to f(74,78) = 687059343029, R#(82) up to f(82,75) = 682580868743  R#(86) up to f(86,74) = 182831963148, R#(88) up to f(88,66) = 719074799059, and R#(98) up to f(98,88) = 641383978721 without repeated values. Hence, their periods are either extremely large or nonexistent (infinite). I conjecture that the latter is the case. Note that these sequences are not necessarily all distinct as any two may simply be the same sequence with a large offset.",
+				"For all other n\u003c=100, a(n) is included in one of the above sequences. (End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A073846/b073846.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(2*n-1) = A018252(n); a(2*n) = A000040(n). - _Reinhard Zumkeller_, Jan 29 2014",
+				"a(n) = A018252(ceiling(n/2))*A000035(n) + A000040(ceiling(n/2))*A059841(n), equivalent to _Reinhard Zumkeller_'s formula. - _Chayim Lowen_, Jul 29 2015",
+				"a(2n)/a(2n-1) ~ log(n). - _Thomas Ordowski_, Sep 10 2015"
+			],
+			"maple": [
+				"N:= 100: # to get a(1) to a(2*N).",
+				"p:= ithprime(N):",
+				"P,NP:= selectremove(isprime,[$1..p]):",
+				"seq(op([NP[i],P[i]]),i=1..N); # _Robert Israel_, Dec 22 2014"
+			],
+			"mathematica": [
+				"Composite[n_Integer] := FixedPoint[n + PrimePi[ # ] + 1 \u0026, n]; Join[{1}, Flatten[ Transpose[{Table[Prime[n], {n, 1, 35}], Table[Composite[n], {n, 1, 35}]}]]]",
+				"f[upto_]:=Module[{prs=Prime[Range[PrimePi[upto]]],comps},comps= Complement[ Range[upto],prs];Riffle[Take[comps,Length[prs]],prs]]; f[150] (* _Harvey P. Dale_, Dec 03 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a073846 n = a073846_list !! (n-1)",
+				"a073846_list = concat $ transpose [a018252_list, a000040_list]",
+				"-- _Reinhard Zumkeller_, Jan 29 2014"
+			],
+			"xref": [
+				"Cf. A002808, A018252, A000040, A261314."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,2",
+			"author": "_Amarnath Murthy_, Aug 14 2002",
+			"ext": [
+				"Edited by _Robert G. Wilson v_ and _Benoit Cloitre_, Aug 16 2002"
+			],
+			"references": 17,
+			"revision": 91,
+			"time": "2015-09-23T13:02:23-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75158,
+			"data": "0,1,2,3,5,4,10,7,6,11,21,8,42,20,9,15,85,12,170,23,22,43,341,16,13,84,14,40,682,19,1365,31,41,171,18,24,2730,340,86,47,5461,44,10922,87,17,683,21845,32,26,27,169,168,43690,28,45,80,342,1364,87381,39,174762",
+			"name": "Prime factorization of n+1 encoded with the run lengths of binary expansion.",
+			"comment": [
+				"a(2n) = 1 or 2 mod 4 and a(2n+1) = 0 or 3 mod 4 for all n \u003e 1"
+			],
+			"link": [
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 1 as 2 = 2^1, a(2) = 2 (10 in binary) as 3 = 3^1 * 2^0, a(3) = 3 (11) as 4 = 2^2, a(4) = 5 (101) as 5 = 5^1 * 3^0 * 2^0, a(5) = 4 (100) as 6 = 3^1 * 2^1, a(8) = 6 (110) as 9 = 3^2 * 2^0, a(11) = 8 (1000) as 12 = 3^1 * 2^2, a(89) = 35 (100011) as 90 = 5^1 * 3^2 * 2^1, a(90) = 90 (1011010) as 91 = 13^1 * 11^0 * 7^1 * 5^0 * 3^0 * 2^0.",
+				"The binary expansion of a(n) begins from the left with as many 1's as is the exponent of the largest prime present in the factorization of n+1 and from then on follows runs of ej+1 zeros and ones alternatively, where ej are the corresponding exponents of the successively lesser primes (0 if that prime does not divide n+1)."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a075158 = fromJust . (`elemIndex` a075157_list)",
+				"-- _Reinhard Zumkeller_, Aug 04 2014"
+			],
+			"xref": [
+				"Inverse of A075157. a(n) = A075160(n+1)-1. a(A006093(n)) = A000975(n). Cf. A059884."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Antti Karttunen_, Sep 13 2002",
+			"references": 17,
+			"revision": 7,
+			"time": "2014-08-04T15:19:58-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79066,
+			"data": "0,0,0,0,0,1,1,0,2,1,1,2,0,1,1,2,1,0,1,1,2,1,1,0,1,0,1,1,0,3,2,3,4,2,0,1,2,1,2,4,3,0,1,2,3,1,2,3,2,2,3,3,2,2,3,2,1,3,2,1,3,3,2,3,3,4,2,3,3,1,3,3,3,4,4,2,2,3,0,0,2,1,3,2,2,2,0,2,1,1,2,3,1,0,0,2,1,2,4,2,3,2,2,1,3",
+			"name": "\"Memory\" of prime(n): the number of (previous) primes contained as substrings in prime(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079066/b079066.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"A039997(prime(n)) - 1."
+			],
+			"example": [
+				"The primes contained as substrings in prime(3) = 113 are 3, 11, 13. Hence a(30) = 3. 113 is the smallest prime with memory = 3."
+			],
+			"mathematica": [
+				"ub = 105; tprime = Table[ToString[Prime[i]], {i, 1, ub}]; a = {}; For[i = 1, i \u003c= ub, i++, m = 0; For[j = 1, j \u003c i, j++, If[Length[StringPosition[tprime[[i]], tprime[[j]]]] \u003e 0, m = m + 1]]; a = Append[a, m]]; a"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a079066 n =",
+				"   length $ filter (`isInfixOf` (primesDec !! n)) $ take n primesDec",
+				"primesDec = \"_\" : map show a000040_list",
+				"-- _Reinhard Zumkeller_, Jul 19 2011"
+			],
+			"xref": [
+				"Cf. A079075, A035232.",
+				"Cf. A033274, A179909, A179910, A179911, A179912, A179913, A179914, A179915, A179916, A179917, A179918, A179919, A179922."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,9",
+			"author": "_Joseph L. Pe_, Feb 02 2003",
+			"ext": [
+				"Edited by _Robert G. Wilson v_, Feb 25 2003"
+			],
+			"references": 17,
+			"revision": 8,
+			"time": "2014-02-11T19:05:40-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79079,
+			"data": "3,6,12,24,42,63,90,120,180,240,304,399,462,528,648,810,930,1054,1224,1332,1480,1680,1890,2205,2499,2652,2808,2970,3135,3648,4224,4554,4830,5250,5700,6004,6478,6888,7308,7830,8190,8736,9312,9603,9900,10600",
+			"name": "a(n) = (prime(n)+1)*(prime(n+1)+1)/4.",
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A079079/b079079.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[(Prime[n] + 1)*(Prime[n + 1] + 1)/4, {n, 1, 50}] (* _G. C. Greubel_, Apr 25 2017 *)"
+			],
+			"program": [
+				"(PARI) a(n)=(prime(n)+1)*(prime(n+1)+1)/4 \\\\ _Charles R Greathouse IV_, Aug 21 2011",
+				"(Haskell)",
+				"a079079 n = a079079_list !! (n-1)",
+				"a079079_list = map (`div` 4) $",
+				"               zipWith (*) a008864_list $ tail a008864_list",
+				"-- _Reinhard Zumkeller_, Oct 08 2012",
+				"(Python)",
+				"from sympy import prime",
+				"def a(n): return (prime(n) + 1)*(prime(n + 1) + 1)/4 # _Indranil Ghosh_, Apr 26 2017"
+			],
+			"xref": [
+				"Cf. A079080, A079081, A079082, A079095, smallest, greatest factor: A079083, A079084, number of factors: A079085, A079086, A079087, number, sum of divisors: A079088, A079089, sum of prime factors: A079090, A079091, Euler's totient: A079092, squarefree kernel: A079093, arithmetic derivative: A079094."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 22 2002",
+			"references": 17,
+			"revision": 18,
+			"time": "2017-04-26T02:48:33-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 84600,
+			"data": "1,1,1,2,1,2,5,4,4,1,3,9,13,18,12,8,1,4,14,28,49,56,56,32,16,1,5,20,50,105,161,210,200,160,80,32,1,6,27,80,195,366,581,732,780,640,432,192,64,1,7,35,119,329,721,1337,2045,2674,2884,2632,1904,1120,448,128,1,8,44",
+			"name": "Triangle, read by rows, where the n-th row lists the (2n+1) coefficients of (1+x+2x^2)^n for n\u003e=0.",
+			"comment": [
+				"Triangle by rows, X^n * [1,0,0,0,...]; where X = an infinite tridiagonal matrix with (1,1,1,...) in the main and subdiagonals and (2,2,2,...) in the subsubdiagonal. Also, X = an infinite triangular matrix with (1,1,2,0,0,0,...) in each column. - _Gary W. Adamson_, May 26 2008",
+				"Row sums = (1, 4, 16, 64, 256,...). - _Gary W. Adamson_, May 26 2008"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A084600/b084600.txt\"\u003eRows n = 0..100, flattened\u003c/a\u003e",
+				"G. Farkas, G. Kallos and G. Kiss, \u003ca href=\"http://www.acta.sapientia.ro/acta-info/C3-2/info32-2.pdf\"\u003eLarge primes in generalized Pascal triangles\u003c/a\u003e, Acta Univ. Sapientiae, Informatica, 3, 2 (2011) 158-171."
+			],
+			"formula": [
+				"G.f.: G(0)/2, where G(k)= 1 + 1/( 1 - x^(2*k+1)*(1+x+2*x^2)/(x^(2*k+1)*(1+x+2*x^2) + 1/G(k+1) )); (continued fraction). - _Sergei N. Gladkovskii_, Jul 06 2013"
+			],
+			"example": [
+				"Triangle begins:",
+				"1,",
+				"1, 1,  2,",
+				"1, 2,  5,  4,   4,",
+				"1, 3,  9, 13,  18,  12,   8,",
+				"1, 4, 14, 28,  49,  56,  56,  32,  16,",
+				"1, 5, 20, 50, 105, 161, 210, 200, 160,  80,  32,",
+				"1, 6, 27, 80, 195, 366, 581, 732, 780, 640, 432, 192, 64,"
+			],
+			"maple": [
+				"f:= proc(n) option remember; expand((1+x+2*x^2)^n) end:",
+				"T:= (n,k)-\u003e coeff(f(n), x, k):",
+				"seq(seq(T(n, k), k=0..2*n), n=0..10);  # _Alois P. Heinz_, Apr 03 2011"
+			],
+			"mathematica": [
+				"t[n_, k_] := Coefficient[(1+x+2x^2)^n, x, k]; Table[t[n, k], {n, 0, 10}, {k, 0, 2 n}] // Flatten (* _Jean-François Alcover_, Feb 27 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a084600 n = a084600_list !! n",
+				"a084600_list = concat $ iterate ([1,1,2] *) [1]",
+				"instance Num a =\u003e Num [a] where",
+				"   fromInteger k = [fromInteger k]",
+				"   (p:ps) + (q:qs) = p + q : ps + qs",
+				"   ps + qs         = ps ++ qs",
+				"   (p:ps) * qs'@(q:qs) = p * q : ps * qs' + [p] * qs",
+				"   _ * _               = []",
+				"-- _Reinhard Zumkeller_, Apr 02 2011"
+			],
+			"xref": [
+				"Cf. A002426, A084601-A084615."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0,4",
+			"author": "_Paul D. Hanna_, Jun 01 2003",
+			"references": 17,
+			"revision": 28,
+			"time": "2015-04-17T09:11:58-04:00",
+			"created": "2003-09-13T03:00:00-04:00"
+		},
+		{
+			"number": 88567,
+			"data": "1,1,1,2,2,3,4,5,6,7,9,10,13,14,18,19,24,25,31,32,40,41,50,51,63,64,77,78,95,96,114,115,138,139,163,164,194,195,226,227,266,267,307,308,357,358,408,409,471,472,535,536,612,613,690,691,785,786,881,882,995,996,1110,1111",
+			"name": "Number of \"non-squashing\" partitions of n into distinct parts.",
+			"comment": [
+				"\"Non-squashing\" refers to the property that p_1 + p_2 + ... + p_i \u003c= p_{i+1} for all 1 \u003c= i \u003c k: if the parts are stacked in increasing size, at no point does the sum of the parts above a certain part exceed the size of that part."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A088567/b088567.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Amanda Folsom et al, \u003ca href=\"http://dx.doi.org/10.1016/j.disc.2015.12.019\"\u003eOn a general class of non-squashing partitions\u003c/a\u003e, Discrete Mathematics 339.5 (2016): 1482-1506.",
+				"Y. Homma, J. H. Ryu, B. Tong, \u003ca href=\"http://sumry.yale.edu/sites/default/files/files/Sequence_nonsquashing_partitions.pdf\"\u003eSequence non-squashing partitions\u003c/a\u003e, Slides from a talk, 2014.",
+				"O. J. Rodseth and J. A. Sellers, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL8/Sellers/sellers75.html\"\u003eOn a Restricted m-Non-Squashing Partition Function\u003c/a\u003e, Journal of Integer Sequences, Vol. 8 (2005), Article 05.5.4.",
+				"N. J. A. Sloane and J. A. Sellers, \u003ca href=\"https://arxiv.org/abs/math/0312418\"\u003eOn non-squashing partitions\u003c/a\u003e, arXiv:math/0312418 [math.CO], 2003.",
+				"N. J. A. Sloane and J. A. Sellers, \u003ca href=\"https://doi.org/10.1016/j.disc.2004.11.014\"\u003eOn non-squashing partitions\u003c/a\u003e, Discrete Math., 294 (2005), 259-274."
+			],
+			"formula": [
+				"a(0)=1, a(1)=1; and for m \u003e= 1, a(2m) = a(2m-1) + a(m) - 1, a(2m+1) = a(2m) + 1.",
+				"Or, a(0)=1, a(1)=1; and for m \u003e= 1, a(2m) = a(0)+a(1)+...+a(m)-1; a(2m+1) = a(0)+a(1)+...+a(m).",
+				"G.f.: 1 + x/(1-x) + Sum_{k\u003e=1} x^(3*2^(k-1))/Product_{j=0..k} (1-x^(2^j)).",
+				"G.f.: Product_{n\u003e=0} 1/(1-x^(2^n)) - Sum_{n \u003e= 1} ( x^(2^n)/ ((1+x^(2^(n-1)))*Product_{j=0..n-1} (1-x^(2^j)) ) ). (The two terms correspond to A000123 and A088931 respectively.)"
+			],
+			"example": [
+				"The partitions of n = 1 through 6 are: 1; 2; 3=1+2; 4=1+3; 5=1+4=2+3; 6=1+5=2+4=1+2+3."
+			],
+			"maple": [
+				"f := proc(n) option remember; local t1,i; if n \u003c= 2 then RETURN(1); fi; t1 := add(f(i),i=0..floor(n/2)); if n mod 2 = 0 then RETURN(t1-1); fi; t1; end;",
+				"t1 := 1 + x/(1-x); t2 := add( x^(3*2^(k-1))/ mul( (1-x^(2^j)),j=0..k), k=1..10); series(t1+t2, x, 256); # increase 10 to get more terms"
+			],
+			"mathematica": [
+				"max = 63; f = 1 + x/(1-x) + Sum[x^(3*2^(k-1))/Product[(1-x^(2^j)), {j, 0, k}], {k, 1, Log[2, max]}]; s = Series[f, {x, 0, max}] // Normal; a[n_] := Coefficient[s, x, n]; Table[a[n], {n, 0, max}] (* _Jean-François Alcover_, May 06 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a088567 n = a088567_list !! n",
+				"a088567_list = 1 : tail xs where",
+				"   xs = 0 : 1 : zipWith (+) xs (tail $ concat $ transpose [xs, tail xs])",
+				"-- _Reinhard Zumkeller_, Nov 15 2012"
+			],
+			"xref": [
+				"Cf. A000123, A088575, A088585, A088931, A089054. A090678 gives sequence mod 2.",
+				"Cf. A187821 (non-squashing partitions of n into odd parts)."
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_N. J. A. Sloane_, Nov 30 2003",
+			"references": 17,
+			"revision": 30,
+			"time": "2019-01-25T11:45:36-05:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 90390,
+			"data": "1,1,9,49,289,1681,9801,57121,332929,1940449,11309769,65918161,384199201,2239277041,13051463049,76069501249,443365544449,2584123765441,15061377048201,87784138523761,511643454094369,2982076586042449,17380816062160329,101302819786919521,590436102659356801",
+			"name": "Repeatedly multiply (1,0,0) by ([1,2,2],[2,1,2],[2,2,3]); sequence gives leading entry.",
+			"comment": [
+				"The values of a and b in (a,b,c)*A give all (positive integer) solutions to Pell equation a^2 - 2*b^2 = -1; the values of c are A000129(2n)",
+				"Binomial transform of A086348. - _Johannes W. Meijer_, Aug 01 2010",
+				"All values of a(n) are squares.  sqrt(a(n+1)) = A001333(n). The ratio a(n+1)/a(n) converges to 3 + 2*sqrt(2). - _Richard R. Forberg_, Aug 14 2013"
+			],
+			"link": [
+				"Harvey P. Dale, \u003ca href=\"/A090390/b090390.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Robert Munafo, \u003ca href=\"http://www.mrob.com/pub/math/seq-floretion.html\"\u003eSequences Related to Floretions\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (5, 5, -1)."
+			],
+			"formula": [
+				"G.f.: (1-4*x-x^2)/((1+x)*(1-6*x+x^2)).",
+				"a(n) = A001333(n)^2",
+				"(a, b, c) = (1, 0, 0). Recursively multiply (a, b, c)*( [1, 2, 2], [2, 1, 2], [2, 2, 3] ).",
+				"M^n * [ 1 1 1] = [a(n+1) q a(n)], where M = the 3 X 3 matrix [4 4 1 / 2 1 0 / 1 0 0]. E.g. M^5 * [1 1 1] = [9801 4059 1681] where 9801 = a(6), 1681 = a(5). Similarly, M^n * [1 0 0] generates A079291 (Pell number squares). - _Gary W. Adamson_, Oct 31 2004",
+				"(((1+sqrt(2))^(2*n)+(1-sqrt(2))^(2*n))+2*(-1)^n)/4 - Lambert Klasen (lambert.klasen(AT)gmx.net), Oct 09 2005",
+				"a(n) = (A001541(n)+(-1)^n)/2. - _R. J. Mathar_, Nov 20 2009",
+				"a(0)=1, a(1)=1, a(2)=9, a(n)=5*a(n-1)+5*a(n-2)-a(n-3) - _Harvey P. Dale_, May 20 2012",
+				"(a(n)) = tesseq(- .5'j + .5'k - .5j' + .5k' - 2'ii' + 'jj' - 'kk' + .5'ij' + .5'ik' + .5'ji' + 'jk' + .5'ki' + 'kj' + e), apart from initial term. - _Creighton Dement_, Nov 16 2004",
+				"a(n) = A302946(n)/4. - _Eric W. Weisstein_, Apr 17 2018"
+			],
+			"maple": [
+				"a:= n-\u003e (\u003c\u003c1|0|0\u003e\u003e. \u003c\u003c1|2|2\u003e, \u003c2|1|2\u003e, \u003c2|2|3\u003e\u003e^n)[1, 1]:",
+				"seq(a(n), n=0..30);  # _Alois P. Heinz_, Aug 17 2013"
+			],
+			"mathematica": [
+				"CoefficientList[Series[(1 - 4 x - x^2)/((1 + x)(1 - 6 x + x^2)),{x, 0, 20}], x] (* _Harvey P. Dale_, May 20 2012 *)",
+				"LinearRecurrence[{5, 5, -1}, {1, 1, 9}, 20] (* _Harvey P. Dale_, May 20 2012 *)",
+				"Table[(ChebyshevT[n, 3] + (-1)^n)/2, {n, 0, 20}] (* _Eric W. Weisstein_, Apr 17 2018 *)"
+			],
+			"program": [
+				"(Perl) use Math::Matrix; use Math::BigInt; $a = new Math::Matrix ([ 1, 2, 2], [ 2, 1, 2], [ 2, 2, 3]); $p = new Math::Matrix ([1, 0, 0]); $p-\u003eprint(); for ($i=1; $i\u003c20;$i++) { $p = $p-\u003emultiply($a); $p-\u003eprint(); }",
+				"(PARI) a(n)=polcoeff((1-4*x-x^2)/((1+x)*(1-6*x+x^2))+x*O(x^n),n)",
+				"(PARI) a(n)=if(n\u003c0,0,([1,2,2;2,1,2;2,2,3]^n)[1,1])",
+				"(PARI) Vec( (1-4*x-x^2)/((1+x)*(1-6*x+x^2)) + O(x^66) ) \\\\ _Joerg Arndt_, Aug 16 2013",
+				"(Haskell)",
+				"a090390 n = a090390_list !! n",
+				"a090390_list = 1 : 1 : 9 : zipWith (-) (map (* 5) $",
+				"   tail $ zipWith (+) (tail a090390_list) a090390_list) a090390_list",
+				"-- _Reinhard Zumkeller_, Aug 17 2013"
+			],
+			"xref": [
+				"Cf. A000129.",
+				"Cf. A079291.",
+				"Cf. A095344, A123270."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,3",
+			"author": "_Vim Wenders_, Jan 30 2004",
+			"references": 17,
+			"revision": 36,
+			"time": "2018-04-17T09:37:31-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 91998,
+			"data": "1,11,13,23,25,35,37,47,49,59,61,71,73,83,85,95,97,107,109,119,121,131,133,143,145,155,157,167,169,179,181,191,193,203,205,215,217,227,229,239,241,251,253,263,265,275,277,287,289,299,301,311,313,323,325,335",
+			"name": "Numbers that are congruent to {1, 11} mod 12.",
+			"comment": [
+				"Cf. property described by _Gary Detlefs_ in A113801: more generally, these numbers are of the form (2*h*n + (h-4)*(-1)^n-h)/4 (h and n in A000027), then ((2*h*n + (h-4)*(-1)^n - h)/4)^2 - 1 == 0 (mod h); in our case, a(n)^2 - 1 == 0 (mod 12). Also a(n)^2 - 1 == 0 (mod 24)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A091998/b091998.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,1,-1)."
+			],
+			"formula": [
+				"a(n) = 12*n - a(n-1) - 12 (with a(1)=1). - _Vincenzo Librandi_, Nov 16 2010",
+				"a(n) = 6*n + 2*(-1)^n - 3.",
+				"G.f.: x*(1+10*x+x^2)/((1+x)*(1-x)^2).",
+				"a(n) - a(n-1) - a(n-2) + a(n-3) = 0 for n \u003e 3.",
+				"a(n) = a(n-2) + 12 for n \u003e 2.",
+				"a(n) = 12*A000217(n-1) + 1 - 2*Sum_{i=1..n-1} a(i) for n \u003e 1."
+			],
+			"mathematica": [
+				"LinearRecurrence[{1,1,-1},{1,11,13},100] (* _Harvey P. Dale_, Jul 26 2017 *)"
+			],
+			"program": [
+				"(MAGMA) [ n: n in [1..350] | n mod 12 eq 1 or n mod 12 eq 11 ];",
+				"(Haskell)",
+				"a091998 n = a091998_list !! (n-1)",
+				"a091998_list = 1 : 11 : map (+ 12) a091998_list",
+				"-- _Reinhard Zumkeller_, Jan 07 2012",
+				"(PARI) is(n)=n=n%12;n==11 || n==1 \\\\ _Charles R Greathouse IV_, Jul 02 2013"
+			],
+			"xref": [
+				"First row of A092260.",
+				"Cf. A175885 (n == 1 or 10 (mod 11)), A175886 (n == 1 or 12 (mod 13)).",
+				"Cf. A097933 (primes), A195143 (partial sums).",
+				"Cf. A005408, A047209, A007310, A047336, A047522, A056020, A090771, A175887."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Ray Chandler_, Feb 21 2004",
+			"ext": [
+				"Formulae and comment added by _Bruno Berselli_, Nov 17 2010 - Nov 18 2010"
+			],
+			"references": 17,
+			"revision": 42,
+			"time": "2018-01-16T21:14:10-05:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 93563,
+			"data": "1,6,1,6,7,1,6,13,8,1,6,19,21,9,1,6,25,40,30,10,1,6,31,65,70,40,11,1,6,37,96,135,110,51,12,1,6,43,133,231,245,161,63,13,1,6,49,176,364,476,406,224,76,14,1,6,55,225,540,840,882,630,300,90,15,1,6,61,280,765,1380",
+			"name": "(6,1)-Pascal triangle.",
+			"comment": [
+				"The array F(6;n,m) gives in the columns m \u003e= 1 the figurate numbers based on A016921, including the octagonal numbers A000567, (see the W. Lang link).",
+				"This is the sixth member, d=6, in the family of triangles of figurate numbers, called (d,1) Pascal triangles: A007318 (Pascal), A029653, A093560-2, for d=1..5.",
+				"This is an example of a Riordan triangle (see A093560 for a comment and A053121 for a comment and the 1991 Shapiro et al. reference on the Riordan group). Therefore the o.g.f. for the row polynomials p(n,x):=Sum_{m=0..n} a(n,m)*x^m is G(z,x)=(1+5*z)/(1-(1+x)*z).",
+				"The SW-NE diagonals give A022096(n-1) = Sum_{k=0..ceiling((n-1)/2)} a(n-1-k,k), n \u003e= 1, with n=0 value 5. Observation by _Paul Barry_, Apr 29 2004. Proof via recursion relations and comparison of inputs.",
+				"For a closed-form formula for generalized Pascal's triangle see A228576. - _Boris Putievskiy_, Sep 09 2013"
+			],
+			"reference": [
+				"Kurt Hawlitschek, Johann Faulhaber 1580-1635, Veroeffentlichung der Stadtbibliothek Ulm, Band 18, Ulm, Germany, 1995, Ch. 2.1.4. Figurierte Zahlen.",
+				"Ivo Schneider: Johannes Faulhaber 1580-1635, Birkhäuser, Basel, Boston, Berlin, 1993, ch.5, pp. 109-122."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A093563/b093563.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"Wolfdieter Lang, \u003ca href=\"/A093563/a093563.pdf\"\u003eFirst 10 rows and array of figurate numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n, m)=F(6;n-m, m) for 0\u003c= m \u003c= n, otherwise 0, with F(6;0, 0)=1, F(6;n, 0)=6 if n\u003e=1 and F(6;n, m):= (6*n+m)*binomial(n+m-1, m-1)/m if m\u003e=1.",
+				"Recursion: a(n, m)=0 if m\u003en, a(0, 0)= 1; a(n, 0)=6 if n\u003e=1; a(n, m)= a(n-1, m) + a(n-1, m-1).",
+				"G.f. column m (without leading zeros): (1+5*x)/(1-x)^(m+1), m\u003e=0.",
+				"T(n, k) = C(n, k) + 5*C(n-1, k). - _Philippe Deléham_, Aug 28 2005",
+				"exp(x) * e.g.f. for row n = e.g.f. for diagonal n. For example, for n = 3 we have exp(x)*(6 + 13*x + 8*x^2/2! + x^3/3!) = 6 + 19*x + 40*x^2/2! + 70*x^3/3! + 110*x^4/4! + .... The same property holds more generally for Riordan arrays of the form ( f(x), x/(1 - x) ). - _Peter Bala_, Dec 22 2014"
+			],
+			"example": [
+				"Triangle begins",
+				"  1;",
+				"  6,  1;",
+				"  6,  7,  1;",
+				"  6, 13,  8,  1;",
+				"  6, 19, 21,  9,  1;",
+				"  6, 25, 40, 30, 10,  1;",
+				"  ..."
+			],
+			"mathematica": [
+				"lim = 11; s = Series[(1 + 5*x)/(1 - x)^(m + 1), {x, 0, lim}]; t = Table[ CoefficientList[s, x], {m, 0, lim}]; Flatten[ Table[t[[j - k + 1, k]], {j, lim + 1}, {k, j, 1, -1}]] (* _Jean-François Alcover_, Sep 16 2011, after g.f. *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a093563 n k = a093563_tabl !! n !! k",
+				"a093563_row n = a093563_tabl !! n",
+				"a093563_tabl = [1] : iterate",
+				"               (\\row -\u003e zipWith (+) ([0] ++ row) (row ++ [0])) [6, 1]",
+				"-- _Reinhard Zumkeller_, Aug 31 2014"
+			],
+			"xref": [
+				"Row sums: A005009(n-1), n\u003e=1, 1 for n=0, alternating row sums are 1 for n=0, 5 for n=2 and 0 else.",
+				"Cf. A007318, A093564 (d=7), A228196, A228576.",
+				"The column sequences give for m=1..9: A016921, A000567 (octagonal), A002414, A002419, A051843, A027810, A034265, A054487, A055848."
+			],
+			"keyword": "nonn,easy,tabl",
+			"offset": "0,2",
+			"author": "_Wolfdieter Lang_, Apr 22 2004",
+			"references": 17,
+			"revision": 40,
+			"time": "2018-02-25T22:54:12-05:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		}
+	]
+}

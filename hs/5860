@@ -1,0 +1,343 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5860,
+	"results": [
+		{
+			"number": 230957,
+			"data": "1,2,4,10,29,94,364,1621,8255,47277,300962,2107479,16099922,133243363,1187555333,11340314638,115511502857,1250127378307,14325404633040,173276880401035,2206229765086251,29495119298584886,413097874985119467,6048684327982905454",
+			"name": "Boustrophedon transform of partition numbers A000009.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A230957/b230957.txt\"\u003eTable of n, a(n) for n = 0..150\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum(A109449(n,k)*A000009(k): k=0..n)."
+			],
+			"mathematica": [
+				"T[n_, k_] := (n!/k!) SeriesCoefficient[(1 + Sin[x])/Cos[x], {x, 0, n - k}];",
+				"a[n_] := Sum[T[n, k] PartitionsQ[k], {k, 0, n}];",
+				"Table[a[n], {n, 0, 23}] (* _Jean-François Alcover_, Jul 23 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a230957 n = sum $ zipWith (*) (a109449_row n) a000009_list"
+			],
+			"xref": [
+				"Cf. A000751."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Nov 03 2013",
+			"references": 4,
+			"revision": 10,
+			"time": "2019-10-10T10:59:14-04:00",
+			"created": "2013-11-04T08:24:00-05:00"
+		},
+		{
+			"number": 230961,
+			"data": "1,3,11,50,273,1746,12823,106462,986689,10103074,113309991,1381835454,18209834849,257911743506,3907538236631,63066584719982,1080340925760129,19577690297352258,374214932301757255,7524626434657416286,158783753482817132065",
+			"name": "Boustrophedon transform of factorials beginning with 1, cf. A000142.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A230961/b230961.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon_transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum(A109449(n,k)*A000142(k+1): k=0..n).",
+				"E.g.f.: conjecture: (tan(x)+sec(x))/(1-2*x+x^2) = (1- 12*x/ (Q(0)+6*x+3*x^2))/(1-x)^2, where Q(k) = 2*(4*k+1)*(32*k^2+16*k - x^2-6) - x^4*(4*k-1)*(4*k+7)/Q(k+1) ; (continued fraction). - _Sergei N. Gladkovskii_, Nov 18 2013",
+				"a(n) ~ n! * n * (1+sin(1))/cos(1). - _Vaclav Kotesovec_, Jun 12 2015"
+			],
+			"mathematica": [
+				"T[n_, k_] := (n!/k!) SeriesCoefficient[(1 + Sin[x])/Cos[x], {x, 0, n - k}];",
+				"a[n_] := Sum[T[n, k] (k + 1)!, {k, 0, n}];",
+				"Table[a[n], {n, 0, 20}] (* _Jean-François Alcover_, Jul 23 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a230961 n = sum $ zipWith (*) (a109449_row n) $ tail a000142_list"
+			],
+			"xref": [
+				"Cf. A230960."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Nov 05 2013",
+			"references": 4,
+			"revision": 13,
+			"time": "2019-07-23T08:53:50-04:00",
+			"created": "2013-11-06T20:31:45-05:00"
+		},
+		{
+			"number": 231200,
+			"data": "0,2,8,24,72,240,924,4116,20944,119952,763540,5346748,40845816,338041704,3012855356,28770647220,293055401888,3171602665696,36343889387172,439607533130732,5597256953340360,74829813397495128,1048039052970587788,15345654816688856484",
+			"name": "Boustrophedon transform of even numbers.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A231200/b231200.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://oeis.org/wiki/User:Peter_Luschny/SeidelTransform\"\u003eAn old operation on sequences: the Seidel transform\u003c/a\u003e",
+				"J. Millar, N. J. A. Sloane and N. E. Young, A new operation on sequences: the Boustrophedon transform, J. Combin. Theory, 17A 44-54 1996 (\u003ca href=\"http://neilsloane.com/doc/bous.txt\"\u003eAbstract\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.pdf\"\u003epdf\u003c/a\u003e, \u003ca href=\"http://neilsloane.com/doc/bous.ps\"\u003eps\u003c/a\u003e).",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Boustrophedon_transform\"\u003eBoustrophedon_transform\u003c/a\u003e",
+				"\u003ca href=\"/index/Bo#boustrophedon\"\u003eIndex entries for sequences related to boustrophedon transform\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{k=0..n} A109449(n,k)*k*2.",
+				"a(n) = 2*A231179(n).",
+				"E.g.f.: 2*x*exp(x)*(sec(x) + tan(x)). - _Ilya Gutkovskiy_, Sep 27 2017"
+			],
+			"mathematica": [
+				"T[n_, k_] := SeriesCoefficient[(1+Sin[x])/Cos[x], {x, 0, n-k}] n!/k!;",
+				"a[n_] := 2 Sum[k T[n, k], {k, 0, n}];",
+				"Table[a[n], {n, 0, 23}] (* _Jean-François Alcover_, Jun 28 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a231200 n = sum $ zipWith (*) (a109449_row n) $ [0, 2 ..]"
+			],
+			"xref": [
+				"Cf. A005843, A000754."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Nov 05 2013",
+			"references": 4,
+			"revision": 15,
+			"time": "2019-06-28T07:15:02-04:00",
+			"created": "2013-11-05T10:00:05-05:00"
+		},
+		{
+			"number": 231331,
+			"data": "1,1,2,3,6,10,20,35,74,130,258,473,1007,1830,3912,7093,15233,27831,60458,109555,239039,433654,946849",
+			"name": "Number of distinct terms in row n of triangle A230871.",
+			"comment": [
+				"Length of row n in triangle A231330."
+			],
+			"program": [
+				"(Haskell)",
+				"a231331 = length . a231330_row"
+			],
+			"xref": [
+				"Cf. A231335."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Nov 07 2013",
+			"references": 4,
+			"revision": 4,
+			"time": "2013-11-08T03:40:05-05:00",
+			"created": "2013-11-08T03:40:05-05:00"
+		},
+		{
+			"number": 231335,
+			"data": "1,1,2,2,3,3,3,4,3,3,5,4,3,4,6,4,5,4,5",
+			"name": "Number of distinct Fibonacci numbers in rows of triangle A230871.",
+			"comment": [
+				"a(n) = sum(A010056(A231330(n,k)), k=1..A231331(n));",
+				"a(n) \u003e 1 for n \u003e 1."
+			],
+			"example": [
+				"a(0) = #{0} = 1;",
+				"a(1) = #{1} = 1;",
+				"a(2) = #{1, 3} = 2;",
+				"a(3) = #{2, 8} = 2;",
+				"a(4) = #{3, 5, 21} = 3;",
+				"a(5) = #{5, 13, 55} = 3;",
+				"a(6) = #{8, 34, 144} = 3;",
+				"a(7) = #{13, 55, 89, 377} = 4;",
+				"a(8) = #{21, 233, 987} = 3;",
+				"a(9) = #{34, 610, 2584} = 3;",
+				"a(10) = #{55, 89, 377, 1597, 6765} = 5;",
+				"a(11) = #{89, 377, 4181, 17711} = 4;",
+				"a(12) = #{144, 10946, 46368} = 3;",
+				"a(13) = #{233, 1597, 28657, 121393} = 4;",
+				"a(14) = #{377, 987, 1597, 6765, 75025, 317811} = 6;",
+				"a(15) = #{610, 10946, 196418, 832040} = 4;",
+				"a(16) = #{987, 4181, 6765, 514229, 2178309} = 5."
+			],
+			"program": [
+				"(Haskell)",
+				"a231335 = length . filter ((== 1) . a010056) . a231330_row"
+			],
+			"xref": [
+				"Cf. A000045."
+			],
+			"keyword": "nonn,more",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Nov 07 2013",
+			"references": 4,
+			"revision": 5,
+			"time": "2013-11-08T03:40:18-05:00",
+			"created": "2013-11-08T03:40:18-05:00"
+		},
+		{
+			"number": 231897,
+			"data": "0,1,3,5,13,11,21,39,45,75,155,217,331,181,627,923,1241,2505,3915,5221,6475,11309,15595,19637,31595,44491,69451,113447,185269,244661,357081,453677,1015143,908091,980853,2960011,4568757,2965685,5931189,11862197,20437147",
+			"name": "a(n) = smallest m such that wt(m^2) = n (where wt(i) = A000120(i)), or -1 if no such m exists.",
+			"comment": [
+				"Conjecture: a(n) is never -1. (It seems likely that the arguments of Lindström (1997) could be modified to establish this conjecture.)",
+				"a(n) is the smallest m such that A159918(m) = n (or -1 if ...)."
+			],
+			"link": [
+				"Donovan Johnson, \u003ca href=\"/A231897/b231897.txt\"\u003eTable of n, a(n) for n = 0..70\u003c/a\u003e",
+				"Bernt Lindström, \u003ca href=\"http://dx.doi.org/10.1006/jnth.1997.2129\"\u003eOn the binary digits of a power\u003c/a\u003e, Journal of Number Theory, Volume 65, Issue 2, August 1997, Pages 321-324."
+			],
+			"program": [
+				"(Haskell)",
+				"a231897 n = head [x | x \u003c- [1..], a159918 x == n]",
+				"-- _Reinhard Zumkeller_, Nov 20 2013",
+				"(PARI) a(n)=if(n,my(k); while(hammingweight(k++^2)!=n,); k, 0) \\\\ _Charles R Greathouse IV_, Aug 06 2015"
+			],
+			"xref": [
+				"Cf. A000120, A159918, A230097, A231898, A214560."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Nov 19 2013",
+			"ext": [
+				"a(26-40) from _Reinhard Zumkeller_, Nov 20 2013"
+			],
+			"references": 4,
+			"revision": 19,
+			"time": "2015-08-06T15:29:45-04:00",
+			"created": "2013-11-19T20:42:26-05:00"
+		},
+		{
+			"number": 232342,
+			"data": "0,0,4,16,16,16,76,88,112,136,172,160,112,184,232,196,196,232,196,292,280,256,292,316,232,220,136,100,148,304,292,316,388,412,376,196,232,316,436,496,496,592,412,460,484,400,376,412,556,736,1000,940,1012",
+			"name": "A077068(n) minus A077065(n).",
+			"comment": [
+				"All terms are multiples of 4, cf. A008586;",
+				"a(n) = A077068(n) - A077065(n).",
+				"First term \u003c 0: a(426) = -104."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A232342/b232342.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a232342 n = a232342_list !! (n-1)",
+				"a232342_list = zipWith (-) a077068_list a077065_list"
+			],
+			"xref": [
+				"Cf. A232221 (partial sums)."
+			],
+			"keyword": "sign",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Dec 16 2013",
+			"references": 4,
+			"revision": 9,
+			"time": "2015-09-23T09:39:32-04:00",
+			"created": "2013-12-16T13:10:18-05:00"
+		},
+		{
+			"number": 232991,
+			"data": "1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1",
+			"name": "Period 6: repeat [1, 0, 0, 0, 1, 0].",
+			"reference": [
+				"Andrews, George E., q-series: their development and application in analysis, number theory, combinatorics, physics, and computer algebra. CBMS Regional Conference Series in Mathematics, 66. Published for the Conference Board of the Mathematical Sciences, Washington, DC; by the American Mathematical Society, Providence, RI, 1986. xii+130 pp. ISBN: 0-8218-0716-1 MR0858826 (88b:11063). See p. 105."
+			],
+			"link": [
+				"\u003ca href=\"/index/Rec#order_06\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,0,0,0,0,1)."
+			],
+			"formula": [
+				"a(n) = ceiling((n + 4)/6) - floor((n + 4)/6) - (n mod 2). - _Wesley Ivan Hurt_, Mar 13 2014",
+				"a(n) = cos(Pi*n/2)/3*(cos(Pi*n/6) + 2*cos(Pi*n/2) + sqrt(3)*sin(Pi*n/6)). - _Vaclav Kotesovec_, Mar 23 2014",
+				"a(n) = (((n + 3) mod 6) mod 5) mod 2. - _Paolo P. Lava_, Feb 18 2015",
+				"G.f.: (1 + x^4)/(1 - x^6). - _Bruno Berselli_, Feb 18 2015",
+				"a(n) = if gcd(n+1, 6) \u003e 1 then 0 else 1. - _Reinhard Zumkeller_, Apr 06 2015",
+				"a(n) = a(n-6) for n \u003e 5. - _Wesley Ivan Hurt_, Jun 20 2016",
+				"E.g.f.: (2*cosh(x) - sqrt(3)*sin(sqrt(3)*x/2)*sinh(x/2) + cos(sqrt(3)*x/2)*cosh(x/2))/3. - _Ilya Gutkovskiy_, Jun 21 2016"
+			],
+			"maple": [
+				"A232991:=n-\u003eceil((n+4)/6) - floor((n+4)/6) - (n mod 2): seq(A232991(n), n=0..100); # _Wesley Ivan Hurt_, Mar 13 2014"
+			],
+			"mathematica": [
+				"Table[Ceiling[(n + 4)/6] - Floor[(n + 4)/6] - Mod[n, 2], {n, 0, 100}] (* _Wesley Ivan Hurt_, Mar 13 2014 *)",
+				"Table[Cos[Pi*n/2]/3 * (Cos[Pi*n/6] + 2*Cos[Pi*n/2] + Sqrt[3]*Sin[Pi*n/6]), {n, 0, 100}] (* _Vaclav Kotesovec_, Mar 23 2014 *)"
+			],
+			"program": [
+				"(MAGMA) /* By definition: */ \u0026cat [[1,0,0,0,1,0]: n in [0..20]]; // _Bruno Berselli_, Feb 18 2015",
+				"(MAGMA) [(((n+3) mod 6) mod 5) mod 2: n in [0..100]]; // _Vincenzo Librandi_, Feb 18 2015",
+				"(Haskell)",
+				"a232991 = (0 ^) . subtract 1 . gcd 6 . (+ 1)",
+				"a232991_list = cycle [1,0,0,0,1,0]",
+				"-- _Reinhard Zumkeller_, Apr 06 2015",
+				"(PARI) a(n)=(n+9)\\6 - (n+4)\\6 - n%2 \\\\ _Charles R Greathouse IV_, Jul 17 2016"
+			],
+			"xref": [
+				"Cf. A089128, A232990."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Dec 13 2013",
+			"references": 4,
+			"revision": 35,
+			"time": "2019-01-10T10:21:35-05:00",
+			"created": "2013-12-13T17:07:44-05:00"
+		},
+		{
+			"number": 233734,
+			"data": "1,6,150,8400,834120,129230640,28805736960,8734434508800,3457819037312640,1732015476199008000,1070842073499515116800,800968643959240044288000,712900933001021056900608000,744602794912654938776355840000,901893717412811100821094451200000",
+			"name": "Central terms of triangles A019538 and A090582.",
+			"comment": [
+				"a(n) = A019538(2*n-1,n) = A090582(2*n-1,n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A233734/b233734.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A129506(n) * n!."
+			],
+			"program": [
+				"(Haskell)",
+				"a233734 n = a019538 (2 * n - 1) n"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 15 2013",
+			"references": 4,
+			"revision": 4,
+			"time": "2013-12-15T09:38:46-05:00",
+			"created": "2013-12-15T09:38:46-05:00"
+		},
+		{
+			"number": 234098,
+			"data": "11,17,29,43,47,67,71,73,89,101,103,107,109,127,151,191,197,223,227,241,251,269,277,283,317,349,359,373,397,409,433,457,461,467,487,521,541,569,571,631,643,647,659,673,701,709,719,733,739,751,757,769,821",
+			"name": "Primes of the form (p*q + 1)/2, where p and q are distinct primes.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A234098/b234098.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"11 = (3*7 + 1)/2, 17 = (5*7 + 1)/2."
+			],
+			"mathematica": [
+				"t = Select[Range[1, 7000, 2], Map[Last, FactorInteger[#]] == Table[1, {2}] \u0026]; Take[(t + 1)/2, 120] (* A234096 *)",
+				"v = Flatten[Position[PrimeQ[(t + 1)/2], True]] ; w = Table[t[[v[[n]]]], {n, 1, Length[v]}]  (* A233562 *)",
+				"(w + 1)/2 (* A234098 *)  (* _Peter J. C. Moses_, Dec 23 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a234098 n = a234098_list !! (n-1)",
+				"a234098_list = filter ((== 1) . a010051') $",
+				"                      map ((flip div 2) . (+ 1)) a046388_list",
+				"-- _Reinhard Zumkeller_, Jan 02 2014"
+			],
+			"xref": [
+				"Cf. A234096, A233562, A234095.",
+				"Cf. A010051, A046388."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Clark Kimberling_, Dec 27 2013",
+			"references": 4,
+			"revision": 8,
+			"time": "2016-12-04T19:46:33-05:00",
+			"created": "2014-01-02T00:33:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,375 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7300,
+	"results": [
+		{
+			"number": 109984,
+			"data": "0,5,44,321,2184,14325,91860,580097,3622928,22437477,138049020,844881345,5148375192,31258302933,189199514532,1142148091905,6878977097760,41347348295877,248082231062988,1486116788646977",
+			"name": "a(n) = number of steps in all Delannoy paths of length n.",
+			"comment": [
+				"A Delannoy path of length n is a path from (0,0) to (n,n), consisting of steps E=(1,0), N=(0,1) and D=(1,1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A109984/b109984.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Robert A. Sulanke, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL6/Sulanke/delannoy.html\"\u003eObjects Counted by the Central Delannoy Numbers\u003c/a\u003e, Journal of Integer Sequences, Volume 6, 2003, Article 03.1.5."
+			],
+			"formula": [
+				"a(n) = sum_{k=0..2n} k*A109983(k).",
+				"a(n) = sum_{k=n..2*n} k*binomial(n, 2*n-k)*binomial(k, n).",
+				"G.f.: z*(5-z)/(1-6*z+z^2)^(3/2).",
+				"Recurrence: (n-1)*(2*n-9)*a(n) = 4*(3*n^2-15*n+7)*a(n-1) - (n-1)*(2*n-7)*a(n-2). - _Vaclav Kotesovec_, Oct 18 2012",
+				"a(n) ~ sqrt(24 + 17*sqrt(2))*(3 + 2*sqrt(2))^n*sqrt(n)/(4*sqrt(Pi)). - _Vaclav Kotesovec_, Oct 18 2012"
+			],
+			"example": [
+				"a(1)=5 because in the 3 (=A001850(1)) Delannoy paths of length 1, namely D, NE and EN, we have altogether five steps."
+			],
+			"maple": [
+				"a:=n-\u003eadd(k*binomial(n,2*n-k)*binomial(k,n),k=n..2*n): seq(a(n),n=0..23);"
+			],
+			"mathematica": [
+				"CoefficientList[Series[x*(5-x)/(1-6*x+x^2)^(3/2), {x, 0, 20}], x] (* _Vaclav Kotesovec_, Oct 18 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a109984 = sum . zipWith (*) [0..] . a109983_row",
+				"-- _Reinhard Zumkeller_, Nov 18 2014"
+			],
+			"xref": [
+				"Cf. A109983, A001850."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Emeric Deutsch_, Jul 07 2005",
+			"references": 2,
+			"revision": 24,
+			"time": "2014-12-29T11:39:47-05:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 110157,
+			"data": "0,1,2,3,2,3,4,5,2,3,4,5,4,5,6,7,2,3,4,5,4,5,6,7,4,3,4,3,6,7,8,9,2,3,4,5,4,5,6,7,4,5,6,7,6,7,8,9,4,5,4,5,4,5,4,5,6,7,8,9,8,9,10,5,2,3,4,5,4,5,6,7,4,5,6,7,6,7,8,9,4,3,4,5,6,7,8,9,6,7,8,9,8,9,10,11,4,5,6,3,4,5,6,7",
+			"name": "a(n) = a(rad(n) - 1) + 1, where rad(n) is the squarefree kernel of n, rad=A007947.",
+			"comment": [
+				"a(n) = a(A075423(n)) + 1;",
+				"a(A075426(n)) = n+1 and a(m) \u003c n+1 for m \u003c A075426(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A110157/b110157.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) \u003c 4 log_2(n) for n \u003e 1. - _Charles R Greathouse IV_, Aug 08 2013"
+			],
+			"program": [
+				"(PARI) rad(n)=my(f=factor(n)[,1]);prod(i=1,#f,f[i])",
+				"a(n)=if(n\u003c4,n,1+a(rad(n)-1)) \\\\ _Charles R Greathouse IV_, Aug 08 2013",
+				"(Haskell)",
+				"a110157 n = genericIndex a110157_list (n-1)",
+				"a110157_list = 0 : map ((+ 1) . a110157 . (+ 1)) a075423_list",
+				"-- _Reinhard Zumkeller_, Aug 14 2013"
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jul 14 2005",
+			"references": 2,
+			"revision": 11,
+			"time": "2013-08-14T19:12:58-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 110380,
+			"data": "1,11,12,112,122,123,1123,1223,1233,1234,11234,12234,12334,12344,12345,112345,122345,123345,123445,123455,123456,1123456,1223456,1233456,1234456,1234556,1234566,1234567,11234567,12234567,12334567,12344567",
+			"name": "a(n) = min{p + q + r + ...} where p,q,r,... are distinct unary numbers - containing only ones, i.e., of the form (10^k - 1)/9 - formed by using a total of n ones.",
+			"link": [
+				"Fred Schneider, \u003ca href=\"/A110380/b110380.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e"
+			],
+			"example": [
+				"Using n ones and only the + sign we get the following sums:",
+				"  a(1) = 1;",
+				"  a(2) = 11;",
+				"  a(3) = 12 = 1 + 11;",
+				"  a(4) = 112 = 1 + 111;",
+				"  a(5) = 122 = 11 + 111;",
+				"  a(6) = 123 = 1 + 11 + 111;",
+				"  a(7) = 1123 = 1 + 11 + 1111;",
+				"  a(8) = 1223 = 1 + 111 + 1111;",
+				"  a(9) = 1233 = 11 + 111 + 1111."
+			],
+			"program": [
+				"(Haskell)",
+				"a110380 = drop 1 fn",
+				"          where fn    = 0 : 1 : concat (fn' 2)",
+				"                fn' n = (map (+ones) (drop nv $ take (n + nv) fn)) : (fn' (n+1))",
+				"                        where ones = div (10^n -1) 9",
+				"                              nv   = div ((n-1)*(n-2)) 2",
+				"-- _Fred Schneider_, Sep 04 2016"
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,2",
+			"author": "_Amarnath Murthy_, Jul 25 2005",
+			"ext": [
+				"More terms from _Joshua Zucker_, May 08 2006"
+			],
+			"references": 2,
+			"revision": 20,
+			"time": "2017-07-23T03:08:47-04:00",
+			"created": "2005-09-21T03:00:00-04:00"
+		},
+		{
+			"number": 110475,
+			"data": "0,0,0,1,0,1,0,1,1,1,0,2,0,1,1,1,0,2,0,2,1,1,0,2,1,1,1,2,0,2,0,1,1,1,1,3,0,1,1,2,0,2,0,2,2,1,0,2,1,2,1,2,0,2,1,2,1,1,0,3,0,1,2,1,1,2,0,2,1,2,0,3,0,1,2,2,1,2,0,2,1,1,0,3,1,1,1,2,0,3,1,2,1,1,1,2,0,2,2,3,0,2,0,2,2",
+			"name": "Number of symbols '*' and '^' to write the canonical prime factorization of n.",
+			"comment": [
+				"a(n) = A001221(n) - 1 + A056170(n) for n \u003e 1;",
+				"a(n) = 0 iff n=1 or n is prime: a(A008578(n)) = 0;",
+				"a(n) = 1 iff n is a semiprime or a prime power p^e with e \u003e 1.",
+				"It is conjectured that 1,2,3,4,5,6,7,9,11 are the only positive integers which cannot be represented as the sum of two elements of indices n such that a(n) = 1. - _Jonathan Vos Post_, Sep 11 2005",
+				"a(n) = 2 iff n is a sphenic number (A007304) or n is a prime p times a prime power q^e with e \u003e 1 and q not equal to p. a(n) = 3 iff n has exactly four distinct prime factors (A046386); or n is the product of two prime powers (p^e)*(q^f) with e \u003e 1, f \u003e 1 and p not equal to q; or n is a semiprime s times a prime power r^g with g \u003e 1 and r relatively prime to s. For a(n) \u003e 3, _Reinhard Zumkeller_'s description is a simpler description than the above compound descriptions. - _Jonathan Vos Post_, Sep 11 2005"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A110475/b110475.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimeFactorization.html\"\u003ePrime Factorization\u003c/a\u003e"
+			],
+			"example": [
+				"a(208029250) = a(2*5^3*11^2*13*23^2) = 4 '*' + 3 '^' = 7."
+			],
+			"program": [
+				"(Haskell)",
+				"a110475 1 = 0",
+				"a110475 n = length us - 1 + 2 * length vs where",
+				"            (us, vs) = span (== 1) $ a118914_row n",
+				"-- _Reinhard Zumkeller_, Mar 23 2014"
+			],
+			"xref": [
+				"Cf. A050252, A001358, A025475, A000040.",
+				"Cf. A007304, A046386.",
+				"Cf. A118914."
+			],
+			"keyword": "nonn",
+			"offset": "1,12",
+			"author": "_Reinhard Zumkeller_, Sep 08 2005",
+			"references": 2,
+			"revision": 12,
+			"time": "2017-11-11T17:44:23-05:00",
+			"created": "2005-09-21T03:00:00-04:00"
+		},
+		{
+			"number": 111060,
+			"data": "0,2,3,5,5,7,7,11,13,9,8,17,19,10,13,23,15,29,10,31,14,19,12,37,21,16,41,12,43,25,47,20,53,16,22,31,59,61,33,18,16,67,26,14,71,73,39,18,18,79,43,83,22,45,32,89,20,34,49,24,97,101,22,103,15,55,107,109,18,40,113",
+			"name": "a(n) = sum of primes dividing the n-th squarefree positive integer.",
+			"comment": [
+				"For n \u003e 1: sum of row n in A265668. - _Reinhard Zumkeller_, Dec 13 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A111060/b111060.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A008472(A005117(n)) = A001414(A005117(n))."
+			],
+			"example": [
+				"Since the 5th squarefree positive integers is 6 = 2*3, the 5th term of the sequence is 2 + 3 = 5."
+			],
+			"mathematica": [
+				"Table[DivisorSum[n, # \u0026, PrimeQ], {n, Select[Range@ 113, SquareFreeQ]}] (* _Michael De Vlieger_, Dec 23 2017 *)"
+			],
+			"program": [
+				"(PARI) {for(n=1,113,if(issquarefree(n),f=factor(n)[,1];print1(sum(j=1,length(f),f[j]),\",\")))}",
+				"(Haskell)",
+				"a111060 1 = 0",
+				"a111060 n = sum $ a265668_row n -- _Reinhard Zumkeller_, Dec 13 2015"
+			],
+			"xref": [
+				"Cf. A001414, A005117, A008472, A265668."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Oct 07 2005",
+			"ext": [
+				"More terms from _Klaus Brockhaus_, Oct 08 2005"
+			],
+			"references": 2,
+			"revision": 13,
+			"time": "2017-12-26T01:30:09-05:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 111708,
+			"data": "9,18,27,36,45,54,63,72,81,90,1089,1188,1287,1386,1485,1584,1683,1782,1881,1980,2079,2178,2277,2376,2475,2574,2673,2772,2871,2970,3069,3168,3267,3366,3465,3564,3663,3762,3861,3960,4059,4158,4257,4356,4455,4554",
+			"name": "a(n) = n concatenated with 9's complement of n.",
+			"comment": [
+				"If n has k digits a(n) is a multiple of 10^k -1.",
+				"The sequence contains 10^(k) multiples of 10^k -1.",
+				"a(n)/{10^k -1} gives all natural numbers.",
+				"All terms are multiples of 9: A007953(a(n))=9*A055642(n); A010888(a(n))=9. - _Reinhard Zumkeller_, Sep 17 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A111708/b111708.txt\"\u003eTable of n, a(n) for n = 0..9999\u003c/a\u003e"
+			],
+			"example": [
+				"a(90) = 9009."
+			],
+			"program": [
+				"(Haskell)",
+				"a111708 0 = 9",
+				"a111708 n = f [] n where",
+				"   f ys 0 = foldl (\\v d -\u003e 10 * v + d) 0 $ ys ++ map (9 -) ys",
+				"   f ys x = f (d : ys) x' where (x', d) = divMod x 10",
+				"-- _Reinhard Zumkeller_, Sep 17 2015"
+			],
+			"xref": [
+				"Cf. A061601, A010888, A007953, A055642, subsequence of A262277."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "0,1",
+			"author": "_Amarnath Murthy_, Aug 22 2005",
+			"ext": [
+				"More terms from _Joshua Zucker_, May 08 2006",
+				"Definition cleared and offset changed by _Reinhard Zumkeller_, Sep 17 2015"
+			],
+			"references": 2,
+			"revision": 10,
+			"time": "2015-09-17T14:22:24-04:00",
+			"created": "2005-09-21T03:00:00-04:00"
+		},
+		{
+			"number": 114180,
+			"data": "29,33,41,48,85,93,98,101,124,137,141,201,213,217,229,242,243,281,301,342,350,393,423,429,433,445,475,548,603,617,633,641,645,697,724,741,774,821,844,845,846,869,921,969,1021,1024,1041,1085,1129,1137,1189",
+			"name": "Numbers n with mu(n) = mu(n+1) = mu(n+2).",
+			"comment": [
+				"Any sequence of 4 or more consecutive numbers with the same value for mu must all have mu(n)=0 (n divisible by a proper square) since at least one of every 4 consecutive numbers is divisible by 4.",
+				"A261890(a(n)) = 0. - _Reinhard Zumkeller_, Sep 05 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A114180/b114180.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"mu(n)=1 for 33,34,35; 85,86,87; 93,94,95; ...",
+				"mu(n)=-1 for 29,30,31; 41,42,43; 101,102,103; ...",
+				"mu(n)=0 for 48,49,50; 98,99,100; 124,125,126; ..."
+			],
+			"program": [
+				"(Haskell)",
+				"a114180 n = a114180_list !! (n-1)",
+				"a114180_list = filter ((== 0) . a261890) [1..]",
+				"-- _Reinhard Zumkeller_, Sep 05 2015"
+			],
+			"xref": [
+				"Union of A070258, A063838 and A070268. Cf. A008683, A070284.",
+				" Cf. A261890."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Franklin T. Adams-Watters_, Feb 03 2006",
+			"references": 2,
+			"revision": 7,
+			"time": "2015-09-05T06:48:09-04:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		},
+		{
+			"number": 114255,
+			"data": "5,7,9,10,13,15,16,17,20,21,23,25,26,27,28,29,31,33,34,36,37,38,40,41,42,43,45,46,49,50,51,52,55,56,57,59,61,62,63,64,65,67,68,71,72,73,74,78,80,81,82,83,85,86,88,89,91,92,93,97,98,99,100,101,104,105,107,109",
+			"name": "Numbers that are nontrivial (3 digits or more) palindromes when expressed in some base 2 or greater.",
+			"comment": [
+				"All integers are trivially palindromes in base 1. All integers n\u003e2 are trivially 2-digit palindromes because they can be represented as \"11\" in base n-1."
+			],
+			"example": [
+				"5 is present because the palindrome (101 base 2) = 5; 803 is present because (30203 base 4) = 803."
+			],
+			"mathematica": [
+				"palindromeQ[n_, b_] := (id = IntegerDigits[n, b]) === Reverse[id] \u0026\u0026 Length[id] \u003e= 3; palindromeQ[n_] := Or @@ (palindromeQ[n, #] \u0026 ) /@ Range[2, n-2]; Select[ Range[110], palindromeQ] (* _Jean-François Alcover_, Dec 16 2011 *)"
+			],
+			"program": [
+				"(Haskell) isPalindrome s = (s == reverse s) digits 0 _ = [] digits n b = n `rem` b : digits (n `quot` b) b check n = any isPalindrome $ takeWhile (\\x -\u003e length x \u003e 2) $ map (digits n) [2..] main = mapM print $ filter check [1..]",
+				"(PARI) isok(n) = for (b=2, n-1, if ((d=digits(n,b)) \u0026\u0026 (#d \u003e= 3) \u0026\u0026 (Vecrev(d) == d), return (1));); \\\\ _Michel Marcus_, Jul 28 2016"
+			],
+			"xref": [
+				"Cf. A060873-A060879, A060947-A060949, A123586."
+			],
+			"keyword": "easy,base,nonn",
+			"offset": "1,1",
+			"author": "Jason Orendorff (jason.orendorff(AT)gmail.com), Feb 05 2006",
+			"ext": [
+				"Cross-references from _Charles R Greathouse IV_, Aug 04 2010"
+			],
+			"references": 2,
+			"revision": 16,
+			"time": "2016-07-28T11:25:22-04:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		},
+		{
+			"number": 114266,
+			"data": "1,1,1,3,3,1,1,1,3,1,2,4,6,2,6,2,1,2,5,5,2,1,2,3,5,3,1,6,1,1,8,2,4,7,1,9,3,2,9,7,5,10,4,5,1,5,5,1,1,1,8,1,1,4,6,2,1,2,12,10,1,11,8,3,11,2,2,1,4,1,7,2,3,2,11,2,3,3,3,1,1,5,2,5,1,7,3,3,4,6,4,7,4,1,9,5,3,2,4,7,2,9,2",
+			"name": "a(n) is the minimal number m that makes 2*prime(n)+prime(n+m) a prime.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A114266/b114266.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"n=1: 2*prime(1)+prime(1+1)=2*2+3=7 is prime, so a(1)=1;",
+				"n=2: 2*prime(2)+prime(2+1)=2*3+5=11 is prime, so a(2)=1;",
+				"...",
+				"n=4: 2*prime(4)+prime(4+1)=2*7+11=25 is not prime",
+				"...",
+				"2*prime(4)+prime(4+3)=2*7+17=31 is prime, so a(4)=3."
+			],
+			"mathematica": [
+				"Table[p1 = Prime[n1]; n2 = 1; p2 = Prime[n1 + n2]; While[cp = 2*p1 + p2; ! PrimeQ[cp], n2++; p2 = Prime[n1 + n2]]; n2, {n1, 1, 200}]",
+				"mnm[n_]:=Module[{m=1,p=2Prime[n]},While[!PrimeQ[p+Prime[n+m]],m++];m]; Array[mnm,110] (* _Harvey P. Dale_, Aug 05 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a114266 n = head [m | m \u003c- [1..],",
+				"                      a010051 (2 * a000040 n + a000040 (n + m)) == 1]",
+				"-- _Reinhard Zumkeller_, Oct 29 2013"
+			],
+			"xref": [
+				"Cf. A114227, A114230, A073703, A114235, A114262, A114228, A114231, A114233, A114236, A114263, A114265, A114267.",
+				"Cf. A000040, A010051."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,4",
+			"author": "_Lei Zhou_, Nov 20 2005",
+			"ext": [
+				"Edited definition to conform to OEIS style. - _N. J. A. Sloane_, Jan 08 2011"
+			],
+			"references": 2,
+			"revision": 13,
+			"time": "2017-08-05T11:29:53-04:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 116472,
+			"data": "1,7,54,403,2980,22026,162754,1202604,8886110,65659969,485165195,3584912846,26489122129,195729609428,1446257064291,10686474581524,78962960182680,583461742527454,4311231547115195,31855931757113756,235385266837019985,1739274941520501047",
+			"name": "a(n) = floor(exp(2*n)).",
+			"comment": [
+				"A bisection of A000149, which is the main entry for this sequence.",
+				"a(n) = A000149(2*n)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A116472/b116472.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Floor[Exp[2Range[0,30]]] (* _Harvey P. Dale_, Aug 22 2011 *)"
+			],
+			"program": [
+				"(MAGMA) [Floor(Exp(2*n)): n in [0..25]]; // _Vincenzo Librandi_, Aug 23 2011",
+				"(PARI) a(n)=exp(2*n)\\1 \\\\ _Charles R Greathouse IV_, Aug 23 2011",
+				"(Haskell)",
+				"a116472 = a000149 . (* 2)  -- _Reinhard Zumkeller_, Mar 17 2015"
+			],
+			"xref": [
+				"Cf. A000149."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "Milton L. Brown (miltbrown(AT)earthlink.net), Jan 20 2008",
+			"ext": [
+				"More terms from _Harvey P. Dale_, Aug 22 2011"
+			],
+			"references": 2,
+			"revision": 15,
+			"time": "2018-11-09T04:06:03-05:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		}
+	]
+}

@@ -1,0 +1,425 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 8030,
+	"results": [
+		{
+			"number": 200723,
+			"data": "1,1,3,6,10,10,21,28,36,32,55,53,78,66,69,120,136,112,171,144,153,170,253,211,300,240,351,300,406,237,465,496,384,416,445,539,666,522,558,633,820,444,903,780,772,770,1081,887,1176,912,951,1104",
+			"name": "Bi-unitary Euler function of n.",
+			"comment": [
+				"a(n) is the sum over all entries equal to 1 in row A165430(n.,), weighted by the column index."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A200723/b200723.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"L. Toth, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/VOL12/Toth2/toth5.html\"\u003eOn the bi-unitary analogues of Euler's arithmetical function and the gcd-sum function\u003c/a\u003e J. Int. Seq. 12 (2009) # 09.5.2"
+			],
+			"formula": [
+				"a(6) = 1*1 + 4*1 +5*1 = 10 corresponding to the three 1's in row 6 of A165430."
+			],
+			"maple": [
+				"A200723 := proc(n)",
+				"        local a,k ;",
+				"        a := 0 ;",
+				"        for k from 1 to n do",
+				"                if A165430(k,n) = 1 then",
+				"                        a := a+ k ;",
+				"                end if;",
+				"        end do;",
+				"        a ;",
+				"end proc:",
+				"seq(A200723(n),n=1..80) ;"
+			],
+			"program": [
+				"(Haskell)",
+				"a200723 = sum . zipWith (*) [1..] . map a063524 . a165430_row",
+				"-- _Reinhard Zumkeller_, Mar 04 2013"
+			],
+			"xref": [
+				"Cf. A188999"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,3",
+			"author": "_R. J. Mathar_, Nov 21 2011",
+			"references": 1,
+			"revision": 13,
+			"time": "2013-03-05T03:20:42-05:00",
+			"created": "2011-11-21T12:40:55-05:00"
+		},
+		{
+			"number": 201009,
+			"data": "1,4,16,27,108,144,256,432,500,784,972,1323,1728,2700,2916,3125,3456,5292,8788,11664,12500,13068,15376,16875,19683,20736,23328,25000,27648,28125,31212,34300,47916,54000,57132,65536,72000,78732,97556,102400,103788,104544",
+			"name": "Numbers n such that the set of distinct prime divisors of n is equal to the set of distinct prime divisors of the arithmetic derivative n'.",
+			"comment": [
+				"A027748(n,k) = A027748(A003415(n),k) for k=1..A001221(n). - _Reinhard Zumkeller_, Jan 16 2013",
+				"A051674 is a subset of this sequence."
+			],
+			"link": [
+				"Paolo P. Lava and Donovan Johnson, \u003ca href=\"/A201009/b201009.txt\"\u003eTable of n, a(n) for n = 1..500\u003c/a\u003e (first 100 terms from Paolo P. Lava)"
+			],
+			"example": [
+				"n = 1728 = 2^6*3^3, n' = 6912 = 2^8*3^3 have the same prime factors 2 and 3."
+			],
+			"maple": [
+				"with(numtheory);",
+				"A201009:=proc(q)",
+				"local a,b,k,n;",
+				"for n from 1 to q do",
+				"  a:=ifactors(n)[2]; b:=ifactors(n*add(op(2,p)/op(1,p),p=ifactors(n)[2]))[2];",
+				"  if nops(a)=nops(b) then",
+				"    if product(a[k][1],k=1..nops(a))=product(b[k][1],k=1..nops(a)) then print(n);",
+				"fi; fi; od; end:",
+				"A201009(100000); # _Paolo P. Lava_, Jan 09 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a201009 = a201009_list",
+				"a201009_list = 1 : filter",
+				"   (\\x -\u003e a027748_row x == a027748_row (a003415 x)) [2..]",
+				"-- _Reinhard Zumkeller_, Jan 16 2013",
+				"(Python)",
+				"from sympy import primefactors, factorint",
+				"A201009 = [n for n in range(1,10**5) if primefactors(n) == primefactors(sum([int(n*e/p) for p,e in factorint(n).items()]) if n \u003e 1 else 0)] # _Chai Wah Wu_, Aug 21 2014"
+			],
+			"xref": [
+				"Cf. A003415, A055744, A081377, A110751, A110819."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Paolo P. Lava_, Jan 09 2013",
+			"references": 1,
+			"revision": 24,
+			"time": "2014-08-21T17:53:26-04:00",
+			"created": "2013-01-15T19:22:39-05:00"
+		},
+		{
+			"number": 201992,
+			"data": "0,1,2,3,4,5,6,9,10,11,12,13,18,19,20,22,25,26,37,38,41,44,45,50,51,52,75,76,77,82,83,89,90,101,102,105,150,153,154,165,166,179,180,203,205,210,211,300,301,306,308,331,332,358,361,406,410,421,422,601",
+			"name": "Numbers whose binary representations are found in the Thue-Morse sequence.",
+			"comment": [
+				"Interpreting A010060 as a bit string, this sequence contains the decimal equivalents of the subsequences, in order."
+			],
+			"link": [
+				"Walt Rorie-Baety, \u003ca href=\"/A201992/b201992.txt\"\u003eTable of n, a(n) for n = 0..2500\u003c/a\u003e",
+				"Project Euler, \u003ca href=\"http://projecteuler.net/problem=361\"\u003eProblem 361: Subsequence of Thue-Morse sequence\u003c/a\u003e"
+			],
+			"example": [
+				"The binary representation of 21 (10101) has an overlapping square sequence (1X1X1, where X is any binary sequence, in this case, X = 0), and so is not in the sequence. Compare to A063037."
+			],
+			"mathematica": [
+				"Module[{nn=10000,tm},tm=Table[ThueMorse[n],{n,0,nn}];Join[{0},Position[ Table[ If[SequenceCount[tm,IntegerDigits[k,2]]\u003e0,1,0],{k,1000}], 1]]]// Flatten (* Requires Mathematica version 10 or later *) (* _Harvey P. Dale_, Apr 03 2018 *)"
+			],
+			"program": [
+				"(Haskell) a201992 = 0: concatMap (\\n -\u003e Set.toList . Set.fromList . map binRep . filter ((==[1]).take 1) . window n . take (n*2^n) $ a010060) [1..] where",
+				"  {window n = takeWhile (full . drop (n-1)) . map (take n) .  tails; binRep = foldl' (\\a b -\u003e 2*a+b) 0}; full = not . null"
+			],
+			"xref": [
+				"Cf. A010060, A063037."
+			],
+			"keyword": "nonn,base,nice",
+			"offset": "0,3",
+			"author": "_Walt Rorie-Baety_, Dec 07 2011",
+			"ext": [
+				"Helper function added and name of value in program changed for better understanding by _Walt Rorie-Baety_, Mar 25 2012"
+			],
+			"references": 1,
+			"revision": 27,
+			"time": "2018-04-03T14:32:04-04:00",
+			"created": "2011-12-15T13:24:34-05:00"
+		},
+		{
+			"number": 203814,
+			"data": "1,2,3,4,5,6,7,8,9,10,1,11,2,3,4,5,6,7,8,9,10,11,12,12,13,14,15,16,17,18,19,20,21,13,22,23,24,25,26,27,28,29,30,31,14,32,33,34,35,36,37,38,39,40,41,15,42,43,44,45,46,47,48,49,50,51,16,52,53",
+			"name": "Number of numbers \u003c= n having as many distinct digits as n has.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A203814/b203814.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(9) = #{0, 1, 2, 3, 4, 5, 6, 7, 8, 9} = 10;",
+				"a(10) = #{10} = 1;",
+				"a(11) = #{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11} = 11;",
+				"a(12) = #{10, 12} = 2."
+			],
+			"program": [
+				"(Haskell)",
+				"a203814 n = length [x | x \u003c- [0..n], a043537 x == a043537 n]"
+			],
+			"xref": [
+				"Cf. A043537."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jan 06 2012",
+			"references": 1,
+			"revision": 11,
+			"time": "2014-01-29T07:52:14-05:00",
+			"created": "2012-01-07T06:27:47-05:00"
+		},
+		{
+			"number": 206282,
+			"data": "1,1,-1,-4,-5,1,9,11,-4,-25,-31,9,64,79,-25,-169,-209,64,441,545,-169,-1156,-1429,441,3025,3739,-1156,-7921,-9791,3025,20736,25631,-7921,-54289,-67105,20736,142129,175681,-54289,-372100,-459941,142129,974169,1204139",
+			"name": "a(n) = ( a(n-1) * a(n-3) + a(n-2) ) / a(n-4), a(1) = a(2) = 1, a(3) = -1, a(4) = -4.",
+			"comment": [
+				"This satisfies the same recurrence as Dana Scott's sequence A048736."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A206282/b206282.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,0,-2,0,0,2,0,0,1)."
+			],
+			"formula": [
+				"G.f.: x * (1 + x - x^2 - 2*x^3 - 3*x^4 - x^5 - x^6 - x^7) / (1 + 2*x^3 - 2*x^6 - x^9).",
+				"a(n) = a(-5 - n) = a(n+2) * a(n-2) - a(n+1) * a(n-1) for all n in Z.",
+				"a(3*n) = (-1)^n * F(n)^2, a(3*n + 1) = (-1)^n * F(n + 2)^2 where F = Fibonacci A000045.",
+				"a(6*n - 4) = - A110034(2*n), a(6*n - 1) = - A110035(2*n), a(3*n + 2) = (-1)^n * A126116(2*n + 3)."
+			],
+			"example": [
+				"G.f. = x + x^2 - x^3 - 4*x^4 - 5*x^5 + x^6 + 9*x^7 + 11*x^8 - 4*x^9 - 25*x^10 + ..."
+			],
+			"mathematica": [
+				"CoefficientList[Series[x*(1+x)*(1-x^2)*(1+x^3)/(1-2*x^2-2*x^4-2*x^6+x^8 ), {x,0,50}], x] (* or *) RecurrenceTable[{a[n] == ( a[n-1]*a[n-3] + a[n-2] )/a[n-4], a[1] == a[2] == 1, a[3] == -1, a[4] == -4}, a, {n,1,50}] (* _G. C. Greubel_, Aug 12 2018 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = my(k = n\\3); (-1)^k * if( n%3 == 0, fibonacci( k )^2, n%3 == 1, fibonacci( k+2 )^2, fibonacci( k ) * fibonacci( k+3 ) + fibonacci( k+1 ) * fibonacci( k+2 ))};",
+				"(PARI) x='x+O('x^30); Vec(x*(1+x)*(1-x^2)*(1+x^3)/(1-2*x^2-2*x^4 -2*x^6 +x^8 )) \\\\ _G. C. Greubel_, Aug 12 2018",
+				"(Haskell)",
+				"a206282 n = a206282_list !! (n-1)",
+				"a206282_list = 1 : 1 : -1 : -4 :",
+				"   zipWith div",
+				"     (zipWith (+)",
+				"       (zipWith (*) (drop 3 a206282_list)",
+				"                    (drop 1 a206282_list))",
+				"       (drop 2 a206282_list))",
+				"     a206282_list",
+				"-- Same program as in A048736, see comment.",
+				"-- _Reinhard Zumkeller_, Feb 08 2012",
+				"(MAGMA) I:=[1,1,-1,-4]; [n le 4 select I[n] else (Self(n-1)*Self(n-3) + Self(n-2))/Self(n-4): n in [1..30]]; // _G. C. Greubel_, Aug 12 2018"
+			],
+			"xref": [
+				"Cf. A000045, A048736, A110034, A110035, A126116."
+			],
+			"keyword": "sign,easy",
+			"offset": "1,4",
+			"author": "_Michael Somos_, Feb 05 2012",
+			"references": 1,
+			"revision": 25,
+			"time": "2018-08-13T00:03:31-04:00",
+			"created": "2012-02-05T20:07:13-05:00"
+		},
+		{
+			"number": 206498,
+			"data": "0,2,1,1,2,2,1,1,2,2,2,2,2,2,2,1,2,3,1,2,2,2,3,2,2,3,3,2,2,3,2,1,2,2,2,3,2,2,3,2,3,3,2,2,3,3,3,2,2,3,2,3,1,4,2,2,2,3,2,3,3,2,3,1,3,3,2,2,3,3,2,3,3,3,3,2,2,4,2,2,4,3,3,3,2,3,3,2,2,4,3,3,2,3,2,2,3,3,3,3,3,3,4,3,3,2,2,4,3,3,3,2,3,3,3,3,4,2,2,3",
+			"name": "Number of quasipendant vertices in the rooted tree with Matula-Goebel number n.",
+			"comment": [
+				"A pendant vertex in a tree is a vertex having degree 1. A vertex is called quasipendant if it is adjacent to a pendant vertex (see the Bapat reference, p. 106).",
+				"The Matula-Goebel number of a rooted tree can be defined in the following recursive manner: to the one-vertex tree there corresponds the number 1; to a tree T with root degree 1 there corresponds the t-th prime number, where t is the Matula-Goebel number of the tree obtained from T by deleting the edge emanating from the root; to a tree T with root degree m\u003e=2 there corresponds the product of the Matula-Goebel numbers of the m branches of T."
+			],
+			"reference": [
+				"R. B. Bapat, Graphs and Matrices, Springer, London, 2010.",
+				"F. Goebel, On a 1-1 correspondence between rooted trees and natural numbers, J. Combin. Theory, B 29 (1980), 141-143.",
+				"I. Gutman and A. Ivic, On Matula numbers, Discrete Math., 150, 1996, 131-142.",
+				"I. Gutman and Y-N. Yeh, Deducing properties of trees from their Matula numbers, Publ. Inst. Math., 53 (67), 1993, 17-22.",
+				"D. W. Matula, A natural rooted tree enumeration by prime factorization, SIAM Review, 10, 1968, 273."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A206498/b206498.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"E. Deutsch, \u003ca href=\"http://arxiv.org/abs/1111.4288\"\u003e Rooted tree statistics from Matula numbers\u003c/a\u003e, arXiv:1111.4288.",
+				"\u003ca href=\"/index/Mat#matula\"\u003eIndex entries for sequences related to Matula-Goebel numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=0; a(2)=2; if n=p(t) (=the t-th prime) and t is even then a(n)=Lp(t); if n=p(t) (=the t-th prime) and t\u003e=3 is odd, then a(n) = 1+Lp(t); if n is composite, then a(n)=Lp(n); here Lp stands for \"number of leaf parents\" (see A196062)."
+			],
+			"example": [
+				"a(5)=2 because the rooted tree with Matula-Goebel number 5 is the path tree A - B - C - D; the pendant vertices are A and D while the quasipendant ones are B and C."
+			],
+			"maple": [
+				"with(numtheory): Lp := proc (n) local r, s: r := proc (n) options operator, arrow: op(1, factorset(n)) end proc: s := proc (n) options operator, arrow: n/r(n) end proc: if n = 1 then 0 elif n = 2 then 1 elif bigomega(n) = 1 then Lp(pi(n)) elif `mod`(r(n), 2) = 0 and `mod`(s(n), 2) = 0 then Lp(r(n))+Lp(s(n))-1 else Lp(r(n))+Lp(s(n)) end if end proc: a := proc (n) if n = 1 then 0 elif n = 2 then 2 elif bigomega(n) = 1 and 0 \u003c `mod`(pi(n), 2) then 1+Lp(pi(n)) elif bigomega(n) = 1 then Lp(pi(n)) else Lp(n) end if end proc: seq(a(n), n = 1 .. 120);"
+			],
+			"program": [
+				"(Haskell)",
+				"a206498 1 = 0",
+				"a206498 2 = 2",
+				"a206498 x = if t \u003e 0 then a196062 t + t `mod` 2 else a196062 x",
+				"            where t = a049084 x",
+				"-- _Reinhard Zumkeller_, Sep 03 2013"
+			],
+			"xref": [
+				"Cf. A196062.",
+				"Cf. A049084."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Emeric Deutsch_, May 22 2012",
+			"references": 1,
+			"revision": 16,
+			"time": "2017-03-07T06:16:53-05:00",
+			"created": "2012-05-23T17:17:52-04:00"
+		},
+		{
+			"number": 213087,
+			"data": "0,110,1110,0,10,1110,11110,0,0,10,0,110,10,10,11110,0,110,11110,111110,0,0,0,10,0,0,110,0,10,10,0,1110,10,0,10,10,110,110,10,111110,0,0,110,0,1110,10,110,111110,0,1110,111110,1111110,0,0,0,0,10,0,0",
+			"name": "Concatenate the binary representations of the nonnegative integers and form successive terms by inserting a comma after each zero.",
+			"comment": [
+				"This sequence has the same property as A209355, namely, each term in this sequence occurs infinitely often in runs of every finite length \u003e= 1. This sequence, however, contains an infinite number of distinct terms, the same digit strings as occur uniquely and sorted in A105279."
+			],
+			"link": [
+				"Rick L. Shepherd, \u003ca href=\"/A213087/b213087.txt\"\u003eTable of n, a(n) for n = 1..100000\u003c/a\u003e"
+			],
+			"example": [
+				"The binary representations of 0, 1, 2, 3, 4 are 0, 1, 10, 11, 100, so concatenation gives 011011100, which, when commas are inserted after each zero, produces 0, 110, 1110, 0, terms a(1) through a(4)."
+			],
+			"program": [
+				"(PARI)",
+				"/* Calculate terms_wanted terms starting with n: Binary values*/",
+				"/* of n, n + 1, n + 2, ..., are concatenated and each term is */",
+				"/* the string of all bits up to and including the next zero.  */",
+				"/* (Note: Behavior of PARI binary function is such that if    */",
+				"/* n \u003c 0 is used, binary values of |n|, |n+1|, |n+2|, ...,    */",
+				"/* are concatenated here.)                                    */",
+				"/*                                                            */",
+				"{a(n, terms_wanted) =",
+				"local(v = vector(terms_wanted), term = 0, s = \"\", b, m, p);",
+				"while(term\u003cterms_wanted,",
+				"  b = binary(n);",
+				"  m = matsize(b)[2];",
+				"  p = 1;",
+				"  while(p\u003c=m \u0026\u0026 term\u003cterms_wanted,",
+				"    s = concat(s,Str(b[p]));",
+				"    if(b[p]==0,",
+				"      term++;",
+				"      v[term] = eval(s);",
+				"      s = \"\";",
+				"    );",
+				"    p++;",
+				"  );",
+				"  n++;",
+				"); return(v)}",
+				"A213087 = a(0, 100000);",
+				"for(n=1, 100000, write(\"b213087.txt\", n, \" \", A213087[n]))",
+				"(Haskell)",
+				"a213087 n = a213087_list !! (n-1)",
+				"a213087_list = f a030190_list where",
+				"   f xs = foldl1 (\\v d -\u003e 10 * v + d) (ys ++ [0]) : f zs where",
+				"          (ys, _:zs) = span (/= 0) xs",
+				"-- _Reinhard Zumkeller_, Jun 30 2012"
+			],
+			"xref": [
+				"Cf. A209355, A105279, A007088.",
+				"Cf. A030190."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_Rick L. Shepherd_, Jun 07 2012",
+			"references": 1,
+			"revision": 9,
+			"time": "2012-06-30T08:14:57-04:00",
+			"created": "2012-06-09T06:30:06-04:00"
+		},
+		{
+			"number": 215973,
+			"data": "1,2,7,28,122,565,2735,13682,70188,367248,1952394,10516141,57265929,314751625,1743829163,9728561418,54604800126,308137127382,1747158309208,9949001656704,56872435967840,326243091718978,1877419829207578,10835354636496321",
+			"name": "a(0) = 1, for n \u003e 0: a(n) = Sum_{k=0..n-1} a(k) * (1 + a(n-1-k)).",
+			"comment": [
+				"Inverse binomial transform of A188312."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A215973/b215973.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"J. P. S. Kung and A. de Mier, \u003ca href=\"http://dx.doi.org/10.1016/j.jcta.2012.08.010\"\u003eCatalan lattice paths with rook, bishop and spider steps\u003c/a\u003e, Journal of Combinatorial Theory, Series A 120 (2013) 379-389. See P_{1,P}(t), p. 386. - From _N. J. A. Sloane_, Dec 27 2012"
+			],
+			"formula": [
+				"G.f.: (2*x-1+sqrt( 1-8*x+12*x^2-4*x^3))/(2*x*(x-1)). - _N. J. A. Sloane_, Dec 27 2012",
+				"Conjecture: (n+1)*a(n) +3*(-3*n+1)*a(n-1) +4*(5*n-7)*a(n-2) +2*(-8*n+19)*a(n-3) +2*(2*n-7)*a(n-4)=0. - _R. J. Mathar_, Jun 14 2016",
+				"a(n) = Sum_{j=0..n} Sum_{i=0..j} C(j+1,i)*C(2*j-i,j-i)*C(n-j+i-1,n-j)/(j+1). - _Vladimir Kruchinin_, May 04 2018"
+			],
+			"mathematica": [
+				"nmax = 30; CoefficientList[Series[(2*x - 1 + Sqrt[1-8*x+12*x^2-4*x^3]) / (2*x*(x-1)), {x, 0, nmax}], x] (* _Vaclav Kotesovec_, Oct 31 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a215973 n = a215973_list !! n",
+				"a215973_list = 1 : f [1] where",
+				"   f xs = y : f (y:xs) where",
+				"     y = sum $ zipWith (*) xs $ map (+ 1) $ reverse xs",
+				"(Maxima)",
+				"a(n):=sum(sum(binomial(j+1,i)*binomial(2*j-i,j-i)*binomial(n-j+i-1,n-j),i,0,j)/(j+1),j,0,n); /* _Vladimir Kruchinin_, May 04 2018 */",
+				"(PARI) a(n) = sum(j=0, n, sum(i=0,j, binomial(j+1,i)*binomial(2*j-i,j-i)*binomial(n-j+i-1,n-j)/(j+1))); \\\\ _Altug Alkan_, May 04 2018",
+				"(PARI) x='x+O('x^99); Vec((2*x-1+(1-8*x+12*x^2-4*x^3)^(1/2))/(2*x*(x-1))) \\\\ _Altug Alkan_, May 04 2018"
+			],
+			"xref": [
+				"Cf. A000108, A188312."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Aug 29 2012",
+			"references": 1,
+			"revision": 34,
+			"time": "2018-05-04T09:34:18-04:00",
+			"created": "2012-08-30T00:13:45-04:00"
+		},
+		{
+			"number": 216237,
+			"data": "1,7,44,262,313,383,404,464,565,656,818,888,989,1221,1771,1881,2112,3553,4004,4554,4774,5335,5445,5555,7117,7447,7887,8118,8778,11311,11811,12021,12321,12921,14641,15451,15951,17071,17371,18081,18381,20602,21012",
+			"name": "Happy palindromic numbers.",
+			"comment": [
+				"That is, happy numbers (A007770) that are palindromic (A002113)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A216237/b216237.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"A103369(a(n)) * A136522(a(n)) = 1. - _Reinhard Zumkeller_, Mar 15 2013"
+			],
+			"mathematica": [
+				"palQ[n_] := Block[{d=IntegerDigits@n}, d == Reverse@d]; happyQ[n_] := Block[{w = n}, While[w \u003e 6, w = Total[IntegerDigits[w]^2]]; w == 1]; Select[Range[21012], palQ[#] \u0026\u0026 happyQ[#] \u0026] (* _Giovanni Resta_, Mar 14 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a216237 n = a216237_list !! (n-1)",
+				"a216237_list = filter ((== 1) . a136522) a007770_list",
+				"-- _Reinhard Zumkeller_, Mar 15 2013"
+			],
+			"xref": [
+				"Cf. A002113, A007770."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_Jayanta Basu_, Mar 14 2013",
+			"references": 1,
+			"revision": 17,
+			"time": "2013-03-15T16:51:36-04:00",
+			"created": "2013-03-14T13:39:04-04:00"
+		},
+		{
+			"number": 216762,
+			"data": "1,2,6,8,30,36,42,48,72,80,88,96,104,112,120,128,510,540,570,600,630,660,690,720,750,780,810,840,870,900,930,960,1188,1224,1260,1296,1332,1368,1404,1440,1476,1512,1548,1584,1620,1656,1692,1728,1764,1800",
+			"name": "n * log(n) * log(log(n)) * log(log(log(n))) ... with base-2 logarithms and ceiling applied to each factor.",
+			"comment": [
+				"a(n) is the product of n, ceil(log2 n), ceil(log2(log2 n)),... with the base-2 logs iterated while the result remains greater than unity.",
+				"The sum of the reciprocals of a(n) diverge, but extremely slowly.",
+				"In particular, the sum of the reciprocals acts like lg* n asymptotically, where lg* x = 0 for x \u003c 2 and lg* 2^x = 1 + lg* x. - _Charles R Greathouse IV_, Sep 25 2012"
+			],
+			"example": [
+				"a(0) is the product of 0 numbers, defined to be 1.",
+				"a(15) = 15 * ceil(log2 15) * ceil(log2 log2 15) * ceil(log2 log2 log2 15) = 15 * 4 * 2 * 1 = 120.",
+				"a(17) = 17 * ceil(log2 17) * ceil(log2 log2 17) * ceil(log2 log2 log2 17) * ceil(log2 log2 log2 log2 17) = 17 * 5 * 3 * 2 * 1 = 510."
+			],
+			"mathematica": [
+				"Table[prod = 1; s = n; While[s \u003e 1, prod = prod*Ceiling[s]; s = Log[2, s]]; prod, {n, 50}] (* _T. D. Noe_, Sep 24 2012 *)"
+			],
+			"program": [
+				"(Haskell) a = product . map ceil . takeWhile (1\u003c) . iterate log_2",
+				"(PARI) a(n)=my(t=n);n-=1e-9;while(n\u003e2,t*=ceil(n=log(n)/log(2)));t \\\\ _Charles R Greathouse IV_, Sep 25 2012"
+			],
+			"xref": [
+				"Cf. A216761 (floor instead of ceiling)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Ken Takusagawa_, Sep 15 2012",
+			"references": 1,
+			"revision": 11,
+			"time": "2012-09-26T12:13:11-04:00",
+			"created": "2012-09-24T14:21:52-04:00"
+		}
+	]
+}

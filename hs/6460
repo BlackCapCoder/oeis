@@ -1,0 +1,368 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6460,
+	"results": [
+		{
+			"number": 133821,
+			"data": "1,1,16,1,16,81,1,16,81,256,1,16,81,256,625,1,16,81,256,625,1296,1,16,81,256,625,1296,2401,1,16,81,256,625,1296,2401,4096,1,16,81,256,625,1296,2401,4096,6561,1,16,81,256,625,1296,2401,4096,6561,10000",
+			"name": "Triangle whose rows are sequences of increasing fourth powers: 1; 1,16; 1,16,81; ... .",
+			"comment": [
+				"Reading the triangle by rows produces the sequence 1,1,16,1,16,81,1,16,81,256,..., analogous to A002260."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A133821/b133821.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"O.g.f.: (1+11qx+11q^2x^2+q^3x^3)/((1-x)(1-qx)^5) = 1 + x(1 + 16q) + x^2(1 + 16q + 81q^2) + ... . Cf. 4th row of A008292."
+			],
+			"example": [
+				"Triangle starts",
+				"1;",
+				"1, 16;",
+				"1, 16; 81;",
+				"1, 16, 81, 256;",
+				"1, 16, 81, 256, 625;"
+			],
+			"program": [
+				"(Haskell)",
+				"a133821 n k = a133821_tabl !! (n-1) !! (k-1)",
+				"a133821_row n = a133821_tabl !! (n-1)",
+				"a133821_tabl = map (`take` (tail a000583_list)) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 11 2012"
+			],
+			"xref": [
+				"Cf. A000538 (row sums), A002260, A133819, A133820, A133824."
+			],
+			"keyword": "easy,nonn,tabl",
+			"offset": "1,3",
+			"author": "_Peter Bala_, Sep 25 2007",
+			"ext": [
+				"Offset changed by _Reinhard Zumkeller_, Nov 11 2012"
+			],
+			"references": 3,
+			"revision": 12,
+			"time": "2015-03-14T11:55:03-04:00",
+			"created": "2007-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 134735,
+			"data": "2,1,3,2,5,2,7,4,11,2,13,4,17,2,19,4,23,6,29,2,31,6,37,4,41,2,43,4,47,6,53,6,59,2,61,6,67,4,71,2,73,6,79,4,83,6,89,8,97,4,101,2,103,4,107,2,109,4,113,14,127,4,131,6,137,2",
+			"name": "Primes followed by the difference from the next prime.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A134735/b134735.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Omar E. Pol, \u003ca href=\"http://www.polprimos.com\"\u003eDeterminacion geometrica de los numeros primos y perfectos\u003c/a\u003e."
+			],
+			"formula": [
+				"If n is odd then a(n)=A000040((n+1)/2) else a(n)=A001223(n/2)."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a134735 n = a134735_list !! (n-1)",
+				"a134735_list = concat $ transpose [a000040_list, a001223_list]",
+				"-- _Reinhard Zumkeller_, Dec 12 2012"
+			],
+			"xref": [
+				"Prime numbers: A000040. Differences between consecutive primes: A001223.",
+				"Cf. A219606."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Omar E. Pol_, Nov 11 2007",
+			"references": 3,
+			"revision": 9,
+			"time": "2014-08-11T22:45:38-04:00",
+			"created": "2007-12-09T03:00:00-05:00"
+		},
+		{
+			"number": 134948,
+			"data": "1,2,10,11,12,21,22,24,100,101,102,110,111,112,120,121,122,124,201,210,211,212,221,222,224,241,242,244,424,1000,1001,1002,1010,1011,1012,1020,1021,1022,1024,1100,1101,1102,1110,1111,1112,1120,1121,1122,1124,1200",
+			"name": "Self-factorial numbers: numbers n with property that for each single digit d of n, we can also see the decimal expansion of d! as a substring of n.",
+			"comment": [
+				"As 9 does not occur in d! for all d in {0..9}, all self-factorials cannot contain 9 as a digit, cf. A007095. - _Reinhard Zumkeller_, Sep 26 2014"
+			],
+			"link": [
+				"D. Applegate and R. Zumkeller, \u003ca href=\"/A134948/b134948.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 300 terms from David Applegate)"
+			],
+			"example": [
+				"24 is a self-factorial number because we can see both 2! = 2 and 4! = 24 in the decimal expansion 24."
+			],
+			"maple": [
+				"isA134948 := proc(n) local nbase10,dgs,d,dfac ; nbase10 := convert(n,base,10) ; dgs := convert(nbase10,set) ; for d in dgs do dfac := convert(d!,base,10) ; if verify(dfac,nbase10,'sublist') = false then RETURN(false) ; fi ; od: RETURN(true) ; end: for n from 1 to 10000 do if isA134948(n) then printf(\"%d \",n) ; fi ; od: # _R. J. Mathar_, Feb 05 2008"
+			],
+			"program": [
+				"For C++ program see the Applegate link in A135463.",
+				"(Haskell)",
+				"import Data.List (nub, sort, isInfixOf)",
+				"a134948 n = a134948_list !! (n-1)",
+				"a134948_list = filter h [0..] where",
+				"   h x = all (`isInfixOf` xs)",
+				"             (map (fss !!) $ map (read . return) $ sort $ nub xs)",
+				"         where xs = show x",
+				"   fss = map show $ take 10 a000142_list",
+				"-- _Reinhard Zumkeller_, Sep 26 2014"
+			],
+			"xref": [
+				"Cf. A134698, A134947, A134439, A134692.",
+				"Cf. A000142."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Alexander R. Povolotsky_, Feb 02 2008",
+			"ext": [
+				"a(1) - a(18) computed by _N. J. A. Sloane_, Feb 02 2008",
+				"a(19) onwards from _David Applegate_, Feb 09 2008",
+				"More terms from _R. J. Mathar_, Feb 05 2008"
+			],
+			"references": 3,
+			"revision": 17,
+			"time": "2018-01-16T02:46:03-05:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 135093,
+			"data": "4,6,15,10,21,14,55,33,22,39,26,85,51,34,57,38,115,69,46,203,145,87,58,93,62,259,185,111,74,205,123,82,129,86,235,141,94,371,265,159,106,413,295,177,118,183,122,469,335,201,134,355,213,142,219,146,553,395,237",
+			"name": "Least composite number k for each possible difference gpf(k)-lpf(k).",
+			"comment": [
+				"Clearly all terms are semiprimes. a(0)=prime(1)^2=4. For n\u003e=1, a(n)=k, a squarefree semiprime, where gpf(k)-lpf(k)=A006530(k)-A020639(k)=A030173(k).",
+				"For n \u003e 0: first occurrences of A030173(n) in A046665. - _Reinhard Zumkeller_, Jul 03 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A135093/b135093.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(3)=2*5=10 because 5-2=3=A030173(3), where the latter terms are ordered by the increasing possible differences between two distinct primes and no smaller composite number has a difference of 3 between its least and greatest prime factors."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a135093 0 = 4",
+				"a135093 n = (+ 1) $ fromJust $ (`elemIndex` a046665_list) $ a030173 n",
+				"-- _Reinhard Zumkeller_, Jul 03 2015"
+			],
+			"xref": [
+				"Cf. A001358, A006881, A030173, A020639, A006530.",
+				"Cf. A046665."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_Rick L. Shepherd_, Nov 18 2007",
+			"references": 3,
+			"revision": 6,
+			"time": "2015-07-03T16:07:08-04:00",
+			"created": "2007-12-09T03:00:00-05:00"
+		},
+		{
+			"number": 138353,
+			"data": "13,73,109,409,1033,1453,1609,2713,3373,3853,4909,6733,7753,9613,10009,12109,12553,13933,19609,20173,25609,28909,35353,36109,40009,40813,44953,47533,48409,58573,88813,94873,102409,110233,122509,128173,135433",
+			"name": "Primes of the form k^2 + 9.",
+			"comment": [
+				"It is easy to show that k mod 12 must be 2,4,8,10 and that since k^2 mod 12 = 4, then p mod 12 = 1. In base 12, the sequence is 11, 61, 91, 2X1, 721, X11, E21, 16X1, 1E51, 2291, 2X11, 3X91, 45X1, 5691, 5961, 7011, 7321, 8091, E421, E811, 129X1, where X is for 10, E is for 11. - _Walter Kehowski_, May 31 2008"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A138353/b138353.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Intersection[Table[n^2+9,{n,0,10^2}],Prime[Range[9*10^3]]] ...or... For[i=9,i\u003c=9,a={};Do[If[PrimeQ[n^2+i],AppendTo[a,n^2+i]],{n,0,100}];Print[\"n^2+\",i,\",\",a];i++ ]",
+				"Select[Range[400]^2+9,PrimeQ] (* _Harvey P. Dale_, Jan 31 2017 *)"
+			],
+			"program": [
+				"(MAGMA) [ a: n in [0..900] | IsPrime(a) where a is n^2+9] // _Vincenzo Librandi_, Nov 24 2010",
+				"(Haskell)",
+				"a138353 n = a138353_list",
+				"a138353_list = filter ((== 1) . a010051') $ map (+ 9) a000290_list",
+				"-- _Reinhard Zumkeller_, Mar 12 2012",
+				"(PARI) is(n)=isprime(n) \u0026\u0026 issquare(n-9) \\\\ _Charles R Greathouse IV_, Aug 21 2017"
+			],
+			"xref": [
+				"Subsequence of A185086.",
+				"Cf. A010051, A000290, A005473."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Vladimir Joseph Stephan Orlovsky_, May 07 2008",
+			"ext": [
+				"More terms from _Vincenzo Librandi_, Apr 28 2010"
+			],
+			"references": 3,
+			"revision": 24,
+			"time": "2018-01-25T02:48:40-05:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 138385,
+			"data": "0,0,0,0,0,0,0,2,2,1,1,1,1,2,1,2,1,2,3,2,1,2,1,3,2,3,5,2,3,3,4,5,6,4,4,2,5,4,4,4,8,5,2,2,4,5,4,6,4,3,5,5,6,4,4,6,5,4,5,4,6,6,6,7,7,4,6,8,6,3,6,7,5,6,8,6,6,6,5,8,6,6,7,6,5,4,6,6,5,4,5,6,8,7,6,5,6,7,8,10,6,6,7,7,6",
+			"name": "Number of smaller Fibonacci numbers contained in the n-th Fibonacci number in its decimal representation.",
+			"comment": [
+				"A138390 and A138391 give record values and where they occur."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A138385/b138385.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/FibonacciNumber.html\"\u003eFibonacci Number\u003c/a\u003e"
+			],
+			"example": [
+				"A000045(40) = 102334155: a(40) = #{0,1,2,3,5,34,55,233} = 8;",
+				"A000045(41) = 165580141: a(41) = #{0,1,5,8,55} = 5;",
+				"A000045(42) = 267914296: a(42) = #{1,2} = 2;",
+				"A000045(43) = 433494437: a(43) = #{3,34} = 2;",
+				"A000045(44) = 701408733: a(44) = #{0,1,3,8} = 4;",
+				"A000045(45) = 1134903170: a(45) = #{0,1,3,13,34} = 5."
+			],
+			"program": [
+				"(Haskell)import Data.List (isInfixOf)",
+				"a138385 n = a138385_list !! n",
+				"a138385_list = 0 : h [] (map show $ 0 : drop 2 a000045_list) where",
+				"   h uss (vs:vss) = length [xs | xs \u003c- uss, xs `isInfixOf` vs] :",
+				"                    h (vs : uss) vss",
+				"-- _Reinhard Zumkeller_, Jul 06 2014"
+			],
+			"keyword": "nonn,base",
+			"offset": "0,8",
+			"author": "_Reinhard Zumkeller_, Mar 18 2008",
+			"references": 3,
+			"revision": 11,
+			"time": "2014-07-06T01:06:27-04:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 139080,
+			"data": "1,2,4,8,3,6,12,5,10,20,7,14,28,11,22,9,18,36,13,26,52,19,38,15,30,60,21,42,16,32,64,23,46,17,34,68,24,48,96,33,66,25,50,100,35,70,27,54,108,37,74,29,58,116,39,78,31,62,124,43,86,40,80,160,55,110,41,82,164,56",
+			"name": "a(n) = the smallest positive integer not occurring earlier in the sequence such that floor(max(a(n),a(n-1))/min(a(n),a(n-1))) = 2; a(1) = 1.",
+			"comment": [
+				"Is there always an unused positive integer, a(n), such that floor(max(a(n),a(n-1))/min(a(n),a(n-1))) = 2, or does the sequence terminate? If the sequence is infinite, is it a permutation of the positive integers?",
+				"The sequence grows in 5 distinct \"bands\" which are populated respectively by every 5th term; these terms are in proportion (a(5k), a(5k+1), a(5k+2), a(5k+3), a(5k+4)) ~ (4, 8, 3, 6, 12)*k*(1-O(1/log(k))). More precisely, for k\u003e6, we have a(5k+1) = 2 a(5k),  a(5k+2) ~ (3/8)*a(5k+1) is the least number not occurring earlier, a(5k+3) = 2 a(5k+2), a(5k+4) = 2 a(5k+3) and a(5k+5) is the least number greater than a(5k+4)/3 not occurring earlier. - _M. F. Hasler_, Apr 24 2015",
+				"See LINKS for a proof of the preceding statement, which provides an affirmative answer to the questions raised in the first comment. See A257280 for the inverse permutation. See also the variant A257470 and its inverse A257271. - _M. F. Hasler_, Apr 26 2015"
+			],
+			"link": [
+				"M. F. Hasler, \u003ca href=\"/A139080/b139080.txt\"\u003eTable of n, a(n) for n=1,...,10000\u003c/a\u003e.",
+				"M. F. Hasler, \u003ca href=\"/wiki/User:M._F._Hasler/A139080\"\u003eA139080\u003c/a\u003e, OEIS wiki, April 2015."
+			],
+			"formula": [
+				"For k\u003e6, when n = 5k, 5k+2 or 5k+3, then a(n+1) = 2 a(n); and with N(n) := N \\ {a(k); k \u003c n}, a(5k+2) = min N(5k+2) and a(5k+5) = min { m in N(5k+5), m \u003e a(5k+4)/3 }. - _M. F. Hasler_, Apr 26 2015"
+			],
+			"mathematica": [
+				"f[n_] := Block[{s = {1}, i, k}, For[i = 2, i \u003c= n, i++, k = 1; While[Nand[! MemberQ[s, k], Floor[Max[k, s[[i - 1]]]/Min[k, s[[i - 1]]]] == 2], k++]; AppendTo[s, k]]; s]; f@ 70 (* _Michael De Vlieger_, Apr 26 2015 *)"
+			],
+			"program": [
+				"(PARI) { t=0; last=1; for( n=1,10000, write(\"b139080.txt\",n,\" \",last); t+=1\u003c\u003clast; for( i=last\\3+1,last\\2, bittest(t,i) \u0026 next; last=i; next(2)); for( i=last*2,last*3-1, bittest(t,i) \u0026 next; last=i; next(2)); error(\"THE END: n=\",n)); print(\"Largest term used:\");log(t)\\log(2)} \\\\ _M. F. Hasler_, Apr 07 2008",
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a139080 n = a139080_list !! (n-1)",
+				"a139080_list = 1 : f 1 [2..] where",
+				"f x zs = g zs where",
+				"g (y:ys) = if x \u003c y \u0026\u0026 y `div` x == 2 || x `div` y == 2",
+				"then y : f y (delete y zs) else g ys",
+				"-- _Reinhard Zumkeller_, Mar 14 2014"
+			],
+			"xref": [
+				"Cf. A257280 (inverse), A257470, A257271."
+			],
+			"keyword": "nonn,look",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Apr 07 2008",
+			"ext": [
+				"Additional terms calculated by _Robert Israel_ and _M. F. Hasler_, Apr 11 2008"
+			],
+			"references": 3,
+			"revision": 39,
+			"time": "2016-11-13T16:01:03-05:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 139532,
+			"data": "0,1,2,5,6,8,11,12,13,15,20,21,22,23,25,26,28,30,32,33,35,36,37,43,46,48,53,60,61,63,65,67,70,71,72,77,82,83,86,88,90,91,93,97,98,102,105,110,111,112,113,116,118,123,125,127,131,132,135,137,138,145,147,148",
+			"name": "Numbers n such that numbers 24n+19 are primes.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A139532/b139532.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a = {}; Do[If[PrimeQ[24 n + 19], AppendTo[a, n]], {n, 0, 200}]; a",
+				"Select[Range[0,200],PrimeQ[24#+19]\u0026] (* _Harvey P. Dale_, Jul 24 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a139532 n = a139532_list !! (n-1)",
+				"a139532_list = [x | x \u003c- [0..], a010051' (24 * x + 19) == 1]",
+				"-- _Reinhard Zumkeller_, Apr 12 2014"
+			],
+			"xref": [
+				"Cf. A010051."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Artur Jasinski_, Apr 25 2008",
+			"references": 3,
+			"revision": 7,
+			"time": "2017-07-24T16:40:51-04:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 141169,
+			"data": "0,0,1,0,1,1,0,1,1,2,0,1,1,2,3,0,1,1,2,3,5,0,1,1,2,3,5,8,0,1,1,2,3,5,8,13,0,1,1,2,3,5,8,13,21,0,1,1,2,3,5,8,13,21,34,0,1,1,2,3,5,8,13,21,34,55,0,1,1,2,3,5,8,13,21,34,55,89,0,1,1,2,3,5,8,13,21,34,55,89,144,0,1,1,2,3,5,8,13,21",
+			"name": "Triangle of Fibonacci numbers, read by rows: T(n,k) = A000045(k), 0\u003c=k\u003c=n.",
+			"comment": [
+				"T(n,0) = A000004(n); T(n,n) = A000045(n);",
+				"central terms: T(2*n,n) = A000045(n);",
+				"sums of rows: Sum(T(n,k): 0\u003c=k\u003c=n) = A000071(n+2);",
+				"alternating sums of rows: Sum(T(n,k)*(-1)^k: 0\u003c=k\u003c=n) = A119282(n);",
+				"T(n,k) + T(n,n-k) = A094570(n,k)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A141169/b141169.txt\"\u003eRows n=0..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits)",
+				"a141169 n k = a141169_tabl !! n !! k",
+				"a141169_row n = a141169_tabl !! n",
+				"a141169_tabl = tail $ inits a000045_list",
+				"a141169_list = concat $ a141169_tabl",
+				"-- _Reinhard Zumkeller_, Aug 24 2015, Mar 21 2011"
+			],
+			"xref": [
+				"Cf. A000045, A000004, A000071, A094570, A119282."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,10",
+			"author": "_Reinhard Zumkeller_, Mar 21 2011",
+			"references": 3,
+			"revision": 19,
+			"time": "2015-08-24T02:02:10-04:00",
+			"created": "2008-06-29T03:00:00-04:00"
+		},
+		{
+			"number": 141708,
+			"data": "1,3,5,7,9,33,65,15,17,513,21,2047,325,27,1421,31,33,455,2553,195,1025,129,45,4841,1421,51,3339,165,513,6077,427,63,65,1273,2553,10437,73,975,231,1501,891,3735,85,3219,2047,273,93,2565,5917,99,23533,4841,1365,107",
+			"name": "Least positive multiple of 2n-1 which is palindromic in base 2.",
+			"comment": [
+				"Even numbers cannot be palindromic in base 2 (unless leading zeros are considered), that's why we search for odd numbers 2n-1 their smallest multiple k(2n-1) which is palindromic in base 2. Obviously this must always be odd."
+			],
+			"link": [
+				"Harvey P. Dale, \u003ca href=\"/A141708/b141708.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)=(2n-1)*A141707(n)"
+			],
+			"mathematica": [
+				"pal2[n_]:=Module[{k=1},While[IntegerDigits[k n,2] != Reverse[ IntegerDigits[ k n,2]],k++];k n]; pal2/@Range[1,121,2] (* _Harvey P. Dale_, Feb 29 2012 *)"
+			],
+			"program": [
+				"(PARI) A141708(n,L=10^9)={ n=2*n-1; forstep(k=1,L,2, binary(k*n)-vecextract(binary(k*n),\"-1..1\") || return(k*n))}",
+				"(Haskell)",
+				"a141708 n = a141707 n * (2 * n - 1) -- _Reinhard Zumkeller_, Apr 20 2015"
+			],
+			"xref": [
+				"Cf. A050782, A141707, A062279."
+			],
+			"keyword": "base,easy,nice,nonn",
+			"offset": "1,2",
+			"author": "_M. F. Hasler_, Jul 17 2008",
+			"references": 3,
+			"revision": 11,
+			"time": "2017-06-14T01:08:14-04:00",
+			"created": "2009-01-09T03:00:00-05:00"
+		}
+	]
+}

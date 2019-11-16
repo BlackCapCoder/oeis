@@ -1,0 +1,579 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1580,
+	"results": [
+		{
+			"number": 33203,
+			"data": "2,3,11,17,19,41,43,59,67,73,83,89,97,107,113,131,137,139,163,179,193,211,227,233,241,251,257,281,283,307,313,331,337,347,353,379,401,409,419,433,443,449,457,467,491,499,521,523,547,563,569,571,577,587,593,601,617,619,641,643,659,673,683",
+			"name": "Primes p congruent to {1, 2, 3} mod 8; or primes p of form x^2+2*y^2; or primes p such that x^2 = -2 has a solution mod p.",
+			"comment": [
+				"Sequence naturally partitions into two sequences: all primes p with ord_p(-2) odd (A163183, the primes dividing 2^j +1 for some odd j) and certain primes p with ord_p(-2) even (A163185). - _Christopher J. Smyth_, Jul 23 2009",
+				"Terms m in A047476 with A010051(m) = 1. - _Reinhard Zumkeller_, Dec 29 2012"
+			],
+			"reference": [
+				"David A. Cox, \"Primes of the Form x^2 + n y^2\", Wiley, 1989."
+			],
+			"link": [
+				"T. D. Noe and Ray Chandler, \u003ca href=\"/A033203/b033203.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e [First 1000 terms from T. D. Noe]",
+				"N. J. A. Sloane et al., \u003ca href=\"https://oeis.org/wiki/Binary_Quadratic_Forms_and_OEIS\"\u003eBinary Quadratic Forms and OEIS\u003c/a\u003e (Index to related sequences, programs, references)"
+			],
+			"formula": [
+				"a(n) = A002332(n) + 2*A002333(n)^2. - _Zak Seidov_, May 29 2014"
+			],
+			"mathematica": [
+				"QuadPrimes2[1, 0, 2, 10000] (* see A106856 *)",
+				"Select[Prime[Range[200]],MemberQ[{1,2,3},Mod[#,8]]\u0026] (* _Harvey P. Dale_, Mar 16 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a033203 n = a033203_list !! (n-1)",
+				"a033203_list = filter ((== 1) . a010051) a047476_list",
+				"-- _Reinhard Zumkeller_, Dec 29 2012, Jan 22 2012",
+				"(MAGMA) [p: p in PrimesUpTo(600) | p mod 8 in [1..3]]; // _Vincenzo Librandi_, Aug 11 2012",
+				"(MAGMA) [p: p in PrimesUpTo(800) | NormEquation(2,p) eq true]; // _Bruno Berselli_, Jul 03 2016",
+				"(PARI) is(n)=isprime(n) \u0026\u0026 issquare(Mod(-2,n)) \\\\ _Charles R Greathouse IV_, Nov 29 2016"
+			],
+			"xref": [
+				"Cf. A033200, A002332, A002333.",
+				"Cf. A039706, A003628 (complement with respect to A000040).",
+				"Primes in A002479.",
+				"Cf. A051100 (see Mathar's comment)."
+			],
+			"keyword": "nonn,nice,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 22,
+			"revision": 57,
+			"time": "2016-11-29T03:17:07-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 37271,
+			"data": "2,1,13,2,4,1,5,4,4,1,15,1,1,2,3,4,4,1,2,2,1,5,3,2,2,1,9,2,9,6,1,15",
+			"name": "Number of steps to reach a prime under \"replace n with concatenation of its prime factors\" when applied to n-th composite number, or -1 if no such number.",
+			"comment": [
+				"a(33) is presently unknown: starting with 49, no prime has been reached after 110 steps. See A037274 for the latest information."
+			],
+			"link": [
+				"P. De Geest, \u003ca href=\"http://www.worldofnumbers.com/topic1.htm\"\u003eHome Primes\u003c/a\u003e",
+				"M. Herman and J. Schiffman, \u003ca href=\"http://www.jstor.org/stable/10.5951/mathteacher.107.8.0606\"\u003eInvestigating home primes and their families\u003c/a\u003e, Math. Teacher, 107 (No. 8, 2014), 606-614.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/HomePrime.html\"\u003eHome Prime\u003c/a\u003e"
+			],
+			"example": [
+				"Starting with 14 (the seventh composite number) we get 14=2*7, 27=3*3*3, 333=3*3*37, 3337=47*71, 4771=13*367, 13367 is prime; so a(7)=5."
+			],
+			"mathematica": [
+				"maxComposite = 49; maxIter = 40; concat[n_] := FromDigits[ Flatten[ IntegerDigits /@ Flatten[ Apply[ Table, {#[[1]], {#[[2]]}} \u0026 /@ FactorInteger[n], {1}]]]]; composites = Select[ Range[2, maxComposite], ! PrimeQ[#] \u0026]; a[n_] := ( lst = NestWhileList[ concat, composites[[n]], ! PrimeQ[#] \u0026, 1, maxIter]; If[PrimeQ[ Last[lst]], Length[lst] - 1, - 1]); Table[a[n], {n, 1, Length[composites]}] (* _Jean-François Alcover_, Jul 10 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a037271 = length . takeWhile ((== 0) . a010051'') .",
+				"                             iterate a037276 . a002808",
+				"-- _Reinhard Zumkeller_, Apr 03 2012"
+			],
+			"xref": [
+				"Cf. A037272, A037273, A037274, A056938, A002808, A037276, A027746, A230305."
+			],
+			"keyword": "nonn,nice,base,more,hard",
+			"offset": "1,1",
+			"author": "_Jeff Burch_",
+			"references": 22,
+			"revision": 34,
+			"time": "2017-03-31T22:47:34-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 38374,
+			"data": "1,1,2,1,1,2,3,1,1,1,2,2,2,3,4,1,1,1,2,1,1,2,3,2,2,2,2,3,3,4,5,1,1,1,2,1,1,2,3,1,1,1,2,2,2,3,4,2,2,2,2,2,2,2,3,3,3,3,3,4,4,5,6,1,1,1,2,1,1,2,3,1,1,1,2,2,2,3,4,1,1,1,2,1,1,2,3,2,2,2",
+			"name": "Length of longest contiguous block of 1's in binary expansion of n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A038374/b038374.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) \u003e= A089309(n). a(n) \u003e= A089310(n). a(2^i)=1. a(2^i-1)=i. - _R. J. Mathar_, Jun 15 2006",
+				"May be defined by the recurrence given in A245196, taking G(n)=n+1 (n\u003e=0) and m=1. - _N. J. A. Sloane_, Jul 25 2014"
+			],
+			"example": [
+				"a(157) = 3 because 157 in base 2 is 10011101 and longest contiguous block of 1's is of length 3.",
+				"May be arranged into blocks of lengths 1, 2, 4, 8, 16, ...:",
+				"1,",
+				"1, 2,",
+				"1, 1, 2, 3,",
+				"1, 1, 1, 2, 2, 2, 3, 4,",
+				"1, 1, 1, 2, 1, 1, 2, 3, 2, 2, 2, 2, 3, 3, 4, 5,",
+				"1, 1, 1, 2, 1, 1, 2, 3, 1, 1, 1, 2, 2, 2, 3, 4, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 5, 6,",
+				"... - _N. J. A. Sloane_, Jul 25 2014"
+			],
+			"maple": [
+				"A038374 := proc(n) local nshft,thisr,resul; nshft := n ; resul :=0 ; thisr :=0 ; while nshft \u003e 0 do if nshft mod 2 \u003c\u003e 0 then thisr := thisr+1 ; else resul := max(resul,thisr) ; thisr := 0 ; fi ; nshft := floor(nshft/2) ; od ; resul := max(resul,thisr) ; RETURN(resul) ; end : for n from 1 to 80 do printf(\"%d,\",A038374(n)) ; od : # _R. J. Mathar_, Jun 15 2006"
+			],
+			"mathematica": [
+				"Table[Max[Length/@DeleteCases[Split[IntegerDigits[n,2]],_?(MemberQ[ #,0] \u0026)]],{n,120}] (* _Harvey P. Dale_, Jun 10 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (unfoldr, group)",
+				"a038374 = maximum . map length . filter ((== 1) . head) . group .",
+				"   unfoldr (\\x -\u003e if x == 0 then Nothing else Just $ swap $ divMod x 2)",
+				"-- _Reinhard Zumkeller_, May 01 2012",
+				"(PARI) a(n)=if (n==0, return (0)); n\u003e\u003e=valuation(n, 2); if(n\u003c2, return(n)); my(e=valuation(n+1, 2)); max(e, a(n\u003e\u003ee)) \\\\ _Charles R Greathouse IV_, Jan 12 2014; edited by _Michel Marcus_, Apr 14 2019"
+			],
+			"xref": [
+				"Cf. A087117, A090000, A090001, A090002, A090003, A090050, A245196."
+			],
+			"keyword": "base,easy,nonn,tabf",
+			"offset": "1,3",
+			"author": "_Jeffrey Shallit_",
+			"references": 22,
+			"revision": 43,
+			"time": "2019-04-14T08:57:42-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 40081,
+			"data": "2,1,0,0,2,0,1,0,1,1,2,0,3,0,1,1,2,0,1,0,1,1,4,0,3,2,1,3,4,0,1,0,2,1,2,1,1,0,3,1,2,0,7,0,1,3,4,0,1,2,1,1,2,0,1,2,1,3,12,0,3,0,2,1,4,1,5,0,1,1,2,0,7,0,1,1,2,2,1,0,3,1,2,0,5,6,1,23,4,0,1,2,3,3,2,1,1,0,1,1,10,0,3",
+			"name": "Riesel problem: a(n) = smallest m \u003e= 0 such that n*2^m-1 is prime, or -1 if no such prime exists.",
+			"link": [
+				"T. D. Noe and Eric Chen, \u003ca href=\"/A040081/b040081.txt\"\u003eTable of n, a(n) for n = 1..2292\u003c/a\u003e (first 1000 terms from T. D. Noe)"
+			],
+			"mathematica": [
+				"Table[m = 0; While[! PrimeQ[n*2^m - 1], m++]; m, {n, 100}] (* _Arkadiusz Wesolowski_, Sep 04 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a040081 = length . takeWhile ((== 0) . a010051) .",
+				"                       iterate  ((+ 1) . (* 2)) . (subtract 1)",
+				"-- _Reinhard Zumkeller_, Mar 05 2012",
+				"(PARI) a(n)=for(k=0,2^16,if(ispseudoprime(n*2^k-1), return(k))) \\\\ _Eric Chen_, Jun 01 2015"
+			],
+			"xref": [
+				"Cf. A038699 (primes obtained), A050412, A052333.",
+				"Cf. A046069 (for odd n)",
+				"Cf. A010051, A000079."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_David W. Wilson_",
+			"references": 22,
+			"revision": 27,
+			"time": "2015-06-01T18:25:53-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 46899,
+			"data": "1,1,2,1,3,6,1,4,10,20,1,5,15,35,70,1,6,21,56,126,252,1,7,28,84,210,462,924,1,8,36,120,330,792,1716,3432,1,9,45,165,495,1287,3003,6435,12870,1,10,55,220,715,2002,5005,11440,24310,48620,1,11,66,286,1001",
+			"name": "Triangle in which n-th row is {binomial(n+k,k), k=0..n}, n \u003e= 0.",
+			"comment": [
+				"C(n,k) is the number of lattice paths from (0,0) to (n,k) using steps (1,0) and (0,1). - _Joerg Arndt_, Jul 01 2011",
+				"Row sums are A001700.",
+				"T(n, k) is also the number of order-preserving full transformations (of an n-chain) of waist k (waist(alpha) = max(Im(alpha))). - _Abdullahi Umar_, Oct 02 2008",
+				"If T(r,c), r=0,1,2,..., c=1,2,...,(r+1), are the triangle elements, then for r \u003e 0, T(r,c) = binomial(r+c-1,c-1) = M(r,c) is the number of monotonic mappings from an ordered set of r elements into an ordered set of c elements. For example, there are 15 monotonic mappings from an ordered set of 4 elements into an ordered set of 3 elements. For c \u003e r+1, use the identity M(r,c) = M(c-1,r+1) = T(c-1,r+1). For example, there are 210 monotonic mappings from an ordered set of 4 elements into an ordered set of 7 elements, because M(4,7) = T(6,5) = 210. Number of monotonic endomorphisms in a set of r elements, M(r,r), therefore appear on the second diagonal of the triangle which coincides with A001700. - _Stanislav Sykora_, May 26 2012",
+				"Start at the origin. Flip a fair coin to determine steps of (1,0) or (0,1).  Stop when you are a (perpendicular) distance of n steps from the x axis or the y axis.  For k = 0,1,...,n-1, C(n-1,k)/2^(n+k) is the probability that you will stop on the point (n,k). This is equal to the probability that you will stop on the point (k,n).  Hence, Sum_{k=0..n} C(n,k)/2^(n+k) = 1. - _Geoffrey Critzer_, May 13 2017"
+			],
+			"reference": [
+				"H. W. Gould, A class of binomial sums and a series transform, Utilitas Math., 45 (1994), 71-83."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A046899/b046899.txt\"\u003eRows n=0..150 of triangle, flattened\u003c/a\u003e",
+				"Karl Dilcher, Maciej Ulas, \u003ca href=\"https://arxiv.org/abs/1909.11222\"\u003eArithmetic properties of polynomial solutions of the Diophantine equation P(x)x^(n+1)+Q(x)(x+1)^(n+1)=1\u003c/a\u003e, arXiv:1909.11222 [math.NT], 2019. See Qn(x) Table 1 p. 2.",
+				"H. W. Gould, \u003ca href=\"/A007680/a007680.pdf\"\u003eA class of binomial sums and a series transform\u003c/a\u003e, Utilitas Math., 45 (1994), 71-83. (Annotated scanned copy)",
+				"A. Laradji, and A. Umar, \u003ca href=\"http://dx.doi.org/10.1016/j.jalgebra.2003.10.023\"\u003eCombinatorial results for semigroups of order-preserving partial transformations\u003c/a\u003e, Journal of Algebra 278, (2004), 342-359.",
+				"A. Laradji, and A. Umar, \u003ca href=\"http://dx.doi.org/10.1007/s00233-005-0553-6\"\u003eCombinatorial results for semigroups of order-preserving full transformations\u003c/a\u003e, Semigroup Forum 72 (2006), 51-62.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A092392(n,n-k), k = 0..n. - _Reinhard Zumkeller_, Jul 27 2012",
+				"T(n,k) = A178300(n,k), n\u003e0, k = 1..n. - _L. Edson Jeffery_, Jul 23 2014"
+			],
+			"example": [
+				"1",
+				"1, 2",
+				"1, 3, 6",
+				"1, 4, 10, 20",
+				"1, 5, 15, 35, 70",
+				"1, 6, 21, 56, 126, 252",
+				"1, 7, 28, 84, 210, 462, 924",
+				"1, 8, 36, 120, 330, 792, 1716, 3432",
+				"1, 9, 45, 165, 495, 1287, 3003, 6435, 12870",
+				"1, 10, 55, 220, 715, 2002, 5005, 11440, 24310, 48620",
+				"1, 11, 66, 286, 1001, 3003, 8008, 19448, 43758, 92378, 184756",
+				".   Take the first n elements of the n-th diagonal (NW to SE) of left",
+				".   half of Pascal's triangle and write it as n-th row on the triangle",
+				".   on the right side, see above",
+				". 0:                 1                    1",
+				". 1:               1   _                  1  2",
+				". 2:             1   2  __                1  3  6",
+				". 3:           1   3  __  __              1  4 10 20",
+				". 4:         1   4   6  __  __            1  5 15 35 70",
+				". 5:       1   5  10  __  __  __          1  6 21 56 .. ..",
+				". 6:     1   6  15  20  __  __  __        1  7 28 .. .. .. ..",
+				". 7:   1   7  21  35  __  __  __  __      1  8 .. .. .. .. .. ..",
+				". 8: 1   8  28  56  70  __  __  __  __    1 .. .. .. .. .. .. .. .. .",
+				"- _Reinhard Zumkeller_, Jul 27 2012"
+			],
+			"maple": [
+				"for n from 0 to 10 do seq( binomial(n+m,n), m = 0 .. n) od; # _Zerinvary Lajos_, Dec 09 2007"
+			],
+			"mathematica": [
+				"t[n_, k_] := Binomial[n + k, n]; Table[t[n, k], {n, 0, 10}, {k, 0, n}] // Flatten (* _Jean-François Alcover_, Aug 12 2013 *)"
+			],
+			"program": [
+				"(PARI) /* same as in A092566 but use */",
+				"steps=[[1, 0], [1, 0] ];",
+				"/* _Joerg Arndt_, Jul 01 2011 */",
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a046899 n k = a046899_tabl !! n !! k",
+				"a046899_row n = a046899_tabl !! n",
+				"a046899_tabl = zipWith take [1..] $ transpose a007318_tabl",
+				"-- _Reinhard Zumkeller_, Jul 27 2012",
+				"(MAGMA) /* As triangle */ [[Binomial(n+k, n): k in [0..n]]: n in [0.. 15]]; // _Vincenzo Librandi_, Aug 18 2015"
+			],
+			"xref": [
+				"Cf. A046900, A001700, A007318, A034868, A239103, A178300."
+			],
+			"keyword": "nonn,tabl,easy,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from _James A. Sellers_"
+			],
+			"references": 22,
+			"revision": 71,
+			"time": "2019-09-26T07:55:13-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 48398,
+			"data": "2,3,5,7,23,43,67,89,101,787,4567,12101,12323,12343,32321,32323,34543,54323,56543,56767,76543,78787,78989,210101,212123,234323,234343,432121,432323,432343,434323,454543,456767,654323,654343,678767,678989",
+			"name": "Primes with consecutive digits that differ exactly by 1.",
+			"comment": [
+				"Or, primes in A033075. - _Zak Seidov_, Feb 01 2011"
+			],
+			"reference": [
+				"J.-M. De Koninck, Ces nombres qui nous fascinent, Entry 67, p. 23, Ellipses, Paris 2008."
+			],
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A048398/b048398.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (terms n = 1..1500 from Zak Seidov)"
+			],
+			"mathematica": [
+				"Select[Prime[Range[10000]], # \u003c 10 || Union[Abs[Differences[IntegerDigits[#]]]] == {1} \u0026]"
+			],
+			"program": [
+				"(Haskell)",
+				"a048398 n = a048398_list !! (n-1)",
+				"a048398_list = filter ((== 1) . a010051') a033075_list",
+				"-- _Reinhard Zumkeller_, Feb 21 2012, Nov 04 2010",
+				"(Python 3.2 or higher)",
+				"from itertools import product, accumulate",
+				"from sympy import isprime",
+				"A048398_list = [2,3,5,7]",
+				"for l in range(1,17):",
+				"    for d in [1,3,7,9]:",
+				"        dlist = [d]*l",
+				"        for elist in product([-1,1],repeat=l):",
+				"            flist = [str(d+e) for d,e in zip(dlist,accumulate(elist)) if 0 \u003c= d+e \u003c 10]",
+				"            if len(flist) == l and flist[-1] != '0':",
+				"                n = 10*int(''.join(flist[::-1]))+d",
+				"                if isprime(n):",
+				"                    A048398_list.append(n)",
+				"A048398_list = sorted(A048398_list) # _Chai Wah Wu_, May 31 2017"
+			],
+			"xref": [
+				"Cf. A033075, A048399-A048405, A052016, A052017, A006055.",
+				"Cf. A010051; intersection of A033075 and A000040."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_, Apr 15 1999",
+			"references": 22,
+			"revision": 32,
+			"time": "2017-05-31T22:44:51-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 49002,
+			"data": "2,7,23,47,167,359,839,1367,1847,2207,3719,5039,7919,10607,11447,16127,17159,19319,29927,36479,44519,49727,54287,57119,66047,85847,97967,113567,128879,177239,196247,201599,218087,241079,273527,292679,323759",
+			"name": "Primes of form p^2 - 2, where p is prime.",
+			"link": [
+				"Amiram Eldar, \u003ca href=\"/A049002/b049002.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (terms 1..1000 from T. D. Noe)"
+			],
+			"formula": [
+				"a(n) = A062326(n)^2-2. - _Zak Seidov_, Apr 29 2015"
+			],
+			"example": [
+				"127^2 - 2 = 16127."
+			],
+			"mathematica": [
+				"f[n_]:=n^2-2; lst={};Do[p=Prime[n];If[PrimeQ[f[p]],AppendTo[lst,f[p]]],{n,7!}];lst (* _Vladimir Joseph Stephan Orlovsky_, Jul 16 2009 *)",
+				"Select[Prime[Range[150]]^2 - 2, PrimeQ] (* _Vincenzo Librandi_, Apr 29 2015 *)"
+			],
+			"program": [
+				"(PARI) lista(nn) = forprime(p=1, nn, if (isprime(q=p^2-2), print1(q, \", \"))); \\\\ _Michel Marcus_, Jan 08 2015",
+				"(Sage)",
+				"a = lambda p: p^2-2",
+				"[a(p) for p in primes(600) if is_prime(a(p))] # _Bruno Berselli_, Apr 29 2015",
+				"(MAGMA) [a: p in PrimesUpTo(1000) | IsPrime(a) where a is p^2-2 ]; // _Vincenzo Librandi_, Apr 29 2015",
+				"(Haskell)",
+				"a049002 n = a049002_list !! (n-1)",
+				"a049002_list = filter ((== 1) . a010051') a049001_list",
+				"-- _Reinhard Zumkeller_, Jul 30 2015"
+			],
+			"xref": [
+				"Primes in A049001.",
+				"Cf. A062326 (values of p).",
+				"Cf. A010051."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "Herman H. Rosenfeld (herm3(AT)pacbell.net)",
+			"ext": [
+				"More terms from _James A. Sellers_"
+			],
+			"references": 22,
+			"revision": 29,
+			"time": "2019-10-21T04:23:34-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51159,
+			"data": "1,1,1,1,0,1,1,1,1,1,1,0,2,0,1,1,1,2,2,1,1,1,0,3,0,3,0,1,1,1,3,3,3,3,1,1,1,0,4,0,6,0,4,0,1,1,1,4,4,6,6,4,4,1,1,1,0,5,0,10,0,10,0,5,0,1,1,1,5,5,10,10,10,10,5,5,1,1,1,0,6,0,15,0,20,0,15,0,6,0,1,1,1,6,6,15,15,20,20,15,15,6,6,1,1",
+			"name": "Triangular array made of three copies of Pascal's triangle.",
+			"comment": [
+				"Computing each term modulo 2 also gives A047999, i.e., a(n) mod 2 = A007318(n) mod 2 for all n. (The triangle is paritywise isomorphic to Pascal's Triangle.) - _Antti Karttunen_",
+				"5th row/column gives entries of A000217 (triangular numbers C(n+1,2)) repeated twice and every other entry in 6th row/column form A000217. 7th row/column gives entries of A000292 (Tetrahedral (or pyramidal) nos: C(n+3,3)) repeated twice and every other entry in 8th row/column form A000292. 9th row/column gives entries of A000332 (binomial coefficients binomial(n,4)) repeated twice and every other entry in 10th row/column form A000332. 11th row/column gives entries of A000389 (binomial coefficients C(n,5)) repeated twice and every other entry in 12th row/column form A000389. - _Gerald McGarvey_, Aug 21 2004",
+				"If Sum_{k=0..n} A(k)*T(n,k) = B(n), the sequence B is the S-D transform of the sequence A. - _Philippe Deléham_, Aug 02 2006",
+				"Number of n-bead black-white reversible strings with k black beads; also binary grids; string is palindromic. - _Yosu Yurramendi_, Aug 07 2008",
+				"Row sums give A016116(n+1). - _Yosu Yurramendi_, Aug 07 2008 [corrected by _Petros Hadjicostas_, Nov 04 2017]",
+				"Coefficients in expansion of (x + y)^n where x and y anticommute (y x = -x y), that is, q-binomial coefficients when q = -1. - _Michael Somos_, Feb 16 2009",
+				"The sequence of coefficients of a general polynomial recursion that links at w=2 to the Pascal triangle is here w=0. Row sums are {1, 2, 2, 4, 4, 8, 8, 16, 16, 32, 32, 64, ...}. - _Roger L. Bagula_ and _Gary W. Adamson_, Dec 04 2009",
+				"T(n,k) is the number of palindromic compositions of n+1 with exactly k+1 parts. T(6,4) = 3 because we have the following compositions of n+1=7 with length k+1=5: 1+1+3+1+1, 2+1+1+1+2, 1+2+1+2+1. - _Geoffrey Critzer_, Mar 15 2014 [corrected by _Petros Hadjicostas_, Nov 03 2017]",
+				"Let P(n,k) be the number of palindromic compositions of n with exactly k parts. MacMahon (1893) was the first to prove that P(n,k) = T(n-1,k-1), where T(n,k) are the numbers in this sequence (see the comment above by G. Critzer). He actually proved that, for 1 \u003c= s \u003c= m, we have P(2*m,2*s) = P(2*m,2*s-1) = P(2*m-1, 2*s-1) = bin(m-1, s-1), but  P(2*m-1, 2*s) = 0. For the current sequence, this can be translated into T(2*m-1, 2*s-1) = T(2*m-1,2*s-2) = T(2*m-2, 2*s-2) = bin(m-1,s-1), but T(2m-2, 2*s-1) = 0 (valid again for 1 \u003c= s \u003c= m). - _Petros Hadjicostas_, Nov 03 2017",
+				"T is the infinite lower triangular matrix for this sequence; define two others, U and V; let U(n,k)=e_k(-1,2,-3,...,(-1)^n n), where e_k is the k-th elementary symmetric polynomial, and let V be the diagonal matrix A057077 (periodic sequence 1,1,-1,-1). Clearly V^-1 = V. Conjecture: U = U^-1, T = U . V, T^-1 = V . U, and |T| = |U|. - _George Beck_, Dec 16 2017",
+				"Let T*(n,k)=T(n,k) except when n is odd and k=(n+1)/2, where T*(n,k) = T(n,k)+2^((n-1)/2). Thus, T*(n,k) is the number of non-isomorphic symmetric stairs with n cells and k steps, i.e., k-1 changes of direction. See A016116. - _Christian Barrientos_ and _Sarah Minion_, Jul 29 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051159/b051159.txt\"\u003eRows n = 0..120 of triangle, flattened\u003c/a\u003e",
+				"Paul Barry, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL19/Barry/barry321.html\"\u003eJacobsthal Decompositions of Pascal's Triangle, Ternary Trees, and Alternating Sign Matrices\u003c/a\u003e, Journal of Integer Sequences, 19, 2016, #16.3.5.",
+				"E. Burlachenko, \u003ca href=\"https://arxiv.org/abs/1612.00970\"\u003eFractal generalized Pascal matrices\u003c/a\u003e, arXiv:1612.00970 [math.NT], 2016. See p. 3.",
+				"S. J. Cyvin, B. N. Cyvin, and J. Brunvoll, \u003ca href=\"https://hrcak.srce.hr/177109\"\u003eUnbranched catacondensed polygonal systems containing hexagons and tetragons\u003c/a\u003e, Croatica Chem. Acta, 69 (1996), 757-774. See Table 1 on p. 763.",
+				"M. E. Horn, \u003ca href=\"http://arXiv.org/abs/physics/0611277\"\u003eThe Didactical Relevance of the Pauli Pascal Triangle\u003c/a\u003e, arXiv:physics/0611277 [physics.ed-ph], 2006. [_Michael Somos_]",
+				"F. Al-Kharousi, R. Kehinde, A. Umar, \u003ca href=\"http://ajc.maths.uq.edu.au/pdf/58/ajc_v58_p365.pdf\"\u003eCombinatorial results for certain semigroups of partial isometries of a finite chain\u003c/a\u003e, The Australasian Journal of Combinatorics, Volume 58 (3) (2014), 363-375.",
+				"P. A. MacMahon, \u003ca href=\"http://www.jstor.org/stable/90632\"\u003eMemoir on the Theory of the Compositions of Numbers\u003c/a\u003e, Phil. Trans. Royal Soc. London A, 184 (1893), 835-901.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n, k) = T(n-1, k-1) + T(n-1, k) if n odd or k even, else 0. T(0, 0) = 1.",
+				"T(n, k) = T(n-2, k-2) + T(n-2, k). T(0, 0) = T(1, 0) = T(1, 1) = 1.",
+				"Square array made by setting first row/column to 1's (A(i, 0) = A(0, j) = 1); A(1, 1) = 0; A(1, j) = A(1, j-2); A(i, 1) = A(i-2, 1); other entries A(i, j) = A(i-2, j) + A(i, j-2). - _Gerald McGarvey_, Aug 21 2004",
+				"Sum_{k=0..n} k * T(n,k) = A093968(n); A093968 = S-D transform of A001477. - _Philippe Deléham_, Aug 02 2006",
+				"Equals 2*A034851 - A007318. - _Gary W. Adamson_, Dec 31 2007. [Corrected by _Yosu Yurramendi_, Aug 07 2008]",
+				"A051160(n, k) = (-1)^floor(k/2) * T(n, k).",
+				"Sum_{k = 0..n} T(n,k)*x^k = A000012(n), A016116(n+1), A056487(n), A136859(n+2) for x = 0, 1, 2, 3 respectively. - _Philippe Deléham_, Mar 11 2014",
+				"G.f.: (1+x+x*y)/(1-x^2-y^2*x^2). - _Philippe Deléham_, Mar 11 2014"
+			],
+			"example": [
+				"Triangle starts:",
+				"{1},",
+				"{1,  1},",
+				"{1,  0,  1},",
+				"{1,  1,  1,  1},",
+				"{1,  0,  2,  0,  1},",
+				"{1,  1,  2,  2,  1,  1},",
+				"{1,  0,  3,  0,  3,  0,  1},",
+				"{1,  1,  3,  3,  3,  3,  1,  1},",
+				"{1,  0,  4,  0,  6,  0,  4,  0,  1},",
+				"{1,  1,  4,  4,  6,  6,  4,  4,  1,  1},",
+				"{1,  0,  5,  0, 10,  0, 10,  0,  5,  0,  1},",
+				"{1,  1,  5,  5, 10, 10, 10, 10,  5,  5,  1,  1}",
+				"... - _Roger L. Bagula_ and _Gary W. Adamson_, Dec 04 2009"
+			],
+			"maple": [
+				"T:= proc(n, k) option remember; `if`(n=0 and k=0, 1,",
+				"      `if`(n\u003c0 or k\u003c0, 0, `if`(irem(n, 2)=1 or",
+				"       irem(k, 2)=0, T(n-1, k-1) + T(n-1, k), 0)))",
+				"    end:",
+				"seq(seq(T(n, k), k=0..n), n=0..14);  # _Alois P. Heinz_, Jul 12 2014"
+			],
+			"mathematica": [
+				"T[ n_, k_] := QBinomial[n, k, -1]; (* _Michael Somos_, Jun 14 2011; since V7 *)",
+				"Clear[p, n, x, a]",
+				"w = 0;",
+				"p[x, 1] := 1;",
+				"p[x_, n_] := p[x, n] = If[Mod[n, 2] == 0, (x + 1)*p[x, n - 1], (x^2 + w*x + 1)^Floor[n/2]]",
+				"a = Table[CoefficientList[p[x, n], x], {n, 1, 12}]",
+				"Flatten[a] (* _Roger L. Bagula_ and _Gary W. Adamson_, Dec 04 2009 *)"
+			],
+			"program": [
+				"(PARI) {T(n, k) = binomial(n%2, k%2) * binomial(n\\2, k\\2)};",
+				"(Haskell)",
+				"a051159 n k = a051159_tabl !! n !! k",
+				"a051159_row n = a051159_tabl !! n",
+				"a051159_tabl = [1] : f [1] [1,1] where",
+				"   f us vs = vs : f vs (zipWith (+) ([0,0] ++ us) (us ++ [0,0]))",
+				"-- _Reinhard Zumkeller_, Apr 25 2013"
+			],
+			"xref": [
+				"Cf. A007318. A051160.",
+				"Cf. A016116, A034851, A169623.",
+				"Cf. A036355."
+			],
+			"keyword": "nonn,tabl,easy,nice",
+			"offset": "0,13",
+			"author": "_Michael Somos_, Oct 14 1999",
+			"references": 22,
+			"revision": 100,
+			"time": "2018-07-31T00:44:46-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51601,
+			"data": "0,1,1,2,2,2,3,4,4,3,4,7,8,7,4,5,11,15,15,11,5,6,16,26,30,26,16,6,7,22,42,56,56,42,22,7,8,29,64,98,112,98,64,29,8,9,37,93,162,210,210,162,93,37,9,10,46,130,255,372,420,372,255,130,46,10",
+			"name": "Rows of triangle formed using Pascal's rule except we begin and end the n-th row with n.",
+			"comment": [
+				"The number of spotlight tilings of an m X n rectangle missing the southeast corner. E.g., there are 2 spotlight tilings of a 2 X 2 square missing its southeast corner. - _Bridget Tenner_, Nov 10 2007",
+				"T(n,k) = A134636(n,k) - A051597(n,k). - _Reinhard Zumkeller_, Nov 23 2012",
+				"For a closed-form formula for arbitrary left and right borders of Pascal like triangle see A228196. - _Boris Putievskiy_, Aug 18 2013",
+				"For a closed-form formula for generalized Pascal's triangle see A228576. - _Boris Putievskiy_, Sep 09 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051601/b051601.txt\"\u003eRows n = 0..120 of triangle, flattened\u003c/a\u003e",
+				"B. E. Tenner, \u003ca href=\"http://dx.doi.org/10.1007/s00026-011-0077-6\"\u003eSpotlight tiling\u003c/a\u003e, Ann. Combinat. 14 (4) (2010) 553-568.",
+				"\u003ca href=\"/index/Pas#Pascal\"\u003eIndex entries for triangles and arrays related to Pascal's triangle\u003c/a\u003e"
+			],
+			"formula": [
+				"T(m,n) = binomial(m+n,m) - 2*binomial(m+n-2,m-1), up to offset and transformation of array to triangular indices. - _Bridget Tenner_, Nov 10 2007",
+				"T(n,k) = binomial(n, k+1) + binomial(n, n-k+1). - _Roger L. Bagula_, Feb 17 2009",
+				"T(0,n) = T(n,0) = n, T(n,k) = T(n-1,k) + T(n-1,k-1), 0 \u003c k \u003c n."
+			],
+			"example": [
+				"From _Roger L. Bagula_, Feb 17 2009: (Start)",
+				"Triangle begins:",
+				"   0;",
+				"   1,  1;",
+				"   2,  2,   2;",
+				"   3,  4,   4,   3;",
+				"   4,  7,   8,   7,    4;",
+				"   5, 11,  15,  15,   11,    5;",
+				"   6, 16,  26,  30,   26,   16,   6;",
+				"   7, 22,  42,  56,   56,   42,   22,    7;",
+				"   8, 29,  64,  98,  112,   98,   64,   29,   8;",
+				"   9, 37,  93, 162,  210,  210,  162,   93,   37,   9;",
+				"  10, 46, 130, 255,  372,  420,  372,  255,  130,  46,  10;",
+				"  11, 56, 176, 385,  627,  792,  792,  627,  385, 176,  56, 11;",
+				"  12, 67, 232, 561, 1012, 1419, 1584, 1419, 1012, 561, 232, 67, 12. ... (End)"
+			],
+			"maple": [
+				"seq(seq(binomial(n,k+1) + binomial(n, n-k+1), k=0..n), n=0..12); # _G. C. Greubel_, Nov 12 2019"
+			],
+			"mathematica": [
+				"T[n_, k_]:= T[n, k] = Binomial[n, k+1] + Binomial[n, n-k+1];",
+				"Table[T[n, k], {n,0,12}, {k,0,n}]//Flatten (* _Roger L. Bagula_, Feb 17 2009; modified by _G. C. Greubel_, Nov 12 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a051601 n k = a051601_tabl !! n !! k",
+				"a051601_row n = a051601_tabl !! n",
+				"a051601_tabl = iterate",
+				"               (\\row -\u003e zipWith (+) ([1] ++ row) (row ++ [1])) [0]",
+				"-- _Reinhard Zumkeller_, Nov 23 2012",
+				"(MAGMA) /* As triangle: */ [[Binomial(n,m+1)+Binomial(n,n-m+1): m in [0..n]]: n in [0..12]]; // _Bruno Berselli_, Aug 02 2013",
+				"(PARI) T(n,k) = binomial(n, k+1) + binomial(n, n-k+1);",
+				"for(n=0,12, for(k=0,n, print1(T(n,k), \", \"))) \\\\ _G. C. Greubel_, Nov 12 2019",
+				"(Sage) [[binomial(n, k+1) + binomial(n, n-k+1) for k in (0..n)] for n in (0..12)] # _G. C. Greubel_, Nov 12 2019",
+				"(GAP) Flat(List([0..12], n-\u003e List([0..n], k-\u003e  Binomial(n, k+1) + Binomial(n, n-k+1) ))); # _G. C. Greubel_, Nov 12 2019"
+			],
+			"xref": [
+				"Row sums give A000918(n+1).",
+				"Cf. A007318, A224791, A228196, A228576.",
+				"Columns from 2 to 9, respectively: A000124; A000125, A055795, A027660, A055796, A055797, A055798, A055799 (except 1 for the last seven). [_Bruno Berselli_, Aug 02 2013]",
+				"Cf. A001477, A162551 (central terms)."
+			],
+			"keyword": "nonn,tabl,easy,changed",
+			"offset": "0,4",
+			"author": "Asher Auel (asher.auel(AT)reed.edu)",
+			"references": 22,
+			"revision": 50,
+			"time": "2019-11-12T19:19:30-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 52542,
+			"data": "1,2,4,10,24,58,140,338,816,1970,4756,11482,27720,66922,161564,390050,941664,2273378,5488420,13250218,31988856,77227930,186444716,450117362,1086679440,2623476242,6333631924,15290740090,36915112104,89120964298,215157040700",
+			"name": "a(n) = 2*a(n-1) + a(n-2), with a(0) = 1, a(1) = 2, a(2) = 4.",
+			"comment": [
+				"Apart from the initial 1, this sequence is simply twice the Pell numbers, A000129. - _Antonio Alberto Olivares_, Dec 31 2003",
+				"Image of 1/(1-2x) under the mapping g(x) -\u003e g(x/(1+x^2)). - _Paul Barry_, Jan 16 2005",
+				"The intermediate convergents to 2^(1/2) begin with 4/3, 10/7, 24/17, 58/41; essentially, numerators = A052542 and denominators = A001333. - _Clark Kimberling_, Aug 26 2008",
+				"a(n) is the number of generalized compositions of n+1 when there are 2*i-2 different types of i, (i=1,2,...). - _Milan Janjic_, Aug 26 2010",
+				"Apart from the initial 1, this is the p-INVERT transform of (1,0,1,0,1,0,...) for p(S) = 1 - 2 S. See A291219. - _Clark Kimberling_, Sep 02 2017",
+				"Conjecture: Apart from the initial 1, a(n) is the number of compositions of two types of n having no even parts. - _Gregory L. Simay_, Feb 17 2018"
+			],
+			"link": [
+				"Iain Fox, \u003ca href=\"/A052542/b052542.txt\"\u003eTable of n, a(n) for n = 0..2500\u003c/a\u003e (first 1001 terms from Vincenzo Librandi)",
+				"C. Banderier and D. Merlini, \u003ca href=\"http://algo.inria.fr/banderier/Papers/infjumps.ps\"\u003eLattice paths with an infinite set of jumps\u003c/a\u003e, FPSAC02, Melbourne, 2002.",
+				"C. P. de Andrade, J. P. de Oliveira Santos, E. V. P. da Silva and K. C. P. Silva, \u003ca href=\"http://dx.doi.org/10.4236/ojdm.2013.31006\"\u003ePolynomial Generalizations and Combinatorial Interpretations for Sequences Including the Fibonacci and Pell Numbers\u003c/a\u003e, Open Journal of Discrete Mathematics, 2013, 3, 25-32 doi:10.4236/ojdm.2013.31006. - From _N. J. A. Sloane_, Feb 20 2013",
+				"Massimiliano Fasi, Gian Maria Negri Porzio, \u003ca href=\"http://eprints.maths.manchester.ac.uk/2709/\"\u003eDeterminants of Normalized Bohemian Upper Hessemberg Matrices\u003c/a\u003e, University of Manchester (England, 2019).",
+				"I. M. Gessel, Ji Li, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL16/Gessel/gessel6.html\"\u003eCompositions and Fibonacci identities\u003c/a\u003e, J. Int. Seq. 16 (2013) 13.4.5",
+				"INRIA Algorithms Project, \u003ca href=\"http://ecs.inria.fr/services/structure?nbr=477\"\u003eEncyclopedia of Combinatorial Structures 477\u003c/a\u003e",
+				"S. Kitaev and J. Remmel, \u003ca href=\"http://arxiv.org/abs/1305.6970\"\u003eThe 1-box pattern on pattern avoiding permutations\u003c/a\u003e, arXiv:1305.6970 [math.CO], 2013.",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,1)."
+			],
+			"formula": [
+				"G.f.: (1 - x^2)/(1 - 2*x - x^2).",
+				"Recurrence: a(0)=1, a(2)=4, a(1)=2, a(n) + 2*a(n+1) - a(n+2) = 0;",
+				"a(n) = Sum_{alpha = RootOf(-1+2*x+x^2)} (1/2)*(1-alpha)*alpha^(-n-1).",
+				"a(n) = 2*A001333(n-1) + a(n-1), n \u003e 1. A001333(n)/a(n) converges to sqrt(1/2). - Mario Catalani (mario.catalani(AT)unito.it), Apr 29 2003",
+				"Binomial transform of A094024. a(n) = 0^n + ((1 + sqrt(2))^n - (1 - sqrt(2))^n)/sqrt(2). - _Paul Barry_, Apr 22 2004",
+				"a(n) = Sum_{k=0..floor(n/2)} binomial(n-k-1, k)2^(n-2k). - _Paul Barry_, Jan 16 2005",
+				"If p[i] = 2modp(i,2) and if A is Hessenberg matrix of order n defined by A[i,j] = p[j-i+1], (i \u003c= j), A[i,j] = -1, (i=j+1), and A[i,j] = 0 otherwise. Then, for n \u003e= 1, a(n) = det A. - _Milan Janjic_, May 02 2010",
+				"G.f.: 1 + x + x^2/(2*G(0)-x) where G(k) = 1 - (k+1)/(1 - x/(x +(k+1)/G(k+1) )); (continued fraction). - _Sergei N. Gladkovskii_, Dec 07 2012",
+				"G.f.: G(0)*(1-x)/(2*x) + 1 - 1/x, where G(k)= 1 + 1/(1 - x*(2*k-1)/(x*(2*k+1) - 1/G(k+1))); (continued fraction). - _Sergei N. Gladkovskii_, May 26 2013",
+				"G.f.: 1 + G(0)*x/(1-x), where G(k) = 1 + 1/(1 - x*(2*k-1)/(x*(2*k+1) - 1/G(k+1))); (continued fraction). - _Sergei N. Gladkovskii_, Jun 19 2013",
+				"G.f.: 1 + (1+G(0))/(2-2*x), where G(k) = 2*x*(k+2) - 1 - x + x*(2*k-1)/G(k+1); (continued fraction). - _Sergei N. Gladkovskii_, Aug 14 2013",
+				"G.f.: Q(0), where Q(k) = 1 + (1+x)*x + (2*k+3)*x - x*(2*k+1 + x+1)/Q(k+1); (continued fraction). - _Sergei N. Gladkovskii_, Oct 04 2013",
+				"a(n) = round(sqrt(Pell(2n) + Pell(2n-1))). - _Richard R. Forberg_, Jun 22 2014",
+				"a(n) = 2*A000129(n) + A000007(n) - _Iain Fox_, Nov 30 2017",
+				"a(n) = A000129(n) - A000129(n-2). - _Gregory L. Simay_, Feb 17 2018"
+			],
+			"maple": [
+				"spec := [S,{S=Sequence(Prod(Union(Z,Z),Sequence(Prod(Z,Z))))},unlabeled]: seq(combstruct[count](spec,size=n), n=0..20);",
+				"A052542 := proc(n)",
+				"    option remember;",
+				"    if n \u003c=2 then",
+				"        2^n;",
+				"    else",
+				"        2*procname(n-1)+procname(n-2) ;",
+				"    end if;",
+				"end proc: # _R. J. Mathar_, Sep 23 2016"
+			],
+			"mathematica": [
+				"Join[{1}, LinearRecurrence[{2, 1}, {2, 4}, 40]] (* _Vladimir Joseph Stephan Orlovsky_, Feb 22 2012 *)"
+			],
+			"program": [
+				"(PARI) Vec((1-x^2)/(1-2*x-x^2) +O(x^40)) \\\\ _Charles R Greathouse IV_, Nov 20 2011",
+				"(Haskell)",
+				"a052542 n = a052542_list !! n",
+				"a052542_list = 1 : 2 : 4 : tail (zipWith (+)",
+				"               (map (* 2) $ tail a052542_list) a052542_list)",
+				"-- _Reinhard Zumkeller_, Feb 24 2015",
+				"(MAGMA) I:=[2,4]; [n le 2 select I[n] else 2*Self(n-1) +Self(n-2): n in [1..40]]; // _G. C. Greubel_, May 09 2019",
+				"(Sage) ((1-x^2)/(1-2*x-x^2)).series(x, 40).coefficients(x, sparse=False) # _G. C. Greubel_, May 09 2019",
+				"(GAP) a:=[2,4];; for n in [3..40] do a[n]:=2*a[n-1]+a[n-2]; od; a; # _G. C. Greubel_, May 09 2019"
+			],
+			"xref": [
+				"Cf. A052906."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "encyclopedia(AT)pommard.inria.fr, Jan 25 2000",
+			"references": 22,
+			"revision": 113,
+			"time": "2019-06-22T14:51:36-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		}
+	]
+}

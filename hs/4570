@@ -1,0 +1,410 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4570,
+	"results": [
+		{
+			"number": 10807,
+			"data": "0,1,524288,1162261467,274877906944,19073486328125,609359740010496,11398895185373143,144115188075855872,1350851717672992089,10000000000000000000,61159090448414546291,319479999370622926848,1461920290375446110677,5976303958948914397184",
+			"name": "19th powers: a(n) = n^19.",
+			"comment": [
+				"a(n) is a totally multiplicative sequence (and is therefore multiplicative as well). [_Jaroslav Krizek_, Nov 01 2009]"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A010807/b010807.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_20\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (20, -190, 1140, -4845, 15504, -38760, 77520, -125970, 167960, -184756, 167960, -125970, 77520, -38760, 15504, -4845, 1140, -190, 20, -1)."
+			],
+			"formula": [
+				"From _Ilya Gutkovskiy_, Feb 27 2017: (Start)",
+				"Dirichlet g.f.: zeta(s-19).",
+				"Sum_{n\u003e=1} 1/a(n) = zeta(19) = A013677. (End)"
+			],
+			"maple": [
+				"A010807:=n-\u003en^19: seq(A010807(n), n=0..20); # _Wesley Ivan Hurt_, Jul 13 2014"
+			],
+			"mathematica": [
+				"Range[0, 20]^19 (* _Wesley Ivan Hurt_, Jul 13 2014 *)"
+			],
+			"program": [
+				"(MAGMA) [n^19: n in [0..15]]; // _Vincenzo Librandi_, Jun 19 2011",
+				"(Haskell)",
+				"a010807 = (^ 19)  -- _Reinhard Zumkeller_, Sep 29 2014"
+			],
+			"xref": [
+				"Cf. A013677, A247894 ([sqrt(a(n)])."
+			],
+			"keyword": "nonn,mult,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_.",
+			"references": 5,
+			"revision": 23,
+			"time": "2017-02-27T11:48:52-05:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 10887,
+			"data": "1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1",
+			"name": "Simple periodic sequence: repeat 1,2,3,4,5,6,7,8.",
+			"comment": [
+				"Partial sums are given by A130486(n)+n+1. - _Hieronymus Fischer_, Jun 08 2007",
+				"1371742/11111111=0,123456781234567812345678... [From _Eric Desbiaux_, Nov 03 2008]",
+				"Terms of the simple continued fraction of 2494/(3*sqrt(13493990)-9280). [From _Paolo P. Lava_, Feb 16 2009]"
+			],
+			"link": [
+				"\u003ca href=\"/index/Rec\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,0,0,0,0,0,0,1)."
+			],
+			"formula": [
+				"a(n) = 1 + (n mod 8) - _Paolo P. Lava_, Nov 21 2006",
+				"a(n)=1/2*(9-(-1)^n-2*(-1)^(b/4)-4*(-1)^((b-2+2*(-1)^(b/4))/8)) where b=2n-1+(-1)^n. Also a(n)=A010877(n)+1. - G.f.: g(x)=(sum{0\u003c=k\u003c8, (k+1)*x^k})/(1-x^8). Also: g(x)=(8x^9-9x^8+1)/((1-x^8)(1-x)^2). - _Hieronymus Fischer_, Jun 08 2007"
+			],
+			"program": [
+				"(Haskell)",
+				"a010887 = (+ 1) . flip mod 8",
+				"a010887_list = cycle [1..8]",
+				"-- _Reinhard Zumkeller_, Nov 09 2014, Mar 04 2014"
+			],
+			"xref": [
+				"Cf. A010872, A010873, A010874, A010875, A010876, A010878, A004526, A002264, A002265, A002266.",
+				"Cf. A177034 (decimal expansion of (9280+3*sqrt(13493990))/14165). [From _Klaus Brockhaus_, May 01 2010]"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_.",
+			"references": 5,
+			"revision": 24,
+			"time": "2015-06-13T00:48:27-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 13638,
+			"data": "10,15,21,35,55,77,77,77,91,143,187,221,221,221,247,323,391,437,437,437,551,667,667,667,667,667,713,899,1073,1147,1147,1147,1147,1147,1271,1517,1517,1517,1591,1763,1927",
+			"name": "a(n) = prevprime(n)*nextprime(n).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A013638/b013638.txt\"\u003eTable of n, a(n) for n = 3..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)  = A151799(n)*A151800(n). - _Reinhard Zumkeller_, May 22 2015"
+			],
+			"maple": [
+				"[ seq(prevprime(i)*nextprime(i),i=3..70) ];"
+			],
+			"mathematica": [
+				"a[n_] := NextPrime[n, -1] NextPrime[n];",
+				"Table[a[n], {n, 3, 50}] (* _Jean-François Alcover_, Aug 02 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a013638 n = a151799 n * a151800 n  -- _Reinhard Zumkeller_, May 22 2015"
+			],
+			"xref": [
+				"Cf. A151799, A151800, A030664."
+			],
+			"keyword": "nonn",
+			"offset": "3,1",
+			"author": "_N. J. A. Sloane_.",
+			"references": 5,
+			"revision": 13,
+			"time": "2018-08-02T07:43:58-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 14011,
+			"data": "1,2,4,6,9,12,15,18,21,24,28,32,36,40,45,50,55,60,65,70,75,80,85,90,96,102,108,114,120,126,133,140,147,154,161,168,176,184,192,200,208,216,225,234,243,252,261,270,280,290,300,310,320,330,341,352,363,374,385",
+			"name": "Defined by a chi-inequality greedy algorithm.",
+			"reference": [
+				"Steven R. Finch, Mathematical Constants, Cambridge, 2003, pp. 163-166."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A014011/b014011.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Yong-Gao Chen, \u003ca href=\"http://dx.doi.org/10.1007/s11425-012-4540-6\"\u003eOn the reciprocal sum of a sum-free sequence\u003c/a\u003e, Sci China Math, 2013, 56: 951-966, doi:10.1007/s11425-012-4540-6.",
+				"Steven R. Finch, \u003ca href=\"http://www.people.fas.harvard.edu/~sfinch/constant/erdos/convex/convex.html\"\u003eA Convex Maximization Problem\u003c/a\u003e [Broken link]",
+				"Steven R. Finch, \u003ca href=\"https://arxiv.org/abs/math/9912035\"\u003eA convex maximization problem: Discrete case\u003c/a\u003e, arXiv:math/9912035 [math.OC], 1999, and \u003ca href=\"https://arxiv.org/abs/math/9912036\"\u003eContinuous Case\u003c/a\u003e.",
+				"Steven R. Finch, \u003ca href=\"http://www.people.fas.harvard.edu/~sfinch/constant/erdos/erdos.html\"\u003eErdos's Reciprocal Sum Constants\u003c/a\u003e [Broken link]",
+				"Steven R. Finch, \u003ca href=\"http://web.archive.org/web/20010620000306/http://www.mathsoft.com/asolve/constant/erdos/erdos.html\"\u003eErdos's Reciprocal Sum Constants\u003c/a\u003e [From the Wayback machine]",
+				"E. Levine and J. O'Sullivan, \u003ca href=\"http://matwbn.icm.edu.pl/ksiazki/aa/aa34/aa3412.pdf\"\u003eAn upper estimate for the reciprocal sum of a sum-free sequence\u003c/a\u003e, Acta Arithmetica, 34 (1977), 9-24.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Levine-OSullivanSequence.html\"\u003eLevine-O'Sullivan Sequence.\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = max{(k+1)*(n-a(k)): 1\u003c=k\u003cn}, a(1) = 1. - _Reinhard Zumkeller_, Jul 10 2013"
+			],
+			"mathematica": [
+				"a[1] = 1; a[n_] := a[n] = Table[(k+1)*(n-a[k]), {k, 1, n-1}] // Max; Table[a[n], {n, 1, 60}] (* _Jean-François Alcover_, May 07 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a014011 n = a014011_list !! (n-1)",
+				"a014011_list = 1 : f 2 [1] where",
+				"   f u vs = w : f (u + 1) (w : vs) where",
+				"     w = maximum $ zipWith (*) [u, u-1 ..] $ map (u -) vs",
+				"-- _Reinhard Zumkeller_, Jul 10 2013",
+				"(PARI)",
+				"seq(N) = {",
+				"  my(a = vector(N)); a[1] = 1;",
+				"  for (n = 2, N, for (k = 1, n-1, a[n] = max(a[n], (k+1)*(n-a[k]))));",
+				"  return(a);",
+				"};",
+				"seq(59)  \\\\ _Gheorghe Coserea_, Jun 12 2016"
+			],
+			"xref": [
+				"Cf. A051741, A051742.",
+				"Cf. A226390 (first differences)."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,2",
+			"author": "_Simon Plouffe_",
+			"ext": [
+				"More terms from _Steven Finch_, Dec 07 1999"
+			],
+			"references": 5,
+			"revision": 36,
+			"time": "2019-04-18T17:56:02-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 14481,
+			"data": "1,6,40,336,3456,42240,599040,9676800,175472640,3530096640,78033715200,1880240947200,49049763840000,1377317368627200,41421544567603200,1328346084409344000,45249466617298944000,1631723190138961920000",
+			"name": "a(n) = 2^n*n!*(2*n+1).",
+			"comment": [
+				"Denominators of expansion of Integral_{t=0..x} exp(-(t^2)/2) dt = sqrt(Pi/2)*erf(x/sqrt(2)) in powers x^(2*n+1), n \u003e= 0. Numerators are (-1)^n. - _Wolfdieter Lang_, Jun 29 2007",
+				"a(n) = A009445(n) / A001147(n). - _Reinhard Zumkeller_, Dec 03 2011"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A014481/b014481.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/NormalDistributionFunction.html\"\u003eNormal Distribution Function.html.\u003c/a\u003e",
+				"\u003ca href=\"/index/Fa#factorial\"\u003eIndex entries for sequences related to factorial numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"Expansion of (1+2x)/(1-2x)^2.",
+				"G.f.: G(0)/(2*x) - 1/x, where G(k)= 1 - 2*x+ 1/(1 - 2*x*(k+1)/(2*x*(k+1) + 1/G(k+1))); (continued fraction). - _Sergei N. Gladkovskii_, May 24 2013"
+			],
+			"program": [
+				"(MAGMA) [2^n*Factorial(n)*(2*n+1): n in [0..50]]; // _Vincenzo Librandi_, Apr 25 2011",
+				"(Haskell)",
+				"a014481 n = a009445 n `div` a001147 n  -- _Reinhard Zumkeller_, Dec 03 2011"
+			],
+			"xref": [
+				"From _Johannes W. Meijer_, Nov 12 2009: (Start)",
+				"Appears in A167572.",
+				"Equals row sums of A167583.",
+				"(End)"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 5,
+			"revision": 22,
+			"time": "2018-09-01T17:41:23-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 16035,
+			"data": "0,0,0,1,0,3,0,3,2,5,0,7,0,7,6,7,0,11,0,11,8,11,0,15,4,13,8,15,0,21,0,15,12,17,10,23,0,19,14,23,0,29,0,23,20,23,0,31,6,29,18,27,0,35,14,31,20,29,0,43,0,31,26,31,16,45,0,35,24,45,0,47,0,37,34,39,16,53",
+			"name": "a(n) = Sum_{j|n, 1 \u003c j \u003c n} phi(j). Also a(n) = n - phi(n) - 1 for n \u003e 1.",
+			"comment": [
+				"Number of integers less than n with at least one common factor with n. - _Olivier Gérard_, Feb 08 2011",
+				"A number N is a Fermat base 2 pseudoprime, that is, 2^(N-1) == 1 mod N, iff 2^a(N) == 1 mod N. - _T. D. Noe_, Jul 10 2003",
+				"Number of zero divisors in ring Z_n, where Z_n is the ring of integers modulo n. - Armin Vollmer (armin_vollmer(AT)web.de), Jul 23 2004",
+				"From _Jianing Song_, Apr 20 2019: (Start)",
+				"a(p) = 0 if and only if p is a prime, which is equivalent to the fact that Z_p is a field if and only if p is a prime.",
+				"a(n) = n/2 is and only if n = 2p, p prime. (End)"
+			],
+			"reference": [
+				"Al Hibbard and Ken Levasseur, \"Exploring Abstract Algebra with Mathematica\", Springer Verlag."
+			],
+			"link": [
+				"Olivier Gérard, \u003ca href=\"/A016035/b016035.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"For n \u003e 1, a(n) = A051953(n) - 1. - _Antti Karttunen_, Mar 12 2018"
+			],
+			"example": [
+				"For n = 6, the a(6) = 3 integers less than 6 with at least one common factor with 6 are {2,3,4}."
+			],
+			"mathematica": [
+				"Needs[\"AbstractAlgebra`Master`\"] Length[ZeroDivisors[Z[ # ]]] \u0026 /@ Range[2, 25] (* Armin Vollmer, Jul 23 2004 *)",
+				"a[n_] := n - EulerPhi[n] - 1; a[1] = 0; Table[a[n], {n, 1, 78}] (* _Jean-François Alcover_, Jan 04 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a016035 1 = 0",
+				"a016035 n = sum $ map a000010 $ init $ tail $ a027750_row n",
+				"-- _Reinhard Zumkeller_, Mar 02 2012",
+				"(PARI) for(n=1,100,p=0;for(i=1,n-1,if(gcd(i,n)\u003e1,p++));print1(p\",\")) /* _V. Raman_, Nov 22 2012 */",
+				"(PARI) for(n=1,100,if(n==1,print1(0\",\"),print1(n-1-eulerphi(n)\",\"))) /* _V. Raman_, Nov 22 2012 */"
+			],
+			"xref": [
+				"Cf. A001567 (base 2 pseudoprimes).",
+				"Cf. A000010, A027750.",
+				"Essentially one less than cototient, A051953."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,6",
+			"author": "_Robert G. Wilson v_",
+			"ext": [
+				"Typo in definition fixed by _Reinhard Zumkeller_, Mar 02 2012"
+			],
+			"references": 5,
+			"revision": 42,
+			"time": "2019-04-22T15:21:41-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 17581,
+			"data": "5,17,29,41,53,65,77,89,101,113,125,137,149,161,173,185,197,209,221,233,245,257,269,281,293,305,317,329,341,353,365,377,389,401,413,425,437,449,461,473,485,497,509,521,533,545,557,569,581,593,605,617,629",
+			"name": "a(n) = 12*n + 5.",
+			"comment": [
+				"Apart from initial term(s), dimension of the space of weight 2n cusp forms for Gamma_0(71).",
+				"A089911(2*a(n)) = 7. - _Reinhard Zumkeller_, Jul 05 2013",
+				"Equivalently, intersection of A016813 and A016789. - _Bruno Berselli_, Jan 24 2018"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A017581/b017581.txt\"\u003eTable of n, a(n) for n = 0..3000\u003c/a\u003e",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"William A. Stein, \u003ca href=\"http://wstein.org/Tables/dimskg0n.gp\"\u003eDimensions of the spaces S_k(Gamma_0(N))\u003c/a\u003e",
+				"William A. Stein, \u003ca href=\"http://wstein.org/Tables/\"\u003eThe modular forms database\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-1)."
+			],
+			"formula": [
+				"a(n) = 2*a(n-1) - a(n-2) for n\u003e1, a(0)=5, a(1)=17. - _Vincenzo Librandi_, Jun 08 2011"
+			],
+			"mathematica": [
+				"12*Range[0,200]+5 (* _Vladimir Joseph Stephan Orlovsky_, Feb 19 2011 *)"
+			],
+			"program": [
+				"(MAGMA) [12*n+5: n in [0..60]]; // _Vincenzo Librandi_, Jun 08 2011",
+				"(Haskell)",
+				"a017581 = (+ 5) . (* 12)  -- _Reinhard Zumkeller_, Jul 05 2013",
+				"(PARI) a(n)=12*n+5 \\\\ _Charles R Greathouse IV_, Jul 10 2016"
+			],
+			"xref": [
+				"Cf. A008594, A017533, A017545, A017593."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 5,
+			"revision": 31,
+			"time": "2019-08-22T12:18:12-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 17653,
+			"data": "11,23,35,47,59,71,83,95,107,119,131,143,155,167,179,191,203,215,227,239,251,263,275,287,299,311,323,335,347,359,371,383,395,407,419,431,443,455,467,479,491,503,515,527,539,551,563,575,587,599,611,623,635",
+			"name": "a(n) = 12*n + 11.",
+			"comment": [
+				"Or, with a different offset, 12*n - 1. In any case, numbers congruent to -1 mod 12. - _Alonso del Arte_, May 29 2011",
+				"Numbers congruent to 2 (mod 3) and 3 (mod 4). - _Bruno Berselli_, Jul 06 2017"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A017653/b017653.txt\"\u003eTable of n, a(n) for n = 0..3000\u003c/a\u003e",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"INRIA Algorithms Project, \u003ca href=\"http://ecs.inria.fr/services/structure?nbr=1000\"\u003eEncyclopedia of Combinatorial Structures 1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-1)."
+			],
+			"formula": [
+				"a(n) = 2*a(n-1) - a(n-2). - _Vincenzo Librandi_, Jun 08 2011",
+				"G.f.: (11+x)/(1-x)^2. - _Colin Barker_, Feb 19 2012",
+				"A089911(2*a(n)) = 11. - _Reinhard Zumkeller_, Jul 05 2013"
+			],
+			"mathematica": [
+				"Array[12*#+11\u0026,100,0] (* _Vladimir Joseph Stephan Orlovsky_, Dec 14 2009 *)"
+			],
+			"program": [
+				"(PARI) a(n)=12*n+11",
+				"(MAGMA) [12*n+11: n in [0..60]]; // _Vincenzo Librandi_, Jun 08 2011",
+				"(Haskell)",
+				"a017653 = (+ 11) . (* 12)  -- _Reinhard Zumkeller_, Jul 05 2013"
+			],
+			"xref": [
+				"Cf. A008594, A017533, A017545.",
+				"Subsequence of A072065."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_",
+			"references": 5,
+			"revision": 41,
+			"time": "2017-07-07T02:37:22-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 18194,
+			"data": "1,1,1,1,1,2,1,2,3,2,1,2,1,2,2,3,1,3,1,2,2,2,1,2,3,2,4,2,1,2,1,3,2,2,2,3,1,2,2,2,1,2,1,2,3,2,1,3,3,3,2,2,1,4,2,2,2,2,1,2,1,2,2,3,2,2,1,2,2,2,1,3,1,2,3,2,2,2,1,3,4,2,1,2,2,2,2,2,1,3,2,2,2,2,2,3,1,3,2,3,1,2,1,2,2,2,1,4",
+			"name": "Number of steps for S(S(..S(n)..)) to converge, where S is the Kempner function A002034.",
+			"comment": [
+				"a(A046022(n)) = 1. [_Reinhard Zumkeller_, Mar 09 2012]"
+			],
+			"reference": [
+				"Henry Ibstedt, \"Smarandache Iterations\", Smarandache Notions Journal, (submitted), 1996."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A018194/b018194.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a018194 n = 1 + length (takeWhile (/= 0) $ zipWith (-) ks $ tail ks)",
+				"   where ks = iterate a002034 n",
+				"-- _Reinhard Zumkeller_, Mar 09 2012"
+			],
+			"xref": [
+				"Cf. A002034."
+			],
+			"keyword": "nonn",
+			"offset": "1,6",
+			"author": "Henry Ibstedt (Glimminge 2036, 28060 Broby, Sweden)",
+			"ext": [
+				"Corrected and extended by _David W. Wilson_ May 15 1997"
+			],
+			"references": 5,
+			"revision": 18,
+			"time": "2013-07-13T12:01:49-04:00",
+			"created": "1996-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 20944,
+			"data": "-1,1,0,1,1,0,1,1,2,1,1,0,1,1,2,1,3,2,3,1,2,1,1,0,1,1,2,1,3,2,3,1,4,3,5,2,5,3,4,1,3,2,3,1,2,1,1,0,1,1,2,1,3,2,3,1,4,3,5,2,5,3,4,1,5,4,7,3,8,5,7,2,7,5,8,3,7,4,5,1,4,3,5,2,5,3,4,1,3,2,3,1,2,1,1,0,1,1,2,1,3,2,3,1,4,3",
+			"name": "a(2n+1) = |a(2n) - a(2n-1)|, a(2n) = a(n) + a(n-1), a(0) = -1.",
+			"comment": [
+				"a(n) = abs(t(n+1)) if n\u003e0 where t(n) is the twisted Stern sequence defined by R. Bacher and M. Coons. - _Michael Somos_, Jan 08 2011",
+				"a(A153893(n)) = 0. - _Reinhard Zumkeller_, Mar 13 2011"
+			],
+			"link": [
+				"Roland Bacher, \u003ca href=\"http://arxiv.org/abs/1005.5627\"\u003eTwisting the Stern sequence\u003c/a\u003e, arXiv:1005.5627v1 [math.CO], 2010.",
+				"Michael Coons, \u003ca href=\"http://arxiv.org/abs/1008.0193\"\u003eOn Some Conjectures concerning Stern's Sequence and its Twist\u003c/a\u003e, arXiv:1008.0193v3 [math.NT], 2010."
+			],
+			"formula": [
+				"G.f. A(x) satisfies: A(x) = 2*x + (1 + x + x^2) * A(x^2). - _Michael Somos_, Jan 08 2011"
+			],
+			"example": [
+				"G.f. = -1 + x + x^3 + x^4 + x^6 + x^7 + 2*x^8 + x^9 + x^10 + x^12 + x^13 + 2*x^14 + ..."
+			],
+			"mathematica": [
+				"a[ n_] := Which[ n \u003c 2, Boole[n == 1] - Boole[n == 0], OddQ[n], Abs[a[n - 1] - a[n - 2]], True, a[n/2] + a[n/2 - 1]]; (* _Michael Somos_, Jul 25 2018 *)"
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c2,(n==1) - (n==0),  n%2, abs( a(n-1) - a(n-2) ), a(n/2) + a(n/2 - 1) )}; /* _Michael Somos_, Jan 08 2011 */",
+				"(PARI) {a(n) = my(A, m); if( n\u003c0, 0, m = 1; A = -1 + O(x); while( m \u003c= n, m*=2; A = 2*x + (1 + x + x^2) * subst( A, x, x^2 ) ); polcoeff( A, n ) )}; /* _Michael Somos_, Jan 08 2011 */",
+				"(Haskell)",
+				"a020944 n = a020944_list !! n",
+				"a020944_list = -1 : f [1,0] where f (x:y:xs) = x : f (y:xs ++ [x,x+y])",
+				"-- Same list generator function as for a020951_list, cf. A020951.",
+				"-- _Reinhard Zumkeller_, Mar 13 2013"
+			],
+			"xref": [
+				"Cf. A020947-A020950."
+			],
+			"keyword": "sign",
+			"offset": "0,9",
+			"author": "_Clark Kimberling_",
+			"ext": [
+				"More terms from _Henry Bottomley_, May 16 2001",
+				"Added a(0) from _Michael Somos_, Jan 08 2011"
+			],
+			"references": 5,
+			"revision": 23,
+			"time": "2019-05-23T14:33:34-04:00",
+			"created": "1998-06-14T03:00:00-04:00"
+		}
+	]
+}

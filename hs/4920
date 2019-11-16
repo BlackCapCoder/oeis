@@ -1,0 +1,428 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4920,
+	"results": [
+		{
+			"number": 174863,
+			"data": "1,0,-1,-2,-3,-2,-3,-4,-5,-4,-5,-4,-5,-4,-3,-4,-5,-4,-5,-4,-3,-2,-3,-2,-3,-2,-3,-2,-3,-4,-5,-6,-5,-4,-3,-2,-3,-2,-1,0,-1,-2,-3,-2,-1,0,-1,0,-1,0,1,2,1,2,3,4,5,6,5,4,3,4,5,4,5,4,3,4,5,4,3,4,3,4,5,6,7",
+			"name": "Little omega analog to Liouville's function L(n).",
+			"comment": [
+				"Instead of using the Omega function, number of prime factors counted with multiplicity, this is using the omega function, number of distinct prime factors.",
+				"Except for the two zeros and the intervening foray into negative territory shown here, the first thousand terms are all positive. The next zero occurs at term 7960. After the zero at term 12100, the function stays negative until term 22395666.",
+				"This sequence and the Liouville sequence have some terms up to a(43) exactly the same. I don't know at what higher point (if any) that is the case again. [del Arte]",
+				"It appears certain that this sequence and the Liouville sequence are equal infinitely often. Because they have the same parity and always change by one, they cannot cross without meeting. Both change signs infinitely often, and at apparently unrelated points. - _Franklin T. Adams-Watters_, Aug 05 2011",
+				"Partial sums of A076479. - _Reinhard Zumkeller_, Jun 01 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A174863/b174863.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Michael J. Mossinghoff, Timothy S. Trudgian, \u003ca href=\"https://arxiv.org/abs/1906.02847\"\u003eA tale of two omegas\u003c/a\u003e, arXiv:1906.02847 [math.NT], 2019."
+			],
+			"formula": [
+				"a(n) = Sum_{i = 1..n} (-1)^omega(i).",
+				"A275547(a(n)) = 0. - _Alois P. Heinz_, Aug 03 2016"
+			],
+			"example": [
+				"a(4) = -2 because: a(1) = 1, as 1 has an even number of prime factors; then 2 and 3 being prime, bring the running sum down to -1; and then 4, which has one distinct prime factor, brings the sum down to -2. (This is the first term that differs from the Mertens function and Liouville's function.)"
+			],
+			"mathematica": [
+				"s=0; Table[s=s+(-1)^PrimeNu[n]; s, {n, 100}] (* PrimeNu is new in Mathematica 7.0 *)"
+			],
+			"program": [
+				"(PARI) a(n)=sum(k=1,n,(-1)^omega(k)) \\\\ _Charles R Greathouse IV_, Mar 27 2012",
+				"(PARI) a(n)=my(v=vectorsmall(n, i, 1)); forprime(p=2, n, forstep(i=p, n, p, v[i]*=-1)); sum(i=1, #v, v[i]) \\\\ _Charles R Greathouse IV_, Aug 21 2016",
+				"(Haskell)",
+				"a174863 n = a174863_list !! (n-1)",
+				"a174863_list = scanl1 (+) a076479_list",
+				"-- _Reinhard Zumkeller_, Jun 01 2013",
+				"(Python)",
+				"from sympy import primefactors",
+				"def omega(n): return 0 if n==1 else len(primefactors(n))",
+				"def a(n): return sum([(-1)**omega(i) for i in xrange(1, n + 1)]) # _Indranil Ghosh_, May 20 2017"
+			],
+			"xref": [
+				"Cf. A002819 (Liouville's function), A002321 (Mertens's function), A275547 (where a(n) is zero)."
+			],
+			"keyword": "sign",
+			"offset": "1,4",
+			"author": "_Alonso del Arte_, Dec 01 2010",
+			"references": 5,
+			"revision": 48,
+			"time": "2019-06-10T00:36:21-04:00",
+			"created": "2010-11-12T14:23:55-05:00"
+		},
+		{
+			"number": 175048,
+			"data": "3,6,7,12,27,14,15,24,51,54,55,28,59,30,31,48,99,102,103,108,219,110,111,56,115,118,119,60,123,62,63,96,195,198,199,204,411,206,207,216,435,438,439,220,443,222,223,112,227,230,231,236,475,238,239,120,243,246",
+			"name": "Write n in binary, then increase each run of 1's by one 1. a(n) is the decimal equivalent of the result.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A175048/b175048.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(2^n) = 3*2^n. a(4n) = 2*a(2n), a(4n+1) = 4*a(2n)+3, a(4n+2) = 2*a(2n+1), a(4n+3) = 2*a(2n+1)+1. - _Chai Wah Wu_, Nov 21 2018"
+			],
+			"example": [
+				"12 in binary is 1100. Increase each run of 1 by one digit to get 11100, which is 28 in decimal. So a(12) = 28."
+			],
+			"mathematica": [
+				"Table[FromDigits[Flatten[If[MemberQ[#,1],Join[{1},#],#]\u0026/@ Split[ IntegerDigits[ n,2]]],2],{n,60}] (* _Harvey P. Dale_, Oct 10 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a175048 = foldr (\\b v -\u003e 2 * v + b) 0 . concatMap",
+				"   (\\bs@(b:_) -\u003e if b == 1 then 1 : bs else bs) . group . a030308_row",
+				"-- _Reinhard Zumkeller_, Jul 05 2013"
+			],
+			"xref": [
+				"Cf. A175046, A175047.",
+				"Cf. A030308, A007088."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Leroy Quet_, Dec 02 2009",
+			"ext": [
+				"Extended by _Ray Chandler_, Dec 18 2009"
+			],
+			"references": 5,
+			"revision": 16,
+			"time": "2018-11-21T12:17:12-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 175688,
+			"data": "0,1,2,3,4,5,6,7,8,9,11,22,33,44,55,66,77,88,99,102,111,120,123,132,135,147,153,159,174,195,201,204,210,213,222,231,234,240,243,246,258,264,285,306,312,315,321,324,333,342,345,351,354,357,360,369,375,396,402",
+			"name": "Numbers k with property that arithmetic mean of its digits is both an integer and one of the digits of k.",
+			"comment": [
+				"Subsequence of A061383.",
+				"A180160(a(n)) = 0. - _Reinhard Zumkeller_, Aug 15 2010"
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A175688/b175688.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"135 is in the list because (1+3+5)/3 = 3 and 3 is a digit of 135."
+			],
+			"mathematica": [
+				"idQ[n_]:=Module[{idn=IntegerDigits[n],m},m=Mean[idn];IntegerQ[m] \u0026\u0026 MemberQ[idn,m]]; Select[Range[0,500],idQ] (* _Harvey P. Dale_, Jun 10 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a175688 n = a175688_list !! (n-1)",
+				"a175688_list = filter f [0..] where",
+				"   f x = m == 0 \u0026\u0026 (\"0123456789\" !! avg) `elem` show x",
+				"         where (avg, m) = divMod (a007953 x) (a055642 x)",
+				"-- _Reinhard Zumkeller_, Jun 18 2013"
+			],
+			"xref": [
+				"Cf. A007953, A055642, A004426, A004427; A011531, A011532, A011533, A011534, A011535, A011536, A011537, A011538, A011539.",
+				"Cf. A052018. - _Reinhard Zumkeller_, Aug 15 2010"
+			],
+			"keyword": "base,nonn",
+			"offset": "1,3",
+			"author": "_Claudio Meller_, Aug 09 2010",
+			"ext": [
+				"Edited by _Reinhard Zumkeller_, Aug 13 2010"
+			],
+			"references": 5,
+			"revision": 19,
+			"time": "2018-06-20T01:37:05-04:00",
+			"created": "2010-08-27T03:00:00-04:00"
+		},
+		{
+			"number": 175755,
+			"data": "46656,1000000,7529536,11390625,85766121,113379904,308915776,1291467969,1544804416,1838265625,3010936384,3518743761,9474296896,17596287801,27680640625,34296447249,38068692544,56800235584,75418890625,107918163081,164206490176,208422380089",
+			"name": "Numbers with 49 divisors.",
+			"comment": [
+				"Numbers of the forms p^48 and p^6*q^6, where p and q are distinct primes."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A175755/b175755.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"OEIS Wiki, \u003ca href=\"https://oeis.org/wiki/Index_entries_for_number_of_divisors\"\u003eIndex entries for number of divisors\u003c/a\u003e"
+			],
+			"formula": [
+				"A000005(a(n))=49."
+			],
+			"example": [
+				"a(1) = A114334(49); a(2) = A159765(49)."
+			],
+			"mathematica": [
+				"Select[Range[100000000],DivisorSigma[0,#]==48\u0026] (* _Vladimir Joseph Stephan Orlovsky_, May 06 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a175755 n = a175755_list !! (n-1)",
+				"a175755_list = m (map (^ 48) a000040_list) (map (^ 6) a006881_list) where",
+				"   m xs'@(x:xs) ys'@(y:ys) | x \u003c y = x : m xs ys'",
+				"                           | otherwise = y : m xs' ys",
+				"-- _Reinhard Zumkeller_, Nov 29 2011",
+				"(PARI) is(n)=numdiv(n)==49 \\\\ _Charles R Greathouse IV_, Jun 19 2016"
+			],
+			"xref": [
+				"Cf. A139575, A175754, A201266, A137488, A135581."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Jaroslav Krizek_, Aug 27 2010",
+			"ext": [
+				"Extended by _T. D. Noe_, May 08 2011"
+			],
+			"references": 5,
+			"revision": 21,
+			"time": "2016-06-19T02:56:54-04:00",
+			"created": "2010-09-12T03:00:00-04:00"
+		},
+		{
+			"number": 176352,
+			"data": "1,2,6,3,12,4,20,5,30,45,9,15,10,25,175,70,42,7,56,8,28,21,49,14,126,168,210,90,72,16,160,60,50,225,270,27,297,33,88,11,132,231,165,264,24,54,63,36,120,75,105,189,84,462,396,108,1404,117,65,910,273,1001,182,13",
+			"name": "Order the positive rationals by numerator+denominator, then by numerator. a(n+1) = a(n)*r, where r is the first unused positive rational that makes a(n+1) an integer not already in the sequence.",
+			"comment": [
+				"It appears that this sequence is a permutation of the positive integers.",
+				"It appears that every positive rational except 1 occurs as the ratio of consecutive terms.",
+				"A218454 gives smallest numbers m such that a(m)=n; a(A176352(n))=n. - _Reinhard Zumkeller_, Oct 30 2012",
+				"A218535(n) = gcd(a(n),a(n+1)); A218533(n)/A218534(n) = a(n)/a(n+1). - _Reinhard Zumkeller_, Nov 10 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A176352/b176352.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"After a(6)=4, we have used ratios 1/2, 2, 1/3, and 3. 1/4 would give 1, which is already used. 2/3 would give 8/3, not an integer; 3/2 would give 6, already used; and ratio 4 is already used. 1/5 would not produce an integer; next is 5, giving a(7) = 4*5 = 20."
+			],
+			"program": [
+				"(PARI) copywo(v,k)=vector(#v-1,i,v[if(i\u003ck,i,i+1)])",
+				"rprat(n)=local(v,i);v=vector(eulerphi(n));i=0;for(k=1,n,if(gcd(k,n)==1,v[i++ ]=k/(n-k)));v",
+				"invecn(v,n,x)=for(k=1,n,if(v[k]==x,return(1)));0",
+				"al(n)={local(v,pend,last,k,try);",
+				"v=vector(n);v[1]=1;pend=[];last=2;",
+				"for(i=2,n,",
+				"k=1;while(1,",
+				"if(k\u003e#pend,pend=concat(pend,rprat(last++)));",
+				"try=v[i-1]*pend[k];",
+				"if(denominator(try)==1\u0026!invecn(v,i-1,try),",
+				"pend=copywo(pend,k);v[i]=try;break);",
+				"k++));v}",
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator, denominator)",
+				"import Data.List (delete)",
+				"import Data.Set (singleton, insert, member)",
+				"a176352 n = a176352_list !! (n-1)",
+				"a176352_list = 1 : f 1 (singleton 1) (concat $ drop 2 $",
+				"   zipWith (zipWith (%)) a038566_tabf $ map reverse a038566_tabf)",
+				"   where f x ws qs = h qs",
+				"           where h (r:rs) | denominator y /= 1 || v `member` ws = h rs",
+				"                          | otherwise = v : f y (insert v ws) (delete r qs)",
+				"                          where v = numerator y; y = x * r",
+				"-- _Reinhard Zumkeller_, Oct 30 2012"
+			],
+			"xref": [
+				"This ordering of the rationals is A038566/A020653.",
+				"Cf. A002487."
+			],
+			"keyword": "nice,nonn",
+			"offset": "1,2",
+			"author": "_Franklin T. Adams-Watters_, Apr 15 2010",
+			"ext": [
+				"Definition stated more precisely by _Reinhard Zumkeller_, Oct 30 2012"
+			],
+			"references": 5,
+			"revision": 9,
+			"time": "2013-07-13T12:03:42-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 178333,
+			"data": "0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+			"name": "Characteristic function of mountain numbers.",
+			"comment": [
+				"a(A134941(n)) = 1; a(A134951(n)) = 1;",
+				"a(n) = 0 for n \u003e 12345678987654321;",
+				"a(A011540(n))=0; a(A052383(n))=0; a(A171901(n))=0;",
+				"A178334(n) = SUM(a(k): 0\u003c=k\u003c=n)."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A178333/b178333.txt\"\u003eTable of n, a(n) for n = 0..20000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = if n mod 10 = 1 then if n = 1 then 1 else g(n div 10, 1) else 0",
+				"with g(x, y) = if x mod 10 \u003e y then g(x div 10, x mod 10) else if x mod 10 = y then 0 else h(x div 10, x mod 10)",
+				"and h(x, y) = if y = 1 then 0^x else if x mod 10 \u003c y then h(x div 10, x mod 10) else 0."
+			],
+			"mathematica": [
+				"a[n_] := Boole[ MatchQ[ IntegerDigits[n], {1, a___, b_, c___, 1} /; OrderedQ[{1, a, b}, Less] \u0026\u0026 OrderedQ[ {b, c, 1}, Greater]]]; a[1]=1; Table[a[n], {n, 0, 200}] (* _Jean-François Alcover_, Jun 13 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a178333 n = fromEnum $",
+				"   n `mod` 10 == 1 \u0026\u0026 a000030 n == 1 \u0026\u0026 a196368 n == 1 \u0026\u0026 and down where",
+				"      down = dropWhile (== False) $ zipWith (\u003c) (tail $ show n) (show n)",
+				"a178333_list = map a178333 [0..]",
+				"-- _Reinhard Zumkeller_, Oct 28 2001"
+			],
+			"xref": [
+				"Cf. A000030, A196368."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, May 25 2010",
+			"references": 5,
+			"revision": 15,
+			"time": "2013-02-22T21:38:31-05:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 178358,
+			"data": "0,11,22,33,44,55,66,77,88,99,110,111,212,213,314,315,416,417,518,519,120,221,222,323,324,425,426,527,528,629,230,231,332,333,434,435,536,537,638,639,240,341,342,443,444,545,546,647,648,749,350,351,452,453",
+			"name": "Rounded up arithmetic mean of digits of n prepended to n, cf. A004427.",
+			"comment": [
+				"A000030(a(n)) = A004427(a(n)) = A004427(n);",
+				"a(A178359(n)) = A178359(a(n));",
+				"subsequence of A178403."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A178358/b178358.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A004427(n)*A011557(A055642(n)) + n."
+			],
+			"example": [
+				"n=8379 --\u003e A004427(n) = ceil((8+3+7+9)/4) = 7",
+				"--\u003e a(8379) = 7*10^4 + 8379 = 78379."
+			],
+			"mathematica": [
+				"Table[Ceiling[Mean[IntegerDigits[n]]]*10^IntegerLength[n]+n,{n,0,100}] (* _Harvey P. Dale_, Apr 21 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a178358 n = read $ show (a004427 n) ++ show n :: Integer",
+				"-- _Reinhard Zumkeller_, Mar 17 2014"
+			],
+			"keyword": "base,nonn,look",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, May 27 2010",
+			"references": 5,
+			"revision": 9,
+			"time": "2019-04-21T11:20:29-04:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 178830,
+			"data": "0,0,1,0,1,1,1,1,1,3,1,2,1,3,3,3,3,1,4,4,3,2,2,4,3,5,3,2,4,5,4,5,6,1,4,2,5,4,7,4,4,3,3,6,14,3,4,10,6,3,6,4,4,4,8,7,6,8,7,10,5,11,8,5,11,4,7,7,5,8,12,5,6,9,8,11,8,5,8,9,8,10,8,12,7,11,8,7,7,8,6,7,8,11,8,16,9,12,13,8",
+			"name": "Number of distinct partitions of {1,...,n} into two nonempty sets P and S with the product of the elements of P equal to the sum of elements in S.",
+			"comment": [
+				"That the terms are nonzero for n\u003e4 is shown by the fact that for n odd, P={1,(n-1)/2,n-1} works, and for n even, P={1,(n-2)/2,n} works.",
+				"a(A207852(n)) = n and a(m) \u003c\u003e n for m \u003c A207852(n). - _Reinhard Zumkeller_, Feb 21 2012"
+			],
+			"reference": [
+				"Problem 2826, Crux Mathematicorum, May 2004, 178-179"
+			],
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A178830/b178830.txt\"\u003eTable of n, a(n) for n = 1..1800\u003c/a\u003e, (first 300 terms from Reinhard Zumkeller)"
+			],
+			"example": [
+				"{1,2,3} can be partitioned into P={3} and S={1,2} with 3=1+2.  This is the only such partition, so a(3)=1.",
+				"{1,2,3,4,5} can be partitioned into P={1,2,4} and S={3,5} with 1*2*4=3+5.  This is the only such partition, so a(5)=1.",
+				"{1,...,10} can be partitioned into subsets P={1,2,3,7} and S={4,5,6,8,9,10} since 1*2*3*7=4+5+6+8+9+10. P can also be taken as P={6,7} or P={1,4,10}, and so there are 3 distinct ways to partition {1,...,10}, and so a(10)=3."
+			],
+			"maple": [
+				"b:= proc(n, s, p)",
+				"      `if`(s=p, 1, `if`(n\u003c1, 0, b(n-1, s, p)+",
+				"      `if`(s-n\u003cp*n, 0, b(n-1, s-n, p*n))))",
+				"    end:",
+				"a:= n-\u003e `if`(n=1, 0, b(n, n*(n+1)/2, 1)):",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Jun 07 2012"
+			],
+			"mathematica": [
+				"b[_, s_, s_] = 1; b[n_ /; n \u003c 1, _, _] = 0; b[n_, s_, p_] := b[n, s, p] = b[n-1, s, p] + If[s-n \u003c p*n, 0, b[n-1, s-n, p*n]]; a[1] = 0; a[n_] := a[n] = b[n, n*(n+1)/2, 1]; Table[Print[a[n]]; a[n], {n, 1, 100}] (* _Jean-François Alcover_, Aug 16 2013, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(PARI) maxprodset(n)=ii=1;while(ii!+ii*(ii+1)/2\u003cn*(n+1)/2,ii=ii+1);return(ii-1);",
+				"{for(jj=2,100,",
+				"   countK=0;",
+				"   S=vector(jj,ii,ii);",
+				"   for(subsize=1,maxprodset(jj),",
+				"      forvec(v=vector(subsize,k,[1,#S]),",
+				"         vs=vecextract(S,v);",
+				"         summ=jj*(jj+1)/2-sum(jk=1,#vs,vs[jk]);",
+				"         prodd=prod(jk=1,#vs,vs[jk]);",
+				"         if(summ==prodd,countK=countK+1),",
+				"      2));",
+				"   print1(countK,\",\");",
+				")",
+				"}",
+				"(Haskell)",
+				"a178830 1 = 0",
+				"a178830 n = z [1..n] (n * (n + 1) `div` 2) 1 where",
+				"   z []     s p             = fromEnum (s == p)",
+				"   z (x:xs) s p | s \u003e p     = z xs (s - x) (p * x) + z xs s p",
+				"                | otherwise = fromEnum (s == p)",
+				"-- _Reinhard Zumkeller_, Feb 21 2012"
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,10",
+			"author": "_Matthew Conroy_, Dec 31 2010",
+			"references": 5,
+			"revision": 46,
+			"time": "2018-01-08T02:37:06-05:00",
+			"created": "2010-11-12T14:27:46-05:00"
+		},
+		{
+			"number": 178943,
+			"data": "2,3,7,11,13,17,19,23,29,31,37,41,43,47,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,163,167,179,181,191,193,197,199,223,227,229,233,239,241,251,269,271,277,281,283,293",
+			"name": "Primes that are not balanced primes (see A006562).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A178943/b178943.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Transpose[ Select[ Partition[ Prime@ Range@ 65, 3, 1],#[[2]]!=(#[[1]]+#[[3]])/2\u0026]][[2]]"
+			],
+			"program": [
+				"(Haskell)",
+				"a178943 n = a178943_list !! (n-1)",
+				"a178943_list = 2 : h a000040_list where",
+				"   h (p:qs@(q:r:ps)) = if 2 * q /= (p + r) then q : h qs else h qs",
+				"-- _Reinhard Zumkeller_, May 09 2013"
+			],
+			"xref": [
+				"Complement with respect to A000040 gives A006562.",
+				"Union of {2}, A051634 and A051634; A225496 (multiplicative closure)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Paul Muljadi_, Dec 30 2010",
+			"references": 5,
+			"revision": 10,
+			"time": "2013-05-09T10:58:12-04:00",
+			"created": "2010-11-12T14:28:02-05:00"
+		},
+		{
+			"number": 181765,
+			"data": "0,2,12,54,230,948,3860,15624,63014,253588,1019072,4091174,16412668,65808044,263755984,1056789662,4233176854,16953418148,67885557896,271793651816,1088059997732,4355377285932,17432688395816,69770793302408,279227252601884",
+			"name": "Number of subsets of the interval [-n .. +n] with sums \u003e 0.",
+			"comment": [
+				"a(n) = A000302(n) - A047653(n) = (A004171(n) - A000980(n)) / 2."
+			],
+			"link": [
+				"Ray Chandler, \u003ca href=\"/A181765/b181765.txt\"\u003eTable of n, a(n) for n = 0..1660\u003c/a\u003e (terms \u003c 10^1000)"
+			],
+			"example": [
+				"a(1) = #{{0,1}, {1}} = 2;",
+				"a(2) = #{{-2,0,1,2}, {-2,1,2}, {-1,0,1,2}, {-1,0,2}, {-1,1,2}, {-1,2}, {0,1}, {0,1,2}, {0,2}, {1}, {1,2}, {2}} = 12."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (subsequences)",
+				"a181765 n = length [xs | xs \u003c- subsequences [-n..n], sum xs \u003e 0]",
+				"-- _Reinhard Zumkeller_, Feb 22 2012, Nov 13 2010"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_",
+			"references": 5,
+			"revision": 17,
+			"time": "2014-04-04T13:19:31-04:00",
+			"created": "2010-11-11T11:38:02-05:00"
+		}
+	]
+}

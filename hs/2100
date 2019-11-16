@@ -1,0 +1,508 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2100,
+	"results": [
+		{
+			"number": 51683,
+			"data": "1,2,4,6,12,18,24,48,72,96,120,240,360,480,600,720,1440,2160,2880,3600,4320,5040,10080,15120,20160,25200,30240,35280,40320,80640,120960,161280,201600,241920,282240,322560,362880,725760,1088640,1451520,1814400,2177280,2540160,2903040,3265920",
+			"name": "Triangle read by rows: T(n,k) = n!*k.",
+			"comment": [
+				"Numbers with only one nonzero digit when written in factorial base. - _Franklin T. Adams-Watters_, Nov 28 2011",
+				"In other words, numbers n such that A034968(n) = A099563(n). - _Antti Karttunen_, Jul 02 2013",
+				"When the numbers denote finite permutations (as row numbers of A055089) these are the circular shifts to the right within an interval. The subsequence A001563 denotes the circular shifts that start with the first element. Compare A211370 for circular shifts to the left. - _Tilman Piesk_, Apr 29 2017"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A051683/b051683.txt\"\u003eRows n=1..150 of triangle, flattened\u003c/a\u003e",
+				"Tilman Piesk, \u003ca href=\"https://commons.wikimedia.org/wiki/File:Array_of_permutations;_circular_shift,_right.svg\"\u003eCircular shifts to the right\u003c/a\u003e (\u003ca href=\"https://en.wikiversity.org/wiki/Arrays_of_permutations#arrays4\"\u003eArrays of permutations\u003c/a\u003e)"
+			],
+			"formula": [
+				"T(n,k) = A000142(A002024(n)) * A002260(n,k) = A002024(n)! * A002260(n,k) - _Antti Karttunen_, Jul 02 2013"
+			],
+			"example": [
+				"Table begins",
+				"   1;",
+				"   2,  4;",
+				"   6, 12, 18;",
+				"  24, 48, 72, 96; ..."
+			],
+			"mathematica": [
+				"T[n_, k_] := n!*k; Flatten[Table[T[n, k], {n, 9}, {k, n}]] (* _Jean-François Alcover_, Apr 22 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a051683 n k = a051683_tabl !! (n-1) !! (k-1)",
+				"a051683_row n = a051683_tabl !! (n-1)",
+				"a051683_tabl = map fst $ iterate f ([1], 2) where",
+				"   f (row, n) = (row' ++ [head row' + last row'], n + 1) where",
+				"     row' = map (* n) row",
+				"-- _Reinhard Zumkeller_, Mar 09 2012",
+				"(Scheme): (define (A051683 n) (* (A000142 (A002024 n)) (A002260 n))) -- _Antti Karttunen_, Jul 02 2013",
+				"(MAGMA) [[Factorial(n)*k: k in [1..n]]: n in [1..15]]; // _Vincenzo Librandi_, Jun 15 2015",
+				"(PARI) for(n=1,10, for(k=1,n, print1(n!*k, \", \"))) \\\\ _G. C. Greubel_, Mar 27 2018"
+			],
+			"xref": [
+				"Cf. A000142, row sums give A001286(n+1).",
+				"Cf. A007623, A200748, A162608, A001563."
+			],
+			"keyword": "easy,nice,nonn,tabl",
+			"offset": "1,2",
+			"author": "Klaus Strassburger (strass(AT)ddfi.uni-duesseldorf.de)",
+			"references": 16,
+			"revision": 53,
+			"time": "2018-03-31T15:02:45-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 53029,
+			"data": "5,10,13,17,25,26,34,37,50,53,61,65,73,74,85,89,97,106,109,113,122,125,130,137,146,149,157,169,170,173,178,185,193,194,197,218,221,226,233,250,257,265,269,274,277,289,293,298,305,313,314,317,325,337,338,346",
+			"name": "Numbers with 4 zeros in Fibonacci numbers mod m.",
+			"comment": [
+				"Conjecture: m is on this list iff m is an odd number all of whose factors are on this list or m is twice such an odd number.",
+				"A001176(a(n)) = A128924(a(n),1) = 4. - _Reinhard Zumkeller_, Jan 17 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053029/b053029.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"M. Renault, \u003ca href=\"http://webspace.ship.edu/msrenault/fibonacci/fib.htm\"\u003eFibonacci sequence modulo m\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a053029 n = a053029_list !! (n-1)",
+				"a053029_list = filter ((== 4) . a001176) [1..]",
+				"-- _Reinhard Zumkeller_, Jan 17 2014"
+			],
+			"xref": [
+				"Cf. A001176.",
+				"Cf. A053030 (with 2 zeros), A053031 (with 1 zero)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Henry Bottomley_, Feb 23 2000",
+			"references": 16,
+			"revision": 11,
+			"time": "2018-08-08T11:12:34-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 54888,
+			"data": "1,5,15,40,105,275,720,1885,4935,12920,33825,88555,231840,606965,1589055,4160200,10891545,28514435,74651760,195440845,511670775,1339571480,3507043665,9181559515,24037634880,62931345125",
+			"name": "Layer counting sequence for hyperbolic tessellation by regular pentagons of angle Pi/2.",
+			"comment": [
+				"The layer sequence is the sequence of the cardinalities of the layers accumulating around a (finite-sided) polygon of the tessellation under successive side-reflections."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A054888/b054888.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/layers.html\"\u003eIllustration\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-1)."
+			],
+			"formula": [
+				"G.f.: (1+x)^2/(x^2-3*x+1).",
+				"G.f.: exp( Sum_{n\u003e=1} 5*Fibonacci(n)^2 * x^n/n ). [_Paul D. Hanna_, Feb 21 2012]",
+				"a(n) = A001906(n-1)+2*A001906(n)+A001906(n+1). - _R. J. Mathar_, Nov 28 2011",
+				"a(n) = A203976(A004277(n-1)). [_Reinhard Zumkeller_, Jan 11 2012]",
+				"a(n) = 5*A000045(2*n) for n \u003e= 1. - _Robert Israel_, Jun 01 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a054888 n = a054888_list !! (n-1)",
+				"a054888_list = 1 : zipWith (+) (tail a002878_list) a002878_list",
+				"-- _Reinhard Zumkeller_, Jan 11 2012",
+				"(PARI) {a(n)=polcoeff(exp(sum(k=1,n,5*fibonacci(k)^2*x^k/k)+x*O(x^n)),n)} /* _Paul D. Hanna_, Feb 21 2012 */"
+			],
+			"xref": [
+				"{a(n)/5} for n\u003e1 is A001906.",
+				"Cf. A002878."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "Paolo Dominici (pl.dm(AT)libero.it), May 23 2000",
+			"references": 16,
+			"revision": 33,
+			"time": "2015-06-13T00:50:15-04:00",
+			"created": "2000-06-15T03:00:00-04:00"
+		},
+		{
+			"number": 56542,
+			"data": "0,1,4,17,86,517,3620,28961,260650,2606501,28671512,344058145,4472755886,62618582405,939278736076,15028459777217,255483816212690,4598708691828421,87375465144740000,1747509302894800001",
+			"name": "a(n) = n*a(n-1) + 1, a(1) = 0.",
+			"comment": [
+				"For n\u003e=2 also operation count to create all permutations of n distinct elements using Algorithm L (lexicographic permutation generation) from Knuth's The Art of Computer Programming, Vol. 4, chapter 7.2.1.2. Sequence gives number of loop repetitions of the j search loop in step L2. - _Hugo Pfoertner_, Feb 06 2003",
+				"More directly: sum over all permutations of length n-1 of the product of the length of the first increasing run by the value of the first position. The recurrence follows from this definition. - _Olivier Gérard_, Jul 07 2011",
+				"This sequence shares divisibility properties with A000522; each of the primes in A072456 divide only a finite number of terms of this sequence. - T. D. Noe, Jul 07 2005",
+				"This sequence also represents the number of subdeterminant evaluations when calculation a determinant by Laplace recursive method. - _Reinhard Muehlfeld_, Sep 14 2010."
+			],
+			"reference": [
+				"D. E. Knuth: The Art of Computer Programming, Volume 4, Combinatorial Algorithms, Volume 4A, Enumeration and Backtracking. Pre-fascicle 2B, A draft of section 7.2.1.2: Generating all permutations. Available online; see link.",
+				"R. Sedgewick, Permutation generation methods, Computing Surveys, 9 (1977), 137-164."
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A056542/b056542.txt\"\u003eTable of n, a(n) for n=1..100\u003c/a\u003e",
+				"D. E. Knuth, \u003ca href=\"http://www-cs-faculty.stanford.edu/~knuth/fasc2b.ps.gz\"\u003eTAOCP Vol. 4, Pre-fascicle 2b (generating all permutations)\u003c/a\u003e.",
+				"Tom Muller, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL8/Mueller/mueller6.html\"\u003ePrime and Composite Terms in Sloane's Sequence A056542\u003c/a\u003e, Journal of Integer Sequences, Vol. 8 (2005), Article 05.3.3. [Includes factorizations of a(1) through a(50)]",
+				"Hugo Pfoertner, \u003ca href=\"http://www.randomwalk.de/sequences/lpure.txt\"\u003eFORTRAN implementation of Knuth's Algorithm L for lexicographic permutation generation\u003c/a\u003e.",
+				"Sam Wagstaff, \u003ca href=\"/A056542/a056542.txt\"\u003eFactorizations of a(51) through a(90)\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = floor((e-2)*n!).",
+				"a(n) = A002627(n) - n!.",
+				"a(n) = A000522(n) - 2*n!.",
+				"a(n) = n! - A056543(n).",
+				"a:=n-\u003esum((n-j)!*binomial(n,j),j=2..n). - _Zerinvary Lajos_, Jul 31 2006",
+				"a(n) = (n-1)*(a(n-1)+a(n-2))+2,n\u003e2. - _Gary Detlefs_, Jun 22 2010",
+				"1/(e - 2) = 2! - 2!/(1*4) - 3!/(4*17) - 4!/(17*86) - 5!/(86*517) - ... (see A002627 and A185108). - _Peter Bala_, Oct 09 2013"
+			],
+			"example": [
+				"a(4)=4*a(3)+1=4*4+1=17",
+				"Permutations of order 3 .. Length of first run * First position",
+				"123..3*1",
+				"132..2*1",
+				"213..1*2",
+				"231..2*2",
+				"312..1*3",
+				"321..1*3",
+				"a(4)=3+2+2+4+3+3=17 [_Olivier Gérard_, Jul 07 2011]"
+			],
+			"maple": [
+				"a:=n-\u003esum((n-j)!*binomial(n,j),j=2..n): seq(a(n), n=1..20); # _Zerinvary Lajos_, Jul 31 2006",
+				"a:=n-\u003esum(n!/k!, k=2..n): seq(a(n), n=1..20); # _Zerinvary Lajos_, Jun 17 2007"
+			],
+			"mathematica": [
+				"tmp=0; Join[{tmp}, Table[tmp=n*tmp+1, {n, 2, 100}]] (* _T. D. Noe_, Jul 12 2005 *)",
+				"FoldList[ #1*#2 + 1 \u0026, 0, Range[2, 21]] (* _Robert G. Wilson v_, Oct 11 2005 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a056542 n = a056542_list !! (n-1)",
+				"a056542_list = 0 : map (+ 1) (zipWith (*) [2..] a056542_list)",
+				"-- _Reinhard Zumkeller_, Mar 24 2013",
+				"(MAGMA) [n le 2 select n-1 else n*Self(n-1)+1: n in [1..20]]; // _Bruno Berselli_, Dec 13 2013"
+			],
+			"xref": [
+				"Cf. A079751 (same recursion formula, but starting from a(3)=0), A038155, A038156, A080047, A080048, A080049.",
+				"Cf. A007808, A002627.",
+				"Equals the row sums of A162995 triangle (n\u003e=2). [_Johannes W. Meijer_, Jul 21 2009]",
+				"Cf. A073333, A002627, A185108."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,3",
+			"author": "_Henry Bottomley_, Jun 20 2000",
+			"ext": [
+				"More terms from _James A. Sellers_, Jul 04 2000"
+			],
+			"references": 16,
+			"revision": 43,
+			"time": "2017-07-12T20:54:28-04:00",
+			"created": "2000-07-22T03:00:00-04:00"
+		},
+		{
+			"number": 57944,
+			"data": "0,1,1,3,3,3,6,6,6,6,10,10,10,10,10,15,15,15,15,15,15,21,21,21,21,21,21,21,28,28,28,28,28,28,28,28,36,36,36,36,36,36,36,36,36,45,45,45,45,45,45,45,45,45,45,55,55,55,55,55,55,55,55,55,55,55,66,66,66,66,66,66",
+			"name": "Largest triangular number less than or equal to n; write m-th triangular number m+1 times.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A057944/b057944.txt\"\u003eRows n = 0..100 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = floor((sqrt(1+8*n)-1)/2)*floor((sqrt(1+8*n)+1)/2)/2 = (trinv(n)*(trinv(n)-1))/2 = A000217(A003056(n)) = n - A002262(n)",
+				"a(n) = (1/2)*t*(t-1), where t = floor(sqrt(2*n+1)+1/2) = A002024(n+1). - _Ridouane Oudra_, Oct 20 2019"
+			],
+			"example": [
+				"a(35) = 28 since 28 and 36 are successive triangular numbers and 28 \u003c= 35 \u003c 36."
+			],
+			"maple": [
+				"A057944 := proc(n)",
+				"        k := (-1+sqrt(1+8*n))/2 ;",
+				"        k := floor(k) ;",
+				"        k*(k+1)/2 ;",
+				"end proc; # _R. J. Mathar_, Nov 05 2011"
+			],
+			"mathematica": [
+				"f[n_] := Block[{a = Floor@ Sqrt[1 + 8 n]}, Floor[(a - 1)/2]*Floor[(a + 1)/2]/2]; Array[f, 72, 0]",
+				"t0=0; t1=1; k=1; Table[If[n \u003c t1, t0, k++; t0=t1; t1=t1+k; t0], {n, 0, 72}]"
+			],
+			"program": [
+				"(Haskell)",
+				"a057944 n = a057944_list !! n          -- common flat access",
+				"a057944_list = concat a057944_tabl",
+				"a057944' n k = a057944_tabl !! n !! k  -- access when seen as a triangle",
+				"a057944_row n = a057944_tabl !! n",
+				"a057944_tabl = zipWith ($) (map replicate [1..]) a000217_list",
+				"-- _Reinhard Zumkeller_, Feb 03 2012",
+				"(PARI) a(n)=my(t=(sqrtint(8*n+7)-1)\\2);t*(t+1)/2 \\\\ _Charles R Greathouse IV_, Jan 26 2013"
+			],
+			"xref": [
+				"Cf. A000217, A003056, A003056, A056944, A057945, A127739."
+			],
+			"keyword": "easy,nonn,tabl,changed",
+			"offset": "0,4",
+			"author": "_Henry Bottomley_, Oct 05 2000",
+			"ext": [
+				"Keyword tabl added by _Reinhard Zumkeller_, Feb 03 2012"
+			],
+			"references": 16,
+			"revision": 35,
+			"time": "2019-11-07T12:58:04-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61043,
+			"data": "0,11,24,39,56,3,96,119,144,171,8,231,264,299,336,3,416,459,504,551,24,651,704,759,816,7,936,999,1064,1131,48,1271,1344,1419,1496,63,1656,1739,1824,1911,16,2091,2184,2279,2376,99,2576,2679,2784",
+			"name": "Numerator of 1/25 - 1/n^2.",
+			"comment": [
+				"From Pfund spectrum of hydrogen. Wavelengths in hydrogen spectrum are given by Rydberg's formula 1/wavelength = constant*(1/m^2 - 1/n^2).",
+				"a(n)=(n+5)^2-25=n*(n+10) except a(5p) p pos. Second (with m=5) of this kind after AO61039,Paschen (m=3) and before A061047,Hansen-Strong (m=7). For the fourth,what is the value of m in 1/m^2-1/n^2 ? m=9? - _Paul Curtz_, Nov 01 2008"
+			],
+			"reference": [
+				"J. E. Brady and G. E. Humiston, General Chemistry, 3rd. ed., Wiley; p. 78."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061043/b061043.txt\"\u003eTable of n, a(n) for n = 5..10000\u003c/a\u003e",
+				"J. J. O'Connor and E. F. Robertson, \u003ca href=\"http://www-groups.dcs.st-andrews.ac.uk/~history/Mathematicians/Rydberg.html\"\u003eJohannes Robert Rydberg\u003c/a\u003e",
+				"Eric Weisstein's World of Physics, \u003ca href=\"http://scienceworld.wolfram.com/physics/BalmerFormula.html\"\u003eBalmer Formula\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Numerator[1/25-1/Range[5,60]^2] (* _Harvey P. Dale_, Jan 28 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio ((%), numerator)",
+				"a061043 = numerator . (1 % 25 -) . recip . (^ 2) . fromIntegral",
+				"-- _Reinhard Zumkeller_, Jan 06 2014",
+				"(PARI) a(n)=numerator(1/25 - 1/n^2) \\\\ _Charles R Greathouse IV_, Feb 06 2017"
+			],
+			"xref": [
+				"Cf. A061035-A061050."
+			],
+			"keyword": "nonn,frac,nice",
+			"offset": "5,2",
+			"author": "_N. J. A. Sloane_, May 26 2001",
+			"references": 16,
+			"revision": 15,
+			"time": "2017-02-06T23:54:49-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61357,
+			"data": "0,0,0,1,1,1,1,2,2,2,2,3,2,2,3,2,3,4,1,3,4,3,3,5,4,3,5,3,3,6,2,5,6,2,5,6,4,5,7,4,4,8,4,4,9,4,4,7,3,6,8,5,5,8,6,7,10,6,5,12,3,5,10,3,7,9,5,5,8,7,7,11,5,5,12,4,8,11,4,8,10,5,5,13,9,6,11,7,6,14,6,8,13,5,8,11,6,9",
+			"name": "Number of 0\u003ck\u003cn such that n-k and n+k are both primes.",
+			"comment": [
+				"Number of prime pairs (p,q) with p \u003c n \u003c q and q-n = n-p.",
+				"The same as the number of ways n can be expressed as the mean of two distinct primes.",
+				"Conjecture: for n\u003e=4 a(n)\u003e0. - _Benoit Cloitre_, Apr 29 2003",
+				"Conjectures from _Rick L. Shepherd_, Jun 24 2003: (Start)",
+				"1) For each integer N\u003e=1 there exists a positive integer m(N) such that for n\u003e=m(N) a(n)\u003ea(N). (After the first m(N)-1 terms, a(N) does not reappear). In particular, for N=1 (or 2 or 3), m(N)=4 and a(N)=0, giving Benoit Cloitre's conjecture. (cont.)",
+				"(cont.) Conjectures based upon observing a(1),...,a(10000):",
+				"m(4)=m(5)=m(6)=m(7)=m(19)=20 for a(4)=a(5)=a(6)=a(7)=a(19)=1,",
+				"m(8)=...(7 others)...=m(34)=35 for a(8)=...(7 others)...=a(34)=2,",
+				"m(12)=...(10 others)...=m(64)=65 for a(12)=...(10 others)...=a(64)=3,",
+				"m(18)=...(10 others)...=m(79)=80 for a(18)=...(10 others)...=a(79)=4,",
+				"m(24)=...(14 others)...=m(94)=95 for a(24)=...(14 others)...=a(94)=5,",
+				"m(30)=...(17 others)...=m(199)=200 for a(30)=...(17 others)...=a(199)=6, etc.",
+				"2) Each nonnegative integer appears at least once in the current sequence.",
+				"3) Stronger than 2): A001477 (nonnegative integers) is a subsequence of the current sequence. (Supporting evidence: I've observed that 0,1,2,...,175 is a subsequence of a(1),...,a(10000)).",
+				"(End)",
+				"a(n) is also the number of k such that 2*k+1=p and 2*(n-k-1)+1=q are both odd primes with p \u003c q with p*q = n^2 - m^2. [_Pierre CAMI_, Sep 01 2008]",
+				"Also: Number of ways n^2 can be written as b^2+pq where 0\u003cb\u003cn-1 and p,q are primes. - Erin Noel and George Panos (erin.m.noel(AT)rice.edu), Jun 27 2006",
+				"a(n) = sum (A010051(2*n - p): p prime \u003c n). [_Reinhard Zumkeller_, Oct 19 2011]",
+				"a(n) is also the number of partitions of 2*n into two distinct primes. See the first formula by T. D. Noe, and the Alois P. Heinz, Nov 14 2012, crossreference. - _Wolfdieter Lang_, May 13 2016",
+				"All 0\u003ck\u003cn are coprime to n. - _Jamie Morken_, Jun 02 2017"
+			],
+			"link": [
+				"Pierre CAMI, \u003ca href=\"/A061357/b061357.txt\"\u003eTable of n, a(n) for n = 1..60000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A045917(n) - A010051(n). - _T. D. Noe_, May 08 2007",
+				"a(n) = sum(A010051(n-k)*A010051(n+k): 1 \u003c= k \u003c n). - _Reinhard Zumkeller_, Nov 10 2012",
+				"a(n) = sum_{i=2..n-1} A010051(i)*A010051(2n-i). [_Wesley Ivan Hurt_, Aug 18 2013]"
+			],
+			"example": [
+				"a(10)= 2: there are two such pairs (3,17) and (7,13), as 10 = (3+17)/2 = (7+13)/2."
+			],
+			"maple": [
+				"P:=proc(i) local a,b,c,n; print(0); print(0); print(0); for n from 4 by 1 to i do a:=0; b:=prevprime(n); while b\u003e2 do c:=2*n-b; if isprime(c) then a:=a+1; fi; b:=prevprime(b); od; print(a); od; end: P(100); # _Paolo P. Lava_, Dec 22 2008"
+			],
+			"mathematica": [
+				"Table[Count[Range[n - 1], k_ /; And[PrimeQ[n - k], PrimeQ[n + k]]], {n, 98}] (* _Michael De Vlieger_, May 14 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a061357 n = sum $",
+				"   zipWith (\\u v -\u003e a010051 u * a010051 v) [n+1..] $ reverse [1..n-1]",
+				"-- _Reinhard Zumkeller_, Nov 10 2012, Oct 19 2011",
+				"(PARI) a(n)=my(s);forprime(p=2,n-1,s+=isprime(2*n-p));s \\\\ _Charles R Greathouse IV_, Mar 08 2013"
+			],
+			"xref": [
+				"Cf. A071681 (subsequence for prime n only).",
+				"Cf. A092953.",
+				"Bisection of A117929 (even part). - _Alois P. Heinz_, Nov 14 2012"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,8",
+			"author": "_Amarnath Murthy_, Apr 28 2001",
+			"ext": [
+				"More terms from Larry Reeves (larryr(AT)acm.org), May 15 2001"
+			],
+			"references": 16,
+			"revision": 52,
+			"time": "2017-06-03T01:28:05-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61417,
+			"data": "1,2,4,10,28,136,726,5100,40362,363288,3628810,39921044,479001612,6227066928,87178295296,1307675013928,20922789888016,355687438476444,6402373705728018,121645100594641896,2432902008177690360",
+			"name": "Number of permutations up to cyclic rotations; permutation siteswap necklaces.",
+			"comment": [
+				"If permutations are converted to (i,p(i)) permutation arrays, then this automorphism is obtained by their \"SW-NE diagonal toroidal shifts\" (see Matthias Engelhardt's Java program in A006841), while the Maple procedure below converts each permutation to a siteswap pattern (used in juggling), rotates it by one digit and converts the resulting new (or same) siteswap pattern back to a permutation.",
+				"When the subset of permutations listed by A064640 are subjected to the same automorphism one gets A002995.",
+				"The number of conjugacy classes of the symmetric group of degree n when conjugating only with the cyclic permutation group of degree n. - _Attila Egri-Nagy_, Aug 15 2014",
+				"Also the number of equivalence classes of permutations of {1...n} under the action of rotation of vertices in the cycle decomposition. The corresponding action on words applies m -\u003e m + 1 for m \u003c n and n -\u003e 1, and rotates once to the right. For example, (24531) first becomes (35142) under the application of cyclic rotation, and then is rotated right to give (23514). - _Gus Wiseman_, Mar 04 2019"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A061417/b061417.txt\"\u003eTable of n, a(n) for n=1..100\u003c/a\u003e",
+				"\u003ca href=\"/index/Ne#necklaces\"\u003eIndex entries for sequences related to necklaces\u003c/a\u003e",
+				"Gus Wiseman, \u003ca href=\"/A061417/a061417.png\"\u003eInequivalent representatives of the a(5) = 28 permutations under rotation of vertices in the cycle decomposition\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = (1/n)*Sum_{d|n} phi(n/d)*((n/d)^d)*(d!)."
+			],
+			"example": [
+				"If I have a five-element permutation like 25431, in cycle notation (1 2 5)(3 4), I mark the numbers 1-5 clockwise onto a circle and draw directed edges from 1 to 2, from 2 to 5, from 5 to 1 and a double-way edge between 3 and 4. All the 5-element permutations that produce some rotation (discarding the labels of the nodes) of that chord diagram belong to the same equivalence class with 25431. The sequence gives the count of such equivalence classes."
+			],
+			"maple": [
+				"Algebraic formula: with(numtheory); SSRPCC := proc(n) local d,s; s := 0; for d in divisors(n) do s := s + phi(n/d)*((n/d)^d)*(d!); od; RETURN(s/n); end;",
+				"Empirically: with(group); SiteSwapRotationPermutationCycleCounts := proc(upto_n) local b,u,n,a,r; a := []; for n from 1 to upto_n do b := []; u := n!; for r from 0 to u-1 do b := [op(b),1+PermRank3R(SiteSwap2Perm1(rotateL(Perm2SiteSwap2(PermUnrank3Rfix(n,r)))))]; od; a := [op(a),CountCycles(b)]; od; RETURN(a); end;",
+				"PermUnrank3Rfixaux := proc(n,r,p) local s; if(0 = n) then RETURN(p); else s := floor(r/((n-1)!)); RETURN(PermUnrank3Rfixaux(n-1, r-(s*((n-1)!)), permul(p,[[n,n-s]]))); fi; end;",
+				"PermUnrank3Rfix := (n,r) -\u003e convert(PermUnrank3Rfixaux(n,r,[]),'permlist',n);",
+				"SiteSwap2Perm1 := proc(s) local e,n,i,a; n := nops(s); a := []; for i from 1 to n do e := ((i+s[i]) mod n); if(0 = e) then e := n; fi; a := [op(a),e]; od; RETURN(convert(invperm(convert(a,'disjcyc')),'permlist',n)); end;"
+			],
+			"mathematica": [
+				"a[n_] := (1/n)*Sum[ EulerPhi[n/d]*(n/d)^d*d!, {d, Divisors[n]}]; Table[a[n], {n, 1, 21}] (* _Jean-François Alcover_, Oct 09 2012, from formula *)",
+				"Table[Length[Select[Permutations[Range[n]],#==First[Sort[NestList[RotateRight[#/.k_Integer:\u003eIf[k==n,1,k+1]]\u0026,#,n-1]]]\u0026]],{n,8}] (* _Gus Wiseman_, Mar 04 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a061417 = sum . a047917_row  -- _Reinhard Zumkeller_, Mar 19 2014",
+				"(GAP) List([1..10],n-\u003eSize( OrbitsDomain( CyclicGroup(I sPermGroup,n), SymmetricGroup( IsPermGroup,n),\\^))); # _Attila Egri-Nagy_, Aug 15 2014",
+				"(PARI) a(n) = (1/n)*sumdiv(n, d, eulerphi(n/d)*(n/d)^d*d!); \\\\ _Indranil Ghosh_, Apr 10 2017",
+				"(Python)",
+				"from sympy import divisors, factorial, totient",
+				"def a(n): return sum([totient(n/d)*(n/d)**d*factorial(d) for d in divisors(n)])/n",
+				"print [a(n) for n in xrange(1, 22)] # _Indranil Ghosh_, Apr 10 2017"
+			],
+			"xref": [
+				"Cf. A006841, A060495. For other Maple procedures, see A060501 (Perm2SiteSwap2), A057502 (CountCycles), A057509 (rotateL), A060125 (PermRank3R and permul).",
+				"A061417[p] = A061860[p] = (p-1)!+(p-1) for all prime p's.",
+				"A064636 (derangements-the same automorphism).",
+				"A061417[n] = A064649[n]/n.",
+				"Cf. A000031, A000939, A008965, A060223, A086675 (digraphical necklaces), A179043, A192332, A275527 (path necklaces), A323858, A323859, A323870, A324513, A324514 (aperiodic permutations)."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_Antti Karttunen_, May 02 2001",
+			"references": 16,
+			"revision": 32,
+			"time": "2019-03-05T18:20:43-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61987,
+			"data": "1,1,1,1,2,2,1,3,4,2,6,3,5,4,12,6,10,8,9,15,12,20,16,18,30,24,27,13,32,36,60,48,54,26,64,72,81,39,96,108,52,128,144,162,78,192,216,104,139,117,288,324,156,384,432,208,278,234,576,648,312,417,351,864,416,556",
+			"name": "Number of times n-th distinct value is repeated in sequence b(k) = 1 + b(floor(k/2)) + b(floor(k/3)) with b(0) = 0, i.e., in A061984; also number of times n-th distinct row is repeated in square array T(n,k) = T(n-1,k) + T(n-1,floor(k/2)) + T(n-1,floor(k/3)) with T(0,0) = 1, i.e., in A061980.",
+			"comment": [
+				"For n \u003e 0: a(n) = A003586(n+1) - A003586(n) and a(A084791(n)) = A084788(n).",
+				"Also number of times A160519(n+1) is repeated in A088468. - _Reinhard Zumkeller_, May 16 2009",
+				"In the 14th century Levi Ben Gerson proved that a(n) \u003e 1 for all n \u003e 6; see A003586, A235365, A235366, A236210. - _Jonathan Sondow_, Jan 20 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061987/b061987.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/SmoothNumber.html\"\u003eSmooth Number\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A061986(A061985(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a061987 n = a061987_list !! n",
+				"a061987_list = map length $ group a061984_list",
+				"-- _Reinhard Zumkeller_, Jan 11 2014"
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Henry Bottomley_, May 24 2001",
+			"ext": [
+				"More terms from _Reinhard Zumkeller_, Jun 03 2003"
+			],
+			"references": 16,
+			"revision": 14,
+			"time": "2017-07-30T23:07:06-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 62799,
+			"data": "0,1,1,2,1,4,1,3,2,4,1,7,1,4,4,4,1,7,1,7,4,4,1,10,2,4,3,7,1,12,1,5,4,4,4,12,1,4,4,10,1,12,1,7,7,4,1,13,2,7,4,7,1,10,4,10,4,4,1,20,1,4,7,6,4,12,1,7,4,12,1,17,1,4,7,7,4,12,1,13,4,4",
+			"name": "Inverse Möbius transform of the numbers of distinct prime factors (A001221).",
+			"comment": [
+				"Let us say that two divisors d_1 and d_2 of n are adjacent divisors if d_1/d_2 or d_2/d_1 is a prime. Then a(n) is the number of all pairs of adjacent divisors of n. - _Vladimir Shevelev_, Aug 16 2010",
+				"Equivalent to the preceding comment: a(n) is the number of edges in the directed multigraph on tau(n) vertices, vertices labeled by the divisors d_i of n, where edges connect vertex(d_i) and vertex(d_j) if the ratio of the labels is a prime. - _R. J. Mathar_, Sep 23 2011",
+				"a(A001248(n)) = 2. - _Reinhard Zumkeller_, Dec 02 2014",
+				"Depends on the prime signature of n as follows: a(A025487(n)) = 0, 1, 2, 4, 3, 7, 4, 10, 12, 5, 12, 13, 20, 6, 17, 16, 28, 7, 22, 33, 19 ,32, 24, 36, 8, 27, 46, ... (n\u003e=1). - _R. J. Mathar_, May 28 2017"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A062799/b062799.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"S.-H. Cha, E. G. DuCasse, and L. V. Quintas, \u003ca href=\"http://arxiv.org/abs/1405.5283\"\u003eGraph Invariants Based on the Divides Relation and Ordered by Prime Signatures\u003c/a\u003e, arXiv:1405.5283 [math.NT], 2014.",
+				"E. Pérez Herrero, Psychedelic Geometry Blogspot, \u003ca href=\"http://psychedelic-geometry.blogspot.com/2009/09/curious-series-002.html\"\u003eCURIOUS SERIES-002\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum_{d|n} A001221(d), that is, where d runs over divisors of n.",
+				"For squarefree s (i.e., s in A005117), a(s) = omega(s)*2^(omega(s)-1), where omega(n) = A001221(n). Also, for n\u003e1, a(n) \u003c= omega(n)*A000005(n) - 1. - _Enrique Pérez Herrero_, Sep 08 2009",
+				"Let n=Product_{i=1..omega(n)} p(i)^e(i). a(n) = d[Product_{i=1..omega(n)} (1 + e(i)*x)]/dx|x=1. In other words, a(n) = Sum_{m\u003e=1} A146289(n,m)*m. - _Geoffrey Critzer_, Feb 10 2015",
+				"a(A000040(n)) = 1; a(A001248(n)) = 2; a(A030078(n)) = 3; a(A030514(n)) = 4; a(A050997(n)) = 5. - _Altug Alkan_, Oct 17 2015",
+				"a(n) = Sum_{prime p|n} A000005(n/p). - _Max Alekseyev_, Aug 11 2016",
+				"G.f.: Sum_{k\u003e=1} omega(k)*x^k/(1 - x^k), where omega(k) is the number of distinct primes dividing k (A001221). - _Ilya Gutkovskiy_, Jan 16 2017",
+				"Dirichlet g.f.: zeta(s)^2*primezeta(s) where primezeta(s) = Sum_{prime p} p^(-s). - _Benedict W. J. Irwin_, Jul 16 2018"
+			],
+			"example": [
+				"n = 255: divisors = {1, 3, 5, 15, 17, 51, 85, 255}, a(255) = 0+1+1+2+1+2+2+3 = 12."
+			],
+			"maple": [
+				"read(\"transforms\") ;",
+				"A001221 := proc(n)",
+				"        nops(numtheory[factorset](n)) ;",
+				"end proc:",
+				"omega := [seq(A001221(n),n=1..80)] ;",
+				"ones := [seq(1,n=1..80)] ;",
+				"DIRICHLET(ones,omega) ; # _R. J. Mathar_, Sep 23 2011",
+				"N:= 1000: # to get a(1) to a(N)",
+				"B:= Vector(N,t-\u003e nops(numtheory:-factorset(t))):",
+				"A:= Vector(N):",
+				"for d from 1 to N do",
+				"  md:= d*[$1..floor(N/d)];",
+				"  A[md]:= map(`+`,A[md],B[d])",
+				"od:",
+				"convert(A,list); # _Robert Israel_, Oct 21 2015"
+			],
+			"mathematica": [
+				"f[n_] := Block[{d = Divisors[n], c = l = 0, k = 2}, l = Length[d]; While[k \u003c l + 1, c = c + Length[ FactorInteger[ d[[k]] ]]; k++ ]; Return[c]]; Table[f[n], {n, 1, 100} ]",
+				"omega[n_] := Length[FactorInteger[n]]; SetAttributes[omega, Listable]; omega[1] := 0; A062799[n_] := Plus @@ omega[Divisors[n]] (* _Enrique Pérez Herrero_, Sep 08 2009 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a062799 = sum . map a001221 . a027750_row",
+				"-- _Reinhard Zumkeller_, Dec 02 2014",
+				"(PARI) a(n)=my(f=factor(n)[,2],s);forvec(v=vector(#f,i,[0,f[i]]),s+=sum(i=1,#f,v[i]\u003e0));s \\\\ _Charles R Greathouse IV_, Oct 15 2015",
+				"(PARI) vector(100, n, sumdiv(n, k, omega(k))) \\\\ _Altug Alkan_, Oct 15 2015"
+			],
+			"xref": [
+				"Cf. A001221, A001248, A027750."
+			],
+			"keyword": "nonn",
+			"offset": "1,4",
+			"author": "_Labos Elemer_, Jul 19 2001",
+			"references": 16,
+			"revision": 79,
+			"time": "2018-07-28T11:55:42-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

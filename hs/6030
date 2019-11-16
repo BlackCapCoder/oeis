@@ -1,0 +1,410 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6030,
+	"results": [
+		{
+			"number": 264618,
+			"data": "0,5,17,27,65,85,99,119,257,297,325,365,387,427,455,495,1025,1105,1161,1241,1285,1365,1421,1501,1539,1619,1675,1755,1799,1879,1935,2015,4097,4257,4369,4529,4617,4777,4889,5049,5125,5285,5397,5557,5645,5805,5917,6077,6147,6307,6419,6579,6667,6827,6939,7099,7175",
+			"name": "Working in binary, write n followed by 0 then n-reversed (including leading zeros); show result in base 10.",
+			"comment": [
+				"a(n) = A264619(n) - A062383(n); n\u003e0: A070939(a(n)) = 2*A070939(n)+1; A000120(a(n)) = 2*A000120(n); n\u003e0: A023416(a(n)) = 2*A023416(n)+1. - _Reinhard Zumkeller_, Dec 01 2015"
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A264618/b264618.txt\"\u003eTable of n, a(n) for n = 0..32767\u003c/a\u003e"
+			],
+			"example": [
+				"0 -\u003e 000 = 0,",
+				"1 -\u003e 101 = 5,",
+				"10 -\u003e 10001 = 17,",
+				"11 -\u003e 11011 = 27,",
+				"100 -\u003e 1000001 = 65,",
+				"..."
+			],
+			"mathematica": [
+				"A264618[n_]:=FromDigits[Join[#, {0}, Reverse[#]], 2] \u0026@IntegerDigits[n, 2] (* _JungHwan Min_, Dec 01 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a264618 n = foldr (\\b v -\u003e 2 * v + b) 0 $ (reverse bs ++ (0 : bs))",
+				"            where bs = map fromIntegral $ a030308_row n",
+				"-- _Reinhard Zumkeller_, Dec 01 2015"
+			],
+			"xref": [
+				"Cf. A006995, A048701 (n followed by n-reversed), A264619.",
+				"First differences: A265028.",
+				"Cf. A007088, A030308, A000120, A023416, A062383, A070939."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Nov 30 2015",
+			"references": 4,
+			"revision": 23,
+			"time": "2015-12-03T13:17:43-05:00",
+			"created": "2015-11-30T20:46:26-05:00"
+		},
+		{
+			"number": 264619,
+			"data": "1,7,21,31,73,93,107,127,273,313,341,381,403,443,471,511,1057,1137,1193,1273,1317,1397,1453,1533,1571,1651,1707,1787,1831,1911,1967,2047,4161,4321,4433,4593,4681,4841,4953,5113,5189,5349,5461,5621,5709,5869,5981,6141,6211,6371,6483,6643,6731,6891,7003,7163,7239",
+			"name": "a(0) = 1; for n\u003e0, working in binary, write n followed by 1 then n-reversed (including leading zeros); show result in base 10.",
+			"comment": [
+				"a(n) = A062383(n) + A264618(n);  n\u003e0: A070939(a(n)) = 2*A070939(n)+1; A000120(a(n)) = 2*A000120(n)+1; n\u003e0: A023416(a(n)) = 2*A023416(n). - _Reinhard Zumkeller_, Dec 01 2015"
+			],
+			"link": [
+				"N. J. A. Sloane, \u003ca href=\"/A264619/b264619.txt\"\u003eTable of n, a(n) for n = 0..32767\u003c/a\u003e"
+			],
+			"example": [
+				"1 -\u003e 111 = 7,",
+				"10 -\u003e 10101 = 21,",
+				"11 -\u003e 11111 = 31,",
+				"100 -\u003e 1001001 = 73,",
+				"..."
+			],
+			"mathematica": [
+				"A264619[0] = 1; A264619[n_] := FromDigits[Join[#, {1}, Reverse[#]], 2]\u0026@ IntegerDigits[n, 2] (* _JungHwan Min_, Dec 01 2015 *)",
+				"bnr[n_]:=Module[{idn2=IntegerDigits[n,2]},FromDigits[Join[idn2,{1}, Reverse[ idn2]],2]]; Join[{1},Array[bnr,60]] (* _Harvey P. Dale_, Nov 05 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a264619 0 = 1",
+				"a264619 n = foldr (\\b v -\u003e 2 * v + b) 0 $ (reverse bs ++ (1 : bs))",
+				"            where bs = map fromIntegral $ a030308_row n",
+				"-- _Reinhard Zumkeller_, Dec 01 2015"
+			],
+			"xref": [
+				"Cf. A006995, A048701 (n followed by n-reversed), A264618.",
+				"First differences: A265029.",
+				"Cf. A007088, A030308, A000120, A023416, A062383, A070939."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Nov 30 2015",
+			"references": 4,
+			"revision": 26,
+			"time": "2017-11-05T14:10:38-05:00",
+			"created": "2015-11-30T21:07:22-05:00"
+		},
+		{
+			"number": 264784,
+			"data": "1,2,5,10,1,21,2,42,1,1,5,1,85,2,2,10,2,170,1,1,1,5,1,1,5,1,21,1,1,5,1,341,2,2,2,10,2,2,10,2,42,2,2,10,2,682,1,1,1,1,5,1,1,1,5,1,1,5,1,21,1,1,1,5,1,1,5,1,21,1,1,5,1,85,1,1,1,5,1,1",
+			"name": "Run lengths of zeros in A265158.",
+			"comment": [
+				"Conjecture: A000975(n) = a(A155051(n-1))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A264784/b264784.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (group)",
+				"a264784 n = a264784_list !! (n-1)",
+				"a264784_list = map length $ filter ((== 0) . head) $ group a265158_list"
+			],
+			"xref": [
+				"Cf. A265158.",
+				"Record values and where they occur: A000975 and A155051, conjectured."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 04 2015",
+			"references": 4,
+			"revision": 8,
+			"time": "2015-12-04T19:14:44-05:00",
+			"created": "2015-12-04T19:14:44-05:00"
+		},
+		{
+			"number": 265008,
+			"data": "1,3,3,6,5,9,5,10,8,9,9,18,13,15,7,15,12,12,13,18,11,17,13,30,23,21,17,30,21,21,9,21,17,16,16,18,16,21,17,30,22,15,17,32,21,25,19,45,34,33,27,36,25,25,25,50,37,33,27,42,33,27,11,28,23,21,21,22,20,24,20,30,20,24,23,33,27,29,21,45,34,30,29,30,17,29,25,52,40,33,25,46,31",
+			"name": "Number of positive solutions to the equation A x B = C, where A, B and C are made from (contiguous) substrings of the binary representation of n.",
+			"comment": [
+				"Here all three of A, B and C are positive; if A and B are distinct then the solutions A X B = C and B X A = C are regarded as distinct; while A x A is counted once. A substring may be used any number of times."
+			],
+			"link": [
+				"Robert Israel, \u003ca href=\"/A265008/b265008.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Marko Riedel, \u003ca href=\"/A265008/a265008.maple.txt\"\u003eMaple code for the number of solutions to A x B = C using binary substrings of n.\u003c/a\u003e"
+			],
+			"example": [
+				"When n=6 = (110)_2 we get the substrings 1=(1)_2, 2=(10)_2, 3=(11)_2 and 6=(110)_2 with the products 1*1=1, 1*2=2, 2*1=2, 1*3=3, 3*1=3, 1*6=6, 6*1=6, 2*3=6, 3*2=6 for a total of 9. When n=8 = (1000)_2 we get the substrings 1=(1)_2, 2=(10)_2, 4=(100)_2 and 8=(1000)_2 with the products 1*1=1, 1*2=2, 2*1=2, 1*4=4, 4*1=4, 1*8=1, 8*1=1, 2*2=4, 2*4=8, 4*2=8 for a total of 10."
+			],
+			"maple": [
+				"F:= proc(n) local L,ss;",
+				"  L:= convert(n,base,2);",
+				"  ss:= {seq(seq(add(2^(i-j)*L[i],i=j..k), j=1..k),k=1..nops(L))} minus {0};",
+				"  numboccur(true,[seq(seq(member(a*b,ss),a=ss),b=ss)]);",
+				"end proc:",
+				"seq(F(n), n=1..100); # _Robert Israel_, Nov 30 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a265008 n = length [() | let cs = a165416_row n, c \u003c- cs,",
+				"            let as = takeWhile (\u003c= c) cs, a \u003c- as, b \u003c- as, a * b == c]",
+				"-- _Reinhard Zumkeller_, Dec 05 2015"
+			],
+			"xref": [
+				"Allowing A,B,C to be zero gives A265236.",
+				"See A265182, A265183 for decimal analogs.",
+				"Cf. A165416."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Marko Riedel_, Nov 29 2015",
+			"references": 4,
+			"revision": 28,
+			"time": "2015-12-06T10:34:18-05:00",
+			"created": "2015-12-04T01:31:03-05:00"
+		},
+		{
+			"number": 265183,
+			"data": "1,1,0,0,0,0,0,0,0,0,8,3,5,5,5,5,5,5,5,5,5,5,0,0,1,1,0,0,0,0,5,5,0,0,0,0,1,0,0,1,5,5,1,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,5,5,0,0,0,0",
+			"name": "Base-10 analog of Marko Riedel's A265008, but allowing A, B, C to be zero.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A265183/b265183.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a265183 n = length [() | let cs = a218978_row n, a \u003c- cs, b \u003c- cs, c \u003c- cs,",
+				"                         a * b == c || c == 0 \u0026\u0026 a * b == 0]",
+				"-- _Reinhard Zumkeller_, Dec 05 2015"
+			],
+			"xref": [
+				"Cf. A265008, A265182, A265236.",
+				"Cf. A218978."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,11",
+			"author": "_N. J. A. Sloane_, Dec 04 2015",
+			"ext": [
+				"Data corrected by _Reinhard Zumkeller_, Dec 05 2015"
+			],
+			"references": 4,
+			"revision": 20,
+			"time": "2015-12-06T10:35:58-05:00",
+			"created": "2015-12-04T01:56:11-05:00"
+		},
+		{
+			"number": 265236,
+			"data": "1,1,8,3,13,12,18,5,19,17,18,20,31,26,28,7,26,23,23,26,31,22,32,28,47,40,38,34,49,40,38,9,34,30,29,31,31,31,38,34,47,39,28,34,53,40,46,38,66,55,54,48,59,46,46,48,75,62,58,52,67,58,48,11,43,38",
+			"name": "Number of solutions to the equation A x B = C, where A, B and C are nonnegative numbers appearing as (contiguous) substrings of the binary representation of n.",
+			"comment": [
+				"A, B and C are allowed to be zero, in contrast to A265008;",
+				"a(A000225(n)) = A265008(A000225(n));",
+				"a(A062289(n)) != A265008(A062289(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A265236/b265236.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"For n \u003e 0: a(n) = A265008(n) + A043545(n) * (2*A078822(n) - 1)."
+			],
+			"example": [
+				".  n | A007088 | A119709     |  a |",
+				". ---+---------+-------------+----+-------------------------------------",
+				".  2 |      10 | [0,1,2]     |  8 = #{(0,0,0), (0,1,0), (0,2,0), (1,0,0),",
+				".    |         |             |        (2,0,0), (1,1,1), (1,2,2), (2,1,2)}",
+				".  3 |      11 | [1,3]       |  3 = #{(1,1,1), (1,3,3), (3,1,3)}",
+				".  4 |     100 | [0,1,2,4]   | 13 = #{(0,0,0), (0,1,0), (0,2,0), (0,4,0),",
+				".    |         |             |         (1,0,0), (2,0,0), (4,0,0), (1,1,1),",
+				".    |         |             |         (1,2,2), (2,1,2), (1,4,4), (2,2,4),",
+				".    |         |             |         (4,1,4)}",
+				".  5 |     101 | [0,1,2,5]   | 12 = #{(0,0,0), (0,1,0), (0,2,0), (0,5,0),",
+				".    |         |             |         (1,0,0), (2,0,0), (5,0,0), (1,1,1),",
+				".    |         |             |         (1,2,2), (2,1,2), (1,5,5), (5,1,5)}",
+				".  6 |     110 | [0,1,2,3,6] | 18 = #{(0,0,0), (0,1,0), (0,2,0), (0,3,0),",
+				".    |         |             |         (0,6,0), (1,0,0), (2,0,0), (3,0,0),",
+				".    |         |             |         (6,0,0), (1,1,1), (1,2,2), (2,1,2),",
+				".    |         |             |         (1,3,3), (3,1,3), (1,6,6), (2,3,6),",
+				".    |         |             |         (3,2,6), (6,1,6)}",
+				".  7 |     111 | [1,3,7]     |≈ 5 = #{(1,1,1), (1,3,3), (3,1,3), (1,7,7),",
+				".    |         |             |         (7,1,7)} ."
+			],
+			"program": [
+				"(Haskell)",
+				"a265236 n = length [() | let cs = a119709_row n, a \u003c- cs, b \u003c- cs, c \u003c- cs,",
+				"                         a * b == c || c == 0 \u0026\u0026 a * b == 0]"
+			],
+			"xref": [
+				"Cf. A007088, A119709, A265008, A265183 (decimal case), A000225, A062289, A043545, A078822."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Dec 06 2015",
+			"ext": [
+				"Suggested by _N. J. A. Sloane_."
+			],
+			"references": 4,
+			"revision": 7,
+			"time": "2015-12-06T10:31:00-05:00",
+			"created": "2015-12-06T08:21:07-05:00"
+		},
+		{
+			"number": 265675,
+			"data": "0,1,2,3,2,5,3,7,8,5,6,11,12,8,9,15,10,17,8,19,13,13,15,23,15,17,26,11,28,18,30,21,32,25,23,23,36,37,25,30,18,41,29,22,44,45,30,36,22,49,32,51,41,34,39,55,44,41,38,47,60,61,30,63,36,43,66,67",
+			"name": "Number of smaller squarefree numbers that are coprime with the n-th squarefree number.",
+			"comment": [
+				"a(n) = number of A005117(k) such that A005117(k) and A005117(n) are coprime, k = 1..n-1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A265675/b265675.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = sum(A008966(A005117(n)*A005177(k)): k = 1..n-1)."
+			],
+			"example": [
+				"A005117(7) = 10, A005117(1..6) = [1,2,3,5,6,7],",
+				"-\u003e  a(7) = #{1,3,7} = 3;",
+				"A005117(8) = 11, A005117(1..7) = [1,2,3,5,6,7,10],",
+				"-\u003e  a(8) = #{1,2,3,5,6,7,10} = 7;",
+				"A005117(9) = 13, A005117(1..8) = [1,2,3,5,6,7,10,11],",
+				"-\u003e  a(9) = #{1,2,3,5,6,7,10,11} = 8;",
+				"A005117(10) = 14, A005117(1..9) = [1,2,3,5,6,7,10,11,13],",
+				"-\u003e  a(10) = #{1,3,5,11,13} = 5;",
+				"A005117(11) = 15, A005117(1..10) = [1,2,3,5,6,7,10,11,13,14],",
+				"-\u003e  a(11) = #{1,2,7,11,13,14} = 6;"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits)",
+				"a265675 n = a265675_list !! (n-1)",
+				"a265675_list = map (\\(x:xs) -\u003e length $ filter ((== 1) . gcd x) xs) $",
+				"                   map reverse $ tail $ inits a005117_list"
+			],
+			"xref": [
+				"Cf. A005117, A008966."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Dec 13 2015",
+			"references": 4,
+			"revision": 7,
+			"time": "2015-12-14T04:06:45-05:00",
+			"created": "2015-12-13T15:51:19-05:00"
+		},
+		{
+			"number": 265912,
+			"data": "0,2,3,4,4,5,5,6,6,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,11,11,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,14,14,14,14,14,14,14,15,15,15,15,15,16,16,16,16,16,16,16,17,17,17,17,17,17,17,17",
+			"name": "Smallest m such that A014631(n) occurs in row m of Pascal's triangle.",
+			"comment": [
+				"Each n occurs A126257(n) times consecutively."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A265912/b265912.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"First occurrences of z(n)=A014631(n) in the left part of Pascal's triangle, repetitions marked:",
+				".   0: z(1)                                       [1]",
+				".   1: *z(1)                                      [1]",
+				".   2: *z(1)  z(2)                                [1,2]",
+				".   3: *z(1)  z(3)                                [1,3]",
+				".   4: *z(1)  z(4)  z(5)                          [1,4,6]",
+				".   5: *z(1)  z(6)  z(7)                          [1,5,10]",
+				".   6: *z(1) *z(5)  z(8)  z(9)                    [1,6,15,20]",
+				".   7: *z(1)  z(10) z(11) z(12)                   [1,7,21,35]",
+				".   8: *z(1)  z(13) z(14) z(15) z(16)             [1,8,28,56,70]",
+				".   9: *z(1)  z(17) z(18) z(19) z(20)             [1,9,36,84,126]",
+				".  10: *z(1) *z(7)  z(21) z(22) z(23) z(24)       [1,10,45,120,210,252]",
+				".  11: *z(1)  z(25) z(26) z(27) z(28) z(29)       [1,11,55,165,330,462]",
+				".  12: *z(1)  z(30) z(31) z(32) z(33) z(34) z(35) [1,12,66,220,495,792,924]",
+				"---------------------------------------------------------------------------",
+				".    n: 1  2  3  4  5  6   7   8   9  10  11  12  13  14  15  16  17  18",
+				". z(n): 1  2  3  4  6  5  10  15  20   7  21  35   8  28  56  70   9  36"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndex); import Data.Maybe (fromJust)",
+				"a265912 = fromJust . (flip findIndex a007318_tabl) . elem . a014631"
+			],
+			"xref": [
+				"Cf. A007318, A014631, A119629."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 18 2015",
+			"references": 4,
+			"revision": 5,
+			"time": "2015-12-19T16:33:10-05:00",
+			"created": "2015-12-19T16:33:10-05:00"
+		},
+		{
+			"number": 50,
+			"id": "M0715 N0265",
+			"data": "1,2,3,5,9,16,29,54,97,180,337,633,1197,2280,4357,8363,16096,31064,60108,116555,226419,440616,858696,1675603,3273643,6402706,12534812,24561934,48168461,94534626,185661958,364869032,717484560,1411667114,2778945873,5473203125",
+			"name": "Number of positive integers \u003c= 2^n of form x^2 + y^2.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"P. Moree and H. J. J. te Riele, \u003ca href=\"https://arxiv.org/abs/math/0204332\"\u003eThe hexagonal versus the square lattice\u003c/a\u003e, arXiv:math/0204332 [math.NT], 2002.",
+				"P. Moree and H. J. J. te Riele, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-03-01556-4\"\u003eThe hexagonal versus the square lattice\u003c/a\u003e, Math. Comp. 73 (2004), no. 245, 451-473.",
+				"D. Shanks and L. P. Schmid, \u003ca href=\"http://dx.doi.org/10.1090/S0025-5718-1966-0210678-1\"\u003eVariations on a theorem of Landau. Part I\u003c/a\u003e, Math. Comp., 20 (1966), 551-569.",
+				"\u003ca href=\"/index/Qua#quadpop\"\u003eIndex entries for sequences related to populations of quadratic forms\u003c/a\u003e"
+			],
+			"mathematica": [
+				"(* This program is not suitable for a large number of terms *) a[0] = 1; a[n_] := a[n] = (For[cnt = 0; k = 2^(n-1)+1, k \u003c= 2^n, k++, If[SquaresR[2, k] \u003e 0, cnt++]]; cnt + a[n-1]); Table[Print[\"a(\", n, \") = \", a[n]]; a[n], {n, 0, 26}] (* _Jean-François Alcover_, Mar 20 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"isqrt = a000196",
+				"issquare = a010052",
+				"a000050 n = foldl f 0 [1..2^n]",
+				"  where f i j = if a000050' j \u003e 0 then i + 1 else i",
+				"a000050' k = foldl f 0 (h k)",
+				"  where f i y = g y + i",
+				"          where g y = issquare (k - y^2)",
+				"        h k = [0..isqrt k]",
+				"-- _James Spahlinger_, Oct 09 2012"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_",
+			"references": 3,
+			"revision": 27,
+			"time": "2017-10-12T03:52:29-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		},
+		{
+			"number": 208,
+			"id": "M2377 N0943",
+			"data": "1,1,3,4,12,28,94,298,1044,3658,13164,47710,174948,645436,2397342,8948416,33556500,126324496,477225962,1808414182,6871973952,26178873448,99955697946,382438918234,1466015854100,5629499869780",
+			"name": "Number of even sequences with period 2n.",
+			"reference": [
+				"N. J. A. Sloane, A Handbook of Integer Sequences, Academic Press, 1973 (includes this sequence).",
+				"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A000208/b000208.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"E. N. Gilbert and J. Riordan, \u003ca href=\"http://projecteuclid.org/euclid.ijm/1255631587\"\u003eSymmetry types of periodic sequences\u003c/a\u003e, Illinois J. Math., 5 (1961), 657-665."
+			],
+			"formula": [
+				"a(n) = (A000013(2*n)+A000013(n))/2 if n even, A000013(2*n)/2 if n odd. - Randall L. Rathbun, Jan 11 2002",
+				"a(2*n) = (A000116(2*n) + A000116(n)) / 2; a(2*n+1) = A000116(2*n+1) / 2. - _Reinhard Zumkeller_, Jul 08 2013"
+			],
+			"mathematica": [
+				"a[0] = 1; a13[0] = 1; a13[n_] := Fold[#1 + EulerPhi[2*#2]*(2^(n/#2)/(2*n)) \u0026 , 0, Divisors[n]]; a[(n_)?OddQ] := (a13[2*(n + 1)] + a13[n + 1])/2; a[(n_)?EvenQ] := a13[2*(n + 1)]/2; Table[a[n], {n, 0, 24}] (* _Jean-François Alcover_, Sep 01 2011, after PARI prog. *)"
+			],
+			"program": [
+				"(PARI) {A000208(n)=if(n%2==0,(A000013(2*n)+A000013(n))/2, A000013(2*n)/2)}",
+				"(Haskell)",
+				"a000208 n = a000208_list !! n",
+				"a000208_list = map (`div` 2) $ concat $ transpose",
+				"   [zipWith (+) a000116_list $ bis a000116_list, bis $ tail a000116_list]",
+				"   where bis (x:_:xs) = x : bis xs",
+				"-- _Reinhard Zumkeller_, Jul 08 2013"
+			],
+			"xref": [
+				"Cf. A000013, A000206."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_",
+			"ext": [
+				"More terms from Randall L. Rathbun, Jan 11 2002"
+			],
+			"references": 3,
+			"revision": 30,
+			"time": "2014-04-18T02:38:54-04:00",
+			"created": "1991-04-30T03:00:00-04:00"
+		}
+	]
+}

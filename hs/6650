@@ -1,0 +1,405 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6650,
+	"results": [
+		{
+			"number": 211889,
+			"data": "1,2,6,30,60,244230,6930,546840,3120613860,7399357350,10719893274090,173761834256010,14772517344885300",
+			"name": "Smallest positive d such that prime(n)+k*d is prime for 0 \u003c= k \u003c= n.",
+			"comment": [
+				"a(n) = A211890(n,k+1) - A211890(n,k), 0 \u003c= k \u003c n."
+			],
+			"link": [
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PrimeArithmeticProgression.html\"\u003ePrime Arithmetic Progression\u003c/a\u003e.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Primes_in_arithmetic_progression\"\u003ePrimes in arithmetic progression\u003c/a\u003e.",
+				"\u003ca href=\"/index/Pri#primes_AP\"\u003eIndex entries for sequences related to primes in arithmetic progressions\u003c/a\u003e"
+			],
+			"formula": [
+				"A010051(A000040(n) + k * a(n)) = 1, 0 \u003c= k \u003c= n."
+			],
+			"program": [
+				"(Haskell)",
+				"a211889 n = head [k | let p = a000040 n, k \u003c- [1..],",
+				"            all ((== 1) . a010051') $ map ((+ p) . (* k)) (a002260_row n)]",
+				"(Python)",
+				"from sympy import isprime, prime, primorial, primepi",
+				"def A211889(n):",
+				"    if n == 1:",
+				"        return 1",
+				"    delta = primorial(primepi(n))",
+				"    p, d = prime(n), delta",
+				"    while True:",
+				"        q = p",
+				"        for _ in range(n):",
+				"            q += d",
+				"            if not isprime(q):",
+				"                break",
+				"        else:",
+				"            return d",
+				"        d += delta # _Chai Wah Wu_, Jun 28 2019"
+			],
+			"xref": [
+				"Cf. A000040, A010051, A211890."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 13 2012",
+			"ext": [
+				"a(10) from _Chai Wah Wu_, Jun 29 2019",
+				"a(11)-a(13) from _Giovanni Resta_, Jun 30 2019"
+			],
+			"references": 3,
+			"revision": 24,
+			"time": "2019-07-01T02:21:32-04:00",
+			"created": "2012-07-13T15:47:14-04:00"
+		},
+		{
+			"number": 211996,
+			"data": "0,0,2,1,0,0,0,2,0,0,0,0,0,2,2,0,0,2,0,2,0,0,0,2,0,0,0,2,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,2,0,4,0,0,0,0,0,0,2,0,0,0,0,2,0,0,4,1,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0",
+			"name": "Number of ordered pairs (i,j) such that i*j=n and i+j is a square.",
+			"comment": [
+				"a(n)=1 for n\u003e0 in A141046.",
+				"a(8820)=8 and it is the only term in the first 10000 terms that is greater than 6. There are 977 terms in the first 10000 terms that are greater than zero. - _Harvey P. Dale_, Nov 08 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A211996/b211996.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"D. Clark, \u003ca href=\"http://dx.doi.org/10.4153/CMB-1991-029-4\"\u003eAn arithmetical function associated with the rank of elliptic curves\u003c/a\u003e, Canad. Math. Bull. Vol. 34 (2), 1991 pp. 181-185."
+			],
+			"example": [
+				"For n=3, the pairs (a,b) such that a*b=3 are (1,3) and (3,1). Both pairs add up to a square, so a(3) = 2."
+			],
+			"mathematica": [
+				"nop[n_]:=Module[{divs=Divisors[n]},Count[Thread[{divs,Reverse[divs]}], _?(IntegerQ[Sqrt[Total[#]]]\u0026)]]; Array[nop,90] (* _Harvey P. Dale_, Nov 08 2012 *)"
+			],
+			"program": [
+				"(PARI) a(n) = {for (i=1, n,nb = 0;fordiv(i, d, if (issquare(d+i/d), nb++));print1(nb, \", \"););}",
+				"(Haskell)",
+				"a211996 n = length [x | x \u003c- [1..n], let (y, m) = divMod n x,",
+				"                        m == 0, a010052 (x + y) == 1]",
+				"-- _Reinhard Zumkeller_, Oct 28 2012"
+			],
+			"xref": [
+				"Cf. A010052."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Michel Marcus_, Oct 25 2012",
+			"references": 3,
+			"revision": 40,
+			"time": "2013-07-13T12:04:26-04:00",
+			"created": "2012-10-27T13:02:18-04:00"
+		},
+		{
+			"number": 212192,
+			"data": "21,28,276,1540",
+			"name": "Triangular numbers that are the sum of exactly three distinct powers of 2.",
+			"comment": [
+				"Triangular numbers with exactly three ones in their binary representation: A000120(a(n)) = 3; triangular numbers in A014311; no more terms less than A014311(1000000) = 6129982174881536975083663305496791903885182827960991744."
+			],
+			"program": [
+				"(Haskell)",
+				"a212192 n = a212192_list !! (n-1)",
+				"a212192_list = filter ((== 1) . a010054) a014311_list"
+			],
+			"xref": [
+				"Cf. A010054, A212190."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 03 2012",
+			"references": 3,
+			"revision": 11,
+			"time": "2013-02-22T21:39:17-05:00",
+			"created": "2012-05-03T16:48:47-04:00"
+		},
+		{
+			"number": 212300,
+			"data": "2,2,2,2,2,2,3,2,3,3,3,3,3,3,3,3,3,3,3,3,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,11,7,7,7,11,7,11,11,11,11,11",
+			"name": "Median prime factor of 1..n.",
+			"comment": [
+				"Smallest prime p such that at least n/2 numbers up to n have no prime factors larger than p.",
+				"A246430(n) = smallest m such that a(m) = prime(n): a(A246430(n))=A000040(n). - _Reinhard Zumkeller_, Sep 01 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212300/b212300.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Naslund, \u003ca href=\"http://arxiv.org/abs/1207.0232\"\u003eThe median largest prime factor and the mean of omega(n)\u003c/a\u003e (2012)"
+			],
+			"formula": [
+				"a(n) = k * n^(1/sqrt(e)) * (1 + O(1/log n)), where k = 0.7738... = A212299. See Nashlund 2012 for further references and a more precise result (Theorem 8)."
+			],
+			"mathematica": [
+				"a[1]=2; a[2]=2; a[n_] := NextPrime[Median[Table[FactorInteger[k][[-1, 1]], {k,1,n}]] + 1/2, -1]; ( _Charles R Greathouse IV_, Jun 12 2013 )"
+			],
+			"program": [
+				"(PARI) a(n)=my(v=vector(n,u,u));forprime(p=2,n+1,forstep(i=p,n,p, v[i]/=p^valuation(i,p)); if(sum(i=1,n,v[i]==1)\u003e=n/2, return(p))) \\\\ _Charles R Greathouse IV_, Jun 12 2013",
+				"(Haskell)",
+				"a212300 n = a212300_list !! (n-1)",
+				"a212300_list = f 1 (2 : a000040_list) [1] $ tail a006530_list where",
+				"   f x ps'@(_ : ps@(_ : p : _)) gpfs (q : qs) =",
+				"     y : f (x + 1) (if y == p then ps else ps') (q : gpfs) qs where",
+				"     y = head [z | z \u003c- ps', length (filter (\u003e z) gpfs) \u003c= div x 2]",
+				"-- _Reinhard Zumkeller_, Sep 01 2014"
+			],
+			"xref": [
+				"Cf. A212299.",
+				"Cf. A006530, A000040, A246430."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,1",
+			"author": "_Charles R Greathouse IV_, Jul 03 2012",
+			"references": 3,
+			"revision": 10,
+			"time": "2014-09-01T12:08:29-04:00",
+			"created": "2012-07-04T03:00:47-04:00"
+		},
+		{
+			"number": 212306,
+			"data": "1,1,2,2,1,3,4,1,1,5,2,5,1,3,2,6,1,11,2,1,1,4,8,1,1,2,6,1,3,13,1,9,5,7,1,1,2,2,6,3,3,17,1,17,5,7,1,1,2,2,6,3,3,8,1,4,5,7,1,18,6,18,14,1,1,9,2,7,1,3,2,1,1,7,2,17,1,17,20,1,19,9,1,1",
+			"name": "Starting with the positive numbers, each element subtracts its value, a(n), from the next a(n) elements.",
+			"comment": [
+				"When calculating this sequence, each element affects a different number of subsequent terms, so there is no known direct formula for the n-th term.",
+				"a(A258353(n)) = 1; a(A258354(n)) = n and a(m) != n for m \u003c A258354(n). - _Reinhard Zumkeller_, May 27 2015"
+			],
+			"link": [
+				"Paul D. Hanna, \u003ca href=\"/A212306/b212306.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) is n - the sum of the terms such that a(i) + i \u003e= n.",
+				"Each term a(n) is 1 plus the sum of the terms such that a(i) + i + 1 = n."
+			],
+			"example": [
+				"Starting with A000027, the first term is 1 so we subtract 1 from the next 1 terms so the second term becomes 1. Now again we subtract 1 from the next 1 terms and the third term becomes 2. Subtract 2 from the next two terms of A000027 (4 and 5) to get 2 and 3. Subtract 2 from the next 2 terms (the 3 from 5 and 6) to get 1 and 4. The next term is 4 - 1 = 3. To carry on subtract 3 from the next 3 terms."
+			],
+			"maple": [
+				"b:= proc(n) option remember; local l, t;",
+				"      if n=1 then [1$2] else l:= b(n-1); t:= n-l[2];",
+				"      zip((x, y)-\u003ex+y, [t$t+1], subsop(1=NULL, 2=0, l), 0) fi",
+				"    end:",
+				"a:= n-\u003e b(n)[1]:",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Nov 12 2013"
+			],
+			"mathematica": [
+				"b[n_] := b[n] = Module[{l, t, x, y, m}, If[n == 1, {1, 1}, l = b[n-1]; t = n-l[[2]]; x = Array[t\u0026, t+1]; y = ReplacePart[l, {1 -\u003e Sequence[], 2 -\u003e 0}]; m = Max[Length[x], Length[y]]; Thread[PadRight[x, m] + PadRight[y, m]]]]; a[n_] := b[n] // First; Table[a[n], {n, 1, 100}] (* _Jean-François Alcover_, Jan 27 2014, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(PARI) {a(n)=local(A=vector(n+1,j,j)); for(k=1,n+1, A = Vec(Ser(A) - x^k*A[k]*(1-x^A[k])/(1-x) +x*O(x^n)));A[n]} \\\\ _Paul D. Hanna_, Nov 12 2013",
+				"for(n=1,100,print1(a(n),\", \"))",
+				"(PARI) /* Vector returns 1000 terms: */",
+				"{A=vector(1000,j,j);for(k=1,#A, A = Vec(Ser(A) - x^k*A[k]*(1-x^A[k])/(1-x) +x*O(x^#A)));A} \\\\ _Paul D. Hanna_, Nov 12 2013",
+				"(Haskell)",
+				"a212306 n = a212306_list !! (n-1)",
+				"a212306_list = f [1..] where",
+				"   f (x:xs) = x : f ((map (subtract x) us) ++ vs)",
+				"              where (us, vs) = splitAt x xs",
+				"-- _Reinhard Zumkeller_, Dec 16 2013"
+			],
+			"xref": [
+				"Generated from A000027.",
+				" Cf. A258353, A258354."
+			],
+			"keyword": "nonn,nice",
+			"offset": "1,3",
+			"author": "_Gabriel Stauth_, Oct 26 2013",
+			"references": 3,
+			"revision": 38,
+			"time": "2015-05-27T14:36:12-04:00",
+			"created": "2013-11-21T12:12:04-05:00"
+		},
+		{
+			"number": 212444,
+			"data": "0,1,3,6,13,27,54,108,216,433,867,1734,3469,6939,13878,27756,55512,111025,222050,444101,888202,1776404,3552808,7105617,14211235,28422470,56844941,113689883,227379766,454759532,909519064,1819038129,3638076259,7276152518",
+			"name": "Iterates A212439, starting from 0.",
+			"comment": [
+				"2*a(n) \u003c= a(n+1) \u003c= 2*a(n) + 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A212444/b212444.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e",
+				"Benjamin Chaffin and N. J. A. Sloane, \u003ca href=\"http://neilsloane.com/doc/CNC.pdf\"\u003eThe Curling Number Conjecture\u003c/a\u003e, preprint."
+			],
+			"formula": [
+				"a(n+1) = A212439(a(n)) = 2*a(n) + A181935(a(n)) mod 2, a(0) = 0."
+			],
+			"program": [
+				"(Haskell)",
+				"a212444 n = a212444_list !! n",
+				"a212444_list = iterate a212439 0"
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, May 17 2012",
+			"references": 3,
+			"revision": 7,
+			"time": "2013-07-13T12:04:27-04:00",
+			"created": "2012-05-17T10:03:39-04:00"
+		},
+		{
+			"number": 213190,
+			"data": "1,1,5,18,87,489,3195,23832,200241,1873665,19337373,218332098,2677997295,35468961129,504599447691,7675398598752,124320175923105,2136469186489041,38829405884572053,744168119366336130,14999850604980438759,317229367062688222329",
+			"name": "a(0)=1, a(1)=1, a(n) = n*a(n-1) + 3*a(n-2).",
+			"comment": [
+				"Let S(i,j,x,n) denote a sequence of the form a(0) = i, a(1)=j, a(n) = n*a(n-1) + x*a(n-2). Then S(i,j,x,n)= i* Sum_{k=0..floor(n/2+1)} ((n-k-2)!*binomial(n-k,k+2)*x^(k+1)/k!) + j*Sum_{k=0..floor((n+1)/2)} (n-k)!*binomial(n-k-1,k)*x^k/(k+1)!), n\u003e1.",
+				"Other sequences of this form are:",
+				"S(0,1,1,n): A001053(n+1),",
+				"S(1,0,1,n): A058307(n+1),",
+				"S(1,1,1,n): A001040.",
+				"For a more advanced treatment of this topic see A084950 and A221913.",
+				"In cases where i = j=1 the above formula can be reduced to S(1,1,x,n) = Sum_{k =0..floor(n/2)} (((n-k)!/k!)*binomial(n-k,k)*x^k). - _Gary Detlefs_ and _Wolfdieter Lang_, Mar 06 2013",
+				"From _Wolfdieter Lang_, Mar 08 2013: (Start)",
+				"a(n) = Q(n,3), the row polynomial of A084950 evaluated for x=3, is the denominator of the n-th approximation to the continued fraction 1/(1+3/(2+3/(3+3/(4+... The corresponding numerator is A222472(n). The limit of this continued fraction is (z/6)*BesselI(1,z)/BesselI(0,z), with z= 2*sqrt(3) which is 0.4845161749874040...",
+				"E.g.f.: a(n) = (Pi*x/(2*sqrt(1-z)))*(BesselJ(1, x*sqrt(1-z))*BesselY(0,x) - BesselY(1, x*sqrt(1-z))*BessJ(0,x)) with x := 2*sqrt(-3).",
+				"For a combinatorial interpretation in terms of labeled Morse codes see a comment and reference on A084950. Here each dash has label x = 3, and the dots have label j if they are at position j. Labels are multiplied and for a(n) all labeled codes on [1,2,...,n] have to be summed. (End)"
+			],
+			"link": [
+				"G. C. Greubel, \u003ca href=\"/A213190/b213190.txt\"\u003eTable of n, a(n) for n = 0..445\u003c/a\u003e (terms 0..250 from Reinhard Zumkeller)"
+			],
+			"formula": [
+				"a(0)=1, a(1)=1, a(n) = Sum_{k=0..floor(n/2+1)} ((n-k-2)!*binomial(n-k,k+2)*3^(k+1)/k!) + Sum_{k=0..floor((n+1)/2)} (n-k)!*binomial(n-k-1,k)*3^k/(k+1)!), n\u003e1.",
+				"a(n) = 2*sqrt(3)^(n+1)*(BesselI(0, 2*sqrt(3))*BesselK(n+1, 2*sqrt(3)) - BesselK(0, 2*sqrt(3))*BesselI(n+1, -2*sqrt(3))), n \u003e= 0. See Q(n,3) from A084950. - _Wolfdieter Lang_, Mar 06 2013",
+				"a(n) = Sum_{k=0..floor(n/2)} (((n-k)!/k!)*binomial(n-k,k)*3^k). - _Gary Detlefs_ and _Wolfdieter Lang_, Mar 06 2013",
+				"Asymptotics: limit(a(n)/n!, n -\u003e infinity) =  BesselI(0,2*sqrt(3)) = 7.15899653680...  See a comment on the large n behavior of Bessel functions under A084950. - _Wolfdieter Lang_, Mar 08 2013"
+			],
+			"example": [
+				"From _Wolfdieter Lang_, Mar 08 2013: (Start)",
+				"a(4) = 4*a(3) + 3*a(2) = 4*18 + 3*5 = 87.",
+				"Morse code: a(4) = 87 from the sum of all 5 labeled codes on [1,2,3,4], one with no dash, three with one dash and one with two dashes:  4! + (3*4 + 1*4 + 1*2)*(3) + (3)^2 = 87. (End)"
+			],
+			"maple": [
+				"A:=(n,x)-\u003esum((n-k-2)!*binomial(n-k,k+2)*x^(k+1)/k!,k=0..floor(n/2+1))",
+				"B:=(n,x)-\u003esum(n-k)!*binomial(n-k-1,k)*x^k/(k+1)!,k=0..floor((n+1)/2))",
+				"seq(A(n,3)+B(n,3), n=2..20)"
+			],
+			"mathematica": [
+				"RecurrenceTable[{a[0] == 1, a[1] == 1, a[n] == n*a[n - 1] + 3 a[n - 2]}, a[n], {n, 50}] (* _G. C. Greubel_, Aug 16 2017 *)"
+			],
+			"program": [
+				"(PARI) a(n) = sum(k=0, n\\2, ((n-k)!/k!)*binomial(n-k,k)*3^k); /* _Joerg Arndt_, Mar 07 2013 */",
+				"(Haskell)",
+				"a213190 n = a213190_list !! n",
+				"a213190_list = 1 : 1 : zipWith (+)",
+				"   (zipWith (*) [2..] $ tail a213190_list) (map (* 3) a213190_list)",
+				"-- _Reinhard Zumkeller_, Feb 20 2015"
+			],
+			"xref": [
+				"Cf. A001053, A058307, A001040, A084950, A221913."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Gary Detlefs_, Feb 28 2013",
+			"references": 3,
+			"revision": 45,
+			"time": "2017-08-16T05:31:29-04:00",
+			"created": "2013-03-02T16:53:14-05:00"
+		},
+		{
+			"number": 213518,
+			"data": "4,5,6,7,8,9,12,13,18,24,34,44,58,66,77,100,101,105,109,114,132,141,363,666,714,816,1000,1095,1287,1332,1541,3363,6666,10000,10114,13332,66666,100000,133332,666666,1000000,1333332,6666666,10000000,13333332,33336636,66666666,100000000",
+			"name": "Numbers n such that the triangular number n*(n+1)/2 has 2 different digits in base 10.",
+			"comment": [
+				"The list of triangular numbers containing only one digit (A045914) is finite. This list is infinite because numbers like 133332, 666666, and 1000000 occur an infinite number of times.",
+				"A118668(a(n)) = 2. - _Reinhard Zumkeller_, Jul 11 2015",
+				"For n \u003e 2, A325907(n) is a term. - _Seiichi Manyama_, Sep 15 2019"
+			],
+			"link": [
+				"Seiichi Manyama and T. D. Noe \u003ca href=\"/A213518/b213518.txt\"\u003eTable of n, a(n) for n = 1..60\u003c/a\u003e (first 51 terms from Seiichi Manyama)"
+			],
+			"mathematica": [
+				"t = {}; Do[tri = n*(n+1)/2; If[Length[Union[IntegerDigits[tri]]] == 2, AppendTo[t, n]], {n, 10^5}]; t"
+			],
+			"program": [
+				"(Haskell)",
+				"a213518 n = a213518_list !! (n-1)",
+				"a213518_list = filter ((== 2) . a118668) [0..]",
+				"-- _Reinhard Zumkeller_, Jul 11 2015",
+				"(PARI) for(k=0, 1e8, if(#Set(digits(k*(k+1)/2))==2, print1(k\", \"))) \\\\ _Seiichi Manyama_, Sep 15 2019"
+			],
+			"xref": [
+				"Cf. A062691 (the corresponding triangular numbers), A213516, A213517, A325907.",
+				"Cf. A118668.",
+				"Cf. A187127."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_T. D. Noe_, Jun 22 2012",
+			"ext": [
+				"a(45)-a(48) from _Seiichi Manyama_, Sep 15 2019"
+			],
+			"references": 3,
+			"revision": 20,
+			"time": "2019-09-21T04:59:51-04:00",
+			"created": "2012-06-22T17:41:53-04:00"
+		},
+		{
+			"number": 213967,
+			"data": "0,1,2,3,7,13,24,45,83,153,282,519,955,1757,3232,5945,10935,20113,36994,68043,125151,230189,423384,778725,1432299,2634409,4845434,8912143,16391987,30149565,55453696,101995249,187598511,345047457,634641218,1167287187",
+			"name": "a(n)=n for n\u003c=3; thereafter a(n)=a(n-1)+a(n-2)+a(n-3)+1.",
+			"reference": [
+				"Atanassov, K. T.; Atanassova, V.; Shannon, A. G.; Turner, J. C. New visual perspectives on Fibonacci numbers. With a foreword by A. F. Horadam. World Scientific Publishing Co., Inc., River Edge, NJ, 2002. xvi+313 pp. ISBN: 981-238-134-1 MR1932564 (2003h:11015). See p. 68."
+			],
+			"link": [
+				"Bruno Berselli, \u003ca href=\"/A213967/b213967.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,0,-1)."
+			],
+			"formula": [
+				"G.f.: x*(1-x^2+x^3)/(1-2*x+x^4). - _Bruno Berselli_, Jul 02 2012"
+			],
+			"maple": [
+				"f:=proc(n) option remember; if n \u003c= 3 then n else f(n-1)+f(n-2)+f(n-3)+1; fi; end:",
+				"seq(f(n),n=0..60);"
+			],
+			"mathematica": [
+				"Join[{0}, LinearRecurrence[{2, 0, 0, -1}, {1, 2, 3, 7}, 40]] (* _Jean-François Alcover_, Feb 13 2018 *)"
+			],
+			"program": [
+				"(MAGMA) [n le 3 select n else Self(n)+Self(n-1)+Self(n-2)+1: n in [0..35]]; // _Bruno Berselli_, Jul 02 2012",
+				"(Haskell)",
+				"a213967 n = a213967_list !! n",
+				"a213967_list = 0 : xs where",
+				"               xs = 1 : 2 : 3 : map (+ 1)",
+				"                    (zipWith3 (((+) .) . (+)) xs (tail xs) (drop 2 xs))",
+				"-- _Reinhard Zumkeller_, Dec 29 2014"
+			],
+			"xref": [
+				"Cf. A001590.",
+				"Cf. A248098."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_N. J. A. Sloane_, Jun 30 2012",
+			"references": 3,
+			"revision": 22,
+			"time": "2018-02-13T04:04:25-05:00",
+			"created": "2012-06-30T08:42:03-04:00"
+		},
+		{
+			"number": 213979,
+			"data": "1112,1112133,111213322112,111213322113,1113,11131,111311222112,111312,11131221,1113122112,1113122113,11131221131112,111312211312,11131221131211,111312211312113211,111312211312113221133211322112211213322112",
+			"name": "Conway's 92 Look and Say audioactive elements, generated in lexicographic order.",
+			"reference": [
+				"J. H. Conway, The weird and wonderful chemistry of audioactive decay, in T. M. Cover and Gopinath, eds., Open Problems in Communication and Computation, Springer, NY 1987, pp. 173-188."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A213979/b213979.txt\"\u003eTable of n, a(n) for n = 1..92\u003c/a\u003e",
+				"Kevin Watkins, \u003ca href=\"http://www.cs.cmu.edu/~kw/pubs/conway.pdf\"\u003eAbstract Interpretation Using Laziness: Proving Conway's Lost Cosmological Theorem, \u003c/a\u003e",
+				"Kevin Watkins, \u003ca href=\"http://www.cs.cmu.edu/~kw/pubs/conwayslides.pdf\"\u003eProving Conway's Lost Cosmological Theorem, POP seminar talk, CMU, Dec 2006\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LookandSaySequence.html\"\u003eLook and Say Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Look-and-say_sequence\"\u003eLook-and-say sequence\u003c/a\u003e",
+				"Reinhard Zumkeller, \u003ca href=\"/A213979/a213979.hs.txt\"\u003eHaskell programs for Look and Say audioactive elements\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)  see Haskell link."
+			],
+			"xref": [
+				"Cf. A119566, A215403."
+			],
+			"keyword": "nonn,fini,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 09 2012",
+			"references": 3,
+			"revision": 10,
+			"time": "2013-11-04T12:23:41-05:00",
+			"created": "2012-08-09T11:00:33-04:00"
+		}
+	]
+}

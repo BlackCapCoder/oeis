@@ -1,0 +1,422 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4310,
+	"results": [
+		{
+			"number": 109983,
+			"data": "1,0,1,2,0,0,1,6,6,0,0,0,1,12,30,20,0,0,0,0,1,20,90,140,70,0,0,0,0,0,1,30,210,560,630,252,0,0,0,0,0,0,1,42,420,1680,3150,2772,924,0,0,0,0,0,0,0,1,56,756,4200,11550,16632,12012,3432,0,0,0,0,0,0,0,0,1,72,1260,9240",
+			"name": "Triangle read by rows: T(n,k) (0\u003c=k\u003c=2n) is the number of Delannoy paths of length n, having k steps (a Delannoy path of length n is a path from (0,0) to (n,n), consisting of steps (E=1,0), N=(0,1) and D(1,1)).",
+			"comment": [
+				"Row n has 2n+1 terms, the first n of which are 0.",
+				"Row sums are the central Delannoy numbers (A001850).",
+				"Column sums are the central trinomial coefficients (A002426)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A109983/b109983.txt\"\u003eRows n = 0..100 of triangle, flattened\u003c/a\u003e",
+				"Robert A. Sulanke, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL6/Sulanke/delannoy.html\"\u003eObjects Counted by the Central Delannoy Numbers\u003c/a\u003e, Journal of Integer Sequences, Volume 6, 2003, Article 03.1.5."
+			],
+			"formula": [
+				"T(n,k) = binomial(n,2n-k) binomial(k,n).",
+				"T(n,k) = A104684(n,2n-k).",
+				"G.f.: 1/sqrt[(1-tz)^2-4zt^2].",
+				"T(n,2n) = binomial(2n,n) (A000984).",
+				"sum(k*T(n,k),k=0..n) = A109984(n).",
+				"T(n,k) = A063007(n,k-n). - _Michael Somos_, Sep 22 2013"
+			],
+			"example": [
+				"T(2,3) = 6 because we have DNE, DEN, NED, END, NDE and EDN.",
+				"Triangle begins",
+				"  1;",
+				"  0,1,2;",
+				"  0,0,1,6,6;",
+				"  0,0,0,1,12,30,20;",
+				"  ..."
+			],
+			"maple": [
+				"T:=(n,k)-\u003ebinomial(n,2*n-k)*binomial(k,n):for n from 0 to 8 do seq(T(n,k),k=0..2*n) od; # yields sequence in triangular form"
+			],
+			"program": [
+				"(PARI) {T(n, k) = binomial(n, k-n) * binomial(k, n)} /* _Michael Somos_, Sep 22 2013 */",
+				"(Haskell)",
+				"a109983 n k = a109983_tabf !! n !! k",
+				"a109983_row n = a109983_tabf !! n",
+				"a109983_tabf = zipWith (++) (map (flip take (repeat 0)) [0..]) a063007_tabl",
+				"-- _Reinhard Zumkeller_, Nov 18 2014"
+			],
+			"xref": [
+				"Cf. A001850, A002426, A000984, A063007, A104684, A109984."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0,4",
+			"author": "_Emeric Deutsch_, Jul 07 2005",
+			"references": 6,
+			"revision": 19,
+			"time": "2019-04-04T08:15:49-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 110086,
+			"data": "1,2,3,5,6,7,10,11,12,13,15,17,18,19,20,23,24,29,30,31,36,37,41,42,43,47,53,59,60,61,66,67,70,71,73,78,79,83,84,89,90,97,101,102,103,105,107,109,110,113,114,120,126,127,130,131,132,137,138,139,140,149,150,151",
+			"name": "Numbers n such that sigma(n) - phi(n) \u003c= tau(n)^omega(n), where sigma=A000203, phi=A000010, tau=A000005 and omega=A001221.",
+			"comment": [
+				"A051612(a(n)) \u003c= A110088(a(n)); union of A000040 and A110085, complement of A110086."
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A110086/b110086.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(PARI) is(n)=sigma(n)-eulerphi(n)\u003c=numdiv(n)^omega(n) \\\\ _Charles R Greathouse IV_, Feb 14 2013",
+				"(Haskell)",
+				"a110086 n = a110086_list !! (n-1)",
+				"a110086_list = filter (\\x -\u003e a051612 x \u003c= a110088 x) [1..]",
+				"-- _Reinhard Zumkeller_, Aug 05 2014"
+			],
+			"xref": [
+				"Cf. A240960 (subsequence)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 11 2005",
+			"references": 6,
+			"revision": 10,
+			"time": "2014-08-05T15:02:55-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 110088,
+			"data": "1,2,2,3,2,16,2,4,3,16,2,36,2,16,16,5,2,36,2,36,16,16,2,64,3,16,4,36,2,512,2,6,16,16,16,81,2,16,16,64,2,512,2,36,36,16,2,100,3,36,16,36,2,64,16,64,16,16,2,1728,2,16,36,7,16,512,2,36,16,512,2,144,2,16,36,36,16",
+			"name": "tau(n)^omega(n), where tau=A000005 and omega=A001221.",
+			"comment": [
+				"a(n) depends only on prime signature of n; a(n) = A000005(n)^A001221(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A110088/b110088.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a110088 n = a000005 n ^ a001221 n  -- _Reinhard Zumkeller_, Aug 05 2014"
+			],
+			"xref": [
+				"Cf. A110085, A110086, A110087.",
+				" Cf. A240960."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 11 2005",
+			"references": 6,
+			"revision": 6,
+			"time": "2014-08-05T15:02:13-04:00",
+			"created": "2005-07-19T03:00:00-04:00"
+		},
+		{
+			"number": 110440,
+			"data": "1,3,1,11,6,1,45,31,9,1,197,156,60,12,1,903,785,360,98,15,1,4279,3978,2061,684,145,18,1,20793,20335,11529,4403,1155,201,21,1,103049,104856,63728,27048,8270,1800,266,24,1,518859,545073,350136,161412,55458,14202",
+			"name": "Triangular array formed by the little Schroeder numbers. s(n,k)= the number of unit step restricted paths (i.e., they never go below the x-axis) from the origin (0,0) to (n-1,k-1) using up step U(1,1), three types of level steps L(1,0), L'(1,0), L\"(1,0) and two types of down steps D(1,-1), D'(1,-1). s(0,0)=1 and the leftmost column s(n,0) is A001003.",
+			"comment": [
+				"This sequence factors A038255 into a product of Riordan arrays."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A110440/b110440.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e",
+				"F. Cai, Q.-H. Hou, Y. Sun, A. L. B. Yang, \u003ca href=\"http://arxiv.org/abs/1808.05736\"\u003eCombinatorial identities related to 2x2 submatrices of recursive matrices\u003c/a\u003e, arXiv:1808.05736 [math.CO], 2018, Table 1.3.",
+				"Naiomi T. Cameron and Asamoah Nkwanta, \u003ca href=\"https://cs.uwaterloo.ca/journals/JIS/VOL8/Cameron/cameron46.html\"\u003eOn Some (Pseudo) Involutions in the Riordan Group\u003c/a\u003e, Journal of Integer Sequences, Vol. 8 (2005), Article 05.3.7.",
+				"Johann Cigler, \u003ca href=\"https://arxiv.org/abs/1611.05252\"\u003eSome elementary observations on Narayana polynomials and related topics\u003c/a\u003e, arXiv:1611.05252 [math.CO], 2016. See p. 7.",
+				"Sheng-Liang Yang, Yan-Ni Dong, and Tian-Xiao He, \u003ca href=\"http://dx.doi.org/10.1016/j.disc.2017.07.006\"\u003eSome matrix identities on colored Motzkin paths\u003c/a\u003e, Discrete Mathematics 340.12 (2017): 3081-3091."
+			],
+			"formula": [
+				"Recurrence is s(n+1,0) = 3s(n,0) + 2s(n,1) and for k \u003e 0: s(n+1,k) = s(n,k-1) + 3s(n,k) + 2s(n,k+1). Riordan array ((1 - 3z - sqrt(1-6z+z^2))/4z*z, (1 - 3z - sqrt(1-6z+z^2))/4z).",
+				"Sum_{k, k\u003e=0} T(m, k)*T(n, k)*2^k = T(m+n, 0) = A001003(m+n+1). - _Philippe Deléham_, Sep 14 2005",
+				"G.f.: 2/( 1 - x*L -2*x*y*U + sqrt( (1 - x*L)^2 - 4*x^2*D*U ) ) where L=3, U = 1, D = 2. - _Michael Somos_, Mar 31 2007",
+				"Sum_{k, 0\u003c=k\u003c=n} T(n,k)*(2^(k + 1) - 1) = 6^n. - _Philippe Deléham_, Nov 29 2009",
+				"T(n,k) = sum(i = 0..k + 1, (i*(-1)^(k - i + 1)*binomial(k + 1, i)*sum(j = 0..n + 1, (-1)^j*2^(n + 1 - j)*(2*n + i - j + 1)!/((n + i - j + 1)!*j!*(n - j + 1)!)))). - _Vladimir Kruchinin_, Oct 17 2011",
+				"T(n,k) = ((k + 1)/(n + 1)*sum(j = ceiling((n + k + 2)/2)..n + 1, binomial(j, -n - k + 2*j - 2)*3^(-n - k + 2*j - 2)*2^(n + 1 - j)*binomial(n + 1, j))). - _Vladimir Kruchinin_, Jan 28 2013"
+			],
+			"example": [
+				"Triangle starts:",
+				"1;",
+				"3,1;",
+				"11,6,1;",
+				"45,31,9,1;",
+				"197,156,60,12,1; ..."
+			],
+			"mathematica": [
+				"nmax = 9; t[n_, k_] := Sum[(i*(-1)^(k-i+1)*Binomial[k+1, i]*Sum[(-1)^j*2^(n+1-j)*(2n+i-j+1)! / ((n+i-j+1)!*j!*(n-j+1)!), {j, 0, n+1}]), {i, 0, k+1}]; Flatten[ Table[ t[n, k], {n, 0, nmax}, {k, 0, n}]] (* _Jean-François Alcover_, Nov 14 2011, after _Vladimir Kruchinin_ *)"
+			],
+			"program": [
+				"(PARI) {T(n, k)= if(n\u003c0| k\u003en, 0, polcoeff(polcoeff( 2/(1 -3*x -2*x*y +sqrt( 1 -6*x +x^2 +x*O(x^n)) ), n), k))} /* _Michael Somos_, Mar 31 2007 */",
+				"(Maxima)",
+				"T(n,k):=sum((i*(-1)^(k-i+1)*binomial(k+1,i)*sum((-1)^j*2^(n+1-j)*(2*n+i-j+1)!/((n+i-j+1)!*j!*(n-j+1)!),j,0,n+1)),i,0,k+1); /* _Vladimir Kruchinin_, Oct 17 2011 */",
+				"(Sage)",
+				"def A110440_triangle(dim):",
+				"    T = matrix(SR,dim,dim)",
+				"    for n in range(dim): T[n,n] = 1",
+				"    for n in (1..dim-1):",
+				"        for k in (0..n-1):",
+				"            T[n,k] = T[n-1,k-1]+3*T[n-1,k]+2*T[n-1,k+1]",
+				"    return T",
+				"A110440_triangle(9) # _Peter Luschny_, Sep 20 2012",
+				"(Maxima) T(n,k):=((k+1)/(n+1)*sum(binomial(j,-n-k+2*j-2)*3^(-n-k+2*j-2)*2^(n+1-j)*binomial(n+1,j),j,ceiling((n+k+2)/2),n+1)); \\\\ _Vladimir Kruchinin_, Jan 28 2013",
+				"(Haskell)",
+				"a110440 n k = a110440_tabl !! n !! k",
+				"a110440_row n = a110440_tabl !! n",
+				"a110440_tabl = iterate (\\xs -\u003e",
+				"   zipWith (+) ([0] ++ xs) $",
+				"   zipWith (+) (map (* 3) (xs ++ [0]))",
+				"               (map (* 2) (tail xs ++ [0,0]))) [1]",
+				"-- _Reinhard Zumkeller_, Nov 21 2013"
+			],
+			"xref": [
+				"Cf. A232246 (central terms), A001003 (left column), A065096 (2nd column?), A225887 (row sums?)."
+			],
+			"keyword": "easy,nice,nonn,tabl",
+			"offset": "0,2",
+			"author": "Asamoah Nkwanta (nkwanta(AT)jewel.morgan.edu), Aug 08 2005",
+			"ext": [
+				"Typo in recursion formula fixed by _Reinhard Zumkeller_, Nov 21 2013"
+			],
+			"references": 6,
+			"revision": 48,
+			"time": "2018-08-22T02:36:21-04:00",
+			"created": "2005-09-21T03:00:00-04:00"
+		},
+		{
+			"number": 111178,
+			"data": "1,0,0,1,0,0,1,0,1,1,0,1,1,0,1,2,1,1,2,1,1,2,1,2,4,1,2,4,1,2,5,2,4,5,2,5,5,2,6,7,4,6,7,5,6,8,6,8,12,6,9,13,6,10,15,8,14,15,9,16,16,10,18,21,14,19,22,16,20,24,19,25,30,20,27,33,21,29,39,26,37,40,28,42,42,31,48",
+			"name": "Number of partitions of n into positive numbers one less than a square.",
+			"comment": [
+				"Also limiting form of the number of representations of n into k positive squares for k decreasing from n to 1, or Table[Count[SumOfSquaresRepresentations[k,n], {a_,__}/;a\u003e0], {n,100,100}, {k,100,40,-1}]. (_Franklin T. Adams-Watters_: replacing k^2 ones by the value k^2 changes the count by k^2-1).",
+				"a(n) = A243148(2n,n). - _Alois P. Heinz_, May 30 2014"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A111178/b111178.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: Product_{k\u003e=2} 1/(1-x^(k^2-1))."
+			],
+			"maple": [
+				"b:= proc(n, i) option remember;",
+				"      `if`(n=0, 1, `if`(i\u003c2, 0, b(n, i-1)+",
+				"      `if`(i^2\u003en+1, 0, b(n+1-i^2, i))))",
+				"    end:",
+				"a:= n-\u003e b(n, isqrt(n)):",
+				"seq(a(n), n=0..100);  # _Alois P. Heinz_, May 30 2014"
+			],
+			"mathematica": [
+				"nn = 100; CoefficientList[Series[Product[1/(1 - x^(k^2 - 1)), {k, 2, nn}], {x, 0, nn}], x] (* corrected by _T. D. Noe_, Feb 22 2012 *)",
+				"b[n_, i_] := b[n, i] = If[n==0, 1, If[i\u003c2, 0, b[n, i-1] + If[i^2\u003en+1, 0, b[n+1-i^2, i]]]]; a[n_] := b[n, Round[Sqrt[n]]]; Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Feb 16 2017, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a111178 = p $ tail a005563_list where",
+				"   p _          0 = 1",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Apr 02 2014"
+			],
+			"xref": [
+				"Cf. A001156, A078134.",
+				"Cf. A005563, A319799."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,16",
+			"author": "_Wouter Meeussen_, Oct 22 2005",
+			"references": 6,
+			"revision": 24,
+			"time": "2018-09-28T10:27:24-04:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 111650,
+			"data": "2,4,4,6,6,6,8,8,8,8,10,10,10,10,10,12,12,12,12,12,12,14,14,14,14,14,14,14,16,16,16,16,16,16,16,16,18,18,18,18,18,18,18,18,18,20,20,20,20,20,20,20,20,20,20,22,22,22,22,22,22,22,22,22,22,22,24,24,24,24,24,24,24",
+			"name": "2n appears n times (n\u003e0).",
+			"comment": [
+				"Seen as a triangle read by rows: T(n,k) = 2*n, 1\u003c=k\u003c=n. - _Reinhard Zumkeller_, Mar 18 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A111650/b111650.txt\"\u003eRows n = 1..128 of triangle, flattened\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Table[Table[2n,n],{n,12}]//Flatten (* _Harvey P. Dale_, Apr 21 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a111650 n k = a111650_tabl !! (n-1) !! (k-1)",
+				"a111650_row n = a111650_tabl !! (n-1)",
+				"a111650_tabl = iterate (\\xs@(x:_) -\u003e map (+ 2) (x:xs)) [2]",
+				"a111650_list = concat a111650_tabl",
+				"-- _Reinhard Zumkeller_, Nov 14 2015, Mar 18 2011"
+			],
+			"xref": [
+				"Cf. A000194, A111651, A111652.",
+				"Cf. A001650, A193832."
+			],
+			"keyword": "easy,nonn,tabl",
+			"offset": "1,1",
+			"author": "_Jonathan Vos Post_, Aug 12 2005",
+			"references": 6,
+			"revision": 13,
+			"time": "2018-04-21T10:19:49-04:00",
+			"created": "2005-09-21T03:00:00-04:00"
+		},
+		{
+			"number": 112966,
+			"data": "0,0,1,0,-1,-1,-1,-2,-3,-2,-2,-1,-3,-3,-4,0,-6,-1,-4,-1,-3,-3,-7,0,-5,-3,-3,0,-5,1,-5,-2,-10,-1,-8,4,-8,-3,-4,2,-6,0,-5,-1,-4,-2,-11,3,-8,-1,-8,-1,-11,2,-8,2,-7,-3,-9,5,-2,-5,-7,2,-11,7,-6,0,-4,1,-9,4,-12,-3,-6,0,-10,2,-7,-1,-10,-8,-12,6,-13,-2,-12,0",
+			"name": "Sum(mu(i)*omega(j): i+j=n), with mu=A008683 and omega=A001221.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A112966/b112966.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(5)=mu(1)*omega(4)+mu(2)*omega(3)+mu(3)*omega(2)+mu(4)*omega(1)",
+				"= 1*1 - 1*1 - 1*1 + 0*0 = -1."
+			],
+			"program": [
+				"(Haskell)",
+				"a112966 n = sum $ zipWith (*)",
+				"   a008683_list $ reverse $ take (n - 1) a001221_list",
+				"-- _Reinhard Zumkeller_, Feb 29 2012"
+			],
+			"xref": [
+				"Cf. A013939, A112965, A068341, A112962, A112963, A112964, A112968."
+			],
+			"keyword": "sign,look",
+			"offset": "1,8",
+			"author": "_Reinhard Zumkeller_, Oct 07 2005",
+			"references": 6,
+			"revision": 11,
+			"time": "2014-01-27T15:24:23-05:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 112968,
+			"data": "0,0,1,0,0,-2,-2,-2,-2,-2,-6,-2,-4,-2,-7,-1,-5,0,-7,-3,-9,1,-11,2,-7,1,-12,1,-11,7,-8,-5,-8,-1,-18,3,-10,1,-13,1,-7,13,-12,-2,-13,6,-16,3,-11,3,-15,-4,-16,13,-15,-4,-15,4,-17,11,-14,4,-13,7,-12,15,-17,-5,-15,16,-13,3,-12,3,-20,3,-27,19,-20,-3,-11,3",
+			"name": "Sum(mu(i)*Omega(j): i+j=n), with mu=A008683 and Omega=A001222.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A112968/b112968.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(5)=mu(1)*Omega(4)+mu(2)*Omega(3)+mu(3)*Omega(2)+mu(4)*Omega(1) = 1*2 - 1*1 - 1*1 + 0*1 = 0."
+			],
+			"mathematica": [
+				"A112968[n_]:=Plus@@Table[MoebiusMu[i]*PrimeOmega[n-i],{i,1,n-1}]; Array[A112968,200] (* Enrique Pérez Herrero, Feb 28 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a112968 n = sum $ zipWith (*)",
+				"   a008683_list $ reverse $ take (n - 1) a001222_list",
+				"-- _Reinhard Zumkeller_, Feb 29 2012"
+			],
+			"xref": [
+				"Cf. A013939, A112967, A068341, A112962, A112963, A112964, A112966."
+			],
+			"keyword": "sign",
+			"offset": "1,6",
+			"author": "_Reinhard Zumkeller_, Oct 07 2005",
+			"ext": [
+				"Corrected by _N. J. A. Sloane_, Mar 01 2006"
+			],
+			"references": 6,
+			"revision": 15,
+			"time": "2013-07-13T12:03:22-04:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 113630,
+			"data": "1,45,4097,83653,757305,4272461,17736745,59409477,169826513,429794605,987654321,2098573445,4178995657,7879732173,14181546905,24517448581,40926266145,66242446637,104327377633,160347899205,241108033241",
+			"name": "1 + 2*n + 3*n^2 + 4*n^3 + 5*n^4 + 6*n^5 + 7*n^6 + 8*n^7 + 9*n^8.",
+			"comment": [
+				"1 + 2x + 3x^2 + 4x^3 + 5x^4 + 6x^5 + 7*x^6 + 8*x^7 + 9*x^8 is the derivative of 1 + x + x^2 + x^3 + x^4 + x^5 + x^6 + x^7 + x^8 + x^9 = (x^10 - 1)/(x-1)."
+			],
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A113630/b113630.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_09\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (9,-36,84,-126,126,-84,36,-9,1)."
+			],
+			"formula": [
+				"a(n) = 1 + 2*n + 3*n^2 + 4*n^3 + 5*n^4 + 6*n^5 + 7*n^6 + 8*n^7 + 9*n^8.",
+				"G.f.: -(5*x^8 +1548*x^7 +31360*x^6 +129620*x^5 +148266*x^4 +48316*x^3 +3728*x^2 +36*x +1) / (x -1)^9. - _Colin Barker_, May 08 2013"
+			],
+			"example": [
+				"a(3) = 1 + 2*3 + 3*3^2 + 4*3^3 + 5*3^4 + 6*3^5 + 7*3^6 + 8*3^7 + 9*3^8 = 83653 is prime.",
+				"a(5) = 1 + 2*5 + 3*5^2 + 4*5^3 + 5*5^4 + 6*5^5 + 7*5^6 + 8*5^7 + 9*5^8 = 4272461 is prime.",
+				"a(8) = 1 + 2*8 + 3*8^2 + 4*8^3 + 5*8^4 + 6*8^5 + 7*8^6 + 8*8^7 + 9*8^8 = 169826513 is prime.",
+				"a(23) = 1 + 2*23 + 3*23^2 + 4*23^3 + 5*23^4 + 6*23^5 + 7*23^6 + 8*23^7 + 9*23^8 = 733113789893 is prime."
+			],
+			"mathematica": [
+				"CoefficientList[Series[(5 x^8 + 1548 x^7 + 31360 x^6 + 129620 x^5 + 148266 x^4 + 48316 x^3 + 3728 x^2 + 36 x + 1) / (1 - x)^9, {x, 0, 40}], x] (* _Vincenzo Librandi_, Nov 09 2014 *)",
+				"With[{c=Total[Table[k n^(k-1),{k,9}]]},Table[c,{n,0,30}]] (* or *) LinearRecurrence[ {9,-36,84,-126,126,-84,36,-9,1},{1,45,4097,83653,757305,4272461,17736745,59409477,169826513},30] (* _Harvey P. Dale_, Jul 18 2017 *)"
+			],
+			"program": [
+				"(Python)",
+				"A113630_list, m = [1], [362880, -1229760, 1607760, -1011480, 309816, -40752, 1584, -4, 1]",
+				"for _ in range(10**3):",
+				"....for i in range(8):",
+				"........m[i+1]+= m[i]",
+				"....A113630_list.append(m[-1]) # _Chai Wah Wu_, Nov 09 2014",
+				"(MAGMA) [1+2*n+3*n^2+4*n^3+5*n^4+6*n^5+7*n^6+8*n^7+9*n^8: n in [0..20]]; // _Vincenzo Librandi_, Nov 09 2014",
+				"(PARI) vector(100,n,1 + 2*(n-1)+ 3*(n-1)^2 + 4*(n-1)^3 + 5*(n-1)^4 + 6*(n-1)^5 + 7*(n-1)^6 + 8*(n-1)^7 + 9*(n-1)^8) \\\\ _Derek Orr_, Nov 09 2014",
+				"(Haskell)",
+				"a113630 n = sum $ zipWith (*) [1..9] $ iterate (* n) 1",
+				"-- _Reinhard Zumkeller_, Nov 22 2014"
+			],
+			"xref": [
+				"Cf. A000012, A005408, A056109, A056578, A056579.",
+				"Cf. A249951 (primes), A068475."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_Jonathan Vos Post_, Jan 14 2006",
+			"references": 6,
+			"revision": 20,
+			"time": "2017-07-18T11:19:29-04:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		},
+		{
+			"number": 113963,
+			"data": "1,4,7,2,5,8,3,10,13,6,11,14,9,16,19,12,17,20,23,15,22,25,18,26,21,29,24,31,27,32,35,38,28,33,37,30,39,34,40,43,36,41,44,47,42,50,53,45,49,46,51,55,48,57,52,58,61,54,59,56,62,65,68,63,67,60,69,64,70,73,66,71",
+			"name": "a(1)=1; for n\u003e1, a(n) is the smallest positive integer not occurring earlier in the sequence where |a(n)-a(n-1)| does not divide (a(n)+a(n-1)).",
+			"comment": [
+				"Sequence is a permutation of the positive integers."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A113963/b113963.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"example": [
+				"Among those positive integers not among the first 4 integers of the sequence, a(5) = 5 is the lowest such that |a(5)-a(4)| = |5-2| = 3 does not divide (a(5)+a(4)) = 5+2 = 7. 3, for example, is not among the first 4 terms of the sequence, but |3-2| = 1 does indeed divide (3+2). So a(5) is not 3, but is instead 5."
+			],
+			"mathematica": [
+				"f[l_] := Block[{k=1, m}, m = Last[l]; While[MemberQ[l, k] || Mod[m + k, Abs[k - m]] == 0, k++ ]; Return[Append[l, k]]; ]; Nest[f, {1}, 100] (* _Ray Chandler_, Nov 13 2005 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a113963 n = a113963_list !! (n-1)",
+				"a113963_list = 1 : f 1 [2..] where",
+				"   f z xs = g xs where",
+				"     g (y:ys) = if (y + z) `mod` abs (y - z) \u003e 0",
+				"                   then y : f y (delete y xs) else g ys",
+				"-- _Reinhard Zumkeller_, Sep 04 2014",
+				"(Python)",
+				"A113963 = [1]",
+				"for n in range(1,10**2):",
+				"....a, b = 1, A113963[-1]",
+				"....while a in A113963 or not (a+b) % (a-b):",
+				"........a += 1",
+				"....A113963.append(a) # _Chai Wah Wu_, Sep 05 2014"
+			],
+			"xref": [
+				"Cf. A113964, A113965, A113966.",
+				"Cf. A246433 (inverse), A246704 (fixed points)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Leroy Quet_, Nov 10 2005",
+			"ext": [
+				"Extended by _Ray Chandler_, Nov 13 2005"
+			],
+			"references": 6,
+			"revision": 18,
+			"time": "2019-10-11T16:31:21-04:00",
+			"created": "2006-01-24T03:00:00-05:00"
+		}
+	]
+}

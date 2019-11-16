@@ -1,0 +1,402 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5670,
+	"results": [
+		{
+			"number": 173517,
+			"data": "0,0,1,2,0,3,4,5,6,0,7,8,9,10,11,12,0,13,14,15,16,17,18,19,20,0,21,22,23,24,25,26,27,28,29,30,0,31,32,33,34,35,36,37,38,39,40,41,42,0,43,44,45,46,47,48,49,50,51,52,53,54,55,56,0,57,58,59,60,61,62,63,64,65,66,67",
+			"name": "a(n) = k if n is the k-th nonsquare, zero otherwise.",
+			"comment": [
+				"a(A000037(n)) = n; a(A000290(n)) = 0.",
+				"a(n)*A037213(n) = 0 for all n."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A173517/b173517.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (1 - A010052(n))*A028391(n)."
+			],
+			"program": [
+				"(Haskell)",
+				"a173517 n = (1 - a010052 n) * a028391 n",
+				"-- _Reinhard Zumkeller_, Dec 15 2013",
+				"(PARI) a(n)=if(issquare(n), 0, n-sqrtint(n)) \\\\ _Charles R Greathouse IV_, Sep 02 2015"
+			],
+			"xref": [
+				"Cf. A000037, A000196, A000290, A010052, A028391, A037213."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Feb 20 2010",
+			"ext": [
+				"Definition revised by _Reinhard Zumkeller_, Dec 15 2013, at the suggestion of _Antti Karttunen_, who further edited the name"
+			],
+			"references": 4,
+			"revision": 17,
+			"time": "2015-12-11T12:34:26-05:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 173541,
+			"data": "0,0,0,0,2,0,0,0,3,0,0,2,3,4,0,0,0,0,4,5,0,0,2,3,4,5,6,0,0,0,3,0,5,6,7,0,0,2,0,4,5,6,7,8,0,0,0,3,4,0,6,7,8,9,0,0,2,3,4,5,6,7,8,9,10,0,0,0,0,0,5,0,7,8,9,10,11,0,0,2,3,4,5,6,7,8,9,10,11,12,0,0,0,3,4,5,6,0,8,9,10,11",
+			"name": "Triangle read by rows: T(n,k)=k if k is a proper non-divisor of n, otherwise T(n,k)=0 (1\u003c=k\u003c=n).",
+			"comment": [
+				"Observation: Note that the k-th column is a sequence where the periodic subset is formed by zero together with k-1 numbers k. For example, the 5th column can be defined as \"Period 5: repeat 0,5,5,5,5\"."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A173541/b173541.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = k * A051731(n,k). - _Reinhard Zumkeller_, Feb 19 2014"
+			],
+			"example": [
+				"Triangle begins:",
+				"0;",
+				"0,0;",
+				"0,2,0;",
+				"0,0,3,0;",
+				"0,2,3,4,0;",
+				"0,0,0,4,5,0;",
+				"0,2,3,4,5,6,0;",
+				"0,0,3,0,5,6,7,0;",
+				"0,2,0,4,5,6,7,8,0;",
+				"0,0,3,4,0,6,7,8,9,0;",
+				"0,2,3,4,5,6,7,8,9,10,0;",
+				"0,0,0,0,5,0,7,8,9,10,11,0;",
+				"0,2,3,4,5,6,7,8,9,10,11,12,0;",
+				"0,0,3,4,5,6,0,8,9,10,11,12,13,0;",
+				"0,2,0,4,0,6,7,8,9,10,11,12,13,14,0;",
+				"0,0,3,0,5,6,7,0,9,10,11,12,13,14,15,0;"
+			],
+			"program": [
+				"(Haskell)",
+				"a173541 n k = a173541_tabl !! (n-1) !! (n-1)",
+				"a173541_row n = a173541_tabl !! (n-1)",
+				"a173541_tabl = zipWith (zipWith (*))",
+				"                       a002260_tabl $ map (map (1 -)) a051731_tabl",
+				"-- _Reinhard Zumkeller_, Feb 19 2014"
+			],
+			"xref": [
+				"Cf. A049820, A127093, A173540. Row sums give A024816.",
+				"Cf. A002260."
+			],
+			"keyword": "easy,nonn,tabl",
+			"offset": "1,5",
+			"author": "_Omar E. Pol_, May 25 2010",
+			"references": 4,
+			"revision": 5,
+			"time": "2014-02-19T18:20:37-05:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 173927,
+			"data": "1,2,3,5,11,23,47,283,719,1439,2879,34549,138197,531441,1594323,4782969,14348907,43046721,86093443,258280327,688747547",
+			"name": "Smallest integer k such that the number of iterations of Carmichael lambda function (A002322) needed to reach 1 starting at k (k is counted) is n.",
+			"comment": [
+				"Smallest number k such that the trajectory of k under iteration of Carmichael lambda function contains exactly n distinct numbers (including k and the fixed point).",
+				"The first 13 terms are 1 or a prime. The next five terms are powers of 3. Then another prime. What explains this behavior? - _T. D. Noe_, Mar 23 2012",
+				"A185816(a(n) = n - 1. - _Reinhard Zumkeller_, Sep 02 2014",
+				"If a(n) (n \u003e 1) is either a prime or a power of 3, then a(n) is also the smallest integer k such that the number of iterations of Euler's totient function (A000010) needed to reach 1 starting at k (k is counted) is n. - _Jianing Song_, Jul 10 2019"
+			],
+			"link": [
+				"Nick Harland, \u003ca href=\"http://arxiv.org/abs/1203.4791\"\u003eThe number of iterates of the Carmichael lambda function required to reach 1\u003c/a\u003e, arXiv:1203.4791v1 [math.NT], Mar 21 2012."
+			],
+			"example": [
+				"for n=5, a(5)=11 gives a chain of length 5 because the trajectory is 11 -\u003e 10 -\u003e 4 -\u003e 2 -\u003e 1."
+			],
+			"mathematica": [
+				"f[n_] := Length@ NestWhileList[ CarmichaelLambda, n, Unequal, 2] - 1; t = Table[0, {30}]; k = 1; While[k \u003c 2100000001, a = f@ k; If[ t[[a]] == 0, t[[a]] = k; Print[a, \" = \", k]]; k++] (* slightly modified by _Robert G. Wilson v_, Sep 01 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a173927 = (+ 1) . fromJust . (`elemIndex` map (+ 1) a185816_list)",
+				"-- _Reinhard Zumkeller_, Sep 02 2014"
+			],
+			"xref": [
+				"Cf. A002322, A027763, A056637.",
+				"Cf. A185816 (number of iterations of Carmichael lambda function needed to reach 1), A003434 (number of iterations of Euler's totient function needed to reach 1)."
+			],
+			"keyword": "nonn,more",
+			"offset": "1,2",
+			"author": "_Michel Lagneau_, Nov 26 2010",
+			"ext": [
+				"a(20)-a(21) from _Robert G. Wilson v_, Sep 01 2014"
+			],
+			"references": 4,
+			"revision": 34,
+			"time": "2019-07-11T02:14:11-04:00",
+			"created": "2010-11-12T14:23:13-05:00"
+		},
+		{
+			"number": 174332,
+			"data": "5,7,11,23,23,29,71,79,47,59,127,101,83,107,191,107,239,251,269,199,293,317,167,179,353,229,359,431,439,227,383,263,787,557,599,607,631,419,1447,347,359,727,383,449,709,797,467,479,739,919,467,479,967,503,769",
+			"name": "Least prime, q, such that the n-th prime, p, is a proper binary sub-string.",
+			"comment": [
+				"a(n) = A208238(A000040(n)) = A208241(A000040(n)). - _Reinhard Zumkeller_, Feb 14 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A174332/b174332.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1)=5 since 2_10 = 10_2 is a sub-string of 5_10 = 101_2."
+			],
+			"mathematica": [
+				"f[n_] := Block[{k = n + 1, p = StringTake[ ToString@ IntegerDigits[ Prime@n, 2], {2, -2}]}, While[q = StringTake[ ToString@ IntegerDigits[ Prime@k, 2], {2, -2}]; StringPosition[q, p] == {}, k++ ]; Prime@k]; Array[f, 55]"
+			],
+			"program": [
+				"(Haskell)",
+				"a174332 = a208238 . a000040  -- _Reinhard Zumkeller_, Feb 14 2013"
+			],
+			"xref": [
+				"Cf. A000040, A004676, A007088."
+			],
+			"keyword": "base,nonn",
+			"offset": "1,1",
+			"author": "_Robert G. Wilson v_, Mar 15 2010",
+			"references": 4,
+			"revision": 9,
+			"time": "2013-07-13T12:03:41-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 174903,
+			"data": "0,0,0,0,0,1,0,0,0,0,0,3,0,0,1,0,0,2,0,1,0,0,0,5,0,0,0,1,0,5,0,0,0,0,1,6,0,0,0,3,0,3,0,0,3,0,0,7,0,0,0,0,0,3,0,3,0,0,0,9,0,0,1,0,0,3,0,0,0,3,0,9,0,0,2,0,1,2,0,5,0,0,0,9,0,0,0,1,0,9,1,0,0,0,0,9,0,0,1,2,0,2,0,1,4",
+			"name": "Number of divisors d of n such that d\u003ce\u003c2*d for at least another divisor e of n.",
+			"comment": [
+				"a(A174905(n)) = 0; a(A005279(n)) \u003e 0;",
+				"a(A174904(n)) = n and a(m) \u003c\u003e n for m \u003c A174904(n);",
+				"a(m)*a(n) \u003c= a(m)*a(n) for m, n coprime."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A174903/b174903.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(12) = #{(2,3), (3,4), (4,6)} = 3;",
+				"a(15) = #{(3,5)} = 1;",
+				"a(18) = #{(2,3), (6,9)} = 2;",
+				"a(20) = #{(4,5)} = 1;",
+				"a(24) = #{(2,3), (3,4), (4,6), (6,8), (8,12)} = 5."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersect)",
+				"a174903 n = length [d | let ds = a027750_row n, d \u003c- ds,",
+				"                    not $ null [e | e \u003c- [d+1 .. 2*d-1] `intersect` ds]]",
+				"-- _Reinhard Zumkeller_, Sep 29 2014"
+			],
+			"xref": [
+				"Cf. A000005, A005279, A174904, A174905."
+			],
+			"keyword": "nonn",
+			"offset": "1,12",
+			"author": "_Reinhard Zumkeller_, Apr 01 2010",
+			"references": 4,
+			"revision": 5,
+			"time": "2014-09-29T02:28:19-04:00",
+			"created": "2010-06-01T03:00:00-04:00"
+		},
+		{
+			"number": 175840,
+			"data": "1,3,2,9,6,4,27,18,12,8,81,54,36,24,16,243,162,108,72,48,32,729,486,324,216,144,96,64,2187,1458,972,648,432,288,192,128,6561,4374,2916,1944,1296,864,576,384,256,19683,13122,8748,5832,3888,2592,1728,1152,768,512",
+			"name": "Mirror image of Nicomachus' table: T(n,k) = 3^(n-k)*2^k for n\u003e=0 and 0\u003c=k\u003c=n.",
+			"comment": [
+				"Lenstra calls these numbers the harmonic numbers of Philippe de Vitry (1291-1361). De Vitry wanted to find pairs of harmonic numbers that differ by one. Levi ben Gerson, also known as Gersonides, proved in 1342 that there are only four pairs with this property of the form 2^n*3^m. See also Peterson’s story ‘Medieval Harmony’.",
+				"This triangle is the mirror image of Nicomachus' table A036561. The triangle sums, see the crossrefs, mirror those of A036561. See A180662 for the definitions of these sums."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A175840/b175840.txt\"\u003eRows n = 0..120 of triangle, flattened\u003c/a\u003e",
+				"J. O'Connor and E.F. Robertson, \u003ca href=\"http://www-history.mcs.st-and.ac.uk/history/Biographies/Nicomachus.html\"\u003eNicomachus of Gerasa\u003c/a\u003e, The MacTutor History of Mathematics archive, 2010.",
+				"Jay Kappraff, \u003ca href=\"http://www.nexusjournal.com\"\u003eThe Arithmetic of Nicomachus of Gerasa and its Applications to Systems of Proportion\u003c/a\u003e, Nexus Network Journal, vol. 2, no. 4 (October 2000).",
+				"Hendrik Lenstra, \u003ca href=\"http://www.nieuwarchief.nl/serie5/pdf/naw5-2001-02-1-023.pdf\"\u003eAeternitatem Cogita\u003c/a\u003e, Nieuw Archief voor Wiskunde, 5/2, maart 2001, pp. 23-28.",
+				"Ivars Peterson, \u003ca href=\"https://archive.is/iRXz\"\u003eMedieval Harmony\u003c/a\u003e, Math Trek, Mathematical Association of America, 1998."
+			],
+			"formula": [
+				"T(n,k) = 3^(n-k)*2^k for n\u003e=0 and 0\u003c=k\u003c=n.",
+				"T(n,n-k) = T(n,n-k+1) + T(n-1,n-k) for n\u003e=1 and 1\u003c=k\u003c=n with T(n,n) = 2^n for n\u003e=0."
+			],
+			"example": [
+				"1;",
+				"3, 2;",
+				"9, 6, 4;",
+				"27, 18, 12, 8;",
+				"81, 54, 36, 24, 16;",
+				"243, 162, 108, 72, 48, 32;"
+			],
+			"maple": [
+				"A175840 := proc(n,k): 3^(n-k)*2^k end: seq(seq(A175840(n,k),k=0..n),n=0..9);"
+			],
+			"mathematica": [
+				"Flatten[Table[3^(n-k) 2^k,{n,0,10},{k,0,n}]] (* _Harvey P. Dale_, May 08 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a175840 n k = a175840_tabf !! n !! k",
+				"a175840_row n = a175840_tabf !! n",
+				"a175840_tabf = iterate (\\xs@(x:_) -\u003e x * 3 : map (* 2) xs) [1]",
+				"-- _Reinhard Zumkeller_, Jun 08 2013"
+			],
+			"xref": [
+				"Triangle sums: A001047 (Row1), A015441 (Row2), A016133 (Kn1 \u0026 Kn4), A005061 (Kn2 \u0026 Kn3), A016153 (Fi1\u0026 Fi2), A180844 (Ca1 \u0026 Ca4), A016140 (Ca2, Ca3), A180846 (Gi1 \u0026 Gi4), A180845 (Gi2 \u0026 Gi3), A016185 (Ze1 \u0026 Ze4), A180847 (Ze2 \u0026 Ze3).",
+				"Cf. A000079, A000244, A000400, A003586."
+			],
+			"keyword": "easy,nonn,tabl",
+			"offset": "0,2",
+			"author": "_Johannes W. Meijer_, Sep 21 2010, Jul 13 2011, Jun 03 2012",
+			"references": 4,
+			"revision": 22,
+			"time": "2015-06-28T18:16:23-04:00",
+			"created": "2010-10-02T03:00:00-04:00"
+		},
+		{
+			"number": 175943,
+			"data": "1,2,6,12,24,120,240,720,5040,10080,20160,40320,120960,362880,725760,3628800,39916800,79833600,159667200,479001600,6227020800,12454041600,87178291200,261534873600,1307674368000,2615348736000,5230697472000",
+			"name": "Partial products of A027746.",
+			"comment": [
+				"a(n) \u003c= A265125(n), a(n) \u003c A265125(n) for n \u003e 10. - _Reinhard Zumkeller_, Dec 02 2015"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A175943/b175943.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) is approximately (n / (e log log n))^(n/log log n). - _Charles R Greathouse IV_, Sep 12 2012"
+			],
+			"program": [
+				"(PARI) print1(t=1); for(n=2, 10, f=factor(n); for(i=1, #f[,1], for(j=1,f[i,2], print1(\", \"t*=f[i,1])))) \\\\ _Charles R Greathouse IV_, Sep 12 2012",
+				"(Haskell)",
+				"a175943 n = a175943_list !! (n-1)",
+				"a175943_list = scanl1 (*) $ concat a027746_tabf",
+				"-- _Reinhard Zumkeller_, Dec 02 2015"
+			],
+			"xref": [
+				"n! (A000142) is a subsequence.",
+				"Cf. A027746.",
+				"Cf. A265125."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Lior Manor_, Oct 27 2010",
+			"references": 4,
+			"revision": 13,
+			"time": "2015-12-02T16:23:09-05:00",
+			"created": "2010-11-10T03:00:00-05:00"
+		},
+		{
+			"number": 178158,
+			"data": "1,2,3,4,5,6,7,8,9,11,12,15,21,22,24,25,31,32,33,35,36,41,42,44,45,48,51,52,55,61,62,63,64,65,66,71,72,75,77,81,82,84,85,88,91,92,93,95,96,99,101,102,104,105,125,201,202,204,205,208,225,301,302,303,304,305,306,312,315,325,375,401,402,404,405,408,425,501,502,504,505,525,601,602,603,604",
+			"name": "Numbers n that are divisible by every suffix of n.",
+			"comment": [
+				"If n = y*10^d+z is in the sequence, where 1\u003c=y\u003c=9 and z \u003c 10^d, then z | y*10^d. - _Robert Israel_, Oct 17 2018"
+			],
+			"link": [
+				"Robert Israel, \u003ca href=\"/A178158/b178158.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 788 terms from Reinhard Zumkeller)",
+				"Math Overflow, \u003ca href=\"https://mathoverflow.net/questions/313079/the-number-of-numbers-no-greater-than-n-that-are-divisible-by-all-their-suffixes\"\u003eThe number of numbers no greater than n that are divisible by all their suffixes\u003c/a\u003e"
+			],
+			"example": [
+				"9375 is in the sequence because :",
+				".     5 | 9375 ;",
+				".    75 | 9375 ;",
+				".   375 | 9375 ;",
+				".  9375 | 9375 ."
+			],
+			"maple": [
+				"with(numtheory):T:=array(1..5):for n from 1 to 10000 do:ind:=0:l:=length(n):n0:=n:s:=0:for m from 0 to l-1 do:q:=n0:u:=irem(q, 10):v:=iquo(q, 10):n0:=v : s:=s + u*10 ^m:if irem(n,10)\u003c\u003e0 and irem(n, s)=0 then ind:=ind+1:else fi:od:if ind=l then printf(`%d,`, n):else fi:od:",
+				"# Alternative:",
+				"filter:= proc(x)",
+				"  if x mod 10 = 0 then return false fi;",
+				"  andmap(t -\u003e type(x/(x mod 10^t),integer), [$1..ilog10(x)])",
+				"end proc:",
+				"Res:= $1..9:",
+				"for d from 1 to 6 do",
+				"  for y from 1 to 9 do",
+				"    for z in sort(convert(select(`\u003c`,numtheory:-divisors(y*10^d),10^d),list)) do",
+				"      if filter(y*10^d+z) then",
+				"         Res:= Res, y*10^d+z;",
+				"      fi",
+				"od od od:",
+				"Res; # _Robert Israel_, Oct 17 2018"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (tails)",
+				"a178158 n = a178158_list !! (n-1)",
+				"a178158_list = filter (\\suff -\u003e all ((== 0) . (mod suff))",
+				"   (map read $ tail $ init $ tails $ show suff :: [Integer])) a067251_list",
+				"-- _Reinhard Zumkeller_, Mar 26 2012"
+			],
+			"xref": [
+				"Cf. A034709 .",
+				"Cf. A067251."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Michel Lagneau_, Dec 17 2010",
+			"references": 4,
+			"revision": 32,
+			"time": "2018-10-22T10:33:23-04:00",
+			"created": "2010-11-12T14:26:33-05:00"
+		},
+		{
+			"number": 178787,
+			"data": "1,2,3,4,5,6,7,8,9,10,11,11,12,13,14,15,16,17,18,19,20,21,21,22,23,24,25,26,27,28,29,30,31,31,32,33,34,35,36,37,38,39,40,41,41,42,43,44,45,46,47,48,49,50,51,51,52,53,54,55,56,57,58,59,60,61,61,62,63,64,65,66",
+			"name": "Number of numbers \u003c= n having distinct digits in their decimal representation, cf. A010784.",
+			"comment": [
+				"a(m)\u003c=a(n) for m\u003cn and a(n)=8877690 for n\u003e=9876543210;",
+				"a(A010784(n)) = n; a(A109303(n)) = a(A109303(n)-1);",
+				"partial sums of A178788."
+			],
+			"link": [
+				"R. Zumkeller, \u003ca href=\"/A178787/b178787.txt\"\u003eTable of n, a(n) for n = 0..25000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Digit.html\"\u003eDigit\u003c/a\u003e"
+			],
+			"example": [
+				"a(12) = #{0,1,2,3,4,5,6,7,8,9,10,12} = 12;",
+				"a(24) = a(12) + #{13,14,15,16,17,18,19,20,21,23,24} = 23."
+			],
+			"mathematica": [
+				"f[n_] := Length[ Select[ Range[0, n], Max[ DigitCount[#]] == 1 \u0026]]; Array[f, 70, 0] (* _Robert G. Wilson v_, Dec 13 2016 after _Harvey P. Dale_ in A010784 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a178787 n = a178787_list !! n",
+				"a178787_list = scanl1 (+) a178788_list",
+				"-- _Reinhard Zumkeller_, Mar 15 2014"
+			],
+			"keyword": "base,nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jun 30 2010",
+			"references": 4,
+			"revision": 10,
+			"time": "2016-12-15T08:51:15-05:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 180077,
+			"data": "0,1,3,5,2,7,11,4,9,13,6,19,15,23,27,49,8,21,17,12,25,29,37,43,33,10,47,58,14,99,56,62,31,39,20,45,35,16,93,127,24,60,106,28,75,143,50,64,71,79,41,95,22,68,129,18,164,148,120,112,141,26,110,108,30,89,77,38,91,52",
+			"name": "Inverse permutation to A180076.",
+			"comment": [
+				"A180079(n) = a(a(n));",
+				"a(A180078(n)) = A180078(a(n)) = A180076(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A180077/b180077.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a180077 = fromJust . (`elemIndex` a180076_list)",
+				"-- _Reinhard Zumkeller_, Mar 13 2014"
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Aug 14 2010",
+			"references": 4,
+			"revision": 8,
+			"time": "2014-08-11T22:45:44-04:00",
+			"created": "2010-08-27T03:00:00-04:00"
+		}
+	]
+}

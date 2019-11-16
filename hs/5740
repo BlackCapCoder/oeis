@@ -1,0 +1,353 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5740,
+	"results": [
+		{
+			"number": 193492,
+			"data": "1234,2345,3456,4567,5678,6789,7891,8910,9101,1011,111,1112,1121,1213,2131,1314,3141,1415,4151,1516,5161,1617,6171,1718,7181,1819,8192,1920,9202,2021,212,2122,1222,2223,2232,2324,3242,2425,4252,2526,5262,2627,6272",
+			"name": "Put the natural numbers together without spaces and read them four at a time advancing one space each time.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193492/b193492.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 10*(10*(10*A007376(n)+A007376(n+1))+A007376(n+2))+A007376(n+3)."
+			],
+			"mathematica": [
+				"FromDigits/@Partition[Flatten[IntegerDigits/@Range[30]],4,1] (* _Harvey P. Dale_, Aug 19 2012 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a193492 n = a193492_list !! (n-1)",
+				"a193492_list = f a007376_list where",
+				"   f xs'@(x:xs) = ((foldl (\\u v -\u003e 10*u + v) 0) $ take 4 xs') : f xs"
+			],
+			"xref": [
+				"Cf. A136414, A193431, A193493."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 28 2011",
+			"references": 4,
+			"revision": 13,
+			"time": "2013-07-13T12:04:13-04:00",
+			"created": "2011-08-02T12:45:03-04:00"
+		},
+		{
+			"number": 193493,
+			"data": "12345,23456,34567,45678,56789,67891,78910,89101,91011,10111,1112,11121,11213,12131,21314,13141,31415,14151,41516,15161,51617,16171,61718,17181,71819,18192,81920,19202,92021,20212,2122,21222,12223,22232,22324,23242,32425",
+			"name": "Put the natural numbers together without spaces and read them five at a time advancing one space each time.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193493/b193493.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Sum (A007376(n+k)*10^(4-k): 0 \u003c= k \u003c= 4)."
+			],
+			"mathematica": [
+				"nn=40;With[{tbl=Flatten[IntegerDigits/@Range[nn]]},Table[FromDigits[ Take[tbl,{n,n+4}]],{n,nn}]](* _Harvey P. Dale_, Aug 10 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a193493 n = a193493_list !! (n-1)",
+				"a193493_list = f a007376_list where",
+				"   f xs'@(x:xs) = ((foldl (\\u v -\u003e 10*u + v) 0) $ take 5 xs') : f xs"
+			],
+			"xref": [
+				"Cf. A136414, A193431, A193492."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 28 2011",
+			"references": 4,
+			"revision": 14,
+			"time": "2013-11-21T12:50:19-05:00",
+			"created": "2011-08-02T12:46:24-04:00"
+		},
+		{
+			"number": 193672,
+			"data": "14,20,22,24,26,28,34,36,38,40,46,48,50,58,60,62,63,70,74,80,82,84,86,94,96,98,99,100,105,106,117,118,120,122,134,136,138,140,142,146,152,153,154,158,160,166,170,174,178,180,182,184,186,189,190,192,194",
+			"name": "Numbers such that the last of the differences of divisors is \u003c 0.",
+			"comment": [
+				"A187202(a(n)) \u003c 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193672/b193672.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a193672 n = a193672_list !! (n-1)",
+				"a193672_list = map (+ 1) $ findIndices (\u003c 0) $ map a187202 [1..]"
+			],
+			"xref": [
+				"Cf. A187204, A193672."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 02 2011",
+			"references": 4,
+			"revision": 7,
+			"time": "2013-07-13T12:04:14-04:00",
+			"created": "2011-08-02T12:50:08-04:00"
+		},
+		{
+			"number": 193927,
+			"data": "3,9,13,15,19,23,34,38,42,45,50,54,57,61,71,81,92,96,99,107,120,133,150,157,161,180,190,214,234,236,246,254,261,270,273,279,292,297,301,322,329,335,339,361,386,390,396,398,419,425,427,453,463,468,478,494",
+			"name": "Numbers m such that A062039(m+1) \u003c A062039(m).",
+			"comment": [
+				"a(n) = - A193926(a(n));",
+				"complement of A193928, A062039(a(n)+1) \u003c A062039(a(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A193927/b193927.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a193927 n = a193927_list !! (n-1)",
+				"a193927_list = findIndices (\u003c 0) a193926_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Aug 10 2011",
+			"references": 4,
+			"revision": 8,
+			"time": "2013-07-13T12:04:14-04:00",
+			"created": "2011-08-10T19:45:26-04:00"
+		},
+		{
+			"number": 194459,
+			"data": "1,2,3,4,5,2,4,6,8,10,3,6,9,12,15,4,8,12,16,20,5,10,15,20,25,2,4,6,8,10,4,8,12,16,20,6,12,18,24,30,8,16,24,32,40,10,20,30,40,50,3,6,9,12,15,6,12,18,24,30,9,18,27,36,45,12,24,36,48,60,15,30",
+			"name": "Number of entries in the n-th row of Pascal's triangle not divisible by 5.",
+			"comment": [
+				"All Pascal triangles modulo p with p prime have the dimension D=log(3)/log(2).",
+				"Also number of ones in row n of triangle A254609. - _Reinhard Zumkeller_, Feb 04 2015"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A194459/b194459.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Product_{d=1..4} (d+1)^b(n,d) with b(n,d) = number of digits d in base 5 expansion of n. The formula generalizes to other prime bases p."
+			],
+			"example": [
+				"n = 32 = 112|_5: b(32,1) = 2, b(32,2) = 1, thus a(32) = 2^2 * 3^1 = 12."
+			],
+			"maple": [
+				"a:= proc(n) local l, m, t;",
+				"      m:= n;",
+				"      l:= [0$5];",
+				"      while m\u003e0 do t:= irem(m, 5, 'm')+1; l[t]:=l[t]+1 od;",
+				"      mul(r^l[r], r=2..5)",
+				"    end:",
+				"seq(a(n), n=0..100);"
+			],
+			"mathematica": [
+				"Nest[Join[#, 2#, 3#, 4#, 5#]\u0026, {1}, 4] (* _Jean-François Alcover_, Apr 12 2017, after code by _Robert G. Wilson v_ in A006047 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a194459 = sum . map (signum . flip mod 5) . a007318_row",
+				"-- _Reinhard Zumkeller_, Feb 04 2015"
+			],
+			"xref": [
+				"A006046(n+1) = A006046(n)+A001316(n) for p=2.",
+				"A006048(n+1) = A006048(n)+A006047(n+1) for p=3.",
+				"A194458(n+1) = A194458(n)+A194459(n+1) for p=5.",
+				"Cf. A007318, A254609."
+			],
+			"keyword": "nonn,look",
+			"offset": "0,2",
+			"author": "_Paul Weisenhorn_, Aug 24 2011",
+			"ext": [
+				"Edited by _Alois P. Heinz_, Sep 06 2011"
+			],
+			"references": 4,
+			"revision": 30,
+			"time": "2017-04-12T04:43:19-04:00",
+			"created": "2011-09-06T10:43:55-04:00"
+		},
+		{
+			"number": 195118,
+			"data": "55,91,187,247,275,385,391,605,637,667,1001,1147,1183,1375,1591,1925,1927,2057,2431,2491,2695,3025,3127,3179,3211,4087,4199,4235,4459,4693,4891,5767,6647,6655,6875,7007,7387,7429,8281,8993,9625,9991,10807,11011",
+			"name": "Numbers with largest and smallest prime factors differing by 6.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195118/b195118.txt\"\u003eTable of n, a(n) for n = 1..250\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/SexyPrimes.html\"\u003eSexy Primes\u003c/a\u003e"
+			],
+			"example": [
+				"a(10) = 667 = 23 * 29;",
+				"a(11) = 1001 = 7 * 11 * 13;",
+				"a(12) = 1147 = 31 * 37;",
+				"a(13) = 1183 = 7 * 13^2."
+			],
+			"program": [
+				"(Haskell)",
+				"a195118 n = a195118_list !! (n-1)",
+				"a195118_list = filter f [3,5..] where",
+				"   f x = last pfs - head pfs == 6 where pfs = a027748_row x"
+			],
+			"xref": [
+				"Cf. A195106, A111192; A143205 is a subsequence."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 13 2011",
+			"references": 4,
+			"revision": 8,
+			"time": "2013-07-13T12:04:15-04:00",
+			"created": "2011-09-13T17:40:05-04:00"
+		},
+		{
+			"number": 195470,
+			"data": "1,1,1,0,1,0,0,0,1,0,1,0,1,0,0,0,2,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,3,0,0,0,1,0,0,0,2,0,3,0,0,0,0,0,0,0,0,0,1,0,0,0,3,0,1,0,1,0,0,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0",
+			"name": "Number of numbers k with 0 \u003c= k \u003c n such that 2^k + 1 is multiple of n.",
+			"comment": [
+				"a(A014657(n)) \u003e 0; for n \u003e 1: a(A014661(n)) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195470/b195470.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1)=#{0}=1, (2^0 + 1) mod 1;",
+				"a(17) = #{4, 12} = 2, (2^4 + 1) mod 17 = (2^12 + 1) mod 17 = 0;",
+				"a(18) = #{} = 0;",
+				"a(19) = #{9} = 1, (2^9 + 1) mod 19 = 0."
+			],
+			"mathematica": [
+				"nn = 100; pwrs = 2^Range[0, nn] + 1; Table[cnt = 0; Do[If[Mod[pwrs[[i]], n] == 0, cnt++], {i, n}]; cnt, {n, nn}] (* _T. D. Noe_, Sep 30 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a195470 n = length $ filter ((== 0) . (`mod` n)) $",
+				"                       take (fromInteger n) a000051_list"
+			],
+			"xref": [
+				"Cf. A000051, A195610."
+			],
+			"keyword": "nonn",
+			"offset": "1,17",
+			"author": "_Reinhard Zumkeller_, Sep 21 2011",
+			"references": 4,
+			"revision": 39,
+			"time": "2014-08-03T14:01:33-04:00",
+			"created": "2011-09-22T11:36:51-04:00"
+		},
+		{
+			"number": 195691,
+			"data": "0,0,0,0,1,0,1,1,2,1,4,4,8,7,18,23,42,50,105,153,271,385,721,1135,1992,3112,5535,9105,15916,26219,45815,77334,135029,229189,399498,685710,1198828,2070207,3619677,6286268,11024475,19241836,33795365,59197968,104234931",
+			"name": "The number of closed normal form lambda calculus terms of size n, where size(lambda x.M)=2+size(M), size(M N)=2+size(M)+size(N), and size(V)=1+i for a variable V bound by the i-th enclosing lambda (corresponding to a binary encoding).",
+			"link": [
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Binary_lambda_calculus\"\u003eBinary lambda calculus\u003c/a\u003e",
+				"John Tromp, \u003ca href=\"/A195691/a195691.hs.txt\"\u003eA195691.hs\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = N(1,0,n) with",
+				"  N(q,k,0) = N(q,k,1) = 0",
+				"  N(q,k,n+2) = (if k\u003en then 1 else 0) +",
+				"               q * N(1,k+1,n) +",
+				"               Sum_{i=0..n} N(0,k,i) * N(1,k,n-i)"
+			],
+			"example": [
+				"This sequence first differs from A114852 at n=10, where it excludes the two reducible terms (lambda x.x)(lambda x.x) and lambda x.(lambda x.x)x, so normal 10 = (closed 10)-2 = 6-2 = 4."
+			],
+			"mathematica": [
+				"A[_, _, 0] = A[_, _, 1] = 0; A[q_, k_, n_] := A[q, k, n] = Boole[k \u003e n-2] + q*A[1, k+1, n-2] + Sum[A[0, k, i]*A[1, k, n-i-2], {i, 0, n-2}];",
+				"a[n_] := A[1, 0, n];",
+				"Table[a[n], {n, 0, 44}] (* _Jean-François Alcover_, May 23 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a195691 = normal True 0 where",
+				"  normal qLam k n = if n\u003c2 then 0 else",
+				"    (if n-2\u003ck then 1 else 0) +",
+				"    (if qLam then normal True (k+1) (n-2) else 0) +",
+				"    sum [normal False k i * normal True k (n-2-i) | i \u003c- [0..n-2]]",
+				"-- See link for a more efficient version."
+			],
+			"xref": [
+				"Cf. A114851, A114852.",
+				"Cf. A224345 for another way of counting normal forms in lambda-calculus."
+			],
+			"keyword": "nonn",
+			"offset": "0,9",
+			"author": "_John Tromp_, Sep 22 2011",
+			"references": 4,
+			"revision": 28,
+			"time": "2017-05-23T06:21:21-04:00",
+			"created": "2011-10-03T12:01:38-04:00"
+		},
+		{
+			"number": 195759,
+			"data": "7,11,19,23,11,31,43,19,47,23,59,67,19,71,31,79,83,23,43,103,107,47,31,127,131,59,139,23,151,67,43,163,71,167,47,179,79,191,83,31,199,211,59,223,227,31,239,103,67,107,251,71,263,271,43,283,79,127,47",
+			"name": "Greater prime factor of n-th Blum number.",
+			"comment": [
+				"A195758(n) * a(n) = A016105(n); a(n) \u003e A195758(n);",
+				"a(n) = A006530(A016105(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195759/b195759.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Blum_integer\"\u003eBlum integer\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a195759 = a006530 . a016105"
+			],
+			"xref": [
+				"Cf. A070647."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Sep 23 2011",
+			"references": 4,
+			"revision": 8,
+			"time": "2013-07-13T12:04:16-04:00",
+			"created": "2011-09-23T13:31:28-04:00"
+		},
+		{
+			"number": 196149,
+			"data": "1,2,3,4,6,8,9,10,12,15,16,18,20,21,24,27,28,30,32,36,40,42,44,45,48,50,54,56,60,63,64,66,70,72,75,78,80,81,84,88,90,96,99,100,102,104,105,108,110,112,117,120,126,128,130,132,135,136,140,144,147,150",
+			"name": "Numbers whose divisors increase by a factor of 3 or less.",
+			"comment": [
+				"The polymath8 project led by Terry Tao refers to these numbers as \"3-densely divisible\". In general they say that n is y-densely divisible if its divisors increase by a factor of y or less, or equivalently, if for every R with 1 \u003c= R \u003c= n, there is a divisor in the interval [R/y,R]. They use this as a weakening of the condition that n be y-smooth. - _David S. Metzler_, Jul 02 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A196149/b196149.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"T. Tao, \u003ca href=\"http://terrytao.wordpress.com/2013/06/18/a-truncated-elementary-selberg-sieve-of-pintz/\"\u003eA Truncated Elementary Selberg Sieve of Pintz\u003c/a\u003e (blog entry defining y-densely divisible)",
+				"T. Tao et al.,\u003ca href=\"http://michaelnielsen.org/polymath1/index.php?title=Bounded_gaps_between_primes\"\u003ePolymath8 home page\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A052287(n) / 3."
+			],
+			"example": [
+				"14 is not a term because its divisors are 1,2,7,14, and the gap from 2 to 7 is more than a factor of 3. - _N. J. A. Sloane_, Aug 03 2015"
+			],
+			"mathematica": [
+				"dif3[n_]:=Max[#[[2]]/#[[1]]\u0026/@Partition[Divisors[n],2,1]]\u003c=3; Select[ Range[ 200],dif3] (* _Harvey P. Dale_, Jun 08 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a196149 n = a196149_list !! (n-1)",
+				"a196149_list = filter f [1..] where",
+				"   f n = all (\u003c= 0) $ zipWith (-) (tail divs) (map (* 3) divs)",
+				"                      where divs = a027750_row' n",
+				"-- _Reinhard Zumkeller_, Jun 25 2015, Sep 28 2011",
+				"(PARI) is(n)=my(d=divisors(n));for(i=2,#d,if(d[i]\u003e3*d[i-1],return(0)));1 \\\\ _Charles R Greathouse IV_, Jul 06 2013"
+			],
+			"xref": [
+				"A174973 is a subsequence.",
+				"Cf. A027750."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Sep 28 2011",
+			"ext": [
+				"Alternate nomenclature and links added by _David S. Metzler_, Jul 02 2013"
+			],
+			"references": 4,
+			"revision": 20,
+			"time": "2015-08-03T17:53:47-04:00",
+			"created": "2011-09-28T15:03:36-04:00"
+		}
+	]
+}

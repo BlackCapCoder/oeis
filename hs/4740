@@ -1,0 +1,328 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4740,
+	"results": [
+		{
+			"number": 78833,
+			"data": "1,2,3,2,5,3,7,2,2,5,11,3,13,7,7,2,17,2,19,5,5,11,23,3,3,13,13,7,29,7,31,2,2,17,17,2,37,19,19,5,41,5,43,11,13,23,47,3,17,3,19,13,53,13,23,7,7,29,59,7,61,31,31,2,2,2,67,17,17,17,71,2,73,37,37,19,19,19,79,5,17",
+			"name": "Greatest prime contained as binary substring in binary representation of n\u003e1, a(1)=1.",
+			"comment": [
+				"a(n) = A039634(n) for n\u003c=44, but a(45) = 13 \u003c\u003e 11 = A039634(45);",
+				"for n\u003e1: a(n) = n iff n is prime.",
+				"a(n) = A225243(n, A078826(n)). - _Reinhard Zumkeller_, Aug 14 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A078833/b078833.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"n=12 -\u003e '1100' contains 2 binary substrings which are primes: '11' (11bb) and '10' (b11b); 3='11' is the greater one, therefore a(12)=3."
+			],
+			"program": [
+				"(Haskell)",
+				"a078833 = last . a225243_row  -- _Reinhard Zumkeller_, Aug 14 2013"
+			],
+			"xref": [
+				"Cf. A078832, A078826, A078822, A007088, A006530."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 08 2002",
+			"references": 5,
+			"revision": 13,
+			"time": "2014-05-01T01:28:42-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79086,
+			"data": "1,2,3,4,3,3,4,5,5,6,5,3,4,6,7,6,4,3,6,5,5,7,6,5,4,5,7,6,4,8,9,5,5,6,6,4,3,6,6,6,6,8,7,4,7,6,7,8,5,5,8,7,6,6,6,8,8,5,3,4,5,6,7,5,3,4,4,5,6,5,7,9,6,5,10,10,4,3,4,6,5,7,8,6,7,7,5,4,7,8,10,9,6,7,9,8,6,5,3,3,5,6,6,6",
+			"name": "Total number of prime factors of (prime(n)+1)*(prime(n+1)+1)/4.",
+			"comment": [
+				"a(n)=A001222(A079079(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079086/b079086.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a079086 = a001222 . a079079  -- _Reinhard Zumkeller_, Oct 08 2012"
+			],
+			"xref": [
+				"Cf. A079085."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Dec 22 2002",
+			"references": 5,
+			"revision": 8,
+			"time": "2013-07-13T12:02:54-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79578,
+			"data": "3,5,5,7,7,11,9,11,11,13,13,17,15,17,17,19,19,23,21,23,23,25,25,29,27,29,29,31,31,37,33,35,35,37,37,41,39,41,41,43,43,47,45,47,47,49,49,53,51,53,53,55,55,59,57,59,59,61,61,67,63,65,65,67,67,71,69,71,71,73,73",
+			"name": "Least coprime to n, greater than n+1.",
+			"comment": [
+				"a(n) = n + A053669(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079578/b079578.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = (A116934(n) - n)/A116933(n). - _Reinhard Zumkeller_, Feb 27 2006"
+			],
+			"program": [
+				"(Haskell)",
+				"a079578 n = head [m | m \u003c- [n + 2 ..], gcd m n == 1]",
+				"-- _Reinhard Zumkeller_, Oct 01 2014"
+			],
+			"xref": [
+				"Cf. A053669, A116933, A116934."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jan 24 2003",
+			"references": 5,
+			"revision": 8,
+			"time": "2014-10-01T16:44:10-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79588,
+			"data": "1,30,135,364,765,1386,2275,3480,5049,7030,9471,12420,15925,20034,24795,30256,36465,43470,51319,60060,69741,80410,92115,104904,118825,133926,150255,167860,186789,207090,228811,252000,276705,302974,330855,360396,391645",
+			"name": "a(n) = (n+1)*(2*n+1)*(4*n+1).",
+			"comment": [
+				"Apart from offset, same as A100147."
+			],
+			"reference": [
+				"R. Tijdeman, Some applications of Diophantine approximation, pp. 261-284 of Surveys in Number Theory (Urbana, May 21, 2000), ed. M. A. Bennett et al., Peters, 2003."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079588/b079588.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Sum 1/a(n) = Pi/3 (cf. Tijdeman).",
+				"G.f.: (1+26*x+21*x^2)/(1-x)^4. - _L. Edson Jeffery_, Mar 25 2013",
+				"Conjectures: sum_{n=0,...,infinity} a(n)/2^n = 308; sum_{n=0,...,infinity} (-1)^n*a(n)/2^n = -4/3. - _L. Edson Jeffery_, Mar 25 2013",
+				"a(n) = 8*n^3 + 14*n^2 + 7*n + 1. - _Reinhard Zumkeller_, Jun 08 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a079588 n = product $ map ((+ 1) . (* n)) [1, 2, 4]",
+				"-- _Reinhard Zumkeller_, Jun 08 2015"
+			],
+			"xref": [
+				"Cf. A100147.",
+				"Cf. A258721 (first differences), A011199."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Jan 26 2003",
+			"references": 5,
+			"revision": 19,
+			"time": "2015-06-08T08:37:03-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79878,
+			"data": "1,2,1,2,4,2,4,8,7,4,8,4,8,2,4,8,16,14,9,18,15,8,16,8,16,6,12,24,19,8,16,32,31,28,21,6,12,24,9,18,36,30,17,34,23,46,45,42,35,20,40,28,3,6,12,24,48,38,17,34,7,14,28,56,47,28,56,44,19,38,5,10,20,40,5,10,20,40,1,2",
+			"name": "a(1)=1, then a(n)=2*a(n-1) if 2*a(n-1)\u003c=n, a(n)=2*a(n-1)-n otherwise.",
+			"comment": [
+				"a(A200087(n)) = n and a(m) \u003c\u003e n for m \u003c A200087(n). [_Reinhard Zumkeller_, Nov 13 2011]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079878/b079878.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A064434(n)+1.",
+				"It seems that sum(k=1, n, a(k))/n^2 -\u003e1/4"
+			],
+			"mathematica": [
+				"nxt[{n_,a_}]:={n+1,If[2a\u003c=n+1,2a,2a-n-1]}; Transpose[NestList[nxt,{1,1},80]][[2]] (* _Harvey P. Dale_, Jul 20 2015 *)"
+			],
+			"program": [
+				"(PARI) a=1; for(n=2,100,b=if(sign(2*a-n)-1,2*a,2*a-n); a=b; print1(b,\",\"))",
+				"(Haskell)",
+				"a079878 n = a079878_list !! (n-1)",
+				"a079878_list = 1 : zipWith (\\x n -\u003e if x \u003c= n then x else x - n)",
+				"                           (map (* 2) a079878_list) [2..]",
+				"-- _Reinhard Zumkeller_, Nov 13 2011"
+			],
+			"xref": [
+				"Cf. A200063 (fixed points), A064456 (positions of 1)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Benoit Cloitre_, Feb 20 2003",
+			"references": 5,
+			"revision": 23,
+			"time": "2015-07-20T19:24:56-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79892,
+			"data": "2,6,6,6,6,30,10,10,10,30,12,30,14,30,30,18,18,30,20,30,30,30,24,30,26,30,28,30,33,210,33,33,42,42,42,42,38,42,42,42,44,210,44,60,60,60,48,60,50,60,60,60,54,60,60,60,60,60,62,210,62,66,66,65,66,210,68,70,70,210",
+			"name": "Least number \u003e n having one more distinct prime factor than n.",
+			"comment": [
+				"A001221(a(n)) = A001221(n) + 1;",
+				"a(A002110(k)) = A002110(k+1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079892/b079892.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a079892 n = head [x | x \u003c- [n + 1 ..], a001221 x == 1 + a001221 n]",
+				"-- _Reinhard Zumkeller_, Aug 29 2013"
+			],
+			"xref": [
+				"Cf. A079893, A079890.",
+				"Cf. A165713."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jan 14 2003",
+			"references": 5,
+			"revision": 6,
+			"time": "2013-08-31T16:59:15-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80478,
+			"data": "1,2,3,8,13,20,23,30,31,44,49,74,79,80,89,96,101,104,105,116,119,124,131,134,139,140,149,150,157,158,165,172,173,178,183,202,203,230,231,250,257,260,261,274,289,290,291,296,311,334,335,342,343,360,367,372",
+			"name": "a(n) = smallest k\u003ea(n-1) such that k^2+a(n-1)^2 is prime, starting with a(1)=1. Square roots of A062067(n).",
+			"link": [
+				"Chai Wah Wu, \u003ca href=\"/A080478/b080478.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 2000 terms from Zak Seidov)."
+			],
+			"maple": [
+				"A[1]:= 1:",
+				"for n from 2 to 100 do",
+				"  for k from A[n-1]+1 while not isprime(k^2+A[n-1]^2) do od:",
+				"  A[n]:= k",
+				"od:",
+				"seq(A[n],n=1..100); # _Robert Israel_, Sep 01 2014"
+			],
+			"mathematica": [
+				"nxt[n_]:=Module[{n2=n^2,k=n+1},While[!PrimeQ[k^2+n2],k++];k]; NestList[nxt,1,60] (* _Harvey P. Dale_, Jun 24 2012 *)",
+				"a=1;sq={1}; Do[a2=a^2;b=a+1;While[!PrimeQ[a2+b^2],b=b+2]; AppendTo[sq,b]; a=b,{100}];sq (* _Zak Seidov_, Feb 21 2014 *)"
+			],
+			"program": [
+				"(PARI) p=1;print1(p\",\");for(n=2,1000, if(isprime(p+n^2),print1(n\",\");p=n^2))",
+				"(Haskell)",
+				"a080478 n = a080478_list !! (n-1)",
+				"a080478_list = 1 : f 1 [2..] where",
+				"   f x (y:ys) | a010051 (x*x + y*y) == 1 = y : (f y ys)",
+				"              | otherwise                = f x ys",
+				"-- _Reinhard Zumkeller_, Apr 28 2011",
+				"(Python)",
+				"from sympy import isprime",
+				"A080478, a = [1], 1",
+				"for _ in range(1,10000):",
+				"....a += 1",
+				"....b = 2*a*(a-1) + 1",
+				"....while not isprime(b):",
+				"........b += 4*(a+1)",
+				"........a += 2",
+				"....A080478.append(a) # _Chai Wah Wu_, Sep 01 2014"
+			],
+			"xref": [
+				"Cf. A073658, A100208, A010051."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Ralf Stephan_, Mar 22 2003",
+			"ext": [
+				"PARI program corrected by Zak Seidov, Apr 14 2008"
+			],
+			"references": 5,
+			"revision": 31,
+			"time": "2014-09-03T10:38:13-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80945,
+			"data": "15,27,30,39,45,51,54,60,63,75,78,85,87,90,99,102,108,111,119,120,123,125,126,135,147,150,153,156,159,165,170,171,174,175,180,183,187,195,198,204,205,207,216,219,221,222,231,238,240,243,245,246,250,252,255",
+			"name": "Numbers having more than two divisors that are also suffixes in binary representation.",
+			"comment": [
+				"A080942(a(n))\u003e2; complement of A080944;",
+				"A080942(a(n))-2 \u003c A070824(a(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080945/b080945.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a080945 n = a080945_list !! (n-1)",
+				"a080945_list = filter ((\u003e 2) . a080942) [1..]",
+				"-- _Reinhard Zumkeller_, Mar 27 2014"
+			],
+			"xref": [
+				"Cf. A080943, A080946, A007088, A080940, A080941."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Feb 25 2003",
+			"references": 5,
+			"revision": 9,
+			"time": "2014-05-02T00:24:14-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80946,
+			"data": "15,27,30,39,45,51,54,60,75,78,85,87,90,99,102,108,111,119,120,123,125,135,147,150,153,156,159,165,170,171,174,175,180,183,187,195,198,204,205,207,216,219,221,222,238,240,243,245,246,250,267,270,279,285,287",
+			"name": "Numbers having exactly three divisors that are also suffixes in binary representation.",
+			"comment": [
+				"A080942(a(n))=3."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080946/b080946.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a080946 n = a080946_list !! (n-1)",
+				"a080946_list = filter ((== 3) . a080942) [1..]",
+				"-- _Reinhard Zumkeller_, Mar 27 2014"
+			],
+			"xref": [
+				"Cf. A080943, A080945, A080947, A007088, A080940, A080941."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Feb 25 2003",
+			"references": 5,
+			"revision": 9,
+			"time": "2014-05-02T00:24:47-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 81146,
+			"data": "1,2,5,3,8,11,4,6,14,17,20,9,23,7,26,12,29,32,35,10,15,38,40,43,18,46,13,21,49,52,55,58,24,16,61,64,27,67,70,72,19,30,75,77,33,80,22,36,83,86,89,92,95,25,39,98,101,41,104,28,44,107,110,113,116,47,119,31,122",
+			"name": "Inverse permutation to A081145.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A081146/b081146.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"mathematica": [
+				"f[s_] := Block[{d = Abs[Rest@s - Most@s], k = 1}, While[ MemberQ[d, Abs[k - Last@s]] || MemberQ[s, k], k++ ]; Append[s, k]]; t = Nest[f, {1}, 130]; Table[ Position[t, n], {n, 70}] // Flatten (* _Robert G. Wilson v_, Jun 09 2006 *)",
+				"f[s_] := Block[{k = 1, d = Abs[Most@s - Rest@s], l = Last@s}, While[MemberQ[s, k] || MemberQ[d, Abs[l - k]], k++ ]; Append[s, k]]; t = Nest[f, {1}, 125]; Table[Position[t, n], {n, 71}] // Flatten (* _Robert G. Wilson v_, Jun 13 2006 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a081146 = (+ 1) . fromJust . (`elemIndex` a081145_list)",
+				"-- _Reinhard Zumkeller_, Jul 02 2015"
+			],
+			"xref": [
+				"Cf. A081145."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Don Reble_, Mar 08 2003",
+			"references": 5,
+			"revision": 13,
+			"time": "2017-10-19T03:14:12-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

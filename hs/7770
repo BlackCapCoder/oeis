@@ -1,0 +1,318 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7770,
+	"results": [
+		{
+			"number": 258324,
+			"data": "1,1,2,6,4,60,6,84,24,360,10,3960,12,1092,420,840,16,12240,18,13680,1260,4620,22,1275120,120,7800,936,19656,28,1096200,30,52080,5280,17952,7140,5654880,36,25308,8892,2489760,40,1343160,42,397320,27720",
+			"name": "Least common multiple of all n - d, where d \u003c n and d is a divisor of n.",
+			"comment": [
+				"a(n) is a divisor of A072513(n).",
+				"a(n) = n-1 if and only if n is prime. - _Robert Israel_, May 26 2015"
+			],
+			"link": [
+				"Ivan Neretin, \u003ca href=\"/A258324/b258324.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = lcm(n-d_1, n-d_2, ..., n-d_k) where d_i are the aliquot divisors of n."
+			],
+			"example": [
+				"a(9) = lcm(9-1, 9-3) = lcm(8, 6) = 24."
+			],
+			"maple": [
+				"f:= n -\u003e ilcm(seq(n-d, d = numtheory:-divisors(n) minus {n})):",
+				"map(f,[$ 1 .. 100]); # _Robert Israel_, May 26 2015"
+			],
+			"mathematica": [
+				"Table[If[n == 1, 1, LCM @@ (n - Most[Divisors[n]])], {n, 50}]"
+			],
+			"program": [
+				"(PARI) a(n)=lcm(apply(d-\u003eif(d\u003cn,n-d,1),divisors(n))) \\\\ _Charles R Greathouse IV_, May 26 2015",
+				"(Haskell)",
+				"a258324 n = foldl lcm 1 $ map (n -) $ a027751_row n",
+				"-- _Reinhard Zumkeller_, May 27 2015"
+			],
+			"xref": [
+				"Cf. A072513 (product instead of LCM).",
+				"Cf. A027751."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Ivan Neretin_, May 26 2015",
+			"references": 2,
+			"revision": 16,
+			"time": "2018-03-13T04:08:37-04:00",
+			"created": "2015-05-27T05:18:52-04:00"
+		},
+		{
+			"number": 258330,
+			"data": "7,4,1,8,5,2,9,6,3,70,77,84,91,98,105,12,19,26,33,40,47,54,61,68,75,82,89,96,203,10,17,24,31,38,45,52,59,66,73,80,87,94,301,308,15,22,29,36,43,50,57,64,71,78,85,92,99,406,13,20,27,34,41,48,55,62",
+			"name": "Inverse permutation to A258329.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258330/b258330.txt\"\u003eTable of n, a(n) for n = 1..9999\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a258330 = (+ 1) . fromJust . (`elemIndex` a258329_list)"
+			],
+			"xref": [
+				" Cf. A258329."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 27 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-05-27T05:55:33-04:00",
+			"created": "2015-05-27T05:55:33-04:00"
+		},
+		{
+			"number": 258335,
+			"data": "7,1,2,28,3,4,49,5,6,70,77,8,9,98,10,11,119,12,13,14,147,15,16,168,17,18,189,19,20,21,217,22,23,238,24,25,259,26,27,280,287,29,30,308,31,32,329,33,34,35,357,36,37,378,38,39,399,40,41,42,427,43,44",
+			"name": "Inverse permutation to A258334.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258335/b258335.txt\"\u003eTable of n, a(n) for n = 1..9999\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a258335 = (+ 1) . fromJust . (`elemIndex` a258334_list)"
+			],
+			"xref": [
+				"Cf. A258334."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 27 2015",
+			"references": 2,
+			"revision": 8,
+			"time": "2015-05-27T05:56:59-04:00",
+			"created": "2015-05-27T05:56:12-04:00"
+		},
+		{
+			"number": 258353,
+			"data": "1,2,5,8,9,13,17,20,21,24,25,28,31,35,36,43,47,48,55,59,64,65,69,72,73,77,80,83,84,87,90,91,95,98,99,102,103,106,109,110,116,120,121,126,127,130,133,134,137,138,142,143,146,149,150,154,157,158,162,165",
+			"name": "Where ones occur in A212306.",
+			"comment": [
+				" A212306(a(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258353/b258353.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a258353 n = a258353_list !! (n-1)",
+				"a258353_list = filter ((== 1) . a212306) [1..]"
+			],
+			"xref": [
+				" Cf. A212306."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 27 2015",
+			"references": 2,
+			"revision": 5,
+			"time": "2015-05-27T17:41:22-04:00",
+			"created": "2015-05-27T17:41:22-04:00"
+		},
+		{
+			"number": 258354,
+			"data": "1,3,6,7,10,16,34,23,32,160,18,159,30,63,370,458,42,60,81,79,101,94,123,100,1528,215,494,522,1037,147,1363,697,178,302,276,1336,212,804,186,226,267,815,117,125,170,216,312,883,906,360,206,258,311,354,337",
+			"name": "Smallest m such that A212306(m) = n.",
+			"comment": [
+				" A212306(a(n)) = n and A212306(m) != n for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258354/b258354.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a258354 = (+ 1) . fromJust . (`elemIndex` a212306_list)"
+			],
+			"xref": [
+				" Cf. A212306."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 27 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-05-27T17:41:38-04:00",
+			"created": "2015-05-27T17:41:38-04:00"
+		},
+		{
+			"number": 258721,
+			"data": "29,105,229,401,621,889,1205,1569,1981,2441,2949,3505,4109,4761,5461,6209,7005,7849,8741,9681,10669,11705,12789,13921,15101,16329,17605,18929,20301,21721,23189,24705,26269,27881,29541,31249,33005,34809,36661,38561,40509",
+			"name": "a(n) = 24*n^2 + 52*n + 29.",
+			"comment": [
+				"First differences of A079588.",
+				"6*a(n) - 5 is a square. Therefore, this is the quadrisection of the sequence which lists the numbers m such that 6*m-5 is a square (without 1):  1, 5, 9, 21, 29, 49, 61, 89, 105, 141, 161, 205, 229, ... .  [_Bruno Berselli_, Jun 08 2015]"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258721/b258721.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (3,-3,1)."
+			],
+			"formula": [
+				"G.f.: (29 + 18*x + x^2)/(1 - x)^3."
+			],
+			"mathematica": [
+				"Table[24 n^2 + 52 n + 29, {n, 0, 50}] (* _Bruno Berselli_, Jun 08 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a258721 n = 4 * n * (6 * n + 13) + 29",
+				"(PARI) vector(50, n, n--; 24*n^2+52*n+29) \\\\ _Bruno Berselli_, Jun 08 2015",
+				"(Sage) [24*n^2+52*n+29 for n in (0..50)] # _Bruno Berselli_, Jun 08 2015",
+				"(MAGMA) [24*n^2+52*n+29: n in (0..50)] // _Bruno Berselli_, Jun 08 2015",
+				"(Maxima) makelist(24*n^2+52*n+29, n, 0, 50); /* _Bruno Berselli_, Jun 08 2015 */"
+			],
+			"xref": [
+				"Cf. A079588."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Jun 08 2015",
+			"references": 2,
+			"revision": 14,
+			"time": "2015-06-13T00:55:38-04:00",
+			"created": "2015-06-08T08:26:09-04:00"
+		},
+		{
+			"number": 258765,
+			"data": "0,1,98,3,5,25,8,34,13,44,325,7,22,86,20,11,74,1910,62,122,17,4563,254,19,15,50,117,7174,385,177,29,16,61,69,24,213,51,118,73,56601,41,121,82,23,866,9025,68,43,35,142,135,5005,39,77,106,52,174,5865,70",
+			"name": "Smallest m such that |A258057(m)| = n.",
+			"comment": [
+				"|A258057(a(n))| = n and |A258057(m)| != n for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258765/b258765.txt\"\u003eTable of n, a(n) for n = 0..177\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a258765 = fromJust . (`elemIndex` (map abs a258057_list))"
+			],
+			"xref": [
+				"Cf. A258057, A003415."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jun 10 2015",
+			"references": 2,
+			"revision": 5,
+			"time": "2015-06-10T06:44:55-04:00",
+			"created": "2015-06-10T06:44:55-04:00"
+		},
+		{
+			"number": 259022,
+			"data": "1,-1,-1,1,0,-1,1,1,-1,1,-1,-1,1,0,-1,1,1,-1,1,-1,-1,1,0,-1,1,1,-1,1,-1,-1,1,0,-1,1,1,-1,1,-1,-1,1,0,-1,1,1,-1,1,-1,-1,1,0,-1,1,1,-1,1,-1,-1,1,0,-1,1,1,-1,1,-1,-1,1,0,-1,1,1,-1,1,-1,-1",
+			"name": "Period 9 sequence [ 1, -1, -1, 1, 0, -1, 1, 1, -1, ...].",
+			"link": [
+				"\u003ca href=\"/index/Rec#order_08\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (-1,-1,-1,-1,-1,-1,-1,-1)."
+			],
+			"formula": [
+				"Euler transform of length 9 sequence [ -1, -1, 0, 0, -1, 0, 0, 0, 1].",
+				"a(n) = b(2*n+1) where b() is multiplicative with b(2^e) = 0^e, a(3) = -1, a(3^e) = 0 if e\u003e1, b(p^e) = 1 if p == 1 (mod 6), b(p^e) = (-1)^e if p == 5 (mod 6).",
+				"G.f.: (1 - x) * (1 - x^2) * (1 - x^5) / (1 - x^9).",
+				"a(n) = -a(-1-n) = a(n+9) for all n in Z.",
+				"a(n) = A259024(2*n + 1)."
+			],
+			"example": [
+				"G.f. = 1 - x - x^2 + x^3 - x^5 + x^6 + x^7 - x^8 + x^9 - x^10 - x^11 + ...",
+				"G.f. = q - q^3 - q^5 + q^7 - q^11 + q^13 + q^15 - q^17 + q^19 - q^21 + ..."
+			],
+			"mathematica": [
+				"a[ n_] := { 1, -1, -1, 1, 0, -1, 1, 1, -1} [[Mod[ n, 9] + 1]];"
+			],
+			"program": [
+				"(PARI) {a(n) = [ 1, -1, -1, 1, 0, -1, 1, 1, -1] [n%9 + 1]};",
+				"(PARI) {a(n) = my(A, p, e); if( n\u003c0, n=-1-n; -1, 1) * if( n==0, 1, A = factor(2*n + 1); prod( k=1, matsize(A)[1], [p, e] = A[k,]; if( p==2, 0, p==3, -(e==1), p%6==1, 1, (-1)^e)))};",
+				"(Haskell)",
+				"a259022 n = a259022_list !! n",
+				"a259022_list = cycle [1, -1, -1, 1, 0, -1, 1, 1, -1]",
+				"-- _Reinhard Zumkeller_, Jun 17 2015"
+			],
+			"xref": [
+				"Cf. A259024."
+			],
+			"keyword": "sign,easy",
+			"offset": "0",
+			"author": "_Michael Somos_, Jun 16 2015",
+			"references": 2,
+			"revision": 9,
+			"time": "2016-07-13T01:26:20-04:00",
+			"created": "2015-06-16T19:33:19-04:00"
+		},
+		{
+			"number": 259031,
+			"data": "3,1,16,192,768,3072,12288,49152,196608,786432,3145728,12582912",
+			"name": "Smallest m such that |A259029(m)| = n.",
+			"comment": [
+				"|A259029(a(n))| = n and |A259029(m)| != n for m \u003c a(n)."
+			],
+			"example": [
+				".   n |      a(n)            | A259029(a(n)) | A259024(a(n))",
+				". ----+----------------------+---------------+--------------",
+				".   0 |         3 | 3*2^0    |            0  |           -1",
+				".   1 |         1 |   2^0    |            1  |            1",
+				".   2 |        16 |   2^4    |            2  |            1",
+				".   3 |       192 | 3*2^6    |           -3  |           -1",
+				".   4 |       768 | 3*2^8    |           -4  |           -1",
+				".   5 |      3072 | 3*2^10   |           -5  |           -1",
+				".   6 |     12288 | 3*2^12   |           -6  |           -1",
+				".   7 |     49152 | 3*2^14   |           -7  |           -1",
+				".   8 |    196608 | 3*2^16   |           -8  |           -1",
+				".   9 |    786432 | 3*2^18   |           -9  |           -1",
+				".  10 |   3145728 | 3*2^20   |          -10  |           -1",
+				".  11 |  12582912 | 3*2^22   |          -11  |           -1  ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a259031 = (+ 1) . fromJust . (`elemIndex` (map abs a259029_list))"
+			],
+			"xref": [
+				"Cf. A259029, A259024."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Jun 17 2015",
+			"references": 2,
+			"revision": 5,
+			"time": "2015-06-17T04:12:40-04:00",
+			"created": "2015-06-17T03:49:57-04:00"
+		},
+		{
+			"number": 259043,
+			"data": "0,1,2,3,4,5,6,7,8,9,1,3,5,7,9,11,13,15,17,10,2,4,6,8,10,12,14,16,9,12,3,5,7,9,11,13,15,8,11,14,4,6,8,10,12,14,7,10,13,16,5,7,9,11,13,6,9,12,15,18,6,8,10,12,5,8,11,14,17,20,7,9,11,4,7",
+			"name": "a(n) = if n \u003c 10 then n else a(floor(n/10) + n mod 10) + n mod 10.",
+			"comment": [
+				"a(A259046(n)) = n and a(m) != n for m \u003c A259046(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A259043/b259043.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a259043 x = if x \u003c 10 then x else a259043 (x' + d) + d",
+				"            where (x', d) = divMod x 10"
+			],
+			"xref": [
+				"Cf. A076314, A007953, A008687, A259046."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Jun 17 2015",
+			"references": 2,
+			"revision": 10,
+			"time": "2017-05-14T11:36:54-04:00",
+			"created": "2015-06-17T16:38:36-04:00"
+		}
+	]
+}

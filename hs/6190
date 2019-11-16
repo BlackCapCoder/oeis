@@ -1,0 +1,350 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6190,
+	"results": [
+		{
+			"number": 61674,
+			"data": "1,1,1,1,1,1,1,1,1,1,1,1,5,38,5,2,5,16,5,9,1,12,1,7,25,2,19,37,9,8,1,14,25,1,8,2,7,3,13,15,1,16,6,23,1,2,9,3,44,7,1,19,13,4,185,1,11,3,4,13,1,442,7,4,33,9,1,11,4,6,1,845,35,4,3,4,65,1,11,6,1,12345679,8,9,3",
+			"name": "Smallest k such that k*n is a palindrome or becomes a palindrome when 0's are added on the left.",
+			"comment": [
+				"Every positive integer is a factor of a palindrome, unless it is a multiple of 10 (D. G. Radcliffe, see Links)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A061674/b061674.txt\"\u003eTable of n, a(n) for n = 0..2500\u003c/a\u003e",
+				"P. De Geest, \u003ca href=\"http://www.worldofnumbers.com/em36.htm\"\u003eSmallest multipliers to make a number palindromic\u003c/a\u003e."
+			],
+			"example": [
+				"a(12) = 5 since 5*12 = 60 (i.e. 060) is a palindrome."
+			],
+			"mathematica": [
+				"rz[n_]:=Module[{idn=IntegerDigits[n]},While[Last[idn]==0,idn=Most[idn]];idn]; k[n_]:=Module[{k=1,p},p=k*n;While[rz[p]!=Reverse[rz[p]],k++;p=k*n];k]; Join[ {1},Array[k,90]] (* _Harvey P. Dale_, Mar 06 2013 *)"
+			],
+			"program": [
+				"(ARIBAS): stop := 50000000; for n := 0 to 100 do k := 1; test := true; while test and k \u003c stop do m := omit_trailzeros(n*k); if test := m \u003c\u003e int_reverse(m) then inc(k); end; end; if k \u003c stop then write(k,\" \"); else write(-1,\" \"); end; end;",
+				"(Haskell)",
+				"a061674 n = until ((== 1) . a136522 . a004151 . (* n)) (+ 1) 1",
+				"-- _Reinhard Zumkeller_, Jul 20 2012"
+			],
+			"xref": [
+				"Cf. A050782, A062293. Values of k*n are given in A062279."
+			],
+			"keyword": "nonn,base,easy,nice",
+			"offset": "0,13",
+			"author": "_Amarnath Murthy_, Jun 17 2001",
+			"references": 3,
+			"revision": 11,
+			"time": "2014-08-11T22:45:21-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 61883,
+			"data": "1,1,1,3,6,10,21,36,78,153,300,595,1176,2346,4656,9316,18528,37128,74305,148240,296835,593505,1186570,2372931,4744740,9489546,18975880,37953828,75909681,151806600,303626403,607243825,1214480970,2428940451",
+			"name": "Largest triangular number less than or equal to sum of previous terms with a(0)=1.",
+			"comment": [
+				"a(5)=10 since 1+1+1+3+6=12 and 10 is the largest triangular number less than or equal to this."
+			],
+			"link": [
+				"Harvey P. Dale, \u003ca href=\"/A061883/b061883.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A060985(n+1)-A060985(n) = A057944(A060985(n)) = A000217(A003056(A060985(n)))"
+			],
+			"mathematica": [
+				"ltn[n_]:=Module[{c=Floor[(Sqrt[8*n+1]-1)/2]},(c(c+1))/2]; nxt[{t_, a_}] := Module[ {m = ltn[t]}, {t + m, m}]; Transpose[NestList[nxt,{1,1},40]] [[2]] (* _Harvey P. Dale_, Feb 12 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a061883 n = a061883_list !! n",
+				"a061883_list = 1 : zipWith (-) (tail a060985_list) a060985_list",
+				"-- _Reinhard Zumkeller_, Feb 03 2012"
+			],
+			"keyword": "nonn",
+			"offset": "0,4",
+			"author": "_Henry Bottomley_, May 12 2001",
+			"references": 3,
+			"revision": 9,
+			"time": "2016-02-12T17:06:27-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 62550,
+			"data": "0,3,8,14,20,27,35,41,50,58,66,74,84,91,101,111,119,127,140,146,158,168,176,186,198,207,217,227,239,247,261,267,280,292,300,312,326,332,344,356,368,377,391,399,411,425,435,443,459,467,482,492,502,514,528",
+			"name": "Sum_{k = 1..2n} floor(2n/k).",
+			"comment": [
+				"The sequence A006218 : Sum_{i=1..n} floor(n/i) = Sum_{i=1..n} sigma_0(i). Sigma_0(i) is A000005. Sequences of the type : Sum_{i=1..f(n)} floor(f(n)/i)= Sum_{i=1..f(n)} sigma_0(i). This sequence A062550(n)= A006218(2*n). [From _Ctibor O. Zizka_, Mar 21 2009]",
+				"For n \u003e 0: row sums of the triangle in A013942. - _Reinhard Zumkeller_, Jun 04 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A062550/b062550.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) =A006218(2n) =A056549(n)+A006218(n) =a(n-1)+A000005(2n-1)+A000005(2n)"
+			],
+			"mathematica": [
+				"Table[Total[Floor[2*n/Range[2*n]]], {n, 0, 100}] (* _T. D. Noe_, Jun 12 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a062550 0 = 0",
+				"a062550 n = sum $ a013942_row n  -- _Reinhard Zumkeller_, Jun 04 2013"
+			],
+			"xref": [
+				"Cf. A013942, A156745, A085831, A153816, A153817, A153876."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Henry Bottomley_, Jun 26 2001",
+			"ext": [
+				"Data corrected for n \u003e 30 by _Reinhard Zumkeller_, Jun 04 2013"
+			],
+			"references": 3,
+			"revision": 9,
+			"time": "2013-06-12T19:53:57-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 62723,
+			"data": "1,1,2,6,12,12,36,36,36,108,108,108,324,324,324,972,972,972,2916,2916,2916,8748,8748,8748,26244,26244,26244,78732,78732,78732,236196,236196,236196,708588,708588,708588,2125764,2125764,2125764,6377292,6377292",
+			"name": "Least common multiple (LCM) of the first n+1 terms of A000792.",
+			"comment": [
+				"Apparently this sequence (when taken without repeats) is a subsequence of A000792, cf. A202337."
+			],
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A062723/b062723.txt\"\u003eTable of n, a(n) for n = 0..400\u003c/a\u003e",
+				"\u003ca href=\"/index/Lc#lcm\"\u003eIndex entries for sequences related to lcm's\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = 4*3^floor(n/3), n \u003e= 3. - _Vladeta Jovovic_, Jul 18 2001",
+				"G.f.: (1+x+2*x^2+3*x^3+9*x^4+6*x^5+18*x^6)/(1-3*x^3)."
+			],
+			"example": [
+				"a(4)=12 because a(4) is the LCM of 1,1,2,3,4 - which is clearly 12."
+			],
+			"program": [
+				"(PARI) a(n)=if(n\u003c0,0,if(n\u003c4,n!,4*3^(n\\3)))",
+				"(Haskell)",
+				"a062723 n = a062723_list !! n",
+				"a062723_list = scanl1 lcm a000792_list",
+				"-- _Reinhard Zumkeller_, Dec 17 2011"
+			],
+			"xref": [
+				"Cf. A000244, A000792."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,3",
+			"author": "Felix Goldberg (felixg(AT)tx.technion.ac.il), Jul 15 2001",
+			"ext": [
+				"Formula and correction from _Vladeta Jovovic_, Jul 18 2001",
+				"More terms from _Jason Earls_, Jul 21 2001"
+			],
+			"references": 3,
+			"revision": 23,
+			"time": "2018-06-29T02:15:32-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 62825,
+			"data": "0,2,5,6,3,7,15,9,8,14,20,21,10,13,35,5,15,12,27,41,30,14,19,12,54,21,16,49,53,39,32,25,75,7,42,20,45,65,16,63,22,31,107,33,40,62,18,77,57,26,73,122,39,48,63,18,89,105,39,43,139,22,45,32,91,143,20,75,34,49,24,155,72,56,116,113,105,86,55,171,105,40,135",
+			"name": "Ch(n-th nonprime) where Ch(n) is Chowla's function, cf. A048050.",
+			"comment": [
+				"a(n) = A048050(A018252(n)).",
+				"a(n+1) = sum of nontrivial divisors of n-th composite number, or row sums in table A163870. - _Juri-Stepan Gerasimov_, Aug 06 2009"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A062825/b062825.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"with(numtheory): a_list := proc(n); {$1..n} minus select(isprime,{$1..n}); sort(convert(%, list)); map(f-\u003eadd(d,d=(divisors(f) minus {1,f})),%) end: a_list(113); # _Peter Luschny_, Mar 29 2014"
+			],
+			"mathematica": [
+				"Reap[Do[If[!PrimeQ[k], Sow[If[k == 1, 0, DivisorSigma[1, k] - k - 1 ]]], {k, 1, 120}]][[2, 1]] (* _Jean-François Alcover_, Feb 12 2018 *)"
+			],
+			"program": [
+				"(PARI) j=[0]; for(n=2,200, if(isprime(n), n+1,j=concat(j, sigma(n)-n-1))); j",
+				"(Haskell)",
+				"a062825 1 = 0",
+				"a062825 n = sum $ a163870_row (n - 1) -- _Reinhard Zumkeller_, Mar 29 2014"
+			],
+			"xref": [
+				"Cf. A048050, A002808."
+			],
+			"keyword": "nonn,look,easy",
+			"offset": "1,2",
+			"author": "_Jason Earls_, Jul 20 2001",
+			"ext": [
+				"Definition revised and a(1) corrected by _Reinhard Zumkeller_, Mar 29 2014"
+			],
+			"references": 3,
+			"revision": 27,
+			"time": "2018-02-12T09:12:28-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63054,
+			"data": "1997,9988,18887,97768,184547,930028,1750067,9350638,17711177,94822948,179745797,977293768,1844686547,9301551028,17503102067,93523232638,177146465177,948711106948,1798312224797,9772534363768,18446168716547",
+			"name": "'Reverse and Add!' trajectory of 1997.",
+			"link": [
+				"Reinhard Zumkeller and Michael Lee, \u003ca href=\"/A063054/b063054.txt\"\u003eTable of n, a(n) for n = 0..2318\u003c/a\u003e (terms 0 through 250 provided by Reinhard Zumkeller",
+				"\u003ca href=\"/index/Res#RAA\"\u003eIndex entries for sequences related to Reverse and Add!\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 1997 + 7991 = 9988."
+			],
+			"mathematica": [
+				"NestList[ #+FromDigits[ Reverse[ IntegerDigits[ # ] ] ]\u0026, 1997, 25 ]"
+			],
+			"program": [
+				"(ARIBAS): m := 1997; stop := 25; c := 0; rev := int_reverse(m); while m \u003c\u003e rev and c \u003c stop do inc(c); write(m,\" \"); m := m + rev; rev := int_reverse(m); end;",
+				"(Haskell)",
+				"a063054 n = a063054_list !! n",
+				"a063054_list = iterate a056964 1997 -- _Reinhard Zumkeller_, Sep 22 2011"
+			],
+			"xref": [
+				"A033865, A023108, A006960, A063055, A056964, A004086."
+			],
+			"keyword": "base,nonn",
+			"offset": "0,1",
+			"author": "_Klaus Brockhaus_, Jul 07 2001",
+			"references": 3,
+			"revision": 17,
+			"time": "2013-02-22T21:37:24-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63060,
+			"data": "10553,46054,91118,172237,904508,1709917,8908988,17807086,85877957,161855815,680413976,1359728062,3968007593,7925016286,14751121583,53263237324,95636473559,191173937218,1003913308409,10051946501410",
+			"name": "'Reverse and Add!' trajectory of 10553.",
+			"link": [
+				"Reinhard Zumkeller and Michael Lee, \u003ca href=\"/A063060/b063060.txt\"\u003eTable of n, a(n) for n = 0..2423\u003c/a\u003e (terms 0 through 250 provided by Reinhard Zumkeller)",
+				"\u003ca href=\"/index/Res#RAA\"\u003eIndex entries for sequences related to Reverse and Add!\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 10553 + 35501 = 46054."
+			],
+			"mathematica": [
+				"NestList[# + FromDigits[Reverse[IntegerDigits[#]]]\u0026, 10553, 40] (* _Vincenzo Librandi_, May 03 2014 *)"
+			],
+			"program": [
+				"(ARIBAS): m := 10553; stop := 25; c := 0; rev := int_reverse(m); while m \u003c\u003e rev and c \u003c stop do inc(c); write(m,\" \"); m := m + rev; rev := int_reverse(m); end;",
+				"(Haskell)",
+				"a063060 n = a063060_list !! n",
+				"a063060_list = iterate a056964 10553 -- _Reinhard Zumkeller_, Sep 22 2011"
+			],
+			"xref": [
+				"A033865, A023108, A006960, A063061.",
+				"Cf. A056964, A004086."
+			],
+			"keyword": "base,nonn",
+			"offset": "0,1",
+			"author": "_Klaus Brockhaus_, Jul 07 2001",
+			"ext": [
+				"Updated b-file from _Michael Lee_, Apr 01 2012"
+			],
+			"references": 3,
+			"revision": 24,
+			"time": "2014-05-03T07:19:41-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63063,
+			"data": "10563,47064,93138,176277,948948,1798797,9777768,18455547,93011028,175022067,935242638,1771485177,9487326948,17983564797,97730103768,184460207547,930162272028,1750434533067,9353788873638,17717577747177",
+			"name": "'Reverse and Add!' trajectory of 10563.",
+			"link": [
+				"Reinhard Zumkeller and Michael Lee, \u003ca href=\"/A063063/b063063.txt\"\u003eTable of n, a(n) for n = 0..2383\u003c/a\u003e (terms 0 through 250 provided by Reinhard Zumkeller)",
+				"\u003ca href=\"/index/Res#RAA\"\u003eIndex entries for sequences related to Reverse and Add!\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 10563 + 36501 = 47064."
+			],
+			"mathematica": [
+				"NestList[# + FromDigits[Reverse[IntegerDigits[#]]]\u0026, 10563, 30] (* _Vincenzo Librandi_, May 03 2014 *)"
+			],
+			"program": [
+				"(ARIBAS): m := 10563; stop := 25; c := 0; rev := int_reverse(m); while m \u003c\u003e rev and c \u003c stop do inc(c); write(m,\" \"); m := m + rev; rev := int_reverse(m); end;",
+				"(Haskell)",
+				"a063063 n = a063063_list !! n",
+				"a063063_list = iterate a056964 10563 -- _Reinhard Zumkeller_, Sep 22 2011"
+			],
+			"xref": [
+				"A033865, A023108, A006960, A063064.",
+				"Cf. A056964, A004086."
+			],
+			"keyword": "base,nonn",
+			"offset": "0,1",
+			"author": "_Klaus Brockhaus_, Jul 07 2001",
+			"references": 3,
+			"revision": 19,
+			"time": "2014-05-03T07:20:28-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63232,
+			"data": "5,16,24,36,44,56,64,76,84,96,104,116,124,136,144,156,164,176,184,196,204,216,224,236,244,256,264,276,284,296,304,316,324,336,344,356,364,376,384,396,404,416,424,436,444,456,464,476,484,496,504,516,524,536",
+			"name": "Dimension of the space of weight 2n cuspidal newforms for Gamma_0( 77 ).",
+			"comment": [
+				"Also dimension of the space of weight 2n cuspidal newforms for Gamma_0( 93 )."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A063232/b063232.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"William A. Stein, \u003ca href=\"http://wstein.org/Tables/dimskg0new.gp\"\u003eDimensions of the spaces S_k^{new}(Gamma_0(N))\u003c/a\u003e",
+				"William A. Stein, \u003ca href=\"http://wstein.org/Tables/\"\u003eThe modular forms database\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_03\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (1,1,-1)."
+			],
+			"formula": [
+				"a(n) = 5+10*(n-1)+(-1)^n+{C[2*(n-1),n-1] mod 2}, with n\u003e=1. - _Paolo P. Lava_, Nov 20 2009",
+				"Except for the first term, a(n) = 20*(n-1)-a(n-1), (with a(2)=16). - _Vincenzo Librandi_, Dec 07 2010",
+				"a(n) = -5+(-1)^n+10*n for n\u003e1. a(n)=a(n-1)+a(n-2)-a(n-3) for n\u003e4; G.f.: x*(x^3+3*x^2+11*x+5) / ((x-1)^2*(x+1)). - _Colin Barker_, Sep 08 2013"
+			],
+			"mathematica": [
+				"Table[5 + 10 (n - 1) + (-1)^n + Mod[Binomial[2 (n - 1), n - 1], 2], {n, 50}] (* _Wesley Ivan Hurt_, May 25 2014 *)",
+				"LinearRecurrence[{1,1,-1},{5,16,24,36},60] (* _Harvey P. Dale_, Aug 21 2017 *)"
+			],
+			"program": [
+				"(PARI) A063232(n)=10*n-3-bittest(n,0)*2-(n\u003e1) - M. F. Hasler, Mar 05 2012",
+				"(Haskell)",
+				"a063232 n = a063232_list !! (n-1)",
+				"a063232_list = 5 : 16 : 24 : 36 : zipWith3 (((-) .) . (+))",
+				"   (drop 3 a063232_list) (drop 2 a063232_list) (tail a063232_list)",
+				"-- _Reinhard Zumkeller_, May 03 2015"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Jul 10 2001",
+			"references": 3,
+			"revision": 34,
+			"time": "2019-08-22T12:18:12-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 63660,
+			"data": "10,10,12,13,14,15,16,17,18,19,11,12,13,14,15,16,17,18,19,21,21,22,23,24,25,26,27,28,29,32,31,32,33,34,35,36,37,38,39,43,41,42,43,44,45,46,47,48,49,54,51,52,53,54,55,56,57,58,59,65,61,62,63,64,65,66,67,68,69",
+			"name": "Min{ m | m \u003e n and both numbers have at least one common decimal digit}.",
+			"link": [
+				"Harry J. Smith, \u003ca href=\"/A063660/b063660.txt\"\u003eTable of n, a(n) for n = 0..2000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"nmax = 100; XhasD[x_, d_] := MemberQ[IntegerDigits[x], d]; Reap[For[n = 0, n \u003c= nmax, n++, For[m = n+1, m \u003c= 10*n + 10, m++, a = m; b = False; For[d = 0, d \u003c= 9, d++, If[XhasD[n, d] \u0026\u0026 XhasD[m, d], b = True; Break[]]]; If[b, Break[]]]; Sow[a]]][[2, 1]] (* _Jean-François Alcover_, Jul 31 2015, after _Harry J. Smith_ *)"
+			],
+			"program": [
+				"(PARI) XhasD(x,d)= { local(f); while (x\u003e9, f=x-10*(x\\10); if (f==d, return(1)); x\\=10); return(x==d) } { for (n=0, 2000, for (m=n + 1, 10*n + 10, a=m; b=0; for (d=0, 9, if (XhasD(n, d) \u0026\u0026 XhasD(m, d), b=true; break)); if (b, break) ); write(\"b063660.txt\", n, \" \", a) ) } \\\\ _Harry J. Smith_, Aug 27 2009",
+				"(Haskell)",
+				"import Data.List (intersect)",
+				"a063660 n = head [m | m \u003c- [n + 1 ..],",
+				"                      not $ null $ show m `intersect` show n]",
+				"-- _Reinhard Zumkeller_, Jan 15 2013"
+			],
+			"xref": [
+				"Cf. A063661, A063662."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Jul 25 2001",
+			"references": 3,
+			"revision": 15,
+			"time": "2018-06-25T22:56:59-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

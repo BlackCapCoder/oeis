@@ -1,0 +1,414 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 2380,
+	"results": [
+		{
+			"number": 169965,
+			"data": "0,2,20,22,200,202,220,222,2000,2002,2020,2022,2200,2202,2220,2222,20000,20002,20020,20022,20200,20202,20220,20222,22000,22002,22020,22022,22200,22202,22220,22222,200000,200002,200020,200022,200200,200202,200220,200222",
+			"name": "Numbers whose decimal expansion contains only 0's and 2's.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A169965/b169965.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ca#CARRYLESS\"\u003eIndex entries for sequences related to carryless arithmetic\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n+1)=Sum_k\u003e=0 {A030308(n,k)*A093136(k+1)}. - From _Philippe Deléham_, Oct 16 2011.",
+				"a(n) = 2 * A007088(n-1)."
+			],
+			"program": [
+				"(PARI) print1(0);for(d=1,5,for(n=2^(d-1),2^d-1,print1(\", \");forstep(i=d-1,0,-1,print1((n\u003e\u003ei)%2*2)))) \\\\ _Charles R Greathouse IV_, Nov 16 2011",
+				"(Haskell)",
+				"a169965 n = a169965_list !! (n-1)",
+				"a169965_list = map (* 2) a007088_list",
+				"-- _Reinhard Zumkeller_, Jan 10 2012"
+			],
+			"xref": [
+				"Cf. A007088, A014263, A169964, A169966, A169967.",
+				"Cf. A078241, A204093, A204094, A204095, A097256."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Aug 07 2010",
+			"references": 14,
+			"revision": 23,
+			"time": "2014-08-11T22:45:41-04:00",
+			"created": "2010-08-27T03:00:00-04:00"
+		},
+		{
+			"number": 169967,
+			"data": "0,4,40,44,400,404,440,444,4000,4004,4040,4044,4400,4404,4440,4444,40000,40004,40040,40044,40400,40404,40440,40444,44000,44004,44040,44044,44400,44404,44440,44444,400000,400004,400040,400044,400400,400404,400440,400444",
+			"name": "Numbers whose decimal expansion contains only 0's and 4's.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A169967/b169967.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n+1)=Sum_k\u003e=0 {A030308(n,k)*A093141(k+1)}. - From _Philippe Deléham_, Oct 16 2011.",
+				"a(n) = 4 * A007088(n-1)."
+			],
+			"mathematica": [
+				"FromDigits/@Tuples[{0,4},6] (* _Harvey P. Dale_, Dec 21 2018 *)"
+			],
+			"program": [
+				"(PARI) print1(0);for(d=1,5,for(n=2^(d-1),2^d-1,print1(\", \");forstep(i=d-1,0,-1,print1((n\u003e\u003ei)%2*4)))) \\\\ _Charles R Greathouse IV_, Nov 16 2011",
+				"(Haskell)",
+				"a169967 n = a169967_list !! (n-1)",
+				"a169967_list = map (* 4) a007088_list",
+				"-- _Reinhard Zumkeller_, Jan 10 2012"
+			],
+			"xref": [
+				"Cf. A007088, A014263, A093141, A169964, A169965, A169966, A078243, A204093, A204094, A204095, A097256."
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "1,2",
+			"author": "_N. J. A. Sloane_, Aug 07 2010",
+			"references": 14,
+			"revision": 24,
+			"time": "2018-12-21T12:31:20-05:00",
+			"created": "2010-08-27T03:00:00-04:00"
+		},
+		{
+			"number": 175524,
+			"data": "1,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,121,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269",
+			"name": "A000120-deficient numbers.",
+			"comment": [
+				"For a more precise definition, see comment in A175522.",
+				"All odd primes (A065091) are in the sequence. Squares of the form (2^n+3)^2, n\u003e=3, where 2^n+3 is prime (A057733), are also in the sequence. [Proof: (2^n+3)^2 = 2^(2*n)+2^(n+2)+2^(n+1)+2^3+1. Thus, since n\u003e=3, A000120((2^n+3)^2)=5. Also, for primes of the form 2^n+3, (2^n+3)^2 has only two proper divisors, 1 and 2^n+3, so A000120(1)+A000120(2^n+3) = 4, and in conclusion, (2^n+3)^2 is deficient. QED]",
+				"It is natural to assume that there are infinitely many primes of the form 2^n+3 (by analogy with the Mersenne sequence 2^n-1). If this is true, the sequence contains infinitely many composite numbers, because it contains all of the form (2^n+3)^2.",
+				"a(n) = A006005(n) for n \u003c= 30;",
+				"A192895(a(n)) \u003c 0. _Reinhard Zumkeller_, Jul 12 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A175524/b175524.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Sage) is_A175524 = lambda x: sum(A000120(d) for d in divisors(x)) \u003c 2*A000120(x)",
+				"A175524 = filter(is_A175524, IntegerRange(1, 10**4)) # _D. S. McNeil_, Dec 04 2010",
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a175524 n = a175524_list !! (n-1)",
+				"a175524_list = map (+ 1) $ findIndices (\u003c 0) a192895_list",
+				"-- _Reinhard Zumkeller_, Jul 12 2011",
+				"(PARI) is(n)=sumdiv(n,d,hammingweight(d))\u003c2*hammingweight(n) \\\\ _Charles R Greathouse IV_, Jan 28 2016"
+			],
+			"xref": [
+				"Cf. A175522 (perfect version), A175526 (abundant version), A000120, A005100, A005101."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Vladimir Shevelev_, Dec 03 2010",
+			"ext": [
+				"More terms from _Amiram Eldar_, Feb 18 2019"
+			],
+			"references": 14,
+			"revision": 28,
+			"time": "2019-02-18T12:06:29-05:00",
+			"created": "2010-11-12T14:24:15-05:00"
+		},
+		{
+			"number": 179244,
+			"data": "33,46,51,53,54,67,72,74,75,80,82,83,85,86,87,101,106,108,109,114,116,117,119,120,121,127,129,130,132,133,134,137,138,139,141,156,161,163,164,169,171,172,174,175,176,182,184,185,187,188,189,192,193,194,196",
+			"name": "Numbers n that have 4 terms in their Zeckendorf representation.",
+			"comment": [
+				"A007895(a(n)) = 4. - _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A179244/b179244.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"33=21+8+3+1;",
+				"46=34+8+3+1;",
+				"51=34+13+3+1;",
+				"53=34+13+5+1;",
+				"54=34+13+5+2;"
+			],
+			"maple": [
+				"with(combinat): B := proc (n) local A, ct, m, j: A := proc (n) local i: for i while fibonacci(i) \u003c= n do n-fibonacci(i) end do end proc: ct := 0: m := n: for j while 0 \u003c A(m) do ct := ct+1: m := A(m) end do: ct+1 end proc: Q := {}: for i from fibonacci(9)-1 to 200 do if B(i) = 4 then Q := `union`(Q, {i}) else end if end do: Q;"
+			],
+			"mathematica": [
+				"zeck = DigitCount[Select[Range[2000], BitAnd[#, 2*#] == 0\u0026], 2, 1];",
+				"Position[zeck, 4] // Flatten (* _Jean-François Alcover_, Jan 25 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a179244 n = a179244_list !! (n-1)",
+				"a179244_list = filter ((== 4) . a007895) [1..]",
+				"-- _Reinhard Zumkeller_, Mar 10 2013"
+			],
+			"xref": [
+				"Cf. A035517, A007895, A111458, A135709, A179242 - A179253."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Emeric Deutsch_, Jul 05 2010",
+			"references": 14,
+			"revision": 13,
+			"time": "2018-01-25T17:46:03-05:00",
+			"created": "2010-07-11T03:00:00-04:00"
+		},
+		{
+			"number": 188163,
+			"data": "1,3,5,6,9,10,11,13,17,18,19,20,22,23,25,28,33,34,35,36,37,39,40,41,43,44,46,49,50,52,55,59,65,66,67,68,69,70,72,73,74,75,77,78,79,81,82,84,87,88,89,91,92,94,97,98,100,103,107,108,110,113,117,122",
+			"name": "Smallest m such that A004001(m) = n.",
+			"comment": [
+				"How is this related to A088359? - _R. J. Mathar_, Jan 09 2013",
+				"It is not hard to show that a(n) exists for all n, and in particular a(n) \u003c 2^n. - _Charles R Greathouse IV_, Jan 13 2013",
+				"From _Antti Karttunen_, Jan 10 \u0026 18 2016: (Start)",
+				"Positions of records in A004001. After 1 the positions where A004001 increases (by necessity by one).",
+				"An answer to the question of _R. J. Mathar_ above: This sequence is equal to A088359 with prepended 1. This follows because at each of its unique values (terms of A088359), A004001 must grow, but it can grow nowhere else. See Kubo and Vakil paper and especially the illustrations of Q and R-trees on pages 229-230 (pages 5 \u0026 6 in PDF) and also in sequence A265332.",
+				"Obviously A004001 can obtain unique values only at points which form a subset (A266399) of this sequence.",
+				"(End)"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188163/b188163.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"T. Kubo and R. Vakil, \u003ca href=\"http://dx.doi.org/10.1016/0012-365X(94)00303-Z\"\u003eOn Conway's recursive sequence\u003c/a\u003e, Discr. Math. 152 (1996), 225-252.",
+				"User \"Panurge\", \u003ca href=\"https://mathoverflow.net/questions/234759/frankls-conjecture-and-oeis-sequence-a188163\"\u003eFrankl's conjecture and Oeis sequence A188163\u003c/a\u003e, Mathoverflow.net, Mar 29 2016.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Hofstadter_sequence\"\u003eHofstadter sequence\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Hofstadter-Conway10000-DollarSequence.html\"\u003eHofstadter-Conway $10,000 Sequence.\u003c/a\u003e",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"Other identities. For all n \u003e= 1:",
+				"A004001(a(n)) = n and A004001(m) \u003c n for m \u003c a(n).",
+				"A051135(n) = a(n+1) - a(n)."
+			],
+			"maple": [
+				"A188163 := proc(n)",
+				"    for a from 1 do",
+				"        if A004001(a) = n then",
+				"            return a;",
+				"        end if;",
+				"    end do:",
+				"end proc: # _R. J. Mathar_, May 15 2013"
+			],
+			"mathematica": [
+				"h[1] = 1; h[2] = 1; h[n_] := h[n] = h[h[n-1]] + h[n - h[n-1]];",
+				"a[n_] := For[m = 1, True, m++, If[h[m] == n, Return[m]]];",
+				"Array[a, 64] (* _Jean-François Alcover_, Jan 27 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a188163 n = succ $ fromJust $ elemIndex n a004001_list",
+				"(Scheme)",
+				"(define A188163 (RECORD-POS 1 1 A004001))",
+				";; Code for A004001 given in that entry. Uses also my IntSeq-library. - _Antti Karttunen_, Jan 18 2016"
+			],
+			"xref": [
+				"Equal to A088359 with prepended 1.",
+				"Column 1 of A265901, Row 1 of A265903.",
+				"Cf. A051135 (first differences).",
+				"Cf. A087686 (complement, apart from the initial 1).",
+				"Cf. A004001 (also the least monotonic left inverse of this sequence).",
+				"Cf. A093879, A265332.",
+				"Cf. A266399 (a subsequence)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 03 2011",
+			"references": 14,
+			"revision": 47,
+			"time": "2018-01-27T11:04:33-05:00",
+			"created": "2011-06-10T06:31:15-04:00"
+		},
+		{
+			"number": 195086,
+			"data": "8,24,27,36,40,54,56,88,100,104,120,125,135,136,152,168,180,184,189,196,225,232,248,250,252,264,270,280,296,297,300,312,328,343,344,351,375,376,378,396,408,424,440,441,450,456,459,468,472,484,488",
+			"name": "Numbers k such that (number of prime factors of k counted with multiplicity) less (number of distinct prime factors of k) = 2.",
+			"comment": [
+				"A001222(a(n)) - A001221(a(n)) = 2.",
+				"A046660(a(n)) = 2. - _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195086/b195086.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Eu#epf\"\u003eIndex entries for sequences computed from exponents in factorization of n\u003c/a\u003e"
+			],
+			"maple": [
+				"op(select(n-\u003ebigomega(n)-nops(factorset(n))=2, [$1..488])); # _Paolo P. Lava_, Jul 03 2018"
+			],
+			"mathematica": [
+				"Select[Range[500],PrimeOmega[#]-PrimeNu[#]==2\u0026]"
+			],
+			"program": [
+				"(PARI) is(n)=bigomega(n)-omega(n)==2 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(PARI) is(n)=my(f=factor(n)[,2]); vecsum(f)==#f+2 \\\\ _Charles R Greathouse IV_, Aug 01 2016",
+				"(Haskell)",
+				"a195086 n = a195086_list !! (n-1)",
+				"a195086_list = filter ((== 2) . a046660) [1..]",
+				"-- _Reinhard Zumkeller_, Nov 29 2015"
+			],
+			"xref": [
+				"Subsequence of A048108.",
+				"Subsequences: A030078 and A085986.",
+				"Cf. A001221, A001222, A025487, A060687, A195069, A195087, A195088, A195089, A195090, A195091, A195092, A195093, A046660, A257851, A261256, A264959."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Harvey P. Dale_, Sep 08 2011",
+			"references": 14,
+			"revision": 27,
+			"time": "2018-07-03T11:42:11-04:00",
+			"created": "2011-09-08T16:49:47-04:00"
+		},
+		{
+			"number": 195142,
+			"data": "0,1,10,21,40,61,90,121,160,201,250,301,360,421,490,561,640,721,810,901,1000,1101,1210,1321,1440,1561,1690,1821,1960,2101,2250,2401,2560,2721,2890,3061,3240,3421,3610,3801,4000,4201,4410,4621,4840,5061,5290",
+			"name": "Concentric 10-gonal numbers.",
+			"comment": [
+				"Also concentric decagonal numbers. Also sequence found by reading the line from 0, in the direction 0, 10, ..., and the same line from 1, in the direction 1, 21, ..., in the square spiral whose vertices are the generalized heptagonal numbers A085787. Main axis, perpendicular to A028895 in the same spiral."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A195142/b195142.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,-2,1)."
+			],
+			"formula": [
+				"G.f.: -x*(1+8*x+x^2) / ( (1+x)*(x-1)^3 ). - _R. J. Mathar_, Sep 18 2011",
+				"a(n) = -a(n-1) + 5*n^2 - 5*n + 1, a(0)=0. - _Vincenzo Librandi_, Sep 27 2011",
+				"From _Bruno Berselli_, Sep 27 2011: (Start)",
+				"a(n) = a(-n) = (10*n^2 + 3*(-1)^n - 3)/4.",
+				"a(n) = a(n-2) + 10*(n-1). (End)",
+				"a(n) = 2*a(n-1) + 0*a(n-2) - 2*a(n-3) + a(n-4); a(0)=0, a(1)=1, a(2)=10, a(3)=21. - _Harvey P. Dale_, Sep 29 2011"
+			],
+			"mathematica": [
+				"RecurrenceTable[{a[0]==0,a[1]==1,a[n]==a[n-2]+10(n-1)},a[n],{n,50}] (* or *) LinearRecurrence[{2,0,-2,1},{0,1,10,21},50] (* _Harvey P. Dale_, Sep 29 2011 *)"
+			],
+			"program": [
+				"(MAGMA) [(10*n^2+3*(-1)^n-3)/4: n in [0..50]]; // _Vincenzo Librandi_, Sep 27 2011",
+				"(Haskell)",
+				"a195142 n = a195142_list !! n",
+				"a195142_list = scanl (+) 0 a090771_list",
+				"-- _Reinhard Zumkeller_, Jan 07 2012"
+			],
+			"xref": [
+				"Cf. A033583 and A069133 interleaved.",
+				"Cf. A032527, A032528, A077221, A195042, A195143, A195145, A195146, A195147, A195148, A195149.",
+				"Cf. A090771 (first differences).",
+				"Column 10 of A195040. - _Omar E. Pol_, Sep 28 2011"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Omar E. Pol_, Sep 17 2011",
+			"references": 14,
+			"revision": 50,
+			"time": "2018-08-17T21:32:19-04:00",
+			"created": "2011-09-17T21:57:30-04:00"
+		},
+		{
+			"number": 195143,
+			"data": "0,1,12,25,48,73,108,145,192,241,300,361,432,505,588,673,768,865,972,1081,1200,1321,1452,1585,1728,1873,2028,2185,2352,2521,2700,2881,3072,3265,3468,3673,3888,4105,4332,4561,4800,5041,5292,5545,5808,6073,6348",
+			"name": "a(n) = n-th concentric 12-gonal number.",
+			"comment": [
+				"Also concentric dodecagonal numbers. Also sequence found by reading the line from 0, in the direction 0, 12,..., and the same line from 1, in the direction 1, 25,..., in the square spiral whose vertices are the generalized octagonal numbers A001082. Main axis, perpendicular to A028896 in the same spiral.",
+				"Partial sums of A091998. - _Reinhard Zumkeller_, Jan 07 2012",
+				"Column 12 of A195040. - _Omar E. Pol_, Sep 28 2011"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A195143/b195143.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,-2,1)."
+			],
+			"formula": [
+				"From _Vincenzo Librandi_, Sep 27 2011: (Start)",
+				"a(n) = 3*n^2+(-1)^n-1.",
+				"a(n) = -a(n-1) + 6*n^2 - 6*n + 1. (End)",
+				"G.f.: -x*(1+10*x+x^2) / ( (1+x)*(x-1)^3 ). - _R. J. Mathar_, Sep 18 2011",
+				"a(n) = sum_{k=1..n} (2*(-1)^(n-k+1) + 3*(2*k-1)), n\u003e0, a(0) = 0. - _L. Edson Jeffery_, Sep 14 2014"
+			],
+			"mathematica": [
+				"Table[Sum[2*(-1)^(n - k + 1) + 6*k - 3, {k, n}], {n, 0, 47}] (* _L. Edson Jeffery_, Sep 14 2014 *)"
+			],
+			"program": [
+				"(MAGMA) [(3*n^2+(-1)^n-1): n in [0..50]]; // _Vincenzo Librandi_, Sep 27 2011",
+				"(Haskell)",
+				"a195143 n = a195143_list !! n",
+				"a195143_list = scanl (+) 0 a091998_list",
+				"-- _Reinhard Zumkeller_, Jan 07 2012"
+			],
+			"xref": [
+				"Cf. A135453 and A069190 interleaved.",
+				"Cf. A032527, A032528, A077221, A195043, A195045, A195040, A195142, A195145-A195149.",
+				"Cf. A016921 (6n+1), A016969 (6n+5), A091998 (positive integers of the form 12*k +- 1), A092242 (positive integers of the form 12*k +- 5)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Omar E. Pol_, Sep 17 2011",
+			"ext": [
+				"Comment corrected by _Ivan Panchenko_, Nov 09 2013"
+			],
+			"references": 14,
+			"revision": 52,
+			"time": "2015-06-13T00:53:57-04:00",
+			"created": "2011-09-17T21:57:48-04:00"
+		},
+		{
+			"number": 195145,
+			"data": "0,1,14,29,56,85,126,169,224,281,350,421,504,589,686,785,896,1009,1134,1261,1400,1541,1694,1849,2016,2185,2366,2549,2744,2941,3150,3361,3584,3809,4046,4285,4536,4789,5054,5321,5600,5881,6174,6469,6776,7085,7406",
+			"name": "Concentric 14-gonal numbers.",
+			"comment": [
+				"Also concentric tetradecagonal numbers or concentric tetrakaidecagonal numbers. Also sequence found by reading the line from 0, in the direction 0, 14, ..., and the same line from 1, in the direction 1, 29, ..., in the square spiral whose vertices are the generalized enneagonal numbers A118277. Main axis, perpendicular to A024966 in the same spiral.",
+				"Partial sums of A113801. - _Reinhard Zumkeller_, Jan 07 2012"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A195145/b195145.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,0,-2,1)."
+			],
+			"formula": [
+				"G.f.: -x*(1+12*x+x^2) / ( (1+x)*(x-1)^3 ). - _R. J. Mathar_, Sep 18 2011",
+				"From _Vincenzo Librandi_, Sep 27 2011: (Start)",
+				"a(n) = (14*n^2 + 5*(-1)^n - 5)/4;",
+				"a(n) = a(-n) = -a(n-1) + 7*n^2 - 7*n + 1. (End)"
+			],
+			"program": [
+				"(MAGMA) [(14*n^2+5*(-1)^n-5)/4: n in [0..50]]; // _Vincenzo Librandi_, Sep 27 2011",
+				"(Haskell)",
+				"a195145 n = a195145_list !! n",
+				"a195145_list = scanl (+) 0 a113801_list",
+				"-- _Reinhard Zumkeller_, Jan 07 2012"
+			],
+			"xref": [
+				"Cf. A144555 and A195314 interleaved.",
+				"Cf. A032527, A032528, A077221, A195045, A195046, A195142, A195143, A195146, A195147, A195148, A195149.",
+				"Column 14 of A195040. - _Omar E. Pol_, Sep 28 2011"
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,3",
+			"author": "_Omar E. Pol_, Sep 17 2011",
+			"references": 14,
+			"revision": 39,
+			"time": "2018-08-17T21:32:12-04:00",
+			"created": "2011-09-17T21:57:09-04:00"
+		},
+		{
+			"number": 198409,
+			"data": "1,3,5,7,10,13,15,23,24,26,30,35,39,42,45,47,51,54,62,69,70,72,83,84,88,97,98,102,107,114,115,124,126,129,136,141,142,143,156,157,167,169,172,177,181,188,191,201,205,208,214,218,229,230,237,244,249,253",
+			"name": "Positions in sequences A198384, A198385 and A198386 to indicate triples of squares in arithmetic progression, that are not multiples of earlier triples.",
+			"comment": [
+				"A198435(n) = A198384(a(n)); A198439(n) = A198388(a(n));",
+				"A198436(n) = A198385(a(n)); A198440(n) = A198389(a(n));",
+				"A198437(n) = A198386(a(n)); A198441(n) = A198390(a(n));",
+				"A198438(n) = A198387(a(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A198435/a198435.txt\"\u003eTable of initial values\u003c/a\u003e"
+			],
+			"formula": [
+				"A008966(A050873(A198439(n),A050873(A198440(n),A050873(A198441(n))))) = 1."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a198409 n = a198409_list !! (n-1)",
+				"a198409_list = map (+ 1) $ elemIndices 1 $ map a008966 $",
+				"   zipWith gcd a198384_list $ zipWith gcd a198385_list a198386_list"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 25 2011",
+			"references": 14,
+			"revision": 7,
+			"time": "2013-07-13T12:04:18-04:00",
+			"created": "2011-10-25T17:34:10-04:00"
+		}
+	]
+}

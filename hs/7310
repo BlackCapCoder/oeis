@@ -1,0 +1,426 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7310,
+	"results": [
+		{
+			"number": 116854,
+			"data": "1,1,1,3,1,2,11,3,4,6,53,11,14,18,24,309,53,64,78,96,120,2119,309,362,426,504,600,720,16687,2119,2428,2790,3216,3720,4320,5040,148329,16687,18806,21234,24024,27240,30960,35280,40320,1468457,148329,165016,183822,205056",
+			"name": "First differences of the rows in the triangle of A116853, starting with 0.",
+			"comment": [
+				"Row n contains the first differences of row n of A116853, starting with T(n,1) = A116853(n,1) - 0.",
+				"As in A116853, 0! = 1 is omitted here. - _Georg Fischer_, Mar 23 2019"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A116854/b116854.txt\"\u003eRows n = 1..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = A116853(n,k) - A116853(n,k-1) if k\u003e1.",
+				"T(n,1) = A116853(n,1) = A000255(n-1).",
+				"Sum_{k=1..n} T(n,1) = n! = A000142(n)."
+			],
+			"example": [
+				"First few rows of the triangle are:",
+				"[1]    1;",
+				"[2]    1,   1;",
+				"[3]    3,   1,   2;",
+				"[4]   11,   3,   4,   6;",
+				"[5]   53,  11,  14,  18,  24;",
+				"[6]  309,  53,  64,  78,  96, 120;",
+				"[7] 2119, 309, 362, 426, 504, 600, 720;",
+				"...",
+				"For example, row 4 (11, 3, 4, 6) are first differences along row 4 of A116853: ((0), 11, 14, 18, 24)."
+			],
+			"maple": [
+				"A116853 := proc(n,k) option remember ; if n = k then n! ; else procname(n,k+1)-procname(n-1,k) ; end if; end proc:",
+				"A116854 := proc(n,k) if k = 1 then A116853(n,1) ; else A116853(n,k) -A116853(n,k-1) ; end if; end proc:",
+				"seq(seq(A116854(n,k),k=1..n),n=1..15) ; # _R. J. Mathar_, Mar 27 2010"
+			],
+			"program": [
+				"(Haskell)",
+				"a116854 n k = a116854_tabl !! (n-1) !! (k-1)",
+				"a116854_row n = a116854_tabl !! (n-1)",
+				"a116854_tabl = [1] : zipWith (:) (tail $ map head tss) tss",
+				"               where tss = a116853_tabl",
+				"-- _Reinhard Zumkeller_, Aug 31 2014"
+			],
+			"xref": [
+				"Cf. A000255, A116853.",
+				"Cf. A000142 (row sums), A033815 (central terms), A047920, A068106 (with 0!)."
+			],
+			"keyword": "nonn,easy,tabl",
+			"offset": "1,4",
+			"author": "_Gary W. Adamson_, Feb 24 2006",
+			"ext": [
+				"Definition made concrete and sequence extended by _R. J. Mathar_, Mar 27 2010"
+			],
+			"references": 2,
+			"revision": 14,
+			"time": "2019-03-23T17:58:42-04:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		},
+		{
+			"number": 117140,
+			"data": "5,7,12,17,19,22,26,27,32,33,36,37,40,42,46,50,56,60,66,70,71,74,81,85,91,99,101,132,138,140,150,154,156,158,160,179,181,185,189,195,205,209,233,234,236,240,248,258,264,268,287,289,293,297,303,336,340,342,348",
+			"name": "a(1)=5, a(2)=7; for n \u003e= 3, a(n) is smallest number which is uniquely of the form a(j)+a(k) with 1\u003c=j\u003ck\u003cn.",
+			"comment": [
+				"An Ulam-type sequence - see A002858 for many further references, comments, etc.",
+				"Does not seem to have any nice periodicity like A007300 does. - _Joshua Zucker_, May 24 2006"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A117140/b117140.txt\"\u003eTable of n, a(n) for n=1..10000\u003c/a\u003e",
+				"A. N. Debono, \u003ca href=\"http://www.eng.um.edu.mt/~andebo/numbers/numcom27.htm\"\u003eUlam Sequences\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/UlamSequence.html\"\u003eUlam Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Ulam_number\"\u003eUlam number\u003c/a\u003e",
+				"\u003ca href=\"/index/U#Ulam_num\"\u003eIndex entries for Ulam numbers\u003c/a\u003e"
+			],
+			"mathematica": [
+				"max=100; A117140 = {5, 7}; Do[ AppendTo[ A117140, n = Last[A117140]; While[n++; Length[ DeleteCases[ Intersection[A117140, n - A117140], n/2, 1, 1]] != 2]; n], {max}]; A117140 (* _Jean-François Alcover_, Nov 30 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a117140 n = a117140_list !! (n-1)",
+				"a117140_list = 5 : 7 : ulam 2 7 a117140_list",
+				"-- Function ulam as defined in A002858.",
+				"-- _Reinhard Zumkeller_, Nov 03 2011"
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_N. J. A. Sloane_, Apr 29 2006",
+			"ext": [
+				"More terms from _Joshua Zucker_, May 24 2006"
+			],
+			"references": 2,
+			"revision": 16,
+			"time": "2013-11-21T13:11:42-05:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		},
+		{
+			"number": 117704,
+			"data": "1,2,1,2,3,1,5,1,5,4,3,8,9,4,6,9,2,12,3,10,9,5,15,1,15,8,9,16,2,19,6,14,15,6,22,3,20,13,11,24,1,26,10,17,22,6,29,6,24,19,12,32,1,32,15,19,30,5,36,10,27,26,12,39,4,36,21,20,39,3,43,15,29,34,11,46,8,39,28,20,49,50",
+			"name": "Least refined sequence that can be grouped to sum to either natural numbers or odd numbers.",
+			"comment": [
+				"In other words, least common refinement of the natural numbers and the odd numbers."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A117704/b117704.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A005214(n) - A005214(n-1)."
+			],
+			"example": [
+				"As natural numbers: 1,2,1+2,3+1,5,1+5,4+3,8,...",
+				"As odd numbers: 1,2+1,2+3,1+5+1,5+4,3+8,..."
+			],
+			"program": [
+				"(Haskell)",
+				"a117704 n = a117704_list !! (n-1)",
+				"a117704_list = 1 : zipWith (-) (tail a005214_list) a005214_list",
+				"-- _Reinhard Zumkeller_, Aug 03 2011"
+			],
+			"xref": [
+				"Cf. A118382, A005214, A000027, A005408."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Franklin T. Adams-Watters_, Apr 27 2006",
+			"references": 2,
+			"revision": 8,
+			"time": "2013-07-13T12:03:23-04:00",
+			"created": "2006-05-19T03:00:00-04:00"
+		},
+		{
+			"number": 117890,
+			"data": "2,4,5,6,10,11,12,13,14,16,18,22,23,24,26,27,28,29,30,36,40,42,46,47,48,54,55,58,59,60,61,62,65,75,76,78,80,84,88,90,94,95,99,100,102,104,105,108,110,111,112,114,118,119,120,122,123,124,125,126,132,140,144,145",
+			"name": "Numbers n such that number of non-leading 0's in binary representation of n divides n.",
+			"comment": [
+				"Contains primes of A095078(n) as a subset. Intersection of a(n) with A049445(n) is A117891(n). - _R. J. Mathar_, Apr 03 2006"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A117890/b117890.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n)\u003c=A117891(n) - _R. J. Mathar_, Apr 03 2006",
+				"a(n) mod A023416(a(n)) = 0. - _Reinhard Zumkeller_, Nov 22 2007"
+			],
+			"example": [
+				"24 is 11000 in binary. This binary representation has three 0's and 3 divides 24. So 24 is in the sequence."
+			],
+			"program": [
+				"(C) #include \u003cstdio.h\u003e int main(int argc, char *argv[]) { for(int n=1; n\u003c 500; n++) { int digs=0; int nshifted=n; while(nshifted) { digs += 1- nshifted \u0026 1; nshifted \u003e\u003e= 1; } if ( digs) if( n % digs == 0 ) printf(\"%d,\",n); } } - _R. J. Mathar_, Apr 03 2006",
+				"(Haskell)",
+				"a117890 n = a117890_list !! (n-1)",
+				"a117890_list = [x | x \u003c- [1..], let z = a023416 x, z \u003e 0, mod x z == 0]",
+				"-- _Reinhard Zumkeller_, Mar 31 2015"
+			],
+			"xref": [
+				"Cf. A049445, A117891.",
+				"Cf. A023416."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Leroy Quet_, Mar 30 2006",
+			"ext": [
+				"More terms from _R. J. Mathar_, Apr 03 2006"
+			],
+			"references": 2,
+			"revision": 14,
+			"time": "2015-03-31T17:01:58-04:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		},
+		{
+			"number": 117930,
+			"data": "1,2,3,5,7,9,12,15,18,22,26,30,36,42,48,56,64,72,82,92,102,114,126,138,153,168,183,201,219,237,258,279,300,324,348,372,400,428,456,488,520,552,588,624,660,700,740,780,825,870,915,965,1015,1065,1120,1175,1230",
+			"name": "Number of partitions of 2n into factorial parts (0! not allowed, i.e., only one kind of 1 can be a part). Also number of partitions of 2n+1 into factorial parts.",
+			"comment": [
+				"a(n) = A064986(2n) = A064986(2n+1). The first 48 terms of this sequence agree with those of A090632.",
+				"a(n) = A064986(2*n) = A064986(2*n+1). - _Reinhard Zumkeller_, Dec 04 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller and Alois P. Heinz, \u003ca href=\"/A117930/b117930.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e (first 250 terms from Reinhard Zumkeller)",
+				"\u003ca href=\"/index/Fa#factorial\"\u003eIndex entries for sequences related to factorial numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: 1/((1-x)*Product_{j\u003e=2} (1 - x^(j!/2)))."
+			],
+			"example": [
+				"a(3) = 5 because the partitions of 6 into factorials are [6], [2,2,2], [2,2,1,1], [2,1,1,1,1] and [1,1,1,1,1,1]."
+			],
+			"maple": [
+				"g:=1/(1-x)/product(1-x^(j!/2),j=2..7): gser:=series(g,x=0,70): seq(coeff(gser,x,n),n=0..65);",
+				"# second Maple program",
+				"b:= proc(n, i) option remember;",
+				"      `if`(n=0 or i=1, 1, b(n, i-1)+",
+				"      `if`(i!\u003en, 0, b(n-i!, i)))",
+				"    end:",
+				"a:= proc(n) local i;",
+				"      for i while(i!\u003c2*n) do od;",
+				"      b(2*n, i)",
+				"    end:",
+				"seq(a(n), n=0..100);  # _Alois P. Heinz_, Jun 13 2012"
+			],
+			"mathematica": [
+				"f[n_] := Length@ IntegerPartitions[2 n, All, {1, 2, 6, 24, 120}]; Array[f, 57, 0] (* _Robert G. Wilson v_, Oct 02 2014 *)",
+				"b[n_, i_] := b[n, i] = If[n==0 || i==1, 1, b[n, i-1] + If[i!\u003en, 0, b[n-i!, i] ] ]; a[n_] := Module[{i}, For[i=1, i!\u003c2*n, i++]; b[2*n, i]]; Table[a[n], {n, 0, 100}] (* _Jean-François Alcover_, Jun 29 2015, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a117930 n = p (tail a000142_list) $ 2*n where",
+				"   p _          0             = 1",
+				"   p ks'@(k:ks) m | m \u003c k     = 0",
+				"                  | otherwise = p ks' (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Dec 04 2011"
+			],
+			"xref": [
+				"Cf. A064986, A090632."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Emeric Deutsch_, Apr 04 2006",
+			"ext": [
+				"An incorrect g.f. was deleted by _N. J. A. Sloane_, Sep 16 2009"
+			],
+			"references": 2,
+			"revision": 27,
+			"time": "2018-01-08T02:37:05-05:00",
+			"created": "2006-02-24T03:00:00-05:00"
+		},
+		{
+			"number": 119393,
+			"data": "7,11,13,14,18,23,29,30,31,32,33,34,37,38,41,52,54,55,56,62,63,73,74,75,78,80,81,82,83,84,92,94,95,97,100,103,105,107,109,110,112,113,114,115,116,121,125,126,127,128,129,130,131,132,133,135,136,137,138,139,140",
+			"name": "Numbers n such that the index of the prime and the prime share some digit.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A119393/b119393.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"Intersection of A000027\u0026A000040 which share a digit."
+			],
+			"example": [
+				"7 is a member since the seventh prime is 17 with the index and the prime sharing the digit 7."
+			],
+			"mathematica": [
+				"Select[Range@140, Intersection[IntegerDigits@#, IntegerDigits@ Prime@# ] != {} \u0026]"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (intersect)",
+				"a119393 n = a119393_list !! (n-1)",
+				"a119393_list = filter",
+				"   (\\x -\u003e not $ null $ show x `intersect` (show $ a000040 x)) [1..]",
+				"-- _Reinhard Zumkeller_, Sep 14 2014"
+			],
+			"xref": [
+				"Cf. A000027, A000040, A243355 (complement)."
+			],
+			"keyword": "nonn,base,less",
+			"offset": "1,1",
+			"author": "_Robert G. Wilson v_, Jul 25 2006",
+			"references": 2,
+			"revision": 7,
+			"time": "2014-09-14T20:35:54-04:00",
+			"created": "2006-09-29T03:00:00-04:00"
+		},
+		{
+			"number": 120005,
+			"data": "0,11,10,100,102,120,1012,1023,1120,1230,10123,10234,11203,11230,12340,101234,102345,111230,112130,112340,123450,1012345,1023456,1112130,1112340,1121340,1123450,1234560",
+			"name": "Smallest number containing exactly n distinct numbers in its decimal representation.",
+			"comment": [
+				"A000030(a(n)) = 1 for n \u003e 1;",
+				"A120004(a(n)) = n and A120004(m) \u003c n for m \u003c a(n)."
+			],
+			"example": [
+				"Illustration of initial values:",
+				".   n |   a(n) ... and n-1 proper substrings",
+				". ----+----------------------------------------------------",
+				".   1 |     0",
+				".   2 |    11    1",
+				".   3 |    10    1    0",
+				".   4 |   100   10    1   0",
+				".   5 |   102   10    2   1   0",
+				".   6 |   120   20   12   2   1   0",
+				".   7 |  1012  101   12  10   2   1  0",
+				".   8 |  1023  102   23  10   3   2  1  0",
+				".   9 |  1120  120  112  20  12  11  2  1  0",
+				".  10 |  1230  230  123  30  23  12  3  2  1  0",
+				".  11 | 10123 1012  123 101  23  12 10  3  2  1 0",
+				".  12 | 10234 1023  234 102  34  23 10  4  3  2 1 0",
+				".  13 | 11203 1203 1120 203 120 112 20 12 11  3 2 1 0",
+				".  14 | 11230 1230 1123 230 123 112 30 23 12 11 3 2 1 0",
+				".  15 | 12340 2340 1234 340 234 123 40 34 23 12 4 3 2 1 0 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isInfixOf, elemIndex)",
+				"import Data.Maybe (fromJust)",
+				"a120005 = fromJust . (`elemIndex` a120004_list)",
+				"-- _Reinhard Zumkeller_, Jul 16 2012"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 15 2006",
+			"ext": [
+				"a(1) changed from 1 to 0 by Zak Seidov, May 30 2010."
+			],
+			"references": 2,
+			"revision": 6,
+			"time": "2012-07-17T05:20:49-04:00",
+			"created": "2006-09-29T03:00:00-04:00"
+		},
+		{
+			"number": 120739,
+			"data": "0,0,1,2,7,14,30,60,127,254,510,1020,2046,4092,8188,16376,32767,65534,131070,262140,524286,1048572,2097148,4194296,8388606,16777212,33554428,67108856,134217724,268435448,536870904,1073741808,2147483647",
+			"name": "a(n) = Sum{k=0..n} floor(C(n,k)/2).",
+			"comment": [
+				"Nonzero terms = row sums of triangle A166454. - _Gary W. Adamson_, Oct 14 2009"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A120739/b120739.txt\"\u003eTable of n, a(n) for n = 0..3322\u003c/a\u003e",
+				"Pantelimon Stanica, Tsutomu Sasao, Jon T. Butler, \u003ca href=\"http://faculty.nps.edu/butler/PDF/2017/Stanica_Sasao_Butler_JCMCC.pdf\"\u003eDistance Duality on Some Classes of Boolean Functions\u003c/a\u003e, Journal of Combinatorial Mathematics and Combinatorial Computing (to appear), 2017. [Theorem 9.]"
+			],
+			"formula": [
+				"a(n) = (2^n - A001316(n))/2."
+			],
+			"mathematica": [
+				"Table[Sum[Floor[Binomial[n,k]/2], {k,0,n}], {n,0,40}] (* _G. C. Greubel_, Apr 18 2019 *)"
+			],
+			"program": [
+				"(PARI) a(n)=(2^n-2^norml2(binary(n)))/2",
+				"(PARI) {a(n) = sum(k=0,n, binomial(n,k)\\2)}; \\\\ _G. C. Greubel_, Apr 18 2019",
+				"(Haskell)",
+				"a120739 n = if n \u003c 2 then 0 else sum $ a166454_row n",
+				"-- _Reinhard Zumkeller_, Mar 04 2015",
+				"(MAGMA) [(\u0026+[Floor(Binomial(n,k)/2): k in [0..n]]): n in [0..40]]; // _G. C. Greubel_, Apr 18 2019",
+				"(Sage) [sum(floor(binomial(n,k)/2) for k in (0..n)) for n in (0..40)] # _G. C. Greubel_, Apr 18 2019"
+			],
+			"xref": [
+				"Cf. A166454.",
+				"Cf. A011848."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,4",
+			"author": "_Paul Barry_, Jun 29 2006",
+			"references": 2,
+			"revision": 20,
+			"time": "2019-04-18T02:53:20-04:00",
+			"created": "2006-09-29T03:00:00-04:00"
+		},
+		{
+			"number": 121065,
+			"data": "2,0,3,11,17,111,117,317,1317,3317,11317,17317,111317,117317,317317,1317317,3317317,11317317,17317317,111317317,117317317,317317317",
+			"name": "a(n) is the smallest number in English which contains n letter 'E's.",
+			"comment": [
+				"4, 5, 6, 8, 9 never appear in any of these numbers because in each case there is a smaller digit with the same number of e's. 2 (the smallest number with no e's) never appears in any term after a(0). - _Sean A. Irvine_, Nov 10 2009",
+				"A085513(a(n)) = n and A085513(m) != n for m \u003c a(n). - _Reinhard Zumkeller_, Jan 24 2015"
+			],
+			"link": [
+				"\u003ca href=\"/index/Lc#letters\"\u003eIndex entries for sequences related to number of letters in n\u003c/a\u003e"
+			],
+			"example": [
+				"a(2) = THREE, which has two Es."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a121065 = fromJust . (`elemIndex` a085513_list)",
+				"-- _Reinhard Zumkeller_, Jan 24 2015"
+			],
+			"xref": [
+				"Cf. A085513, A008520, A006933."
+			],
+			"keyword": "more,nonn,word",
+			"offset": "0,1",
+			"author": "_Ray G. Opao_, Aug 10 2006",
+			"ext": [
+				"More terms _Sean A. Irvine_, Nov 10 2009",
+				"a(19) - a(21) added by _Reinhard Zumkeller_, Jan 24 2015"
+			],
+			"references": 2,
+			"revision": 7,
+			"time": "2015-02-01T16:28:09-05:00",
+			"created": "2006-09-29T03:00:00-04:00"
+		},
+		{
+			"number": 121281,
+			"data": "1,2,1,6,3,2,30,15,10,6,210,105,70,42,30,2310,1155,770,462,330,210,30030,15015,10010,6006,4290,2730,2310,510510,255255,170170,102102,72930,46410,39270,30030,9699690,4849845,3233230,1939938,1385670,881790,746130,570570,510510",
+			"name": "Triangle T(n,k) read by rows: T(n,0) = A002110(n) and T(n,k) = A002110(n)/prime(k) for 1\u003c=k\u003c=n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A121281/b121281.txt\"\u003eRows n = 0..120 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"Sum_{0\u003c=k\u003c=n} T(n,k) = A024528(n).",
+				"T(n+1,k) = prime(n+1) * T(n,k) for k=0..n and T(n+1,n+1) = T(n,0). - _Reinhard Zumkeller_, Nov 20 2015"
+			],
+			"example": [
+				"Triangle begins",
+				"1;",
+				"2, 1;",
+				"6, 3, 2;",
+				"30, 15, 10, 6;",
+				"210, 105, 70, 42, 30;"
+			],
+			"program": [
+				"(PARI) tabl(nn) = {for (n=0, nn, pr = prod(i=1, n, prime(i)); for (k=0, n, if (k==0, v = pr, v = pr/prime(k)); print1(v, \", \");); print(););} \\\\ _Michel Marcus_, Apr 06 2015",
+				"(Haskell)",
+				"a121281 n k = a121281_tabl !! n !! k",
+				"a121281_row n = a121281_tabl !! n",
+				"a121281_tabl = [1] : f [1] a000040_list where",
+				"   f xs@(x:_) (p:ps) = ys : f ys ps where ys = (map (* p) xs) ++ [x]",
+				"-- _Reinhard Zumkeller_, Nov 20 2015"
+			],
+			"xref": [
+				"Cf. A000040, A002110, A024528, A070826."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "0,2",
+			"author": "_Philippe Deléham_, Aug 24 2006",
+			"ext": [
+				"Corrected and extended by _Michel Marcus_, Apr 06 2015"
+			],
+			"references": 2,
+			"revision": 16,
+			"time": "2015-11-20T23:26:12-05:00",
+			"created": "2006-09-29T03:00:00-04:00"
+		}
+	]
+}

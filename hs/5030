@@ -1,0 +1,416 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5030,
+	"results": [
+		{
+			"number": 224823,
+			"data": "1,2,1,3,4,1,5,4,0,6,6,3,5,6,2,6,8,0,7,8,4,9,6,1,11,10,0,8,6,5,9,12,3,7,14,0,11,8,5,13,10,4,8,8,0,14,16,5,11,12,1,16,10,0,14,14,7,9,12,5,14,14,0,7,16,7,18,14,4,19,10,0,12,16,9,13,20,0",
+			"name": "Number of solutions to n = x + y + 3*z where x, y, z are triangular numbers.",
+			"comment": [
+				"Ramanujan theta functions: f(q) (see A121373), phi(q) (A000122), psi(q) (A010054), chi(q) (A000700).",
+				"a(A224829(n)) = 0. - _Reinhard Zumkeller_, Jul 21 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A224823/b224823.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"M. Somos, \u003ca href=\"/A010815/a010815.txt\"\u003eIntroduction to Ramanujan theta functions\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RamanujanThetaFunctions.html\"\u003eRamanujan Theta Functions\u003c/a\u003e"
+			],
+			"formula": [
+				"Expansion of psi(x)^2 * psi(x^3) in powers of x where psi() is a Ramanujan theta function.",
+				"Expansion of q^(-5/8) * eta(q^2)^4 * eta(q^6)^2 / (eta(q)^2 * eta(q^3)) in powers of q.",
+				"Euler transform of period 6 sequence [ 2, -2, 3, -2, 2, -3, ...].",
+				"G.f.: (Sum_{k\u003e0} x^((k^2-k)/2))^2 * (Sum_{k\u003e0} x^(3 * (k^2-k)/2)).",
+				"-2 * a(n) = A227595(3*n + 1)."
+			],
+			"example": [
+				"G.f. = 1 + 2*x + x^2 + 3*x^3 + 4*x^4 + x^5 + 5*x^6 + 4*x^7 + 6*x^9 + 6*x^10 + ...",
+				"G.f. = q^5 + 2*q^13 + q^21 + 3*q^29 + 4*q^37 + q^45 + 5*q^53 + 4*q^61 + 6*q^77 + ...",
+				"a(3) = 3 since 3 = 0 + 0 + 3*1 = 0 + 3 + 3*0 = 3 + 0 + 3*0 are the 3 solutions of 3 = x + y + 3*z in triangular numbers.",
+				"a(4) = 4 since 4 = 1 + 0 + 3*1 = 0 + 1 + 3*1 = 3 + 1 + 3*0 = 1 + 3 + 3*0 are the 4 solutions of 4 = x + y + 3*z in triangular numbers."
+			],
+			"mathematica": [
+				"a[ n_] := SeriesCoefficient[ EllipticTheta[ 2, 0, x^(1/2)]^2 EllipticTheta[ 2, 0, x^(3/2)] / (8 x^(5/8)), {x, 0, n}];"
+			],
+			"program": [
+				"(PARI) {a(n) = local(A); if( n\u003c0, 0, A = x * O(x^n); polcoeff( eta(x^2 + A)^4 * eta(x^6 + A)^2 / (eta(x + A)^2 * eta(x^3 + A)), n))};",
+				"(Haskell)",
+				"a224823 n = length [() | let ts = takeWhile (\u003c= n) a000217_list,",
+				"            x \u003c- ts, y \u003c- ts, z \u003c- takeWhile (\u003c= div (n - x - y) 3) ts,",
+				"            x + y + 3 * z == n]",
+				"-- _Reinhard Zumkeller_, Jul 21 2013"
+			],
+			"xref": [
+				"Cf. A227595.",
+				"Cf. A000217."
+			],
+			"keyword": "nonn,changed",
+			"offset": "0,2",
+			"author": "_Michael Somos_, Jul 20 2013",
+			"references": 5,
+			"revision": 16,
+			"time": "2019-11-13T21:54:14-05:00",
+			"created": "2013-07-21T02:21:34-04:00"
+		},
+		{
+			"number": 224866,
+			"data": "2,5,9,10,17,26,28,33,37,50,65,73,82,101,109,122,126,129,145,170,197,201,217,226,244,257,289,290,325,344,362,393,401,433,442,485,501,513,530,577,626,649,676,677,730,785,801,842,865,901,962,969,973,1001",
+			"name": "Numbers of the form m*rad(m)+1, where rad=A007947 (squarefree kernel).",
+			"comment": [
+				"A078310 in natural order."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A224866/b224866.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A001694(n) + 1."
+			],
+			"program": [
+				"(Haskell)",
+				"a224866 n = a224866_list !! (n-1)",
+				"a224866_list = [x | x \u003c- [2..] , let x' = x - 1, let k = a007947 x',",
+				"                    let (y,m) = divMod x' k, m == 0, a007947 y == k]",
+				"(PARI) is(n)=ispowerful(n+1) \\\\ _Charles R Greathouse IV_, Aug 08 2013"
+			],
+			"xref": [
+				"Subsequences: A078325, A078324."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 23 2013",
+			"references": 5,
+			"revision": 9,
+			"time": "2013-08-08T09:47:31-04:00",
+			"created": "2013-07-23T13:31:21-04:00"
+		},
+		{
+			"number": 225044,
+			"data": "1,0,1,0,2,1,2,2,4,4,5,6,9,10,13,14,21,22,30,32,44,48,62,69,89,100,124,141,173,198,239,274,330,377,450,514,611,697,823,939,1104,1258,1470,1676,1950,2220,2572,2927,3381,3841,4420,5019,5759,6529,7470,8460",
+			"name": "Number of partitions of n into non-triangular numbers, cf. A014132.",
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A225044/b225044.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"G.f.: Product_{k\u003e=1} (1 - x^(k*(k+1)/2))/(1 - x^k). - _Ilya Gutkovskiy_, Dec 30 2016",
+				"a(n) ~ sqrt(2) * exp(Pi*sqrt(2*n/3) - Zeta(3/2) * (3*n/2)^(1/4) - 3*Zeta(3/2)^2 / (16*Pi)) / sqrt(n). - _Vaclav Kotesovec_, Jan 01 2017"
+			],
+			"example": [
+				"a(10) = #{8+2, 5+5, 4+4+2, 4+2+2+2, 2+2+2+2+2} = 5;",
+				"a(11) = #{11, 9+2, 7+4, 7+2+2, 5+4+2, 5+2+2+2} = 6;",
+				"a(12) = #{12, 8+4, 8+2+2, 7+5, 5+5+2, 4+4+4, 4+4+2+2, 4+2+2+2+2, 6x2} = 9;",
+				"a(13) = #{13, 11+2, 9+4, 9+2+2, 8+5, 7+4+2, 7+2+2+2, 5+4+4, 5+4+2+2, 5+2+2+2+2} = 10."
+			],
+			"maple": [
+				"b:= proc(n,i) option remember; `if`(n=0, 1, `if`(i\u003c1, 0,",
+				"      b(n, i-1)+`if`(i\u003en or issqr(8*i+1), 0, b(n-i, i))))",
+				"    end:",
+				"a:= n-\u003e b(n$2):",
+				"seq(a(n), n=0..60);  # _Alois P. Heinz_, Nov 13 2015"
+			],
+			"mathematica": [
+				"t = Table[n (n + 1)/2, {n, 1, 200}] ; p[n_] := IntegerPartitions[n, All, Complement[Range@n, t]]; Table[p[n], {n, 0, 12}] (*shows partitions*)",
+				"a[n_] := Length@p@n; a /@ Range[0, 80]",
+				"(* _Clark Kimberling_, Mar 09 2014 *)",
+				"b[n_, i_] := b[n, i] = If[n == 0, 1, If[i \u003c 1, 0, b[n, i - 1] + If[i \u003e n || IntegerQ @ Sqrt[8*i + 1], 0, b[n - i, i]]]]; a[n_] := b[n, n]; Table[a[n], {n, 0, 60}] (* _Jean-François Alcover_, Aug 29 2016, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a225044 = p a014132_list where",
+				"   p _          0 = 1",
+				"   p ks'@(k:ks) m = if m \u003c k then 0 else p ks' (m - k) + p ks m"
+			],
+			"xref": [
+				"Cf. A000217, A225045, A087153.",
+				"Column k=0 of A263234."
+			],
+			"keyword": "nonn",
+			"offset": "0,5",
+			"author": "_Reinhard Zumkeller_, Apr 25 2013",
+			"references": 5,
+			"revision": 26,
+			"time": "2017-03-31T09:35:17-04:00",
+			"created": "2013-04-25T16:04:41-04:00"
+		},
+		{
+			"number": 225126,
+			"data": "0,1,4,2,7,3,10,4,13,5,16,6,19,7,22,8,25,9,28,10,31,11,34,12,37,13,40,14,43,15,46,16,49,17,52,18,55,19,58,20,61,21,64,22,67,23,70,24,73,25,76,26,79,27,82,28,85,29,88,30,91,31,94,32,97,33,100",
+			"name": "Central terms of the triangle in A048152.",
+			"comment": [
+				"a(n) = A123684(n) for n \u003e 1;",
+				"a(n) = A048152(2*n-1,n), central terms;",
+				"also a(n) = A060036(2*n-1,n-1) for n \u003e 1.",
+				"a(n+1)=the remainder when n^2 is divided by 2n+1. - _J. M. Bergot_, Jun 25 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A225126/b225126.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_04\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,2,0,-1)."
+			],
+			"formula": [
+				"a(1) = 0, a(2*n) = n and a(2*n+1) = 3*n+1.",
+				"a(n) = 2*a(n-2)-a(n-4) for n\u003e5. G.f.: -x^2*(x^3-4*x-1) / ((x-1)^2*(x+1)^2). - _Colin Barker_, May 01 2013"
+			],
+			"program": [
+				"(Haskell)",
+				"a225126 n = a048152 (2 * n - 1)  n",
+				"(PARI) a(n)=n--^2%(2*n+1) \\\\ _Charles R Greathouse IV_, Jun 25 2013"
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Apr 29 2013",
+			"references": 5,
+			"revision": 18,
+			"time": "2017-06-20T01:35:18-04:00",
+			"created": "2013-04-29T20:00:02-04:00"
+		},
+		{
+			"number": 225481,
+			"data": "1,2,6,2,30,6,42,2,30,10,66,6,2730,14,30,2,510,6,798,10,2310,22,138,6,2730,26,6,14,870,30,14322,2,5610,34,210,6,1919190,38,78,10,13530,42,1806,22,690,46,282,6,46410,10,1122,26,1590,6,43890,14,16530,58",
+			"name": "a(n) = product{ p primes \u003c= n+1 such that p divides n+1 or p-1 divides n }.",
+			"comment": [
+				"a(n) is the product over the primes \u003c= n+1 which satisfy the weak Clausen condition. The weak Clausen condition relaxes the Clausen condition (p-1)|n by logical disjunction with p|(n+1)."
+			],
+			"link": [
+				"Peter Luschny, \u003ca href=\"/A225481/b225481.txt\"\u003eTable of n, a(n) for n = 0..100\u003c/a\u003e",
+				"Peter Luschny, \u003ca href=\"http://www.luschny.de/math/euler/GeneralizedBernoulliNumbers.html\"\u003eGeneralized Bernoulli numbers\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) / A027760(n) = A226040(n) for n \u003e 0."
+			],
+			"example": [
+				"a(20) = 2310 = 2*3*5*7*11, because {3, 7} are divisors of 21 and {2, 5, 11} meet the Clausen condition 'p-1 divides n'."
+			],
+			"maple": [
+				"divides := (a, b) -\u003e b mod a = 0; primes := n -\u003e select(isprime, [$2..n]);",
+				"A225481 := n -\u003e mul(k,k in select(p -\u003e divides(p,n+1) or divides(p-1,n), primes(n+1))); seq(A225481(n), n = 0..57);"
+			],
+			"mathematica": [
+				"a[n_] := Product[ If[ Divisible[n+1, p] || Divisible[n, p-1], p, 1], {p, Prime /@ Range @ PrimePi[n+1]}]; Table[a[n], {n, 0, 57}] (* _Jean-François Alcover_, Jun 07 2013 *)"
+			],
+			"program": [
+				"(Sage)",
+				"def divides(a, b): return b % a == 0",
+				"def A225481(n):",
+				"    return mul(filter(lambda p: divides(p,n+1) or divides(p-1,n), primes(n+2)))",
+				"[A225481(n) for n in (0..57)]",
+				"(Haskell)",
+				"a225481 n = product [p | p \u003c- takeWhile (\u003c= n + 1) a000040_list,",
+				"                         mod n (p - 1) == 0 || mod (n + 1) p == 0]",
+				"-- _Reinhard Zumkeller_, Jun 10 2013"
+			],
+			"xref": [
+				"A027760, A160014, A226040.",
+				"Cf. A000040."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Peter Luschny_, May 29 2013",
+			"references": 5,
+			"revision": 14,
+			"time": "2013-06-10T17:33:09-04:00",
+			"created": "2013-06-07T17:48:54-04:00"
+		},
+		{
+			"number": 225493,
+			"data": "1,11,17,29,37,41,59,67,71,79,97,101,107,121,127,137,149,163,179,187,191,197,223,227,239,251,269,277,281,289,307,311,319,331,347,367,379,397,407,419,431,439,451,457,461,479,487,493,499,521,541,557,569,587",
+			"name": "Numbers having only strong prime factors, cf. A051634.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A225493/b225493.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative closure of A051634."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, fromList, union, deleteFindMin)",
+				"a225493 n = a225493_list !! (n-1)",
+				"a225493_list = 1 : h (singleton p) ps [p] where",
+				"   (p:ps) = a051634_list",
+				"   h s xs'@(x:xs) ys",
+				"     | m \u003e x     = h (s `union` (fromList $ map (* x) (1 : ys))) xs ys",
+				"     | otherwise = m : h (s' `union` (fromList $ map (* m) ys')) xs' ys'",
+				"     where ys' = m : ys; (m, s') = deleteFindMin s"
+			],
+			"xref": [
+				"Cf. A225494 (balanced), A225495 (weak), A225496 (non-balanced)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 09 2013",
+			"references": 5,
+			"revision": 8,
+			"time": "2018-03-17T04:08:03-04:00",
+			"created": "2013-05-09T11:00:09-04:00"
+		},
+		{
+			"number": 225494,
+			"data": "1,5,25,53,125,157,173,211,257,263,265,373,563,593,607,625,653,733,785,865,947,977,1055,1103,1123,1187,1223,1285,1315,1325,1367,1511,1747,1753,1865,1907,2287,2417,2677,2809,2815,2903,2963,2965,3035,3125,3265,3307",
+			"name": "Numbers having only balanced prime factors, cf. A006562.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A225494/b225494.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative closure of A006562."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, fromList, union, deleteFindMin)",
+				"a225494 n = a225494_list !! (n-1)",
+				"a225494_list = 1 : h (singleton p) ps [p] where",
+				"   (p:ps) = a006562_list",
+				"   h s xs'@(x:xs) ys",
+				"     | m \u003e x     = h (s `union` (fromList $ map (* x) (1 : ys))) xs ys",
+				"     | otherwise = m : h (s' `union` (fromList $ map (* m) ys')) xs' ys'",
+				"     where ys' = m : ys; (m, s') = deleteFindMin s"
+			],
+			"xref": [
+				"Cf. A225493 (strong), A225495 (weak), A225496 (non-balanced)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 09 2013",
+			"references": 5,
+			"revision": 7,
+			"time": "2018-03-17T04:08:06-04:00",
+			"created": "2013-05-09T11:00:30-04:00"
+		},
+		{
+			"number": 225495,
+			"data": "1,3,7,9,13,19,21,23,27,31,39,43,47,49,57,61,63,69,73,81,83,89,91,93,103,109,113,117,129,131,133,139,141,147,151,161,167,169,171,181,183,189,193,199,207,217,219,229,233,241,243,247,249,267,271,273,279",
+			"name": "Numbers having only weak prime factors, cf. A051635.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A225495/b225495.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative closure of A051635."
+			],
+			"example": [
+				"a(10) = 31 = A051635(6);",
+				"a(11) = 39 = 3 * 13 = A051635(1) * A051635(3);",
+				"a(12) = 43 = A051635(7);",
+				"a(13) = 47 = A051635(8);",
+				"a(14) = 49 = 7^2 = A051635(2)^2;",
+				"a(15) = 57 = 3 * 19 = A051635(1) * A051635(4)."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, fromList, union, deleteFindMin)",
+				"a225495 n = a225495_list !! (n-1)",
+				"a225495_list = 1 : h (singleton p) ps [p] where",
+				"   (p:ps) = a051635_list",
+				"   h s xs'@(x:xs) ys",
+				"     | m \u003e x     = h (s `union` (fromList $ map (* x) (1 : ys))) xs ys",
+				"     | otherwise = m : h (s' `union` (fromList $ map (* m) ys')) xs' ys'",
+				"     where ys' = m : ys; (m, s') = deleteFindMin s"
+			],
+			"xref": [
+				"Cf. A225493 (strong), A225494 (balanced), A225496 (non-balanced)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 09 2013",
+			"references": 5,
+			"revision": 7,
+			"time": "2018-03-17T04:08:09-04:00",
+			"created": "2013-05-09T10:59:34-04:00"
+		},
+		{
+			"number": 225784,
+			"data": "1,2,240,4,80,80,272272,8,350064,80,38896,240,208,272272,4095840,16,3536,116688,21431696,80,1344,38896,1365280,80,535792400,208,44841486948146266934850832405421294927083491752830032389039800908293040266400,38896,1127984,1365280",
+			"name": "Denominators of the sum of the reciprocals of the Collatz (3x+1) sequence beginning at n.",
+			"comment": [
+				"If the sum of the reciprocals of a Collatz sequence is bounded, there are no Collatz cycles other than 4,2,1,4,2,1,...",
+				"a(n) = denominator of sum (1/A070165(n,k): k = 1..A006577(n)). - _Reinhard Zumkeller_, May 16 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A225784/b225784.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"example": [
+				"For n=9 the Collatz sequence is {9, 28, 14, 7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 4, 2, 1}.  So the sum of the reciprocals is 1/9 + 1/28 + 1/14 + 1/7 + 1/22 + 1/11 + ... + 1/4 + 1/2 + 1/1 = 1061683/350064, whose denominator is 350064."
+			],
+			"mathematica": [
+				"Collatz[n_] := NestWhileList[If[EvenQ[#], #/2, 3 # + 1] \u0026, n, # \u003e 1 \u0026]; Table[Denominator[Total[1/Collatz[n]]], {n, 40}] (* _T. D. Noe_, May 15 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Ratio (denominator)",
+				"a225784 = denominator . sum . map (recip . fromIntegral) . a070165_row",
+				"-- _Reinhard Zumkeller_, May 16 2013"
+			],
+			"xref": [
+				"Cf. A225761 numerators), A087226.",
+				"Cf. A225843."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Nico Brown_, May 15 2013",
+			"ext": [
+				"Extended by _T. D. Noe_, May 15 2013"
+			],
+			"references": 5,
+			"revision": 10,
+			"time": "2013-05-16T16:56:11-04:00",
+			"created": "2013-05-15T19:00:11-04:00"
+		},
+		{
+			"number": 226463,
+			"data": "0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,1,1,0,1,1,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,1,0,1,1,1,1,0,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,1,1,1,0,0,0,1,1,1,1,1,0,0,0,1,0,0",
+			"name": "Triangle read by rows giving successive states of cellular automaton generated by \"Rule 135\".",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226463/b226463.txt\"\u003eRows n = 0..120 of triangle, flattened\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Rule30.html\"\u003eRule 30\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/ElementaryCellularAutomaton.html\"\u003eElementary Cellular Automaton\u003c/a\u003e",
+				"\u003ca href=\"/index/Ce#cell\"\u003eIndex entries for sequences related to cellular automata\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = 1 - A070950(n,k), 0 \u003c= k \u003c= 2*n+1."
+			],
+			"example": [
+				"Initial rows, terms moved together:",
+				".   0:                           0",
+				".   1:                          000",
+				".   2:                         00110",
+				".   3:                        0010000",
+				".   4:                       001101110",
+				".   5:                      00100001000",
+				".   6:                     0011011110110",
+				".   7:                    001000011000000",
+				".   8:                   00110111000111110",
+				".   9:                  0010000100110111000",
+				".  10:                 001101111010000100110",
+				".  11:                00100001100101111010000",
+				".  12:               0011011100011001100101110",
+				".  13:              001000010011000100011001000",
+				".  14:             00110111101000111011000110110",
+				".  15:            0010000110010110100000110000000",
+				".  16:           001101110001100001011110001111110",
+				".  17:          00100001001100011110011001101111000",
+				".  18:         0011011110100011011001000100001100110",
+				".  19:        001000011001011000000110111011100010000",
+				".  20:       00110111000110000111110000100010011101110",
+				".  21:      0010000100110001110111001111011101010001000",
+				".  22:     001101111010001101000100101100010010101110110",
+				".  23:    00100001100101100010111011000011101101001000000",
+				".  24:   0011011100011000011100100000111010000010110111110",
+				".  25:  001000010011000111010011011110100101111100000111000 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a226463 n k = a226463_tabf !! n !! k",
+				"a226463_row n = a226463_tabf !! n",
+				"a226463_tabf = map (map (1 -)) a070950_tabf"
+			],
+			"xref": [
+				"Cf. A005408 (row lengths), A070951 (row sums), A226474 central terms), A070950 (complemented, rule 30), A226464 (mirrored, rule 149)."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0",
+			"author": "_Reinhard Zumkeller_, Jun 08 2013",
+			"references": 5,
+			"revision": 5,
+			"time": "2013-06-09T01:03:32-04:00",
+			"created": "2013-06-09T01:03:32-04:00"
+		}
+	]
+}

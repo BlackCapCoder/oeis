@@ -1,0 +1,332 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6790,
+	"results": [
+		{
+			"number": 244478,
+			"data": "2,0,2,2,2,2,4,4,4,4,4,6,6,6,8,8,8,8,8,8,10,10,10,12,12,12,12,14,14,14,16,16,16,16,16,16,16,18,18,18,20,20,20,20,22,22,22,24,24,24,24,24,26,26,26,28,28,28,28,30,30,30,32,32,32,32,32,32,32,32,34,34,34,36,36,36,36,38,38,38",
+			"name": "a(0)=2, a(1)=0, a(2)=2; thereafter a(n) = a(n-1-a(n-1))+a(n-2-a(n-2)) unless a(n-1) \u003c= n-1 or a(n-2) \u003c= n-2 in which case the sequence terminates.",
+			"reference": [
+				"Higham, J.; Tanny, S. More well-behaved meta-Fibonacci sequences. Proceedings of the Twenty-fourth Southeastern International Conference on Combinatorics, Graph Theory, and Computing (Boca Raton, FL, 1993). Congr. Numer. 98(1993), 3-17. See Prop. 2.1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A244478/b244478.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"maple": [
+				"f := proc(n) option remember;",
+				"    if n=0 then 2",
+				"    elif n=1 then 0",
+				"    elif n=2 then 2",
+				"    else",
+				"    f(n-1-f(n-1))+f(n-2-f(n-2));",
+				"    fi;",
+				"end proc;",
+				"[seq(f(n),n=0..2000)];"
+			],
+			"program": [
+				"(Haskell)",
+				"a244478 n = a244478_list !! n",
+				"a244478_list = 2 : 0 : 2 : zipWith (+) xs (tail xs)",
+				"   where xs = map a244478 $ zipWith (-) [1..] $ tail a244478_list",
+				"-- _Reinhard Zumkeller_, Jul 05 2014"
+			],
+			"xref": [
+				"A006949, A240807, A240808 use the same recurrence.",
+				"See also A244479 (a(n)/2)."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_N. J. A. Sloane_, Jul 02 2014",
+			"references": 3,
+			"revision": 13,
+			"time": "2014-07-05T04:38:48-04:00",
+			"created": "2014-07-02T23:08:57-04:00"
+		},
+		{
+			"number": 244479,
+			"data": "1,0,1,1,1,1,2,2,2,2,2,3,3,3,4,4,4,4,4,4,5,5,5,6,6,6,6,7,7,7,8,8,8,8,8,8,8,9,9,9,10,10,10,10,11,11,11,12,12,12,12,12,13,13,13,14,14,14,14,15,15,15,16,16,16,16,16,16,16,16,17,17,17,18,18,18,18,19,19,19,20",
+			"name": "A244478(n)/2.",
+			"reference": [
+				"Higham, J.; Tanny, S. More well-behaved meta-Fibonacci sequences. Proceedings of the Twenty-fourth Southeastern International Conference on Combinatorics, Graph Theory, and Computing (Boca Raton, FL, 1993). Congr. Numer. 98(1993), 3-17."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A244479/b244479.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ho#Hofstadter\"\u003eIndex entries for Hofstadter-type sequences\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a244479 = (`div` 2) . a244478  -- _Reinhard Zumkeller_, Jul 05 2014"
+			],
+			"xref": [
+				"Cf.  A244478."
+			],
+			"keyword": "nonn",
+			"offset": "0,7",
+			"author": "_N. J. A. Sloane_, Jul 02 2014",
+			"references": 3,
+			"revision": 10,
+			"time": "2014-07-05T04:39:18-04:00",
+			"created": "2014-07-02T23:15:50-04:00"
+		},
+		{
+			"number": 244724,
+			"data": "1,2,4,3,5,6,8,9,7,10,11,12,13,16,14,15,17,20,18,19,21,22,23,24,25,28,26,27,29,30,32,35,31,36,33,34,38,41,37,42,39,40,44,45,43,46,47,50,48,49,51,52,53,54,56,57,55,58,59,68,60,67,61,66,62,65,63",
+			"name": "Lexicographically earliest permutation of the natural numbers such that primes and composites alternate in the sums of adjacent terms.",
+			"comment": [
+				"For k \u003e 0: a(2*k-1) + a(2*k) is prime, a(2*k) + a(2*k+1) is composite."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A244724/b244724.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"A010051(a(n)+a(n+1)) = n mod 2."
+			],
+			"example": [
+				".             n | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20",
+				".          a(n) | 1 2 4 3 5 6 8 9 7 10 11 12 13 16 14 15 17 20 18 19",
+				". A026233(a(n)) | 1 1 2 2 3 3 4 5 4  6  5  7  6 10  8  9  7 12 11  8 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a244724 n = a244724_list !! (n-1)",
+				"a244724_list = 1 : f 1 [2..] where",
+				"   f x xs = f' xs where",
+				"     f' (u:us) | a010051' (x + u) == 1 = g u (delete u xs)",
+				"               | otherwise             = f' us where",
+				"        g y ys = g' ys where",
+				"          g' (v:vs) | a010051' (y + v) == 0 = u : v : f v (delete v ys)",
+				"                    | otherwise        = g' vs"
+			],
+			"xref": [
+				"Cf. A244732 (inverse), A244731 (fixed points), A073846, A113321, A115316."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 05 2014",
+			"references": 3,
+			"revision": 9,
+			"time": "2019-08-05T17:46:40-04:00",
+			"created": "2014-07-05T11:10:53-04:00"
+		},
+		{
+			"number": 244731,
+			"data": "1,2,5,6,10,11,12,13,17,21,22,23,24,25,29,30,46,47,51,52,53,54,58,59,69,70,71,76,79,88,89,90,98,101,111,112,113,114,118,119,120,133,137,141,142,143,148,151,160,161,177,183,184,185,189,190,191,192,193",
+			"name": "Fixed points of the permutations A244724 and A244732.",
+			"comment": [
+				" A244724(a(n)) = A244732(a(n)) = a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A244731/b244731.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a244731 n = a244731_list !! (n-1)",
+				"a244731_list = [x | x \u003c- [1..], a244724 x == x]"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 05 2014",
+			"references": 3,
+			"revision": 5,
+			"time": "2014-07-05T11:10:22-04:00",
+			"created": "2014-07-05T11:10:22-04:00"
+		},
+		{
+			"number": 244732,
+			"data": "1,2,4,3,5,6,9,7,8,10,11,12,13,15,16,14,17,19,20,18,21,22,23,24,25,27,28,26,29,30,33,31,35,36,32,34,39,37,41,42,38,40,45,43,44,46,47,49,50,48,51,52,53,54,57,55,56,58,59,61,63,65,67,68,66,64",
+			"name": "Inverse permutation to A244724.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A244732/b244732.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a244732 = (+ 1) . fromJust . (`elemIndex` a244724_list)"
+			],
+			"xref": [
+				"Cf. A244731 (fixed points)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 05 2014",
+			"references": 3,
+			"revision": 4,
+			"time": "2014-07-05T11:09:51-04:00",
+			"created": "2014-07-05T11:09:51-04:00"
+		},
+		{
+			"number": 244747,
+			"data": "1,2,3,5,6,9,12,17,29,45,48,81,105,108,177,245,323,324,569,648,893,1277,1296,2121,2592,3221,4853,5184,7697,11015,15333,15552,25841",
+			"name": "Positions at which powers of 2 occur in A051145.",
+			"comment": [
+				"A209229(A051145(a(n))) = 1;",
+				" the definition of this sequence was the original definition of A051147."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a244747 n = a244747_list !! (n-1)",
+				"a244747_list = findIndices ((== 1) . a209229) a051145_list"
+			],
+			"xref": [
+				"Cf. A209229, A051147 (subsequence)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 05 2014",
+			"references": 3,
+			"revision": 4,
+			"time": "2014-07-06T00:20:35-04:00",
+			"created": "2014-07-06T00:20:35-04:00"
+		},
+		{
+			"number": 245057,
+			"data": "1,0,2,3,5,4,7,9,6,8,11,13,10,15,12,14,16,17,19,18,21,23,20,25,22,24,26,27,28,30,29,31,33,32,35,37,34,36,39,41,38,43,40,45,42,44,46,47,48,50,49,51,53,52,55,54,57,59,56,58,60,61,63,65,62,64,67",
+			"name": "Inverse permutation to A249129.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A245057/b245057.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a245057 = fromJust . (`elemIndex` a249129_list)",
+				"(PARI) M=0;#A245057=vecextract(vector(#A249129,n,i=0;for(j=1,#A249129,A249129[j]==n-1\u0026\u0026(i=j)\u0026\u0026break);i||M||M=n;j-1),Str(\"..\"M-1)) \\\\ _M. F. Hasler_, Oct 22 2014"
+			],
+			"xref": [
+				"Cf. A249129."
+			],
+			"keyword": "nonn",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Oct 22 2014",
+			"references": 3,
+			"revision": 10,
+			"time": "2014-10-22T18:38:05-04:00",
+			"created": "2014-10-22T14:43:24-04:00"
+		},
+		{
+			"number": 245066,
+			"data": "1,3,45,1260,51975,2837835,192972780,15713497800,1490818103775,161505294575625,19671344879311125,2660996470946814000,395823225053338582500,64214706279807005422500,11283441246308945238525000,2134827083801652439128930000",
+			"name": "Central terms of triangles A001497 and A001498.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A245066/b245066.txt\"\u003eTable of n, a(n) for n = 0..250\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A001497(2*n,n) = A001498(2*n,n).",
+				"O.g.f. A(x) satisfies 0 = 6*A(x) + (-2 + 54*x) * A'(x) + 27*x^2 * A''(x). - _Michael Somos_, Jul 11 2014",
+				"E.g.f. A(x) satisfies 0 = 6*A(x) + (-2 + 54*x) * A'(x) + (-2*x + 27*x^2) * A''(x). - _Michael Somos_, Jul 11 2014",
+				"a(n) = (3*n)! / (2^n * n!^2). - _Michael Somos_, Jul 11 2014",
+				"a(n) = (2*n-1)!! * [x^(2*n)] x^n/(1 - x)^(2*n+1). - _Ilya Gutkovskiy_, Nov 24 2017"
+			],
+			"example": [
+				"G.f. = 1 + 3*x + 45*x^2 + 1260*x^3 + 51975*x^4 + 2837835*x^5 + ..."
+			],
+			"program": [
+				"(Haskell)",
+				"a245066 n = a001497 (2 * n) n",
+				"(PARI) {a(n) = if( n\u003c0, 0, (3*n)! / (2^n * n!^2))}; /* _Michael Somos_, Jul 11 2014 */"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Jul 11 2014",
+			"references": 3,
+			"revision": 16,
+			"time": "2017-11-24T23:18:18-05:00",
+			"created": "2014-07-11T22:20:49-04:00"
+		},
+		{
+			"number": 245193,
+			"data": "11,3,7,19,11,13,17,19,31,233,37,139,71,73,277,79,191,193,97,199,2111,113,1117,3119,131,4133,137,139,1171,173,4177,179,191,193,197,199,311,313,317,1319,331,2333,337,2339,2371,373,2377,379,3391,2393,397,1399",
+			"name": "Smallest prime having in decimal representation A136333(n) as suffix.",
+			"comment": [
+				"a(n) = A136333(n) iff A136333(n) itself is a prime number, cf. A091633."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A245193/b245193.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				".    n  |   a(n)  | A136333(n)",
+				". ------+---------+-----------",
+				".   10  |    233  |      33",
+				".   11  |     37  |      37",
+				".   12  |    139  |      39",
+				".   13  |     71  |      71",
+				".   14  |     73  |      73",
+				".   15  |    277  |      77",
+				".   16  |     79  |      79",
+				".   17  |    191  |      91",
+				".   18  |    193  |      93",
+				".   19  |     97  |      97",
+				".   20  |    199  |      99",
+				".   21  |   2111  |     111",
+				".   22  |    113  |     113",
+				".   23  |   1117  |     117",
+				".   24  |   3119  |     119",
+				".   25  |    131  |     131",
+				".   26  |   4133  |     133",
+				".   27  |    137  |     137",
+				".   28  |    139  |     139",
+				".   29  |   1171  |     171",
+				".   30  |    173  |     173 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (isSuffixOf); import Data.Function (on)",
+				"a245193 n = head [p | p \u003c- a000040_list,",
+				"                      (isSuffixOf `on` show) (a136333 n) p]"
+			],
+			"xref": [
+				" Cf. A000040, A091633, A136333."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jul 18 2014",
+			"references": 3,
+			"revision": 12,
+			"time": "2014-07-18T14:31:27-04:00",
+			"created": "2014-07-18T14:31:27-04:00"
+		},
+		{
+			"number": 245305,
+			"data": "1,4,7,37,142,154,202,214,307,424,469,487,499,559,577,664,742,814,847,979,982,1054,1129,1159,1162,1252,1369,1522,1612,1642,1672,1837,1987,2107,2134,2149,2209,2242,2359,2407,2419,2482,2632,2677,2767,2887,2929,2944",
+			"name": "Numbers k such that 4k+1, 4k+3, and 6k+5 are all primes.",
+			"comment": [
+				"Sequence is infinite (Sierpiński).",
+				"Infinitude of the sequence would follow from Dickson's (unproved) conjecture. - _Jens Kruse Andersen_, Jul 18 2014"
+			],
+			"reference": [
+				"W. Sierpiński, A Selection of Problems in the Theory of Numbers. Pergamon, 1964, p. 52, #15."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A245305/b245305.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Select[Range[0, 3000], PrimeQ[4 # + 1] \u0026\u0026 PrimeQ[4 # + 3] \u0026\u0026 PrimeQ[6 # + 5] \u0026] (* _Vincenzo Librandi_, Jun 15 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a245305 n = a245305_list !! (n-1)",
+				"a245305_list = map ((`div` 4) . (subtract 1) . head) $",
+				"   filter (all (== 1) . map a010051') $",
+				"          iterate (zipWith (+) [4, 4, 6]) [1, 3, 5]",
+				"(MAGMA) [n: n in [0..3*10^3] | IsPrime(4*n+1) and IsPrime(4*n+3) and IsPrime(6*n+5)]; // _Vincenzo Librandi_, Jun 15 2015"
+			],
+			"xref": [
+				"Cf. A010051, A007811, A125855, A245304."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jul 18 2014",
+			"references": 3,
+			"revision": 17,
+			"time": "2015-06-15T02:29:03-04:00",
+			"created": "2014-07-18T14:32:10-04:00"
+		}
+	]
+}

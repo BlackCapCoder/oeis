@@ -1,0 +1,407 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4380,
+	"results": [
+		{
+			"number": 186826,
+			"data": "1,1,1,3,3,1,11,11,5,1,45,45,23,7,1,197,197,107,39,9,1,903,903,509,205,59,11,1,4279,4279,2473,1061,347,83,13,1,20793,20793,12235,5483,1949,541,111,15,1,103049,103049,61463,28435,10717,3285,795,143,17,1,518859,518859,312761,148249,58351,19199,5197,1117,179,19,1",
+			"name": "Riordan array (s(x),x*S(x)) where s(x) is the g.f. of the little Schroeder numbers A001003, and S(x) is the g.f. of the large Schroeder numbers A006318.",
+			"comment": [
+				"Reverse of A144944. Inverse of A186827. Row sums are A010683. Diagonal sums are A186828."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A186826/b186826.txt\"\u003eRows n = 0..125 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"Riordan array ((1+x+sqrt(1-6x+x^2))/(4x), (1-x-sqrt(1-6x+x^2))/2).",
+				"R(n,k)=k*sum(i=0..n-k, (A001003(i)/(n-i))*sum(m=0..n-k-i, binomial(n-i,m)*binomial(2*(n-i)-m-k-1,n-i-1))), k\u003e0, R(n,0)=A001003(n). [From Vladimir Kruchinin, Mar 09 2011]"
+			],
+			"example": [
+				"Triangle begins",
+				"1,",
+				"1, 1,",
+				"3, 3, 1,",
+				"11, 11, 5, 1,",
+				"45, 45, 23, 7, 1,",
+				"197, 197, 107, 39, 9, 1,",
+				"903, 903, 509, 205, 59, 11, 1,",
+				"4279, 4279, 2473, 1061, 347, 83, 13, 1,",
+				"20793, 20793, 12235, 5483, 1949, 541, 111, 15, 1,",
+				"103049, 103049, 61463, 28435, 10717, 3285, 795, 143, 17, 1,",
+				"518859, 518859, 312761, 148249, 58351, 19199, 5197, 1117, 179, 19, 1",
+				"Production matrix of this triangle begins",
+				"1, 1,",
+				"2, 2, 1,",
+				"2, 2, 2, 1,",
+				"2, 2, 2, 2, 1,",
+				"2, 2, 2, 2, 2, 1,",
+				"2, 2, 2, 2, 2, 2, 1,",
+				"2, 2, 2, 2, 2, 2, 2, 1,",
+				"2, 2, 2, 2, 2, 2, 2, 2, 1,",
+				"2, 2, 2, 2, 2, 2, 2, 2, 2, 1",
+				"For instance, 107=1*45+2*23+2*7+2*1."
+			],
+			"mathematica": [
+				"t[_, 0] = 1; t[p_, p_] := t[p, p] = t[p, p - 1]; t[p_, q_] := t[p, q] = t[p, q - 1] + t[p - 1, q] + t[p - 1, q - 1];",
+				"Table[t[p, q], {p, 0, 10}, {q, p, 0, -1}] // Flatten (* _Jean-François Alcover_, Jul 16 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a186826 n k = a186826_tabl !! n !! k",
+				"a186826_row n = a186826_tabl !! n",
+				"a186826_tabl = map reverse a144944_tabl",
+				"-- _Reinhard Zumkeller_, May 11 2013"
+			],
+			"keyword": "nonn,easy,tabl",
+			"offset": "0,4",
+			"author": "_Paul Barry_, Feb 27 2011",
+			"references": 6,
+			"revision": 15,
+			"time": "2019-07-16T10:11:29-04:00",
+			"created": "2011-02-27T13:10:41-05:00"
+		},
+		{
+			"number": 187205,
+			"data": "10,40,50,56,104,130,136,160,170,171,224,230,232,250,290,310,312,370,392,410,430,459,470,520,530,560,590,610,624,640,648,670,710,730,790,830,890,896,970,1000,1010,1030,1070,1088,1090,1130,1160,1216,1218,1221",
+			"name": "Numbers such that the last of the absolute differences of divisors is 0.",
+			"comment": [
+				"Numbers n such that A187203(n) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A187205/b187205.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a187205 n = a187205_list !! (n-1)",
+				"a187205_list = map (+ 1) $ elemIndices 0 $ map a187203 [1..]"
+			],
+			"xref": [
+				"Cf. A027750, A187202, A187203, A187204."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Omar E. Pol_, Aug 01 2011",
+			"references": 6,
+			"revision": 13,
+			"time": "2013-07-13T12:03:48-04:00",
+			"created": "2011-08-01T23:03:41-04:00"
+		},
+		{
+			"number": 188641,
+			"data": "1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,0,1,0,1,1,0,0,1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,1,1,1,0,1,0,0,1,0,0,1",
+			"name": "Characteristic function of Niven (or Harshad) numbers.",
+			"comment": [
+				"a(A005349(n)) = 1; a(A065877(n)) = 0;",
+				"also a(A038186(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188641/b188641.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Harshad_number\"\u003eHarshad number\u003c/a\u003e",
+				"Eric Weisstein, \u003ca href=\"http://mathworld.wolfram.com/HarshadNumber.html\"\u003eHarshad Numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A000007(A070635(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"a188641 = (1 -) . signum . a070635"
+			],
+			"xref": [
+				"Cf. A007953, A188642."
+			],
+			"keyword": "nonn,base",
+			"offset": "1",
+			"author": "_Reinhard Zumkeller_, Apr 07 2011",
+			"references": 6,
+			"revision": 12,
+			"time": "2014-08-11T22:45:46-04:00",
+			"created": "2011-04-14T14:52:44-04:00"
+		},
+		{
+			"number": 188642,
+			"data": "0,1,1,1,1,1,1,1,1,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0",
+			"name": "Characteristic function of numbers that are divisible by the product of their digits.",
+			"comment": [
+				"a(A007602(n)) = a(A038186(n)) = 1; a(A188643(n)) = 0."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188642/b188642.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (corrected by _Georg Fischer_, Jan 20 2019)",
+				"\u003ca href=\"/index/Ch#char_fns\"\u003eIndex entries for characteristic functions\u003c/a\u003e"
+			],
+			"maple": [
+				"isA007602 := proc(n) if A007954(n) = 0 then false; else `if`(n mod A007954(n) = 0,true,false) ; end if; end proc:",
+				"A188642 := proc(n) if isA007602(n) then 1; else 0 ; end if ; end proc:",
+				"seq(A188642(n),n=0..30) ; # _R. J. Mathar_, Apr 08 2011"
+			],
+			"program": [
+				"(Haskell)",
+				"a188642 n",
+				"   | a168046 n == 1 = 1 - signum (n `mod` a007954 n)",
+				"   | otherwise      = 0",
+				"a188642_list = map a188642 [0..]"
+			],
+			"xref": [
+				"Cf. A007954, A168046, A188641."
+			],
+			"keyword": "nonn,base",
+			"offset": "0",
+			"author": "_Reinhard Zumkeller_, Apr 07 2011",
+			"references": 6,
+			"revision": 14,
+			"time": "2019-02-03T00:59:34-05:00",
+			"created": "2011-04-08T14:42:14-04:00"
+		},
+		{
+			"number": 188649,
+			"data": "1,2,3,4,5,6,7,8,9,10,11,84,31,574,255,488,71,162,91,20,84,22,32,168,260,62,72,1148,92,510,13,11224,33,6106,1855,2268,73,15106,93,40,14,6888,34,44,4590,64,74,10248,658,260,1065,3100,35,3240,55,149240,6825,7820,95,7140,16,26,252,11224,8680,66,76,12212,96,152110,17,4536,37,6862,251940,2024204,77",
+			"name": "Least common multiple of reversals of divisors of n in decimal representation.",
+			"comment": [
+				"a(A000040(n)) = A004087(n);",
+				"a(A002385(n)) = A002385(n), see A188650 for all fixed points."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188649/b188649.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Lc#lcm\"\u003eIndex entries for sequences related to lcm's\u003c/a\u003e"
+			],
+			"example": [
+				"Divisors(42) = {1,2,3,6,7,14,21,42}, therefore a(42) = lcm(1,2,3,6,7,41,12,24) = 6888."
+			],
+			"program": [
+				"(Haskell)",
+				"a188649 n = foldl lcm 1 $ map a004086 $ filter ((== 0) . mod n) [1..n]",
+				"(PARI) a(n) = lcm(apply(x-\u003efromdigits(Vecrev(digits(x))), divisors(n))); \\\\ _Michel Marcus_, Mar 13 2018"
+			],
+			"xref": [
+				"Cf. A003990 (LCM), A027750 (divisors), A004086 (reversal)."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 11 2011",
+			"references": 6,
+			"revision": 17,
+			"time": "2018-03-13T04:43:21-04:00",
+			"created": "2011-04-13T11:37:45-04:00"
+		},
+		{
+			"number": 188653,
+			"data": "1,1,-3,7,-11,17,-23,31,-39,49,-59,71,-83,97,-111,127,-143,161,-179,199,-219,241,-263,287,-311,337,-363,391,-419,449,-479,511,-543,577,-611,647,-683,721,-759,799,-839,881,-923,967,-1011,1057,-1103,1151,-1199,1249,-1299,1351,-1403,1457,-1511,1567,-1623,1681,-1739,1799,-1859,1921,-1983,2047,-2111,2177,-2243,2311,-2379,2449,-2519,2591,-2663,2737,-2811",
+			"name": "Second differences of A000463; first differences of A188652.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188653/b188653.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (-2,0,2,1)"
+			],
+			"formula": [
+				"a(2*n) = a(2*n-1)+4*n^2-2*n-2, a(2*n+1) = -a(2*n)-2*n.",
+				"a(2*n) = A056220(n), a(2*n-1) = -A142463(n).",
+				"Abs(a(n)) = A047838(n) for n \u003e 1.",
+				"a(n) = A188652(n+1)-A188652(n) = A000463(n+2)-2*A000463(n+1)+A000463(n).",
+				"G.f.: x*(-1-3*x+x^2+x^3) / ((x-1)*(1+x)^3). - R. J. Mathar, Apr 14 2011",
+				"a(n) = a(-n) = ((2*n^2-5)*(-1)^n+1)/4. - Bruno Berselli, Sep 14 2011"
+			],
+			"program": [
+				"(Haskell)",
+				"a188653 n = a188653_list !! (n-1)",
+				"a188653_list = zipWith (-) (tail a188652_list) a188652_list"
+			],
+			"keyword": "sign,easy",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Apr 13 2011",
+			"references": 6,
+			"revision": 17,
+			"time": "2015-06-13T00:53:51-04:00",
+			"created": "2011-04-13T18:47:51-04:00"
+		},
+		{
+			"number": 188666,
+			"data": "1,2,2,3,3,4,4,5,5,7,7,7,7,8,8,9,9,11,11,11,11,13,13,13,13,16,16,16,16,16,16,17,17,19,19,19,19,23,23,23,23,23,23,23,23,25,25,25,25,27,27,27,27,29,29,29,29,31,31,31,31,32,32,37,37,37,37,37,37",
+			"name": "Largest m \u003c= n such that lcm(m, m+1, ..., n) = lcm(1, 2, ..., n).",
+			"comment": [
+				"By definition: A003418(n) = lcm(a(n), a(n)+1, ... n)",
+				"and lcm(m, m+1, ... n) \u003c A003418(n) for m \u003e a(n);",
+				"all terms are prime powers, cf. A000961: A010055(a(n)) = 1;",
+				"a(A110654(n)) = A000015(n);",
+				"floor(n/2)+1 \u003c= a(n) \u003c a(2*(a(n));",
+				"A000961(n+1) = a(2*A000961(n)) = a(A138929(n)), cf. formula.",
+				"A237709 gives number of occurrences of n-th prime power. - _Reinhard Zumkeller_, Feb 12 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A188666/b188666.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LeastCommonMultiple.html\"\u003eLeast Common Multiple\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Least_common_multiple\"\u003eLeast Common Multiple\u003c/a\u003e",
+				"\u003ca href=\"/index/Lc#lcm\"\u003eIndex entries for sequences related to lcm's\u003c/a\u003e"
+			],
+			"formula": [
+				"a(k) = A000961(k+1) for k: 2*A000961(k) \u003c= k \u003c 2*A000961(k+1), k \u003e 0."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndices)",
+				"a188666 n = a188666_list !! (n-1)",
+				"a188666_list = g 1 a000961_list where",
+				"   g n pps'@(pp:pp':pps) | n \u003c 2*pp  = pp  : g (n+1) pps'",
+				"                         | otherwise = pp' : g (n+1) (pp':pps)",
+				"-- Alternative, rewriting the definition, but less efficient:",
+				"a188666' n = last $ elemIndices (f 1) $ map f [0..n] where",
+				"   f from = foldl lcm 1 [from..n]",
+				"(PARI) A188666(n)=L=lcm(n=vector(n-1,k,k+1));!for(m=1,#n,lcm(n[-m..-1])==L\u0026\u0026return(#n+2-m))\\\\ Rather illustrative than efficient. - _M. F. Hasler_, Jul 25 2015"
+			],
+			"xref": [
+				"Cf. A051173, A099996."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 25 2011",
+			"references": 6,
+			"revision": 20,
+			"time": "2018-03-04T17:46:45-05:00",
+			"created": "2011-04-27T14:40:13-04:00"
+		},
+		{
+			"number": 189398,
+			"data": "2,4,8,16,32,64,128,256,512,2,6,18,54,162,486,1458,4374,13122,39366,4,12,36,108,324,972,2916,8748,26244,78732,8,24,72,216,648,1944,5832,17496,52488,157464,16,48,144,432,1296,3888,11664,34992,104976,314928,32",
+			"name": "a(n) = 2^d(1) * 3^d(2) * ... * prime(k)^d(k), where d(1)d(2)...d(k) is the decimal representation of n.",
+			"comment": [
+				"Not the same as A061509: a(n) = A061509(n) for n \u003c= 100; a(101)=2^1*3^0*5^1=10 \u003c\u003e A061509(101)=2^1*3^1=6;",
+				"a(A052382(n)) = A000079(A000030(a052382(n))) = A061509(A052382(n));",
+				"a(A002275(n)) = A002110(n): a(n-th rep-unit) = n-th primorial;",
+				"a(n*A011557(k)) = a(n): trailing zeros don't matter;",
+				"A001221(a(n)) = A055640(n): number of distinct prime factors of a(n) = number of nonzero digits of n;",
+				"A001222(a(n)) = A007953(n): number of all prime factors of a(n) = sum of digits of n;",
+				"a(81312000) = 2^8*3^1*5^3*7^1*11^2*13^0*17^0*19^0 = 81312000, the smallest fixed point, is called the Meertens number."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A189398/b189398.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Richard S. Bird, \u003ca href=\"http://journals.cambridge.org/action/displayAbstract?fromPage=online\u0026amp;aid=44141\u0026amp;fulltextType=RL\u0026amp;fileId=S0956796897002931\"\u003eFunctional Pearl: Meertens number\u003c/a\u003e, Journal of Functional Programming 8 (1), Jan 1998, 83-88.",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Meertens_number\"\u003eMeertens number\u003c/a\u003e"
+			],
+			"maple": [
+				"a:= n-\u003e `if`(n=0, 1, ithprime(length(n))^irem(n, 10, 'm') *a(m)):",
+				"seq(a(n), n=1..110);  # _Alois P. Heinz_, May 04 2011"
+			],
+			"mathematica": [
+				"a[n_] := (p = Prime[Range[Length[d = IntegerDigits[n]]]]; Times @@ (p^d)); Array[a, 50] (* _Jean-François Alcover_, Jan 09 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Char (digitToInt)",
+				"import Data.List (findIndices)",
+				"a189398 n = product $ zipWith (^) a000040_list (map digitToInt $ show n)",
+				"-- Two computations of the Meertens number: the first is brute force,",
+				"meertens = map succ $ findIndices (\\x -\u003e a189398 x == x) [1..]",
+				"-- ... and the second is more efficient, from Bird reference, page 87:",
+				"meertens' k = [n | (n,g) \u003c- candidates (0,1), n == g] where",
+				"  candidates        = concat . map (search pps) . tail . labels ps",
+				"  ps : pps          = map (\\p -\u003e iterate (p *) 1) $ take k a000040_list",
+				"  search [] x       = [x]",
+				"  search (ps:pps) x = x : concat (map (search pps) (labels ps x))",
+				"  labels ps (n,g)   = zip (map (10*n +) [0..9]) (chop $ map (g *) ps)",
+				"  chop              = takeWhile (\u003c 10^k)",
+				"-- Time and space required, GHC interpreted, Mac OS X, 2.66 GHz:",
+				"-- for \u003ehead meertens: (466.87 secs, 254780027728 bytes);",
+				"-- for \u003emeertens' 8:   (  0.28 secs,     62027124 bytes).",
+				"(PARI) a(n)=my(d=digits(n),p=primes(#d)); prod(i=1,#d,p[i]^d[i]) \\\\ _Charles R Greathouse IV_, Aug 19 2014",
+				"(Python)",
+				"from sympy import prime",
+				"from operator import mul",
+				"from functools import reduce",
+				"def A189398(n):",
+				"....return reduce(mul, (prime(i)**int(d) for i,d in enumerate(str(n),start=1)))",
+				"# implementation using recursion",
+				"def _A189398(n):",
+				"....nlen = len(n)",
+				"....return _A189398(n[:-1])*prime(nlen)**int(n[-1]) if nlen \u003e 1 else 2**int(n)",
+				"def A189398(n):",
+				"....return _A189398(str(n))",
+				"# _Chai Wah Wu_, Aug 31 2014"
+			],
+			"xref": [
+				"Cf. A000040."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 03 2011",
+			"references": 6,
+			"revision": 32,
+			"time": "2016-01-09T11:54:55-05:00",
+			"created": "2011-05-05T18:16:52-04:00"
+		},
+		{
+			"number": 191129,
+			"data": "1,3,5,9,13,15,21,27,37,39,45,53,61,63,81,85,109,111,117,135,149,157,159,181,183,189,213,243,245,253,255,325,327,333,341,351,405,437,445,447,469,471,477,541,543,549,567,597,629,637,639,725,729,733,735,757,759,765,853,973,975,981,999,1013,1021,1023,1053,1215,1301",
+			"name": "Increasing sequence generated by these rules:  a(1)=1, and if x is in a then 3x and 4x+1 are in a.",
+			"comment": [
+				"See A191113."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191129/b191129.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"h = 3; i = 0; j = 4; k = 1; f = 1; g = 9;",
+				"a = Union[Flatten[NestList[{h # + i, j # + k} \u0026, f, g]]]  (* A191129 *)",
+				"b = a/3; c = (a-1)/4; r = Range[1, 1500];",
+				"d = Intersection[b, r] (* A191182 *)",
+				"e = Intersection[c, r] (* A191183 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a191129 n = a191129_list !! (n-1)",
+				"a191129_list = f $ singleton 1",
+				"   where f s = m : (f $ insert (3*m) $ insert (4*m+1) s')",
+				"             where (m, s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Jun 01 2011"
+			],
+			"xref": [
+				"Cf. A191113."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, May 27 2011",
+			"references": 6,
+			"revision": 8,
+			"time": "2013-07-13T12:04:10-04:00",
+			"created": "2011-05-27T21:59:05-04:00"
+		},
+		{
+			"number": 191136,
+			"data": "1,4,5,13,16,17,21,40,49,52,53,64,65,69,85,121,148,157,160,161,193,196,197,208,209,213,256,257,261,277,341,364,445,472,481,484,485,580,589,592,593,625,628,629,640,641,645,769,772,773,784,785,789,832,833,837,853,1024,1025,1029,1045,1093,1109,1336,1365,1417,1444",
+			"name": "Increasing sequence generated by these rules:  a(1)=1, and if x is in a then 3x+1 and 4x+1 are in a.",
+			"comment": [
+				"See A191113."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191136/b191136.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"h = 3; i = 1; j = 4; k = 1; f = 1; g = 9;",
+				"a = Union[Flatten[NestList[{h # + i, j # + k} \u0026, f, g]]]   (* A191136 *)",
+				"b = (a - 1)/3; c = (a - 1)/4; r = Range[1, 1500];",
+				"d = Intersection[b, r] (* A191196 *)",
+				"e = Intersection[c, r] (* A191197 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, deleteFindMin, insert)",
+				"a191136 n = a191136_list !! (n-1)",
+				"a191136_list = f $ singleton 1",
+				"   where f s = m : (f $ insert (3*m+1) $ insert (4*m+1) s')",
+				"             where (m, s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Jun 01 2011"
+			],
+			"xref": [
+				"Cf. A191113."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, May 28 2011",
+			"references": 6,
+			"revision": 8,
+			"time": "2013-07-13T12:04:10-04:00",
+			"created": "2011-05-28T15:18:12-04:00"
+		}
+	]
+}

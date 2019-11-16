@@ -1,0 +1,457 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3880,
+	"results": [
+		{
+			"number": 88670,
+			"data": "1,1,1,2,2,3,4,5,6,8,9,11,13,14,17,19,21,23,26,27,30,32,34,36,37,39,40,42,42,44,44,45,45,47,47,47,49,48,50,50,52,52,55,55,58,60,60,64,65,68,69,73,73,77,78,82,84,84,88,88,92,92,96,96,100,100,105,107,107,113",
+			"name": "Number of partitions of n into distinct decimal repdigit numbers.",
+			"comment": [
+				"a(n) \u003c= A000009(n).",
+				"Not the same as A091581: a(n) \u003c A091581(n) for n \u003e 101.",
+				"A109967(n) = a(n+1) - a(n). - _Reinhard Zumkeller_, Jul 06 2005"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A088670/b088670.txt\"\u003eTable of n, a(n) for n = 0..20000\u003c/a\u003e (first 1001 terms from Reinhard Zumkeller)",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Repdigit.html\"\u003eRepdigit\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Partition.html\"\u003ePartition\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a088670 = p $ tail a010785_list where",
+				"   p _      0 = 1",
+				"   p (k:ks) m = if m \u003c k then 0 else p ks (m - k) + p ks m",
+				"-- _Reinhard Zumkeller_, Dec 10 2011"
+			],
+			"xref": [
+				"Cf. A010785, A088669, A109968, A131364."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,4",
+			"author": "_Reinhard Zumkeller_, Oct 03 2003",
+			"ext": [
+				"a(0)=1 added and offset adjusted by _Reinhard Zumkeller_, Dec 10 2011"
+			],
+			"references": 7,
+			"revision": 22,
+			"time": "2018-09-17T18:04:40-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 88696,
+			"data": "1,1,2,1,2,3,2,1,2,3,2,3,4,3,2,1,2,3,2,3,4,3,2,3,4,5,4,3,4,3,2,1,2,3,2,3,4,3,2,3,4,5,4,3,4,3,2,3,4,5,4,5,6,5,4,3,4,5,4,3,4,3,2,1,2,3,2,3,4,3,2,3,4,5,4,3,4,3,2,3,4,5,4,5,6,5,4,3,4,5,4,3,4,3,2,3,4,5,4,5,6,5,4,5,6",
+			"name": "Triangle read by rows, giving number of partial quotients in continued fraction representation of terms in the left branch of the infinite Stern-Brocot tree.",
+			"comment": [
+				"A000120 is produced by following each row of this triangle by its reversal.",
+				"From _Gary W. Adamson_, Aug 08 2009: (Start)",
+				"The row with 8 terms: (1, 2, 3, 2, 3, 4, 3, 2); can be used to generate the numbers of hydrogen bonds per codon/anti-codon; superimposed on the DNA codon array of A147995 as follows: top row and left column of an 8 X 8 array is composed of the 8 terms (1, 2, 3, 2, 3, 4, 3, 2). If rows and columns have an offset of \"1\", then odd rows circulate downward starting from the position (n,n). Even rows circulate in the opposite direction starting from position (n,n).",
+				"This produces the array:",
+				"  1 2 3 2 3 4 3 2",
+				"  2 1 2 3 4 3 2 3",
+				"  3 2 1 2 3 2 3 4",
+				"  2 3 2 1 2 3 2 3",
+				"  3 4 3 2 1 2 3 2",
+				"  4 3 2 3 2 1 4 3",
+				"  3 2 3 4 3 2 1 2",
+				"  2 3 4 3 2 3 2 1",
+				"  ...",
+				"This produces a semi-magic square with a diagonal of (1,1,1,...). Using the simple replacement rule (\"complement to 10\"): (1-\u003e9); (2-\u003e8); (3-\u003e7); (4-\u003e6) we obtain the chart of DNA hydrogen bonds per codon/anti-codon shown in A147995. Top row of the hydrogen bond array as well as left column = (9, 8, 7, 8, 7, 6, 7, 8).",
+				"Alternatively, using the circulant rule for alternate rows and putting all 9's along the diagonal, we obtain the chart of hydrogen bonds. (End)",
+				"Rows tend to A088748 (which can also be generated from the dragon curve, A014577). - _Gary W. Adamson_, Aug 30 2009"
+			],
+			"reference": [
+				"R. L. Graham, D. E. Knuth and O. Patashnik, Concrete Mathematics. Addison-Wesley, Reading, MA, 1990, pp. 116-117."
+			],
+			"example": [
+				"Fractions in the left branch of the infinite Stern-Brocot tree (the fractions between 0 and 1), are:",
+				"  1/2;",
+				"  1/3, 2/3;",
+				"  1/4, 2/5, 3/5, 3/4;",
+				"  1/5, 2/7, 3/8, 3/7, 4/7, 5/8, 5/7, 4/5;",
+				"  ...",
+				"and their corresponding continued fraction representations are:",
+				"  [2]",
+				"  [3] [1,2]",
+				"  [4] [2,2] [1,1,2] [1,3]",
+				"  [5] [3,2] [2,1,2] [2,3] [1,1,3] [1,1,1,2] [1,2,2] [1,4]",
+				"  ...",
+				"with the number of terms in each continued fraction representation generating A088696:",
+				"  1",
+				"  1 2",
+				"  1 2 3 2",
+				"  1 2 3 2 3 4 3 2",
+				"  ..."
+			],
+			"mathematica": [
+				"sb[n_List] := Block[{k = l = Length[n], a = n}, While[k \u003e 1, a = Insert[ a, (Numerator[ a[[k]]] + Numerator[ a[[k - 1]]]) / (Denominator[ a[[k]]] + Denominator[ a[[k - 1]]]), k]; k-- ]; a]; sbn[n_] := Complement[ Nest[ sb, {0, 1}, n], Nest[ sb, {0, 1}, n - 1]]; f[n_] := Length /@ (ContinuedFraction /@ sbn[n]) - 1; Flatten[ Table[ f[n], {n, 7}]] (* _Robert G. Wilson v_, Jun 09 2004 *)",
+				"Flatten[NestList[Join[#, Reverse[#] + 1] \u0026, {1}, 7]]; (* from A164738, _Jon Maiga_, Sep 26 2019 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a088696 n = a088696_list !! (n-1)",
+				"a088696_list = f [1] where",
+				"   f (x:xs) = x : f (xs ++ [x + 1 - x `mod` 2, x + x `mod` 2])",
+				"-- _Reinhard Zumkeller_, Mar 07 2011"
+			],
+			"xref": [
+				"Cf. A000120, A007305, A007306.",
+				"Cf. A147995. - _Gary W. Adamson_, Aug 08 2009",
+				"Cf. A088748, A014577. - _Gary W. Adamson_, Aug 30 2009"
+			],
+			"keyword": "nonn,tabf",
+			"offset": "1,3",
+			"author": "_Gary W. Adamson_, Oct 07 2003",
+			"ext": [
+				"Edited and extended by _Robert G. Wilson v_, Jun 09 2004"
+			],
+			"references": 7,
+			"revision": 30,
+			"time": "2019-09-29T11:29:40-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 88763,
+			"data": "4,5,7,8,10,13,17,20,22,25,28,32,35,38,43,50,52,53,55,67,77,80,85,88,97,98,113,115,118,127,130,133,137,140,155,157,167,175,178,185,188,193,218,223,230,232,253,272,280,283,287,295,298,302,305,308,322,325,328,340",
+			"name": "a(n) = A087695(n)/2.",
+			"comment": [
+				"A260689(a(n),1) = A264526(a(n)) = 3. - _Reinhard Zumkeller_, Nov 17 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A088763/b088763.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"ZL:=[]:for p from 1 to 700 do if (isprime(p) and isprime(p+6) ) then ZL:=[op(ZL),(p+(p+6))/4]; fi; od; print(ZL); # _Zerinvary Lajos_, Mar 07 2007"
+			],
+			"mathematica": [
+				"f[n_]:=PrimeQ[n-3]\u0026\u0026PrimeQ[n+3]; lst={};Do[If[f[n],AppendTo[lst,n]],{n,2,8!,2}];lst/2 (* _Vladimir Joseph Stephan Orlovsky_, Oct 09 2009 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a088763 = flip div 2 . a087695  -- _Reinhard Zumkeller_, Nov 17 2015"
+			],
+			"xref": [
+				"Cf. A087695, A040040, A088765, A088767, A088769.",
+				"Cf. A260689, A264526."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Ray Chandler_, Oct 26 2003",
+			"ext": [
+				"Offset corrected by _Reinhard Zumkeller_, Nov 17 2015"
+			],
+			"references": 7,
+			"revision": 13,
+			"time": "2015-11-17T18:56:16-05:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 88957,
+			"data": "1,2,6,29,212,2117,26830,412015,7433032,154076201,3608522954,94238893883,2715385121740,85574061070045,2928110179818478,108110945014584623,4284188833355367440,181370804507130015569,8169524599872649117330,390114757072969964280163",
+			"name": "Hyperbinomial transform of the sequence of 1's.",
+			"comment": [
+				"See A088956 for the definition of the hyperbinomial transform.",
+				"a(n) is the number of partial functions on {1,2,...,n} that are endofunctions with no cycles of length \u003e 1.  The triangle A088956 classifies these functions according to the number of undefined elements in the domain.  The triangle A144289 classifies these functions according to the number of edges in their digraph representation (considering the empty function to have 1 edge).  The triangle A203092 classifies these functions according to the number of connected components. - _Geoffrey Critzer_, Dec 29 2011",
+				"a(n) is the number of rooted subtrees (for a fixed root) in the complete graph on n+1 vertices: a(3) = 29 is the number of rooted subtrees in K_4: 1 of size 1, 3 of size 2, 9 of size 3, and 16 spanning subtrees. - _Alex Chin_, Jul 25 2013 [corrected by _Marko Riedel_, Mar 31 2019]"
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A088957/b088957.txt\"\u003eTable of n, a(n) for n = 0..387\u003c/a\u003e",
+				"Marko Riedel et al., \u003ca href=\"https://math.stackexchange.com/questions/3169295/\"\u003eProof of e.g.f. of sequence\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = Sum_{k=0..n} (n-k+1)^(n-k-1)*C(n, k).",
+				"E.g.f.: A(x) = exp(x+sum(n\u003e=1, n^(n-1)*x^n/n!)).",
+				"E.g.f.: -LambertW(-x)*exp(x)/x. - _Vladeta Jovovic_, Oct 27 2003",
+				"a(n) ~ exp(1+exp(-1))*n^(n-1). - _Vaclav Kotesovec_, Jul 08 2013"
+			],
+			"example": [
+				"a(5) = 2117 = 1296 + 625 + 160 + 30 + 5 + 1 = sum of row 5 of triangle A088956."
+			],
+			"maple": [
+				"a:= n-\u003e add((n-j+1)^(n-j-1)*binomial(n,j), j=0..n):",
+				"seq(a(n), n=0..20);  # _Alois P. Heinz_, Oct 30 2012"
+			],
+			"mathematica": [
+				"nn = 16; t = Sum[n^(n - 1) x^n/n!, {n, 1, nn}];",
+				"Range[0, nn]! CoefficientList[Series[Exp[x] Exp[t], {x, 0, nn}], x]  (* _Geoffrey Critzer_, Dec 29 2011 *)",
+				"With[{nmax = 50}, CoefficientList[Series[-LambertW[-x]*Exp[x]/x, {x, 0, nmax}], x]*Range[0, nmax]!] (* _G. C. Greubel_, Nov 14 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a088957 = sum . a088956_row  -- _Reinhard Zumkeller_, Jul 07 2013",
+				"(PARI) x='x+O('x^10); Vec(serlaplace(-lambertw(-x)*exp(x)/x)) \\\\ _G. C. Greubel_, Nov 14 2017"
+			],
+			"xref": [
+				"Cf. A088956 (triangle).",
+				"Row sums of A144289. - _Alois P. Heinz_, Jun 01 2009",
+				"Cf. A086331, A000169.",
+				"Column k=1 of A144303. - _Alois P. Heinz_, Oct 30 2012"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Paul D. Hanna_, Oct 26 2003",
+			"references": 7,
+			"revision": 58,
+			"time": "2019-04-01T03:08:44-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 89194,
+			"data": "2,3,5,11,13,19,29,37,43,59,61,67,83,101,131,139,149,157,173,179,181,197,211,227,229,277,283,293,307,317,331,347,349,373,389,397,419,421,443,461,467,491,509,523,547,557,563,571,587,613,619,643,653,659,661",
+			"name": "Primes p such that p-1 and p+1 are cube- or higher power-free.",
+			"comment": [
+				"A212793(a(n) - 1) = A212793(a(n) + 1) = 1. - _Reinhard Zumkeller_, May 27 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A089194/b089194.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"{p in A000040: p+1 in A004709 and p-1 in A004709}. - _R. J. Mathar_, Dec 08 2015"
+			],
+			"example": [
+				"43 is included because 43 - 1 = 2 * 3 * 7 and 43 + 1 = 2^2 * 11 are both cubefree.",
+				"71 is omitted because the p+1 side, 72 = 2^3 * 3^2, has a cube factor."
+			],
+			"maple": [
+				"isA089194 := proc(n)",
+				"    if isprime(n) then",
+				"        isA004709(n-1) and isA004709(n+1) ;",
+				"    else",
+				"        false;",
+				"    end if;",
+				"end proc: # _R. J. Mathar_, Dec 08 2015"
+			],
+			"mathematica": [
+				"f[n_]:=Module[{a=m=0},Do[If[FactorInteger[n][[m,2]]\u003e2,a=1],{m,Length[FactorInteger[n]]}];a]; lst={};Do[p=Prime[n];If[f[p-1]==0\u0026\u0026f[p+1]==0,AppendTo[lst,p]],{n,6!}];lst (* _Vladimir Joseph Stephan Orlovsky_, Jul 15 2009 *)",
+				"p3fQ[n_]:=Max[Transpose[FactorInteger[n]][[2]]]\u003c3; Select[Prime[Range[ 200]], AllTrue[#+{1,-1},p3fQ]\u0026] (* The program uses the AllTrue function from Mathematica version 10 *) (* _Harvey P. Dale_, Apr 08 2015 *)"
+			],
+			"program": [
+				"(PARI)",
+				"\\\\ input number of iterations n, power p and the number to subtract k.",
+				"powerfreep2(n,p,d) = { c=0; pc=0; forprime(x=2,n, pc++; if(ispowerfree(x-d,p) \u0026\u0026 ispowerfree(x+d,p), c++; print1(x\",\"); ) ); print(); print(c\",\"pc\",\"c/pc+.0) }",
+				"ispowerfree(m,p1) = { flag=1; y=component(factor(m),2); for(i=1,length(y), if(y[i] \u003e= p1,flag=0;break); ); return(flag) }",
+				"(Haskell)",
+				"a089194 n = a089194_list !! (n-1)",
+				"a089194_list = filter ((== 1) . a212793 . (+ 1)) a097375_list",
+				"-- _Reinhard Zumkeller_, May 27 2012"
+			],
+			"xref": [
+				"Cf. A004709. Subsequence of A089189."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Cino Hilliard_, Dec 08 2003",
+			"references": 7,
+			"revision": 27,
+			"time": "2015-12-09T04:06:46-05:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 90079,
+			"data": "0,1,2,1,2,5,2,1,2,5,10,5,2,5,2,1,2,5,10,5,10,21,10,5,2,5,10,5,2,5,2,1,2,5,10,5,10,21,10,5,10,21,42,21,10,21,10,5,2,5,10,5,10,21,10,5,2,5,10,5,2,5,2,1,2,5,10,5,10,21,10,5,10,21,42,21,10,21,10,5,10,21,42,21",
+			"name": "In binary expansion of n: reduce contiguous blocks of 0's to 0 and contiguous blocks of 1's to 1.",
+			"comment": [
+				"a(a(n))=a(n); a(n)=A090078(A090077(n))=A090077(A090078(n)).",
+				"All terms are without consecutive equal binary digits: a(A000975(n)) = A000975(n) and a(m) \u003c\u003e A000975(n) for m \u003c A000975(n). - _Reinhard Zumkeller_, Feb 16 2013"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A090079/b090079.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"formula": [
+				"Conjecture: a(n) = (2^(A005811(n)+1) + (1-(-1)^n)/2 - 2)/3. - _Velin Yanev_, Dec 12 2016"
+			],
+			"example": [
+				"100 -\u003e '1100100' -\u003e [11][00][1][00] -\u003e [1][0][1][0] -\u003e '1010' -\u003e",
+				"10=a(100)."
+			],
+			"mathematica": [
+				"Table[FromDigits[#, 2] \u0026@ Map[First, Split@ IntegerDigits[n, 2]], {n, 0, 83}] (* _Michael De Vlieger_, Dec 12 2016 *)",
+				"FromDigits[Split[IntegerDigits[#,2]][[All,1]],2]\u0026/@Range[0,90] (* _Harvey P. Dale_, Oct 10 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a090079 = foldr (\\b v -\u003e 2 * v + b) 0 . map head . group . a030308_row",
+				"-- _Reinhard Zumkeller_, Feb 16 2013"
+			],
+			"xref": [
+				"Cf. A007088, A090077, A090078, A090080.",
+				"Cf. A030308, A005811."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Nov 20 2003",
+			"references": 7,
+			"revision": 19,
+			"time": "2017-10-10T11:52:13-04:00",
+			"created": "2004-02-19T03:00:00-05:00"
+		},
+		{
+			"number": 92892,
+			"data": "1,2,4,8,5,3,6,12,24,17,11,7,14,9,18,36,25,49,33,65,43,86,57,39,78,153,105,203,135,270,185,123,246,169,329,219,159,295,569,379,283,505,377,251,167,111,222,444,297,593,395,263,175,350,233,155,103,206,137,91,182",
+			"name": "Smallest starting value in a Collatz '3x+1' sequence such that the sequence contains exactly n halving steps.",
+			"comment": [
+				"First occurrence of n in A006666.",
+				"The graph of this sequence has features similar to those of A092893, but with the x-axis scaled by log(3)/log(2). - T. D. Noe, Apr 09 2007"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A092892/b092892.txt\"\u003eTable of n, a(n) for n=0..500\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/CollatzProblem.html\"\u003eCollatz Problem.\u003c/a\u003e",
+				"\u003ca href=\"/index/3#3x1\"\u003eIndex entries for sequences related to 3x+1 (or Collatz) problem\u003c/a\u003e"
+			],
+			"example": [
+				"a(5)=3 because the Collatz sequence 3,10,5,16,8,4,2,1 is the first sequence containing 5 halving steps."
+			],
+			"mathematica": [
+				"coll[n_]:= NestWhileList[If[EvenQ[#], #/2, 3#+1] \u0026, n, #\u003e1 \u0026]; Table[i = 1; While[Count[coll[i], _?EvenQ] != n, i++]; i, {n, 0, 60}] (* _Jayanta Basu_, Jun 05 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a092892 = (+ 1) . fromJust . (`elemIndex` a006666_list)",
+				"-- _Reinhard Zumkeller_, Mar 14 2014"
+			],
+			"xref": [
+				"Cf. A006666, A092893."
+			],
+			"keyword": "nonn,look",
+			"offset": "0,2",
+			"author": "_Hugo Pfoertner_, Mar 11 2004",
+			"references": 7,
+			"revision": 20,
+			"time": "2014-03-15T13:52:35-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 93018,
+			"data": "0,18,26,34,42,59,67,75,83,91,109,117,125,133,141,158,166,174,182,190,208,216,224,232,240,257,265,273,281,299,307,315,323,331,349,356,364,372,380,398,406,414,422,430,448,455,463,471,489,497,505,513,521,539",
+			"name": "Natural numbers with appended Luhn mod 10 check digit.",
+			"comment": [
+				"Indices of terms in A093017 == 0 mod 10.",
+				"A249832(a(n)) = 1; A093017(a(n)) mod 10 = 0; a(n) = 10*n + A093019(n); A093019(n) = a(n) mod 10. - _Reinhard Zumkeller_, Nov 08 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A093018/b093018.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"John Kilgo, DotNetJohn.com, \u003ca href=\"http://www.dotnetjohn.com/articles/articleid97.aspx\"\u003eUsing the Luhn Algorithm\u003c/a\u003e",
+				"Webopedia, \u003ca href=\"http://www.webopedia.com/TERM/L/Luhn_formula.html\"\u003eLuhn formula\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Luhn_algorithm\"\u003eLuhn algorithm\u003c/a\u003e",
+				"\u003ca href=\"/index/De#decimal_expansion\"\u003eIndex entries for sequences related to decimal expansion of n\u003c/a\u003e"
+			],
+			"example": [
+				"18 is in the sequence because A093017(18)=10 == 0 mod 10.",
+				"59 is in the sequence because A093017(59)=10 == 0 mod 10."
+			],
+			"program": [
+				"(Haskell)",
+				"a093018 n = a093018_list !! n",
+				"a093018_list = filter ((== 1) . a249832) [0..]",
+				"-- _Reinhard Zumkeller_, Nov 08 2014"
+			],
+			"xref": [
+				"Cf. A093017-A093029.",
+				"Cf. A249832, A093017, A249830 (complement), A249854, A249855, A010879."
+			],
+			"keyword": "easy,nonn,base",
+			"offset": "0,2",
+			"author": "_Ray Chandler_, Apr 03 2004",
+			"ext": [
+				"Original name end comment interchanged by _Reinhard Zumkeller_, Nov 08 2014"
+			],
+			"references": 7,
+			"revision": 12,
+			"time": "2019-10-10T09:34:34-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 93995,
+			"data": "1,4,4,9,9,9,16,16,16,16,25,25,25,25,25,36,36,36,36,36,36,49,49,49,49,49,49,49,64,64,64,64,64,64,64,64,81,81,81,81,81,81,81,81,81,100,100,100,100,100,100,100,100,100,100,121,121,121,121,121,121,121,121,121",
+			"name": "n^2 repeated n times, triangle read by rows.",
+			"comment": [
+				"Row sums give A000578; triangle sums give A000537."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A093995/b093995.txt\"\u003eRows n = 1..120 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n, k) = n^2, 1\u003c=k\u003c=n.",
+				"a(n) = floor(sqrt(2*n - 1) + 1/2)^2. - _Ridouane Oudra_, Jun 18 2019"
+			],
+			"example": [
+				"First few rows of the triangle are:",
+				"1;",
+				"4, 4;",
+				"9, 9, 9;",
+				"16, 16, 16, 16;",
+				"..."
+			],
+			"maple": [
+				"seq(seq(n^2, i=1..n), n=1..20); # _Ridouane Oudra_, Jun 18 2019"
+			],
+			"mathematica": [
+				"Flatten[Table[Table[n^2,{n}],{n,11}]]  (* _Harvey P. Dale_, Feb 18 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a093995 n k = a093995_tabl !! (n-1) !! (k-1)",
+				"a093995_row n = a093995_tabl !! (n-1)",
+				"a093995_tabl = zipWith replicate [1..] $ tail a000290_list",
+				"a093995_list = concat a093995_tabl",
+				"-- _Reinhard Zumkeller_, Nov 11 2012, Mar 18 2011, Oct 17 2010"
+			],
+			"xref": [
+				"Cf. A000290, A127733.",
+				"Cf. A199332."
+			],
+			"keyword": "nonn,tabl",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 24 2004",
+			"ext": [
+				"Edited by _N. J. A. Sloane_, Jul 03 2008 at the suggestion of _R. J. Mathar_"
+			],
+			"references": 7,
+			"revision": 29,
+			"time": "2019-06-19T08:16:02-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		},
+		{
+			"number": 94015,
+			"data": "1,4,8,32,64,256,512,2048,4096,16384,32768,131072,262144,1048576,2097152,8388608,16777216,67108864,134217728,536870912,1073741824,4294967296,8589934592,34359738368,68719476736,274877906944",
+			"name": "Expansion of (1+4x)/(1-8x^2).",
+			"comment": [
+				"Row sums of triangle A135838. - _Gary W. Adamson_, Dec 01 2007",
+				"Row sums of triangle A152842. - _Reinhard Zumkeller_, May 01 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A094015/b094015.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"\u003ca href=\"/index/Di#divseq\"\u003eIndex to divisibility sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,8)."
+			],
+			"formula": [
+				"a(n) = 2^(3n/2)*(1 + sqrt(2) + (1 - sqrt(2))(-1)^n)/2.",
+				"a(n) = (1/4)*(3 + (-1)^n)*8^floor((n+1)/2). - _Paul Barry_, Jul 14 2004",
+				"a(n) = (1 + sqrt(2))*(2*sqrt(2))^n/2 + (1-sqrt(2))*(-2*sqrt(2))^n/2. Third binomial transform is A002315 (NSW numbers). - _Paul Barry_, Jul 17 2004",
+				"a(n) = 2^A007494(n). - _Paul Barry_, Aug 18 2007",
+				"a(n) = A016116(n+1)*A000079(n). - _R. J. Mathar_, Jul 08 2009",
+				"a(n+3) = a(n+2)*a(n+1)/a(n). - _Reinhard Zumkeller_, Mar 04 2011"
+			],
+			"maple": [
+				"a:=n-\u003emul(3-(-1)^j,j=1..n):seq(a(n),n=0..25); # _Zerinvary Lajos_, Dec 13 2008"
+			],
+			"program": [
+				"(Haskell)",
+				"a094015 = sum . a152842_row  -- _Reinhard Zumkeller_, May 01 2014"
+			],
+			"xref": [
+				"Cf. A094014, A135838."
+			],
+			"keyword": "easy,nonn",
+			"offset": "0,2",
+			"author": "_Paul Barry_, Apr 21 2004",
+			"references": 7,
+			"revision": 34,
+			"time": "2019-09-08T02:42:00-04:00",
+			"created": "2004-06-12T03:00:00-04:00"
+		}
+	]
+}

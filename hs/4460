@@ -1,0 +1,498 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 4460,
+	"results": [
+		{
+			"number": 221373,
+			"data": "99,199,119199,111219191199,311112319121291199,411312219121123129231291199,311512113219221122223229331141291192199,511312113114115319421522123229231232133141151191292193199,611412313214315419521222323229631232133241142251152153191292193194199",
+			"name": "A two-digit Look-and-Say sequence starting with 99: each term summarizes the increasing two-digit substrings of the previous term.",
+			"comment": [
+				"a(22) is the first term containing a zero; this is due to the fact that a(21) is the first term having exactly 10 occurrences of a two-digit number, namely 10 x 32."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A221373/b221373.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LookandSaySequence.html\"\u003eLook and Say Sequence\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Look-and-say_sequence\"\u003eLook-and-say sequence\u003c/a\u003e",
+				"Reinhard Zumkeller, \u003ca href=\"/A209234/a209234.hs.txt\"\u003eHaskell program for two-digit Look-and-Say sequences\u003c/a\u003e"
+			],
+			"example": [
+				"a(0) = 11: 1x99 --\u003e a(1)=199;",
+				"a(1) = 199: 1x19 and 1x99 --\u003e a(2)=119199;",
+				"a(2) = 119199: 1x11, 2x19, 1x91 and 1x99 --\u003e a(3)=111219191199;",
+				"a(3) = 111219191199: 3x11, 1x12, 3x19, 1x21, 2x91 and 1x99 --\u003e a(4)=311112319121291199."
+			],
+			"program": [
+				"(Haskell)  See Link."
+			],
+			"xref": [
+				"Cf. A005151, A047842.",
+				"Cf. A209234 (start=10), A209233 (start=11), A221368 (start=12), A221369 (start=13), A221372 (start=19)."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,1",
+			"author": "_Reinhard Zumkeller_, Jan 13 2013",
+			"references": 6,
+			"revision": 6,
+			"time": "2013-07-13T12:04:36-04:00",
+			"created": "2013-01-14T00:24:38-05:00"
+		},
+		{
+			"number": 222208,
+			"data": "1,3,2,6,4,12,5,18,8,24,7,36,9,15,16,54,10,48,11,72,20,21,13,108,28,27,32,30,14,96,17,162,42,60,40,144,19,33,90,216,22,120,23,84,64,39,25,324,35,168,50,270,26,192,56,180,44,126,29,288,31,51,80,486",
+			"name": "a(1) = 1, a(2) = 3; for n\u003e2, a(n) = smallest number not in {a(1), ..., a(n-1)} such that a(n) is divisible by a(d) for all divisors d of n.",
+			"comment": [
+				"Permutation of the natural numbers A000027 with inverse permutation A222209."
+			],
+			"link": [
+				"Alois P. Heinz, \u003ca href=\"/A222208/b222208.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"maple": [
+				"b:= proc(n) false end:",
+				"a:= proc(n) option remember; local h, i;",
+				"      if n\u003c3 then h:= 2*n-1 else a(n-1); h:= ilcm(map(a,",
+				"         numtheory[divisors](n) minus {1, n})[]) fi;",
+				"      for i while b(i*h) do od;",
+				"      b(i*h):= true; i*h",
+				"    end:",
+				"seq(a(n), n=1..100);"
+			],
+			"mathematica": [
+				"a[1] = 1; a[2] = 3; a[n_] := a[n] = Module[{d, s, c, k}, d = Divisors[n] ~Complement~ {1, n}; For[s = Sort[Array[a, n-1]]; c = Complement[ Range[ Last[s]], s]; k = If[c == {}, Last[s]+1, First[c]], True, k++, If[FreeQ[s, k], If[AllTrue[d, Divisible[k, a[#]]\u0026], Return[k]]]]];",
+				"Table[a[n], {n, 1, 100}] (* _Jean-François Alcover_, Jan 22 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a222208 n = a222208_list !! (n-1)",
+				"a222208_list = 1 : 3 : f 3 (2 : [4 ..]) where",
+				"   f u vs = g vs where",
+				"     g (w:ws) = if all (== 0) $ map ((mod w) . a222208) $ a027751_row u",
+				"                   then w : f (u + 1) (delete w vs) else g ws",
+				"-- _Reinhard Zumkeller_, Feb 13 2013"
+			],
+			"xref": [
+				"Cf. A000027, A211384, A222209.",
+				"Cf. A027751."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Alois P. Heinz_, Feb 12 2013",
+			"references": 6,
+			"revision": 20,
+			"time": "2017-01-22T13:32:48-05:00",
+			"created": "2013-02-12T20:00:16-05:00"
+		},
+		{
+			"number": 223491,
+			"data": "1,2,3,4,5,3,7,4,9,5,11,4,13,7,5,16,17,9,19,5,7,11,23,4,25,13,9,7,29,5,31,16,11,17,7,9,37,19,13,5,41,7,43,11,9,23,47,16,49,25,17,13,53,9,11,7,19,29,59,5,61,31,9,16,13,11,67,17,23,7,71,9",
+			"name": "Largest Fermi-Dirac factor of n.",
+			"comment": [
+				"Greatest Fermi-Dirac factor of n: Largest divisor of n of the form p^(2^k), for some prime p and k \u003e= 0, with a(1) = 1. Thus for n \u003e 1, the largest term of A050376 that divides n. - _Antti Karttunen_, Apr 13 2018"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A223491/b223491.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"OEIS Wiki, \u003ca href=\"/wiki/%22Fermi-Dirac_representation%22_of_n\"\u003e\"Fermi-Dirac representation\" of n\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A213925(n,A064547(n)).",
+				"A209229(A100995(a(n))) = 1; A010055(a(n)) = 1.",
+				"From _Antti Karttunen_, Apr 13 2018: (Start)",
+				"a(1) = 1; for n \u003e 1, a(n) = A050376(A302785(n)).",
+				"a(n) = n/A302776(n).",
+				"(End)"
+			],
+			"program": [
+				"(Haskell)",
+				"a223491 = last . a213925_row",
+				"(PARI)",
+				"ispow2(n) = (n \u0026\u0026 !bitand(n,n-1));",
+				"A223491(n) = if(1==n,n,fordiv(n, d, if(ispow2(isprimepower(n/d)), return(n/d)))); \\\\ _Antti Karttunen_, Apr 13 2018"
+			],
+			"xref": [
+				"Cf. A223490, A050376, A034699, A000040 (subsequence), A302776, A302785, A302789 (ordinal transform).",
+				"Cf. also A006530, A034699."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Mar 20 2013",
+			"references": 6,
+			"revision": 18,
+			"time": "2018-04-16T22:09:27-04:00",
+			"created": "2013-03-20T14:14:03-04:00"
+		},
+		{
+			"number": 225228,
+			"data": "30,42,66,70,78,102,105,110,114,130,138,154,165,170,174,180,182,186,190,195,222,230,231,238,246,252,255,258,266,273,282,285,286,290,300,310,318,322,345,354,357,366,370,374,385,396,399,402,406,410,418,426,429",
+			"name": "Numbers with prime signatures (1,1,1) or (2,2,1) or (3,2,2).",
+			"comment": [
+				"Union of A007304, A179643 and A179695; subsequence of A033992;",
+				"A001221(a(n)) = 3 and A051903(a(n)) \u003c= A051904(a(n)) + 1 and A001222(a(n)) = 3 or 5 or 7;",
+				"A050326(a(n)) = 5."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A225228/b225228.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) ~ 2n log n / (log log n)^2. - _Charles R Greathouse IV_, Jul 28 2016"
+			],
+			"example": [
+				"A007304(1) = 2*3*5 = 30, A206778(30,1..8)=[1,2,3,5,6,10,15,30]:",
+				"A050326(30) = #{30, 15*2, 10*3, 6*5, 5*3*2} = 5;",
+				"A179643(1) = 2^2*3^2*5 = 180, A206778(180,1..8)=[1,2,3,5,6,10,15,30]:",
+				"A050326(180) = #{30*6, 30*3*2, 15*6*2, 10*6*3, 6*5*3*2} = 5;",
+				"A179695(1) = 2^3*3^2*5^2 = 1800, A206778(1800,1..8)=[1,2,3,5,6,10,15,30]:",
+				"A050326(1800) = #{30*10*6, 30*6*5*2, 30*10*3*2, 15*10*6*2, 10*6*5*3*2} = 5."
+			],
+			"program": [
+				"(Haskell)",
+				"a225228 n = a225228_list !! (n-1)",
+				"a225228_list = filter f [1..] where",
+				"   f x = length es == 3 \u0026\u0026 sum es `elem` [3,5,7] \u0026\u0026",
+				"                           maximum es - minimum es \u003c= 1",
+				"         where es = a124010_row x",
+				"(PARI) is(n)=my(f=vecsort(factor(n)[,2]~)); f==[1,1,1] || f==[1,2,2] || f==[2,2,3] \\\\ _Charles R Greathouse IV_, Jul 28 2016"
+			],
+			"xref": [
+				"Cf. A124010."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, May 03 2013",
+			"references": 6,
+			"revision": 6,
+			"time": "2016-07-28T22:43:52-04:00",
+			"created": "2013-05-03T16:54:56-04:00"
+		},
+		{
+			"number": 225496,
+			"data": "1,2,3,4,6,7,8,9,11,12,13,14,16,17,18,19,21,22,23,24,26,27,28,29,31,32,33,34,36,37,38,39,41,42,43,44,46,47,48,49,51,52,54,56,57,58,59,61,62,63,64,66,67,68,69,71,72,73,74,76,77,78,79,81,82,83,84",
+			"name": "Numbers having no balanced prime factors, cf. A006562.",
+			"comment": [
+				"a(n) = A047201(n) for n \u003c= 42."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A225496/b225496.txt\"\u003eTable of n, a(n) for n = 1..5000\u003c/a\u003e"
+			],
+			"formula": [
+				"Multiplicative closure of A178943; a(n) mod A006562(k) \u003e 0 for all k."
+			],
+			"example": [
+				"a(40) = 49 = 7^2 = A178943(3)^2;",
+				"a(41) = 51 = 3 * 17 = A178943(2) * A178943(6);",
+				"a(42) = 52 = 2^2 * 13 = A178943(1)^2 * A178943(5);",
+				"a(43) = 54 = 2 * 3^3 = A178943(1) * A178943(2)^3;",
+				"a(44) = 56 = 2^3 * 7 = A178943(1)^3 * A178943(3);",
+				"a(45) = 57 = 3 * 19 = A178943(2) * A178943(7)."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Set (singleton, fromList, union, deleteFindMin)",
+				"a225496 n = a225496_list !! (n-1)",
+				"a225496_list = 1 : h (singleton p) ps [p] where",
+				"   (p:ps) = a178943_list",
+				"   h s xs'@(x:xs) ys",
+				"     | m \u003e x     = h (s `union` (fromList $ map (* x) (1 : ys))) xs ys",
+				"     | otherwise = m : h (s' `union` (fromList $ map (* m) ys')) xs' ys'",
+				"     where ys' = m : ys; (m, s') = deleteFindMin s"
+			],
+			"xref": [
+				"Cf. A225493 (strong), A225494 (balanced), A225495 (weak)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, May 09 2013",
+			"references": 6,
+			"revision": 4,
+			"time": "2013-05-09T11:01:12-04:00",
+			"created": "2013-05-09T11:01:12-04:00"
+		},
+		{
+			"number": 226464,
+			"data": "0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,1,1,1,0,1,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,0,0,0,0,1,1",
+			"name": "Triangle read by rows giving successive states of cellular automaton generated by \"Rule 149\".",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A226464/b226464.txt\"\u003eRows n = 0..120 of triangle, flattened\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Rule30.html\"\u003eRule 30\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/ElementaryCellularAutomaton.html\"\u003eElementary Cellular Automaton\u003c/a\u003e",
+				"\u003ca href=\"/index/Ce#cell\"\u003eIndex entries for sequences related to cellular automata\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = 1 - A070950(n,2*n+1-k), 0 \u003c= k \u003c= 2*n+1."
+			],
+			"example": [
+				"Initial rows, terms moved together:",
+				".   0:                           0",
+				".   1:                          000",
+				".   2:                         01100",
+				".   3:                        0000100",
+				".   4:                       011101100",
+				".   5:                      00010000100",
+				".   6:                     0110111101100",
+				".   7:                    000000110000100",
+				".   8:                   01111100011101100",
+				".   9:                  0001110110010000100",
+				".  10:                 011001000010111101100",
+				".  11:                00001011110100110000100",
+				".  12:               0111010011001100011101100",
+				".  13:              000100110001000110010000100",
+				".  14:             01101100011011100010111101100",
+				".  15:            0000000110000010110100110000100",
+				".  16:           011111100011110100001100011101100",
+				".  17:          00011110110011001111000110010000100",
+				".  18:         0110011000010001001101100010111101100",
+				".  19:        000010001110111011000000110100110000100",
+				".  20:       01110111001000100001111100001100011101100",
+				".  21:      0001000101011101111001110111000110010000100",
+				".  22:     011011101010010001101001000101100010111101100",
+				".  23:    00000010010110111000011011101000110100110000100",
+				".  24:   0111110110100000101110000010011100001100011101100",
+				".  25:  000111000001111101001011110110010111000110010000100 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a226464 n k = a226464_tabf !! n !! k",
+				"a226464_row n = a226464_tabf !! n",
+				"a226464_tabf = map reverse a226463_tabf"
+			],
+			"xref": [
+				"Cf. A005408 (row lengths), A070951 (row sums), A226474 central terms), A226463 (mirror image, rule 135), A071032 (complemented, rule 86), A070950 (mirrored and complemented, rule 30)."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0",
+			"author": "_Reinhard Zumkeller_, Jun 08 2013",
+			"references": 6,
+			"revision": 5,
+			"time": "2013-06-09T01:04:29-04:00",
+			"created": "2013-06-09T01:04:29-04:00"
+		},
+		{
+			"number": 228053,
+			"data": "-1,1,1,-1,2,-1,1,1,1,1,-1,2,2,2,-1,1,1,4,4,1,1,-1,2,5,8,5,2,-1,1,1,7,13,13,7,1,1,-1,2,8,20,26,20,8,2,-1,1,1,10,28,46,46,28,10,1,1,-1,2,11,38,74,92,74,38,11,2,-1,1,1,13,49,112,166,166,112",
+			"name": "A triangle formed like Pascal's triangle, but with (-1)^(n+1) on the borders instead of 1.",
+			"comment": [
+				"This sequence is almost the same as A026637.",
+				"T(n,k) = A026637(n-2,k-1) for n \u003e 3, 1 \u003c k \u003c n-1. - _Reinhard Zumkeller_, Aug 08 2013"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A228053/b228053.txt\"\u003eRows n = 0..50 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"Example:",
+				"-1,",
+				"1, 1,",
+				"-1, 2, -1,",
+				"1, 1, 1, 1,",
+				"-1, 2, 2, 2, -1,",
+				"1, 1, 4, 4, 1, 1,",
+				"-1, 2, 5, 8, 5, 2, -1,",
+				"1, 1, 7, 13, 13, 7, 1, 1,",
+				"-1, 2, 8, 20, 26, 20, 8, 2, -1,",
+				"1, 1, 10, 28, 46, 46, 28, 10, 1, 1,",
+				"-1, 2, 11, 38, 74, 92, 74, 38, 11, 2, -1"
+			],
+			"mathematica": [
+				"t = {}; Do[r = {}; Do[If[k == 0 || k == n, m = (-1)^(n+1), m = t[[n, k]] + t[[n, k + 1]]]; r = AppendTo[r, m], {k, 0, n}]; AppendTo[t, r], {n, 0, 10}]; t = Flatten[t]"
+			],
+			"program": [
+				"(Haskell)",
+				"a228053 n k = a228053_tabl !! n !! k",
+				"a228053_row n = a228053_tabl !! n",
+				"a228053_tabl = iterate (\\row@(i:_) -\u003e zipWith (+)",
+				"   ([- i] ++ tail row ++ [0]) ([0] ++ init row ++ [- i])) [- 1]",
+				"  -- _Reinhard Zumkeller_, Aug 08 2013"
+			],
+			"xref": [
+				"Cf. A007318 (Pascal's triangle), A026637 (many terms in common).",
+				"Cf. A051601 (n on the borders), A137688 (2^n on borders).",
+				"Cf. A097073 (row sums).",
+				"Cf. A227074 (4^n edges), A227075 (3^n edges), A227076 (5^n edges)."
+			],
+			"keyword": "sign,tabl",
+			"offset": "0,5",
+			"author": "_T. D. Noe_, Aug 07 2013",
+			"references": 6,
+			"revision": 9,
+			"time": "2013-08-09T16:15:30-04:00",
+			"created": "2013-08-07T00:31:39-04:00"
+		},
+		{
+			"number": 230709,
+			"data": "0,2,3,4,5,6,8,9,10,12,14,15,16,17,18,20,22,23,24,26,27,28,29,30,32,33,34,36,38,39,40,42,43,44,45,46,48,50,51,52,53,54,56,57,58,60,62,63,64,65,66,68,70,71,72,74,75,76,77,78,80,82,83,84,85,86,88",
+			"name": "Union of even odious (cf. A128309) and evil numbers (cf. A001969).",
+			"comment": [
+				"Apart from initial zero: numbers m, such that when mergesorting lists of length m, the maximal number of comparisons is odd: A003071(a(n+1)) = A230721(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A230709/b230709.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/So#sorting\"\u003eIndex entries for sequences related to sorting\u003c/a\u003e"
+			],
+			"formula": [
+				"A010060(a(n)) * a(n) mod 2 = 0."
+			],
+			"mathematica": [
+				"Complement[Range[0, m = 88], Select[Range[1, m, 2], OddQ[ Total[ IntegerDigits[#, 2]]]\u0026]] (* _Jean-François Alcover_, Dec 15 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a230709 n = a230709_list !! (n-1)",
+				"a230709_list = filter (\\x -\u003e a010060 x * x `mod` 2 == 0) [0..]",
+				"(PARI) is(n)=if(hammingweight(n)%2,n%2==0,1) \\\\ _Charles R Greathouse IV_, May 09 2016"
+			],
+			"xref": [
+				"Cf. A092246 (complement)."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 28 2013",
+			"references": 6,
+			"revision": 10,
+			"time": "2018-12-15T11:49:31-05:00",
+			"created": "2013-10-28T17:48:18-04:00"
+		},
+		{
+			"number": 230871,
+			"data": "0,1,1,3,2,2,4,8,3,5,3,5,7,9,11,21,5,7,7,13,5,7,7,13,11,17,13,23,19,25,29,55,8,12,10,18,12,16,18,34,8,12,10,18,12,16,18,34,18,26,24,44,22,30,32,60,30,46,36,64,50,66,76,144,13,19,17,31,17,23",
+			"name": "Construct a triangle as in the Comments, read nodes from left to right starting at the root and proceeding downwards.",
+			"comment": [
+				"The rule for constructing the tree is the following:",
+				".....x",
+				".....|",
+				".....y",
+				"..../ \\",
+				"..y+x..3y-x",
+				"and the tree begins like this:",
+				".........0......",
+				".........|......",
+				".........1......",
+				"......./   \\....",
+				"......1.....3....",
+				"...../ \\.../ \\...",
+				"....2...2.4...8..",
+				"and so on.",
+				"Column 1 :  0, 1, 1, 2, 3, 5, 8, 13, ... = A000045 (Fibonacci numbers).",
+				"Column 2 :  3,  2,  5,  7, 12,  19,  31, ... = A013655.",
+				"Column 3 :  4,  3,  7, 10, 17,  27,  44, ... = A022120.",
+				"Column 4 :  8,  5, 13, 18, 31,  49,  80, ... = A022138.",
+				"Column 5 :  7,  5, 12, 17, 29,  46,  75, ... = A022137.",
+				"Column 6 :  9,  7, 16, 23, 39,  62, 101, ... = A190995.",
+				"Column 7 : 11,  7, 18, 25, 43,  68, 111, ... = A206419.",
+				"Column 8 : 21, 13, 34, 47, 81, 128, 209, ... = ?",
+				"Column 9 : 11,  8, 19, 27, 46,  73, 119, ... = A206420.",
+				"The lengths of the rows are 1, 1, 2, 4, 8, 16, 32, 64, 128, 256, ... = A011782 .",
+				"The final numbers in the rows are 0, 1, 3, 8, 21, 55, 144, ... = A001906.",
+				"The middle numbers in the rows are 1, 2, 5, 13, 34, 89, ... =  A001519 .",
+				"Row sums for n\u003e=1: 1, 4, 16, 64, 256, 1024, ... = 4^(n-1)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A230871/b230871.txt\"\u003eRows n = 0..13 of triangle, flattened\u003c/a\u003e"
+			],
+			"formula": [
+				"T(n,k) = T(n-1,k) + T(n-2,k) for k \u003c 2^(n-2), n \u003e 1. - _Philippe Deléham_, Nov 07 2013"
+			],
+			"example": [
+				"The successive rows are:",
+				"0",
+				"1",
+				"1, 3",
+				"2, 2, 4, 8",
+				"3, 5, 3, 5, 7, 9, 11, 21",
+				"5, 7, 7, 13, 5, 7, 7, 13, 11, 17, 13, 23, 19, 25, 29, 55",
+				"..."
+			],
+			"maple": [
+				"T:= proc(n, k) T(n, k):= `if`(k=1 and n\u003c2, n, (d-\u003e(1+2*d)*",
+				"      T(n-1, r)+(1-2*d)*T(n-2, iquo(r+1, 2)))(irem(k+1, 2, 'r')))",
+				"    end:",
+				"seq(seq(T(n, k), k=1..max(1, 2^(n-1))), n=0..7); # _Alois P. Heinz_, Nov 07 2013"
+			],
+			"mathematica": [
+				"T[n_, k_] := T[n, k] = If[k==1 \u0026\u0026 n\u003c2, n, Function[d, r = Quotient[k+1, 2]; (1+2d) T[n-1, r] + (1-2d) T[n-2, Quotient[r+1, 2]]][Mod[k+1, 2]]];",
+				"Table[T[n, k], {n, 0, 7}, {k, 1, Max[1, 2^(n-1)]}] // Flatten (* _Jean-François Alcover_, Apr 11 2017, after _Alois P. Heinz_ *)"
+			],
+			"program": [
+				"(Haskell)",
+				"data Dtree = Dtree Dtree (Integer, Integer) Dtree",
+				"a230871 n k = a230871_tabf !! n !! k",
+				"a230871_row n = a230871_tabf !! n",
+				"a230871_tabf = [0] : map (map snd) (rows $ deleham (0, 1)) where",
+				"   rows (Dtree left (x, y) right) =",
+				"        [(x, y)] : zipWith (++) (rows left) (rows right)",
+				"   deleham (x, y) = Dtree",
+				"           (deleham (y, y + x)) (x, y) (deleham (y, 3 * y - x))",
+				"-- _Reinhard Zumkeller_, Nov 07 2013"
+			],
+			"xref": [
+				"Cf. A230872, A230873.",
+				"Cf. A231330, A231331, A231335."
+			],
+			"keyword": "nonn,tabf",
+			"offset": "0,4",
+			"author": "_Philippe Deléham_, Nov 06 2013",
+			"references": 6,
+			"revision": 49,
+			"time": "2017-04-11T17:06:45-04:00",
+			"created": "2013-11-06T20:20:52-05:00"
+		},
+		{
+			"number": 232642,
+			"data": "1,2,4,3,6,5,10,8,7,14,12,11,22,9,18,16,15,30,13,26,24,23,46,20,19,38,17,34,32,31,62,28,27,54,25,50,48,47,94,21,42,40,39,78,36,35,70,33,66,64,63,126,29,58,56,55,110,52,51,102,49,98,96,95,190,44",
+			"name": "Sequence (or tree) generated by these rules: 1 is in S, and if x is in S, then x + 1 and 2*x + 2 are in S, and duplicates are deleted as they occur.",
+			"comment": [
+				"Let S be the set of numbers defined by these rules: 1 is in S, and if x is in S, then x + 1 and 2*x + 2 are in S. Then S is the set of positive integers, which arise in generations. Deleting duplicates as they occur, the generations are given by g(1) = (1), g(2) = (2,4), g(3) = (3,6,5,10), etc. Concatenating these gives A232642, a permutation of the positive integers. For n \u003e 1, the number of numbers in g(n) is 2*F(n+1), where F = A000045, the Fibonacci numbers. It is helpful to show the results as a tree with the terms of S as nodes, an edge from x to x + 1 if x + 1 has not already occurred, and an edge from x to 2*x + 2 if 2*x + 2 has not already occurred.",
+				"Seen as triangle read by rows: A082560 with duplicates removed. - _Reinhard Zumkeller_, May 14 2015"
+			],
+			"link": [
+				"Clark Kimberling and Reinhard Zumkeller, \u003ca href=\"/A232642/b232642.txt\"\u003eRows n = 1..17 of triangle, flattened\u003c/a\u003e, first 13 rows from Clark Kimberling",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"example": [
+				"Each x begets x + 1 and 2*x + 2, but if either has already occurred it is deleted. Thus, 1 begets 2 and 4; then 2 begets 3 and 6, and 4 begets 5 and 10, so that g(3) = (3,6,5,10).",
+				"First 5 generations, also showing the places where duplicates were removed:",
+				".  1:                                1",
+				".  2:                2                               4",
+				".  3:        3              6               5                10",
+				".  4:    _       8      7       14      _       12       11       22",
+				".  5:  _  __   9  18  _  16  15   30  _  __  13   26  __   24  23   46",
+				"These are the corresponding complete rows of triangle A082560:",
+				".  1:                                1",
+				".  2:                2                               4",
+				".  3:        3              6               5                10",
+				".  4:    4       8      7       14      6       12       11       22",
+				".  5:  5  10   9  18  8  16  15   30  7  14  13   26  12   24  23   46"
+			],
+			"mathematica": [
+				"z = 14; g[1] = {1}; g[2] = {2}; g[n_] := Riffle[g[n - 1] + 1, 2 g[n - 1] + 2]; j[2] = Join[g[1], g[2]]; j[n_] := Join[j[n - 1], g[n]]; g1[n_] := DeleteDuplicates[DeleteCases[g[n], Alternatives @@ j[n - 1]]]; g1[1] = g[1]; g1[2] = g[2]; t = Flatten[Table[g1[n], {n, 1, z}]]  (* A232642 *)",
+				"Table[Length[g1[n]], {n, 1, z}]  (* A000045 *)",
+				"Flatten[Table[Position[t, n], {n, 1, 200}]]  (* A232643 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List.Ordered (member); import Data.List (sort)",
+				"a232642 n k = a232642_tabf !! (n-1) !! (k-1)",
+				"a232642_row n = a232642_tabf !! (n-1)",
+				"a232642_tabf = f a082560_tabf [] where",
+				"   f (xs:xss) zs = ys : f xss (sort (ys ++ zs)) where",
+				"     ys = [v | v \u003c- xs, not $ member v zs]",
+				"a232642_list = concat a232642_tabf",
+				"-- _Reinhard Zumkeller_, May 14 2015"
+			],
+			"xref": [
+				"Cf. A232559, A232639, A232643, A000045.",
+				"Cf. A128588 (row lengths), A033484 (right edges), A257956 (row sums), A082560."
+			],
+			"keyword": "nonn,easy,tabf",
+			"offset": "1,2",
+			"author": "_Clark Kimberling_, Nov 28 2013",
+			"ext": [
+				"Keyword tabf added, to bring out function g, by _Reinhard Zumkeller_, May 14 2015"
+			],
+			"references": 6,
+			"revision": 14,
+			"time": "2017-08-20T23:20:31-04:00",
+			"created": "2013-11-30T14:09:27-05:00"
+		}
+	]
+}

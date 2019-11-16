@@ -1,0 +1,494 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 3680,
+	"results": [
+		{
+			"number": 254338,
+			"data": "1,4,7,1,2,3,3,4,6,1,1,2,2,2,3,3,3,4,6,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,4,4,6,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2",
+			"name": "Initial digits of A254143 in decimal representation.",
+			"comment": [
+				"a(n) = A000030(A254143(n));",
+				"also initial digits of A254323: a(n) = A000030(A254323(n)).",
+				"all terms are of the form u*v mod 10, where u \u003c= v and belonging to {1,3,4,6,7}, the distinct elements of A254397:",
+				"length of k-th run of consecutive 1s = A005993(k-2), k \u003e 1;",
+				"length of k-th run of consecutive 2s = k*(k+1)/2 = A000217(k), k \u003e= 1;",
+				"length of k-th run of consecutive 3s = k+1, k \u003e= 1;",
+				"length of k-th run of consecutive 4s = A065033(k-1);",
+				"n with a(n) = 4: A237424(n) = (10^a+10^b+1)/3 with b = 0, see also A093137, A133384;",
+				"n with a(n) = 6: A237424(n) = (10^a+10^b+1)/3 with a = b; A005994(a(n)) = 6 for n \u003e 1; see also A199682;"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254338/b254338.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a254338 = a000030 . a254143",
+				"(PARI) listA237424(lim)=my(v=List(),a,t); while(1, for(b=0,a, t=(10^a+10^b+1)/3; if(t\u003elim, return(Set(v))); listput(v, t)); a++)",
+				"do(lim)=my(v=List(),u=listA237424(lim),t); for(i=1,#u, for(j=1,i, t=u[i]*u[j]; if(t\u003elim,break); listput(v,t))); apply(n-\u003edigits(n)[1], Set(v)) \\\\ _Charles R Greathouse IV_, May 13 2015"
+			],
+			"xref": [
+				"Cf. A254143, A254323, A000030, A254339, A005993, A000217, A065033."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Feb 27 2015",
+			"references": 8,
+			"revision": 9,
+			"time": "2015-05-13T13:33:56-04:00",
+			"created": "2015-02-27T16:43:53-05:00"
+		},
+		{
+			"number": 256393,
+			"data": "2,4,6,9,12,15,18,21,24,27,30,35,40,45,48,51,54,57,60,65,70,77,84,91,98,105,108,111,114,133,140,147,150,155,160,165,168,175,180,185,190,209,220,231,234,247,260,273,276,299,312,325,330,341,352,363,366,427",
+			"name": "Start from a(1) = 2, then alternately add either the largest (if n is even), or the smallest (if n is odd) prime factor of the preceding term a(n-1) to get a(n).",
+			"comment": [
+				"After the initial term, each even-indexed term equals the preceding term plus its largest prime factor, and each odd-indexed term equals the preceding term plus its smallest prime factor.",
+				"See also sequence A076271 where a(n+1) = a(n) + lpf(a(n)).",
+				"Each term shares exactly one prime factor with the immediately preceding term, and because the sequence is strictly increasing, all the terms after 2 are composite. - _Antti Karttunen_, Apr 19 2015",
+				"From a(3) onward, the terms are alternately even and odd. - _Jan Guichelaar_, Apr 24 2015",
+				"a(2*n) = A070229(a(2*n-1)); a(2*n+1) = A061228(a(2*n)). - _Reinhard Zumkeller_, May 06 2015",
+				"For prime p let [p] denote the sequence with a(1)=p, and generated as for the terms of the current sequence (which according to this notation is then the same as [2]. It so happens that the sequence [p] (for any p?) merges with [2] sooner or later, taking the form of a \"tree\" as shown in the attached image (Including prime starts up to p=67). Is this pattern of merging bounded or not? Is there just one tree or are there many? Interesting to speculate. The numbers corresponding to the arrival points in [2] of [p] is the sequence 2,6,15,21,51,57,77,84.... The sequence of (\"excluded\")numbers which do not arise in [p] for any prime p starts as 8,16,20,25,28,32,36,44... Other sequences may refer to the number of iterations required to merge [p] into [2]. See tree picture. - _David James Sycamore_, Aug 25 2016",
+				"In this picture, one could also include some [c] sequences, with composite c, see A276269. - _Michel Marcus_, Aug 26 2016"
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A256393/b256393.txt\"\u003eTable of n, a(n) for n = 1..4096\u003c/a\u003e",
+				"David Sycamore, \u003ca href=\"/A256393/a256393_1.jpg\"\u003eTree showing what happens if the initial 2 is replaced by a different prime\u003c/a\u003e (Corrected Aug 29 2016)"
+			],
+			"formula": [
+				"a(1) = 2; a(2n) = a(2n-1) + gpf(a(2n-1)), a(2n+1) = a(2n) + lpf(a(2n)), where gpf = greatest prime factor = A006530, lpf = least prime factor = A020639."
+			],
+			"maple": [
+				"a[1]:= 2;",
+				"for n from 2 to 100 do",
+				"  if n::even then a[n]:= a[n-1] + max(numtheory:-factorset(a[n-1]))",
+				"  else a[n]:= a[n-1] + min(numtheory:-factorset(a[n-1]))",
+				"  fi",
+				"od:",
+				"seq(a[i],i=1..100); # _Robert Israel_, May 03 2015"
+			],
+			"mathematica": [
+				"f[n_] := Block[{pf = First /@ FactorInteger@ n}, If[EvenQ@ n, Max@ pf, Min@ pf]]; s = {2}; lmt = 58; For[k = 2, k \u003c= lmt, k++, AppendTo[s, s[[k - 1]] + f@ s[[k - 1]]]]; s (* _Michael De Vlieger_, Apr 19 2015 *)",
+				"FoldList[Function[f, If[EvenQ@ #2, #1 + First@ f, #1 + Last@ f]][FactorInteger[#1][[All, 1]]] \u0026, Range[2, 59]] (* _Michael De Vlieger_, Aug 26 2016 *)"
+			],
+			"program": [
+				"(PARI) lista(nn) = {print1(a = 2, \", \"); for (n=2, nn, f = factor(a); if (n % 2, a += f[1, 1], a += f[#f~, 1]); print1(a, \", \"););} \\\\ _Michel Marcus_, Apr 02 2015",
+				"(Scheme, with memoization-macro definec) (definec (A256393 n) (cond ((= 1 n) 2) ((even? n) (+ (A256393 (- n 1)) (A006530 (A256393 (- n 1))))) (else (+ (A256393 (- n 1)) (A020639 (A256393 (- n 1))))))) ;; _Antti Karttunen_, Apr 18 2015",
+				"(Haskell)",
+				"a256393 n = a256393_list !! (n-1)",
+				"a256393_list = 2 : zipWith ($) (cycle [a070229, a061228]) a256393_list",
+				"-- _Reinhard Zumkeller_, May 06 2015"
+			],
+			"xref": [
+				"Cf. A006530 (greatest prime factor), A020639 (least prime factor), A076271.",
+				"Cf. A257244 (the first differences; the unique prime factors shared by each pair of successive terms), A257245, A257246 (their bisections), A257247 (numbers n such that GCD(a(2n-1),a(2n)) = GCD(a(2n),a(2n+1)), which is prime).",
+				"Cf. A061228, A070229."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Jan Guichelaar_, Mar 28 2015",
+			"ext": [
+				"More terms from _Michel Marcus_, Apr 02 2015",
+				"Replaced the name with more succinct description, moved old name to comments - _Antti Karttunen_, Apr 18-19 2015"
+			],
+			"references": 8,
+			"revision": 83,
+			"time": "2016-10-06T05:15:17-04:00",
+			"created": "2015-05-04T21:21:08-04:00"
+		},
+		{
+			"number": 257265,
+			"data": "2,1,0,1,1,0,0,1,2,0,1,1,0,0,0,1,2,0,1,2,0,0,1,1,0,1,1,0,0,0,0,1,2,0,1,2,0,0,1,1,0,1,2,0,0,0,1,1,0,1,1,0,0,2,1,0,1,1,0,0,0,0,0,1,2,0,1,2,0,0,1,1,0,1,2,0,0,0,1,1,0,1,1,0,0,2,1,0,1,2,0,0,0,0,1,1,0,1,1,0,0,2,1,0,1,1,0,0,0,2,1,0,2,1,0,0,1,1,0,1,1,0,0,0,0,0,0,1,2",
+			"name": "Distance to n from a leaf nearest to n in the binary beanstalk.",
+			"comment": [
+				"If n is one of the terms of A055938 (that is, one of the leaves of the binary beanstalk), then a(n) is zero. Otherwise, a(n) is the least number of iterations of A011371 required to reach n, when we start from any term of A055938.",
+				"Compare to the definition of A213725, which gives 1 + distance to the farthest leaf in the binary beanstalk (giving 0 for the nodes which reside in A179016, the infinite stem of the beanstalk, as there the maximum distance would not have a finite value).",
+				"Note that although the recursive formula given here mirrors the one given at A213725, it cannot be implemented in a naive way, precisely because of that infinite stem, as it would lead to recursion without end. Instead, with ordinary eagerly evaluating programming languages we have to employ, for example, a breadth-first search, as in the given Scheme-program.",
+				"Question: Will there ever appear a term larger than 2? (Only terms 0 - 2 occur in range 0 .. 2097151)."
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A257265/b257265.txt\"\u003eTable of n, a(n) for n = 0..16384\u003c/a\u003e",
+				"Ela, \u003ca href=\"http://elalang.net/docs/Article.aspx?p=lib%5Cpeano.htm\"\u003epeano\u003c/a\u003e",
+				"Haskell Wiki, \u003ca href=\"https://wiki.haskell.org/Peano_numbers\"\u003ePeano numbers\u003c/a\u003e",
+				"Paul Tek, \u003ca href=\"/A179016/a179016.png\"\u003eIllustration of how natural numbers in range 0 .. 133 are organized as a binary tree in the binary beanstalk\u003c/a\u003e"
+			],
+			"formula": [
+				"If A079559(n) = 0, then a(n) = 0, otherwise a(n) = 1 + min(a(A213723(n)), a(A213724(n))). [But please see the comments above.]"
+			],
+			"example": [
+				"For 0, the nearest leaf is 2, as when we start from 2, and always subtract the binary weight, A000120, we have: 2 - A000120(2) = A011371(2) = 1, and A011371(1) = 0, thus it takes two steps to get to 0, and there are no other terms of A055938 from which it would take less number of steps), so a(0) = 2, and also a(1) = 1, because it's one step nearer to 2.",
+				"a(2) = 0, because 2 is one of the terms of A055938.",
+				"a(8) = 2, because 12, 13 and 14 are the three nearest leaves to 8, and A011371(12) = A011371(13) = 10, A011371(14) = 11, A011371(10) = A011371(11) = 8 (thus it takes two iterations of A011371 to reach 8 from any of those three leaves) and there are no leaf nearer.",
+				"Please see also Paul Tek's illustration."
+			],
+			"program": [
+				"(Scheme)",
+				";; Do a breadth-first search over the descendants, which are at each step of iteration sorted by their distance from the starting node.",
+				"(define (A257265 n) (let loop ((descendants (list (cons 0 n)))) (let ((dist (caar descendants)) (node (cdar descendants))) (cond ((zero? (A079559 node)) dist) (else (loop (sort (append (list (cons (+ 1 dist) (A213724 node)) (cons (+ 1 dist) (A213723 node))) (cdr descendants)) (lambda (a b) (\u003c (car a) (car b))))))))))",
+				"(Haskell)",
+				"a257265 = length . us where",
+				"   us n = if a079559 n == 0",
+				"             then [] else () : zipWith (const $ const ())",
+				"                               (us $ a213723 n) (us $ a213724 n)",
+				"-- _Reinhard Zumkeller_, May 03 2015"
+			],
+			"xref": [
+				"Cf. A055938 (positions of 0's), A257508 (of 1's), A257509 (of 2's).",
+				"Cf. also A000120, A011371, A079559, A213723, A213724.",
+				"Cf. also A179016, A213725, A257264."
+			],
+			"keyword": "nonn",
+			"offset": "0,1",
+			"author": "_Antti Karttunen_, Apr 29 2015",
+			"references": 8,
+			"revision": 28,
+			"time": "2015-05-04T02:14:56-04:00",
+			"created": "2015-04-30T21:46:15-04:00"
+		},
+		{
+			"number": 257762,
+			"data": "1,3,5,7,13,26,28,43,49,64,69,78,89,93,96,116,131,134,142,148,152,155,167,182,202,206,212,225,231,234,236,238,247,253,258,281,286,302,303,311,313,330,332,333,334,336,337,356,362,384,385,390,435,438,455,458,484,492,512,516",
+			"name": "Numbers n with property that A062234(n) = A062234(n+1).",
+			"comment": [
+				"Numbers n with property that 2*prime(n)-prime(n+1) = 2*prime(n+1)-prime(n+2), or 2*prime(n)+prime(n+2) = 3*prime(n+1).",
+				"Numbers n with property that 2*A001223(n) = A001223(n+1). - _Gionata Neri_, May 22 2015",
+				"a(n) = A258432(m), where m such that A258383(m) = 2. - _Reinhard Zumkeller_, May 31 2015"
+			],
+			"link": [
+				"Robert Israel, \u003ca href=\"/A257762/b257762.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = A258437(A258432(2)) = 1."
+			],
+			"maple": [
+				"Primes:= select(isprime,[2,(2*i+1 $ i=1..10^4)]):",
+				"Gaps:= Primes[2..-1] - Primes[1..-2]:",
+				"G2:= Gaps[2..-1] - 2*Gaps[1..-2]:",
+				"ListTools:-SearchAll(0,G2); # _Robert Israel_, May 22 2015"
+			],
+			"mathematica": [
+				"Select[Range@ 600, 2 Prime[#] - Prime[# + 1] == 2 Prime[# + 1] - Prime[# + 2] \u0026] (* _Michael De Vlieger_, May 11 2015 *)"
+			],
+			"program": [
+				"(MAGMA) [n: n in [0..600] | 2*NthPrime(n)-NthPrime(n+1) eq 2*NthPrime(n+1)-NthPrime(n+2)]; // _Vincenzo Librandi_, May 12 2015",
+				"(Haskell)",
+				"a257762 n = a257762_list !! (n-1)",
+				"a257762_list = map a258432 $ filter ((== 2) . a258383) [1..]",
+				"-- _Reinhard Zumkeller_, May 31 2015"
+			],
+			"xref": [
+				"Cf. A258383, A258432, A258437, A258469, A257762, A258449, A257892, A257951."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Zak Seidov_, May 07 2015",
+			"references": 8,
+			"revision": 28,
+			"time": "2015-05-31T08:03:32-04:00",
+			"created": "2015-05-19T03:45:56-04:00"
+		},
+		{
+			"number": 257951,
+			"data": "465460,672832,829363,891802,919088,1703659,2656715,2669971,3035410,3223041,3585960,3608292,3636024,4047253,4058989,4232549,4591286,4785400,4797700,5054313,5120280,5599321,5872369,6089675,6541163,6963642,7957852,8234393,9069087,9082140,9312431",
+			"name": "Numbers n with property that A062234(n)=A062234(n+1)=A062234(n+2)=A062234(n+3)=A062234(n+4).",
+			"comment": [
+				"a(n) = A258432(m), where m such that A258383(m) = 5. - _Reinhard Zumkeller_, May 31 2015"
+			],
+			"example": [
+				"For k=465460..465464, 2*prime(k)-prime(k+1)=6824895.",
+				"a(1) = A258437(A258432(5)) = 465460."
+			],
+			"program": [
+				"(Haskell)",
+				"a257951 n = a257951_list !! (n-1)",
+				"a257951_list = map a258432 $ filter ((== 5) . a258383) [1..]",
+				"-- _Reinhard Zumkeller_, May 31 2015"
+			],
+			"xref": [
+				"Subsequence of A257892, A257762 and A062234.",
+				"Cf. A258383, A258432, A258437, A258469, A258449, A257951."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Zak Seidov_, May 14 2015",
+			"ext": [
+				"More terms from _Zak Seidov_, Jul 29 2015"
+			],
+			"references": 8,
+			"revision": 13,
+			"time": "2015-07-30T09:25:01-04:00",
+			"created": "2015-05-29T09:31:53-04:00"
+		},
+		{
+			"number": 258599,
+			"data": "2,4,6,10,16,20,28,31,39,48,51,65,71,75,84,94,107,110,120,129,133,145,152,163,180,187,191,199,202,212,238,246,258,261,282,286,297,309,319,330,342,344,366,372,377,382,407,431,440,443,450,463,468,487,498",
+			"name": "Smallest number m such that A001694(m) = prime(n)^2.",
+			"comment": [
+				"A001694(a(n)) = A001248(n) = prime(n)^2;",
+				"A001694(m) mod prime(n) \u003e 0 for m \u003c a(n);",
+				"also smallest number m such that A258567(m) = prime(n):",
+				"A258567(a(n)) = A000040(n) and A258567(m) != A000040(n) for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258599/b258599.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				".   n |  p |  a(n) | A001694(a(n)) = A001248(n) = p^2",
+				". ----+----+-------+---------------------------------",
+				".   1 |  2 |     2 |             4",
+				".   2 |  3 |     4 |             9",
+				".   3 |  5 |     6 |            25",
+				".   4 |  7 |    10 |            49",
+				".   5 | 11 |    16 |           121",
+				".   6 | 13 |    20 |           169",
+				".   7 | 17 |    28 |           289",
+				".   8 | 19 |    31 |           361",
+				".   9 | 23 |    39 |           529",
+				".  10 | 29 |    48 |           841",
+				".  11 | 31 |    51 |           961",
+				".  12 | 37 |    65 |          1369",
+				".  13 | 41 |    71 |          1681",
+				".  14 | 43 |    75 |          1849",
+				".  15 | 47 |    84 |          2209",
+				".  16 | 53 |    94 |          2809",
+				".  17 | 59 |   107 |          3481",
+				".  18 | 61 |   110 |          3721",
+				".  19 | 67 |   120 |          4489",
+				".  20 | 71 |   129 |          5041",
+				".  21 | 73 |   133 |          5329",
+				".  22 | 79 |   145 |          6241",
+				".  23 | 83 |   152 |          6889",
+				".  24 | 89 |   163 |          7921",
+				".  25 | 97 |   180 |          9409  ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a258599 = (+ 1) . fromJust . (`elemIndex` a258567_list) . a000040"
+			],
+			"xref": [
+				"Cf. A258567, A000040, A001248, A001694, A258600, A258601, A258602, A258603."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 06 2015",
+			"references": 8,
+			"revision": 7,
+			"time": "2015-06-06T17:25:36-04:00",
+			"created": "2015-06-06T17:25:36-04:00"
+		},
+		{
+			"number": 258601,
+			"data": "2,5,10,16,28,37,55,61,80,105,112,140,160,165,183,209,236,244,265,283,289,316,335,360,389,408,414,430,435,452,505,520,542,549,589,598,613,637,651,675,697,701,737,743,754,765,806,844,866,870,880,899,908,940",
+			"name": "Smallest number m such that A036967(m) = prime(n)^4.",
+			"comment": [
+				"A036967(a(n)) = A030514(n) = prime(n)^4;",
+				"A036967(m) mod prime(n) \u003e 0 for m \u003c a(n);",
+				"also smallest number m such that A258569(m) = prime(n):",
+				"A258569(a(n)) = A000040(n) and A258569(m) != A000040(n) for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258601/b258601.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				".   n |  p |  a(n) | A036967(a(n)) = A030514(n) = p^4",
+				". ----+----+-------+---------------------------------",
+				".   1 |  2 |     2 |            16",
+				".   2 |  3 |     5 |            81",
+				".   3 |  5 |    10 |           625",
+				".   4 |  7 |    16 |          2401",
+				".   5 | 11 |    28 |         14641",
+				".   6 | 13 |    37 |         28561",
+				".   7 | 17 |    55 |         83521",
+				".   8 | 19 |    61 |        130321",
+				".   9 | 23 |    80 |        279841",
+				".  10 | 29 |   105 |        707281",
+				".  11 | 31 |   112 |        923521",
+				".  12 | 37 |   140 |       1874161",
+				".  13 | 41 |   160 |       2825761",
+				".  14 | 43 |   165 |       3418801",
+				".  15 | 47 |   183 |       4879681",
+				".  16 | 53 |   209 |       7890481",
+				".  17 | 59 |   236 |      12117361",
+				".  18 | 61 |   244 |      13845841",
+				".  19 | 67 |   265 |      20151121",
+				".  20 | 71 |   283 |      25411681",
+				".  21 | 73 |   289 |      28398241",
+				".  22 | 79 |   316 |      38950081",
+				".  23 | 83 |   335 |      47458321",
+				".  24 | 89 |   360 |      62742241",
+				".  25 | 97 |   389 |      88529281"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a258601 = (+ 1) . fromJust . (`elemIndex` a258569_list) . a000040"
+			],
+			"xref": [
+				"Cf. a258569, A000040, A030514, A036967, A258599, A258600, A258602, A258603."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 06 2015",
+			"references": 8,
+			"revision": 4,
+			"time": "2015-06-06T17:26:13-04:00",
+			"created": "2015-06-06T17:26:13-04:00"
+		},
+		{
+			"number": 258602,
+			"data": "2,5,12,20,37,45,68,82,106,142,153,194,215,227,251,290,321,336,373,395,408,442,463,499,542,566,573,600,612,634,709,728,758,769,819,831,860,895,916,947,971,980,1034,1043,1057,1069,1131,1190,1208,1219,1240,1265",
+			"name": "Smallest number m such that A069492(m) = prime(n)^5.",
+			"comment": [
+				"A069492(a(n)) = A050997(n) = prime(n)^5;",
+				"A069492(m) mod prime(n) \u003e 0 for m \u003c a(n);",
+				"also smallest number m such that A258570(m) = prime(n):",
+				"A258570(a(n)) = A000040(n) and A258570(m) != A000040(n) for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258602/b258602.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				".   n |  p |  a(n) | A069492(a(n)) = A050997(n) = p^5",
+				". ----+----+-------+---------------------------------",
+				".   1 |  2 |     2 |            32",
+				".   2 |  3 |     5 |           243",
+				".   3 |  5 |    12 |          3125",
+				".   4 |  7 |    20 |         16807",
+				".   5 | 11 |    37 |        161051",
+				".   6 | 13 |    45 |        371293",
+				".   7 | 17 |    68 |       1419857",
+				".   8 | 19 |    82 |       2476099",
+				".   9 | 23 |   106 |       6436343",
+				".  10 | 29 |   142 |      20511149",
+				".  11 | 31 |   153 |      28629151",
+				".  12 | 37 |   194 |      69343957",
+				".  13 | 41 |   215 |     115856201",
+				".  14 | 43 |   227 |     147008443",
+				".  15 | 47 |   251 |     229345007",
+				".  16 | 53 |   290 |     418195493",
+				".  17 | 59 |   321 |     714924299",
+				".  18 | 61 |   336 |     844596301",
+				".  19 | 67 |   373 |    1350125107",
+				".  20 | 71 |   395 |    1804229351",
+				".  21 | 73 |   408 |    2073071593",
+				".  22 | 79 |   442 |    3077056399",
+				".  23 | 83 |   463 |    3939040643",
+				".  24 | 89 |   499 |    5584059449",
+				".  25 | 97 |   542 |    8587340257  ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a258602 = (+ 1) . fromJust . (`elemIndex` a258570_list) . a000040"
+			],
+			"xref": [
+				" Cf. a258570, A000040, A050997, A069492, A258599, A258600, A258601, A258603."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 06 2015",
+			"references": 8,
+			"revision": 4,
+			"time": "2015-06-06T17:26:33-04:00",
+			"created": "2015-06-06T17:26:33-04:00"
+		},
+		{
+			"number": 258603,
+			"data": "2,6,13,22,45,58,87,102,135,181,198,249,281,298,331,379,430,444,488,525,539,584,620,663,720,755,767,794,810,847,944,969,1014,1028,1099,1111,1154,1196,1225,1267,1306,1317,1384,1399,1427,1433,1516,1596,1620,1633",
+			"name": "Smallest number m such that A069493(m) = prime(n)^6.",
+			"comment": [
+				"A069493(a(n)) = A030516(n) = prime(n)^6;",
+				"A069493(m) mod prime(n) \u003e 0 for m \u003c a(n);",
+				"also smallest number m such that A258571(m) = prime(n):",
+				"A258571(a(n)) = A000040(n) and A258571(m) != A000040(n) for m \u003c a(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A258603/b258603.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"example": [
+				".   n |  p |  a(n) | A069493(a(n)) = A030516(n) = p^6",
+				". ----+----+-------+---------------------------------",
+				".   1 |  2 |     2 |            64",
+				".   2 |  3 |     6 |           729",
+				".   3 |  5 |    13 |         15625",
+				".   4 |  7 |    22 |        117649",
+				".   5 | 11 |    45 |       1771561",
+				".   6 | 13 |    58 |       4826809",
+				".   7 | 17 |    87 |      24137569",
+				".   8 | 19 |   102 |      47045881",
+				".   9 | 23 |   135 |     148035889",
+				".  10 | 29 |   181 |     594823321",
+				".  11 | 31 |   198 |     887503681",
+				".  12 | 37 |   249 |    2565726409",
+				".  13 | 41 |   281 |    4750104241",
+				".  14 | 43 |   298 |    6321363049",
+				".  15 | 47 |   331 |   10779215329",
+				".  16 | 53 |   379 |   22164361129",
+				".  17 | 59 |   430 |   42180533641",
+				".  18 | 61 |   444 |   51520374361",
+				".  19 | 67 |   488 |   90458382169",
+				".  20 | 71 |   525 |  128100283921",
+				".  21 | 73 |   539 |  151334226289",
+				".  22 | 79 |   584 |  243087455521",
+				".  23 | 83 |   620 |  326940373369",
+				".  24 | 89 |   663 |  496981290961",
+				".  25 | 97 |   720 |  832972004929  ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a258603 = (+ 1) . fromJust . (`elemIndex` a258571_list) . a000040"
+			],
+			"xref": [
+				"Cf. a258571, A000040, A030516, A069493, A258599, A258600, A258601, A258602."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Jun 06 2015",
+			"references": 8,
+			"revision": 4,
+			"time": "2015-06-06T17:26:47-04:00",
+			"created": "2015-06-06T17:26:47-04:00"
+		},
+		{
+			"number": 259260,
+			"data": "1,7,11,21,29,3,5,13,19,31,41,9,23,27,45,53,75,87,113,15,17,33,39,59,69,93,35,37,61,67,95,105,57,71,91,109,133,155,183,209,79,49,151,137,25,47,51,77,85,43,55,73,89,111,131,157,181,107,135,65,63,99,101,141,147,191,97,103,139,149,189,203,247,145",
+			"name": "With a(1) = 1, a(n) is the smallest number not already in the sequence such that the arithmetic mean of two neighboring terms is a square.",
+			"comment": [
+				"Conjectured to be a permutation of the odd numbers.",
+				"A259602(n) = (a(n) + a(n+1)) / 2; a(A259526(n)) = 2*n-1. - _Reinhard Zumkeller_, Jun 29 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A259260/b259260.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"s={1}; Do[n = Last@ s; a=2; While[(b = 2*a^2 - n) \u003c= 0 || MemberQ[s, b], a++]; AppendTo[s, b], {100}]; s (* _Giovanni Resta_, Jun 23 2015 *)"
+			],
+			"program": [
+				"(PARI) v=[1];n=1;while(#v\u003c100,s=(n+v[#v])/2;if(type(s)==\"t_INT\",if(issquare(s)\u0026\u0026!vecsearch(vecsort(v),n),v=concat(v,n);n=0));n++);v",
+				"(Haskell)",
+				"import Data.List (delete)",
+				"a259260 n = a259260_list !! (n-1)",
+				"a259260_list = 1 : f 1 [3, 5 ..] where",
+				"   f x zs = g zs where",
+				"     g (y:ys) = if a010052 ((x + y) `div` 2) == 1",
+				"                   then y : f y (delete y zs) else g ys",
+				"-- _Reinhard Zumkeller_, Jun 29 2015"
+			],
+			"xref": [
+				"Cf. A034175, A086517.",
+				"Cf. A010052, A005408.",
+				"Cf. A259602, A259565, A259429, A259542."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Derek Orr_, Jun 22 2015",
+			"references": 8,
+			"revision": 23,
+			"time": "2015-07-31T04:11:44-04:00",
+			"created": "2015-06-29T08:48:43-04:00"
+		}
+	]
+}

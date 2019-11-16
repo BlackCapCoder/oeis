@@ -1,0 +1,463 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 1480,
+	"results": [
+		{
+			"number": 36839,
+			"data": "0,2,4,6,8,1,12,14,16,18,11,22,33,44,55,66,77,88,99,11,22,33,44,55,66,77,88,99,11,112,33,44,55,66,77,88,99,11,112,123,44,55,66,77,88,99,11,112,123,134,55,66,77,88,99,11,112,123,134,145,66,77",
+			"name": "RATS(n): Reverse Add Then Sort the digits.",
+			"comment": [
+				"a(n) = RATS(n), not RATS(a(n-1)).",
+				"Row 10 of A288535. - _Andrey Zabolotskiy_, Jun 14 2017"
+			],
+			"link": [
+				"Indranil Ghosh, \u003ca href=\"/A036839/b036839.txt\"\u003eTable of n, a(n) for n = 0..50000\u003c/a\u003e (terms 0..1000 from T. D. Noe)",
+				"R. K. Guy, \u003ca href=\"http://www.jstor.org/stable/2325149\"\u003eConway's RATS and other reversals\u003c/a\u003e, Unsolved Problems Column, American Math. Monthly, Vol. 96, pp. 425-428, May 1989.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/RATSSequence.html\"\u003eRATS Sequence\u003c/a\u003e"
+			],
+			"formula": [
+				"Form m by Reversing the digits of n, Add m to n Then Sort the digits of the sum into increasing order to get a(n).",
+				"a(n) = A004185(A056964(n)). [_Reinhard Zumkeller_, Mar 14 2012]"
+			],
+			"example": [
+				"1 -\u003e 1 + 1 = 2, so a(1) = 2; 3 -\u003e 3 + 3 = 6, so a(3) = 6."
+			],
+			"maple": [
+				"read transforms; RATS := n -\u003e digsort(n + digrev(n));"
+			],
+			"mathematica": [
+				"FromDigits[Sort[IntegerDigits[#+FromDigits[Reverse [IntegerDigits[#]]]]]] \u0026 /@Range[0,80]  (* _Harvey P. Dale_, Mar 26 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a036839 = a004185 . a056964  -- _Reinhard Zumkeller_, Mar 14 2012",
+				"(Python)",
+				"def A036839(n):",
+				"....x=str(n+int(str(n)[::-1]))",
+				"....return int(\"\".join(sorted(x))) # _Indranil Ghosh_, Jan 28 2017"
+			],
+			"xref": [
+				"Cf. A004000, A004185, A288535.",
+				"Cf. A161593, A114611, A009994, A004086."
+			],
+			"keyword": "nonn,base,nice,easy,look",
+			"offset": "0,2",
+			"author": "_N. J. A. Sloane_, Jan 19 2002",
+			"references": 24,
+			"revision": 44,
+			"time": "2019-01-29T03:49:28-05:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 39702,
+			"data": "2,3,1,3,3,1,1,3,3,1,3,1,1,3,3,1,3,1,3,3,1,3,3,1,1,1,3,3,1,1,3,3,1,3,1,3,1,3,3,1,3,1,3,1,1,3,3,3,3,1,1,3,1,3,1,3,1,3,1,1,3,1,3,3,1,1,3,1,3,1,1,3,3,1,3,3,1,1,1,1,3,1,3,1,3,3,1,1,1,3,3,3,3,3,3,3,1,1,3,1,3,1,3,1,3",
+			"name": "a(n) = n-th prime modulo 4.",
+			"comment": [
+				"Except for the first term, A100672(n) = (A039702(n)-1)/2 = parity of A005097. - _Jeremy Gardiner_, May 17 2008"
+			],
+			"link": [
+				"Nathaniel Johnston, \u003ca href=\"/A039702/b039702.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"maple": [
+				"seq(ithprime(n) mod 4, n=1..105); # _Nathaniel Johnston_, Jun 29 2011"
+			],
+			"mathematica": [
+				"Table[Mod[Prime[n], 4], {n, 105}] (* _Nathaniel Johnston_, Jun 29 2011 *)",
+				"Mod[Prime[Range[100]], 4] (* _Vincenzo Librandi_, May 06 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a039702 = (`mod` 4) . a000040  -- _Reinhard Zumkeller_, Feb 20 2012",
+				"(PARI) a(n)=prime(n)%4 \\\\ _Charles R Greathouse IV_, Jun 13 2013",
+				"(MAGMA) [p mod 4: p in PrimesUpTo(500)]; // _Vincenzo Librandi_, May 06 2014"
+			],
+			"xref": [
+				"Cf. A000040, A039701, A039703-A039706, A100672, A005097, A038194, A007652, A039709-A039715."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Clark Kimberling_",
+			"references": 24,
+			"revision": 27,
+			"time": "2014-05-06T11:38:54-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 46301,
+			"data": "30,105,385,1001,2431,4199,7429,12673,20677,33263,47027,65231,82861,107113,146969,190747,241133,290177,347261,409457,478661,583573,716539,871933,1009091,1113121,1201289,1317919,1564259,1879981,2279269,2494633,2837407,3127361,3532343",
+			"name": "Product of 3 successive primes.",
+			"link": [
+				"Vincenzo Librandi and K. D. Bajpai, \u003ca href=\"/A046301/b046301.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from Vincenzo Librandi)"
+			],
+			"example": [
+				"From_ K. D. Bajpai_, Aug 27 2014: (Start)",
+				"a(2) = 105 is in the sequence because 105 = 3* 5 * 7, product of three successive primes.",
+				"a(3) = 385 is in the sequence because 385 = 5 * 7 * 11, product of three successive primes.",
+				"(End)"
+			],
+			"maple": [
+				"A046301:=n-\u003eithprime(n)*ithprime(n+1)*ithprime(n+2): seq(A028560(n), n=1..100);  # _K. D. Bajpai_, Aug 27 2014"
+			],
+			"mathematica": [
+				"Table[Prime[n] Prime[n+1] Prime[n+2],{n,50}]   (* _K. D. Bajpai_, Aug 27 2014 *)",
+				"Times@@@Partition[Prime[Range[40]],3,1] (* _Harvey P. Dale_, Mar 25 2019 *)"
+			],
+			"program": [
+				"(MAGMA) [NthPrime(n)*NthPrime(n+1)*NthPrime(n+2): n in [1..31]]; /* Or: */ [\u0026*[ NthPrime(n+k): k in [0..2] ]: n in [1..31] ]; // _Bruno Berselli_, Feb 25 2011",
+				"(PARI) a(n)=prime(n)*prime(n+1)*prime(n+2); \\\\ _Joerg Arndt_, Aug 30 2014",
+				"(Haskell)",
+				"a046301 n = a046301_list !! (n-1)",
+				"a046301_list = zipWith3 (((*) .) . (*))",
+				"               a000040_list (tail a000040_list) (drop 2 a000040_list)",
+				"-- _Reinhard Zumkeller_, May 12 2015"
+			],
+			"xref": [
+				"Cf. A002110, A006094, A046302, A046303, A046324, A046325, A046326, A046327.",
+				"Cf. A000040, A257891."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "_Patrick De Geest_, Jun 15 1998",
+			"ext": [
+				"Offset changed from 0 to 1 by _Vincenzo Librandi_, Jan 16 2012"
+			],
+			"references": 24,
+			"revision": 39,
+			"time": "2019-03-25T13:02:17-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 48379,
+			"data": "1,2,3,4,5,6,7,8,9,0,21,22,23,24,25,26,27,28,29,20,31,32,33,34,35,36,37,38,39,30,41,42,43,44,45,46,47,48,49,40,51,52,53,54,55,56,57,58,59,50,61,62,63,64,65,66,67,68,69,60,71,72,73,74,75,76,77,78,79,70,81,82",
+			"name": "Apply the transformation 0-\u003e1-\u003e2-\u003e3-\u003e4-\u003e5-\u003e6-\u003e7-\u003e8-\u003e9-\u003e0 to digits of n.",
+			"comment": [
+				"This is the same as a(n) = 1*n in the arithmetic defined in A169918 (cf. A169930). - _M. F. Hasler_, Mar 25 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A048379/b048379.txt\"\u003eTable of n, a(n) for n = 0..90000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(A002283(n)) = 0. - _Reinhard Zumkeller_, Feb 21 2014"
+			],
+			"example": [
+				"a(8) = 9.",
+				"a(9) = 0.",
+				"a(10) = 21 because the original 1 is changed to a 2 and the 0 is changed to a 1."
+			],
+			"mathematica": [
+				"Table[FromDigits[ReplaceAll[IntegerDigits[n] + 1, 10 -\u003e 0]], {n, 0, 79}] (* _Alonso del Arte_, Feb 27 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a048379 n = if n == 0 then 1 else x n where",
+				"   x m = if m == 0 then 0 else 10 * x m' + (d + 1) `mod` 10",
+				"         where (m',d) = divMod m 10",
+				"-- _Reinhard Zumkeller_, Feb 21 2014",
+				"(PARI) A048379(n)=n+sum(i=1, #n=digits(n), if(n[i]\u003c9, 10^(i-1), -9*10^(i-1))) \\\\ _M. F. Hasler_, Mar 21 2015",
+				"(PARI) A048379(n)=!n+apply(t-\u003e(t+1)%10, n=digits(n))*vector(#n, i, 10^(#n-i))~ \\\\ _M. F. Hasler_, Mar 21 2015"
+			],
+			"keyword": "nonn,base,easy",
+			"offset": "0,2",
+			"author": "_Patrick De Geest_, Mar 15 1999",
+			"references": 24,
+			"revision": 21,
+			"time": "2015-03-26T14:17:32-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 48853,
+			"data": "4,3,3,4,3,4,3,4,4,4,7,4,8,4,4,4,7,4,7,2,7,2,6,2,2,2,7,2,5,2,5,2,8,2,2,2,5,2,7,3,6,3,7,3,3,3,6,3,8,2,7,2,6,2,2,2,7,2,5,2,5,2,8,2,2,2,5,2,7,3,6,3,7,3,3,3,8,3,6,2,7,2,6,2,2,2,7,2,5,1,6,1,7,1,1,1,4,1,6,4,10,4,8,4,4",
+			"name": "Number of primes (different from n) that can be produced by altering one digit of decimal expansion of n (without changing the number of digits).",
+			"comment": [
+				"a(A192545(n)) = 0. - _Reinhard Zumkeller_, Jul 05 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A048853/b048853.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"Altering the number 13 gives eight primes: 11, 17, 19, 23, 43, 53, 73, 83, so a(13)=8."
+			],
+			"maple": [
+				"A048853 := proc(n::integer) local resul,ddigs,d,c,tmp ; resul := 0 ; ddigs := convert(n,base,10) ; for d from 1 to nops(ddigs) do for c from 0 to 9 do if c = 0 and d = nops(ddigs) then continue ; else if c \u003c\u003e op(d,ddigs) then tmp := [op(1..d-1,ddigs),c,op(d+1..nops(ddigs),ddigs)] ; tst := sum(op(i,tmp)*10^(i-1),i=1..nops(tmp)) ; if isprime(tst) then resul := resul+1 ; fi ; fi ; fi ; od : od ; RETURN(resul) ; end: for n from 1 to 90 do printf(\"%d,\",A048853(n)) ; od ; # _R. J. Mathar_, Apr 25 2006"
+			],
+			"mathematica": [
+				"a[n_] := Module[{idn = IntegerDigits[n], id, np = 0}, Do[id = idn; If[ id[[j]] != k, id[[j]] = k; If[ id[[1]] != 0 \u0026\u0026 PrimeQ[ FromDigits[id]], np = np + 1]], {j, 1, Length[idn]}, {k, 0, 9}]; np]; Table[a[n], {n, 1, 105}] (* _Jean-François Alcover_, Dec 01 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (inits, tails, nub)",
+				"a048853 n = (sum $ map (a010051 . read) $ tail $ nub $ concat $ zipWith",
+				"  (\\its tls -\u003e map ((\\xs ys d -\u003e xs ++ (d:ys)) its tls) \"0123456789\")",
+				"    (map init $ tail $ inits $ show n) (tail $ tails $ show n)) - a010051 n",
+				"-- _Reinhard Zumkeller_, Jul 05 2011"
+			],
+			"xref": [
+				"Cf. A050652-A050673.",
+				"Cf. A010051."
+			],
+			"keyword": "base,nonn,easy,nice",
+			"offset": "1,1",
+			"author": "_G. L. Honaker, Jr._ and _Patrick De Geest_",
+			"references": 24,
+			"revision": 20,
+			"time": "2015-08-02T21:41:37-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 51801,
+			"data": "1,1,2,3,4,5,6,7,8,9,1,1,2,3,4,5,6,7,8,9,2,2,4,6,8,10,12,14,16,18,3,3,6,9,12,15,18,21,24,27,4,4,8,12,16,20,24,28,32,36,5,5,10,15,20,25,30,35,40,45,6,6,12,18,24,30,36,42,48,54,7,7,14,21",
+			"name": "Product of the nonzero digits of n.",
+			"link": [
+				"Zak Seidov and Michael De Vlieger, \u003ca href=\"/A051801/b051801.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e (First 1000 terms from Zak Seidov)",
+				"\u003ca href=\"/index/Coi#Colombian\"\u003eIndex entries for Colombian or self numbers and related sequences\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = if n=0 then 1 else a([n/10]) * (n mod 10 + 0^(n mod 10)). [_Reinhard Zumkeller_, Oct 13 2009]"
+			],
+			"example": [
+				"a(0) = 1 since an empty product is 1 by convention. a(120) = 1*2 = 2."
+			],
+			"maple": [
+				"A051801 := proc(n) local d,j: d:=convert(n,base,10): return mul(`if`(d[j]=0,1,d[j]), j=1..nops(d)): end: seq(A051801(n),n=0..100); # _Nathaniel Johnston_, May 04 2011"
+			],
+			"mathematica": [
+				"(Times@@Cases[IntegerDigits[#],Except[0]])\u0026/@Range[0,80] (* _Harvey P. Dale_, Jun 20 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a051801 0 = 1",
+				"a051801 n = (a051801 n') * (m + 0 ^ m) where (n',m) = divMod n 10",
+				"-- _Reinhard Zumkeller_, Nov 23 2011",
+				"(PARI) a(n)=my(v=select(k-\u003ek\u003e1,digits(n)));prod(i=1,#v,v[i]) \\\\ _Charles R Greathouse IV_, Nov 20 2012",
+				"(Python)",
+				"from operator import mul",
+				"from functools import reduce",
+				"def A051801(n):",
+				"....return reduce(mul,(int(d) for d in str(n) if d != '0')) if n \u003e 0 else 1",
+				"# _Chai Wah Wu_, Aug 23 2014"
+			],
+			"xref": [
+				"Basis for A051802."
+			],
+			"keyword": "nonn,easy,base,nice",
+			"offset": "0,3",
+			"author": "_Dan Hoey_, Dec 09 1999",
+			"references": 24,
+			"revision": 33,
+			"time": "2014-08-24T09:58:02-04:00",
+			"created": "1999-12-11T03:00:00-05:00"
+		},
+		{
+			"number": 52147,
+			"data": "4,5,7,9,13,15,19,21,25,31,33,39,43,45,49,55,61,63,69,73,75,81,85,91,99,103,105,109,111,115,129,133,139,141,151,153,159,165,169,175,181,183,193,195,199,201,213,225,229,231,235,241,243,253,259",
+			"name": "a(n) = prime(n) + 2.",
+			"comment": [
+				"A048974, A052147, A067187 and A088685 are very similar after dropping terms less than 13. - _Eric W. Weisstein_, Oct 10 2003",
+				"A117530(n,2) = a(n) for n\u003e1. - _Reinhard Zumkeller_, Mar 26 2006",
+				"a(n) = A000040(n) + 2 = A008864(n) + 1 = A113395(n) - 1 = A175221(n) - 2 = A175222(n) - 3 = A139049(n) - 4 = A175223(n) - 5 = A175224(n) - 6 = A140353(n) - 7 = A175225(n) - 8. - _Jaroslav Krizek_, Mar 06 2010",
+				"Left edge of the triangle in A065342. - _Reinhard Zumkeller_, Jan 30 2012",
+				"Union of A006512 and A107986. - _David James Sycamore_, Jul 08 2018"
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A052147/b052147.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"maple": [
+				"seq(ithprime(n)+2,n=1..55); # _Muniru A Asiru_, Jul 08 2018"
+			],
+			"mathematica": [
+				"Prime[Range[70]]+2 (* _Vladimir Joseph Stephan Orlovsky_, Apr 29 2008 *)"
+			],
+			"program": [
+				"(MAGMA) [p+2: p in PrimesUpTo(400)]; // _Vincenzo Librandi_, Nov 27 2013",
+				"(Haskell)",
+				"a052147 = (+ 2) . a000040  -- _Reinhard Zumkeller_, Jul 03 2015",
+				"(PARI) a(n)=prime(n)+2 \\\\ _Charles R Greathouse IV_, Jan 19 2017",
+				"(Sage) [nth_prime(n) +2 for n in (1..70)] # _G. C. Greubel_, May 20 2019",
+				"(GAP) Filtered([1..300], k-\u003e IsPrime(k) ) +2 # _G. C. Greubel_, May 20 2019"
+			],
+			"xref": [
+				"A139690 is a subsequence.",
+				"Cf. A040976, A000040."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,1",
+			"author": "Simon Colton (simonco(AT)cs.york.ac.uk), Jan 24 2000",
+			"references": 24,
+			"revision": 54,
+			"time": "2019-05-21T02:27:02-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 52180,
+			"data": "2,2,3,2,3,2,3,5,2,5,3,2,3,7,5,2,5,3,2,7,3,5,7,3,2,3,2,3,11,3,7,2,11,2,5,7,3,13,5,2,11,2,3,2,11,13,3,2,3,5,2,13,11,7,5,2,5,3,2,17,13,3,2,3,17,5,11,2,3,5,19,7,13,3,5,17,3,13,7,2,7,2,19,3,5,11,3,2,3,11,13,3,17",
+			"name": "Last filtering prime for n-th prime p: find smallest prime factor of each of the composite numbers between p and next prime; take maximal value.",
+			"comment": [
+				"A000879(n) is the least index i such that a(i) = prime(n). - _Labos Elemer_, May 14 2003"
+			],
+			"link": [
+				"T. D. Noe, \u003ca href=\"/A052180/b052180.txt\"\u003eTable of n, a(n) for n=2..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = Max_{j=1+prime(n)..prime(n+1)-1} A020639(j) where A020639(j) is the least prime dividing j."
+			],
+			"example": [
+				"For n=9, n-th prime is 23, composites between 23 and next prime are 24 25 26 27 28, smallest prime divisors are 2 5 2 3 2; maximal value is 5, so a(9)=5."
+			],
+			"mathematica": [
+				"ffi[x_] := Flatten[FactorInteger[x]] lf[x_] := Length[FactorInteger[x]] ba[x_] := Table[Part[ffi[x], 2*w-1], {w, 1, lf[x]}] mi[x_] := Min[ba[x]] Table[Max[Table[mi[ba[w]], {w, Prime[j]+1, -1+Prime[j+1]}]], {j, 1, 256}]",
+				"mpf[{a_,b_}]:=Max[FactorInteger[#][[1,1]]\u0026/@Range[a+1,b-1]]; mpf/@ Partition[ Prime[Range[2,100]],2,1] (* _Harvey P. Dale_, Apr 30 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a052180 n = a052180_list !! (n-2)",
+				"a052180_list = f [4..] where",
+				"   f ws = (maximum $ map a020639 us) : f vs where",
+				"     (us, _:vs) = span  ((== 0) . a010051) ws",
+				"-- _Reinhard Zumkeller_, Dec 27 2012",
+				"(PARI) a(n) = {my(p = prime(n), amax = 0); forcomposite(c = p, nextprime(p+1), amax = max(factor(c)[1,1], amax);); amax;} \\\\ _Michel Marcus_, Apr 21 2018"
+			],
+			"xref": [
+				"Cf. A052248, A020639, A000720, A083269, A000879.",
+				"Cf. A010051."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "2,1",
+			"author": "_Labos Elemer_, Feb 05 2000",
+			"references": 24,
+			"revision": 33,
+			"time": "2018-04-21T21:02:34-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 52383,
+			"data": "0,2,3,4,5,6,7,8,9,20,22,23,24,25,26,27,28,29,30,32,33,34,35,36,37,38,39,40,42,43,44,45,46,47,48,49,50,52,53,54,55,56,57,58,59,60,62,63,64,65,66,67,68,69,70,72,73,74,75,76,77,78,79,80,82,83,84,85,86,87,88,89",
+			"name": "Numbers without 1 as a digit.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A052383/b052383.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Ar#10-automatic\"\u003eIndex entries for 10-automatic sequences\u003c/a\u003e."
+			],
+			"formula": [
+				"a(1) = 1, a(n+1) = f(a(n)+1,a(n)+1) where f(x,y) = if x\u003c10 and x\u003c\u003e1 then y else if x mod 10 = 1 then f(y+1,y+1) else f(floor(x/10),y). - _Reinhard Zumkeller_, Mar 02 2008",
+				"a(n) = replace all nonzero digits d by d+1 in base-9 representation of n-1. - _Reinhard Zumkeller_, Oct 07 2014"
+			],
+			"maple": [
+				"M:= 3: # to get all terms with up to M digits",
+				"B:= {$2..9}: A:= B union {0}:",
+				"for m from 1 to M do",
+				"B:= map(b -\u003e seq(10*b+j,j={0,$2..9}), B);",
+				"A:= A union B;",
+				"od:",
+				"sort(convert(A,list)); # _Robert Israel_, Jan 11 2016",
+				"# second program:",
+				"A052383 := proc(n)",
+				"      option remember;",
+				"      if n = 1 then",
+				"        0;",
+				"    else",
+				"        for a from procname(n-1)+1 do",
+				"            if nops(convert(convert(a,base,10),set) intersect {1}) = 0 then",
+				"                return a;",
+				"            end if;",
+				"        end do:",
+				"    end if;",
+				"end proc: # _R. J. Mathar_, Jul 31 2016",
+				"# third Maple program:",
+				"a:= proc(n) local l, m; l, m:= 0, n-1;",
+				"      while m\u003e0 do l:= (d-\u003e",
+				"        `if`(d=0, 0, d+1))(irem(m, 9, 'm')), l",
+				"      od; parse(cat(l))/10",
+				"    end:",
+				"seq(a(n), n=1..100);  # _Alois P. Heinz_, Aug 01 2016"
+			],
+			"mathematica": [
+				"ban1Q[n_]:=FreeQ[IntegerDigits[n],1]==True; Select[Range[0,89],ban1Q[#] \u0026] (* _Jayanta Basu_, May 17 2013 *)"
+			],
+			"program": [
+				"(MAGMA) [ n: n in [0..89] | not 1 in Intseq(n) ];  // _Bruno Berselli_, May 28 2011",
+				"(sh) seq 0 1000 | grep -v 1; # _Joerg Arndt_, May 29 2011",
+				"(PARI) a(n)=my(v=digits(n,9));for(i=1,#v,if(v[i],v[i]++));subst(Pol(v),'x,10) \\\\ _Charles R Greathouse IV_, Oct 04 2012",
+				"(Haskell)",
+				"a052383 = f . subtract 1 where",
+				"   f 0 = 0",
+				"   f v = 10 * f w + if r \u003e 0 then r + 1 else 0  where (w, r) = divMod v 9",
+				"-- _Reinhard Zumkeller_, Oct 07 2014"
+			],
+			"xref": [
+				"Cf. A004176, A004720.",
+				"Cf. A052382 (without 0), A052404 (without 2), A052405 (without 3), A052406 (without 4), A052413 (without 5), A052414 (without 6), A052419 (without 7), A052421 (without 8), A007095 (without 9).",
+				"Cf. A248518, A248519.",
+				"Cf. A011531 (complement)."
+			],
+			"keyword": "base,easy,nonn",
+			"offset": "1,2",
+			"author": "_Henry Bottomley_, Mar 13 2000",
+			"ext": [
+				"Offset changed by _Reinhard Zumkeller_, Oct 07 2014"
+			],
+			"references": 24,
+			"revision": 45,
+			"time": "2017-02-12T19:04:13-05:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		},
+		{
+			"number": 53610,
+			"data": "1,2,3,1,2,3,4,2,1,2,3,4,2,3,4,1,2,3,4,2,3,4,5,3,1,2,3,4,2,3,4,5,3,2,3,1,2,3,4,2,3,4,5,3,2,3,4,5,1,2,3,4,2,3,4,5,3,2,3,4,5,3,4,1,2,3,4,2,3,4,5,3,2,3,4,5,3,4,5,2,1,2,3,4,2,3,4,5,3,2,3,4,5,3,4,5,2,3,4,1,2,3,4",
+			"name": "Number of positive squares needed to sum to n using the greedy algorithm.",
+			"comment": [
+				"Define f(n) = n - x2 where (x+1)^2 \u003e n \u003e= x^2. a(n) = number of iterations in f(...f(f(n))...) to reach 0.",
+				"a(n) = 1 iff n is a perfect square.",
+				"Also sum of digits when writing n in base where place values are squares, cf. A007961. [_Reinhard Zumkeller_, May 08 2011]",
+				"The sequence could have started with a(0)=0. - _Thomas Ordowski_, Jul 12 2014",
+				"The sequence is not bounded, see A006892. - _Thomas Ordowski_, Jul 13 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A053610/b053610.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A007953(A007961(n)). - _Henry Bottomley_, Jun 01 2000",
+				"a(n) = a(n-(int(sqrt(n)))^2)+1 = a(A053186(n))+1 [with a(0) = 0]. - _Henry Bottomley_, May 16 2000",
+				"A053610 = A002828 + A062535. [_M. F. Hasler_, Dec 04 2008]"
+			],
+			"example": [
+				"7=4+1+1+1, so 7 requires 4 squares using the greedy algorithm, so a(7)=4."
+			],
+			"maple": [
+				"A053610 := proc(n)",
+				"    local a,x;",
+				"    a := 0 ;",
+				"    x := n ;",
+				"    while x \u003e 0 do",
+				"        x := x-A048760(x) ;",
+				"        a := a+1 ;",
+				"    end do:",
+				"    a ;",
+				"end proc: # _R. J. Mathar_, May 13 2016"
+			],
+			"mathematica": [
+				"f[n_] := (n - Floor[Sqrt[n]]^2); g[n_] := (m = n; c = 1; While[a = f[m]; a != 0, c++; m = a]; c); Table[ g[n], {n, 1, 105}]"
+			],
+			"program": [
+				"(PARI) A053610(n,c=1)=while(n-=sqrtint(n)^2,c++);c \\\\ _M. F. Hasler_, Dec 04 2008",
+				"(Haskell)",
+				"a053610 n = s n $ reverse $ takeWhile (\u003c= n) $ tail a000290_list where",
+				"  s _ []                 = 0",
+				"  s m (x:xs) | x \u003e m     = s m xs",
+				"             | otherwise = m' + s r xs where (m',r) = divMod m x",
+				"-- _Reinhard Zumkeller_, May 08 2011"
+			],
+			"xref": [
+				"Cf. A006892 (positions of records), A055401, A007961.",
+				"Cf. A000196, A000290, A057945 (summing triangular numbers)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Jud McCranie_, Mar 19 2000",
+			"references": 24,
+			"revision": 44,
+			"time": "2016-05-14T12:16:57-04:00",
+			"created": "2000-05-08T03:00:00-04:00"
+		}
+	]
+}

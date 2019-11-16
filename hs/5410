@@ -1,0 +1,376 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5410,
+	"results": [
+		{
+			"number": 75346,
+			"data": "2,1,3,6,11,15,22,28,36,45,55,66,78,92,105,121,136,153,171,190,210,232,253,276,300,324,351,378,406,435,465,496,528,561,595,630,666,704,741,780,820,861,903,946,990,1035,1081,1127,1176,1225,1274,1326,1378,1431",
+			"name": "Initial terms of groups in A075345.",
+			"comment": [
+				"a(n) = A075348(n,1). - _Reinhard Zumkeller_, Sep 26 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075346/b075346.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a075346 = head . a075348_row  -- _Reinhard Zumkeller_, Sep 26 2015"
+			],
+			"xref": [
+				"Cf. A075345, A075347.",
+				" Cf. A075348."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, Sep 19 2002",
+			"ext": [
+				"More terms from _David Wasserman_, Jan 16 2005"
+			],
+			"references": 4,
+			"revision": 6,
+			"time": "2015-09-26T15:34:24-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75347,
+			"data": "2,4,9,10,17,21,32,37,50,58,71,90,91,107,120,143,154,174,203,214,231,265,282,329,341,354,383,408,439,467,510,553,572,598,645,668,703,743,786,833,862,926,955,996,1043,1129,1132,1193,1282,1276,1327,1400,1437",
+			"name": "Final terms of groups in A075345.",
+			"comment": [
+				"a(n) = A075348(n,n). - _Reinhard Zumkeller_, Sep 26 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075347/b075347.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a075347 = last . a075348_row  -- _Reinhard Zumkeller_, Sep 26 2015"
+			],
+			"xref": [
+				"Cf. A075345, A075346.",
+				"Cf. A075348."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Amarnath Murthy_, Sep 19 2002",
+			"ext": [
+				"More terms from _David Wasserman_, Jan 16 2005"
+			],
+			"references": 4,
+			"revision": 7,
+			"time": "2015-09-26T15:35:14-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75366,
+			"data": "1,12,120,30,30240,5040,17297280,2162160,240240,360360,28158588057600,2346549004800,64764752532480000,4626053752320000,308403583488000,19275223968000,830034394580628357120000,46113021921146019840000",
+			"name": "Smallest product (n+1)(n+2)...(n+k) that is divisible by the product of all the primes up to n.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075366/b075366.txt\"\u003eTable of n, a(n) for n = 1..300\u003c/a\u003e"
+			],
+			"formula": [
+				"If p \u003c= n \u003c q, where p and q are consecutive primes, then a(n) = (2p)!/n!, unless n=10."
+			],
+			"mathematica": [
+				"a75365[n_] := Module[{div, k, pr}, div=Times@@Prime/@Range[PrimePi[n]]; For[k=0; pr=1, True, k++; pr*=n+k, If[Mod[pr, div]==0, Return[k]]]]; a[n_] := Times@@Range[n+1, n+a75365[n]]"
+			],
+			"program": [
+				"(Haskell)",
+				"a075366 n = a075366_list !! (n-1)",
+				"a075366_list = 1 : f 2 1 a000040_list where",
+				"   f x pp ps'@(p:ps)",
+				"     | p \u003c= x    = f x (p * pp) ps",
+				"     | otherwise = g $ dropWhile (\u003c pp) $ scanl1 (*) [x+1, x+2 ..]",
+				"     where g (z:zs) | mod z pp == 0 = z : f (x + 1) pp ps'",
+				"                    | otherwise     = g zs",
+				"-- _Reinhard Zumkeller_, May 18 2015"
+			],
+			"xref": [
+				"Cf. A075365, A075367, A075368.",
+				"Cf. A000040."
+			],
+			"keyword": "nice,nonn",
+			"offset": "1,2",
+			"author": "_Amarnath Murthy_, Sep 20 2002",
+			"ext": [
+				"Edited by _Dean Hickerson_, Oct 28 2002"
+			],
+			"references": 4,
+			"revision": 10,
+			"time": "2015-05-18T15:58:36-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 75877,
+			"data": "1,2,3,4,5,6,7,8,9,1,1,1,1,1,1,1,1,1,1,1,2,4,8,16,32,64,128,256,512,1,3,9,27,81,243,729,2187,6561,19683,1,4,16,64,256,1024,4096,16384,65536,262144,1,5,25,125,625,3125,15625,78125,390625,1953125,1,6,36,216,1296",
+			"name": "Powering the decimal digits of n (left-associative).",
+			"comment": [
+				"See A256229 for the (maybe more natural) \"right-associative\" variant, a(xyz)=x^(y^z). a(n) = A256229(n) for n \u003c 212 (up to 210, according to the 2nd formula which also holds for A256229), but (2^1)^2 = 4 while 2^(1^2) = 1. - _M. F. Hasler_, Mar 22 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A075877/b075877.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = if n \u003c 10 then n else a(floor(n\\10))^(n mod 10).",
+				"a(n) = 1 iff the initial digit is 1 or n contains a 0 (i.e., A055641(n) \u003e 0 or A000030(n) = 1);",
+				"a(A011540(n)) = 1.",
+				"a(n) = A133500(n) for n \u003c= 99. - _Reinhard Zumkeller_, May 27 2013"
+			],
+			"example": [
+				"a(253) = (2^5)^3 = 32^3 = 32768."
+			],
+			"program": [
+				"(Haskell)",
+				"a075877 n = if n \u003c 10 then n else a075877 (n `div` 10) ^ (n `mod` 10)",
+				"-- _Reinhard Zumkeller_, May 27 2013",
+				"(PARI) A075877(n)=if(n\u003e9,A075877(n\\10)^(n%10),n) \\\\ _M. F. Hasler_, Mar 19 2015"
+			],
+			"xref": [
+				"Cf. A007953, A007954.",
+				"Cf. A185969, A248907, A256179."
+			],
+			"keyword": "nonn,base,hear,look",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 16 2002",
+			"ext": [
+				"Formula corrected by _Reinhard Zumkeller_, May 27 2013",
+				"Edited by _M. F. Hasler_, Mar 22 2015"
+			],
+			"references": 4,
+			"revision": 14,
+			"time": "2015-03-22T09:19:36-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76338,
+			"data": "1,513,1025,1537,2049,2561,3073,3585,4097,4609,5121,5633,6145,6657,7169,7681,8193,8705,9217,9729,10241,10753,11265,11777,12289,12801,13313,13825,14337,14849,15361,15873,16385,16897,17409,17921,18433",
+			"name": "a(n) = 512*n + 1.",
+			"comment": [
+				"First prime is a(15) = 7681, see A076339."
+			],
+			"link": [
+				"Vincenzo Librandi, \u003ca href=\"/A076338/b076338.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+				"Tanya Khovanova, \u003ca href=\"http://www.tanyakhovanova.com/RecursiveSequences/RecursiveSequences.html\"\u003eRecursive Sequences\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_02\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-1)."
+			],
+			"formula": [
+				"G.f.: (1+511*x)/(1-x)^2. - _Vincenzo Librandi_, Feb 23 2012",
+				"a(n) = 2*a(n-1)-a(n-2). - _Vincenzo Librandi_, Feb 23 2012"
+			],
+			"mathematica": [
+				"LinearRecurrence[{2, -1}, {1, 513}, 50] (* _Vincenzo Librandi_, Feb 23 2012 *)"
+			],
+			"program": [
+				"(MAGMA) I:=[1, 513]; [n le 2 select I[n] else 2*Self(n-1)-Self(n-2): n in [1..50]]; // _Vincenzo Librandi_, Feb 23 2012",
+				"(PARI) for(n=0, 50, print1(512*n+1\", \")); \\\\ _Vincenzo Librandi_, Feb 23 2012",
+				"(Haskell)",
+				"a076338 n = (+ 1) . (* 512)",
+				"a076338_list = [1,513..]  -- _Reinhard Zumkeller_, Mar 08 2012"
+			],
+			"xref": [
+				"Cf. A076339."
+			],
+			"keyword": "nonn,easy",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Oct 07 2002",
+			"references": 4,
+			"revision": 27,
+			"time": "2016-06-20T13:41:45-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76396,
+			"data": "1,2,2,3,2,5,3,2,2,7,2,3,2,11,5,2,2,13,2,2,3,3,2,17,2,7,19,2,3,2,2,23,2,5,2,3,2,29,2,31,2,2,3,2,5,2,11,37,2,3,2,41,2,2,43,2,3,2,2,3,13,47,2,7,2,3,2,2,53,2,5,5,2,3,2,3,59,2,61,2,3,2,5,2,67,2,3,2,17,71,2,73,2,3",
+			"name": "Smallest prime factor of n-th perfect power.",
+			"comment": [
+				"a(n) = A020639(A001597(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076396/b076396.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PerfectPower.html\"\u003ePerfect Powers\u003c/a\u003e.",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/LeastPrimeFactor.html\"\u003eLeast Prime Factor\u003c/a\u003e."
+			],
+			"formula": [
+				"a(n) = A020639(A025478(n))."
+			],
+			"program": [
+				"(Haskell)",
+				"a076396 = a020639 . a025478 -- _Reinhard Zumkeller_, Mar 28 2014"
+			],
+			"xref": [
+				"Cf. A025478, A076397, A076403."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Oct 09 2002",
+			"references": 4,
+			"revision": 8,
+			"time": "2014-03-28T17:16:18-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76446,
+			"data": "3,4,1,7,9,2,5,4,13,15,8,9,19,8,13,4,3,16,25,27,4,16,9,18,13,32,1,35,19,18,31,8,32,9,43,16,12,17,47,49,23,27,1,53,55,16,41,23,36,61,7,4,28,24,65,36,27,4,69,71,27,8,21,17,3,72,77,47,32,81,47,36,36,49,87,8",
+			"name": "Differences of consecutive powerful numbers (definition 1).",
+			"comment": [
+				"The term 1 appears infinitely often. Erdos conjectured that two consecutive 1's do not occur. (see Guy)."
+			],
+			"reference": [
+				"R. K. Guy, Unsolved Problems in Number Theory, B16"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076446/b076446.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/PowerfulNumber.html\"\u003ePowerful numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"A001694[n+1]-A001694[n]"
+			],
+			"example": [
+				"The first two powerful numbers are 1 and 4, there difference is 3, so a(1)=3."
+			],
+			"mathematica": [
+				"Differences[Join[{1},Select[Range[2000],Min[FactorInteger[#][[All, 2]]]\u003e1\u0026]]] (* _Harvey P. Dale_, Aug 27 2017 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a076446 n = a076446_list !! (n-1)",
+				"a076446_list = zipWith (-) (tail a001694_list) a001694_list",
+				"-- _Reinhard Zumkeller_, Nov 30 2012"
+			],
+			"xref": [
+				"Cf. A001694, A076444."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Jud McCranie_, Oct 15 2002",
+			"references": 4,
+			"revision": 12,
+			"time": "2017-08-27T11:59:58-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76468,
+			"data": "1,16,32,64,81,128,243,256,512,625,729,1024,1296,2048,2187,2401,3125,4096,6561,7776,8192,10000,14641,15625,16384,16807,19683,20736,28561,32768,38416,46656,50625,59049,65536,78125,83521,100000,104976,117649",
+			"name": "Perfect powers m^k where m is an integer and k \u003e 3.",
+			"comment": [
+				"If p|n then at least p^4|n.",
+				"Subsequence of A036967. - R. J. Mathar, May 27 2011"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076468/b076468.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"a = {1}; Do[ If[ Apply[ GCD, Last[ Transpose[ FactorInteger[n]]]] \u003e 3, a = Append[a, n]; Print[n]], {n, 2, 131071}]; a"
+			],
+			"program": [
+				"(Haskell)",
+				"import qualified Data.Set as Set (null)",
+				"import Data.Set (empty, insert, deleteFindMin)",
+				"a076468 n = a076468_list !! (n-1)",
+				"a076468_list = 1 : f [2..] empty where",
+				"   f xs'@(x:xs) s | Set.null s || m \u003e x ^ 4 = f xs $ insert (x ^ 4, x) s",
+				"                  | m == x ^ 4  = f xs s",
+				"                  | otherwise = m : f xs' (insert (m * b, b) s')",
+				"                  where ((m, b), s') = deleteFindMin s",
+				"-- _Reinhard Zumkeller_, Jun 19 2013"
+			],
+			"xref": [
+				"Cf. A001597, A076467, A076469, A076470."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Robert G. Wilson v_, Oct 14 2002",
+			"references": 4,
+			"revision": 7,
+			"time": "2013-06-19T13:22:51-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76805,
+			"data": "2,3,5,7,11,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,127,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307",
+			"name": "Triskaidekaphobic or 13-free primes: primes that do not contain the number 13.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A076805/b076805.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"Eric Weisstein's World of Mathematics, \u003ca href=\"http://mathworld.wolfram.com/Triskaidekaphobia.html\"\u003eTriskaidekaphobia\u003c/a\u003e",
+				"Wikipedia, \u003ca href=\"http://en.wikipedia.org/wiki/Triskaidekaphobia\"\u003eTriskaidekaphobia\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) \u003e\u003e n^1.0044, where the exponent is log(r)/log(10) with r the larger root of x^2 - 10x + 1. [_Charles R Greathouse IV_, Nov 09 2011]",
+				"kfreep(n, k) = true if for primes p over the range n and integer k, p mod 10^ (floor(log10(k))+1) \u003c\u003e k for p = p/10 mod 10^(floor(log10(k))+1) \u003c\u003e k over the range floor(log10(k))+1. This is a mathematical definition of the recurrence. In practice it is convenient to use string operations. E.g. If Not Instr(Str(p), Str(k)) then true or k is not a substring of p so list p."
+			],
+			"example": [
+				"The PARI program will mask out a sequence containing k or mask in a sequence containing k. The program is limited to primes \u003c 400000000.",
+				"The PARI program will generate the following for input as shown: kprimes(2,100,7,0) = 2 3 5 11 13 19 23 29 31 41 43 53 59 61 83 89; kprimes(2,1000,13,1) = 13 113 131 137 139 313 613; kprimes(300000,4000000,314159,1) = 314159 3314159 5314159"
+			],
+			"mathematica": [
+				"Select[Prime[Range[90]],!MemberQ[Partition[IntegerDigits[#],2,1],{1,3}]\u0026] (* _Harvey P. Dale_, Mar 25 2012 *)"
+			],
+			"program": [
+				"(PARI) /* k primes - kprimes.gp. Primes containing or not containing digit k=1,2,3...9,10,11... PARI does not have a good string manipulation capability. This program circumvents that by using the % modulo and floor operators. Also commented out is a log implementation which is slower than string apps. The program either masks out prime numbers k or masks them in.*/",
+				"(PARI) log10(z) = if(z\u003e0,floor(log(z)/log(10))+1,1);\\\\integer function for log(z) base 10 + 1",
+				"{ kprimes(n1,n2,k,t) = \\\\n1,n2=range,k=mask,t=0 mask out t=1 mask in",
+				"ct=0; pct=0; forprime(p=n1,n2,x=p; f=0;\\\\x=temp variable to diminish p",
+				"ln = length(Str(p));\\\\get length of the prime p using strings",
+				"lk = length(Str(k));\\\\get length of mask integer k using strings",
+				"ln = log10(p);\\\\get length of the prime p using logs",
+				"lk = log10(k);\\\\get length of mask integer k using strings",
+				"r = 10^lk; \\\\set the remainder length = length of k",
+				"for(j=1,ln-lk+1, \\\\permute through the digits",
+				"d = x % r;\\\\get lk digits",
+				"if(d==k,f=1; break);\\\\break for loop if match and set flag",
+				"x = floor(x/10);\\\\diminish x for next test for k",
+				"); if(f==t,print1(p\" \"); ct+=1);\\\\if no k string of digits,print",
+				"); print(); print(ct); }",
+				"(PARI) hasNo13(n)=n=digits(n); for(i=2,#n, if(n[i]==3\u0026\u0026n[i-1]==1, return(0))); 1",
+				"select(hasNo13, primes(10^4)) \\\\ _Charles R Greathouse IV_, Dec 02 2013",
+				"(Haskell)",
+				"import Data.List (isInfixOf)",
+				"a076805 n = a076805_list !! (n-1)",
+				"a076805_list = filter (not . (\"13\" `isInfixOf`) . show) a000040_list",
+				"-- _Reinhard Zumkeller_, Nov 09 2011",
+				"(PARI) is_A076805(n,t=13)=!until(t\u003en\\=10,t==n%100\u0026\u0026return) \\\\ _M. F. Hasler_, Dec 02 2013"
+			],
+			"xref": [
+				"A generalization of the examples A038603, A038615 etc. for k = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 by Vasiliy Danilov.",
+				"Cf. A038615 A038603.",
+				"Complement of A166573 with respect to A000040; cf. A011760"
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Cino Hilliard_, Nov 18 2002",
+			"ext": [
+				"Original PARI code restored by _M. F. Hasler_, Dec 02 2013"
+			],
+			"references": 4,
+			"revision": 38,
+			"time": "2015-05-03T03:39:51-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 76845,
+			"data": "1,1,1,2,1,1,2,1,1,2,1,2,16,1,1,4,3,1,2,1,1,4,1,3,2,1,2,10,1,1,108,3,1,2,1,1,2,2,1,2,1,3,2,1,2,20,2,1,2,1,1,2,1,1,2,1,4,2,2,7,8,3,1,2,1,24,2,1,1,12,4,3,8,1,1,4,3,1,194,3,1,2,1,2,2,1,8,2,1,1,4,2,2,54,1,1,4,1,1",
+			"name": "Least k\u003e0 such that n^k + n - 1 is prime.",
+			"mathematica": [
+				"lk[n_]:=Module[{k=1},While[!PrimeQ[n^k+n-1],k++];k]; Array[lk,100,2] (* _Harvey P. Dale_, Jun 29 2017 *)"
+			],
+			"program": [
+				"(PARI) a(n) = {my(k=1); while(!isprime(n^k+n-1), k++); k;} \\\\ _Michel Marcus_, Nov 29 2013",
+				"(Haskell)",
+				"a076845 n = head [k | k \u003c- [1..], a010051'' (n ^ k + n - 1) == 1]",
+				"-- _Reinhard Zumkeller_, Jul 17 2014"
+			],
+			"xref": [
+				"Cf. A078178, A076846.",
+				"Cf. A010051."
+			],
+			"keyword": "nonn",
+			"offset": "2,4",
+			"author": "Benoit Cloitre, Nov 20 2002",
+			"references": 4,
+			"revision": 8,
+			"time": "2017-06-29T11:29:37-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

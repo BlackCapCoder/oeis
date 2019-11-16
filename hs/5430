@@ -1,0 +1,382 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 5430,
+	"results": [
+		{
+			"number": 79089,
+			"data": "4,12,28,60,96,104,234,360,546,744,620,640,1152,1488,1815,2178,2304,1728,3510,3458,3420,5952,5760,4446,4104,7056,8400,8640,5760,10160,12240,11232,13824,14976,17360,11200,10080,20160,21840,21600,26208",
+			"name": "Sum of divisors of (prime(n)+1)*(prime(n+1)+1)/4.",
+			"comment": [
+				"a(n)=A000203(A079079(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079089/b079089.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a079089 = a000203 . a079079  -- _Reinhard Zumkeller_, Oct 08 2012"
+			],
+			"xref": [
+				"Cf. A079088, A079090, A079091."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 22 2002",
+			"references": 4,
+			"revision": 8,
+			"time": "2013-07-13T12:02:54-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79090,
+			"data": "3,5,5,5,12,10,10,10,10,10,21,29,23,16,5,10,41,50,22,42,44,17,17,15,27,35,18,21,38,24,16,39,40,17,29,100,122,53,41,39,30,25,102,111,21,60,62,31,52,44,23,21,23,55,59,21,27,158,189,123,83,23,36,175,213,141,98,47",
+			"name": "Sum of distinct prime factors of (prime(n)+1)*(prime(n+1)+1)/4.",
+			"comment": [
+				"a(n)=A008472(A079079(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079090/b079090.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Total[Transpose[FactorInteger[((#[[1]]+1)(#[[2]]+1))/4]][[1]]]\u0026/@ Partition[Prime[Range[70]],2,1] (* _Harvey P. Dale_, Apr 24 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a079090 = a008472 . a079079  -- _Reinhard Zumkeller_, Oct 09 2012"
+			],
+			"xref": [
+				"Cf. A079091, A079089, A079085."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 22 2002",
+			"references": 4,
+			"revision": 10,
+			"time": "2015-04-24T14:45:44-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79091,
+			"data": "3,5,7,9,12,13,13,14,15,16,27,29,23,22,18,19,41,50,29,47,48,23,23,25,34,37,28,27,38,34,28,42,40,27,36,102,122,57,46,45,33,33,110,114,31,69,70,39,52,47,33,36,37,61,64,32,37,162,189,123,90,37,40,177,213,141,111,60",
+			"name": "Sum of all prime factors of (prime(n)+1)*(prime(n+1)+1)/4.",
+			"comment": [
+				"a(n)=A001414(A079079(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079091/b079091.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"mathematica": [
+				"Total[Times@@@FactorInteger[#]]\u0026/@(Times@@(#+1)/4\u0026/@Partition[ Prime[Range[100]],2,1]) (* _Harvey P. Dale_, May 26 2011 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a079091 = a001414 . a079079  -- _Reinhard Zumkeller_, Oct 09 2012"
+			],
+			"xref": [
+				"Cf. A079090, A079089, A079086."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 22 2002",
+			"references": 4,
+			"revision": 11,
+			"time": "2013-11-21T12:47:57-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 79093,
+			"data": "3,6,6,6,42,21,30,30,30,30,38,399,462,66,6,30,930,1054,102,222,370,210,210,105,357,1326,78,330,3135,114,66,1518,4830,210,570,3002,6478,1722,1218,870,2730,546,582,3201,330,530,742,798,13110,4485,390,330,462,1806",
+			"name": "Squarefree kernel of (prime(n)+1)*(prime(n+1)+1)/4.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A079093/b079093.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A007947(A079079(n))."
+			],
+			"mathematica": [
+				"Times@@Transpose[FactorInteger[#]][[1]]\u0026/@(Times@@@Partition[ Prime[ Range[ 60]]+1,2,1]/4) (* _Harvey P. Dale_, Jan 06 2013 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a079093 = a007947 . a079079  -- _Reinhard Zumkeller_, Oct 09 2012",
+				"(PARI) a(n) = factorback(factor((prime(n)+1)*(prime(n+1)+1)/4)[,1]); \\\\ _Michel Marcus_, Feb 14 2018"
+			],
+			"xref": [
+				"Cf. A079095."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Dec 22 2002",
+			"references": 4,
+			"revision": 14,
+			"time": "2018-02-14T12:40:12-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80080,
+			"data": "1,0,1,2,1,1,0,0,0,1,1,0,3,1,1,0,2,2,1,1,1,3,2,2,1,2,1,1,0,0,0,0,0,0,0,1,1,0,2,0,1,0,4,1,1,0,1,1,0,0,3,3,1,1,1,2,1,1,0,4,3,3,1,2,1,1,0,0,0,2,2,2,2,1,1,1,1,1,1,0,4,2,2,2,2,1,1,1,3,1,1,0,3,3,2,2,2,2,1,1,2,2,1,1,1",
+			"name": "T(n,k) = length of longest carry sequence when adding k to n in binary representation, 1 \u003c= k \u003c= n (triangular array).",
+			"comment": [
+				"T(n,1) = A007814(n+1), T(n,n) = 1; for n\u003e1: T(n,n-1) = A043545(n+1); T(n,k) \u003c= A070940(n) = T(n, A080079(n)).",
+				"T(n,k) = A050600(n+k,k) - 1. - _Reinhard Zumkeller_, Aug 03 2014"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080080/b080080.txt\"\u003eRows n=1..150 of triangle, flattened\u003c/a\u003e",
+				"\u003ca href=\"/index/Bi#binary\"\u003eIndex entries for sequences related to binary expansion of n\u003c/a\u003e"
+			],
+			"example": [
+				"Triangle begins:",
+				"              1",
+				"            0   1",
+				"          2   1   1",
+				"        0   0   0   1",
+				"      1   0   3   1   1",
+				"    0   2   2   1   1   1",
+				"  3   2   2   1   2   1   1"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Bits (xor, (.\u0026.), shiftL)",
+				"a080080 :: Int -\u003e Int -\u003e Int",
+				"a080080 n k = addc n k 0 where",
+				"   addc x y z | y == 0    = z - 1",
+				"              | otherwise = addc (x `xor` y) (shiftL (x .\u0026. y) 1) (z + 1)",
+				"a080080_row n = map (a080080 n) [1..n]",
+				"a080080_tabl = map a080080_row [1..]",
+				"-- _Reinhard Zumkeller_, Apr 22 2013"
+			],
+			"xref": [
+				"Cf. A050600."
+			],
+			"keyword": "nonn,tabl,nice",
+			"offset": "1,4",
+			"author": "_Reinhard Zumkeller_, Jan 26 2003",
+			"references": 4,
+			"revision": 16,
+			"time": "2015-12-13T07:05:12-05:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80342,
+			"data": "0,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5",
+			"name": "Number of weighings required to identify a single bad coin out of n coins, using a two-pan balance.",
+			"comment": [
+				"It is known that there is exactly one bad coin, which is heavier than the others. No weights are used in the weighings.",
+				"0 appears once, 1 twice, 2 6 times, 3 18 times, 4 54 times, ... which is the same as the number of base-3 numbers of length n; see A007089. - _Jonathan Vos Post_, Apr 20 2011",
+				"Records appear at positions 3^n+1 (=A034472(n)). - _Robert G. Wilson v_, Aug 06 2012",
+				"The \"Heavy Marble\" section of \"Brainteaser Problems\" in the Mongan et al. reference describes the n = 8 case in detail and then derives the general formula given below. Of course this sequence applies also when the single, unlike object is lighter than all the others. If the unlike object is only known to have a different weight (that is, to be lighter than all the others or heavier than all the others), use A064099. - _Rick L. Shepherd_, Sep 05 2013",
+				"If it is unknown whether the bad coin is heavier or lighter, then the minimum number of weighings is A029837(n) and the number of coins that must be used in the first weighing is A004526(n), for n \u003e 2. - _Ivan N. Ianakiev_, Apr 13 2017"
+			],
+			"reference": [
+				"J. Mongan, N. Suojanen, and E. Giguère, Programming Interviews Exposed: Secrets to Landing Your Next Job, 2nd Edition, Wiley Publishing, Inc., 2007, pp. 169-172."
+			],
+			"link": [
+				"Rick L. Shepherd, \u003ca href=\"/A080342/b080342.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"R. K. Guy, R. J. Nowakowski, \u003ca href=\"http://www.jstor.org/stable/2975353\"\u003eCoin-weighing problems\u003c/a\u003e, Am. Math. Monthly 102 (2) (1995) 164-167.",
+				"B. Manvel, \u003ca href=\"http://www.jstor.org/stable/2689732\"\u003eCounterfeit coin problems\u003c/a\u003e, Math. Mag. 50 (2) (1977) 90-92, theorem 1."
+			],
+			"formula": [
+				"a(n) = floor(L) - floor(2^(-f(L))) + 1, where L = log_3(n) and f() = fractional part.",
+				"a(n) = ceiling(log_3(n)). - _Rick L. Shepherd_, Sep 05 2013",
+				"A064235(n) = 3 ^ a(n). - _Reinhard Zumkeller_, Sep 02 2015"
+			],
+			"example": [
+				"a(1) = 0 since no weighings are needed - the coin is bad. a(2) = 1 since one weighing is needed."
+			],
+			"mathematica": [
+				"f[n_] := Floor[ Log[3, n]] - Floor[2^-FractionalPart[ Log[3, n]]] + 1; Array[f, 105] (* _Robert G. Wilson v_, Aug 05 2012 *)"
+			],
+			"program": [
+				"(PARI) a(n) = ceil(log(n)/log(3)) \\\\ _Rick L. Shepherd_, Sep 05 2013",
+				"(Haskell)",
+				"import Data.List (transpose)",
+				"a080342 n = genericIndex a080342_list (n - 1)",
+				"a080342_list = 0 : zs where",
+				"   zs = 1 : 1 : (map (+ 1) $ concat $ transpose [zs, zs, zs])",
+				"-- _Reinhard Zumkeller_, Sep 02 2015"
+			],
+			"xref": [
+				"Cf. A000244, A007089, A025192, A064235.",
+				"Cf. also A004526, A029837, A064099."
+			],
+			"keyword": "nonn,easy",
+			"offset": "1,4",
+			"author": "Artemario Tadeu Medeiros da Silva (artemario(AT)uol.com.br), Mar 19 2003",
+			"references": 4,
+			"revision": 42,
+			"time": "2017-04-14T09:03:00-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80368,
+			"data": "0,2,3,0,5,2,7,0,0,2,11,3,13,2,3,0,17,2,19,5,3,2,23,3,0,2,0,7,29,2,31,0,3,2,5,0,37,2,3,5,41,2,43,11,5,2,47,3,0,2,3,13,53,2,5,7,3,2,59,3,61,2,7,0,5,2,67,17,3,2,71,0,73,2,3,19,7,2,79,5,0,2,83,3,5,2,3,11,89,2,7,23,3,2",
+			"name": "a(n) is the least unitary prime divisor of n, or 0 if no such prime divisor exists.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080368/b080368.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"formula": [
+				"If A277697(n) = 0, then a(n) = 0, otherwise a(n) = A000040(A277697(n)). - _Antti Karttunen_, Oct 28 2016"
+			],
+			"example": [
+				"n = 252100 = 2*2*3*5*5*7*11*11, unitary prime divisors = {3,7}; smallest is 3, so a(252100)=3."
+			],
+			"mathematica": [
+				"ffi[x_] := Flatten[FactorInteger[x]] lf[x_] := Length[FactorInteger[x]] ba[x_] := Table[Part[ffi[x], 2*w-1], {w, 1, lf[x]}] gb[x_] := GCD[ba[x], x/ba[x]] fpg[x_] := Flatten[Position[gb[x], 1]] upd[x_] := Part[ba[x], fpg[x]] mxu[x_] := Max[upd[x]] miu[x_] := Min[upd[x]] Do[If[Equal[upd[n], {}], Print[0]]; If[ !Equal[upd[n], {}], Print[miu[n]]], {n, 2, 256}]",
+				"Table[If[Or[n == 1, Length@ # == 0], 0, First@ #] \u0026@ Select[FactorInteger[n][[All, 1]], GCD[#, n/#] == 1 \u0026], {n, 94}] (* _Michael De Vlieger_, Oct 30 2016 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a080368 n = if null us then 0 else fst $ head us",
+				"  where us = filter ((== 1) . snd) $ zip (a027748_row n) (a124010_row n)",
+				"-- _Reinhard Zumkeller_, Jul 23 2014",
+				"(Scheme) (define (A080368 n) (if (zero? (A277697 n)) 0 (A000040 (A277697 n)))) ;; _Antti Karttunen_, Oct 28 2016",
+				"(Python)",
+				"from sympy import factorint, prime, primepi, isprime, primefactors",
+				"def a049084(n): return primepi(n)*(1*isprime(n))",
+				"def a055396(n): return 0 if n==1 else a049084(min(primefactors(n)))",
+				"def a028234(n):",
+				"    f = factorint(n)",
+				"    return 1 if n==1 else n/(min(f)**f[min(f)])",
+				"def a067029(n):",
+				"    f=factorint(n)",
+				"    return 0 if n==1 else f[min(f)]",
+				"def a277697(n): return 0 if n==1 else a055396(n) if a067029(n)==1 else a277697(a028234(n))",
+				"def a(n): return 0 if a277697(n)==0 else prime(a277697(n)) # _Indranil Ghosh_, May 16 2017"
+			],
+			"xref": [
+				"Cf. A000040, A034444, A056169, A080367, A277697.",
+				"Cf. A027748, A124010.",
+				"Cf. A001694 (positions of zeros).",
+				"Cf. A277698 for a variant which gives 1's instead of 0's for numbers with no unitary prime divisors (A001694)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Labos Elemer_, Feb 21 2003",
+			"ext": [
+				"a(1)=0 inserted by _Reinhard Zumkeller_, Jul 23 2014"
+			],
+			"references": 4,
+			"revision": 27,
+			"time": "2017-09-05T03:12:37-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80444,
+			"data": "1,2,3,4,4,5,6,6,7,8,8,8,9,9,10,10,11,12,12,12,12,13,14,14,15,15,16,16,16,16,16,17,18,18,18,18,19,20,20,20,20,21,21,22,22,23,24,24,24,24,24,24,24,25,25,26,26,27,27,27,28,28,28,28,29,30,30,30,30,30,31,32,32,32",
+			"name": "Write n A001055(n) times.",
+			"comment": [
+				"Consider A001055(24) = 7. The seven ways of factoring 24 can be encoded as 24,30,44,51,55,62 and 83 using A064553.",
+				"T(n,k) = A064553(A080688(n,k)) = n for k=1..A001055(n). - _Reinhard Zumkeller_, Oct 01 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080444/b080444.txt\"\u003eRows n = 1..1000 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				"A001055(12) = 4 so a(18) through a(21) = 12,12,12,12"
+			],
+			"program": [
+				"(Haskell)",
+				"a080444 n k = a080444_tabf !! (n-1) !! (k-1)",
+				"a080444_row n = a080444_tabf !! (n-1)",
+				"a080444_tabf = zipWith replicate a001055_list [1..]",
+				"a080444_list = concat a080444_tabf",
+				"-- _Reinhard Zumkeller_, Oct 01 2012"
+			],
+			"keyword": "easy,nonn,tabf",
+			"offset": "1,2",
+			"author": "_Alford Arnold_, Mar 21 2003",
+			"ext": [
+				"More terms from Antonio G. Astudillo (afg_astudillo(AT)lycos.com), Apr 06 2003",
+				"Keyword tabf added by _Reinhard Zumkeller_, Oct 01 2012"
+			],
+			"references": 4,
+			"revision": 7,
+			"time": "2013-07-13T12:02:56-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80672,
+			"data": "2,3,4,5,6,7,8,9,10,12,14,15,16,18,20,21,22,24,25,26,27,28,30,32,33,34,35,36,38,39,40,42,44,45,46,48,49,50,51,52,54,55,56,57,58,60,62,63,64,65,66,68,69,70,72,74,75,76,77,78,80,81,82,84,85,86,87,88,90,91,92,93",
+			"name": "Numbers having divisors 2 or 3 or 5 or 7.",
+			"comment": [
+				"A020639(a(n)) \u003c= 7; A210679(a(n)) \u003e 0. - _Reinhard Zumkeller_, Apr 02 2012"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080672/b080672.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Rec#order_162\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, order 162."
+			],
+			"formula": [
+				"a(n) = a(n-162). - _Charles R Greathouse IV_, Sep 14 2015",
+				"a(n) = 35n/27 + O(1). - _Charles R Greathouse IV_, Sep 14 2015"
+			],
+			"program": [
+				"(PARI) div2357(n)= for(x=1,n, if(gcd(x,210)\u003c\u003e1,print1(x\" \")) )",
+				"(PARI) is(n)=gcd(n,210)\u003e1 \\\\ _Charles R Greathouse IV_, Sep 14 2015",
+				"(Haskell)",
+				"a080672 n = a080672_list !! (n-1)",
+				"a080672_list = filter ((\u003c= 7) . a020639) [2..]",
+				"-- _Reinhard Zumkeller_, Apr 02 2012"
+			],
+			"xref": [
+				"Cf. A020639, A008364 (complement), A002473 (subsequence)."
+			],
+			"keyword": "easy,nonn",
+			"offset": "1,1",
+			"author": "_Cino Hilliard_, Mar 02 2003",
+			"ext": [
+				"Offset fixed by _Reinhard Zumkeller_, Apr 02 2012"
+			],
+			"references": 4,
+			"revision": 15,
+			"time": "2015-09-14T09:53:58-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		},
+		{
+			"number": 80719,
+			"data": "0,1,2,3,4,5,6,7,8,9,2,3,6,7,12,13,14,15,24,25,4,5,10,11,20,21,22,23,40,41,6,7,14,15,28,29,30,31,56,57,8,9,18,19,36,37,38,39,72,73,10,11,22,23,44,45,46,47,88,89,12,13,26,27,52,53,54,55,104,105,14,15,30,31,60,61,62",
+			"name": "Replace decimal digits with their binary values and convert back to decimal representation.",
+			"comment": [
+				"m is a local maximum iff m == 9 modulo 10 (see A017377).",
+				"A257831 seen as binary numbers: A007088(a(n)) = A257831(n). - _Reinhard Zumkeller_, May 10 2015"
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A080719/b080719.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e"
+			],
+			"example": [
+				"n=27 -\u003e '2''7' -\u003e '10''111' -\u003e '10111' -\u003e 23: a(27)=23.",
+				"See also A257831."
+			],
+			"mathematica": [
+				"Table[FromDigits[Flatten[IntegerDigits[#,2]\u0026/@IntegerDigits[n]],2],{n,80}] (* _Harvey P. Dale_, Aug 30 2014 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.Maybe (mapMaybe)",
+				"a080719 = foldr (\\b v -\u003e 2 * v + b) 0 .",
+				"           concat . mapMaybe (flip lookup bin) . a031298_row",
+				"            where bin = zip [0..9] a030308_tabf",
+				"-- _Reinhard Zumkeller_, May 10 2015",
+				"(Python)",
+				"def A080719(n):",
+				"....return int(''.join((format(int(d),'b') for d in str(n))),2)",
+				"# _Chai Wah Wu_, May 10 2015"
+			],
+			"xref": [
+				"Cf. A007088.",
+				"Cf. A257831, A030308, A031298."
+			],
+			"keyword": "nonn,base",
+			"offset": "0,3",
+			"author": "_Reinhard Zumkeller_, Mar 06 2003",
+			"ext": [
+				"a(0)=0 prepended and offset changed by _Reinhard Zumkeller_, May 10 2015"
+			],
+			"references": 4,
+			"revision": 19,
+			"time": "2017-03-31T21:43:37-04:00",
+			"created": "2003-05-16T03:00:00-04:00"
+		}
+	]
+}

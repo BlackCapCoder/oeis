@@ -1,0 +1,271 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 6930,
+	"results": [
+		{
+			"number": 256489,
+			"data": "8,8,3,13,3,7,11,11,3,7,11,4,12,8,3,16,3,7,11,4,12,8,3,8,13,8,3,13,3,7,9,16,3,7,11,4,12,8,3,8,13,8,3,13,3,7,9,7,14,8,3,13,3,7,9,13,3,7,9,6,10,7,5,20,3,7,11,4,12,8,3,8,13,8,3,13,3,7,9,7,14,8,3,13,3,7,9,13,3,7,9,6,10,7,5,10,15,8,3,13,3,7,9",
+			"name": "First differences of A257509: a(n) = A257509(n+1) - A257509(n).",
+			"comment": [
+				"It seems that for all n \u003e= 0, Sum_{k=1 .. 2^n} a(k) = 2^(n+3)."
+			],
+			"link": [
+				"Antti Karttunen, \u003ca href=\"/A256489/b256489.txt\"\u003eTable of n, a(n) for n = 1..16384\u003c/a\u003e"
+			],
+			"formula": [
+				"a(n) = A257509(n+1) - A257509(n)."
+			],
+			"program": [
+				"(Scheme) (define (A256489 n) (- (A257509 (+ n 1)) (A257509 n)))",
+				"(Haskell)",
+				"a256489 n = a256489_list !! (n-1)",
+				"a256489_list = zipWith (-) (tail a257509_list) a257509_list",
+				"-- _Reinhard Zumkeller_, May 06 2015"
+			],
+			"xref": [
+				"Cf. A257509, A256490."
+			],
+			"keyword": "nonn,hear",
+			"offset": "1,1",
+			"author": "_Antti Karttunen_, May 03 2015",
+			"references": 3,
+			"revision": 13,
+			"time": "2015-05-06T17:46:42-04:00",
+			"created": "2015-05-04T02:10:05-04:00"
+		},
+		{
+			"number": 256512,
+			"data": "0,3,34,651,16388,500005,17915910,737894535,34359738376,1785233613321,102400000000010,6427501315524619,438244169232678924,32254987351648575501,2548827677619195478030,215233605000000000000015,19342813113834066795298832",
+			"name": "n*(1+(2*n)^n).",
+			"comment": [
+				"a(n) = A108396(2*n,n): central terms of the triangle A108396."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256512/b256512.txt\"\u003eTable of n, a(n) for n = 0..250\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256512 n = n * (1 + (2 * n) ^ n)"
+			],
+			"xref": [
+				"Cf. A062971, A108396, A108398."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Mar 31 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-03-31T20:22:21-04:00",
+			"created": "2015-03-31T20:22:21-04:00"
+		},
+		{
+			"number": 256523,
+			"data": "0,1,10,11,12,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,966,967,968,969,970,971,972,973,974,975,976,977,978,979,980,981,982,983,984,985",
+			"name": "Numbers m such that m, m^2 and m^3 have identical initial digits in decimal representation.",
+			"comment": [
+				"Intersection of A089951 and A144582;",
+				"A000030(a(n)) = A002993(a(n)) = A000030(A000290(a(n))) = A002994(a(n)) = A000030(A000578(a(n)))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256523/b256523.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256523 n = a256523_list !! (n-1)",
+				"a256523_list = [x | x \u003c- [0..], let i = a000030 x,",
+				"                    a000030 (x ^ 2) == i, a000030 (x ^ 3) == i]",
+				"(PARI) initial(n)=digits(n)[1]",
+				"is(n)=if(n==0, return(1)); my(k=initial(n)); initial(n^2)==k \u0026\u0026 initial(n^3)==k \\\\ _Charles R Greathouse IV_, May 13 2015"
+			],
+			"xref": [
+				"Cf. A000030, A089951, A144582, A000290, A000578, A002993, A002994."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Apr 01 2015",
+			"references": 3,
+			"revision": 6,
+			"time": "2015-05-13T13:36:06-04:00",
+			"created": "2015-04-01T08:31:39-04:00"
+		},
+		{
+			"number": 256541,
+			"data": "1,2,-1,5,-1,-1,-1,7,-1,-1,-1,7,-1,-1,-1,8,-1,-1,-1,-1,7,-1,-1,47,-41,-1,-1,-1,14,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,133,-121,-1,-1",
+			"name": "First differences of A166133.",
+			"comment": [
+				"a(n) != 0; abs(a(A256543(n))) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256541/b256541.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256541 n = a256541_list !! (n-1)",
+				"a256541_list = zipWith (-) (tail a166133_list) a166133_list"
+			],
+			"xref": [
+				"Cf. A166133, A256543."
+			],
+			"keyword": "sign",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 01 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-04-02T17:04:35-04:00",
+			"created": "2015-04-02T17:04:35-04:00"
+		},
+		{
+			"number": 256543,
+			"data": "1,3,5,6,7,9,10,11,13,14,15,17,18,19,20,22,23,26,27,28,30,31,32,33,34,35,36,37,38,39,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,71,72,73,74,75,76,77,78",
+			"name": "Numbers m such that A256541(m) = -1 or = +1.",
+			"comment": [
+				"abs(A166133(n+1) - A166133(n)) = abs(A256541(n)) = 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256543/b256543.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256543 n = a256543_list !! (n-1)",
+				"a256543_list = [x | x \u003c- [1..], abs (a256541 x) == 1]"
+			],
+			"xref": [
+				"Cf. A256541, A166133."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 02 2015",
+			"references": 3,
+			"revision": 6,
+			"time": "2015-04-03T10:55:04-04:00",
+			"created": "2015-04-02T17:05:02-04:00"
+		},
+		{
+			"number": 256561,
+			"data": "2,4,8,6,10,16,21,19,23,40,38,32,42,44,48,54,60,62,68,80,78,72,91,111,114,88,86,120,118,130,137,133,150,152,168,162,97,192,188,182,176,186,160,215,280,291,122,226,222,220,240,263,275,300,245,277,329,257",
+			"name": "Indices of primes in A166133.",
+			"link": [
+				"Reinhard Zumkeller and Ray Chandler, \u003ca href=\"/A256561/b256561.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from Reinhard Zumkeller)"
+			],
+			"formula": [
+				"a(n) =  A255833(A000040(n)). - _Ray Chandler_, Apr 14 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a256561 = (+ 1) . fromJust . (`elemIndex` a166133_list) . a000040"
+			],
+			"xref": [
+				"Cf. A166133, A256563, A255833, A000040."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 02 2015",
+			"references": 3,
+			"revision": 7,
+			"time": "2015-04-14T09:56:38-04:00",
+			"created": "2015-04-02T17:05:38-04:00"
+		},
+		{
+			"number": 256563,
+			"data": "3,7,12,11,15,14,17,24,29,28,36,35,34,31,30,47,50,52,56,58,59,63,66,25,77,74,92,89,102,101,109,107,106,105,83,116,128,125,124,143,142,141,135,131,147,154,155,156,103,171,99,96,95,145,189,259,178,177",
+			"name": "Indices of semiprimes in A166133.",
+			"link": [
+				"Reinhard Zumkeller and Ray Chandler, \u003ca href=\"/A256563/b256563.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from Reinhard Zumkeller)"
+			],
+			"formula": [
+				"a(n) =  A255833(A001358(n)). - _Ray Chandler_, Apr 14 2015"
+			],
+			"program": [
+				"(Haskell)",
+				"a256563 = (+ 1) . fromJust . (`elemIndex` a166133_list) . a001358"
+			],
+			"xref": [
+				"Cf. A166133, A256561, A255833, A001358."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 02 2015",
+			"references": 3,
+			"revision": 7,
+			"time": "2015-04-14T09:59:31-04:00",
+			"created": "2015-04-02T17:05:59-04:00"
+		},
+		{
+			"number": 256564,
+			"data": "1,2,2,3,2,7,2,5,2,11,2,3,2,3,2,13,3,2,19,2,17,2,23,2,3,2,3,2,5,3,2,37,2,5,2,3,2,31,2,29,2,41,2,43,2,3,2,47,2,7,2,3,2,53,2,5,2,3,2,59,2,61,2,3,2,5,2,67,2,3,2,79,2,7,2,3,2,73,2,71",
+			"name": "Smallest prime factor of A166133(n).",
+			"comment": [
+				"a(n) = A020639(A166133(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256564/b256564.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256564 = a020639 . a166133"
+			],
+			"xref": [
+				"Cf. A166133, A020639, A244080."
+			],
+			"keyword": "nonn,look",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Apr 02 2015",
+			"references": 3,
+			"revision": 6,
+			"time": "2015-04-03T09:09:58-04:00",
+			"created": "2015-04-02T17:06:43-04:00"
+		},
+		{
+			"number": 256578,
+			"data": "1,1,2,1,4,1,3,1,6,1,5,3,8,5,7,1,7,10,1,9,1,12,1,11,23,14,9,13,5,13,19,1,18,7,17,11,16,1,15,1,20,1,21,1,22,15,23,1,24,7,25,17,26,1,27,11,28,19,29,1,30,1,31,21,32,13,33,1,34,67,40,1,39,11",
+			"name": "Largest proper divisor of A166133(n).",
+			"comment": [
+				"a(n) = A032742(A166133(n))."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A256578/b256578.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a256578 = a032742 . a166133"
+			],
+			"xref": [
+				"Cf. A166133, A032742, A244080."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Apr 02 2015",
+			"references": 3,
+			"revision": 4,
+			"time": "2015-04-02T17:07:24-04:00",
+			"created": "2015-04-02T17:07:24-04:00"
+		},
+		{
+			"number": 256703,
+			"data": "4,292,330,615,625,744,982,1075,1671,2176,2389,2820,2937,3228,3598,4187,6590,7803,9960,10173,11628,13140,13396,14035,15588,16396,17766,18813,19858,21111,21115,21246,22808,23241,24784,25050,25149,25167,25384",
+			"name": "Numbers m such that A166133(m+1) = A166133(m)^2 - 1.",
+			"link": [
+				"Ray Chandler, \u003ca href=\"/A256703/b256703.txt\"\u003eTable of n, a(n) for n = 1..6575\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (findIndices)",
+				"a256703 n = a256703_list !! (n-1)",
+				"a256703_list = map (+ 1) $ findIndices (\\(u, v) -\u003e v == u^2-1) $",
+				"                           zip a166133_list (tail a166133_list)"
+			],
+			"xref": [
+				"Cf. A166133."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Apr 08 2015",
+			"references": 3,
+			"revision": 8,
+			"time": "2015-04-13T14:44:35-04:00",
+			"created": "2015-04-08T12:25:34-04:00"
+		}
+	]
+}

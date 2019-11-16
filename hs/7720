@@ -1,0 +1,321 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 7720,
+	"results": [
+		{
+			"number": 254397,
+			"data": "1,4,7,3,3,6,3,3,3,6,3,3,3,3,6,3,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3",
+			"name": "Initial digits of A237424 in decimal representation.",
+			"comment": [
+				"a(n) = A000030(A237424(n));",
+				"n with a(n) = 3: A237424(n) = (10^a+10^b+1)/3 with 0 \u003c= b \u003c a, see also A014132;",
+				"n with a(n) = 6: A237424(n) = (10^a+10^b+1)/3 with a = b, see also A199682, A254338;",
+				"length of k-th run of consecutive 3s = k+1, k \u003e 0;",
+				"digits 0, 2, 5, 8 and 9 do not occur."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254397/b254397.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a254397 = a000030 . a237424"
+			],
+			"xref": [
+				" Cf. A237424, A000030, A254339."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Feb 23 2015",
+			"references": 2,
+			"revision": 5,
+			"time": "2015-02-27T16:45:02-05:00",
+			"created": "2015-02-27T16:45:02-05:00"
+		},
+		{
+			"number": 254398,
+			"data": "1,4,7,4,7,7,4,7,7,7,4,7,7,7,7,4,7,7,7,7,7,4,7,7,7,7,7,7,4,7,7,7,7,7,7,7,4,7,7,7,7,7,7,7,7,4,7,7,7,7,7,7,7,7,7,4,7,7,7,7,7,7,7,7,7,7,4,7,7,7,7,7,7,7,7,7,7,7,4,7,7,7,7,7,7,7",
+			"name": "Final digits of A237424 in decimal representation.",
+			"comment": [
+				"a(n) = A237424(n) mod 10;",
+				"n with a(n) = 4: A237424(n) = (10^a+10^b+1)/3 with b = 0, see also A093137, A133384;",
+				"n with a(n) = 7: A237424(n) = (10^a+10^b+1)/3 with 0 \u003c b \u003c= a;",
+				"length of k-th run of consecutive 7s = k;",
+				"digits 0, 2, 3, 5, 6, 8 and 9 do not occur."
+			],
+			"link": [
+				"\u003ca href=\"/index/Fi#final\"\u003eIndex entries for sequences related to final digits of numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a254398 = flip mod 10 . a237424"
+			],
+			"xref": [
+				"Cf. a237424, A010879, A254339, A093137, A133384."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Feb 23 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-02-27T16:44:34-05:00",
+			"created": "2015-02-27T16:44:34-05:00"
+		},
+		{
+			"number": 254429,
+			"data": "0,2,5,33,8589934593",
+			"name": "a(0) = 0; for n \u003e= 0, a(n+1) = 2^a(n) + 1.",
+			"formula": [
+				"a(n+1) = A000051(a(n)). - _Reinhard Zumkeller_, Jan 31 2015"
+			],
+			"mathematica": [
+				"RecurrenceTable[{a[0]==0, a[n]==2^a[n-1] + 1}, a, {n, 5}] (* _Vincenzo Librandi_, Feb 01 2015 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a254429 n = a254429_list !! n",
+				"a254429_list = iterate ((+ 1) . (2 ^)) 0",
+				"-- _Reinhard Zumkeller_, Jan 31 2015",
+				"(MAGMA) [n le 2 select 2*(n-1) else 2^Self(n-1)+1: n in [1..5]]; // _Vincenzo Librandi_, Feb 01 2015"
+			],
+			"xref": [
+				"Cf. A007013, A254411.",
+				"Cf. A000051."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Max Alekseyev_, Jan 30 2015",
+			"references": 2,
+			"revision": 12,
+			"time": "2015-02-01T02:37:30-05:00",
+			"created": "2015-01-30T11:16:28-05:00"
+		},
+		{
+			"number": 254679,
+			"data": "1,1,2,1,3,1,2,4,1,5,1,2,3,6,1,7,1,2,4,8,1,3,9,1,10,2,5,1,11,1,12,2,3,4,6,1,13,1,14,2,7,1,15,3,5,1,16,2,4,8,1,17,1,18,2,3,6,9,1,19,1,10,2,20,4,5,1,21,3,7,1,11,2,22,1,23,1,12,2,24",
+			"name": "Table read by rows: row n lists the divisors of n, ordered lexicographically in decimal representation.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254679/b254679.txt\"\u003eRows n = 1..1000 of triangle, flattened\u003c/a\u003e"
+			],
+			"example": [
+				".    n | T(n,1..A000005(n))       n | T(n,1..A000005(n))",
+				".  ----+-------------------     ----+-------------------",
+				".    1 | 1                       21 | 1 21 3 7",
+				".    2 | 1 2                     22 | 1 11 2 22",
+				".    3 | 1 3                     23 | 1 23",
+				".    4 | 1 2 4                   24 | 1 12 2 24 3 4 6 8",
+				".    5 | 1 5                     25 | 1 25 5",
+				".    6 | 1 2 3 6                 26 | 1 13 2 26",
+				".    7 | 1 7                     27 | 1 27 3 9",
+				".    8 | 1 2 4 8                 28 | 1 14 2 28 4 7",
+				".    9 | 1 3 9                   29 | 1 29",
+				".   10 | 1 10 2 5                30 | 1 10 15 2 3 30 5 6",
+				".   11 | 1 11                    31 | 1 31",
+				".   12 | 1 12 2 3 4 6            32 | 1 16 2 32 4 8",
+				".   13 | 1 13                    33 | 1 11 3 33",
+				".   14 | 1 14 2 7                34 | 1 17 2 34",
+				".   15 | 1 15 3 5                35 | 1 35 5 7",
+				".   16 | 1 16 2 4 8              36 | 1 12 18 2 3 36 4 6 9",
+				".   17 | 1 17                    37 | 1 37",
+				".   18 | 1 18 2 3 6 9            38 | 1 19 2 38",
+				".   19 | 1 19                    39 | 1 13 3 39",
+				".   20 | 1 10 2 20 4 5           40 | 1 10 2 20 4 40 5 8 ."
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (sortBy); import Data.Ord (comparing)",
+				"a254679 n k = a254679_tabf !! (n-1) !! (k-1)",
+				"a254679_row n = a254679_tabf !! (n-1)",
+				"a254679_tabf = map (sortBy (comparing show)) a027750_tabf"
+			],
+			"xref": [
+				"Cf. A027750, A000005 (row lengths), a000203 (row sums), a122425 (right edge)."
+			],
+			"keyword": "nonn,base,tabf",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Feb 05 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-02-05T12:15:55-05:00",
+			"created": "2015-02-05T12:15:55-05:00"
+		},
+		{
+			"number": 254744,
+			"data": "1,2,16,288,10240,700416,92864512,24184487936,12484798840832,12835745584644096,26339606633209921536,107993030830149951553536,885112171099428768672907264,14505223494706550858367937544192,475365227058478388903633481696804864",
+			"name": "a(n) = 2^n * Sum_{k=1 .. n-1} a(k) * a(n-1-k) with a(0) = 1.",
+			"comment": [
+				"In Blieberger and Kirschenhofer 2014 denoted by r_n on page 106 equation (5)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254744/b254744.txt\"\u003eTable of n, a(n) for n = 0..80\u003c/a\u003e",
+				"J. Blieberger and P. Kirschenhofer, \u003ca href=\"http://institute.unileoben.ac.at/mathstat/personal/(2014)%20Generalized%20Catalan%20Sequences%20%5BEtc%5D.pdf\"\u003eGeneralized Catalan Sequences Originating from the Analysis of Special Data Structures\u003c/a\u003e, Bulletin of the ICA, 71 (2014) 103-116."
+			],
+			"formula": [
+				"a(n) ~ 2^((n^2 + 3*n)/2) * c where c = 0.7153374336... ."
+			],
+			"program": [
+				"(PARI) {a(n) = if( n\u003c1, n==0, 2^n * sum(k=0, n-1, a(k) * a(n-1-k)))};",
+				"(Haskell)",
+				"a254744 n = a254744_list !! n",
+				"a254744_list = 1 : f 2 [1] where",
+				"   f x ys = y : f (x * 2) (y : ys) where",
+				"            y = x * (sum $ zipWith (*) ys $ reverse ys)",
+				"-- _Reinhard Zumkeller_, Feb 07 2015"
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Michael Somos_, Feb 06 2015",
+			"references": 2,
+			"revision": 11,
+			"time": "2015-02-07T11:37:40-05:00",
+			"created": "2015-02-06T23:44:02-05:00"
+		},
+		{
+			"number": 254790,
+			"data": "1,2,5,3,13,10,16,4,8,6,25,28,19,23,21,11,31,7,34,37,40,43,9,46,14,17,49,52,55,58,12,67,61,63,70,20,65,73,22,76,15,79,84,18,81,86,89,26,24,93,96,29,99,102,91,113,105,111,108,32,118,120,35,123,126",
+			"name": "Inverse permutation of A254788.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254790/b254790.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"\u003ca href=\"/index/Per#IntegerPermutation\"\u003eIndex entries for sequences that are permutations of the natural numbers\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (elemIndex); import Data.Maybe (fromJust)",
+				"a254790 = (+ 1) . fromJust . (`elemIndex` a254788_list)"
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Feb 07 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-02-07T19:25:47-05:00",
+			"created": "2015-02-07T19:25:47-05:00"
+		},
+		{
+			"number": 254868,
+			"data": "6,2,8,4,16,12,48,44,40,36,32,28,24,20,80,76,72,68,64,60,56,52,208,204,200,196,192,188,184,180,176,172,168,164,160,156,152,148,144,140,136,132,128,124,120,116,112,108,104,100,96,92,88,84,336,332,328,324",
+			"name": "Recamán [-, +, *]-sequence with seed 6 and step 4.",
+			"comment": [
+				"Starting at the seed number (6) the sequence continues by subtracting, adding or multiplying by the step number (4). Subtracting gets precedence over addition which gets precedence over multiplication. The new number must be a positive integer and not previously listed. The sequence terminates if this is impossible, but for this seed (6) and step (4) the sequence is infinite.",
+				"More chaotic sequences are obtained if division is included: cf. A254873.",
+				"These sequences were first explored by Brian Kehrig, a 15-year-old student at Renert School, Calgary, Canada.",
+				"They are exceptionally nice sequences to introduce to the elementary school math classroom.",
+				"Like many Recamán sequences, this is worth listening to."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254868/b254868.txt\"\u003eTable of n, a(n) for n = 1..100000\u003c/a\u003e"
+			],
+			"example": [
+				"a(1) = 6.  a(2) = 6-4 = 2.  a(3) = 2*4 = 8.  a(4) = 8-4 = 4.  a(5) = 4*4 = 16.  a(6) = 16-4 = 12.  a(7) = 12*4 = 48 ..."
+			],
+			"program": [
+				"(Sage)",
+				"A=[6]",
+				"step=4",
+				"for i in [1..100]:",
+				"....if A[i-1]-step\u003e0 and not((A[i-1]-step) in A):",
+				"........A.append(A[i-1]-step)",
+				"....else:",
+				"........if not((A[i-1]+step) in A):",
+				"............A.append(A[i-1]+step)",
+				"........else:",
+				"............A.append(step*A[i-1])",
+				"A # - _Tom Edgar_, Feb 16 2015",
+				"(Haskell)",
+				"import Data.Set (Set, singleton, notMember, insert)",
+				"a254868 n = a254868_list !! (n-1)",
+				"a254868_list = 6 : kehrig (singleton 6) 6 where",
+				"   kehrig s x | x \u003e 4 \u0026\u0026 (x - 4) `notMember` s =",
+				"                (x - 4) : kehrig (insert (x - 4) s) (x - 4)",
+				"              | (x + 4) `notMember` s =",
+				"                (x + 4) : kehrig (insert (x + 4) s) (x + 4)",
+				"              | otherwise =",
+				"                (x * 4) : kehrig (insert (x * 4) s) (x * 4)",
+				"-- _Reinhard Zumkeller_, Feb 25 2015"
+			],
+			"xref": [
+				"Cf. A005132 (original Recamán sequence).",
+				"Cf. A254873 (an example with division at the top in the hierarchy of operations)."
+			],
+			"keyword": "easy,hear,nonn",
+			"offset": "1,1",
+			"author": "_Gordon Hamilton_, Feb 09 2015",
+			"references": 2,
+			"revision": 30,
+			"time": "2015-02-25T11:56:48-05:00",
+			"created": "2015-02-24T01:03:13-05:00"
+		},
+		{
+			"number": 254969,
+			"data": "1,4,2,2,2,2,2,0,2,2,0,0,0,0,0,2,2,0,0,2,0,0,0,2,2,0,2,2,2,2,0,2,2,0,0,0,0,2,0,2,0,0,2,0,2,0,2,2,0,2,2,2,2,0,0,2,0,0,0,0,2,0,0,0,2,2,0,0,2,0,2,2,2,0,0,0,0,0,0,0,2,0,0,0,2,0",
+			"name": "Central terms of the triangle of iterated absolute differences of lucky numbers.",
+			"comment": [
+				"a(n) = A254967(2*n,n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A254969/b254969.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a254969 n = a254967 (2 * n) n"
+			],
+			"xref": [
+				"Cf. A254967, A000959."
+			],
+			"keyword": "nonn",
+			"offset": "0,2",
+			"author": "_Reinhard Zumkeller_, Feb 11 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-02-11T12:51:25-05:00",
+			"created": "2015-02-11T12:51:25-05:00"
+		},
+		{
+			"number": 255507,
+			"data": "1,1,-2,2,2,1,1,1,-7,2,2,5,1,1,1,1,1,-14,2,2,2,10,1,1,1,1,1,1,1,-23,2,2,2,2,17,1,1,1,1,1,1,1,1,1,-34,2,2,2,2,2,26,1,1,1,1,1,1,1,1,1,1,1,-47,2,2,2,2,2,2,37,1,1,1,1,1,1,1,1,1,1,1,1",
+			"name": "First differences of A255437.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A255507/b255507.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a255507 n = a255507_list !! (n-1)",
+				"a255507_list = zipWith (-) (tail a255437_list) a255437_list"
+			],
+			"xref": [
+				" Cf. A255437, A255878."
+			],
+			"keyword": "sign",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Mar 23 2015",
+			"references": 2,
+			"revision": 6,
+			"time": "2015-03-26T11:36:16-04:00",
+			"created": "2015-03-26T11:36:16-04:00"
+		},
+		{
+			"number": 255508,
+			"data": "1,3,6,7,10,15,21,28,36,37,40,45,55,66,78,91,105,120,121,124,129,136,153,171,190,210,231,253,276,300,301,304,309,316,325,351,378,406,435,465,496,528,561,595,630,631,634,639,646,655,666,703,741,780,820,861",
+			"name": "Partial sums of A255437.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A255508/b255508.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a255508 n = a255508_list !! (n-1)",
+				"a255508_list = scanl1 (+) a255437_list"
+			],
+			"xref": [
+				" Cf. A255437, A255879."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Mar 23 2015",
+			"references": 2,
+			"revision": 4,
+			"time": "2015-03-26T11:35:54-04:00",
+			"created": "2015-03-26T11:35:54-04:00"
+		}
+	]
+}

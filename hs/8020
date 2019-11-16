@@ -1,0 +1,412 @@
+{
+	"greeting": "Greetings from The On-Line Encyclopedia of Integer Sequences! http://oeis.org/",
+	"query": "program:Haskell",
+	"count": 8147,
+	"start": 8020,
+	"results": [
+		{
+			"number": 191861,
+			"data": "1,2,1,3,1,1,5,4,1,3,1,2,5,1,4,13,3,2,6,1,1,1,5,9,5,3,7,1,5,25,3,3,1,2,3,2,3805,8,1,27,1,36,59,1,125,3,85,4,9,1,1,41,3,53,15,12,14,732,5,569,10,1,1,1,3,13,851525,1,2,2,73,7,13,5,11,1",
+			"name": "Second member of a pair of numbers occuring in the definition of 1-happy couples.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191861/b191861.txt\"\u003eTable of n, a(n) for n = 1..200\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/happy.html\"\u003eOn Happy Factorizations\u003c/a\u003e, J. Integer Sequences, Vol. 1, 1998, #1.",
+				"\u003ca href=\"/A007968/a007968.txt\"\u003eInitial Happy Factorization Data\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a191861 = snd . sqrtPair . a007969",
+				"-- Function sqrtPair is defined in A007968.",
+				"-- _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"xref": [
+				"Cf. A007968, A007969."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Reinhard Zumkeller_, Jun 18 2011",
+			"ext": [
+				"Wrong comment and wrong formula removed, thanks to _Wolfdieter Lang_, who pointed this out. - _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"references": 1,
+			"revision": 14,
+			"time": "2015-11-09T05:28:58-05:00",
+			"created": "2011-06-20T16:47:48-04:00"
+		},
+		{
+			"number": 191863,
+			"data": "1,1,3,1,2,1,3,5,1,1,39,3,1,1,78,7,1,13,4,1,3,5,3,9,1,11,1,1,2,5,1,477,389,3,51,11,1,5,2175,5,33,7,2,6,1,41571,44,5,11,3201,13,1,11,9,3,11,37,2999,7,1,127539,8,1,57003,3,17,5,15,1,1,1,17",
+			"name": "Second member of a pair of numbers occuring in the definition of 2-happy couples.",
+			"comment": [
+				"a(n) is odd, as is A191862(n)."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A191863/b191863.txt\"\u003eTable of n, a(n) for n = 1..99\u003c/a\u003e",
+				"J. H. Conway, \u003ca href=\"http://www.cs.uwaterloo.ca/journals/JIS/happy.html\"\u003eOn Happy Factorizations\u003c/a\u003e, J. Integer Sequences, Vol. 1, 1998, #1.",
+				"\u003ca href=\"/A007968/a007968.txt\"\u003eInitial Happy Factorization Data\u003c/a\u003e"
+			],
+			"program": [
+				"(Haskell)",
+				"a191863 = snd . sqrtPair . a007970",
+				"-- Function sqrtPair is defined in A007968.",
+				"-- _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"xref": [
+				"Cf. A007968, A007970."
+			],
+			"keyword": "nonn",
+			"offset": "1,3",
+			"author": "_Reinhard Zumkeller_, Jun 18 2011",
+			"ext": [
+				"Wrong comment and wrong formula removed (thanks to _Wolfdieter Lang_, who pointed this out) by _Reinhard Zumkeller_, Oct 11 2015"
+			],
+			"references": 1,
+			"revision": 18,
+			"time": "2019-05-26T01:40:40-04:00",
+			"created": "2011-06-20T16:48:59-04:00"
+		},
+		{
+			"number": 192734,
+			"data": "7,21,273,16401,1048593,4295032833,1099512676353,9007199256838145,302231455185132270387201,1208944266358702884257793,1329227995784915872903807060297121793,1393796574908163946347162983661240005427201",
+			"name": "Smallest number having binary weight of 3 and n distinct prime factors",
+			"comment": [
+				"Written in binary, these numbers have exactly three 1 bits and the other bits are all 0s. This means that these numbers are of the sum of 1 plus two larger distinct powers of 2. - From Alonso del Arte, Jul 08 2011",
+				"a(n) \u003e A002110(n). [_Reinhard Zumkeller_, Jul 09 2011]",
+				"Sequence is not monotone: a(12) \u003e a(13). [_Charles R Greathouse IV_, Jul 11 2011]"
+			],
+			"link": [
+				"Charles R Greathouse IV, \u003ca href=\"/A192734/b192734.txt\"\u003eTable of n, a(n) for n = 1..14\u003c/a\u003e"
+			],
+			"mathematica": [
+				"list = {7}; For[max = 1; n = 2, n \u003c 120,",
+				"For[m = 0, m \u003c n,",
+				"  tal = 2*(2^n + 2^m) + 1; num = PrimeNu[tal];",
+				"  If[num \u003e max, AppendTo[list, tal]; max = num]",
+				"  , m++], n++] (* Sarnbratt *)",
+				"A084468 = Flatten[Table[2^m + 2^n + 1, {m, 2, 80}, {n, m - 1}]]; Flatten[Table[Take[Select[A084468, PrimeNu[#] == n \u0026], 1], {n, 10}]] (* _Alonso del Arte_, Jul 08 2011 *)"
+			],
+			"program": [
+				"(PARI) a(n)={",
+				"  my(t);",
+				"  for(a=2,9e9,",
+				"    t=1+1\u003c\u003ca;",
+				"    for(b=1,a-1,",
+				"      if(omega(t+1\u003c\u003cb)==n,return(t+1\u003c\u003cb))",
+				"    )",
+				"  )",
+				"}; \\\\ _Charles R Greathouse IV_, Jul 08 2011",
+				"(Haskell)",
+				"a192734 n = head [x | x \u003c- [2^u + 2^v + 1 | u \u003c- [2..], v \u003c- [1..u-1]],",
+				"                      a001221 x == n]",
+				"-- _Reinhard Zumkeller_, Jun 14 2015, Jul 09 2011"
+			],
+			"xref": [
+				"Cf. A084468, A001221."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Johan Särnbratt_, Jul 08 2011",
+			"ext": [
+				"a(9) corrected by _Charles R Greathouse IV_, Jul 08 2011",
+				"a(12) from _Charles R Greathouse IV_, Jul 11 2011"
+			],
+			"references": 1,
+			"revision": 24,
+			"time": "2015-06-17T02:04:46-04:00",
+			"created": "2011-07-08T21:22:13-04:00"
+		},
+		{
+			"number": 192983,
+			"data": "1,4,24,264,5640,151200,5722920,282868992,18371308032,1504791561600,148978034686800,18007146260231040,2528615024682544512,426310052282058252672,81830910530970671616000,18305445786667543107072000,4570435510076312321728158720",
+			"name": "a(n) is the number of pairs (g, h) of elements of the symmetric group S_n such that g and h have conjugates that commute.",
+			"comment": [
+				"a(n) / n!^2 is the probability that two permutation in S_n, chosen independently and uniformly at random, have conjugates that commute.",
+				"Apparently n | a(n), and, for  n\u003e1,  n*(n-1) | a(n). - Alexander R. Povolotsky, Sep 30 2011"
+			],
+			"link": [
+				"Simon R. Blackburn, John R. Britnell, and Mark Wildon, \u003ca href=\"http://arxiv.org/abs/1108.1784\"\u003eThe probability that a pair of elements of a finite group are conjugate\u003c/a\u003e, arXiv:1108.1784, 2011",
+				"J. R. Britnell and M. Wildon, \u003ca href=\"http://dx.doi.org/10.1515/JGT.2009.013\"\u003eCommuting elements in conjugacy classes: an application of Hall's Marriage Theorem to group theory\u003c/a\u003e, J. Group Theory, 12 (2009), 795-802.",
+				"Mark Wildon, \u003ca href=\"http://www.ma.rhul.ac.uk/~uvah099/other.html#ConjugacyProbability\"\u003eHaskell source code\u003c/a\u003e for computing values of the sequence."
+			],
+			"example": [
+				"For n = 3 the probability that two elements of S_3 have conjugates that commute is a(3)/3!^2 = 2/3. Proof: only the transpositions and three cycles fail to have conjugates that commute; the probability of choosing one permutation from each of these classes is 2*1/2*1/3 = 1/3."
+			],
+			"program": [
+				"(Haskell) See links for code."
+			],
+			"xref": [
+				"Cf. A087132 (the sum of squares of the sizes of the conjugacy classes of S_n)."
+			],
+			"keyword": "nonn",
+			"offset": "1,2",
+			"author": "_Mark Wildon_, Aug 03 2011",
+			"references": 1,
+			"revision": 41,
+			"time": "2015-04-21T12:42:43-04:00",
+			"created": "2011-08-05T12:11:38-04:00"
+		},
+		{
+			"number": 194597,
+			"data": "1,6,6,1,9,3,1,3,9,1,6,6,1,9,3,1,3,9,1,6,6,1,9,3,1,3,9,1,6,6,1,9,3,1,3,9,1,6,6,1,9,3,1,3,9,1,6,6,1,9,3,1,3,9,1,6,6,1,9,3,1,3,9,1,6,6,1,9,3,1,3,9,1,6,6,1,9,3,1,3,9,1,6,6,1,9,3",
+			"name": "Digital roots of the nonzero hexagonal numbers.",
+			"comment": [
+				"This is a periodic sequence with period 9 and cycle 1,6,6,1,9,3,1,3,9 - which are also the coefficients of x in the numerator of the generating function.",
+				"a(n) = A010888(A000384(n)). - _Reinhard Zumkeller_, Jan 09 2013"
+			],
+			"formula": [
+				"a(n) = a(n-9), and as the sum of the terms contained in each cycle is 39 they also satisfy the eighth-order inhomogeneous recurrence a(n) = 39 - a(n-1) - a(n-2) - a(n-3) - a(n-4) - a(n-5) - a(n-6) - a(n-7) - a(n-8).",
+				"a(n) = 2 + cos(2/9*(n-5)*Pi) + cos(4/9*(n-5)*Pi) + cos(2/3*(n-5)*Pi) + cos(8/9*(n-5)*Pi) + cos(4/3*(n-5)*Pi) + cos(14/9*(n-5)*Pi) + cos(16/9*(n-5)*Pi) + cos((2 n Pi)/9) + cos((4 n Pi)/9) + cos((2 n Pi)/3) + cos((8 n Pi)/9) + cos((10 n Pi)/9) + cos((4 n Pi)/3) + cos((14 n Pi)/9) + cos((16 n Pi)/9) + cos(2/9 (2+5 n) Pi) + (8n + 5n^2 + 7n^3 + n^5 + n^7 + 6n^8) mod 9.",
+				"G.f.: x(1+6x+6x^2+x^3+9x^4+3x^5+x^6+3x^7+9x^8)/((1-x)(1+x+x^2)(1+x^3+x^6))."
+			],
+			"example": [
+				"The sixth nonzero hexagonal number is A000384(6)=66. As 6+6=12 and 1+2=3, this has digital root 3 and so a(6)=3."
+			],
+			"mathematica": [
+				"DigitalRoot[n_]:=FixedPoint[Plus@@IntegerDigits[#]\u0026,n];DigitalRoot[ # (2#-1)]\u0026/@Range[63]",
+				"CoefficientList[Series[(1 + 6 x + 6 x^2 + x^3 + 9 x^4 + 3 x^5 + x^6 + 3 x^7 + 9 x^8)/((1 - x) (1 + x + x^2) (1 + x^3 + x^6)), {x, 0, 100}], x] (* _Vincenzo Librandi_, Aug 11 2015 *)",
+				"PadRight[{},120,{1,6,6,1,9,3,1,3,9}] (* _Harvey P. Dale_, Oct 02 2018 *)"
+			],
+			"program": [
+				"(Haskell)",
+				"a194597 n = [1,6,6,1,9,3,1,3,9] !! a010878 (n-1)",
+				"-- _Reinhard Zumkeller_, Jan 09 2013",
+				"(MAGMA) \u0026cat[ [1,6,6,1,9,3,1,3,9]: k in [1..10] ]; // _Vincenzo Librandi_, Aug 11 2015"
+			],
+			"xref": [
+				"Cf. A000384.",
+				"Cf. A010878, A010888."
+			],
+			"keyword": "nonn,easy,base",
+			"offset": "1,2",
+			"author": "_Ant King_, Aug 30 2011",
+			"references": 1,
+			"revision": 20,
+			"time": "2018-10-02T14:00:23-04:00",
+			"created": "2011-08-30T12:03:09-04:00"
+		},
+		{
+			"number": 195324,
+			"data": "2,4,6,32,56,92,98,122,128,140,152,176,194,212,224,242,254,260,272,296,302,308,326,332,368,392,398,410,422,434,452,458,476,488,500,512,518,524,536,542,560,572,596,602,632,644,656,662,674,686,692,704,710,728",
+			"name": "Even numbers that cannot be represented as the sum of an odd prime and a safe prime (A005385).",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A195324/b195324.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"StackExchange, \u003ca href=\"http://math.stackexchange.com/questions/64109/even-numbers-greater-than-6-as-sum-of-two-specific-primes/64111#64111\"\u003eEven numbers greater than 6 as sum of two specific primes\u003c/a\u003e"
+			],
+			"mathematica": [
+				"mx = 1000; safe = Select[Prime[Range[PrimePi[mx]]], PrimeQ[(# - 1)/2] \u0026]; p = Prime[Range[2, PrimePi[mx]]]; Complement[Range[2, mx, 2], Union[Flatten[Outer[Plus, p, t]]]] (* _T. D. Noe_, Sep 15 2011 *)"
+			],
+			"program": [
+				"#!/usr/bin/perl",
+				"$| = 1;",
+				"sub is_prime {",
+				"  my $n = shift;",
+				"  return 0 if $n \u003c 2;",
+				"  return 1 if $n == 2;",
+				"  return 0 unless $n % 2;",
+				"  my $sn = int(sqrt($n));",
+				"  for (my $j = 3; $j \u003c= $sn; $j += 2) {",
+				"    return 0 if $n % $j == 0;",
+				"  }",
+				"  return 1;",
+				"}",
+				"my $n = 0;",
+				"while (1) {",
+				"  ++$n;",
+				"  next if $n % 2;",
+				"  my $found = 0;",
+				"  for my $p (3 .. $n) {",
+				"    next unless $p % 2;",
+				"    my $q = $n - $p;",
+				"    next unless $q % 2;",
+				"    next unless is_prime($p);",
+				"    next unless is_prime($q);",
+				"    next unless is_prime(($p - 1) / 2) || is_prime(($q - 1) / 2);",
+				"    $found = 1;",
+				"    last;",
+				"  }",
+				"  print \"$n\\n\" unless $found;",
+				"}",
+				"(Haskell)",
+				"a195324 n = a195324_list !! (n-1)",
+				"a195324_list = filter p [2,4..] where",
+				"   p n = all ((== 0) . a010051) $ takeWhile (\u003e 1) $ map (n -) a005385_list",
+				"-- _Reinhard Zumkeller_, Sep 18 2011"
+			],
+			"xref": [
+				"Cf. A000040 (primes), A005385 (safe primes)."
+			],
+			"keyword": "nonn",
+			"offset": "1,1",
+			"author": "_Dan Brumleve_, Sep 15 2011",
+			"references": 1,
+			"revision": 15,
+			"time": "2014-08-03T14:01:33-04:00",
+			"created": "2011-09-15T12:28:20-04:00"
+		},
+		{
+			"number": 196057,
+			"data": "0,0,0,1,0,1,1,3,1,1,0,3,1,2,1,6,1,3,3,3,2,1,1,6,1,2,3,4,1,3,0,10,1,2,2,6,3,4,2,6,1,4,2,3,3,2,1,10,3,3,2,4,6,6,1,7,4,2,1,6,3,1,4,15,2,3,3,4,2,4,3,10,2,4,3,6,2,4,1,10,6,2,1,7,2,3,2,6,6,6,3,4,1,2,4,15,1,5,3,6,2,4,3,7,4,7,4,10,1,3",
+			"name": "Number of sibling pairs in the rooted tree with Matula-Goebel number n.",
+			"comment": [
+				"A sibling pair is an unordered pair of nodes having the same parent.",
+				"The Matula-Goebel number of a rooted tree can be defined in the following recursive manner: to the one-vertex tree there corresponds the number 1; to a tree T with root degree 1 there corresponds the t-th prime number, where t is the Matula-Goebel number of the tree obtained from T by deleting the edge emanating from the root; to a tree T with root degree m \u003e= 2 there corresponds the product of the Matula-Goebel numbers of the m branches of T."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A196057/b196057.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+				"E. Deutsch, \u003ca href=\"http://arxiv.org/abs/1111.4288\"\u003eTree statistics from Matula numbers\u003c/a\u003e, arXiv preprint arXiv:1111.4288 [math.CO], 2011.",
+				"F. Goebel, \u003ca href=\"http://dx.doi.org/10.1016/0095-8956(80)90049-0\"\u003eOn a 1-1-correspondence between rooted trees and natural numbers\u003c/a\u003e, J. Combin. Theory, B 29 (1980), 141-143.",
+				"I. Gutman and A. Ivic, \u003ca href=\"http://dx.doi.org/10.1016/0012-365X(95)00182-V\"\u003eOn Matula numbers\u003c/a\u003e, Discrete Math., 150, 1996, 131-142.",
+				"I. Gutman and Yeong-Nan Yeh, \u003ca href=\"http://www.emis.de/journals/PIMB/067/3.html\"\u003eDeducing properties of trees from their Matula numbers\u003c/a\u003e, Publ. Inst. Math., 53 (67), 1993, 17-22.",
+				"D. W. Matula, \u003ca href=\"http://www.jstor.org/stable/2027327\"\u003eA natural rooted tree enumeration by prime factorization\u003c/a\u003e, SIAM Rev. 10 (1968) 273.",
+				"\u003ca href=\"/index/Mat#matula\"\u003eIndex entries for sequences related to Matula-Goebel numbers\u003c/a\u003e"
+			],
+			"formula": [
+				"a(1)=0; if n=p(t) (=the t-th prime), then a(n)=a(t); if n=rs (r,s,\u003e=2), then a(n) = a(r) + a(s) + G(r)G(s), where G(m) is the number of prime divisors of m, counted with multiplicities. The Maple program is based on this recursive formula."
+			],
+			"example": [
+				"a(7)=1 because the rooted tree with Matula-Goebel number 7 is the rooted tree Y.",
+				"a(2^m) = binomial(m,2) because the rooted tree with Matula-Goebel number 2^m is a star with m edges."
+			],
+			"maple": [
+				"with(numtheory): a := proc (n) local u, v: u := proc (n) options operator, arrow: op(1, factorset(n)) end proc: v := proc (n) options operator, arrow: n/u(n) end proc: if n = 1 then 0 elif bigomega(n) = 1 then a(pi(n)) else a(u(n))+a(v(n))+bigomega(u(n))*bigomega(v(n)) end if end proc: seq(a(n), n = 1 .. 110);"
+			],
+			"program": [
+				"(Haskell)",
+				"import Data.List (genericIndex)",
+				"a196057 n = genericIndex a196057_list (n - 1)",
+				"a196057_list = 0 : g 2 where",
+				"   g x = y : g (x + 1) where",
+				"     y | t \u003e 0     = a196057 t",
+				"       | otherwise = a196057 r + a196057 s + a001222 r * a001222 s",
+				"       where t = a049084 x; r = a020639 x; s = x `div` r",
+				"-- _Reinhard Zumkeller_, Sep 03 2013"
+			],
+			"xref": [
+				"Cf. A049084, A020639, A001222."
+			],
+			"keyword": "nonn,changed",
+			"offset": "1,8",
+			"author": "_Emeric Deutsch_, Sep 30 2011",
+			"references": 1,
+			"revision": 21,
+			"time": "2019-11-03T19:45:21-05:00",
+			"created": "2011-09-30T11:30:17-04:00"
+		},
+		{
+			"number": 197410,
+			"data": "1,3,4,21,6,216,8,315,52,432,12,80640,14,720,864,9765,18,176904,20,232848,1408,1512,24,149299200,186,2016,2080,460992,30,274827168,32,615195,2880,3240,3744,13333320000,38,3960,3808,680400000,42,702079488,44,1270080",
+			"name": "Product of cumulative sums of divisors of n.",
+			"comment": [
+				"When n is prime, a(n) = n + 1."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A197410/b197410.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"a(4) = 21 because the divisors of 4 are 1, 2 and 4, their cumulative sums are 1, 3 and 7, and 1 * 3 * 7 = 21.",
+				"a(5) = 6 because the divisors of 5 are 1 and 5, their cumulative sums are 1 and 6, and 1 * 6 = 6."
+			],
+			"mathematica": [
+				"Table[Times@@Table[Plus@@Take[Divisors[n], k], {k, DivisorSigma[0, n]}], {n, 44}] (* _Alonso del Arte_, Oct 14 2011 *)",
+				"Table[Times@@Accumulate[Divisors[n]],{n,50}] (* _Harvey P. Dale_, Aug 15 2013 *)"
+			],
+			"program": [
+				"(PARI) a(n)=local(ds,sd);ds=divisors(n);prod(k=1,#ds,sd+=ds[k])",
+				"(Haskell)",
+				"a197410 = product . scanl1 (+) . a027750_row",
+				"-- _Reinhard Zumkeller_, Jan 26 2013"
+			],
+			"xref": [
+				"Cf. A000203, A007955, A064945.",
+				"Cf. A027750."
+			],
+			"keyword": "nonn,easy,nice",
+			"offset": "1,2",
+			"author": "_Franklin T. Adams-Watters_, Oct 14 2011",
+			"references": 1,
+			"revision": 15,
+			"time": "2014-08-03T14:37:24-04:00",
+			"created": "2011-10-14T19:03:43-04:00"
+		},
+		{
+			"number": 199045,
+			"data": "2,12,112,1120,10112,101120,1002112,10010112,100101120,1001011200,10002010112,100012122112,1000121221120,10001212211200,100002002010112,1000000210010112,10000002100101120,100000021001011200,1000000210010112000,10000000201221210112",
+			"name": "Smallest multiple of 2^n having in decimal representation exactly n digits \u003c= 2.",
+			"comment": [
+				"A050621(n) \u003c= a(n) \u003c A050621(n+1); A054055(a(n)) \u003c= 2."
+			],
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A199045/b199045.txt\"\u003eTable of n, a(n) for n = 1..32\u003c/a\u003e"
+			],
+			"example": [
+				"n=3: A050621(3) = 104 = 8 * 13, a(3) = 112 = 8 * 14;",
+				"n=4: A050621(4) = 1008 = 16 * 63, a(4) = 1120 = 16 * 70."
+			],
+			"program": [
+				"(Haskell)",
+				"a199045 n = head $",
+				"   filter ((\u003c= 2) . a054055) $ map (* 2^n) [a034478 (n-1)..]"
+			],
+			"xref": [
+				"Cf. A000079, A034478, A159952."
+			],
+			"keyword": "nonn,base",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Nov 02 2011",
+			"references": 1,
+			"revision": 10,
+			"time": "2013-07-13T12:04:18-04:00",
+			"created": "2011-11-03T11:14:13-04:00"
+		},
+		{
+			"number": 199713,
+			"data": "23,13,53,17,101,31,71,109,223,229,103,73,149,347,347,353,359,163,167,107,137,97,283,389,179,1013,1013,701,1009,131,271,311,173,193,419,1051,571,613,617,317,197,811,911,1039,719,919,1021,1223,2027,1229,2333",
+			"name": "Smallest prime greater than n-th prime containing all of its digits in decimal representation.",
+			"link": [
+				"Reinhard Zumkeller, \u003ca href=\"/A199713/b199713.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e"
+			],
+			"example": [
+				"   n |  a(n)  | prime(n)",
+				"-----+--------+---------",
+				"   1 |    23  |     2",
+				"   2 |    13  |     3",
+				"   3 |    53  |     5",
+				"   4 |    17  |     7",
+				"   5 |   101  |    11",
+				"   6 |    31  |    13",
+				"   7 |    71  |    17",
+				"   8 |   109  |    19",
+				"   9 |   223  |    23",
+				"  10 |   229  |    29",
+				"....",
+				"  26 |  1013  |   101",
+				"  27 |  1013  |   103",
+				"  28 |   701  |   107",
+				"  29 |  1009  |   109",
+				"  30 |   131  |   113",
+				"  31 |   271  |   127",
+				"  32 |   311  |   131 ."
+			],
+			"program": [
+				"(Haskell)",
+				"a199713 n = f ps where",
+				"   f (q:qs) = if sort (show q) `contains` sort (show p) then q else f qs",
+				"   contains _  []                         = True",
+				"   contains [] _                          = False",
+				"   contains (u:us) vs'@(v:vs) | u == v    = contains us vs",
+				"                              | otherwise = contains us vs'",
+				"   p : ps = drop (n-1) a000040_list"
+			],
+			"xref": [
+				"Cf. A000040, A055387."
+			],
+			"keyword": "nonn,base,look",
+			"offset": "1,1",
+			"author": "_Reinhard Zumkeller_, Nov 09 2011",
+			"references": 1,
+			"revision": 12,
+			"time": "2014-01-29T07:50:11-05:00",
+			"created": "2011-11-09T14:07:44-05:00"
+		}
+	]
+}

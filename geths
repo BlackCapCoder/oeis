@@ -1,9 +1,0 @@
-#!/bin/bash
-
-for i in $(seq $@ $(echo $@ + 100 | bc)); do
-  dat=$(./get $i)
-  if echo "$dat" | grep --quiet Haskell; then
-    echo "$dat"
-    break
-  fi
-done

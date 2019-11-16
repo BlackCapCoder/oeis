@@ -13,6 +13,7 @@ import Data.List
 import qualified Data.Map.Strict as M
 import qualified Data.ByteString.Lazy.Char8 as B
 import Data.Char
+import Data.IORef
 
 
 class Reify a b where
@@ -48,12 +49,22 @@ instance (Testable x i, MkTests xs) => MkTests (x ': xs) where
 runTest :: M.Map Int [Integer] -> Test -> IO Bool
 runTest !m (Test i a@(A as)) = do
   let Just (take 10->bs) = M.lookup i m
-  res <- timeout 100000 $ pure $! and $ zipWith (==) as bs
+  res <- timeout 50000 $ pure $! and $ zipWith (==) as bs
 
   case res of
-    Nothing    -> do putStrLn $ show a ++ " timed out!"; pure True
     Just False -> do putStrLn $ show a ++ " not equal spec!"; pure False
     Just True  -> pure True
+    Nothing    -> do
+      score <- bench 1000 a
+      case score of
+        0 -> putStrLn $ show a ++ " timed out!"
+        _ -> putStrLn $ show a ++ " is slow. Score: " ++ show score
+      pure $ score > 0
+
+bench time (A as) = do
+  r <- newIORef 0
+  timeout time $! forM_ as \ !x -> modifyIORef' r (+ 1)
+  readIORef r
 
 parse' :: B.ByteString -> [Integer]
 parse' = unfoldr $ B.readInteger . B.dropWhile \x -> x /= '-' && not (isDigit x)
@@ -66,6 +77,7 @@ getAll = M.fromList . map parse . B.lines <$> B.readFile "data/all"
 
 main :: IO ()
 main = do
+  putStrLn ""
   res <- fmap and . forM tests . runTest =<< getAll
   unless res $ error ""
 

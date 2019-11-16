@@ -1,4 +1,6 @@
 .stack-work/
+stach.yaml.lock
 cache/
 hs/
+data/
 *~

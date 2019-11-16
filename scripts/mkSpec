@@ -1,0 +1,15 @@
+#!/bin/bash
+
+(
+cat << EOF
+module Implemented where
+
+import GHC.TypeLits
+
+EOF
+
+echo -n "type Implemented = '"
+scripts/listImplemented
+echo
+
+) > test/Implemented.hs

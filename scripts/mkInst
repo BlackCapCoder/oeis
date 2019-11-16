@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# echo "instance OEIS $@ where"
+# cat - \
+#   | sed '/^(Haskell)/,/^(/!d' \
+#   | sed 's/^([a-zA-Z]*)\s*//' \
+#   | sed 's/-- .*$//' \
+#   | sed '/^$/d' \
+#   | sed 's/^/  /'
+# echo

@@ -1,4 +1,4 @@
-module OEIS.Prime () where
+module OEIS.Prime where
 
 import OEIS.OEIS
 import Data.Bits
@@ -13,6 +13,7 @@ import Data.Function (fix, on)
 import Data.Char (intToDigit, digitToInt)
 import Math.NumberTheory.Moduli (powMod)
 import Math.NumberTheory.Primes.Factorisation (factorise)
+import Math.NumberTheory.Recurrences
 import Data.Maybe (fromJust)
 
 
@@ -21,7 +22,8 @@ choices = concat . map permutations . subsequences
 zipTail f = zipWith f =<< tail
 
 fact n = product [2..n]
-facts  = scanl1 (*) [1..]
+-- facts  = scanl1 (*) [1..]
+facts = tail factorial
 
 divisors 1 = [1]
 divisors n = (1:filter ((==0) . rem n) [2..n `div` 2]) ++ [n]
@@ -39,15 +41,16 @@ bin n k = bin (n - 1) (k - 1) * n `div` k
 
 fibs = 0 : 1 : zipTail (+) fibs
 
-fib :: Int -> Integer
-fib n = snd . foldl_ fib_ (1, 0) . dropWhile not $
-            [testBit n k | k <- let s = finiteBitSize n in [s - 1,s - 2..0]]
-    where
-        fib_ (f, g) p
-            | p         = (f*(f+2*g), ss)
-            | otherwise = (ss, g*(2*f-g))
-            where ss = f*f+g*g
-        foldl_ = foldl' -- '
+-- fib :: Int -> Integer
+-- fib n = snd . foldl_ fib_ (1, 0) . dropWhile not $
+--             [testBit n k | k <- let s = finiteBitSize n in [s - 1,s - 2..0]]
+--     where
+--         fib_ (f, g) p
+--             | p         = (f*(f+2*g), ss)
+--             | otherwise = (ss, g*(2*f-g))
+--             where ss = f*f+g*g
+--         foldl_ = foldl'
+fib = fibonacci
 
 
 instance OEIS 40 where
@@ -470,7 +473,8 @@ instance OEIS 215 where
 -- a000216_list = iterate a003132 2
 
 instance OEIS 217 where
-  oeis = scanl1 (+) [0..]
+  oeis     = scanl1 (+) [0..]
+  oeisIx n = bin (n+1) 2
 
 -- a000218_list = iterate a003132 3
 
@@ -531,7 +535,7 @@ instance OEIS 272 where
 
 
 instance OEIS 277 where
-  oeisIx n = 3*n - 2*oeisIx @196 (4 * n + 5) + 5
+  oeisIx n = 3*n - 2 * isqrtA (4 * n + 5) + 5
 
 instance OEIS 278 where
   oeisIx = go where
@@ -1880,9 +1884,15 @@ instance OEIS 2283 where
 
 
 instance OEIS 2311 where
-  oeis = filter f [1..] where
-     f x = not $ null $ intersect txs $ map (tx -) $ txs where
-         txs = takeWhile (< tx) $ oeis @292; tx = oeisIx @292 x
+  -- oeis = filter f [1..] where
+  --    f x = not $ null $ intersect txs $ map (tx -) $ txs where
+  --        (txs,tx:_) = splitAt (fi x) $ oeis @292
+  oeis =
+    [ i
+    | (i,tx,txs) <- ap (zip3 [0..]) inits $ oeis @292
+    , not $ null $ intersect txs $ map (tx -) $ txs
+    ]
+
 
 -- instance OEIS 2312 where
 --   a002312 n = a002312_list !! (n-1)
@@ -2405,7 +2415,7 @@ instance OEIS 3234 where
 instance OEIS 3238 where
 --   oeisIx n = (oeis @3238) !! (n-1)
   oeis = 1 : f 1 where
-     f x = (sum (map (oeisIx @3238) $ a027750_row x)) : f (x + 1)
+     f x = (sum (map (oeisIx @3238 . pred) $ a027750_row x)) : f (x + 1)
 
 -- instance OEIS 3242 where
 --   oeisIx n = (oeis @3242) !! n
@@ -2425,7 +2435,7 @@ instance OEIS 3249 where
 
 instance OEIS 3266 where
 --   oeisIx n = (oeis @3266) !! (n-1)
-  oeis = scanl1 (*) $ tail (oeis @45)
+  oeis = (1 :) . scanl1 (*) $ tail (oeis @45)
 
 instance OEIS 3269 where
 --   oeisIx n = (oeis @3269) !! n
@@ -2482,82 +2492,55 @@ instance OEIS 3320 where
 
 -- instance OEIS 3401 where
 --   oeisIx n = (oeis @3401) !! (n-1)
---   oeis = map (+ 1) $ elemIndices 1 $ map (oeisIx @209229) (oeis @10)
---   (Python)
---   from sympy import totient
---   A003401_list = [n for n in range(1,10**4) if format(totient(n),'b').count('1') == 1]
---   # _Chai Wah Wu_, Jan 12 2015
+  -- oeis = map (+ 1) $ elemIndices 1 $ map (oeisIx @209229) (oeis @10)
 
--- instance OEIS 3415 where
+instance OEIS 3415 where
 --   oeisIx 0 = 0
---   oeisIx n = ad n (oeis @40) where
---     ad 1 _             = 0
---     ad n ps'@(p:ps)
---        | n < p * p     = 1
---        | r > 0         = ad n ps
---        | otherwise     = n' + p * ad n' ps' where
---          (n',r) = divMod n p
---   (Python)
---   from sympy import factorint
---   def A003415(n):
---   ....return sum([int(n*e/p) for p,e in factorint(n).items()]) if n > 1 else 0
---   # _Chai Wah Wu_, Aug 21 2014
---   (Sage)
---   def A003415(n):
---       a = 0; F = []
---       if n > 0: F = list(factor(n))
---       return n*sum(f[1]/f[0] for f in F)
---   [A003415(n) for n in range(79)] # _Peter Luschny_, Aug 23 2014
---   (GAP)
---   A003415:= Concatenation([0,0],List(List([2..10^3],Factors),
---   i->Product(i)*Sum(i,j->1/j))); # _Muniru A Asiru_, Aug 31 2017
+  oeisIx n = ad n (oeis @40) where
+    ad n _ | n < 2     = 0
+    ad n ps'@(p:ps)
+       | n < p * p     = 1
+       | r > 0         = ad n ps
+       | otherwise     = n' + p * ad n' ps' where
+         (n',r) = divMod n p
 
--- instance OEIS 3418 where
---   oeisIx = foldl lcm 1 . enumFromTo 2
---   (MAGMA) [Lcm([1..n]): n in [0..30]]; // _Bruno Berselli_, Feb 06 2015
---   (Scheme) (define (A003418 n) (let loop ((n n) (m 1)) (if (zero? n) m (loop (- n 1) (lcm m n))))) ;; _Antti Karttunen_, Jan 03 2018
+instance OEIS 3418 where
+  oeisIx = foldl lcm 1 . enumFromTo 2
 
--- instance OEIS 3422 where
+instance OEIS 3422 where
 --   oeisIx n = (oeis @3422) !! n
---   oeis = scanl (+) 0 (oeis @142)
+  oeis = scanl (+) 0 (oeis @142)
 
--- instance OEIS 3434 where
---   oeisIx n = fst $ until ((== 1) . snd)
---                           (\(i, x) -> (i + 1, (oeisIx @10) x)) (0, n)
+instance OEIS 3434 where
+  oeisIx n = fst $ until ((== 1) . snd)
+                          (\(i, x) -> (i + 1, (oeisIx @10 . pred) x)) (0, succ n)
 
 -- instance OEIS 3459 where
---   import Data.List (permutations)
 --   oeisIx n = (oeis @3459) !! (n-1)
 --   oeis = filter isAbsPrime (oeis @40) where
 --      isAbsPrime = all (== 1) . map (oeisIx . read) . permutations . show
 
--- instance OEIS 3462 where
---   oeisIx = (`div` 2) . (subtract 1) . (3 ^)
---   oeis = iterate ((+ 1) . (* 3)) 0
---   makelist(A003462(n),n,0,30); /* _Martin Ettl_, Nov 05 2012 */
---   (MAGMA) [(3^n-1)/2: n in [0..30]]; // _Vincenzo Librandi_, Feb 21 2015
---   (PARI) concat(0, Vec(x/((1-x)*(1-3*x)) + O(x^100))) \\ _Altug Alkan_, Nov 01 2015
---   (GAP)
---   A003462:=List([0..10^2],n->(3^n-1)/2); # _Muniru A Asiru_, Sep 27 2017
+instance OEIS 3462 where
+  oeisIx = (`div` 2) . (subtract 1) . (3 ^)
+  oeis = iterate ((+ 1) . (* 3)) 0
 
--- instance OEIS 3480 where
+instance OEIS 3480 where
 --   oeisIx n = (oeis @3480) !! n
---   oeis = 1 : 2 : 7 : (tail $ zipWith (-)
---      (tail $ map (* 4) (oeis @3480)) (map (* 2) (oeis @3480)))
+  oeis = 1 : 2 : 7 : (tail $ zipWith (-)
+     (tail $ map (* 4) (oeis @3480)) (map (* 2) (oeis @3480)))
 
 -- instance OEIS 3484 where
---   oeisIx n = 2 * e + cycle [1,0,0,2] !! e  where e = (oeisIx @7814) n
+--   oeisIx n = 2 * e + cycle [1,0,0,2] `genericIndex` e  where e = (oeisIx @7814) n
 
--- instance OEIS 3485 where
+instance OEIS 3485 where
 --   oeisIx n = (oeis @3485) !! n
---   oeis = 1 : 2 : 4 : 8 : 9 : zipWith (+)
---      (drop 4 (oeis @3485)) (zipWith (-) (tail (oeis @3485)) (oeis @3485))
+  oeis = 1 : 2 : 4 : 8 : 9 : zipWith (+)
+     (drop 4 (oeis @3485)) (zipWith (-) (tail (oeis @3485)) (oeis @3485))
 
--- instance OEIS 3500 where
+instance OEIS 3500 where
 --   oeisIx n = (oeis @3500) !! n
---   oeis = 2 : 4 : zipWith (-)
---      (map (* 4) $ tail (oeis @3500)) (oeis @3500)
---   (MAGMA) I:=[2,4]; [n le 2 select I[n] else 4*Self(n-1)-Self(n-2): n in [1..30]]; // _Vincenzo Librandi_, Nov 14 2018
+  oeis = 2 : 4 : zipWith (-)
+     (map (* 4) $ tail (oeis @3500)) (oeis @3500)
 
 -- instance OEIS 3506 where
 --   oeisIx n k = (oeisIx @3506)_tabl !! (n-1) !! (n-1)
@@ -2570,160 +2553,112 @@ instance OEIS 3320 where
 
 -- instance OEIS 3508 where
 --   oeisIx n = (oeis @3508) !! (n-1)
---   oeis = 1 : map
---         (\x -> x + 1 + sum (takeWhile (< x) $ (oeisIx @27748)_row x)) (oeis @3508)
+  -- oeis = 1 : map
+  --       (\x -> x + 1 + sum (takeWhile (< x) $ (a027748_row x))) (oeis @3508)
 
 -- instance OEIS 3557 where
 --   oeisIx n = product $ zipWith (^)
 --                         (oeisIx_row n) (map (subtract 1) $ (oeisIx @124010)_row n)
---   (Python)
---   from sympy.ntheory.factor_ import core
---   from sympy import divisors
---   def a(n): return n/max(list(filter(lambda i: core(i) == i, divisors(n))))
---   print [a(n) for n in xrange(1, 101)] # _Indranil Ghosh_, Apr 16 2017
---   (MAGMA) [(&+[(Floor(k^n/n)-Floor((k^n-1)/n)): k in [1..n]]): n in [1..100]]; // _G. C. Greubel_, Nov 02 2018
 
--- instance OEIS 3586 where
+instance OEIS 3586 where
 --   import Data.Set (Set, singleton, insert, deleteFindMin)
---   smooth :: Set Integer -> [Integer]
---   smooth s = x : smooth (insert (3*x) $ insert (2*x) s')
---     where (x, s') = deleteFindMin s
---   oeis = smooth (singleton 1)
---   oeisIx n = (oeis @3586) !! (n-1)
---   def isA003586(n) :
---       return [] == filter(lambda d: d != 2 and d != 3, prime_divisors(n))
---   @CachedFunction
---   def A003586(n) :
---       if n == 1 : return 1
---       k = A003586(n-1) + 1
---       while not isA003586(k) : k += 1
---       return k
---   [A003586(n) for n in (1..55)] # _Peter Luschny_, Jul 20 2012
---   (MAGMA) [n: n in [1..4000] | PrimeDivisors(n) subset [2,3]]; // _Bruno Berselli_, Sep 24 2012
+  oeis = smooth (S.singleton 1)
+    where
+      smooth s = x : smooth (S.insert (3*x) $ S.insert (2*x) s')
+        where (x, s') = S.deleteFindMin s
 
--- instance OEIS 3591 where
+instance OEIS 3591 where
 --   import Data.Set (singleton, deleteFindMin, insert)
 --   oeisIx n = (oeis @3591) !! (n-1)
---   oeis = f $ singleton 1 where
---      f s = y : f (insert (2 * y) $ insert (7 * y) s')
---                  where (y, s') = deleteFindMin s
+  oeis = f $ S.singleton 1 where
+     f s = y : f (S.insert (2 * y) $ S.insert (7 * y) s')
+                 where (y, s') = S.deleteFindMin s
 
--- instance OEIS 3592 where
+instance OEIS 3592 where
 --   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @3592) !! (n-1)
---   oeis = f $ singleton 1 where
---      f s = y : f (insert (2 * y) $ insert (5 * y) s')
---                  where (y, s') = deleteFindMin s
---   # A003592.py (Replace leading dots with spaces)
---   from heapq import heappush, heappop
---   def A003592():
---   ... pq = [1]
---   ... seen = set(pq)
---   ... while True:
---   ....... value = heappop(pq)
---   ....... yield value
---   ....... seen.remove(value)
---   ....... for x in 2*value, 5*value:
---   ............if x not in seen:
---   ............... heappush(pq, x)
---   ............... seen.add(x)
---   sequence = A003592()
---   A003592_list = [next(sequence) for _ in range(100)]
---   (GAP) Filtered([1..10000],n->PowerMod(10,n,n)=0); # _Muniru A Asiru_, Mar 19 2019
+  -- oeisIx n = (oeis @3592) !! (n-1)
+  oeis = f $ S.singleton 1 where
+     f s = y : f (S.insert (2 * y) $ S.insert (5 * y) s')
+                 where (y, s') = S.deleteFindMin s
 
--- instance OEIS 3593 where
+instance OEIS 3593 where
 --   import Data.Set (singleton, deleteFindMin, insert)
 --   oeisIx n = (oeis @3593) !! (n-1)
---   oeis = f (singleton 1) where
---      f s = m : f (insert (3*m) $ insert (5*m) s') where
---        (m,s') = deleteFindMin s
---   (GAP) Filtered([1..60000],n->PowerMod(15,n,n)=0); # _Muniru A Asiru_, Mar 19 2019
+  oeis = f (S.singleton 1) where
+     f s = m : f (S.insert (3*m) $ S.insert (5*m) s') where
+       (m,s') = S.deleteFindMin s
 
--- instance OEIS 3594 where
+instance OEIS 3594 where
 --   import Data.Set (singleton, deleteFindMin, insert)
 --   oeisIx n = (oeis @3594) !! (n-1)
---   oeis = f $ singleton 1 where
---      f s = y : f (insert (3 * y) $ insert (7 * y) s')
---                  where (y, s') = deleteFindMin s
+  oeis = f $ S.singleton 1 where
+     f s = y : f (S.insert (3 * y) $ S.insert (7 * y) s')
+                 where (y, s') = S.deleteFindMin s
 
--- instance OEIS 3595 where
+instance OEIS 3595 where
 --   import Data.Set (singleton, deleteFindMin, insert)
 --   oeisIx n = (oeis @3595) !! (n-1)
---   oeis = f $ singleton 1 where
---      f s = y : f (insert (5 * y) $ insert (7 * y) s')
---                  where (y, s') = deleteFindMin s
+  oeis = f $ S.singleton 1 where
+     f s = y : f (S.insert (5 * y) $ S.insert (7 * y) s')
+                 where (y, s') = S.deleteFindMin s
 
--- instance OEIS 3596 where
+instance OEIS 3596 where
 --   import Data.Set (singleton, deleteFindMin, insert)
 --   oeisIx n = (oeis @3596) !! (n-1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (2 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
---   (GAP) Filtered([1..33000],n->PowerMod(22,n,n)=0); # _Muniru A Asiru_, Mar 19 2019
+  oeis = f $ S.singleton (1,0,0) where
+     f s = y : f (S.insert (2 * y, i + 1, j) $ S.insert (11 * y, i, j + 1) s')
+           where ((y, i, j), s') = S.deleteFindMin s
 
--- instance OEIS 3597 where
+instance OEIS 3597 where
 --   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @3597) !! (n-1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (3 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
---   (GAP) Filtered([1..324000],n->PowerMod(33,n,n)=0); # _Muniru A Asiru_, Mar 19 2019
+  oeisIx n = (oeis @3597) `genericIndex` (n - 1)
+  oeis = f $ S.singleton (1,0,0) where
+     f s = y : f (S.insert (3 * y, i + 1, j) $ S.insert (11 * y, i, j + 1) s')
+           where ((y, i, j), s') = S.deleteFindMin s
 
--- instance OEIS 3598 where
+instance OEIS 3598 where
 --   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @3598) !! (n-1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (5 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
---   (GAP) Filtered([1..2*10^6],n->PowerMod(55,n,n)=0); # _Muniru A Asiru_, Mar 19 2019
---   (Sage) [n for n in (1..2*10^6) if power_mod(55,n,n)==0] # _G. C. Greubel_, Mar 19 2019
+  oeisIx n = (oeis @3598) `genericIndex` n - 1
+  oeis = f $ S.singleton (1,0,0) where
+     f s = y : f (S.insert (5 * y, i + 1, j) $ S.insert (11 * y, i, j + 1) s')
+           where ((y, i, j), s') = S.deleteFindMin s
 
--- instance OEIS 3599 where
+instance OEIS 3599 where
 --   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @3599) !! (n-1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (7 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
+  oeisIx n = (oeis @3599) `genericIndex` n - 1
+  oeis = f $ S.singleton (1,0,0) where
+     f s = y : f (S.insert (7 * y, i + 1, j) $ S.insert (11 * y, i, j + 1) s')
+           where ((y, i, j), s') = S.deleteFindMin s
 
 -- instance OEIS 3601 where
---   oeisIx n = (oeis @3601) !! (n-1)
---   oeis = filter ((== 1) . (oeisIx @245656)) [1..]
---   (Python)
---   from sympy import divisors, divisor_count
---   [n for n in range(1,10**5) if not sum(divisors(n)) % divisor_count(n)] # _Chai Wah Wu_, Aug 05 2014
---   (GAP) a:=Filtered([1..110],n->Sigma(n) mod Tau(n)=0);; Print(a); # _Muniru A Asiru_, Jan 25 2019
+  -- oeis = filter ((== 1) . (oeisIx @245656)) [1..]
 
--- instance OEIS 3602 where
---   oeisIx = (`div` 2) . (+ 1) . (oeisIx @265)
+instance OEIS 3602 where
+  oeisIx = (`div` 2) . (+ 1) . (oeisIx @265)
 
 -- instance OEIS 3607 where
---   import Data.List (elemIndices)
 --   oeisIx n = (oeis @3607) !! n
---   oeis = elemIndices 0 (oeis @30190)
+  -- oeis = map fi $ elemIndices 0 (oeis @30190)
 
--- instance OEIS 3619 where
---   oeisIx n = n + floor (log (x + fromIntegral (floor $ log x)))
---               where x = fromIntegral n + 1
+instance OEIS 3619 where
+  oeisIx (succ->n) = n + floor (log (x + fi (floor $ log x)))
+    where x = fi n + 1
 
 -- instance OEIS 3622 where
 --   oeisIx n = (oeis @3622) !! (n-1)
---   oeis = filter ((elem 1) . (oeisIx @35516)_row) [1..]
---   from sympy import floor
---   from mpmath import phi
---   def a(n): return floor(n*phi**2) - 1 # _Indranil Ghosh_, Jun 09 2017
+  -- oeis = filter ((elem 1) . (oeisIx @35516)_row) [1..]
 
 -- instance OEIS 3624 where
 --   oeisIx n = (oeis @3624) !! (n-1)
 --   oeis = filter ((== 1) . (oeisIx @9194)) (oeis @2808)
 
--- instance OEIS 3627 where
---   oeisIx n = (oeis @3627) !! (n-1)
---   oeis = filter ((== 2) . (`mod` 3)) (oeis @40)
+instance OEIS 3627 where
+  -- oeisIx n = (oeis @3627) !! (n-1)
+  oeis = filter ((== 2) . (`mod` 3)) (oeis @40)
 
 -- instance OEIS 3628 where
 --   oeisIx n = (oeis @3628) !! (n-1)
---   oeis = filter ((== 1) . (oeisIx @10051)) (oeis @47566)
---   (MAGMA) [ p: p in PrimesUpTo(600) | p mod 8 in {5, 7}]; // _Vincenzo Librandi_, Aug 22 2012
+  -- oeis = filter ((== 1) . (oeisIx @10051)) (oeis @47566)
 
 -- instance OEIS 3631 where
 --   oeisIx n = (oeis @3631) !! (n-1)
@@ -2734,17 +2669,14 @@ instance OEIS 3320 where
 -- instance OEIS 3666 where
 --   oeisIx n = (oeis @3666) !! (n-1)
 --   oeis = 1 : 4 : ulam 2 4 (oeis @3666)
---   -- _Reinhard Zumkeller_, Nov 03 2011
 
 -- instance OEIS 3667 where
 --   oeisIx n = (oeis @3667) !! (n-1)
 --   oeis = 1 : 5 : ulam 2 5 (oeis @3667)
---   -- _Reinhard Zumkeller_, Nov 03 2011
 
 -- instance OEIS 3668 where
 --   oeisIx n = (oeis @3668) !! (n-1)
 --   oeis = 2 : 7 : ulam 2 7 (oeis @3668)
---   -- _Reinhard Zumkeller_, Nov 03 2011
 
 -- instance OEIS 3669 where
 --   oeisIx n = (oeis @3669) !! (n-1)
@@ -2754,105 +2686,48 @@ instance OEIS 3320 where
 -- instance OEIS 3670 where
 --   oeisIx n = (oeis @3670) !! (n-1)
 --   oeis = 4 : 7 : ulam 2 7 (oeis @3670)
---   -- _Reinhard Zumkeller_, Nov 03 2011
 
--- instance OEIS 3714 where
+instance OEIS 3714 where
 --   import Data.Set (Set, singleton, insert, deleteFindMin)
---   oeisIx n = (oeis @3714) !! n
---   oeis = 0 : f (singleton 1) where
---      f :: Set Integer -> [Integer]
---      f s = m : (f $ insert (4*m + 1) $ insert (2*m) s')
---            where (m, s') = deleteFindMin s
---   for(n=1,1e4,k=bitand(n,n<<1);if(k,n=bitor(n,msb(k)-1),print1(n", "))) \\ _Charles R Greathouse IV_, Jun 15 2011
---   (Python)
---   for n in range(300):
---       if 2*n & n == 0:
---           print n,
---   # _Alex Ratushnyak_, Jun 21 2012
---   (C++)
---   /* start with x=0, then repeatedly call x=next_fibrep(x): */
---   ulong next_fibrep(ulong x)
---   {
---       // 2 examples:         //  ex. 1             //  ex.2
---       //                     // x == [*]0 010101   // x == [*]0 01010
---       ulong y = x | (x>>1);  // y == [*]? 011111   // y == [*]? 01111
---       ulong z = y + 1;       // z == [*]? 100000   // z == [*]? 10000
---       z = z & -z;            // z == [0]0 100000   // z == [0]0 10000
---       x ^= z;                // x == [*]0 110101   // x == [*]0 11010
---       x &= ~(z-1);           // x == [*]0 100000   // x == [*]0 10000
---       return x;
---   }
---   /* _Joerg Arndt_, Jun 22 2012 */
---   (Python)
---   def A003714(n):
---       tlist, s = [1,2], 0
---       while tlist[-1]+tlist[-2] <= n:
---           tlist.append(tlist[-1]+tlist[-2])
---       for d in tlist[::-1]:
---           s *= 2
---           if d <= n:
---               s += 1
---               n -= d
---       return s # _Chai Wah Wu_, Jun 14 2018
+  oeisIx n = (oeis @3714) `genericIndex` n
+  oeis = 0 : f (S.singleton 1) where
+     f s = m : (f $ S.insert (4*m + 1) $ S.insert (2*m) s')
+           where (m, s') = S.deleteFindMin s
 
--- instance OEIS 3726 where
+instance OEIS 3726 where
 --   oeisIx n = (oeis @3726) !! (n - 1)
---   oeis = filter f [0..] where
---      f x = x < 7 || (x `mod` 8) < 7 && f (x `div` 2)
+  oeis = filter f [0..] where
+     f x = x < 7 || (x `mod` 8) < 7 && f (x `div` 2)
 
--- instance OEIS 3754 where
+instance OEIS 3754 where
 --   oeisIx n = (oeis @3754) !! (n-1)
---   oeis = filter f [0..] where
---      f x = x == 0 || x `mod` 4 > 0 && f (x `div` 2)
---   (Python)
---   i=0
---   j=1
---   while j<=50000:
---   ....if bin(i)[2:].count("00")==0:
---   ........print str(j)+" "+str(i)
---   ........j+=1
---   ....i+=1 # _Indranil Ghosh_, Feb 11 2017
+  oeis = filter f [0..] where
+     f x = x == 0 || x `mod` 4 > 0 && f (x `div` 2)
 
--- instance OEIS 3796 where
+instance OEIS 3796 where
 --   oeisIx n = (oeis @3796) !! (n-1)
---   oeis = filter f [0..] where
---      f x  = x < 4 || x `mod` 8 /= 0 && f (x `div` 2)
+  oeis = filter f [0..] where
+     f x  = x < 4 || x `mod` 8 /= 0 && f (x `div` 2)
 
--- instance OEIS 3817 where
+instance OEIS 3817 where
 --   import Data.Bits ((.|.))
 --   oeisIx n = if n == 0 then 0 else 2 * (oeisIx @53644) n - 1
---   oeis = scanl (.|.) 0 [1..] :: [Integer]
---   def a(n): return 0 if n==0 else 1 + 2*a(int(n/2)) # _Indranil Ghosh_, Apr 28 2017
+  oeis = map fi (scanl (.|.) 0 [1..] :: [Integer])
 
--- instance OEIS 3842 where
+instance OEIS 3842 where
 --   oeisIx n = (oeis @3842) !! n
---   oeis = tail $ concat fws where
---      fws = [2] : [1] : (zipWith (++) fws $ tail fws)
+  oeis = tail $ concat fws where
+     fws = [2] : [1] : (zipWith (++) fws $ tail fws)
 
--- instance OEIS 3849 where
+instance OEIS 3849 where
 --   oeisIx n = (oeis @3849) !! n
---   oeis = tail $ concat fws where
---      fws = [1] : [0] : (zipWith (++) fws $ tail fws)
---   (Python)
---   def fib(n):
---   ....a,b='1','0'
---   ....if n==1: return a
---   ....elif n==2: return b
---   ....else:
---   ........for i in range(n-2):
---   ........a,b=b,b+a
---   ....return(b) # _Robert FERREOL_, Apr 15 2016
+  oeis = tail $ concat fws where
+     fws = [1] : [0] : (zipWith (++) fws $ tail fws)
 
--- instance OEIS 3893 where
+instance OEIS 3893 where
 --   oeisIx n = (oeis @3893) !! n
---   oeis = 0 : 1 : zipWith (\u v -> (u + v) `mod` 10)
---                          (tail (oeis @3893)) (oeis @3893)
---   (MAGMA) [Fibonacci(n) mod 10: n in [0..100]]; // _Vincenzo Librandi_, Feb 04 2014
---   (Python)
---   A003893_list, a, b, = [], 0, 1
---   for _ in range(10**3):
---       A003893_list.append(a)
---       a, b = b, (a+b) % 10 # _Chai Wah Wu_, Nov 26 2015
+  oeis = 0 : 1 : zipWith (\u v -> (u + v) `mod` 10)
+                         (tail (oeis @3893)) (oeis @3893)
 
 -- instance OEIS 3958 where
 --   oeisIx 1 = 1
@@ -2865,16 +2740,6 @@ instance OEIS 3320 where
 -- instance OEIS 3961 where
 --   oeisIx 1 = 1
 --   oeisIx n = product $ map (oeisIx . (+ 1) . (oeisIx @49084)) $ (oeisIx @27746)_row n
---   (MIT/GNU Scheme, with Aubrey Jaffer's SLIB Scheme library)
---   (require 'factor)
---   (define (A003961 n) (apply * (map A000040 (map 1+ (map A049084 (factor n))))))
---   ;; _Antti Karttunen_, May 20 2014 use ntheory ":all";  sub (oeisIx @3961) { vecprod(map { next_prime($_) } factor(shift)); }  # _Dana Jacobsen_, Mar 06 2016
---   (Python)
---   from sympy import factorint, prime, primepi
---   from operator import mul
---   def a(n):
---       f=factorint(n)
---       return 1 if n==1 else reduce(mul, [prime(primepi(i) + 1)**f[i] for i in f]) # _Indranil Ghosh_, May 13 2017
 
 -- instance OEIS 3963 where
 --   oeisIx n = product $
@@ -2893,23 +2758,6 @@ instance OEIS 3320 where
 --   oeisIx_row n = map (oeisIx n) [0..n]
 --   oeisIx_tabl = map (oeisIx @3986)_row [0..]
 --   tabl(nn) = {for(n=0, nn, for(k=0, n, print1(bitor(k, n - k), ", "); ); print(); ); };
---   tabl(20) \\ _Indranil Ghosh_, Apr 01 2017
---   (Python)
---   for n in xrange(0, 21):
---   ....print [k|(n - k) for k in xrange(0, n + 1)] # _Indranil Ghosh_, Apr 01 2017
---   (C)
---   #include <stdio.h>
---   int main()
---   {
---   int n, k;
---   for (n=0; n<=20; n++){
---       for(k=0; k<=n; k++){
---           printf("%d, ", (k|(n - k)));
---       }
---       printf("\n");
---   }
---   return 0;
---   } /* _Indranil Ghosh_, Apr 01 2017 */
 
 -- instance OEIS 3988 where
 --   oeisIx n k = (n + 1 - k) `div` k
@@ -2921,102 +2769,69 @@ instance OEIS 3320 where
 --   oeisIx_adiag n = (oeisIx @3990)_tabl !! (n-1)
 --   oeisIx_tabl = zipWith (zipWith lcm) (oeisIx @2260)_tabl $ map reverse (oeisIx @2260)_tabl
 
--- instance OEIS 3995 where
+instance OEIS 3995 where
 --   oeisIx n = (oeis @3995) !! (n-1)
---   oeis = filter (p (oeis @290)) [0..]
---      where p (q:qs) m = m == 0 || q <= m && (p qs (m - q) || p qs m)
+  oeis = filter (p (oeis @290)) [0..]
+     where p (q:qs) m = m == 0 || q <= m && (p qs (m - q) || p qs m)
 
 -- instance OEIS 4000 where
 --   oeis = iterate (oeisIx @36839) 1
---   (Python)
---   l=[0, 1]
---   for n in xrange(2, 51):
---       x=str(l[n - 1])
---       l+=[int(''.join(sorted(str(int(x) + int(x[::-1]))))), ]
---   print l[1:] # _Indranil Ghosh_, Jul 05 2017
 
--- instance OEIS 4001 where
---   oeisIx n = (oeis @4001) !! (n-1)
---   oeis = 1 : 1 : h 3 1  {- memoization -}
---     where h n x = x' : h (n + 1) x'
---             where x' = (oeisIx @4001) x + (oeisIx @4001) (n - x)
---   (PARI) first(n)=my(v=vector(n)); v[1]=v[2]=1; for(k=3, n, v[k]=v[v[k-1]]+v[k-v[k-1]]); v \\ _Charles R Greathouse IV_, Feb 26 2017
---   (Scheme)
---   ;; An implementation of memoization-macro definec can be found for example from: http://oeis.org/wiki/Memoization
---   (definec (A004001 n) (if (<= n 2) 1 (+ (A004001 (A004001 (- n 1))) (A004001 (- n (A004001 (- n 1)))))))
---   ;; _Antti Karttunen_, Oct 22 2014
---   (Python)
---   def (oeisIx @4001)(n):
---       A = {1: 1, 2: 1}
---       c = 1 #counter
---       while n not in A.keys():
---           if c not in A.keys():
---               A[c] = A[A[c-1]] + A[c-A[c-1]]
---           c += 1
---       return A[n]
---   # _Edward Minnix III_, Nov 02 2015
---   (MAGMA) I:=[1,1]; [n le 2 select I[n] else Self(Self(n-1))+ Self(n-Self(n-1)):n in [1..75]]; // _Marius A. Burtea_, Aug 16 2019
+instance OEIS 4001 where
+  oeis = 1 : 1 : h 3 1  {- memoization -}
+    where h n x = x' : h (n + 1) x'
+            where x' = (oeisIx @4001 . pred) x + (oeisIx @4001 . pred) (n - x)
 
--- instance OEIS 4006 where
---   oeisIx n = (oeisIx @292) n + n + 1
---   (Sage) [n*(n^2+5)/6 for n in (0..50)] # _G. C. Greubel_, Aug 27 2019
---   (GAP) List([0..50], n-> n*(n^2+5)/6); # _G. C. Greubel_, Aug 27 2019
+instance OEIS 4006 where
+  oeisIx 0 = 0
+  oeisIx (pred->n) = (oeisIx @292) n + n + 1
 
--- instance OEIS 4019 where
+instance OEIS 4019 where
 --   oeisIx n = (oeis @4019) !! n
---   oeis = iterate (oeisIx . (+ 1)) 0
---   (PARI) a(n) = if(n==0, 0, (a(n-1) + 1)^2);
---   vector(20, n, a(n-1)) \\ _Altug Alkan_, Oct 06 2015
+  oeis = iterate (oeisIx @290 . (+ 1)) 0
 
--- instance OEIS 4050 where
+instance OEIS 4050 where
 --   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @4050) !! (n-1)
---   oeis = f 1 $ singleton (2, 1, 1) where
---      f x s = if y /= x then y : f y s'' else f x s''
---              where s'' = insert (u * 2 + v, u * 2, v) $
---                          insert (u + 3 * v, u, 3 * v) s'
---                    ((y, u, v), s') = deleteFindMin s
---   is(n)=my(k); if(n%2, if(n<3, return(0)); for(k=0,logint(n-2,3), if(ispow2(n-3^k), return(1))); 0, ispower(n-1,,&k); k==3 || n==2 || n==4) \\ _Charles R Greathouse IV_, Aug 29 2016
+  oeisIx n = (oeis @4050) `genericIndex` n - 1
+  oeis = f 1 $ S.singleton (2, 1, 1) where
+     f x s = if y /= x then y : f y s'' else f x s''
+             where s'' = S.insert (u * 2 + v, u * 2, v) $
+                         S.insert (u + 3 * v, u, 3 * v) s'
+                   ((y, u, v), s') = S.deleteFindMin s
 
 -- instance OEIS 4051 where
 --   oeisIx n = (oeis @4051) !! (n-1)
 --   oeis = filter ((== 1) . (oeisIx @10051)'') (oeis @4050)
 
--- instance OEIS 4080 where
---   import Data.List (findIndex); import Data.Maybe (fromJust)
---   oeisIx n = fromJust $
---      findIndex (fromIntegral n <=) $ scanl (+) 0 $ map recip [1..]
+instance OEIS 4080 where
+  oeisIx n = fi . fromJust $ findIndex (fi n <=) $ scanl (+) 0 $ map recip [1..]
 
--- instance OEIS 4087 where
+instance OEIS 4086 where
+  oeisIx = fi . (read :: String -> Integer) . reverse . (show :: Integer -> String) . fi
+
+instance OEIS 4087 where
 --   oeisIx n = (oeis @4087) !! (n-1)
---   oeis = map (oeisIx @4086) (oeis @40)
+  oeis = map (oeisIx @4086) (oeis @40)
 
 -- instance OEIS 4090 where
 --   oeisIx = (oeisIx @7953) . (oeisIx @45)
 
--- instance OEIS 4091 where
---   oeisIx = (oeisIx @4086) . (oeisIx @45)
+instance OEIS 4091 where
+  oeisIx = (oeisIx @4086) . (oeisIx @45)
 
--- instance OEIS 4093 where
---   oeisIx = (oeisIx @4086) . (* 2)
+instance OEIS 4093 where
+  oeisIx = (oeisIx @4086) . (* 2)
 
--- instance OEIS 4094 where
---   oeisIx = (oeisIx @4086) . (oeisIx @79)
---   a(n)=rev(2^n) \\ _Charles R Greathouse IV_, Oct 20 2014
+instance OEIS 4094 where
+  oeisIx = (oeisIx @4086) . (oeisIx @79)
 
--- instance OEIS 4111 where
---   import Data.List (genericIndex)
---   oeisIx = genericIndex (oeis @4111)
---   oeis = 0 : 1 : f 1 [1] where
---      f x zs = y : f (x + 1) (y : zs) where
---               y = (sum $ zipWith (*) zs $ map g [1..]) `div` x
---      g k = sum $ zipWith (*) (map (((-1) ^) . (+ 1)) $ reverse divs)
---                              (zipWith (*) divs $ map (oeisIx @4111) divs)
---                              where divs = (oeisIx @27750)_row k
---   N=66;  A=vector(N+1, j, 1);
---   for (n=1, N, A[n+1] = 1/n * sum(k=1, n, sumdiv(k, d, (-1)^(k/d+1) * d * A[d]) * A[n-k+1] ) );
---   concat([0], A)
---   \\ _Joerg Arndt_, Jul 10 2014
+instance OEIS 4111 where
+  oeis = 0 : 1 : f 1 [1] where
+     f x zs = y : f (x + 1) (y : zs) where
+              y = (sum $ zipWith (*) zs $ map g [1..]) `div` x
+     g k = sum $ zipWith (*) (map (((-1) ^) . (+ 1)) $ reverse divs)
+                             (zipWith (*) divs $ map (oeisIx @4111) divs)
+                             where divs = a027750_row k
 
 -- instance OEIS 4125 where
 --   oeisIx n = sum $ map (mod n) [1..n]

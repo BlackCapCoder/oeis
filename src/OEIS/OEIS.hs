@@ -20,7 +20,6 @@ class OEIS (n :: Nat) where
   oeis' :: Integral i => A n -> [i]
   oeis' _ = oeis @n
 
-
 -------
 
 

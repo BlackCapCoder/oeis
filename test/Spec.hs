@@ -54,7 +54,6 @@ tests = sortOn testNum $(do
     | T.InstanceD _ _ (T.AppT _ n) _ <- is
     ])
 
-
 data Component
   = List | Ix
 
@@ -67,15 +66,15 @@ data Labeled
   = Labeled Int Component TestResult
 
 
-report n = pure n <> \case
-  SpecMismatch -> " not equal to spec!"
-  Timeout      -> " timed out!"
-  Slow s       -> " is slow. Score: " ++ show s
+report n = pure (n <> "\t") <> \case
+  SpecMismatch -> "WRONG"
+  Timeout      -> "TIMEOUT"
+  Slow s       -> "slow: " ++ show s
 
-report' (Labeled n c r)
+report' (Labeled _ c r)
   = flip report r case c of
-      List -> show n
-      Ix   -> show n <> " (ix)"
+      List -> "     "
+      Ix   -> " (ix)"
 
 
 labelRes (Labeled _ _ x) = x
@@ -83,17 +82,20 @@ labelRes (Labeled _ _ x) = x
 isOk (labelRes->Slow _) = True
 isOk                 _  = False
 
+isWrong (labelRes->SpecMismatch) = True
+isWrong                 _  = False
+
 
 ix :: forall n i. OEIS n => Integral i => A n -> [i]
 ix _ = oeisIx @n <$> [0..]
 
 
 runTest (Test i a) !(M.lookup i->Just (take 10->bs)) =
-  forM_ [(List, oeis' a), (Ix, ix a)] \(t, as) -> do
+  forM_ [(List, oeis' a), (Ix, ix a)] \(t, ~as) -> do
     (res, as') <- pure $ unsafePerformIO do
       cache <- newIORef []
-      res <- timeout 50000 $! and <$> zipWithM
-          (\x y -> (x == y) <$ modifyIORef' cache (y :)) as bs
+      res <- timeout 50000 $ and <$> zipWithM
+          (\ !x y -> (x == y) <$ modifyIORef' cache (x :)) as bs
       liftM2 (,) (pure res) (readIORef cache)
 
     case res of
@@ -103,9 +105,17 @@ runTest (Test i a) !(M.lookup i->Just (take 10->bs)) =
         | let      -> Left $ Labeled i t $ Slow $ length as'
 
 runTest' :: M.Map Int [Integer] -> Test -> IO Bool
-runTest' m t@(Test _ a) = case runTest t m of
+runTest' m t@(Test i a) = case runTest t m of
   Right _ -> pure True
-  Left x  -> isOk x <$ putStrLn do report' x
+  Left x  -> do
+    Just ln <- findSrcLine $ testNum t
+    putStrLn do (':' : show ln) <> ('\t' : show a) <> report' x
+    when (isWrong x) do
+      let Just s = M.lookup i m
+      print $ take 10 s
+      print $ take 10 $ oeis' a
+      putStrLn ""
+    pure $ isOk x
 
 parse' :: B.ByteString -> [Integer]
 parse' = unfoldr $ B.readInteger . B.dropWhile \x -> x /= '-' && not (isDigit x)
@@ -116,10 +126,22 @@ parse (parse'->n:ns) = (fromIntegral n, ns)
 getAll :: IO (M.Map Int [Integer])
 getAll = M.fromList . map parse . B.lines <$> B.readFile "data/all"
 
+m = main
 main :: IO ()
 main = do
-  putStrLn ""
   m <- getAll
   res <- fmap and . forM tests $ runTest' m
   unless res $ exitFailure
 
+
+----
+
+
+findSrcLine :: Int -> IO (Maybe Int)
+findSrcLine n = do
+  let needle = B.pack $ "instance OEIS " ++ show n ++ " where"
+  fmap succ . findIndex (B.isPrefixOf needle) . B.lines <$> B.readFile "src/OEIS/Prime.hs"
+
+
+sample :: forall n i. OEIS n => Integral i => [i]
+sample = take 10 $ oeis @n

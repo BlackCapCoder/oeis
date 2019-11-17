@@ -8,23 +8,7 @@ import GHC.TypeLits
 import Data.List (genericIndex)
 
 
-data A (n :: Nat)
-
-pattern A x <- (oeis'->x)
-
-mkA :: forall (n :: Nat). A n
-mkA = undefined
-
-
-instance KnownNat n => Show (A n) where
-  show = pure "A" <> show . natVal
-
-predA :: forall (n :: Nat). A n -> A (n - 1)
-predA _ = mkA
-
-succA :: forall (n :: Nat). A n -> A (n + 1)
-succA _ = mkA
-
+fi = fromIntegral
 
 class OEIS (n :: Nat) where
   oeis :: Integral i => [i]
@@ -36,4 +20,26 @@ class OEIS (n :: Nat) where
   oeis' :: Integral i => A n -> [i]
   oeis' _ = oeis @n
 
-fi = fromIntegral
+
+-------
+
+
+data A (n :: Nat)
+
+pattern A x <- (oeis'->x)
+
+mkA :: forall (n :: Nat). A n
+mkA = undefined
+
+predA :: forall (n :: Nat). A n -> A (n - 1)
+predA _ = mkA
+
+succA :: forall (n :: Nat). A n -> A (n + 1)
+succA _ = mkA
+
+instance KnownNat n => Show (A n) where
+  show = pure "A" <> padLeft '0' 6 . show . natVal
+    where
+      padLeft x n xs
+        = replicate (n - length xs) x <> xs
+

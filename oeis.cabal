@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 15fa6c4de074c4591a7970a6950f9210fa2032deb5394f49a6866208f992cc64
+-- hash: d827a578fc8ec492592bcd6b288429d742a062a80a45e668b16c2eb9209a1fd8
 
 name:           oeis
 version:        0.1.0.0
@@ -60,7 +60,6 @@ test-suite oeis-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Implemented
       Paths_oeis
   hs-source-dirs:
       test
@@ -71,6 +70,8 @@ test-suite oeis-test
     , base >=4.7 && <5
     , bytestring
     , containers
+    , mtl
     , oeis
     , primes >=0.2.1.0
+    , template-haskell
   default-language: Haskell2010

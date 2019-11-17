@@ -13,6 +13,7 @@ import Data.Function (fix, on)
 import Data.Char (intToDigit, digitToInt)
 import Math.NumberTheory.Moduli (powMod)
 import Math.NumberTheory.Primes.Factorisation (factorise)
+import qualified Math.NumberTheory.ArithmeticFunctions as A
 import Math.NumberTheory.Recurrences
 import Data.Maybe (fromJust)
 
@@ -25,10 +26,13 @@ fact n = product [2..n]
 -- facts  = scanl1 (*) [1..]
 facts = tail factorial
 
-divisors 1 = [1]
-divisors n = (1:filter ((==0) . rem n) [2..n `div` 2]) ++ [n]
+-- divisors 1 = [1]
+-- divisors n = (1:filter ((==0) . rem n) [2..n `div` 2]) ++ [n]
+divisors n = map fi $ A.divisorsList (fi n :: Int)
 
-totient n = genericLength $ filter (==1) $ map (gcd n) [1..n]
+-- totient n = genericLength $ filter (==1) $ map (gcd n) [1..n]
+totient 0 = 0
+totient n = fi . A.totient $ (fi n :: Int)
 
 sumTo n = (n + r) * q
   where
@@ -87,7 +91,7 @@ instance OEIS 8 where
     p ks'@(k:ks) m = if m < k then 0 else p ks' (m - k) + p ks m
 
 instance OEIS 10 where
-  oeisIx (succ->n) = totient (n)
+  oeisIx (succ->n) = totient n
   -- oeisIx n = genericLength (filter (==1) (map (gcd n) [1..n]))
 
 instance OEIS 12 where
@@ -131,7 +135,7 @@ instance OEIS 26 where
 
 instance OEIS 27 where
   oeis   = [1..]
-  oeisIx = id
+  oeisIx = succ
 
 instance OEIS 28 where
   oeis = filter (odd . sum . map (oeisIx @120) . a124010_row) [1..]
@@ -142,7 +146,7 @@ instance OEIS 30 where
 instance OEIS 27750 where
   oeis = a027750_row =<< [1..]
 
-a027750_row n = filter ((== 0) . mod n) [1..n]
+a027750_row = divisors
 
 
 instance OEIS 10052 where
@@ -217,12 +221,12 @@ instance OEIS 37 where
 instance OEIS 38 where
   oeis     = 2 : repeat 0
   oeisIx 0 = 2
-  oeisIx n = n
+  oeisIx n = 0
 
 
 instance OEIS 42 where
-  oeis = iterate (\x -> 10*x + 1) 1
-  oeisIx n = (10 ^ n - 1) `div` 9
+  oeis     = iterate (\x -> 10*x + 1) 1
+  oeisIx (succ->n) = (10 ^ n - 1) `div` 9
 
 -- TODO: Lucas Lehmer
 instance OEIS 43 where
@@ -422,6 +426,7 @@ instance OEIS 1113 where
 --              mult (a, b, c) (d, e, f) = (a * d, a * e + b * f, c * f)
 
 instance OEIS 219092 where
+  oeisIx 0 = 1
   oeisIx n = floor (exp 1 ** (fi n + 0.5))
 
 instance OEIS 194 where
@@ -474,7 +479,7 @@ instance OEIS 215 where
 
 instance OEIS 217 where
   oeis     = scanl1 (+) [0..]
-  oeisIx n = bin (n+1) 2
+  oeisIx n = div (n*(n+1)) 2
 
 -- a000218_list = iterate a003132 3
 
@@ -687,8 +692,8 @@ instance OEIS 522 where
   oeisIx = genericLength . choices . enumFromTo 1 . fi
 
 instance OEIS 523 where
-  oeisIx 1 = 0
-  oeisIx n = 1 + oeisIx @523 (div n 2)
+  oeisIx 0 = 0
+  oeisIx n = 1 + oeisIx @523 (div (n - 1) 2)
   oeis = 0 : f [0] where
     f xs = ys ++ f ys where ys = map (+1) ( xs ++ xs )
 
@@ -1013,7 +1018,7 @@ instance OEIS 992 where
 --   a001006_list = zipWith (+) a005043_list $ tail a005043_list
 
 instance OEIS 1008 where
-  oeisIx = numerator . sum . map (1 %) . enumFromTo 1
+  oeisIx = numerator . sum . map (1 %) . enumFromTo 1 . succ
   oeis   = map numerator $ scanl1 (+) $ map (1 %) [1..]
 
 -- instance OEIS 1013 where
@@ -1447,15 +1452,22 @@ instance OEIS 1595 where
 --   (a001597_list, a025478_list, a025479_list) =
 
 instance OEIS 1599 where
-  oeis = filter ((== 1) . denominator . hm) [1..] where
-     hm x = genericLength ds * recip (sum $ map (recip . fromIntegral) ds)
-            where ds = a027750_row x
+  -- oeis = filter ((== 1) . denominator . hm) [1..] where
+  --    hm (fi->(x :: Int)) = fi (A.tau x) * recip (sum $ map (recip . fi) ds)
+  --         where ds = a027750_row x
+  oeis = [ fi n | (n :: Int) <- [1..], 1 == denominator do n * A.tau n % A.sigma 1 n ]
+
 
 instance OEIS 1600 where
+  -- oeis = [numerator m | x <- [1..], let m = hm x, denominator m == 1] where
+  --    hm x = A.tau x * recip (sum $ map (recip . fi) divs)
+  --           where divs = a027750_row x
   oeis =
-     [numerator m | x <- [1..], let m = hm x, denominator m == 1] where
-     hm x = genericLength divs * recip (sum $ map recip divs)
-            where divs = map fromIntegral $ a027750_row x
+    [ fi $ numerator m
+    | (n :: Int) <- [1..]
+    , let m = n * A.tau n % A.sigma 1 n
+    , 1 == denominator m ]
+
 
 instance OEIS 1602 where
   oeisIx n = fi . (+ 1) . fromJust $ findIndex ((== 0) . (`mod` (oeisIx @40) n)) $ tail $ oeis @45
@@ -1509,7 +1521,7 @@ instance OEIS 1644 where
 --   a001650_list = concat a001650_tabf
 
 instance OEIS 1651 where
-  oeisIx = (`div` 2) . (subtract 1) . (* 3)
+  oeisIx = (`div` 2) . (subtract 1) . (* 3) . succ
   oeis   = filter ((/= 0) . (`mod` 3)) [1..]
 
 instance OEIS 1652 where
@@ -1591,6 +1603,7 @@ instance OEIS 1749 where
 --   a001783 = product . a038566_row
 
 instance OEIS 1787 where
+  oeisIx 0 = 0
   oeisIx n = n * 2 ^ (n - 1)
   oeis = zipWith (*) [0..] $ 0 : oeis @79
 
@@ -1708,7 +1721,7 @@ instance OEIS 2024 where
 --   a002024_row n = a002024_tabl !! (n-1)
 --   a002024_tabl = iterate (\xs@(x:_) -> map (+ 1) (x : xs)) [1]
 --   a002024_list = concat a002024_tabl
-  oeisIx = round . sqrt . (* 2) . fi
+  oeisIx = round . sqrt . (* 2) . fi . succ
   oeis = [1..] >>= \n -> genericReplicate n n
 --   a002024 = (!!) $ [1..] >>= \n -> replicate n n
 
@@ -1955,10 +1968,14 @@ instance OEIS 2380 where
 --   a002385_list = filter ((== 1) . a136522) a000040_list
 
 instance OEIS 2387 where
-  oeis = f 0 1 where
-     f x k = if genericIndex hs k > fi x
-             then k : f (x + 1) (k + 1) else f x (k + 1)
-             where hs = scanl (+) 0 $ map recip [1..]
+  -- oeis = f 0 1 where
+  --    f x k = if genericIndex hs k > fi x
+  --            then k : f (x + 1) (k + 1) else f x (k + 1)
+  --            where hs = scanl (+) 0 $ map recip [1..]
+  oeis = (1:) . (2:) . tail
+       . scanl (\n xs -> n + genericLength xs) 1
+       . groupBy (on (==) floor)
+       . scanl1 (+) $ map recip [1..]
 
 
 instance OEIS 2411 where
@@ -2128,7 +2145,7 @@ instance OEIS 2796 where
 
 
 instance OEIS 2805 where
-  oeisIx = denominator . sum . map (1 %) . enumFromTo 1
+  oeisIx = denominator . sum . map (1 %) . enumFromTo 1 . succ
   oeis = map denominator $ scanl1 (+) $ map (1 %) [1..]
 
 -- instance OEIS 2808 where
@@ -2611,21 +2628,18 @@ instance OEIS 3596 where
 
 instance OEIS 3597 where
 --   import Data.Set (singleton, deleteFindMin, insert)
-  oeisIx n = (oeis @3597) `genericIndex` (n - 1)
   oeis = f $ S.singleton (1,0,0) where
      f s = y : f (S.insert (3 * y, i + 1, j) $ S.insert (11 * y, i, j + 1) s')
            where ((y, i, j), s') = S.deleteFindMin s
 
 instance OEIS 3598 where
 --   import Data.Set (singleton, deleteFindMin, insert)
-  oeisIx n = (oeis @3598) `genericIndex` n - 1
   oeis = f $ S.singleton (1,0,0) where
      f s = y : f (S.insert (5 * y, i + 1, j) $ S.insert (11 * y, i, j + 1) s')
            where ((y, i, j), s') = S.deleteFindMin s
 
 instance OEIS 3599 where
 --   import Data.Set (singleton, deleteFindMin, insert)
-  oeisIx n = (oeis @3599) `genericIndex` n - 1
   oeis = f $ S.singleton (1,0,0) where
      f s = y : f (S.insert (7 * y, i + 1, j) $ S.insert (11 * y, i, j + 1) s')
            where ((y, i, j), s') = S.deleteFindMin s
@@ -2792,7 +2806,6 @@ instance OEIS 4019 where
 
 instance OEIS 4050 where
 --   import Data.Set (singleton, deleteFindMin, insert)
-  oeisIx n = (oeis @4050) `genericIndex` n - 1
   oeis = f 1 $ S.singleton (2, 1, 1) where
      f x s = if y /= x then y : f y s'' else f x s''
              where s'' = S.insert (u * 2 + v, u * 2, v) $

@@ -47,6 +47,8 @@ tests:
     dependencies:
     - oeis
     - bytestring
+    - mtl
+    - template-haskell
 
 default-extensions:
 - AllowAmbiguousTypes

@@ -134,6 +134,7 @@ main = do
   unless res $ exitFailure
 
 
+
 ----
 
 
@@ -145,3 +146,8 @@ findSrcLine n = do
 
 sample :: forall n i. OEIS n => Integral i => [i]
 sample = take 10 $ oeis @n
+
+test1 :: forall n i. (KnownNat n, OEIS n, Integral i) => IO ()
+test1 = do
+  m <- getAll
+  void $ runTest' m $ mkTest @n

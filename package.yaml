@@ -22,6 +22,7 @@ dependencies:
 - primes >= 0.2.1.0
 - arithmoi >= 0.8.0.0
 - data-ordlist
+- data-memocombinators
 
 library:
   source-dirs: src

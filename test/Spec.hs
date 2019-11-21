@@ -1,61 +1,39 @@
-{-# OPTIONS_GHC -freduction-depth=0 #-}
-{-# LANGUAGE UndecidableInstances #-}
-
 import OEIS
+import Test
+import GHC.TypeLits
 
 import Control.Monad
-import System.Timeout
-import GHC.TypeLits
-import Data.Proxy
-
 import Data.List
+
 import qualified Data.Map.Strict as M
 import qualified Data.ByteString.Lazy.Char8 as B
 import Data.Char
+
 import Data.IORef
+import System.IO
 import System.IO.Unsafe
+import System.Timeout
 import System.Exit
 
-import qualified Language.Haskell.TH as T
+
+------------
 
 
+-- Deadline for each individual test
+timeLimit :: Int
+timeLimit = 50000 * 1
+
+-- Maximum number of samples to test (per sequence)
+numSamples :: Int
+numSamples = 10
 
 
-class Reify a b where
-  reify :: b
-
-instance Reify '[] [a] where
-  reify = []
-
-instance (Reify x a, Reify xs [a]) => Reify (x ': xs) [a] where
-  reify = reify @x : reify @xs
-
-instance (KnownNat n, Integral i) => Reify (n :: Nat) i where
-  reify = fromIntegral . natVal $ Proxy @n
+sample :: forall n i. OEIS n => Integral i => [i]
+sample = take numSamples $ oeis @n
 
 
+------------
 
-type Testable (n :: Nat) i
-  = (KnownNat n, OEIS n, Integral i)
-
-data Test where
-  Test :: (Testable n i) => { testNum :: Int, testSeq :: A n } -> Test
-
-
-mkTest :: forall n i. Testable n i => Test
-mkTest = Test (reify @n) (mkA @n)
-
--- all instances of OEIS
-tests :: [Test]
-tests = sortOn testNum $(do
-  T.ClassI _ is <- T.reify ''OEIS
-  pure $ T.ListE
-    [ T.AppTypeE (T.VarE 'mkTest) n
-    | T.InstanceD _ _ (T.AppT _ n) _ <- is
-    ])
-
-implemented :: [Int]
-implemented = map testNum tests
 
 data Component
   = List | Ix
@@ -89,15 +67,18 @@ isWrong (labelRes->SpecMismatch) = True
 isWrong                 _  = False
 
 
+--------
+
+
 ix :: forall n i. OEIS n => Integral i => A n -> [i]
 ix _ = oeisIx @n <$> [0..]
 
 
-runTest (Test i a) !(M.lookup i->Just (take 10->bs)) =
+runTest (Test i a) !(M.lookup i->Just (take numSamples->bs)) =
   forM_ [(List, oeis' a), (Ix, ix a)] \(t, ~as) -> do
     (res, as') <- pure $ unsafePerformIO do
       cache <- newIORef []
-      res <- timeout 50000 $ and <$> zipWithM
+      res <- timeout timeLimit $ and <$> zipWithM
           (\ !x y -> (x == y) <$ modifyIORef' cache (x :)) as bs
       liftM2 (,) (pure res) (readIORef cache)
 
@@ -115,10 +96,12 @@ runTest' m t@(Test i a) = case runTest t m of
     putStrLn do (':' : show ln) <> ('\t' : show a) <> report' x
     when (isWrong x) do
       let Just s = M.lookup i m
-      print $ take 10 s
-      print $ take 10 $ oeis' a
+      print $ take numSamples s
+      print $ take numSamples $ oeis' a
       putStrLn ""
     pure $ isOk x
+
+-------
 
 parse' :: B.ByteString -> [Integer]
 parse' = unfoldr $ B.readInteger . B.dropWhile \x -> x /= '-' && not (isDigit x)
@@ -129,14 +112,15 @@ parse (parse'->n:ns) = (fromIntegral n, ns)
 getAll :: IO (M.Map Int [Integer])
 getAll = M.fromList . map parse . B.lines <$> B.readFile "data/all"
 
-m = main
+-------
+
 main :: IO ()
 main = do
   m <- getAll
   res <- fmap and . forM tests $ runTest' m
   unless res $ exitFailure
 
-
+m = main
 
 ----
 
@@ -145,17 +129,27 @@ findSrcLine n = do
   a <- findSrcLine' n "src/OEIS/Part1.hs"
   case a of
     Just _  -> pure a
-    Nothing -> findSrcLine' n "src/OEIS/Prime.hs"
+    Nothing -> do
+      a <- findSrcLine' n "src/OEIS/Part2.hs"
+      case a of
+        Just _  -> pure a
+        Nothing -> findSrcLine' n "src/OEIS/Prime.hs"
 
 findSrcLine' n pth = do
   let needle = B.pack $ "instance OEIS " ++ show n ++ " where"
   fmap succ . findIndex (B.isPrefixOf needle) . B.lines <$> B.readFile pth
 
+----
 
-sample :: forall n i. OEIS n => Integral i => [i]
-sample = take 10 $ oeis @n
+exam :: forall n. (Testable n Int) => IO ()
+exam = do
+  let Test ix (A ~as) = mkTest @n @Int
+  Just bs <- M.lookup ix <$> getAll
+  hSetBuffering stdout NoBuffering
+  forM_ (zip as bs) $ \(a, b) -> do
+    if a == b then do
+      putStr $ show b ++ ", "
+    else do
+      putStrLn $ "\nErr: " ++ show b ++ "\t" ++ show a
+  putStrLn ""
 
-test1 :: forall n i. (KnownNat n, OEIS n, Integral i) => IO ()
-test1 = do
-  m <- getAll
-  void $ runTest' m $ mkTest @n

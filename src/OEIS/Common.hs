@@ -1,4 +1,8 @@
-module OEIS.Common where
+module OEIS.Common
+  ( module OEIS.Common
+  , module OEIS.OEIS
+  )
+  where
 
 import OEIS.OEIS
 

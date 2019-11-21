@@ -1,8 +1,7 @@
 module OEIS.Prime () where
 
-import OEIS.OEIS
 import OEIS.Common
-import OEIS.Part1
+import OEIS.Part2
 
 import Data.Bits
 import qualified Data.Set as S
@@ -24,6 +23,7 @@ import Data.Tuple
 import qualified Data.List.Ordered as O
 import qualified Data.Map as M
 import Numeric (showIntAtBase)
+import Data.MemoCombinators (memo2, memo3, integral, list, Memo)
 
 import qualified Data.List as L
 import Data.List hiding
@@ -48,40 +48,23 @@ import Prelude hiding
   , findIndices
   )
 
-drop      = genericDrop
-(!!)      = genericIndex
-length    = genericLength
-replicate = genericReplicate
-splitAt   = genericSplitAt
-take      = genericTake
-findIndices f = map fi . L.findIndices f
-elemIndices x = map fi . L.elemIndices x
-findIndex f = fmap fi . L.findIndex f
-elemIndex x = fmap fi . L.elemIndex x
+drop          = genericDrop
+(!!)          = genericIndex
+length        = genericLength
+replicate     = genericReplicate
+splitAt       = genericSplitAt
+take          = genericTake
+findIndices f = fmap fi . L.findIndices f
+elemIndices x = fmap fi . L.elemIndices x
+findIndex f   = fmap fi . L.findIndex f
+elemIndex x   = fmap fi . L.elemIndex x
 
-
--- instance OEIS 9 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @9) !! n
---   oeis = map (pM 1) [0..] where
---      pM = memo2 integral integral p
---      p _ 0 = 1
---      p k m | m < k     = 0
---            | otherwise = pM (k + 1) (m - k) + pM (k + 1) m
 
 -- instance OEIS 16 where
 --   oeisIx 0 = 1
 --   oeisIx n =  (`div` (2 * n)) $ sum $
 --    zipWith (*) (map (oeisIx @10) oddDivs) (map ((2 ^) . (div n)) $ oddDivs)
 --     where oddDivs = rowT @182469 n
-
--- instance OEIS 41 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @41) !! n
---   oeis = map (p' 1) [0..] where
---      p' = memo2 integral integral p
---      p _ 0 = 1
---      p k m = if m < k then 0 else p' k (m - k) + p' (k + 1) m
 
 -- instance OEIS 82 where
 --   oeisIx n = product $ zipWith (\p e -> p ^ (2*e - 1) * (p + 1))
@@ -121,9 +104,6 @@ elemIndex x = fmap fi . L.elemIndex x
 --   oeisIx (succ->n) = product $ zipWith (^)
 --                       (rowT @27748 n) $ map (`div` 2) (rowT @124010 n)
 
-instance OEIS 203 where
-  oeisIx n = fi $ A.sigma 1 (1 + fi n :: Int)
-
 -- instance OEIS 224 where
 --   oeisIx (succ->n) = product $ zipWith f ((rowT @27748) n) ((rowT @124010) n) where
 --    f 2 e = 2 ^ e `div` 6 + 2
@@ -139,20 +119,6 @@ instance OEIS 203 where
 --     [ zipWith (+) r $ drop 2 $ oeis @57078
 --     , zipTail (+) r ])
 
-instance OEIS 385 where
-  oeisIx (succ->n) = sum $ zipWith (*) sigmas $ reverse sigmas
-    where
-      sigmas = take n $ oeis @203
-
-instance OEIS 396 where
-  oeis = [ x | x <- [1..], oeisIx @203 x == 2 * x ]
-
-instance OEIS 404 where
-  oeis = findIndices (> 0) $ oeis @25426
-
-instance OEIS 408 where
-  oeis = filter ((> 0) . oeisIx @25427) [1..]
-
 -- instance OEIS 419 where
 --   oeis = filter ((== 3) . oeisIx @2828) [1..]
 
@@ -163,29 +129,14 @@ instance OEIS 408 where
 --   oeisIx n = sum $ map c3 [0..n] where
 --      c3 k = ((oeisIx @7318)' n k)^2 * ((oeisIx @7318)' (2*k) k)^2 * (oeisIx @7318)' (2*k) (n-k)
 
-instance OEIS 660 where
-  oeisIx n = sum $ zipWith (*) (rowT @109449 n) (1 : [1..])
-
 -- instance OEIS 667 where
 --   oeisIx n = if x == 1 then last xs else x
 --               where xs@ (x:_) = rowT @227862 n
-
-instance OEIS 674 where
-  oeisIx n = sum $ zipWith (*) ((rowT @109449) n) (1 : repeat 2)
-
--- instance OEIS 688 where
---   oeisIx = product . map (oeisIx @41) . (rowT @124010)
 
 -- instance OEIS 712 where
 --   oeis = p $ oeis @8619 where
 --     p _          0 = 1
 --     p ks'@ (k:ks) m = if m < k then 0 else p ks' (m - k) + p ks m
-
-instance OEIS 718 where
-  oeisIx n = sum $ zipWith (*) ((rowT @109449) n) (1 : tail (oeis @217))
-
-instance OEIS 732 where
-  oeisIx n = sum $ zipWith (*) (rowT @109449 n) (oeis @8578)
 
 -- instance OEIS 733 where
 --   oeisIx n = sum $ zipWith (*) (rowT @109449 n) (1 : (oeis @41))
@@ -239,9 +190,6 @@ instance OEIS 732 where
 -- instance OEIS 977 where
 --   oeis = filter ((> 2) . oeisIx @1221) [1..]
 
-instance OEIS 978 where
- oeis = filter ((== 1) . (oeisIx @10051) . pred . (oeisIx @1045)) (oeis @65091)
-
 -- instance OEIS 979 where
 --  oeis = filter ((== 1) . (oeisIx @10051)) (oeis @7583)
 
@@ -288,9 +236,6 @@ instance OEIS 978 where
 
 -- instance OEIS 1055 where
 --   oeisIx = (map last (tabl @66032) !!) . (subtract 1)
-
-instance OEIS 1065 where
-  oeisIx n = (oeisIx @203 n) - n - 1
 
 -- instance OEIS 1066 where
 --   import Data.Set (deleteFindMin, fromList, insert)
@@ -361,9 +306,6 @@ instance OEIS 1065 where
 
 -- instance OEIS 1227 where
 --   (oeisIx @1227) = sum . (rowT @247795)
-
--- instance OEIS 1255 where
---   oeisIx = (^ 2) . oeisIx @41
 
 -- instance OEIS 1317 where
 --   (oeisIx @1317) = foldr (\u v-> 2*v + u) 0 . map toInteger . (rowT @47999)
@@ -468,14 +410,8 @@ instance OEIS 1065 where
 -- instance OEIS 1783 where
 --   oeisIx = product . (rowT @38566)
 
-instance OEIS 1792 where
-  oeis = scanl1 (+) (oeis @45623)
-
 -- instance OEIS 1857 where
 --  oeis = 2 : 3 : ulam 2 3 (oeis @1857)
-
-instance OEIS 1859 where
-  oeisIx n = (oeisIx @217) n + (oeisIx @2620) (n + 1)
 
 -- instance OEIS 1935 where
 --   (oeisIx @1935) = p (oeis @42968) where
@@ -529,12 +465,6 @@ instance OEIS 1859 where
 --      f x = y : f (x + 1) where
 --        y = (oeisIx @61397) x -
 --            sum (map ((oeisIx @2123) . (x -)) $ takeWhile (< x) (oeis @65091))
-
-instance OEIS 2124 where
- oeis = 1 : f 1 [] (oeis @65091) where
-     f x qs ps'@ (p:ps)
-       | p <= x    = f x (p:qs) ps
-       | otherwise = sum (map ((oeisIx @2124) . (x -)) qs) : f (x + 1) qs ps'
 
 -- instance OEIS 2125 where
 --   oeis = uncurry conv $ splitAt 1 (oeis @2124) where
@@ -622,16 +552,6 @@ instance OEIS 2124 where
 --  oeis = 0 : concat (transpose
 --   [a004767_list, f (oeis @2516), (oeis @17089), g $ drop 2 (oeis @2516)])
 --   where f [z] = []; f (_:z:zs) = 2 * z : f zs
-
--- instance OEIS 2577 where
---   import Data.MemoCombinators (memo2, list, integral)
---   oeisIx n = (oeis @2577) !! n
---  oeis = f [1] where
---      f xs = (p' xs $ last xs) : f (1 : map (* 2) xs)
---      p' = memo2 (list integral) integral p
---      p _ 0 = 1; p [] _ = 0
---      p ks'@ (k:ks) m = if m < k then 0 else p' ks' (m - k) + p' ks m
-
 
 -- instance OEIS 2616 where
 --   oeisIx = flip div 2 . oeisIx @2322
@@ -766,15 +686,6 @@ instance OEIS 2124 where
 --      p _          0 = 1
 --      p ks'@ (k:ks) m = if m < k then 0 else p ks' (m - k) + p ks m
 
--- instance OEIS 3107 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @3107) !! n
---   oeis = map (p' 2) [0..] where
---      p' = memo2 integral integral p
---      p _ 0 = 1
---      p k m | m < fib   = 0
---            | otherwise = p' k (m - fib) + p' (k + 1) m where fib = (oeisIx @45) k
-
 -- instance OEIS 3114 where
 --   oeisIx = p (oeis @47209) where
 --      p _      0 = 1
@@ -786,24 +697,6 @@ instance OEIS 2124 where
 -- instance OEIS 3128 where
 --   oeis = zipWith3 (\x y z -> (x - 3 * y + z) `div` 2)
 --                  (oeis @110) (tail (oeis @110)) (drop 2 (oeis @110))
-
--- instance OEIS 3136 where
---   import Data.Set (singleton, union, fromList, deleteFindMin)
---   oeisIx n = (oeis @3136) !! (n - 1)
---   oeis = f 0 $ singleton 0 where
---   f x s | m < x ^ 2 = m : f x s'
---   | otherwise = m : f x'
---   (union s' $ fromList $ map (\y -> x'^2+ (x'+y)*y) [0..x'])
---   where x' = x + 1
---   (m,s') = deleteFindMin s
-
--- instance OEIS 3137 where
---   oeis = tablList @3137
--- instance Table 3137 where
---   rowCol n k = (tabf @3137) !! (n - 1) !! k
---   rowT n = (tabf @3137) !! (n - 1)
---   tabf = map reverse $ tail (tabf @30341)
---   oeis = concat (tabf @3137)
 
 -- instance OEIS 3160 where
   -- oeis = 1 : 1 : zipWith (-) [3..] (zipWith (+) xs $ tail xs)
@@ -836,9 +729,6 @@ instance OEIS 2124 where
 --   oeis = filter c2 [1..] where
 --      c2 x = any (== 1) $ map (oeisIx . fromInteger) $
 --                          takeWhile (> 0) $ map (x -) $ tail (oeis @578)
-
-instance OEIS 3401 where
-  oeis = map (+ 1) $ elemIndices 1 $ map (oeisIx @209229) (oeis @10)
 
 -- instance OEIS 3459 where
 --   oeis = filter isAbsPrime (oeis @40) where
@@ -918,9 +808,6 @@ instance OEIS 3401 where
 -- instance OEIS 4144 where
 --   oeis = map (fi . succ) $ elemIndices 0 (oeis @5089)
 
-instance OEIS 4169 where
-  oeis = map succ $ elemIndices 0 $ map (oeisIx @209229) (oeis @10)
-
 -- instance OEIS 4207 where
 --   oeis = 1 : iterate (oeisIx @62028) 1
 
@@ -995,9 +882,6 @@ instance OEIS 4169 where
 -- instance OEIS 5094 where
 --   oeisIx n = (oeisIx @5089) n - (oeisIx @5091) n
 
-instance OEIS 5097 where
-  oeisIx = (`div` 2) . (oeisIx @65091)
-
 -- instance OEIS 5098 where
 --   oeisIx = (`div` 4) . (subtract 1) . (oeisIx @2144)
 --
@@ -1006,9 +890,6 @@ instance OEIS 5097 where
 --
 -- instance OEIS 5101 where
 --   oeis = filter (\x -> (oeisIx @1065) x > x) [1..]
-
--- instance OEIS 5117 where
---   oeis = filter ((== 1) . (oeisIx @8966)) [1..]
 
 -- instance OEIS 5145 where
 --   oeis = tablList @5145
@@ -1026,23 +907,6 @@ instance OEIS 5097 where
 -- instance OEIS 5169 where
 --   oeisIx 0 = 1
 --   oeisIx n = (oeisIx @168396) n 1
-
--- instance OEIS 5185 where
---   oeis = 1 : 1 : zipWith (+)
---      (map (oeisIx @5185) $ zipWith (-) [3..] (oeis @5185))
---      (map (oeisIx @5185) $ zipWith (-) [3..] $ tail (oeis @5185))
-
-instance OEIS 5211 where
-  oeis = oeis5211
-
-instance OEIS 24014 where
-  oeis = oeis24014
-
-(oeis5211, oeis24014) = unzip $ (1, 1) : f 1 1
-  where
-    f i x | y > x     = (y, i) : f (i + 1) y
-          | otherwise = f (i + 1) x
-          where y = (oeisIx @5210) i
 
 -- instance OEIS 5214 where
 --   import Data.List.Ordered (union)
@@ -1149,10 +1013,6 @@ instance OEIS 24014 where
 -- instance OEIS 5385 where
 --   oeis = filter ((== 1) . (oeisIx @10051) . (`div` 2)) (oeis @40)
 
-instance OEIS 5408 where
-  oeisIx = (+ 1) . (* 2)
-  oeis   = [1, 3 ..]
-
 -- instance OEIS 5409 where
 --   oeis = 1 : scanl1 (+) (tail (oeis @1333))
 
@@ -1230,10 +1090,6 @@ instance OEIS 5408 where
 --   oeis = 1 : 1 : 1 : 1 : h 5 1 where
 --      h x y = z : h (x + 1) z where z = (oeisIx @5707) y + (oeisIx @5707) (x - y)
 
-instance OEIS 5713 where
-  oeis = 1 : 1 : concat (sibb [0] [1,1]) where
-     sibb xs ys = zs : sibb ys zs where zs = xs ++ ys
-
 -- instance OEIS 5728 where
 --   oeis = scanl (+) 1 (oeis @10)
 
@@ -1260,9 +1116,6 @@ instance OEIS 5713 where
 --   oeis = 0 : f [1] where
 --      f (x:xs) = x : f (xs ++ [x + x `mod` 2, x + 1 - x `mod` 2])
 
-instance OEIS 5831 where
-  oeis = 0:1:zipWith (*) (tail (oeis @5831)) (map succ (oeis @5831))
-
 -- instance OEIS 5835 where
 --   oeis = filter ((== 1) . (oeisIx @210455)) [1..]
 
@@ -1281,15 +1134,6 @@ instance OEIS 5831 where
 
 -- instance OEIS 5867 where
 --   oeis = scanl (*) 1 (oeis @6093)
-
-instance OEIS 5900 where
-  oeisIx n = sum $ zipWith (*) odds $ reverse odds
-    where odds = take n (oeis @5408)
-  oeis = scanl (+) 0 (oeis @1844)
-
-instance OEIS 5917 where
-  oeis = map sum $ f 1 [1, 3 ..] where
-     f x ws = us : f (x + 2) vs where (us, vs) = splitAt x ws
 
 -- instance OEIS 5940 where
 --   oeisIx n = f (n - 1) 1 1 where
@@ -1317,9 +1161,6 @@ instance OEIS 5917 where
 -- instance OEIS 6046 where
 --   oeisIx = sum . concat . (`take` (tabl @47999))
 
-instance OEIS 6047 where
-  oeisIx = sum . map signum . (rowT @83093)
-
 -- instance OEIS 6068 where
 --   oeisIx n = foldl xor 0 $
 --                     map (div n) $ takeWhile (<= n) (oeis @79) :: Integer
@@ -1331,12 +1172,6 @@ instance OEIS 6047 where
 --   oeis = map numerator $ filter ((== 1) . denominator) $
 --      map uhm [1..]  where uhm n = (n * (oeisIx @34444) n) % (oeisIx n)
 
-instance OEIS 6093 where
-  oeisIx = (subtract 1) . (oeisIx @40)
-
-instance OEIS 6094 where
-  oeis = zipWith (*) (oeis @40) (oeis @65091)
-
 -- instance OEIS 6127 where
 --   oeisIx n = (oeisIx @79) n + n
 --   oeis = s [1] where
@@ -1346,9 +1181,6 @@ instance OEIS 6094 where
 --   oeisIx = genericLength . concat . ps 1 where
 --      ps _ 0 = [[]]
 --      ps i j = [t:ts | t <- [i..j], ts <- ps t (j - t)]
-
-instance OEIS 6190 where
-  oeis = 0 : 1 : zipWith (+) (map (* 3) $ tail (oeis @6190)) (oeis @6190)
 
 -- instance OEIS 6206 where
 --   oeisIx n = sum (map f $ (rowT @27750) n) `div` n where
@@ -1366,30 +1198,13 @@ instance OEIS 6190 where
 --   oeis = f (tail (oeis @5809)) [1] where
 --      f (x:xs) zs = (sum $ zipWith (*) zs (oeis @5809)) : f xs (x : zs)
 
-instance OEIS 6257 where
-  oeis = 0 : 1 : (map (+ 1) $ zipWith mod (map (+ 1) $ tail (oeis @6257)) [2..])
-
-instance OEIS 6277 where
-  oeis = 1 : fix \r -> 1 : scanl ((*) . (+ 1)) 2 r
-
 -- instance OEIS 6285 where
 --   oeis = filter ((== 0) . (oeisIx @109925)) [1, 3 ..]
-
--- instance OEIS 6318 where
---   oeisIx n = (oeis @4148) !! n
---   oeis = 1 : f [1] where
---      f xs = y : f (y : xs) where
---        y = head xs + sum (zipWith (*) xs $ reverse xs)
 
 -- instance OEIS 6336 where
 --   oeis = 1 : h 2 1 0 where
 --     h n last evens = x : h (n + 1) x (evens + 1 - x `mod` 2) where
 --       x = last + (oeisIx @6336) (n - 1 - evens)
-
-instance OEIS 6337 where
-  oeis = f [1] where
-     f xs = ys ++ f ys where
-            ys = concatMap (\z -> if z == 1 then [1,2] else [1,1,2]) xs
 
 -- instance OEIS 6338 where
 --   oeis = tail (oeis @214848)
@@ -1401,10 +1216,6 @@ instance OEIS 6337 where
 --                   (map (\k -> (oeisIx @7318) (2*n - 3*k - 4) (n - 2*k - 2)) ks))
 --      (map (toInteger . (n - 1 -)) ks)
 --      where ks = [0 .. (n - 2) `div` 2]
-
-instance OEIS 6355 where
-  oeis = 1 : fib2s where
-     fib2s = 0 : map (+ 1) (scanl (+) 1 fib2s)
 
 -- instance OEIS 6356 where
 --   oeisIx n = (oeis @6056) !! n
@@ -1420,10 +1231,6 @@ instance OEIS 6355 where
 --   oeisIx n | m > 0     = round (4 * fi n / 3)
 --             | otherwise = 2 * n' where (n',m) = divMod n 3
 
-instance OEIS 6370 where
-  oeisIx n | m /= 0    = 3 * n + 1
-           | otherwise = n' where (n',m) = divMod n 2
-
 -- instance OEIS 6378 where
 --   oeis = map (oeisIx @40) $ filter ((== 0) . (oeisIx @107740)) [1..]
 
@@ -1436,9 +1243,9 @@ instance OEIS 6370 where
 -- instance OEIS 6449 where
 --   oeisIx = sum . (rowT @45995)
 
--- instance OEIS 6450 where
---   oeisIx = (oeisIx @40) . (oeisIx @40)
---   oeis = map (oeisIx @40) (oeis @40)
+instance OEIS 6450 where
+  oeisIx = (oeisIx @40 . pred) . (oeisIx @40)
+  oeis   = map (oeisIx @40 . pred) (oeis @40)
 
 -- instance OEIS 6451 where
 --   oeis = 0 : 2 : 5 : 15 : map (+ 2)
@@ -1466,18 +1273,8 @@ instance OEIS 6370 where
 -- instance OEIS 6512 where
 --   oeisIx = (+ 2) . (oeisIx @1359)
 
-instance OEIS 6516 where
-  oeis = 0 : 1 :
-      zipWith (-) (map (* 6) $ tail (oeis @6516)) (map (* 8) (oeis @6516))
-
 -- instance OEIS 6521 where
 --   oeis = filter (\x -> (oeisIx @51) x `mod` x == 0) [1..]
-
-instance OEIS 6530 where -- TODO: Optimize this- it's used a lot
-  oeisIx n
-    | null fs = 1
-    | let     = fi . unPrime . fst $ last fs
-    where fs  = factorise (1 + fi n :: Int)
 
 -- instance OEIS 6532 where
 --   oeis = filter ((== 1) . (oeisIx @10052) . (oeisIx @203)) [1..]
@@ -1516,10 +1313,6 @@ instance OEIS 6530 where -- TODO: Optimize this- it's used a lot
 
 -- instance OEIS 6659 where
 --   oeisIx n = 2 * (oeisIx @7318)' (2 * n + 2) (n - 1)
-
-instance OEIS 6666 where
-  oeisIx = length . filter even . takeWhile (> 1) . (iterate (oeisIx @6370)) . succ
-
 
 -- instance OEIS 6696 where
 --   oeis = 0 : f 1 [0] where
@@ -1575,9 +1368,6 @@ instance OEIS 6666 where
 --         p = (oeisIx @20639) n
 --         q = n `div` p
 
-instance OEIS 6882 where
-  oeis = 1 : 1 : zipWith (*) [2..] (oeis @6882)
-
 -- instance OEIS 6884 where
 --   oeis = f 1 0 (oeis @25586) where
 --      f i r (x:xs) = if x > r then i : f (i + 1) x xs else f (i + 1) r xs
@@ -1623,35 +1413,11 @@ instance OEIS 6882 where
 -- instance OEIS 6960 where
 --   oeis = iterate (oeisIx @56964) 196
 
-instance OEIS 6968 where
-  oeisIx = fi . lenRom 3 . fi . succ where
-     lenRom 0 z = z
-     lenRom p z = [0, 1, 2, 3, 2, 1, 2, 3, 4, 2] !! m + lenRom (p - 1) z'
-                  where (z',m) = divMod z 10
-
-instance OEIS 6985 where
-  oeis = 1 : map (oeisIx @45 . (+ 2)) (oeis @6985)
-
 -- instance OEIS 6992 where
 --   oeis = iterate (oeisIx @7917 . (* 2)) 2
 
 -- instance OEIS 6995 where
 --   oeis = 0 : filter ((== 1) . (oeisIx @178225)) (oeis @5408)
-
-instance OEIS 6996 where
-  oeisIx n = (rowCol @83093) (2 * n) n
-
-instance OEIS 6999 where
-  oeis = 0 : map ((`div` 2) . (+ 2) . (* 3)) (oeis @6999)
-
--- instance OEIS 7000 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @7000) !! n
---   oeis = map (p' 1) [0..] where
---      p' = memo2 integral integral p
---      p _ 0 = 1
---      p k m | m < fib   = 0
---            | otherwise = p' k (m - fib) + p' (k + 1) m where fib = (oeisIx @45) k
 
 -- instance OEIS 7012 where
 --   oeis = 1 : map (sum . map signum) (tail (tabl @53200))
@@ -1665,14 +1431,6 @@ instance OEIS 6999 where
 
 -- instance OEIS 7047 where
 --   oeisIx = sum . (rowT @38719)
-
-instance OEIS 7061 where
-  oeis = 1 : f [1] where
-     f us = a' : f (us ++ [a']) where
-       a' = b $ reverse $ map (`splitAt` us) [0..length us - 1] where
-          b ((xs,ys):xyss) | vs `isSuffixOf` xs = 3 - head ys
-                           | otherwise          = b xyss
-       vs = fromJust $ find (`isInfixOf` init us) $ tails us
 
 -- instance OEIS 7066 where
 --   oeis = 1 : f 2 [1] where
@@ -1751,11 +1509,6 @@ instance OEIS 7061 where
 --   oeis = 1 : 1 : f 2 where
 --      f x = (sum $ map (oeisIx @7439) $ (rowT @27750) (x - 1)) : f (x + 1)
 
-instance OEIS 7448 where
-  oeis = f [0] [0] where
-     f (x:xs) (y:ys) = z : f (xs ++ [2*z,2*z]) (ys ++ [3*z,3*z,3*z])
-       where z = 1 + min x y
-
 -- instance OEIS 7455 where
 --   oeis = 1 : 1 : 3 : 5 : zipWith (+)
 --      (map (* 2) (oeis @7455)) (map (* 3) $ drop 2 (oeis @7455))
@@ -1791,10 +1544,6 @@ instance OEIS 7448 where
 -- instance OEIS 7466 where
 --   oeisIx n = (oeisIx @228643) n n
 
-instance OEIS 7477 where
-  oeis = 1 : 1 : f [1,1] where
-     f xs = y : f (y:xs) where y = sum $ zipWith (*) (tail xs) (reverse xs)
-
 -- instance OEIS 7481 where
 --   oeis = 1 : 2 : 3 : 7 : zipWith (+)
 --                  (map (* 3) $ drop 2 (oeis @7481)) (map (* 2) (oeis @7481))
@@ -1829,19 +1578,8 @@ instance OEIS 7477 where
 -- instance OEIS 7521 where
 --   oeis = filter ((== 1). (oeisIx @10051)) (oeis @4770)
 
-instance OEIS 7526 where
-  oeis = 0 : zipWith (*) [1..] (map (+ 1) (oeis @7526))
-
 -- instance OEIS 7528 where
 --   oeis = [x | k <- [0..], let x = 6 * k + 5, (oeisIx @10051)' x == 1]
-
-instance OEIS 7532 where
-  oeis = filter f [1..] where
-     f x = g x 0 where
-       g 0 v = v == x
-       g u v = if d <= 1 then g u' (v + d) else v <= x && h d
-               where h p = p <= x && (g u' (v + p) || h (p * d))
-                     (u', d) = divMod u 10
 
 -- instance OEIS 7534 where
 --   import qualified Data.Set as Set (map, null)
@@ -1857,12 +1595,6 @@ instance OEIS 7532 where
 --   import Math.NumberTheory.Moduli (powerMod)
 --   oeisIx n = head [m | m <- dropWhile (<= n) (oeis @2808),
 --                         powerMod n (m - 1) m == 1]
-
-instance OEIS 7538 where
-  oeisIx (succ->n) = f n 2 2 2 where
-     f 1 b _ _ = b
-     f n b 0 i = f (n - 1) 2 (oeisIx @7538 i) (i + 1)
-     f n b c i = f (n - 1) 3 (c - 1) i
 
 -- instance OEIS 7542 where
 --   oeis = iterate (oeisIx @203907) 2
@@ -1887,15 +1619,6 @@ instance OEIS 7538 where
 
 -- instance OEIS 7602 where
 --   oeis = map succ $ elemIndices 1 $ map (oeisIx @188642) [1..]
-
-instance OEIS 7606 where
-  oeis = takeSkip 1 [1..] where
-     takeSkip k xs = take k xs ++ takeSkip (k + 2) (drop (2*k + 1) xs)
-
-instance OEIS 7607 where
-  oeis = skipTake 1 [1..] where
-     skipTake k xs = take (k + 1) (drop k xs)
-                     ++ skipTake (k + 2) (drop (2*k + 1) xs)
 
 -- instance OEIS 7608 where
 --   oeisIx 0 = 0
@@ -2004,13 +1727,6 @@ instance OEIS 7607 where
 --   oeis = map (pred . head) $ filter (all (== 1) . map (oeisIx @10051)') $
 --      iterate (zipWith (+) [10, 10, 10, 10]) [1, 3, 7, 9]
 
--- instance OEIS 7814 where
---   oeisIx n = if m == 0 then 1 + (oeisIx @7814) n' else 0
---               where (n', m) = divMod n 2
-
-instance OEIS 7821 where
-  oeisIx = (oeisIx @40) . pred . (oeisIx @18252)
-
 -- instance OEIS 7862 where
 --   oeisIx = sum . map (oeisIx @10054) . (rowT @27750)
 
@@ -2023,11 +1739,6 @@ instance OEIS 7821 where
 -- instance OEIS 7917 where
 --   oeisIx n = if (oeisIx @10051)' n == 1 then n else (oeisIx @7917) (n - 1)
 
--- instance OEIS 7918 where
---   oeis = 2 : 2 : 2 : concat (zipWith
---                 (\p q -> (replicate (fromInteger (q - p)) q))
---                                      (oeis @40) $ tail (oeis @40))
-
 -- instance OEIS 7921 where
 --   oeis = filter ((== 0) . (oeisIx @10051)' . (+ 2)) [1, 3 ..]
 
@@ -2039,20 +1750,12 @@ instance OEIS 7821 where
 --      f x = if x < 2 then 0 else (10 * f x') + m + 1
 --        where (x', m) = divMod x 2
 
--- instance OEIS 7947 where
---   oeisIx = product . (rowT @27748) . succ
-
 -- instance OEIS 7948 where
 --   oeisIx = last . filter ((== 1) . (oeisIx @212793)) . (rowT @27750)
 
 -- instance OEIS 7949 where
 --   oeisIx n = if m > 0 then 0 else 1 + (oeisIx @7949) n'
 --               where (n', m) = divMod n 3
-
-instance OEIS 7952 where
-  oeis = f 1 [0..] where
-     f k (x:xs) = x : f (k + 1) (g xs) where
-       g ws = us ++ (g vs) where (us, _:vs) = splitAt k ws
 
 -- instance OEIS 7956 where
 --   oeisIx = product . (rowT @27751)
@@ -2215,8 +1918,8 @@ instance OEIS 7952 where
 -- instance OEIS 8306 where
 --   oeis = tablList @8306
 -- instance Table 8306 where
---   rowCol n k = (tabf @8306) !! (n - 2) !! (k-1)
---   rowT n = (tabf @8306) !! (n - 2)
+--   rowCol = rowCol_off @8306 @2 @1
+--   rowT   = rowT_off @8306 @2
 --   tabf = map (fst . fst) $ iterate f (([1], [2]), 3) where
 --      f ((us, vs), x) =
 --        ((vs, map (* x) $ zipWith (+) ([0] ++ us) (vs ++ [0])), x + 1)
@@ -2235,10 +1938,6 @@ instance OEIS 7952 where
 --   oeis = 1 : zipWith (/*) (oeis @8336) [1..] where
 --       x /* y = if x `mod` y == 0 then x `div` y else x*y
 
-instance OEIS 8344 where
-  oeis = 0 : f 0 [1..] where
-     f x (z:zs) = y : f y zs where y = if x < z then x + z else x - z
-
 -- instance OEIS 8347 where
 --   oeis = 0 : zipWith (-) (oeis @40) (oeis @8347)
 
@@ -2253,9 +1952,6 @@ instance OEIS 8344 where
 
 -- instance OEIS 8441 where
 --   oeisIx = (flip div 2) . (+ 1) . (oeisIx @8441)
-
--- instance OEIS 8472 where
---   oeisIx = sum . (rowT @27748)
 
 -- instance OEIS 8473 where
   -- oeisIx n = product $ zipWith (+) (oeisIx_row n) (oeisIx_row n)
@@ -2301,69 +1997,6 @@ instance OEIS 8344 where
 --      numeral :: Integer -> Text
 --      numeral = fromJust . EN.gb_cardinal defaultInflection
 
-instance OEIS 8557 where
-  oeis = iterate (oeisIx @7094) 8
-
-instance OEIS 8574 where
-  oeisIx 0 = 1
-  oeisIx n = 4 * n
-  oeis = 1 : [4, 8 ..]
-
-instance OEIS 8579 where
-  oeisIx 0 = 1
-  oeisIx 1 = 4
-  oeisIx n = (10 - 2*m) * n' + 8*m - 2 where (n',m) = divMod n 2
-  oeis = 1 : 4 : concatMap (\x -> map (* 2) [5*x - 1,4*x+3]) [1..]
-
-instance OEIS 8585 where
-  oeisIx = (* 3)
-  oeis = iterate (+ 3) 0
-
-instance OEIS 8586 where
-  oeisIx = (* 4)
-  oeis = [0, 4 ..]
-
-instance OEIS 8588 where
-  oeisIx = (* 6)
-  oeis = [0, 6 ..]
-
-instance OEIS 8589 where
-  oeisIx = (* 7)
-  oeis = [0, 7 ..]
-
-instance OEIS 8593 where
-  oeisIx = (* 11)
-  oeis = [0, 11 ..]
-
-instance OEIS 8594 where
-  oeisIx = (* 12)
-  oeis = [0, 12 ..]
-
-instance OEIS 8597 where
-  oeisIx = (* 15)
-  oeis = [0, 15 ..]
-
-instance OEIS 8611 where
-  oeisIx n = n' + mod r 2 where (n', r) = divMod (n + 1) 3
-  oeis = f [1,0,1] where f xs = xs ++ f (map (+ 1) xs)
-
-instance OEIS 8619 where
-  oeisIx = (+ 1) . (`div` 2)
-  oeis = concatMap (\x -> [x,x]) [1..]
-
-instance OEIS 8684 where
-  oeis = concatMap (enumFromTo 1) [31,28,31,30,31,30,31,31,30,31,30,31]
-
-instance OEIS 8685 where
-  oeis = concatMap t [1..] where
-     t y = [31, 28 + leap, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-           where leap = if mod y 4 == 0 &&
-                           (mod y 100 > 0 || mod y 400 == 0) then 1 else 0
-
-instance OEIS 8776 where
-  oeisIx = (* 2) . (3 ^)
-  oeis = iterate (* 3) 2
-
 -- instance OEIS 8784 where
 --   oeis = 1 : 2 : O.union (oeis @4613) (map (* 2) (oeis @4613))
 
@@ -2381,80 +2014,15 @@ instance OEIS 8776 where
 -- instance OEIS 8836 where
 --   oeisIx = (1 -) . (* 2) . (oeisIx @66829)
 
-instance OEIS 8846 where
-  oeis = filter f [5..] where
-     f n = all ((== 1) . (`mod` 4)) $ filter ((== 0) . (n `mod`)) [1..n]
-
 -- instance OEIS 8847 where
 --   oeis = filter ((== 1) . (oeisIx @10052) . (oeisIx @203) . (oeisIx @290)) [1..]
-
-instance OEIS 8864 where
-  oeisIx = (+ 1) . (oeisIx @40)
 
 -- instance OEIS 8865 where
 --   oeisIx = (subtract 2) . (^ 2) :: Integral t => t -> t
 --   oeis = scanl (+) (-1) [3, 5 ..]
 
-instance OEIS 8873 where
-  oeis = iterate (oeisIx @6370) 97
-
-instance OEIS 8874 where
-  oeis = iterate (oeisIx @6370) 63
-
-instance OEIS 8875 where
-  oeis = drop 2 (oeis @8874)
-
-instance OEIS 8876 where
-  oeis = iterate (oeisIx @6370) 81
-
-instance OEIS 8877 where
-  oeis = iterate (oeisIx @6370) 57
-
-instance OEIS 8904 where
-  oeis = 1 : 1 : f 2 1 where
-     f n x = x' `mod` 10 : f (n+1) x' where
-        x' = g (n * x) where
-           g m | m `mod` 5 > 0 = m
-               | otherwise     = g (m `div` 10)
-
 -- instance OEIS 8905 where
 --   oeisIx = (oeisIx @30) . (oeisIx @142)
-
-instance OEIS 8908 where
-  oeisIx = length . (rowT @70165) . succ
-
-instance OEIS 8919 where
-  oeis = [x | x <- [1..], let (x',m) = divMod (oeisIx @4086 x) x, m == 0, x' > 1]
-
-instance OEIS 8935 where
-  oeisIx = f 1 . succ where
-     f k x | x == 0    = 0
-           | r == 0    = f (k+1) x'
-           | otherwise = k^2 + f (k+1) x' where (x',r) = divMod x 2
-
-instance OEIS 8937 where
-  oeis = tail $ scanl1 (+) (oeis @73)
-
-instance OEIS 8949 where
-  oeis = tablList @8949
-instance Table 8949 where
-  tabl = map (scanl1 (+)) (tabl @7318)
-
-instance OEIS 8955 where
-  oeis = tablList @8955
-instance Table 8955 where
-  tabl = [1] : f [1] 1 1 where
-     f xs u t = ys : f ys v (t * v) where
-       ys = zipWith (+) (xs ++ [t^2]) ([0] ++ map (* u^2) (init xs) ++ [0])
-       v = u + 1
-
-instance OEIS 8956 where
-  oeis = tablList @8956
-instance Table 8956 where
-  tabl = [1] : f [1] 1 1 where
-     f xs u t = ys : f ys v (t * v) where
-       ys = zipWith (+) (xs ++ [t^2]) ([0] ++ map (* u^2) (init xs) ++ [0])
-       v = u + 2
 
 -- instance OEIS 8957 where
 --   oeis = tablList @8957
@@ -2566,13 +2134,6 @@ instance Table 8956 where
 --   oeisIx n = fromEnum $ (oeisIx @196) n ^ 2 == n
 --   oeis = concat (iterate (\xs -> xs ++ [0,0]) [1])
 
--- instance OEIS 10054 where
---   oeisIx = (oeisIx @10052) . (+ 1) . (* 8)
---   oeis = concatMap (\x -> 1 : replicate x 0) [0..]
-
--- instance OEIS 10055 where
---   oeisIx n = if (oeisIx @1221) n <= 1 then 1 else 0
-
 -- instance OEIS 10056 where
 --   oeisIx = genericIndex (oeis @10056)
 --   oeis = 1 : 1 : ch [2..] (drop 3 (oeis @45)) where
@@ -2628,10 +2189,6 @@ instance Table 8956 where
 --   oeisIx = const 3
 --   oeis = repeat 3
 
-instance OEIS 10702 where
-  oeisIx = (+ 3) . (`mod` 2)
-  oeis = cycle [3,4]
-
 -- instance OEIS 10704 where
 --   oeisIx n = (* 3) . (oeisIx @34)
 --   oeis = cycle [3,6]
@@ -2654,10 +2211,6 @@ instance OEIS 10702 where
 
 -- instance OEIS 10784 where
 --   oeis = filter ((== 1) . (oeisIx @178788)) [1..]
-
-instance OEIS 10785 where
-  oeis = 0 : r [1..9] where
-     r (x:xs) = x : r (xs ++ [10*x + x `mod` 10])
 
 -- instance OEIS 11262 where
 --   oeisIx n = product $ zipWith (^)
@@ -2694,9 +2247,6 @@ instance OEIS 10785 where
 --   oeisIx n = genericLength $
 --      takeWhile ((== 0) . (mod (oeisIx n))) $ iterate (* n) n
 
-instance OEIS 11782 where
-  oeis = 1 : scanl1 (+) (oeis @11782)
-
 -- instance OEIS 11784 where
 --   oeisIx = last . (rowT @12257)
 
@@ -2713,8 +2263,8 @@ instance OEIS 11782 where
 -- instance OEIS 12257 where
 --   oeis = tablList @12257
 -- instance Table 12257 where
---   rowCol n k = (tabf @12257) !! (n - 1) !! (k-1)
---   rowT n = (tabf @12257) !! (n - 1)
+--   rowCol = rowCol_off @12257 @1 @1
+--   rowT   = rowT_off @12257 @1
 --   tabf = iterate (\row -> concat $
 --                           zipWith replicate (reverse row) [1..]) [1, 1]
 
@@ -2760,18 +2310,13 @@ instance OEIS 11782 where
 -- instance OEIS 13942 where
 --   oeis = tablList @13942
 -- instance Table 13942 where
---   rowCol n k = (tabf @13942) !! (n - 1) !! (k-1)
+--   rowCol = rowCol_off @13942 @1 @1
 --   rowT n = map (div (n * 2)) [1 .. 2 * n]
 --   tabf = map (rowT @13942) [1 ..]
 
 -- instance OEIS 13979 where
 --   oeis = 1 : 0 : 1 : 1 : zipWith (+) (oeis @13979)
 --      (zipWith (+) (tail (oeis @13979)) (drop 2 (oeis @13979)))
-
-instance OEIS 14011 where
-  oeis = 1 : f 2 [1] where
-     f u vs = w : f (u + 1) (w : vs) where
-       w = maximum $ zipWith (*) [u, u - 1 ..] $ map (u -) vs
 
 -- instance OEIS 14076 where
 --   oeis = filter ((== 0) . (oeisIx @10051)) (oeis @5408)
@@ -2804,21 +2349,12 @@ instance OEIS 14011 where
 -- instance OEIS 14138 where
 --   oeis = scanl1 (+) (oeis @108)
 
-instance OEIS 14148 where
-  oeis = (iterate (scanl1 (+)) (oeis @40)) !! 2
-
-instance OEIS 14150 where
-  oeis = (iterate (scanl1 (+)) (oeis @40)) !! 3
-
 -- instance OEIS 14217 where
 --   oeis = 1 : 1 : zipWith (+)
 --      (oeis @35) (zipWith (+) (oeis @14217) $ tail (oeis @14217))
 
 -- instance OEIS 14237 where
 --   oeisIx n = (oeisIx @40) n - (oeisIx @18252) n
-
-instance OEIS 14311 where
-  oeis = [2^x + 2^y + 2^z | x <- [2..], y <- [1..x - 1], z <- [0..y - 1]]
 
 -- instance OEIS 14313 where
 --   oeisIx = f . (oeisIx @38447) where
@@ -2842,8 +2378,8 @@ instance OEIS 14311 where
 -- instance OEIS 14413 where
 --   oeis = tablList @14413
 -- instance Table 14413 where
---   rowCol n k = (tabf @14413) !! (n - 1) !! (k-1)
---   rowT n = (tabf @14413) !! (n - 1)
+--   rowCol = rowCol_off @14413 @1 @1
+--   rowT   = rowT_off @14413 @1
 --   tabf = [1] : f 1 [1] where
 --      f 0 us'@ (_:us) = ys : f 1 ys where
 --                       ys = zipWith (+) us' (us ++ [0])
@@ -2866,8 +2402,8 @@ instance OEIS 14311 where
 -- instance OEIS 14462 where
 --   oeis = tablList @14462
 -- instance Table 14462 where
---   rowCol n k = (tabf @14462) !! (n - 1) !! (k-1)
---   rowT n = (tabf @14462) !! (n - 1)
+--   rowCol = rowCol_off @14462 @1 @1
+--   rowT   = rowT_off @14462 @1
 --   tabf = map reverse (tabf @14413)
 
 -- instance OEIS 14473 where
@@ -2901,9 +2437,6 @@ instance OEIS 14311 where
 -- instance OEIS 14597 where
 --   oeis = tail $ elemIndices 1 $ map (oeisIx @197183) [0..]
 
-instance OEIS 14631 where
-  oeis = 1 : (nub $ concatMap tail (tabf @34868))
-
 -- instance OEIS 14657 where
 --   oeis = map (+ 1) $ findIndices (> 0) $ map (oeisIx @195470) [1..]
 
@@ -2920,9 +2453,6 @@ instance OEIS 14631 where
 -- instance OEIS 14684 where
 --   oeisIx n = n - fi (oeisIx n)
 
-instance OEIS 14688 where
-  oeis = zipWith (+) [1..] (oeis @40)
-
 -- instance OEIS 14689 where
 --   oeisIx n = (oeisIx @40) n - fi n
 
@@ -2930,29 +2460,11 @@ instance OEIS 14688 where
 --   oeisIx 1 = 0
 --   oeisIx n = (oeisIx @7953) $ (oeisIx @7931) (n - 1)
 
-instance OEIS 14707 where
-  oeis = f 0 $ cycle [0,0,1,0] where
-     f i (x:_:xs) = x : (oeisIx @14707) i : f (i+1) xs
-
 -- instance OEIS 14963 where
 --   oeisIx 1 = 1
 --   oeisIx n | until ((> 0) . (`mod` spf)) (`div` spf) n == 1 = spf
 --            | otherwise = 1
 --            where spf = (oeisIx @20639) n
-
-instance OEIS 14980 where
-  oeis = iterate (oeisIx @2620) 5
-
-instance OEIS 15614 where
-  oeisIx = (subtract 1) . (oeisIx @2088) . succ
-
-instance OEIS 15632 where
-  oeisIx (succ->n) = genericLength [ (x,y,z) | z <- [1..n], y <- [1..z], gcd y z == 1,
-                                x <- [1..y], gcd x z == 1, gcd x y == 1]
-
-instance OEIS 15633 where
-  oeisIx (succ.succ->n) = genericLength [ (x,y,z) | x <- [2..n], y <- [x..n], z <- [y..n],
-                                gcd (gcd x y) z == 1]
 
 -- instance OEIS 15910 where
 --   import Math.NumberTheory.Moduli (powerMod)
@@ -2971,9 +2483,6 @@ instance OEIS 15633 where
 -- instance OEIS 16067 where
 --   oeis = (map (+ 1) $ findIndices (> 1) $
 --      zipWith (-) (tail rs) rs where rs = scanl max 0 (oeis @46920)
-
-instance OEIS 16069 where
-  oeis = filter ((== 2) . length . nub . show . fi . (^ 2)) [0..]
 
 -- instance OEIS 16096 where
 --   oeis = iterate (oeisIx @62028) 9
@@ -3012,9 +2521,6 @@ instance OEIS 16069 where
 --   oeisIx n = 1 + length (takeWhile (/= 0) $ zipWith (-) ks $ tail ks)
 --      where ks = iterate (oeisIx @2034) n
 
-instance OEIS 18252 where
-  oeis = map (+1) $ filter ((== 0) . (oeisIx @10051)) [0..]
-
 -- instance OEIS 18800 where
 --   oeisIx n = read $ fromJust $
 --               find (show n `isPrefixOf`) $ map show (oeis @40) :: Int
@@ -3032,9 +2538,6 @@ instance OEIS 18252 where
 
 -- instance OEIS 18825 where
 --   oeis = tail $ elemIndices 0 (oeis @25426)
-
-instance OEIS 18834 where
-  oeis = map fi $ filter (\(x :: Int) -> show x `isInfixOf` show (x^2)) [0..]
 
 -- instance OEIS 18856 where
 --   oeisIx n =
@@ -3066,13 +2569,6 @@ instance OEIS 18834 where
 --   oeisIx = t . enumFromTo 1 where
 --      t xs = foldl max 0 [z + t (xs \\ ds) | z <- xs,
 --                let ds = (rowT @27750) z, not $ null $ intersect xs $ init ds]
-
-instance OEIS 19446 where
-  oeis = 1 : zipWith (-) [3..] (map (oeisIx @19446 . pred) (oeis @19446))
-
-instance OEIS 19464 where
-  oeis = 1 : concat (unfoldr ma (1, [1, 1])) where
-     ma (x, [_, j]) = Just (ij', (x + 1, ij')) where ij' = [x * j, x * j + x]
 
 -- instance OEIS 19506 where
 --   oeis = [x | x <- (oeis @2808),
@@ -3158,17 +2654,6 @@ instance OEIS 19464 where
 
 -- instance OEIS 20487 where
 --   oeis = filter (\x -> (oeisIx @1157) x `mod` (oeisIx @203) x == 0) [1..]
-
-instance OEIS 20522 where
-  oeisIx = (* 2) . (oeisIx @6516)
-
-instance OEIS 20650 where
-  oeis = map numerator ks where
-     ks = 1 : concat (transpose [map (+ 1) ks, map (recip . (+ 1)) ks])
-
-instance OEIS 20651 where
-  oeis = map denominator ks where
-     ks = 1 : concat (transpose [map (+ 1) ks, map (recip . (+ 1)) ks])
 
 -- instance OEIS 20653 where
 --   oeis = concat $ map reverse $ tail (tabf @38566)
@@ -3262,15 +2747,6 @@ instance OEIS 20651 where
 -- instance OEIS 22559 where
 --   oeis = scanl (+) 0 $ map (oeisIx @1222) [1..]
 
-instance OEIS 22831 where
-  oeis = 2 : f 2 (tail (oeis @40)) where
-     f x (p:ps) | x' > 0    = x' : f x' ps
-                | otherwise = xp : f xp ps where x' = x - p; xp = x + p
-
-instance OEIS 22941 where
-  oeis = 1 : 2 : f 2 [3..] where
-     f x (z:zs) = y : f y (delete y zs) where y = x + z
-
 -- instance OEIS 23143 where
 --   oeis = 1 : map (+ 1) (elemIndices 1 (oeis @4648))
 
@@ -3284,9 +2760,6 @@ instance OEIS 22941 where
 
 -- instance OEIS 23208 where
 --   oeis = filter ((== 1) . (oeisIx @10051) . (+ 2) . (* 3)) (oeis @40)
-
-instance OEIS 23523 where
-  oeis =  map (+ 1) $ zipWith (*) (oeis @40) (oeis @8578)
 
 -- instance OEIS 23531 where
 --   oeis = concat $ iterate ([0,1] *) [1]
@@ -3307,19 +2780,6 @@ instance OEIS 23523 where
 -- instance OEIS 23610 where
 --   oeis = f [1] $ drop 3 (oeis @45) where
 --      f us (v:vs) = (sum $ zipWith (*) us $ tail (oeis @45)) : f (v:us) vs
-
-instance OEIS 23626 where
-  oeis = f (oeis @40) [1] where
-     f (p:ps) rs = (sum $ zipWith (*) rs (oeis @8578)) : f ps (p : rs)
-
-instance OEIS 23705 where
-  oeis = iterate f 1 where
-     f x = 1 + if r < 3 then x else 4 * f x'
-           where (x', r) = divMod x 4
-
-instance OEIS 23717 where
-  oeis = filter f [0..] where
-     f x = x < 3 || (q < 3 && f x') where (x', q) = divMod x 4
 
 -- instance OEIS 23758 where
 --   import Data.Set (singleton, deleteFindMin, insert)
@@ -3450,9 +2910,6 @@ instance OEIS 23717 where
 -- instance OEIS 25530 where
 --   oeisIx n = sum $ map (div (oeisIx $ fromInteger n))
 --                         (zipWith (*) [1..n] (oeis @33999))
-
-instance OEIS 25547 where
-  oeis = scanl1 lcm (oeis @5408)
 
 -- instance OEIS 25565 where
 --   oeis = 1 : f (oeis @1006) [1] where
@@ -3614,8 +3071,8 @@ instance OEIS 25547 where
 -- instance OEIS 27023 where
 --   oeis = tablList @27023
 -- instance Table 27023 where
---   rowCol n k = (tabf @27023) !! (n - 1) !! (k-1)
---   rowT n = (tabf @27023) !! (n - 1)
+--   rowCol = rowCol_off @27023 @1 @1
+--   rowT   = rowT_off @27023 @1
 --   tabf = [1] : iterate f [1, 1, 1] where
 --      f row = 1 : 1 : 1 :
 --              zipWith3 (((+) .) . (+)) (drop 2 row) (tail row) row ++ [1]
@@ -3639,10 +3096,6 @@ instance OEIS 25547 where
 --        | p <= n = f (y * (sum (map (div n) $ takeWhile (<= n) pps) + 1)) ppss
 --        | otherwise = y
 
-instance OEIS 27434 where
-  oeisIx = (+ 1) . (oeisIx @196) . (subtract 3) . (* 4) . succ
-  oeis = 2 : concat (map (\x -> replicate (x `div` 2) x) [3..])
-
 -- instance OEIS 27465 where
 --   oeis = tablList @27465
 -- instance Table 27465 where
@@ -3653,33 +3106,11 @@ instance OEIS 27434 where
 --   oeis = 1 : map (denominator . sum) (zipWith (zipWith (%))
 --      (zipWith (map . (*)) (tail (oeis @142)) (tabf @242179)) (oeisIx @106831)_tabf)
 
-instance OEIS 27709 where
-  oeisIx 0 = 0
-  oeisIx n = (oeisIx @27434 . pred) n * 2
-
--- instance OEIS 27746 where
---   oeis = tablList @27746
--- instance Table 27746 where
---   rowCol = rowCol_off @27746 @1 @1
---   tabl = map (rowT @27746) [1..]
---   rowT 1 = [1]
---   rowT n = unfoldr fact n where
---      fact 1 = Nothing
---      fact x = Just (p, x `div` p) where p = (oeisIx @20639) x
-
 -- instance OEIS 27749 where
 --   oeis = tablList @27749
 -- instance Table 27749 where
---   rowCol n k = (tabf @27749) !! (n - 1) !! (k-1)
---   rowT n = (tabf @27749) !! n
+--   rowCol = rowCol_off @27749 @1 @1
 --   tabf = [1] : map tail (tail (tabf @27750))
-
-instance OEIS 27751 where
-  oeis = tablList @27751
-instance Table 27751 where
-  rowCol = rowCol_off @27751 @1 @1
-  rowT   = rowT_off @27751 @1
-  tabf   = [1] : map init (tail (tabf @27750))
 
 -- instance OEIS 27810 where
 --   oeisIx n = (n + 1) * (oeisIx @7318)' (n + 5) 5
@@ -3757,17 +3188,6 @@ instance Table 27751 where
 -- instance Table 28263 where
 --   tabl = zipWith (zipWith (+)) (tabl @7318) (tabl @14410)
 
--- instance OEIS 28290 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @28290) !! n
---   oeis = map (p' 0) [0..] where
---      p' = memo2 integral integral p
---      p _ 0 = 1
---      p 5 _ = 0
---      p k m | m < parts !! k = 0
---            | otherwise = p' k (m - parts !! k) + p' (k + 1) m
---      parts = [1, 2, 3, 5, 8]
-
 -- instance OEIS 28326 where
 --   oeis = tablList @28326
 -- instance Table 28326 where
@@ -3802,11 +3222,6 @@ instance Table 27751 where
 -- instance OEIS 28835 where
 --   oeis = findIndices (`elem` [2,3,5,7]) $ map (oeisIx @10888) [0..]
 
-instance OEIS 28846 where
-  oeis = f [1] where
-     f ds = foldr (\d v -> 10 * v + d) 0 ds : f (s ds)
-     s [] = [1]; s (8:ds) = 1 : s ds; s (d:ds) = 2*d : ds
-
 -- instance OEIS 28859 where
 --   oeis =
 --      1 : 3 : map (* 2) (zipWith (+) (oeis @28859) (tail (oeis @28859)))
@@ -3833,19 +3248,7 @@ instance OEIS 28846 where
 
 -- instance OEIS 28982 where
 --   import Data.List.Ordered (union)
---   oeisIx n = (oeis @28982) !! (n - 1)
 --   oeis = tail $ union (oeis @290) (oeis @1105)
-
--- instance OEIS 29145 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @29145) !! n
---   oeis = map (p' 0) [0..] where
---      p' = memo2 integral integral p
---      p _ 0 = 1
---      p 4 _ = 0
---      p k m | m < parts !! k = 0
---            | otherwise = p' k (m - parts !! k) + p' (k + 1) m
---      parts = [2, 3, 5, 8]
 
 -- instance OEIS 29549 where
 --   oeis = [0,6,210] ++
@@ -3892,16 +3295,8 @@ instance OEIS 28846 where
 -- instance OEIS 29743 where
 --   oeis = filter ((== 1) . (oeisIx @10051)) (oeis @10784)
 
-instance OEIS 29744 where
-  oeis = 1 : iterate
-     (\x -> if x `mod` 3 == 0 then 4 * x `div` 3 else 3 * x `div` 2) 2
-
 -- instance OEIS 29783 where
 --   oeis = filter (\x -> (oeisIx @258682) x == x ^ 2) [1..]
-
-instance OEIS 29793 where
-  oeis = filter (\x -> digs x == digs (x^2)) [0..]
-     where digs = sort . nub . show . fi
 
 -- instance OEIS 29837 where
 --   oeis = scanl1 (+) (oeis @209229)
@@ -3923,9 +3318,6 @@ instance OEIS 29793 where
 -- instance OEIS 29931 where
 --   oeisIx = sum . zipWith (*) [1..] . (rowT @30308)
 
-instance OEIS 29942 where
-  oeis = [fi x | (x :: Int) <- [0..], show x `isInfixOf` show (x^3)]
-
 -- instance OEIS 29943 where
 --   oeis = filter f [0..] where
 --      f x = show x `isInfixOf` show (x^2) && show x `isInfixOf` show (x^3)
@@ -3943,9 +3335,6 @@ instance OEIS 29942 where
 --      p []     _ = 0
 --      p (k:ks) x = if x < k then 0 else p ks (x - k) + p ks x
 
-instance OEIS 30067 where
-  oeis = concat $ transpose [scanl (+) 1 (oeis @30067), (oeis @30067)]
-
 -- instance OEIS 30078 where
 --   oeisIx = (oeisIx @578) . (oeisIx @40)
 --   oeis = map (oeisIx @578) (oeis @40)
@@ -3958,55 +3347,6 @@ instance OEIS 30067 where
 -- instance OEIS 30091 where
 --   oeis =
 --      filter (\x -> ((==) `on` (nub . sort . show)) x (x^2)) (oeis @40)
-
-instance OEIS 30096 where
-  oeis = filter f (oeis @40) where
-     f x = odd d && (x < 10 || f x') where (x', d) = divMod x 10
-
-instance OEIS 30099 where
-  oeis = filter (null . (intersect "86420") . show . fi . (^ 3)) [1,3..]
-
-instance OEIS 30101 where
-  oeisIx = f 0 where
-     f y 0 = y
-     f y x = f (2 * y + b) x'  where (x', b) = divMod x 2
-
-instance OEIS 30102 where
-  oeisIx = foldl (\v d -> 3 * v + d) 0 . (rowT @30341)
-
-instance OEIS 30103 where
-  oeisIx n = foldl (\v d -> 4*v + d) 0 $ unfoldr dig n where
-      dig x = if x == 0 then Nothing else Just $ swap $ divMod x 4
-
-instance OEIS 30109 where
-  oeisIx = flip div 2 . subtract 1 . (oeisIx @30101) . succ
-
-instance OEIS 30124 where
-  oeis = figureDiff 1 [2..] where
-     figureDiff n (x:xs) = x : figureDiff n' (delete n' xs) where n' = n + x
-
-instance OEIS 30130 where
-  oeis = filter ((== 1) . (oeisIx @23416)) [0..]
-
-instance OEIS 30132 where
-  oeis =
-     0 : 1 : map (oeisIx @7953) (zipWith (+) (oeis @30132) (tail (oeis @30132)))
-
-instance OEIS 30133 where
-  oeis =
-     2 : 1 : map (oeisIx @7953) (zipWith (+) (oeis @30133) $ tail (oeis @30133))
-
-instance OEIS 30141 where
-  oeis = filter ((== 1) . (oeisIx @228710)) [0..]
-
-instance OEIS 30142 where
-  oeis = filter odd (oeis @30141)
-
-instance OEIS 30143 where
-  oeis = filter even (oeis @30141)
-
-instance OEIS 30144 where
-  oeis = filter ((== 1) . (oeisIx @228710)) (oeis @40)
 
 -- instance OEIS 30147 where
 --   oeis = filter ((== 1) . (oeisIx @228710)) (oeis @2113)
@@ -4025,15 +3365,6 @@ instance OEIS 30144 where
 -- instance OEIS 30190 where
 --   oeis = concatMap reverse (tabf @30308)
 
-instance OEIS 30195 where
-  oeis = 0 : 1 : map (* 3) (zipWith (+) (oeis @30195) (tail (oeis @30195)))
-
-instance OEIS 30230 where
-  oeis = filter (odd . (oeisIx @1221) . pred) [1..]
-
-instance OEIS 30231 where
-  oeis = filter (even . (oeisIx @1221) . pred) [1..]
-
 -- instance OEIS 30237 where
 --   oeis = tablList @30237
 -- instance Table 30237 where
@@ -4044,14 +3375,6 @@ instance OEIS 30231 where
 --      p _  0 = 1
 --      p (k:ks) m | m < k     = 0
 --                 | otherwise = p ks (m - k) + p ks m
-
-instance OEIS 30283 where
-  oeis = 0 : f 1 9 0 where
-     f u v w = w' : f u' v' w' where
-       w' = until (> w) ((+ v) . (* 10)) u
-       (u',v') = h u v
-       h 1 0 = (2,2); h 9 0 = (1,1); h 9 1 = (2,0); h 9 9 = (1,0)
-       h u 2 = (u+1,0); h u v = (u+1,1-v)
 
 -- instance OEIS 30284 where
 --   oeis = f [] (oeis @40) where
@@ -4097,14 +3420,6 @@ instance OEIS 30283 where
 --   oeis = scanl1
 --      (\u v -> u + fromEnum (v == 1) - fromEnum (v == 2)) (oeis @3137)
 
-instance OEIS 30341 where
-  oeis = tablList @30341
-instance Table 30341 where
-  tabf = iterate succ [0] where
-     succ []     = [1]
-     succ (2:ts) = 0 : succ ts
-     succ (t:ts) = (t + 1) : ts
-
 -- instance OEIS 30386 where
 --   oeis = tablList @30386
 -- instance Table 30386 where
@@ -4130,10 +3445,6 @@ instance Table 30341 where
 --   oeisIx = (^ 6) . (oeisIx @40)
 --   oeis = map (^ 6) (oeis @40)
 
-instance OEIS 30530 where
-  oeis = 0 : concatMap (\n -> unfoldr
-     (\x -> if x == 0 then Nothing else Just (n, div x 2)) n) [1..]
-
 -- instance OEIS 30658 where
 --   oeisIx = fromEnum . (<= 0) . (oeisIx @95916)
 
@@ -4143,8 +3454,8 @@ instance OEIS 30530 where
 -- instance OEIS 30717 where
 --   oeis = tablList @30717
 -- instance Table 30717 where
---   rowCol n k = (tabf @30717) !! (n - 1) !! (k-1)
---   rowT n = (tabf @30717) !! (n - 1)
+--   rowCol = rowCol_off @30717 @1 @1
+--   rowT   = rowT_off @30717 @1
 --   tabf = [1] : f [1] where
 --      f xs = ys : f ((filter (> 0) ys) ++ xs) where
 --             ys = h (group $ sort xs) [1..] where
@@ -4202,20 +3513,8 @@ instance OEIS 30530 where
 --      succ (4:ts) = 0 : succ ts
 --      succ (t:ts) = (t + 1) : ts
 
--- instance OEIS 31298 where
---   oeis = tablList @31298
--- instance Table 31298 where
---   tabf = iterate succ [0] where
---      succ []     = [1]
---      succ (9:ds) = 0 : succ ds
---      succ (d:ds) = (d + 1) : ds
-
 -- instance OEIS 31359 where
 --   oeisIx = (oeisIx @1615) . (subtract 1) . (* 2)
-
-instance OEIS 31368 where
-  oeisIx = (oeisIx @40) . (* 2)
-  oeis = map (oeisIx @40) [0, 2 ..]
 
 -- instance OEIS 31444 where
 --   oeis = filter ((== 1) . (oeisIx @37861)) [1..]
@@ -4242,10 +3541,6 @@ instance OEIS 31368 where
 -- instance OEIS 32031 where
 --   oeis = scanl (*) 1 $ tail (oeis @8585)
 
-instance OEIS 32352 where
-  oeis = filter
-     (\x -> all (== 0) $ map (oeisIx @10051 . (10*x +)) [1..9]) [1..]
-
 -- instance OEIS 32358 where
 --   oeisIx = genericLength . takeWhile (/= 2) . (iterate (oeisIx @10))
 
@@ -4268,14 +3563,8 @@ instance OEIS 32352 where
 -- instance OEIS 32528 where
 --   oeis = scanl (+) 0 (oeis @7310)
 
-instance OEIS 32740 where
-  oeis = [fi x | (x :: Int) <- [0..], show x `isInfixOf` (show $ 2 ^ x)]
-
 -- instance OEIS 32741 where
 --   oeisIx n = if n == 0 then 0 else (oeisIx @5) n - 1
-
--- instance OEIS 32742 where
---   oeisIx n = n `div` (oeisIx @20639) n
 
 -- instance OEIS 32759 where
 --   oeis = 2 : map read (zipWith (++) vs (tail us)) :: [Integer]
@@ -4306,24 +3595,12 @@ instance OEIS 32740 where
 --      f y 1 = (oeisIx @4086) y
 --      f y x = f (10 * y + m + 2) x' where (x', m) = divMod x 2
 
-instance OEIS 32924 where
-  oeis = iterate f 1 where
-     f x = 1 + if r < 2 then x else 3 * f x'  where (x', r) = divMod x 3
-
-instance OEIS 32925 where
-  oeis = 1 : 2 : (concat $ transpose [map (+ 1) fs, map (+ 2) fs])
-                 where fs = map (* 4) (oeis @32925)
-
 -- instance OEIS 32981 where
 --   oeis = map read $ filter f $ map show [1..] :: [Int] where
 --      f ps = all (`elem` neighbours) $ zipWith ((. return) . (:)) ps (tail ps)
 --      neighbours = "09" : "90" : zipWith ((. return) . (:))
 --         (digs ++ tail digs ++ init digs) (digs ++ init digs ++ tail digs)
 --      digs = "0123456789"
-
-instance OEIS 33048 where
-  oeis = (0:) $ filter (all (< 2) . unfoldr (\x ->
-     if x == 0 then Nothing else Just $ swap $ divMod x 12)) [1..]
 
 -- instance OEIS 33075 where
 --   -- import Data.Set (fromList, deleteFindMin, insert)
@@ -4418,13 +3695,6 @@ instance OEIS 33048 where
 -- instance OEIS 33491 where
 --   oeisIx = head . (rowT @127824)
 
-instance OEIS 33493 where
-  oeisIx = sum . (rowT @70165) . succ
-
-instance OEIS 33496 where
-  oeis = 1 : filter f [2, 4 ..] where
-     f x = x == maximum (takeWhile (/= 1) $ iterate (oeisIx @6370) x)
-
 -- instance OEIS 33538 where
 --   oeis =
 --      1 : 1 : (map (+ 1) $ zipWith (+) (oeis @33538)
@@ -4458,10 +3728,6 @@ instance OEIS 33496 where
 --      chi n = (oeisIx @136522) spf == 1 && (n' == 1 || chi n') where
 --         n' = n `div` spf
 --         spf = (oeisIx @20639) n
-
-instance OEIS 33627 where
-  oeis = f [1..] [] where
-     f (x:xs) ys = x : f (xs \\ (map (+ x) ys)) (x:ys)
 
 -- instance OEIS 33630 where
 --   oeisIx 0 = 1
@@ -4698,18 +3964,6 @@ instance OEIS 33627 where
 -- instance OEIS 34785 where
 --   oeisIx = (2 ^) . (oeisIx @40)
 
-instance OEIS 34791 where
-  oeis = 1 : f [2..] [1] where
-     f (x:xs) ys | and $ map (flip isSquMod x) ys = x : f xs (x:ys)
-                 | otherwise                      = f xs ys
-     isSquMod u v = u `mod` v `elem` (map ((`mod` v) . (^ 2)) [0..v - 1])
-
-instance OEIS 34793 where
-  oeis = 1 : f [2..] [1] where
-     f (x:xs) ys | and $ map (isSquMod x) ys = x : f xs (x:ys)
-                 | otherwise                 = f xs ys
-     isSquMod u v = u `mod` v `elem` (map ((`mod` v) . (^ 2)) [0..v - 1])
-
 -- instance OEIS 34794 where
 --   oeis = 2 : f 2 (tail  (oeis @40)) where
 --      f x (p:ps) = if elem x $ (rowT @46071) p then p : f p ps else f x ps
@@ -4740,23 +3994,6 @@ instance OEIS 34793 where
 --   oeis = tablList @34852
 -- instance Table 34852 where
 --   tabl = zipWith (zipWith (-)) (tabl @7318) (tabl @34851)
-
-instance OEIS 34856 where
-  oeisIx = subtract 1 . (oeisIx @96) . succ
-
-instance OEIS 34868 where
-  oeis = tablList @34868
-instance Table 34868 where
-  tabf = map reverse (tabf @34869)
-
-instance OEIS 34869 where
-  oeis = tablList @34869
-instance Table 34869 where
-  tabf = [1] : f 0 [1] where
-     f 0 us'@ (_:us) = ys : f 1 ys where
-                      ys = zipWith (+) us' (us ++ [0])
-     f 1 vs@ (v:_) = ys : f 0 ys where
-                    ys = zipWith (+) (vs ++ [0]) ([v] ++ vs)
 
 -- instance OEIS 34870 where
 --   oeis = tablList @34870
@@ -4852,15 +4089,6 @@ instance Table 34869 where
 
 -- instance OEIS 35263 where
 --   oeis = zipWith xor (oeis @10060) $ tail (oeis @10060)
-
--- instance OEIS 35294 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @35294) !! n
---   oeis = f 1 where
---      f x = (p' 1 (x - 1)) : f (x + 2)
---      p' = memo2 integral integral p
---      p _ 0 = 1
---      p k m = if m < k then 0 else p' k (m - k) + p' (k + 2) m
 
 -- instance OEIS 35302 where
 --   oeis = 0 : 1 : (-2) :
@@ -4985,9 +4213,6 @@ instance Table 34869 where
 --                  (zipWith ((++) `on` show) (oeis @36106) $ tail (oeis @36106))
 --                  where say ws = (show $ length ws) ++ [head ws]
 
-instance OEIS 36234 where
-  oeisIx = (+ 1) . (oeisIx @720)
-
 -- instance OEIS 36241 where
 --   import qualified Data.Set as Set (null, map)
 --   import Data.Set (empty, fromList, toList, intersect, union)
@@ -5069,10 +4294,6 @@ instance OEIS 36234 where
 
 -- instance OEIS 36537 where
 --   oeis = filter ((== 1) . (oeisIx @209229) . (oeisIx @5)) [1..]
-
-instance OEIS 36552 where
-  oeis = g [1..] where
-     g (x:xs) = x : (2*x) : (g $ delete (2*x) xs)
 
 -- instance OEIS 36554 where
 --   oeisIx = (+ 1) . (oeisIx @79523)
@@ -5202,20 +4423,6 @@ instance OEIS 36552 where
 --      merge xs'@ (x:xs) ys'@ (y:ys) =
 --            if x < y then x : merge xs ys' else y : merge xs' ys
 
-instance OEIS 37161 where
-  oeis = 0 : map numerator
-    (concat $ concat $ transpose [map (map negate) qss, map reverse qss])
-    where qss = map q [1..]
-          q x = map (uncurry (%)) $ filter ((== 1) . uncurry gcd) $
-                    zip (reverse zs) zs where zs = [1..x]
-
-instance OEIS 37162 where
-  oeis = 1 : map denominator
-    (concat $ concat $ transpose [map (map negate) qss, map reverse qss])
-    where qss = map q [1..]
-          q x = map (uncurry (%)) $ filter ((== 1) . uncurry gcd) $
-                    zip (reverse zs) zs where zs = [1..x]
-
 -- instance OEIS 37166 where
 --   oeis = zipWith (*) (oeis @40) $
 --                              map (subtract 1) $ tail (oeis @40)
@@ -5330,10 +4537,6 @@ instance OEIS 37162 where
 --        y = sum $ zipWith ((*) `on` (oeisIx @38044)) divs $ reverse divs
 --            where divs = (rowT @27750) x
 
-instance OEIS 38107 where
-  oeisIx 0 = 0
-  oeisIx n = (oeisIx @720) . pred $ (oeisIx @290) n
-
 -- instance OEIS 38135 where
 --   oeis = 0 : 1 : 1 : 1 : f 1 1 1 4 where
 --      f u v w x = y : f v w y (x + 1) where
@@ -5369,14 +4572,6 @@ instance OEIS 38107 where
 --      (p:ps) * qs'@ (q:qs) = p * q : ps * qs' + [p] * qs
 --      _ * _               = []
 
-instance OEIS 38219 where
-  oeis = 0 : f [0] where
-     f us = a' : f (us ++ [a']) where
-          a' = b $ reverse $ map (`splitAt` us) [0..length us - 1] where
-             b ((xs,ys):xyss) | vs `isSuffixOf` xs = 1 - head ys
-                              | otherwise          = b xyss
-          vs = fromJust $ find (`isInfixOf` init us) $ tails us
-
 -- instance OEIS 38220 where
 --   oeis = tablList @38220
 -- instance Table 38220 where
@@ -5396,9 +4591,6 @@ instance OEIS 38219 where
 --   oeis = tablList @38255
 -- instance Table 38255 where
 --   tabl = map reverse (tabl @13613)
-
-instance OEIS 38365 where
-  oeis = map fi $ filter (\(x :: Int) -> null (show (2*x) `intersect` show x)) [1..]
 
 -- instance OEIS 38374 where
 --   oeisIx = maximum . map length . filter ((== 1) . head) . group .
@@ -5501,15 +4693,6 @@ instance OEIS 38365 where
 -- instance OEIS 38561 where
 --   oeisIx = head . (rowT @46937)
 
--- instance OEIS 38566 where
---   oeis = tablList @38566
--- instance Table 38566 where
---   rowCol n k = (tabf @38566) !! (n - 1) !! (k-1)
---   rowT n = (tabf @38566) !! (n - 1)
---   oeisIx_tabf=
---      zipWith (\v ws -> filter ((== 1) . (gcd v)) ws) [1..] (tabl @2260)
---   oeis = concat (tabf @38566)
-
 -- instance OEIS 38567 where
 --   oeis = concatMap (\x -> genericTake (oeisIx @10 x) $ repeat x) [1..]
 
@@ -5591,12 +4774,6 @@ instance OEIS 38365 where
 --   oeisIx n = genericLength $ filter (== 0)
 --               $ map ((mod n) . digitToInt) $ filter (> '0') $ show n
 
-instance OEIS 38770 where
-  oeis = filter f [1..] where
-     f u = g u where
-       g v = v > 0 && (((d == 0 || r > 0) && g v') || r == 0)
-             where (v',d) = divMod v 10; r = mod u d
-
 -- instance OEIS 38772 where
 --   oeis = filter p [1..] where
 --      p n = all (> 0) $ map ((mod n) . digitToInt) $ filter (> '0') $ show n
@@ -5651,22 +4828,8 @@ instance OEIS 38770 where
 --   oeisIx n = snd $ until ((== 1) . (oeisIx @10051) . fst)
 --               (\ (x, i) -> ((x + 1) `div` 2 , i + 1)) (oeisIx n + 1, 1)
 
-instance OEIS 39649 where
-  oeisIx = (+ 1) . (oeisIx @10)
-
-instance OEIS 39672 where
-  oeis = sieve 1 [1..] where
-     sieve k xs = z : sieve (k + 1) (fLucky xs) where
-        z = xs !! (k - 1 )
-        fLucky ws = us ++ fLucky vs where
-               (us, _:vs) = splitAt (z + xs !! k - 1) ws
-
 -- instance OEIS 39686 where
 --   oeis = filter ((== 1) . (oeisIx @10052)) (oeis @191933)
-
-instance OEIS 39691 where
-  oeis = filter (f 0) [0..] where
-     f d x = d' + d < 10 && (x < 10 || f d' x') where (x', d') = divMod x 10
 
 -- instance OEIS 39701 where
 --   oeisIx = (`mod` 3) . (oeisIx @40)
@@ -5692,9 +4855,6 @@ instance OEIS 39691 where
 --      f (u : vs@ (v : w : xs))
 --        | v == u+1 && w == v+1 = u : f vs
 --        | otherwise            = f vs
-
-instance OEIS 39834 where
-  oeis = 1 : 1 : zipWith (-) (oeis @39834) (tail (oeis @39834))
 
 -- instance OEIS 39913 where
 --   oeis = tablList @39913
@@ -5725,9 +4885,6 @@ instance OEIS 39834 where
 -- instance OEIS 39999 where
 --   oeisIx n = genericLength $ filter ((== 1) . (oeisIx @10051))
 --                      (map read (nub $ permutations $ show n) :: [Integer])
-
-instance OEIS 40014 where
-  oeisIx = (oeisIx @720) . pred . (oeisIx @149)
 
 -- instance OEIS 40026 where
 --   oeisIx n = f 1 where
@@ -5809,9 +4966,6 @@ instance OEIS 40014 where
 -- instance OEIS 45323 where
 --   oeis = filter ((== 1). (oeisIx @10051)) (oeis @4776)
 
-instance OEIS 45331 where
-  oeis = filter ((< 4) . (`mod` 6)) (oeis @40)
-
 -- instance OEIS 45468 where
 --   oeis = [x | x <- (oeis @47209), (oeisIx @10051) x == 1]
 
@@ -5846,11 +5000,6 @@ instance OEIS 45331 where
 --   oeis = filter
 --                  (\p -> powerMod 10 (p - 1) (p ^ 2) == 1) (oeis @40)'
 
-instance OEIS 45623 where
-  oeis = tail $ f (oeis @11782) [] where
-     f (u:us) vs = sum (zipWith (*) vs $ reverse ws) : f us ws
-       where ws = u : vs
-
 -- instance OEIS 45636 where
 --   oeis = findIndices (> 0) (oeis @45698)
 
@@ -5859,44 +5008,11 @@ instance OEIS 45623 where
 --   map (oeisIx . (n -)) $
 --   takeWhile (<= div n 2) (oeis @1248)
 
-instance OEIS 45708 where
-  oeis = filter ((== 2) . (oeisIx @30)) (oeis @40)
-
 -- instance OEIS 45797 where
 --   oeis = filter (even . (`mod` 10) . (`div` 10)) (oeis @45572)
 
 -- instance OEIS 45798 where
 --   oeis = filter (odd . (`mod` 10) . (`div` 10)) (oeis @45572)
-
-instance OEIS 45800 where
-  oeis = findIndices (`elem` [1,7,43,49]) $ cycle [0..99]
-
-instance OEIS 45801 where
-  oeis = findIndices (`elem` [11,39,73,77]) $ cycle [0..99]
-
-instance OEIS 45802 where
-  oeis = findIndices (`elem` [3,21,29,47]) $ cycle [0..99]
-
-instance OEIS 45803 where
-  oeis = findIndices (`elem` [17,19,31,33]) $ cycle [0..99]
-
-instance OEIS 45804 where
-  oeis = findIndices (`elem` [9,41,63,87]) $ cycle [0..99]
-
-instance OEIS 45805 where
-  oeis = findIndices (`elem` [51,57,93,99]) $ cycle [0..99]
-
-instance OEIS 45806 where
-  oeis = findIndices (`elem` [23,27,61,89]) $ cycle [0..99]
-
-instance OEIS 45807 where
-  oeis = findIndices (`elem` [53,71,79,97]) $ cycle [0..99]
-
-instance OEIS 45808 where
-  oeis = findIndices (`elem` [67,69,81,83]) $ cycle [0..99]
-
-instance OEIS 45809 where
-  oeis = findIndices (`elem` [13,37,59,91]) $ cycle [0..99]
 
 -- instance OEIS 45844 where
 --   oeis = iterate (oeisIx @95815) 1
@@ -5919,13 +5035,6 @@ instance OEIS 45809 where
 --         isSub' us vs = any id $ zipWith (&&)
 --                                 (map (`isPrefixOf` vs) $ inits us)
 --                                 (map (`isSuffixOf` vs) $ tails us)
-
-instance OEIS 45954 where
-  oeis =  2 : sieve 2 [2,4..] where
-     sieve k xs = z : sieve (k + 1) (lucky xs) where
-        z = xs !! (k - 1 )
-        lucky ws = us ++ lucky vs where
-              (us, _:vs) = splitAt (z - 1) ws
 
 -- instance OEIS 45965 where
 --   oeisIx n = if n == 1 then 2 else (oeisIx @3961) n
@@ -5983,9 +5092,6 @@ instance OEIS 45954 where
 --   oeis = tablList @45995
 -- instance Table 45995 where
 --   tabl = map (map (oeisIx . fromInteger)) (tabl @7318)
-
-instance OEIS 46022 where
-  oeis = [1..4] ++ drop 2 (oeis @40)
 
 -- instance OEIS 46028 where
 --   oeis = f 1 where
@@ -6060,10 +5166,6 @@ instance OEIS 46022 where
 -- instance OEIS 46642 where
 --   oeis = map (+ 1) $ elemIndices 1 (oeis @9191)
 
--- instance OEIS 46660 where
---   import Math.NumberTheory.Primes.Factorisation (factorise)
---   oeisIx n = sum es - length es where es = snd $ unzip $ factorise n
-
 -- instance OEIS 46665 where
 --   oeisIx n = (oeisIx @6530) n - (oeisIx @20639) n
 
@@ -6073,12 +5175,6 @@ instance OEIS 46022 where
 -- instance OEIS 46670 where
 --   oeis = scanl1 (+) (oeis @6530)
 
-
---   oeisIx 0 = 0
---   oeisIx 1 = 0
---   oeisIx n = mexp (oeisIx' n)
---   oeisIx' n = (map trymove [0.. (div (n - 1) 2)])
---     where trymove k = nimSum (oeis !! k) (oeis !! (n-k-1))
 
 -- instance OEIS 46699 where
 --   oeis = 1 : 1 : zipWith (+) zs (tail zs) where
@@ -6198,72 +5294,10 @@ instance OEIS 46022 where
 -- instance OEIS 46970 where
 --   oeisIx = product . map ((1 -) . (^ 2)) . (rowT @27748)
 
-instance OEIS 46992 where
-  oeis = scanl1 (+) (oeis @720)
-
 -- instance OEIS 47160 where
 --   oeisIx n = if null ms then -1 else head ms
 --               where ms = [m | m <- [0 .. n - 1],
 --                               (oeisIx @10051)' (n - m) == 1, (oeisIx @10051)' (n + m) == 1]
-
-instance OEIS 47209 where
-  oeisIx = (flip div 2) . (subtract 2) . (* 5) . succ
-  oeis = 1 : 4 : (map (+ 5) (oeis @47209))
-
-instance OEIS 47221 where
-  oeisIx (succ->n) = 5 * ((n - 1) `div` 2) + 3 - n `mod` 2
-  oeis = 2 : 3 : map (+ 5) (oeis @47221)
-
-instance OEIS 47228 where
-  oeis = 2 : 3 : 4 : map (+ 6) (oeis @47228)
-
-instance OEIS 47241 where
-  oeis = 1 : 3 : map (+ 6) (oeis @47241)
-
-instance OEIS 47242 where
-  oeis = elemIndices 0 (oeis @214090)
-
-instance OEIS 47246 where
-  oeis = [0..3] ++ map (+ 6) (oeis @47246)
-
-instance OEIS 47253 where
-  -- oeisIx n = n + n `div` 5
-  oeis = [1..5] ++ map (+ 6) (oeis @47253)
-
-instance OEIS 47255 where
-  oeis = 1 : 2 : 3 : 5 : map (+ 6) (oeis @47255)
-
-instance OEIS 47261 where
-  oeis = 2 : 4 : 5 : map (+ 6) (oeis @47261)
-
-instance OEIS 47273 where
-  oeis = 0 : 1 : 3 : 5 : map (+ 6) (oeis @47273)
-
-instance OEIS 47329 where
-  oeis = [1, 3, 5, 6] ++ map (+ 7) (oeis @47329)
-
-instance OEIS 47336 where
-  oeis = 1 : 6 : map (+ 7) (oeis @47336)
-
-instance OEIS 47355 where
-  oeis = scanl (+) 0 (oeis @10702)
-
-instance OEIS 47520 where
-  oeisIx n = sum $ zipWith (*) (reverse $ genericTake n $ tail (oeis @290)) (oeis @79)
-
-instance OEIS 47522 where
-  oeis = 1 : 7 : map (+ 8) (oeis @47522)
-
-instance OEIS 47621 where
-  oeis = 3 : 5 : map (+ 8) (oeis @47621)
-
-instance OEIS 47778 where
-  oeisIx = (foldl (\v d -> 2*v + d) 0) . concatMap (reverse . unfoldr
-     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 2)) .
-     enumFromTo 1 . succ
-
-instance OEIS 47781 where
-  oeisIx n = (rowCol @49600) (2 * n) n
 
 -- instance OEIS 47791 where
 --   oeis = filter ((== 1) . (oeisIx @10051)' . (oeisIx @62028)) [1..]
@@ -6293,45 +5327,6 @@ instance OEIS 47781 where
 
 -- instance OEIS 47846 where
 --   oeis = 1 : zipWith (-) (tail (oeis @196277)) (oeis @196277)
-
-instance OEIS 47892 where
-  oeis = iterate (oeisIx @57147) 2
-
-instance OEIS 47897 where
-  oeis = iterate (oeisIx @57147) 5
-
-instance OEIS 47898 where
-  oeis = iterate (oeisIx @57147) 6
-
-instance OEIS 47899 where
-  oeis = iterate (oeisIx @57147) 7
-
-instance OEIS 47900 where
-  oeis = iterate (oeisIx @57147) 8
-
-instance OEIS 47901 where
-  oeis = iterate (oeisIx @57147) 9
-
-instance OEIS 47902 where
-  oeis = iterate (oeisIx @57147) 11
-
-instance OEIS 47904 where
-  oeis = 1 : zipWith uncurry (cycle [ (+), (*)]) (zip (oeis @47904) [1..])
-
-instance OEIS 47905 where
-  oeis = 1 : zipWith uncurry (cycle [ (*), (+)]) (zip (oeis @47905) [1..])
-
-instance OEIS 47906 where
-  oeis = 1 : zipWith uncurry (cycle [ (-), (*)]) (zip (oeis @47906) [1..])
-
-instance OEIS 47907 where
-  oeis = 1 : zipWith uncurry (cycle [ (*), (-)]) (zip (oeis @47907) [1..])
-
-instance OEIS 47908 where
-  oeis = 1 : zipWith ($) (zipWith ($) (cycle [ (+), (*), (-)]) (oeis @47908)) [1..]
-
-instance OEIS 47912 where
-  oeis = iterate (oeisIx @57147) 3
 
 -- instance OEIS 47916 where
 --   oeis = tablList @47916
@@ -6449,11 +5444,6 @@ instance OEIS 47912 where
 -- instance OEIS 48298 where
 --   oeisIx n = (oeisIx @209229) n * n
 
-instance OEIS 48321 where
-  oeis = filter f [0..] where
-     f x = all (< 0) $ zipWith (-) (tail zs) zs
-           where zs =  map length $ group $ show $ fi x
-
 -- instance OEIS 48344 where
 --   oeis = filter f (oeis @29742) where
 --      f x = (oeisIx @136522) (x * (oeisIx @4086) x) == 1
@@ -6489,10 +5479,6 @@ instance OEIS 48321 where
 
 -- instance OEIS 48521 where
 --   oeis = map (oeisIx @40) $ filter ((> 0) . (oeisIx @107740)) [1..]
-
--- instance OEIS 48574 where
---   oeis = f (drop 2 (oeis @41)) [1] where
---   f (p:ps) rs = (sum $ zipWith (*) rs $ tail (oeis @41)) : f ps (p : rs)
 
 -- instance OEIS 48594 where
 --   oeis = tablList @48594
@@ -6627,16 +5613,8 @@ instance OEIS 48321 where
 --     (\its tls -> map ((\xs ys d -> xs ++ (d:ys)) its tls) "0123456789")
 --       (map init $ tail $ inits $ show n) (tail $ tails $ show n)) - (oeisIx @10051) n
 
-instance OEIS 48859 where
-  oeis = f 2 [1..] where
-     f k xs = us ++ f (k + 1) (drop (k + 1) vs)
-              where (us, vs) = splitAt k xs
-
 -- instance OEIS 48865 where
 --   oeisIx n = sum $ map (oeisIx @10051) [t | t <- [1..n], gcd n t == 1]
-
-instance OEIS 48877 where
-  oeis = 1 : 8 : zipWith (+) (oeis @48877) (map (* 4) $ tail (oeis @48877))
 
 -- instance OEIS 48879 where
 --   oeis = 1 : 10 : zipWith (+)
@@ -6679,10 +5657,6 @@ instance OEIS 48877 where
 --             (map (* 3) $ zipWith (*) (map (3 * (x - 1) -) [1..]) (xs ++ [0]))
 --             (zipWith (*) [1..] ([0] ++ xs))
 
-instance OEIS 48967 where
-  oeis = 0 : xs where
-     xs = 0 : concat (transpose [zipWith (+) [1..] xs, map (* 2) xs])
-
 -- instance OEIS 48973 where
 --   import Data.List.Ordered (minus)
 --   oeisIx n = (oeis @48973) !! (n - 1)
@@ -6692,18 +5666,6 @@ instance OEIS 48967 where
 --   oeisIx = foldr (\d v -> 2 * v + d) 0 . concatMap
 --      (unfoldr (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 2))
 --      . reverse . (rowT @27746)
-
-instance OEIS 48991 where
-  oeis = f [1..] [] where
-     f (x:xs) ys | xs' `isInfixOf` ys = f xs ys
-                 | otherwise          = x : f xs (xs' ++ ys)
-                 where xs' = reverse $ show $ fi x
-
-instance OEIS 48992 where
-  oeis = g [1..] [] where
-     g (x:xs) ys | xs' `isInfixOf` ys = x : g xs ys
-                 | otherwise          = g xs (xs' ++ ys)
-                 where xs' = reverse $ show $ fi x
 
 -- instance OEIS 48994 where
 --   oeis = tablList @48994
@@ -6754,11 +5716,6 @@ instance OEIS 48992 where
 -- instance OEIS 49076 where
 --   oeisIx = (+ 1) . (oeisIx @78442)
 
-instance OEIS 49084 where
-  oeis = unfoldr x (1, 1, (oeis @40)) where
-     x (i, z, ps'@ (p:ps)) | i == p = Just (z, (i + 1, z + 1, ps))
-                          | i /= p = Just (0, (i + 1, z, ps'))
-
 -- instance OEIS 49098 where
 --   oeis = filter ((== 0) . (oeisIx @8966) . (+ 1)) (oeis @40)
 
@@ -6768,18 +5725,6 @@ instance OEIS 49084 where
 
 -- instance OEIS 49296 where
 --   oeis = zipWith (-) (tail (oeis @8364)) (oeis @8364)
-
-instance OEIS 49320 where
-  oeis = 0 : 0 : 1 : 0 : f [0,0,1,0] where
-     f xs = drop (length xs) ys ++ f ys where
-       ys = concatMap ch xs
-       ch 0 = [0,0,1,0]; ch 1 = [1]
-
-instance OEIS 49321 where
-  oeis = 0 : 0 : 1 : 2 : f [0,0,1,2] where
-     f xs = drop (length xs) ys ++ f ys where
-       ys = concatMap ch xs
-       ch 0 = [0,0,1,2]; ch 1 = [1,2]; ch 2 = [0,1,2]
 
 -- instance OEIS 49343 where
 --   oeis = map fi $ elemIndices 0
@@ -6813,10 +5758,6 @@ instance OEIS 49321 where
 -- instance OEIS 49419 where
 --   oeisIx = product . map (oeisIx . fi) . (rowT @124010)
 
-instance OEIS 49439 where
-  oeis = filter (\x -> ((length $ oddDivs x) `elem` oddDivs x)) [1..]
-     where oddDivs n = [d | d <- [1,3..n], mod n d == 0]
-
 -- instance OEIS 49444 where
 --   oeis = tablList @49444
 -- instance Table 49444 where
@@ -6829,8 +5770,8 @@ instance OEIS 49439 where
 -- instance OEIS 49455 where
 --   oeis = tablList @49455
 -- instance Table 49455 where
---   rowCol n k = (tabf @49455) !! (n - 1) !! (k-1)
---   rowT n = (tabf @49455) !! (n - 1)
+--   rowCol = rowCol_off @49455 @1 @1
+--   rowT   = rowT_off @49455 @1
 --   tabf = map (map numerator) $ iterate
 --      (\row -> concat $ transpose [row, zipWith (+/+) row $ tail row]) [0, 1]
 --      where u +/+ v = (numerator u + numerator v) %
@@ -6839,8 +5780,8 @@ instance OEIS 49439 where
 -- instance OEIS 49456 where
 --   oeis = tablList @49456
 -- instance Table 49456 where
---   rowCol n k = (tabf @49456) !! (n - 1) !! (k-1)
---   rowT n = (tabf @49456) !! (n - 1)
+--   rowCol = rowCol_off @49456 @1 @1
+--   rowT   = rowT_off @49456 @1
 --   tabf = iterate
 --      (\row -> concat $ transpose [row, zipWith (+) row $ tail row]) [1, 1]
 
@@ -6874,11 +5815,6 @@ instance OEIS 49439 where
 -- instance OEIS 49599 where
 --   oeisIx = product . map ((+ 1) . (oeisIx @5) . fi) . (rowT @124010) . succ
 
-instance OEIS 49600 where
-  oeis = tablList @49600
-instance Table 49600 where
-  tabl = [0] : map (0 :) (tabl @208341)
-
 -- instance OEIS 49613 where
 --   oeisIx n = 2 * n - (oeisIx @7917) (2 * n - 2)
 
@@ -6888,8 +5824,8 @@ instance Table 49600 where
 -- instance OEIS 49773 where
 --   oeis = tablList @49773
 -- instance Table 49773 where
---   rowCol n k = (tabf @49773) !! (n - 1) !! (k-1)
---   rowT n = (tabf @49773) !! (n - 1)
+--   rowCol = rowCol_off @49773 @1 @1
+--   rowT   = rowT_off @49773 @1
 --   tabf = iterate f [1] where
 --      f vs = (map (subtract 1) ws) ++ ws where ws = map (* 2) vs
 
@@ -6969,9 +5905,6 @@ instance Table 49600 where
 -- instance OEIS 50361 where
 --   oeisIx = product . map (oeisIx @9) . (rowT @124010)
 
--- instance OEIS 50376 where
---   oeis = filter ((== 1) . (oeisIx @209229) . (oeisIx @100995)) [1..]
-
 -- instance OEIS 50382 where
 --   oeisIx = (oeisIx @8480) . (oeisIx @25487)
 
@@ -7037,16 +5970,6 @@ instance Table 49600 where
 --      f p = map (i $ show p) "0123456789"
 --      i ps d = (oeisIx @10051)' (read $ intersperse d ps :: Integer)
 
-instance OEIS 50873 where
-  oeis = tablList @50873
-instance Table 50873 where
-  rowCol = gcd
-  rowT   = rowT_off @50873 @1
-  tabl   = zipWith (map . gcd) [1..] (tabl @2260)
-
-instance OEIS 50909 where
-  oeis = iterate (oeisIx @217) 9
-
 -- instance OEIS 50925 where
 --   oeis = 1 : -1 : (tail $ map (numerator . sum) $
 --      zipWith (zipWith (%))
@@ -7058,9 +5981,6 @@ instance OEIS 50909 where
 -- instance OEIS 50932 where
 --   oeis = 1 : map (denominator . sum) (zipWith (zipWith (%))
 --      (zipWith (map . (*)) (drop 2 (oeis @142)) (tabf @242179)) (oeisIx @106831)_tabf)
-
-instance OEIS 50935 where
-  oeis = 0 : 0 : 1 : zipWith (-) (drop 2 (oeis @50935)) (oeis @50935)
 
 -- instance OEIS 50936 where
 --   import Data.Set (empty, findMin, deleteMin, insert)
@@ -7141,14 +6061,6 @@ instance OEIS 50935 where
 --   oeisIx = (+ 1) . length .
 --                     takeWhile (== 3) . dropWhile (== 2) . (rowT @27746)
 
-instance OEIS 51120 where
-  oeis = 1 : f [1] where
-    f xs = seen ++ (f $ xs ++ seen) where
-      seen = look (reverse $ map length $ group xs') (reverse $ nub xs')
-      xs' = sort xs
-      look [] []               = []
-      look (cnt:cnts) (nr:nrs) = cnt : nr : look cnts nrs
-
 -- instance OEIS 51129 where
 --   oeis = tablList @51129
 -- instance Table 51129 where
@@ -7192,18 +6104,8 @@ instance OEIS 51120 where
 --   oeisIx n = head [m | m <- [2..],
 --               all (== 0) $ map (oeisIx' . (2*m -)) $ take n (oeis @40)]
 
-instance OEIS 51173 where
-  oeis = tablList @51173
-instance Table 51173 where
-  rowCol = lcm
-  rowT   = rowT_off @51173 @1
-  tabl   = map (\x -> map (lcm x) [1..x]) [1..]
-
 -- instance OEIS 51178 where
 --   oeis = filter (\x -> (oeisIx @27423) x `mod` x == 0) [1..]
-
-instance OEIS 51193 where
-  oeisIx = sum . (rowT @51173) . succ
 
 -- instance OEIS 51248 where
 --   oeisIx n = 2 + length
@@ -7323,13 +6225,6 @@ instance OEIS 51193 where
 -- instance OEIS 51536 where
 --   oeis = scanl1 lcm (oeis @16777)
 
-instance OEIS 51537 where
-  oeis = tablList @51537
-instance Table 51537 where
-  rowCol = rowCol_off @51537 @1 @1
-  rowT   = rowT_off   @51537 @1
-  tabl = zipWith (zipWith div) (tabl @51173) (tabl @50873)
-
 -- instance OEIS 51538 where
 --   oeis = scanl1 lcm $ tail (oeis @330)
 
@@ -7360,18 +6255,6 @@ instance Table 51537 where
 -- instance OEIS 51611 where
 --   oeis = filter ((== 0) . (oeisIx @53603)) [1..]
 
-instance OEIS 51612 where
-  oeisIx n = (oeisIx @203) n - (oeisIx @10) n
-
--- instance OEIS 51613 where
---   import Data.MemoCombinators (memo3, integral)
---   oeisIx' = p 1 2 where
---      p x _ 0 = 1
---      p x k m | m < qq       = 0
---              | mod x q == 0 = p x (k + 1) m
---              | otherwise    = p (q * x) (k + 1) (m - qq) + p x (k + 1) m
---              where q = (oeisIx @25473) k; qq = (oeisIx @961) k
-
 -- instance OEIS 51632 where
 --   oeis = tablList @51632
 --   oeis = concat (tabl @51632)
@@ -7384,9 +6267,6 @@ instance OEIS 51612 where
 -- instance OEIS 51635 where
 --   oeis = g (oeis @40) where
 --      g (p:qs@ (q:r:ps)) = if 2 * q < (p + r) then q : g qs else g qs
-
-instance OEIS 51638 where
-  oeisIx = sum . (rowT @83093)
 
 -- instance OEIS 51656 where
 --   oeisIx = sum . zipWith (*) (oeis @1906) . (rowT @47999)
@@ -7453,10 +6333,6 @@ instance OEIS 51638 where
 --   oeis =
 --      map (+ 1) $ elemIndices 0 $ zipWith mod (oeis @2110) (oeis @7504)
 
-instance OEIS 51840 where
-  oeis = map floor vs where
-     vs = iterate (\x -> x * (4 - 3 * x)) 0.1
-
 -- instance OEIS 51841 where
 --   oeisIx n = (sum $ zipWith (\u v -> gcd 2 u * (oeisIx @8683) u * 2 ^ v)
 --                ds $ reverse ds) `div` (2 * n) where ds = (rowT @27750) n
@@ -7498,15 +6374,6 @@ instance OEIS 51840 where
 -- instance OEIS 51953 where
 --   oeisIx n = n - (oeisIx @10) n
 
--- instance OEIS 52001 where
---   oeis = filter even (oeis @41)
-
--- instance OEIS 52002 where
---   oeis = findIndices odd (oeis @41)
-
--- instance OEIS 52003 where
---   oeis = filter odd (oeis @41)
-
 -- instance OEIS 52008 where
 --   oeisIx n = (oeisIx @4185) n + (oeisIx @4186) n
 
@@ -7532,9 +6399,6 @@ instance OEIS 51840 where
 --      f n xs = z : f (n+1) (z:xs) where
 --        z = sum $ map (oeisIx . fromInteger) $
 --                      dropWhile (<= 0) $ map (n -) xs
-
-instance OEIS 52147 where
-  oeisIx = (+ 2) . (oeisIx @40)
 
 -- instance OEIS 52180 where
 --   oeis = f [4..] where
@@ -7575,10 +6439,6 @@ instance OEIS 52147 where
 
 -- instance OEIS 52343 where
 --   oeisIx = (flip div 2) . (+ 1) . (oeisIx @8441)
-
-instance OEIS 52382 where
-  oeis = iterate f 1 where
-    f x = 1 + if r < 9 then x else 10 * f x' where (x', r) = divMod x 10
 
 -- instance OEIS 52383 where
 --   oeisIx = f . subtract 1 where
@@ -7676,15 +6536,9 @@ instance OEIS 52382 where
 --   oeisIx = (* 2) . flip div 2
 --   oeis = 0 : 0 : map (+ 2) (oeis @52928)
 
-instance OEIS 52938 where
-  oeis = 1 : 3 : 2 : zipWith (-) [5..] (oeis @52938)
-
 -- instance OEIS 52952 where
 --   oeis = 1 : 1 : zipWith (+)
 --      (oeis @59841) (zipWith (+) (oeis @52952) $ tail (oeis @52952))
-
-instance OEIS 52955 where
-  oeis = 1 : 2 : map ((+ 1) . (* 2)) (oeis @52955)
 
 -- instance OEIS 53001 where
 --   oeisIx = (oeisIx @7917) . (oeisIx @290)
@@ -7866,12 +6720,6 @@ instance OEIS 52955 where
 --   oeisIx n = if ys == "" then 0 else read ys where
 --      ys = foldl (++) "" $ map show $ zipWith (+) (tail ds) ds
 --      ds = (map (read . return) . show) n
-
--- instance OEIS 53398 where
---   oeisIx :: Int -> Int -> Int
---   oeisIx n k = (oeisIx @7814) $ (oeisIx @3986) (n - 1) (k - 1) + 1
---   oeisIx_row n = map (oeisIx n) [1..n]
---   oeisIx_tabl = map (rowT @53398) [1..]
 
 -- instance OEIS 53399 where
 --   oeisIx = flip (oeisIx @53398) 3 . (+ 2)
@@ -8071,10 +6919,6 @@ instance OEIS 52955 where
 -- instance OEIS 54354 where
 --   oeis = zipWith (-) (tail (oeis @2)) (oeis @2)
 
-instance OEIS 54385 where
-  oeis = map (floor . (* e') . fi) [1..]
-     where e' = e / (e - 1); e = exp 1
-
 -- instance OEIS 54429 where
 --   oeis = f [1..] where
 --      f xs@ (x:_) = reverse us ++ f vs where (us, vs) = splitAt x xs
@@ -8149,15 +6993,6 @@ instance OEIS 54385 where
 -- instance Table 54654 where
 --   tabl = map reverse (tabl @48994)
 
--- instance OEIS 54685 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @54685) !! n
---   oeis = map (p' 2) [0..] where
---      p' = memo2 integral integral p
---      p _ 0 = 1
---      p k m = if m < pp then 0 else p' (k + 1) (m - pp) + p' (k + 1) m
---              where pp = (oeisIx @961) k
-
 -- instance OEIS 54686 where
 --   oeis = merge (oeis @290) (oeis @217) where
 --      merge xs'@ (x:xs) ys'@ (y:ys)
@@ -8226,15 +7061,6 @@ instance OEIS 54385 where
 
 -- instance OEIS 55040 where
 --   oeis = map (* 3) (oeis @55048)
-
-instance OEIS 55045 where
-  oeis = filter ((== 5) . (flip mod 8) . f) [1..] where
-     f x = if r == 0 then f x' else x  where (x', r) = divMod x 4
-
-instance OEIS 55048 where
-  oeis = filter (s 0) [1..] where
-     s t u | m > 0  = even t && m == 2
-           | m == 0 = s (t + 1) u' where (u',m) = divMod u 3
 
 -- instance OEIS 55079 where
 --   oeisIx n = head [x | x <- [1..], (oeisIx @33273) x == n]
@@ -8346,9 +7172,6 @@ instance OEIS 55048 where
 --   oeisIx n | n < 10    = 0 ^ n
 --             | otherwise = (oeisIx @55641) n' + 0 ^ d where (n',d) = divMod n 10
 
-instance OEIS 55642 where
-  oeisIx n = length $ show (fi n)
-
 -- instance OEIS 55653 where
 --   oeisIx = sum . map (oeisIx @10) . (rowT @77610)
 
@@ -8371,19 +7194,9 @@ instance OEIS 55642 where
 -- instance OEIS 55769 where
 --   oeisIx = (oeisIx @6530) . (oeisIx @5867)
 
-instance OEIS 55790 where
-  oeis = 0 : 2 : zipWith (+)
-     (zipWith (*) [0..] (oeis @55790)) (zipWith (*) [2..] $ tail (oeis @55790))
-
 -- instance OEIS 55938 where
 --   oeis = concat $
 --      zipWith (\u v -> [u+1..v-1]) (oeis @5187) $ tail (oeis @5187)
-
-instance OEIS 55944 where
-  oeisIx n = n + (oeisIx @30101) n
-
-instance OEIS 55948 where
-  oeisIx n = n + (oeisIx @30103) n
 
 -- instance OEIS 55975 where
 --   oeisIx n = (oeisIx @3188) n - (oeisIx @3188) (n - 1)
@@ -8408,9 +7221,6 @@ instance OEIS 55948 where
 --   oeisIx_tabl = ox False (tabl @27) where
 --     ox turn (xs:xss) = (if turn then reverse xs else xs) : ox (not turn) xss
 --   oeisIx_row n = (tabl @56011) !! (n - 1)
-
-instance OEIS 56020 where
-  oeis = 1 : 8 : map (+ 9) (oeis @56020)
 
 -- instance OEIS 56045 where
 --   oeisIx n = sum $ map (oeisIx n) $ (rowT @27750) n
@@ -8482,15 +7292,9 @@ instance OEIS 56020 where
 -- instance OEIS 56538 where
 --   oeis = tablList @56538
 -- instance Table 56538 where
---   rowCol n k = (tabf @56538) !! (n - 1) !! (k-1)
---   rowT n = (tabf @56538) !! (n - 1)
+--   rowCol = rowCol_off @56538 @1 @1
+--   rowT   = rowT_off @56538 @1
 --   tabf = map reverse (tabf @27750)
-
-instance OEIS 56542 where
-  oeis = 0 : map (+ 1) (zipWith (*) [2..] (oeis @56542))
-
-instance OEIS 56558 where
-  oeis = concatMap (concat . init . inits . enumFromTo 0) [0..]
 
 -- instance OEIS 56561 where
 --   oeis = filter ((== 1) . (oeisIx @10051)' . (oeisIx @202018)) [0..]
@@ -8510,12 +7314,6 @@ instance OEIS 56558 where
 -- instance OEIS 56608 where
 --   oeisIx = (oeisIx @20639) . (oeisIx @2808)
 
-instance OEIS 56753 where
-  oeis = [1] ++ odds [] where
-     odds xs = xs ++ (intercalate xs' $ group [y+2,y+4..2*y+1]) ++ odds xs'
-          where y = 2 * length xs + 1
-                xs' = xs ++ [y] ++ xs
-
 -- instance OEIS 56768 where
 --   oeisIx = (oeisIx @607) . (oeisIx @40)
 
@@ -8531,11 +7329,6 @@ instance OEIS 56753 where
 -- instance OEIS 56815 where
 --   oeis = filter ((== 1) . (oeisIx @10051)' . (oeisIx @45918)) (oeis @40)
 
-instance OEIS 56832 where
-  oeis = 1 : f [1] where
-     f xs = y : f (y : xs) where
-            y = 1 + sum (zipWith (*) xs $ reverse xs) `mod` 2
-
 -- instance OEIS 56867 where
 --   oeis = filter (\x -> gcd x (oeisIx @173557 x) == 1) [1..]
 
@@ -8544,22 +7337,8 @@ instance OEIS 56832 where
 --      pks x = [p ^ k `mod` q | let fs = (rowT @27748) x, q <- fs,
 --                               (p,e) <- zip fs $ (rowT @124010) x, k <- [1..e]]
 
-instance OEIS 56875 where
-  oeis =  f [1..] where
-     f zs = head zs : f (g zs) where
-       g (x:xs) = us ++ g vs where (us, vs) = splitAt (x - 1) xs
-
 -- instance OEIS 56911 where
 --   oeis = filter ((== 1) . (oeisIx @8966)) [1,3..]
-
-instance OEIS 56918 where
-  oeis = 2 : 9 : zipWith (-) (map (* 9) $ tail (oeis @56918)) (oeis @56918)
-
-instance OEIS 56924 where
-  oeisIx = (`div` 2) . (oeisIx @5)
-
-instance OEIS 56942 where
-  oeis = concatMap (\x -> (x ^ 2) : (take x $ repeat (x * (x + 1)))) [0..]
 
 -- instance OEIS 56965 where
 --   oeisIx n = n - (oeisIx @4086) n
@@ -8617,18 +7396,8 @@ instance OEIS 56942 where
 --               reverse $ sortBy (compare `on` length) $
 --               group $ sort [u * v | u <- [1..n], v <- [1..n]]
 
-instance OEIS 57147 where
-  oeisIx n = (oeisIx @7953) n * n
-
 -- instance OEIS 57153 where
 --   oeisIx n = (tabl @56230) !! (n - 1) !! (n-1)
-
-instance OEIS 57154 where
-  oeis = g [1] [2..] [1] where
-     g ds (a:as) us
-       | null (ds' `intersect` us) = g ds' (as \\ ds') (us `union` ds')
-       | otherwise = a : g ds as us
-       where ds' = scanl (+) a ds
 
 -- instance OEIS 57165 where
 --   import Data.Set (Set, singleton, notMember, insert)
@@ -8638,10 +7407,6 @@ instance OEIS 57154 where
 --      r s n x = if x > n && (x - n) `notMember` s
 --                   then r (insert (x-n) s) (n+1) (x-n)
 --                   else n : r (insert (x+n) s) (n+1) (x+n)
-
-instance OEIS 57194 where
-  oeis = 1 : f 1 1 where
-     f u v = w : f (u * w) (v + w) where w = u * v
 
 -- instance OEIS 57211 where
 --   oeis = concat $ zipWith ($) (map replicate [1..]) (oeis @59841)
@@ -8655,13 +7420,6 @@ instance OEIS 57194 where
 -- instance OEIS 57338 where
 --   oeisIx n = head $ reverse $ sort $ map length $ group $
 --               sort [u * v * w | u <- [1..n], v <- [1..n], w <- [1..n]]
-
-instance OEIS 57427 where
-  oeisIx = signum
-  oeis = 0 : [1, 1 ..]
-
-instance OEIS 57436 where
-  oeis = filter (null . (intersect "0789") . show . fi) [1..]
 
 -- instance OEIS 57449 where
 --   oeisIx = product . (rowT @193829)
@@ -8686,8 +7444,8 @@ instance OEIS 57436 where
 -- instance OEIS 57606 where
 --   oeis = tablList @57606
 -- instance Table 57606 where
---   rowCol n k = (tabf @57606) !! (n - 3) !! (k-1)
---   rowT n = (tabf @57606) !! (n - 3)
+--   rowCol = rowCol_off @57606 @3 @1
+--   rowT   = rowT_off @57606 @3
 --   tabf = map g $ drop 3 $
 --     iterate (\xs -> (map (0 :) xs) ++ (map (1 :) xs)) [[]] where
 --     g xss = map length $ fill0 $ group $ sort $ map (length . del2) xss
@@ -8704,12 +7462,9 @@ instance OEIS 57436 where
 -- instance OEIS 57607 where
 --   oeis = tablList @57607
 -- instance Table 57607 where
---   rowCol n k = (tabf @57607) !! (n - 2) !! k
---   rowT n = (tabf @57607) !! (n - 2)
+--   rowCol = rowCol_off @57607 @2 @0
+--   rowT   = rowT_off @57607 @2
 --   tabf =  [2] : map (0 :) (tabf @57606)
-
-instance OEIS 57660 where
-  oeisIx (succ->n) = sum $ map (div n) $ (rowT @50873) n
 
 -- instance OEIS 57661 where
 --   oeisIx n = (oeisIx @51193) n `div` n
@@ -8779,11 +7534,6 @@ instance OEIS 57660 where
 -- instance Table 58071 where
 --   tabl = map (\fs -> zipWith (*) fs $ reverse fs) (tabl @104763)
 
-instance OEIS 58187 where
-  oeis = 1 : f 1 1 [1] where
-     f x y zs = z : f (x + y) (1 - y) (z:zs) where
-       z = sum $ zipWith (*) [1..x] [x,x - 1..1]
-
 -- instance OEIS 58197 where
 --   oeisIx n = (+ 1) $ fromJust $ findIndex (n <=) $ tail (oeis @51950)
 
@@ -8810,8 +7560,8 @@ instance OEIS 58187 where
 -- instance OEIS 58294 where
 --   oeis = tablList @58294
 -- instance Table 58294 where
---   rowCol n k = (tabf @58294) !! (n - 1) !! (k-1)
---   rowT n = (tabf @58294) !! (n - 1)
+--   rowCol = rowCol_off @58294 @1 @1
+--   rowT   = rowT_off @58294 @1
 --   tabf = [1] : zipWith (++) xss (map (tail . reverse) xss)
 --                  where xss = tail (tabl @102473)
 
@@ -8825,10 +7575,6 @@ instance OEIS 58187 where
 -- instance OEIS 58331 where
 --   oeisIx = (+ 1) . (oeisIx @1105)
 
-instance OEIS 58345 where
-  oeis = 1 : f 1 1 where
-     f u v = w : f (u * w) (v + w) where w = lcm u v
-
 -- instance OEIS 58369 where
 --   oeis =
 --      elemIndices 0 $ zipWith ((-) `on` (oeisIx @7953)) [0..] (oeis @290)
@@ -8836,26 +7582,6 @@ instance OEIS 58345 where
 -- instance OEIS 58529 where
 --   oeis = filter (\x -> all (`elem` (takeWhile (<= x) (oeis @1132)))
 --                                    $ (rowT @27748) x) [1..]
-
--- instance OEIS 58698 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @58698) !! (n - 1)
---   oeis = map (pMemo 1) (oeis @40) where
---      pMemo = memo2 integral integral p
---      p _ 0 = 1
---      p k m | m < k     = 0
---            | otherwise = pMemo k (m - k) + pMemo (k + 1) m
-
-instance OEIS 58840 where
-  oeis = 1 : renyi' 1 where
-     renyi' x = y : renyi' r  where
-        (r, y) | q > 1     = (q - 1, 1)
-               | otherwise = (q, 0)
-        q = 3%2 * x
-
-instance OEIS 58841 where
-  oeis =
-     0 : (map length $ filter ((== 0) . head) $ group (oeis @58840))
 
 -- instance OEIS 58842 where
 --   oeis = map numerator (renyi 1 []) where
@@ -9090,17 +7816,6 @@ instance OEIS 58841 where
 -- instance OEIS 59983 where
 --   oeis = mapMaybe (`elemIndex` (oeis @7599)) [0..]
 
-instance OEIS 60000 where
-  oeis = 1 : 2 : f 1 2 2 [] where
-     f x y m []     = z : f y z z [m+1..z - 1] where z = x + y
-     f x y m (h:hs) = h : f y h m hs
-
-instance OEIS 60030 where
-  oeis = 1 : 2 : f 1 2 [3..] where
-     f u v ws = y : f v y (delete y ws) where
-       y = if null xs then u + v else last xs
-       xs = takeWhile (< v) ws
-
 -- instance OEIS 60036 where
 --   oeis = tablList @60036
 -- instance Table 60036 where
@@ -9171,9 +7886,6 @@ instance OEIS 60030 where
 -- instance OEIS 60381 where
 --   oeisIx n = (oeisIx @98012) (2 * n - 1) n
 
-instance OEIS 60384 where
-  oeisIx = (oeisIx @55642) . (oeisIx @45)
-
 -- instance OEIS 60417 where
 --   oeisIx = genericLength . nub . show . (oeisIx @40)
 
@@ -9189,19 +7901,14 @@ instance OEIS 60384 where
 -- instance OEIS 60441 where
 --   oeis = tablList @60441
 -- instance Table 60441 where
---   rowCol n k = (tabf @60441) !! (n - 1) !! (k-1)
---   rowT n = (tabf @60441) !! (n - 1)
+--   rowCol = rowCol_off @60441 @1 @1
+--   rowT   = rowT_off @60441 @1
 --   tabf = [0] : [1] : [1] : map (rowT @27746) (drop 3 (oeis @45))
 
 -- instance OEIS 60442 where
 --   oeis = tablList @60442
 -- instance Table 60442 where
 --   tabf = [0] : [1] : [1] : map (rowT @27748) (drop 3 (oeis @45))
-
-instance OEIS 60445 where
-  oeisIx 0 = 0
-  oeisIx n = genericLength $ takeWhile (>= n') $ (rowT @70165) n'
-              where n' = 2 * n + 1
 
 -- instance OEIS 60448 where
 --   oeisIx n = genericLength [us | let ds = (rowT @27750) n,
@@ -9339,9 +8046,6 @@ instance OEIS 60445 where
 --                        where (q,r) = divMod u y
 --               (x',m) = divMod x y
 
-instance OEIS 61084 where
-  oeis = 1 : 2 : zipWith (-) (oeis @61084) (tail (oeis @61084))
-
 -- instance OEIS 61168 where
 --   oeis = zipWith (+) [0..] (zipWith (+) hs $ tail hs) where
 --      hs = concat $ transpose [oeis, (oeis @1855)]
@@ -9423,55 +8127,12 @@ instance OEIS 61084 where
 -- instance OEIS 61417 where
 --   oeisIx = sum . (rowT @47917)
 
-instance OEIS 61426 where
-  oeis = g [1] where
-     g ds = if product ds == 2 ^ length ds
-            then foldr (\d v -> 10 * v + d) 0 ds : g (s ds) else g (s ds)
-     s [] = [1]; s (8:ds) = 1 : s ds; s (d:ds) = 2*d : ds
-
-instance OEIS 61427 where
-  oeis = g [1] where
-     g ds = if product ds == 3 ^ length ds
-            then foldr (\d v -> 10 * v + d) 0 ds : g (s ds) else g (s ds)
-     s [] = [1]; s (9:ds) = 1 : s ds; s (d:ds) = 3*d : ds
-
-instance OEIS 61428 where
-  oeis = g [1] where
-     g ds = if product ds == 4 ^ length ds
-            then foldr (\d v -> 10 * v + d) 0 ds : g (s ds) else g (s ds)
-     s [] = [1]; s (8:ds) = 1 : s ds; s (d:ds) = 2*d : ds
-
-instance OEIS 61429 where
-  oeis = filter (h 1 1) [1..] where
-     h 0 _ _ = False
-     h u v 0 = u == v
-     h u v w = h (r * u) (6 * v) w' where (w', r) = divMod w 10
-
-instance OEIS 61430 where
-  oeis = filter g [0..] where
-     g u = round (fi p ** (1 / fi k)) ^ k == p where
-           (p, k) = h (1, 0) u
-           h (p, l) 0 = (p, l)
-           h (p, l) v = h (p * r, l + 1) v' where (v', r) = divMod v 10
-
 -- instance OEIS 61467 where
 --   oeisIx 0 = 0
 --   oeisIx n = mod (max n n') (min n n') where n' = (oeisIx @4086) n
 
 -- instance OEIS 61470 where
 --   oeis = filter ((== 1) . (oeisIx @225693)) [0..]
-
--- instance OEIS 61493 where
---   oeisIx n = read $ r 1 [] n :: Integer where
---     r _ roms 0 = roms
---     r p roms z = case p of
---       1 -> r 2 (d '1' '2' '3' m) z'
---       2 -> r 3 (d '3' '4' '5' m ++ roms) z'
---       3 -> r 4 (d '5' '6' '7' m ++ roms) z'
---       4 -> replicate z '7' ++ roms
---       where (z',m) = divMod z 10
---     d i j k c =
---       [[],[i],[i,i],[i,i,i],[i,j],[j],[j,i],[j,i,i],[j,i,i,i],[i,k]] !! c
 
 -- instance OEIS 61509 where
 --   oeisIx n = product $ zipWith (^)
@@ -9525,14 +8186,6 @@ instance OEIS 61430 where
 --   rowT n = map (oeisIx n) [1..n]
 --   tabl = map (rowT @61857) [1..]
 
-instance OEIS 61862 where
-  oeis = filter f [0..] where
-     f x = g x 0 where
-       g 0 v = v == x
-       g u v = if d <= 1 then g u' (v + d) else v <= x && h 1
-               where h p = p <= x && (g u' (v + p) || h (p * d))
-                     (u', d) = divMod u 10
-
 -- instance OEIS 61883 where
 --   oeis = 1 : zipWith (-) (tail (oeis @60985)) (oeis @60985)
 
@@ -9544,11 +8197,6 @@ instance OEIS 61862 where
 
 -- instance OEIS 61909 where
 --   oeis = filter (\x -> (oeisIx @4086) (x^2) == (oeisIx x)^2) [0..]
-
-instance OEIS 61917 where
-  oeis = filter chi [0..] where
-     chi x = zs == reverse zs where
-        zs = dropWhile (== '0') $ reverse $ show $ fi x
 
 -- instance OEIS 61984 where
 --   oeis = 0 : map (+ 1) (zipWith (+)
@@ -9605,17 +8253,6 @@ instance OEIS 61917 where
 -- instance OEIS 62060 where
 --   oeis = map (+ 1) $ elemIndices 10 (oeis @78719)
 
-instance OEIS 62090 where
-  oeis = f [1, 3 ..] [] where
-     f (x:xs) ys = g x ys where
-       g _ []     = x : f xs (x : ys)
-       g 1 _      = f xs ys
-       g z (v:vs) = g (z `div` gcd z v) vs
-
-instance OEIS 62097 where
-  oeis = 1 : f 1 1 where
-     f u v = w : f (u + w) (v * w) where w = u + v
-
 -- instance OEIS 62113 where
 --   oeis = 1 : 2 : zipWith (+)
 --      (tail (oeis @62113)) (zipWith (*) (oeis @34) (oeis @62113))
@@ -9669,9 +8306,6 @@ instance OEIS 62097 where
 --   oeisIx n = head [x | x <- map (* n) [1..],
 --                    all (`elem` "02468") $ show x, (oeisIx @136522) (oeisIx x) == 1]
 
-instance OEIS 62296 where
-  oeisIx = sum . map ((1 -) . signum) . (rowT @83093)
-
 -- instance OEIS 62298 where
 --   oeis = scanl1 (+) $ map (1 -) (oeis @10051)
 
@@ -9702,10 +8336,6 @@ instance OEIS 62296 where
 
 -- instance OEIS 62373 where
 --   oeis = filter ((== 2) . (oeisIx @34380)) [1..]
-
-instance OEIS 62383 where
-  oeis = 1 : zs where
-     zs = 2 : (map (* 2) $ concat $ transpose [zs, zs])
 
 -- instance OEIS 62401 where
 --   oeisIx = (oeisIx @10) . (oeisIx @203)
@@ -9801,11 +8431,6 @@ instance OEIS 62383 where
 --   oeisIx 1 = 0
 --   oeisIx n = sum $ (rowT @163870) (n - 1)
 
-instance OEIS 62880 where
-  oeis = filter f [0..] where
-     f 0 = True
-     f x = (m == 0 || m == 2) && f x'  where (x', m) = divMod x 4
-
 -- instance OEIS 62974 where
 --   oeis = map (+ 1) $ findIndices (< 0) $
 --      zipWith (-) (tail (oeis @1221)) $ map (* 2) (oeis @1221)
@@ -9887,16 +8512,6 @@ instance OEIS 62880 where
 
 -- instance OEIS 63639 where
 --   oeis = [p | p <- (oeis @40), (oeisIx @1222) (p+1) == 3]
-
-instance OEIS 63656 where
-  oeis = f 1 [0..] where
-     f k xs = us ++ f (k + 1) (drop (k - 1) vs) where
-                      (us, vs) = splitAt k xs
-
-instance OEIS 63657 where
-  oeis = f 0 [0..] where
-     f k (_:xs) = us ++ f (k + 1) (drop (k + 1) vs) where
-                          (us, vs) = splitAt k xs
 
 -- instance OEIS 63660 where
 --   oeisIx n = head [m | m <- [n + 1 ..],
@@ -9989,7 +8604,7 @@ instance OEIS 63657 where
 --   oeis = tablList @63995
 -- instance Table 63995 where
 --   rowCol n k = (tabf @63995) !! (n - 1) !! (n-1+k)
---   rowT n = (tabf @63995) !! (n - 1)
+--   rowT   = rowT_off @63995 @1
 --   tabf = [[1], [1, 0, 1]] ++ (map
 --      (\rs -> [1, 0] ++ (init $ tail $ rs) ++ [0, 1]) $ drop 2 $ map
 --      (map length . group . sort . map rank) $ tail pss) where
@@ -10009,16 +8624,6 @@ instance OEIS 63657 where
 -- instance OEIS 64150 where
 --   oeis = filter (\x -> x `mod` (oeisIx @53735) x == 0) [1..]
 
-instance OEIS 64222 where
-  oeis = iterate (oeisIx @4186 . (+ 1)) 0
-
-instance OEIS 64223 where
-  oeis = iterate (\x -> x + ((oeisIx @55642) x)) 1
-
-instance OEIS 64235 where
-  oeis = 1 : zs where
-     zs = 3 : 3 : (map (* 3) $ concat $ transpose [zs, zs, zs])
-
 -- instance OEIS 64236 where
 --   oeisIx = genericLength . show . (oeisIx @1042)
 
@@ -10035,8 +8640,8 @@ instance OEIS 64235 where
 -- instance OEIS 64364 where
 --   oeis = tablList @64364
 -- instance Table 64364 where
---   rowCol n k = (tabf @64364) !! (n - 1) !! (k-1)
---   rowT n = (tabf @64364) !! (n - 1)
+--   rowCol = rowCol_off @64364 @1 @1
+--   rowT   = rowT_off @64364 @1
 --   tabf = [1] : tail (f 1 [] 1 (map (oeisIx @792) [2..])) where
 --      f k pqs v (w:ws) = (map snd pqs') :
 --        f (k + 1) (union pqs'' (zip (map (oeisIx @1414) us) us )) w ws where
@@ -10065,21 +8670,11 @@ instance OEIS 64235 where
 --   oeisIx 1 = 0
 --   oeisIx n = (oeisIx @3434) n - n `mod` 2
 
-instance OEIS 64417 where
-  oeis = 1 : 2 : 3 : f 3 [4..] where
-     f x us = x' : f x' (delete x' us) where
-        x' = head [u | u <- us, gcd u x > 2]
-
 -- instance OEIS 64418 where
 --   oeis = 1 : 2 : 3 : 4 : (f 4 [5..]) where
 --      f :: Integer -> [Integer] -> [Integer]
 --      f x xs = m : (f m $ delete m xs) where
 --         m = head $ dropWhile ((< 4) . (gcd x)) xs
-
-instance OEIS 64419 where
-  oeis = [1,2,3,4,5] ++ f 5 [] [6..] where
-     f z xs (y:ys) | y `gcd` z > 4 = y : f y [] (reverse xs ++ ys)
-                   | otherwise     = f z (y:xs) ys
 
 -- instance OEIS 64426 where
 --   oeis = zipWith (-) (tail (oeis @64413)) (oeis @64413)
@@ -10139,24 +8734,8 @@ instance OEIS 64419 where
 -- instance OEIS 64649 where
 --   oeisIx = sum . (rowT @47916)
 
-instance OEIS 64650 where
-  oeis = 1 : 2 : zipWith (+) (oeis @64650) (map (flip div 2) $ tail (oeis @64650))
-
-instance OEIS 64651 where
-  oeis = 0 : 1 : zipWith (+)
-     (oeis @64651) (map (flip div 2 . (+ 1)) $ tail (oeis @64651))
-
 -- instance OEIS 64654 where
 --   oeis = map length $ group (oeis @195376)
-
-instance OEIS 64657 where
-  oeis = map fromJust $ takeWhile (/= Nothing) zs where
-    z n = fromJust $ zs !! n
-    zs = (map Just [1,1,1,1]) ++ f 4 where
-       f x = y : f (x + 1) where
-         y | 2*x < max i3 i4 = Nothing
-           | otherwise       = Just $ z (abs (x - i3)) + z (abs (x - i4))
-           where i3 = z (x - 3); i4 = z (x - 4)
 
 -- instance OEIS 64664 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @64413))
@@ -10178,10 +8757,6 @@ instance OEIS 64657 where
 -- instance OEIS 64702 where
 --   oeis = filter (\x -> (oeisIx @10888) x == (oeisIx @31347) x) [1..]
 
-instance OEIS 64736 where
-  oeis = 1 : 2 : f 1 2 [3..] where
-     f u v (w:ws) = u' : w : f u' w (delete u' ws) where u' = v * w
-
 -- instance OEIS 64745 where
 --   oeisIx n = fromJust (elemIndex n (oeis @64736)) + 1
 
@@ -10197,11 +8772,6 @@ instance OEIS 64736 where
 
 -- instance OEIS 64800 where
 --   oeisIx n = (oeisIx @1222) n + n
-
-instance OEIS 64801 where
-  oeis = f 1 [1..] where
-     f k xs = us ++ f (k + 1) (drop (k + 1) vs)
-              where (us, vs) = splitAt k xs
 
 -- instance OEIS 64806 where
 --   oeisIx n = n + (oeisIx @10888) n
@@ -10283,13 +8853,6 @@ instance OEIS 64801 where
 -- instance OEIS 65090 where
 --   oeis = map (+ 1) $ elemIndices 0 (oeis @151763)
 
-instance OEIS 65091 where
-  oeis = tail (oeis @40)
-
-instance OEIS 65094 where
-  oeis = 1 : f 1 1 1 where
-     f k s x = y : f (k + 1) (s + y) y where y = x + div s k
-
 -- instance OEIS 65109 where
 --   oeis = tablList @65109
 -- instance Table 65109 where
@@ -10320,14 +8883,6 @@ instance OEIS 65094 where
 --      f x (q:qs) | null (xs \\ sq) && sort xs /= sort sq = y : f y qs
 --                 | otherwise                             = f x qs
 --                 where y = (oeisIx @196) q; sq = show q; xs = show (x * x)
-
-instance OEIS 65305 where
-  oeis = tablList @65305
-instance Table 65305 where
-  rowCol = rowCol_off @65305 @2 @1
-  rowT = rowT_off @65305 @2
-  tabl = zipWith (map . (flip div 2 .) . (+))
-                         (oeis @65091) $ tail $ inits (oeis @65091)
 
 -- instance OEIS 65306 where
 --   oeis = map (subtract 2) $ f (concat (tabl @65305)) [] where
@@ -10385,12 +8940,6 @@ instance Table 65305 where
 -- instance OEIS 65383 where
 --   oeisIx n = head $ dropWhile (< (oeisIx @217) n) (oeis @40)
 
-instance OEIS 65422 where
-  oeis = 1 : 1 : f 2 1 where
-     f n x = x' : f (n+1) x' where
-         x' | x `mod` n == 0 = until ((> 0) . (`mod` n)) (`div` n) x
-            | otherwise      = x * n
-
 -- instance OEIS 65428 where
 --   oeis = filter f [1..] where
 --      f x = all (== 0) $
@@ -10417,10 +8966,6 @@ instance OEIS 65422 where
 --       j <- [0 .. div (n-k) 2]]
 --   rowT n = map (oeisIx n) [2..n]
 --   tabl = map (rowT @65602) [2..]
-
-instance OEIS 65620 where
-  oeis = 0 : fix \(map(*2)->zs) ->
-    1 : concat (transpose [zs, map ((+ 1) . negate) zs])
 
 -- instance OEIS 65621 where
 --   oeisIx (succ->fi->n) = fi do n `xor` 1 * (n - n .&. negate n) :: Integer
@@ -10531,14 +9076,6 @@ instance OEIS 65620 where
 --   oeisIx = product . map (oeisIx @142) .
 --      unfoldr (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 10)
 
-instance OEIS 66484 where
-  oeis = filter h [1..] where
-     h x = notElem '0' xs && length (nub xs) > 1 &&
-           all d (map read $ zipWith (++)
-                 (tail $ tails xs) (tail $ inits xs)) where xs = show (fi x)
-     d u = g u where
-           g v = v == 0 || mod u d == 0 && g v' where (v', d) = divMod v 10
-
 -- instance OEIS 66490 where
 --   oeis = scanl1 (+) $ map (oeisIx @79261) [1..]
 
@@ -10575,10 +9112,6 @@ instance OEIS 66484 where
 
 -- instance OEIS 66664 where
 --   oeis = filter ((== 0) . (oeisIx @10051)) $ tail (oeis @66522)
-
-instance OEIS 66680 where
-  oeis = s [2..] where
-     s (b:bs) = b : s [x | x <- bs, x > b ^ 2 || mod x b > 0]
 
 -- instance OEIS 66681 where
 --   oeis = filter ((== 0) . (oeisIx @10051)) (oeis @66680)
@@ -10626,38 +9159,8 @@ instance OEIS 66680 where
 -- instance OEIS 66839 where
 --   oeisIx = sum . (rowT @161906)
 
-instance OEIS 66853 where
-  oeisIx 0 = 1
-  oeisIx (succ->n) = f 1 ps [] where
-     f 0 (1 : xs) ys = length ys
-     f _ (x : xs) ys = if x `elem` ys then f x xs ys else f x xs (x:ys)
-     ps = 1 : 1 : zipWith (\u v -> (u + v) `mod` n) (tail ps) ps
-
-instance OEIS 66897 where
-  oeisIx = p 0 1 . succ where
-     p o _             0 = o
-     p o k m | m < k     = 0
-             | otherwise = p (o + mod k 2) k (m - k) + p o (k + 1) m
-
-instance OEIS 66898 where
-  oeisIx = p 0 1 . succ where
-     p e _             0 = e
-     p e k m | m < k     = 0
-             | otherwise = p (e + 1 - mod k 2) k (m - k) + p e (k + 1) m
-
-instance OEIS 66926 where
-  oeis = filter f [1..] where
-     f x = elem x $ map sum $ map (map (div x)) $ ps 1 x where
-       ps u 0 = [[]]
-       ps u v = [t:ts | t <- [u..v], t > 1, mod x t == 0, ts <- ps t (v - t)]
-
 -- instance OEIS 66938 where
 --   oeis = map (oeisIx @40) $ filter ((> 0) . (oeisIx @67432)) [1..]
-
-instance OEIS 66949 where
-  oeis = 0 : 1 : f 2 1 0 where
-     f k x x' | z > k     = (z - k) : f (k+1) (z - k) x
-              | otherwise = z : f (k+1) z x where z = x + x'
 
 -- instance OEIS 66955 where
 --   oeisIx n = genericLength [ (x,y,z) | x <- [1 .. (oeisIx @196) (div n 3)],
@@ -10671,27 +9174,10 @@ instance OEIS 66949 where
 --   oeisIx n = product $ zipWith (^)
 --              (oeisIx_row n) (map ((2 -) . (`mod` 2)) $ (rowT @124010) n)
 
-instance OEIS 67016 where
-  oeis = [1,4,3,2] ++ f [2,3,4,1] where
-     f xs = maxi : f (maxi : xs) where
-       maxi = maximum $ zipWith (+) xs (reverse xs)
-
-instance OEIS 67017 where
-  oeis =  [1,4,3,2] ++ f [2,3,4,1] where
-    f xs = mexi : f (mexi : xs) where
-      mexi = head $ [0..] \\ zipWith (+) xs (reverse xs)
-
 -- instance OEIS 67018 where
 --   oeis =  [1,4,3,2] ++ f [2,3,4,1] where
 --     f xs = mexi : f (mexi : xs) where
 --       mexi = head $ [0..] \\ zipWith xor xs (reverse xs) :: Integer
-
-instance OEIS 67043 where
-  oeis = 0 : f 1 1 0 1 where
-     f k x y z
-       | y > 0     = (x-y) : f k x (y `div` 10) z
-       | k < 9     = x : f (k+1) (2*x-k*z+1) (z `div` 10) z
-       | otherwise = x : f 1 (20*z - 1) z (10*z)
 
 -- instance OEIS 67046 where
 --   oeisIx = (`div` 6) . (oeisIx @33931)
@@ -10716,7 +9202,7 @@ instance OEIS 67043 where
 -- instance OEIS 67255 where
 --   oeis = tablList @67255
 -- instance Table 67255 where
---   rowCol n k = (tabf @67255) !! (n - 1) !! (k-1)
+--   rowCol = rowCol_off @67255 @1 @1
 --   rowT 1 = [0]
 --   rowT n = f n (oeis @40) where
 --      f 1 _      = []
@@ -10782,11 +9268,6 @@ instance OEIS 67043 where
 --   oeisIx n = (until ((== 1) . (oeisIx @10052) . (+ 1)) (+ nn) nn) `div` nn
 --               where nn = n ^ 2
 
-instance OEIS 67898 where
-  oeisIx n = f n [0..10] where
-     f x ys | x <= 9    = head $ delete x ys
-            | otherwise = f x' $ delete d ys where (x',d) = divMod x 10
-
 -- instance OEIS 67953 where
 --   oeisIx n = p [1..n] $ (oeisIx @40) n where
 --      p _  0 = 1
@@ -10798,10 +9279,6 @@ instance OEIS 67898 where
 
 -- instance OEIS 67970 where
 --   oeis = zipWith (-) (tail (oeis @14076)) (oeis @14076)
-
-instance OEIS 67998 where
-  oeisIx n = n * (n - 2)
-  oeis = scanl (+) 0 [-1, 1 ..]
 
 -- instance OEIS 68050 where
 --   oeisIx n = genericLength [k | k <- [1..n], (oeisIx @10051) (n `div` k) == 1]
@@ -11115,20 +9592,10 @@ instance OEIS 67998 where
 --   oeisIx n = genericLength [ () | x <- [1..n], y <- [1..x], z <- [1..y],
 --                            (oeisIx @212793) (x*y*z) == 1]
 
-instance OEIS 70165 where
-  oeis = tablList @70165
-instance Table 70165 where
-  rowCol = rowCol_off @70165 @1 @1
-  rowT n = (takeWhile (/= 1) $ iterate (oeisIx @6370) n) ++ [1]
-  tabf = map (rowT @70165) [1..]
-
-instance OEIS 70167 where
-  oeisIx (succ->n) = fromJust (findIndex (elem n) (tabf @70165)) + 1
-
 -- instance OEIS 70168 where
 --   oeis = tablList @70168
 -- instance Table 70168 where
---   rowCol n k = (tabf @70168) !! (n - 1) !! (k-1)
+--   rowCol = rowCol_off @70168 @1 @1
 --   tabf = map (rowT @70168) [1..]
 --   rowT n = (takeWhile (/= 1) $ iterate (oeisIx @14682) n) ++ [1]
 --   oeis = concat (tabf @70168)
@@ -11186,16 +9653,8 @@ instance OEIS 70167 where
 --      (map (oeisIx @70867) $ zipWith (-) [2..] (oeis @70867))
 --      (map (oeisIx @70867) $ zipWith (-) [2..] $ tail (oeis @70867))
 
-instance OEIS 70870 where
-  oeis = 6 : f 6 where
-     f x = y : f y where
-       y = (if even x then 5 * x else x + 1) `div` 2
-
 -- instance OEIS 70883 where
 --   oeis = zipWith xor [1..] (oeis @40)
-
-instance OEIS 70885 where
-  oeis = 1 : map (flip (*) 3 . flip div 2 . (+ 1)) (oeis @70885)
 
 -- instance OEIS 70887 where
 --   oeis = tablList @70887
@@ -11234,9 +9693,6 @@ instance OEIS 70885 where
 --   oeis = 1 : f 1 where
 --      f x = y : f (x + 1) where
 --        y = sum $ zipWith (*) (map (oeisIx @70965) $ (rowT @27750) x) (oeisIx_row x)
-
-instance OEIS 70991 where
-  oeis = filter (\x -> (x - 1) `elem` (rowT @70165) x) [1..]
 
 -- instance OEIS 71032 where
 --   oeis = tablList @71032
@@ -11349,10 +9805,6 @@ instance OEIS 70991 where
 -- instance OEIS 71786 where
 --   oeisIx = product . map (oeisIx @4086) . (rowT @27746)
 
-instance OEIS 71797 where
-  oeis = f $ tail $ inits [1..] where
-     f (xs:_:xss) = xs ++ f xss
-
 -- instance OEIS 71810 where
 --   oeisIx = sum . map (oeisIx @10051)' . map sum .
 --             tail . subsequences . flip take (oeis @40)
@@ -11403,12 +9855,6 @@ instance OEIS 71797 where
 --   tabl = f 1 [1..] where
 --      f k xs = ys : f (k+1) (dropWhile (<= last ys) xs) where
 --        ys  = take k $ filter ((== 1) . (gcd k)) xs
-
-instance OEIS 72007 where
-  oeis = 0 : f 1 0 [1..] where
-     f u v ws = g ws where
-       g (x:xs) = if abs (x - v) < u
-                     then g xs else x : f (u + 1) x (delete x ws)
 
 -- instance OEIS 72010 where
 --   oeisIx 1 = 1
@@ -11478,9 +9924,6 @@ instance OEIS 72007 where
 
 -- instance OEIS 72211 where
 --   oeis = 1 : zipWith div (tail (oeis @217863)) (oeis @217863)
-
--- instance OEIS 72214 where
---   oeisIx = (oeisIx @41) . (oeisIx @45) . (+ 1)
 
 -- instance OEIS 72219 where
 --   oeisIx = (+ 1) . (* 2) . (oeisIx @33264) . subtract 1
@@ -11663,11 +10106,6 @@ instance OEIS 72007 where
 --      f y (p:qs@ (q:ps)) | q == p + 2 = f y ps
 --                        | otherwise  = f (p * y) qs
 
-instance OEIS 72979 where
-  oeis = 1 : f 2 [1] where
-     f z xs = y : f (z + 1) (y : xs) where
-       y = sum $ zipWith (*) xs (map (gcd z) [z - 1, z - 2 ..])
-
 -- instance OEIS 73034 where
 --   oeis = filter (`elem` [2,3,5,7]) (oeis @33308)
 
@@ -11758,11 +10196,6 @@ instance OEIS 72979 where
 -- instance OEIS 73495 where
 --   oeis = filter ((== 3) . (oeisIx @73490)) [1..]
 
-instance OEIS 73533 where
-  oeis = f 1 3 1 where
-     f n p3 x = numerator (y * fi p3) : f (n + 1) (p3 * 3) y
-                where y = z - fi (floor z); z = 4%3 * x
-
 -- instance OEIS 73576 where
 --   oeisIx = p (oeis @5117) where
 --      p _          0 = 1
@@ -11784,11 +10217,6 @@ instance OEIS 73533 where
 
 -- instance OEIS 73703 where
 --   oeisIx n = head [p | p <- (oeis @40), (oeisIx @10051) (p + 2 * (oeisIx @40) n) == 1]
-
-instance OEIS 73707 where
-  oeis = 1 : f 0 0 [1] where
-     f x y zs = z : f (x + y) (1 - y) (z:zs) where
-       z = sum $ zipWith (*) hzs (reverse hzs) where hzs = drop x zs
 
 -- instance OEIS 73708 where
 --   oeis = conv (oeis @73707) [] where
@@ -11866,14 +10294,6 @@ instance OEIS 73707 where
 -- instance OEIS 73890 where
 --   oeisIx n = numerator $ n % (oeisIx @196) n
 
-instance OEIS 73941 where
-  oeis = 1 : f [1] where
-     f xs = x' : f (x':xs) where x' = (1 + sum xs) `div` 2
-
-instance OEIS 74068 where
-  oeis = 1 : 2 : 3 : xs where
-     xs = 10 : 9 : 8 : 7 : 6 : 5 : 4 : map (+ 7) xs
-
 -- instance OEIS 74206 where
 --   oeisIx n | n <= 1 = n
 --   | otherwise = 1 + (sum $ map (oeisIx . (div n)) $
@@ -11881,10 +10301,6 @@ instance OEIS 74068 where
 
 -- instance OEIS 74235 where
 --   oeis = filter ((== 1) . (oeisIx @227481)) [1..]
-
-instance OEIS 74294 where
-  oeis = f $ inits [1..] where
-     f (xs:_:xss) = xs ++ f xss
 
 -- instance OEIS 74394 where
 --   oeis = 1 : 2 : 3 : zipWith (-)
@@ -11975,13 +10391,6 @@ instance OEIS 74294 where
 --   oeisIx n = min (n - last xs) (head ys - n) where
 --      (xs,ys) = span (< n) (oeis @578)
 
-instance OEIS 75075 where
-  oeis = 1 : 2 : f 1 2 [3..]
-    where
-      f z z' xs = g xs
-        where
-          g (u:us) = if (z * u) `mod` z' > 0 then g us else u : f z' u (delete u xs)
-
 -- instance OEIS 75090 where
 --   oeis = filter even (oeis @1597)
 
@@ -12038,9 +10447,6 @@ instance OEIS 75075 where
 --        s1' = s1 `union` fromList
 --              (filter ((== 1) . (oeisIx @10051)') $ map numerator hs)
 --        hs = map (+ 1 % x) $ 0 : toList s
-
-instance OEIS 75193 where
-  oeis = 1 : -3 : zipWith (-) (oeis @75193) (tail (oeis @75193))
 
 -- instance OEIS 75226 where
 --   oeis = f 2 [recip 1] where
@@ -12153,10 +10559,6 @@ instance OEIS 75193 where
 -- instance OEIS 75426 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @75425))
 
-instance OEIS 75427 where
-  oeis = 1 : f 1 1 where
-     f x y = z : f (x + 1) z where z = (1 + x `mod` 2) * y + 1 - x `mod` 2
-
 -- instance OEIS 75432 where
 --   oeis = f [2, 4 ..] where
 --      f (u:vs@ (v:ws)) | (oeisIx @8966) v == 1 = f ws
@@ -12205,22 +10607,8 @@ instance OEIS 75427 where
 -- instance OEIS 75877 where
 --   oeisIx n = if n < 10 then n else (oeisIx @75877) (n `div` 10) ^ (n `mod` 10)
 
-instance OEIS 76039 where
-  oeis = f 1 1 where
-     f n x = x' : f (n+1) x' where
-             x' = (if x < n then (*) else div) x n
-
-instance OEIS 76050 where
-  oeis = 2 : f [2] where
-     f xs = (drop (length xs) xs') ++ (f xs') where
-       xs' = concatMap ((enumFromTo 2) . (+ 1)) xs
-
 -- instance OEIS 76052 where
 --   oeis = scanl1 (+) $ map (oeisIx @6460) [1..]
-
-instance OEIS 76132 where
-  oeis = 1 : f [1] where
-     f xs = y : f (y : xs) where y = sum $ zipWith (^) xs [1..]
 
 -- instance OEIS 76191 where
 --   oeis = zipWith (-) (tail (oeis @1222)) (oeis @1222)
@@ -12234,10 +10622,6 @@ instance OEIS 76132 where
 
 -- instance OEIS 76271 where
 --   oeis = iterate (oeisIx @70229) 1
-
-instance OEIS 76338 where
-  oeisIx = (+ 1) . (* 512)
-  oeis = [1,513..]
 
 -- instance OEIS 76339 where
 --   oeis = filter ((== 1) . (oeisIx @10051)) [1,513..]
@@ -12277,10 +10661,6 @@ instance OEIS 76338 where
 --                     | m == x ^ 4  = f xs s
 --                     | otherwise = m : f xs' (insert (m * b, b) s')
 --                     where ((m, b), s') = deleteFindMin s
-
-instance OEIS 76478 where
-  oeis = concat $ tail $ map (tail . reverse . unfoldr
-     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 2 )) [1..]
 
 -- instance OEIS 76479 where
 --   oeisIx = (oeisIx @8683) . (oeisIx @7947)
@@ -12326,10 +10706,6 @@ instance OEIS 76478 where
 --   oeisIx 1 = 1
 --   oeisIx n = if null qs then 0 else head qs
 --               where qs = filter ((> 0) . (oeisIx @37213) . subtract 1 . (* n)) [1..n]
-
-instance OEIS 76974 where
-  oeis = 2 : s [3, 5 ..] where
-     s (x:xs) = x : s [z | z <- xs, mod z x /= 2]
 
 -- instance OEIS 77039 where
 --   oeis = scanl1 (+) (oeis @73579)
@@ -12377,12 +10753,6 @@ instance OEIS 76974 where
 -- instance OEIS 77267 where
 --   oeisIx n = (oeisIx @79978) n + if n < 3 then 0 else (oeisIx @77267) (n `div` 3)
 
-instance OEIS 77477 where
-  oeis = f [1..] where
-     f (x:xs) = x : f (delete (2*x + 1) $ delete (3*x + 1) xs)
-
-
-
 -- instance OEIS 77558 where
 --   oeis = tablList @77558
 -- instance Table 77558 where
@@ -12408,14 +10778,6 @@ instance OEIS 77477 where
 --   rowT n = filter
 --      (\d -> d == 1 || null (oeisIx_row d \\ (rowT @213925) n)) $ (rowT @27750) n
 --   tabf = map (rowT @77609) [1..]
-
--- instance OEIS 77610 where
---   oeis = tablList @77610
--- instance Table 77610 where
---   rowCol n k = (rowT @77610) n !! k
---   rowT n = [d | d <- [1..n], let (n',m) = divMod n d,
---                        m == 0, gcd d n' == 1]
---   tabf = map (rowT @77610) [1..]
 
 -- instance OEIS 77623 where
 --   oeis = 1 : 2 : 4 : zipWith3 (\u v w -> abs (w - v - u))
@@ -12462,15 +10824,6 @@ instance OEIS 77477 where
 -- instance OEIS 78065 where
 --   oeis = 1 : zipWith (*) (cycle [-1, 1])
 --      (zipWith (+) (map (* 2) (oeis @5251)) (map (* 3) $ drop 2 (oeis @5251)))
-
--- instance OEIS 78125 where
---   import Data.MemoCombinators (memo2, list, integral)
---   oeisIx n = (oeis @78125) !! n
---   oeis = f [1] where
---      f xs = (p' xs $ last xs) : f (1 : map (* 3) xs)
---      p' = memo2 (list integral) integral p
---      p _ 0 = 1; p [] _ = 0
---      p ks'@ (k:ks) m = if m < k then 0 else p' ks' (m - k) + p' ks m
 
 -- instance OEIS 78134 where
 --   oeisIx = p $ drop 2 (oeis @290) where
@@ -12521,9 +10874,6 @@ instance OEIS 77477 where
 
 -- instance OEIS 78248 where
 --   oeisIx n = head [x | x <- tail (oeis @97256), mod x n == 0]
-
--- instance OEIS 78310 where
---   oeisIx n = n * (oeisIx @7947) n + 1
 
 -- instance OEIS 78311 where
 --   oeisIx = (oeisIx @20639) . (oeisIx @78310)
@@ -12577,15 +10927,6 @@ instance OEIS 77477 where
 -- instance OEIS 78358 where
 --   oeis = filter ((== 0) . (oeisIx @5369)) [0..]
 
--- instance OEIS 78408 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @78408) !! n
---   oeis = f 1 where
---      f x = (p' 1 x) : f (x + 2)
---      p' = memo2 integral integral p
---      p _ 0 = 1
---      p k m = if m < k then 0 else p' k (m - k) + p' (k + 2) m
-
 -- instance OEIS 78430 where
 --   oeisIx = sum . (rowT @245717)
 
@@ -12635,18 +10976,6 @@ instance OEIS 77477 where
 --      m xs'@ (x:xs) ys'@ (y:ys) | x < y     = x : m xs ys'
 --                              | x == y    = x : m xs ys
 --                              | otherwise = y : m xs' ys
-
-instance OEIS 78783 where
-  oeis = oeis78783
-
-instance OEIS 117073 where
-  oeis = oeis117073
-
-(oeis78783, (oeis117073)) = unzip $
-    (0,0) : (1,1) : (3,2) : f 3 2 (2:[4..]) where
-    f a d ms@ (m:_) = (a', d') : f a' d' (delete a' ms) where
-      (a', d') = if i > d then (m, i) else (a + d + 1, d + 1)
-      i = a - m
 
 -- instance OEIS 78812 where
 --   oeis = tablList @78812
@@ -12716,17 +11045,8 @@ instance OEIS 117073 where
 --      f x ps = q : f q qs where
 --        (q:qs) = dropWhile (\p -> (oeisIx @75802) (p - x) == 0 || p - x == 1) ps
 
--- instance OEIS 79066 where
---   oeisIx n =
---      length $ filter (`isInfixOf` (primesDec !! n)) $ take n primesDec
---   primesDec = "_" : map show (oeis @40)
-
 -- instance OEIS 79070 where
 --   oeisIx n = genericLength $ elemIndices (oeisIx n) $ map (oeisIx @23416) [1..n - 1]
-
-instance OEIS 79079 where
-  oeis = map (`div` 4) $
-                 zipWith (*) (oeis @8864) $ tail (oeis @8864)
 
 -- instance OEIS 79080 where
 --   oeisIx n = (oeisIx @79079) n `gcd` (oeisIx @23523) (n + 1)
@@ -12775,12 +11095,6 @@ instance OEIS 79079 where
 
 -- instance OEIS 79095 where
 --   oeis = filter ((== 1) . (oeisIx @8966)) (oeis @79079)
-
-instance OEIS 79122 where
-  oeisIx n = p [1..n] (2 * n) where
-     p _  0     = 1
-     p [] _     = 0
-     p (k:ks) m = if m < k then 0 else p ks (m - k) + p ks m
 
 -- instance OEIS 79124 where
 --   oeisIx n = p [1 .. (oeisIx @10) n] n where
@@ -12838,10 +11152,6 @@ instance OEIS 79122 where
 --   oeisIx n = (oeis @79695) !! (n - 1)
 --   oeis = [1..] `minus` (oeis @2180)
 
-instance OEIS 79878 where
-  oeis = 1 : zipWith (\x n -> if x <= n then x else x - n)
-                             (map (* 2) (oeis @79878)) [2..]
-
 -- instance OEIS 79890 where
 --   oeisIx n = head [x | x <- [n + 1 ..], (oeisIx @1222) x == 1 + (oeisIx @1222) n]
 
@@ -12898,10 +11208,6 @@ instance OEIS 79878 where
 --   rowT n = map (oeisIx n) [0..n]
 --   tabl = map (rowT @80099) [0..]
 
-instance OEIS 80100 where
-  oeis =  1 : zs where
-     zs =  1 : (concat $ transpose [map (* 2) zs, zs])
-
 -- instance OEIS 80170 where
 --   oeis = filter f [1..] where
 --      f x = foldl1 gcd (map (flip (oeisIx @7318)' x) [2*x, 3*x .. x* (x+1)]) == 1
@@ -12912,8 +11218,8 @@ instance OEIS 80100 where
 -- instance OEIS 80237 where
 --   oeis = tablList @80237
 -- instance Table 80237 where
---   rowCol n k = (tabf @80237) !! (n - 1) !! (k-1)
---   rowT n = (tabf @80237) !! (n - 1)
+--   rowCol = rowCol_off @80237 @1 @1
+--   rowT   = rowT_off @80237 @1
 --   tabf = [1] : f (tabf @80237) where
 --      f [[]] =[]
 --      f (xs:xss) = concatMap (enumFromTo 1 . (+ 1)) xs : f xss
@@ -12929,10 +11235,6 @@ instance OEIS 80100 where
 --                              | x == y = x : m xs ys
 --                              | x > y  = y : m xs' ys
 
-instance OEIS 80342 where
-  oeis = 0 : zs where
-     zs = 1 : 1 : (map (+ 1) $ concat $ transpose [zs, zs, zs])
-
 -- instance OEIS 80367 where
 --   oeisIx n = if null us then 0 else fst $ last us
 --     where us = filter ((== 1) . snd) $ zip (oeisIx_row n) (oeisIx_row n)
@@ -12941,15 +11243,11 @@ instance OEIS 80342 where
 --   oeisIx n = if null us then 0 else fst $ head us
 --     where us = filter ((== 1) . snd) $ zip (oeisIx_row n) (oeisIx_row n)
 
-instance OEIS 80425 where
-  oeisIx = (`mod` 3) . (3 -) . (`mod` 3)
-  oeis = cycle [0, 2, 1]
-
 -- instance OEIS 80444 where
 --   oeis = tablList @80444
 -- instance Table 80444 where
---   rowCol n k = (tabf @80444) !! (n - 1) !! (k-1)
---   rowT n = (tabf @80444) !! (n - 1)
+--   rowCol = rowCol_off @80444 @1 @1
+--   rowT   = rowT_off @80444 @1
 --   tabf = zipWith replicate (oeis @1055) [1..]
 --   oeis = concat (tabf @80444)
 
@@ -12957,10 +11255,6 @@ instance OEIS 80425 where
 --   oeis = 1 : f 1 [2..] where
 --      f x (y:ys) | (oeisIx @10051) (x*x + y*y) == 1 = y : (f y ys)
 --                 | otherwise                = f x ys
-
-instance OEIS 80512 where
-  oeisIx (succ->n) = if m == 0 then 3 * n' else n  where (n', m) = divMod n 2
-  oeis = concat $ transpose [[1, 3 ..], [3, 6 ..]]
 
 -- instance OEIS 80578 where
 --   oeis = 1 : f 2 [1] where
@@ -13048,9 +11342,6 @@ instance OEIS 80512 where
 -- instance Table 80742 where
 --   rowCol n k = (oeis @80742) !! n
 
-instance OEIS 80757 where
-  oeisIx = (subtract 1) . (oeisIx @7538)
-
 -- instance OEIS 80764 where
 --   oeis = tail $ zipWith (-) (tail (oeis @49472)) (oeis @49472)
 
@@ -13120,12 +11411,6 @@ instance OEIS 80757 where
 --   tabl  = iterate
 --      (\row -> (map ((+ 1) . (* 2)) row) ++ [4 * (head row) + 1]) [1]
 --   oeis = concat (tabl @81118)
-
-instance OEIS 81145 where
-  oeis = 1 : f 1 [2..] [] where
-     f x vs ws = g vs where
-       g (y:ys) = if z `elem` ws then g ys else y : f y (delete y vs) (z:ws)
-                  where z = abs (x - y)
 
 -- instance OEIS 81146 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @81145))
@@ -13246,14 +11531,11 @@ instance OEIS 81145 where
 --   oeis = 0 : 1 : concat
 --      (zipWith (\u v -> [u, u + v]) (tail (oeis @82498)) (oeis @82498))
 
-instance OEIS 82500 where
-  oeis = concat $ transpose [[1..], (oeis @40)]
-
 -- instance OEIS 82560 where
 --   oeis = tablList @82560
 -- instance Table 82560 where
---   rowCol n k = (tabf @82560) !! (n - 1) !! (k-1)
---   rowT n = (tabf @82560) !! (n - 1)
+--   rowCol = rowCol_off @82560 @1 @1
+--   rowT   = rowT_off @82560 @1
 --   tabf = iterate (concatMap (\x -> [x + 1, 2 * x + 2])) [1]
 --   oeis = concat (tabf @82560)
 
@@ -13319,18 +11601,9 @@ instance OEIS 82500 where
 --                  p' = (oeisIx @151800) p; q' = (oeisIx @151800) q
 --                  ((y, p, q), s') = deleteFindMin s
 
-instance OEIS 82977 where
-  oeis = [0, 1, 3, 5, 6, 8, 10] ++ map (+ 12) (oeis @82977)
-
 -- instance OEIS 83025 where
 --   oeisIx 1 = 0
 --   oeisIx n = genericLength [x | x <- (rowT @27746) n, mod x 4 == 1]
-
-instance OEIS 83093 where
-  oeis = tablList @83093
-instance Table 83093 where
-  tabl = iterate
-     (\ws -> zipWith (\u v -> mod (u + v) 3) ([0] ++ ws) (ws ++ [0])) [1]
 
 -- instance OEIS 83207 where
 --   oeis = filter (z 0 0 . (rowT @27750)) $ [1..] where
@@ -13388,10 +11661,6 @@ instance Table 83093 where
 --      f k chips = (sum chin) : f (k - 1) chips' where
 --        (chin,chips') = splitAt n chips
 --   tabl = map (rowT @83415) [1..]
-
-instance OEIS 83416 where
-  oeis = 1 : f 2 1 where
-     f x y = z : f (x+1) z where z = (1 + x `mod` 2) * y + 1 - x `mod` 2
 
 -- instance OEIS 83479 where
 --   oeis = m [0..] (oeis @33638) where
@@ -13465,24 +11734,12 @@ instance OEIS 83416 where
 -- instance OEIS 84198 where
 --   oeis = map (oeisIx @40) $ filter ((== 1) . (oeisIx @84196)) [1..]
 
-instance OEIS 84214 where
-  oeis = 1 : xs where
-     xs = 1 : 4 : zipWith (+) (map (* 2) xs) (tail xs)
-
-instance OEIS 84338 where
-  oeis = [1,2,3] ++ zipWith (+) (oeis @84338) (tail (oeis @84338))
-
 -- instance OEIS 84345 where
 --   oeis = filter ((== 0) . (oeisIx @10051)' . (oeisIx @120)) [0..]
 
 -- instance OEIS 84349 where
 --   oeis = 1 : filter (\x -> all (== 0) $ map (oeisIx . (x -)) $
 --                              takeWhile (<= x) (oeis @290)) (oeis @5117)
-
-instance OEIS 84385 where
-  oeis = 1 : f [2..] 1 where
-     f xs s = g xs where
-       g (y:ys) = if gcd s y == 1 then y : f (delete y xs) (s + y) else g ys
 
 -- instance OEIS 84471 where
 --   oeisIx 1 = 1
@@ -13519,15 +11776,6 @@ instance OEIS 84385 where
 
 -- instance OEIS 84933 where
 --   oeisIx n = (fromJust $ elemIndex n (oeis @84937)) + 1
-
-instance OEIS 84937 where
-  oeis = 1 : 2 : f 2 1 [3..] where
-     f x y zs = g zs where
-        g (u:us) | gcd y u > 1 || gcd x u > 1 = g us
-                 | otherwise = u : f u x (delete u zs)
-
-instance OEIS 84964 where
-  oeis = concat $ transpose [[2..], [0..]]
 
 -- instance OEIS 85079 where
 --   oeisIx n = product $ zipWith (^) (oeisIx_row n) (sort $ (rowT @124010) n)
@@ -13572,7 +11820,7 @@ instance OEIS 84964 where
 --   oeis = tablList @85612
 -- instance Table 85612 where
 --   rowCol n k = (rowT @85612) n !! (k-1)
---   rowT n = (tabf @85612) !! (n - 1)
+--   rowT   = rowT_off @85612 @1
 --   tabf = f 0 $ zip [1..] (oeis @46523) where
 --      f x zs'@ (z:zs) = (map fst ys) : f (x + 1) (zs' \\ ys) where
 --        ys = z : take x (filter ((== snd z) . snd) zs)
@@ -13748,37 +11996,12 @@ instance OEIS 84964 where
 --             | otherwise = head ps
 --             where ps = tail $ reverse $ (rowT @27746) n
 
-instance OEIS 87057 where
-  oeis = f [2..] where
-     f (x:xs) = x : f (us ++ vs) where (us, _ : vs) = splitAt (x - 1) xs
-
-instance OEIS 87069 where
-  oeisIx =
-     sum . unfoldr (\x -> if x == 0 then Nothing else Just (x, x `div` 4))
-
 -- instance OEIS 87112 where
 --   oeis = tablList @87112
 -- instance Table 87112 where
 --   rowCol = rowCol_off @87112 @1 @1
 --   rowT n = map (* last ps) ps where ps = take n (oeis @40)
 --   tabl = map (rowT @87112) [1..]
-
-instance OEIS 87116 where
-  oeisIx 0 = 1
-  oeisIx n = f 0 n where
-     f y 0 = y
-     f y x = if r == 0 then g x' else f y x'
-             where (x', r) = divMod x 2
-                   g z = if r == 0 then g z' else f (y + 1) z'
-                         where (z', r) = divMod z 2
-
-instance OEIS 87117 where
-  oeisIx 0       = 1
-  oeisIx n
-    | null $ zs n = 0
-    | otherwise   = maximum $ map length $ zs n where
-    zs = filter ((== 0) . head) . group .
-         unfoldr (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 2)
 
 -- instance OEIS 87188 where
 --   oeisIx = p (oeis @5117) where
@@ -13787,9 +12010,6 @@ instance OEIS 87117 where
 
 -- instance OEIS 87207 where
 --   oeisIx = sum . map ((2 ^) . (subtract 1) . (oeisIx @49084)) . (rowT @27748)
-
-instance OEIS 87226 where
-  oeisIx = foldl1 lcm . (rowT @70165) . succ
 
 -- instance OEIS 87279 where
 --   oeis = 0 : 2 : f (drop 2 (oeis @290))
@@ -13840,10 +12060,6 @@ instance OEIS 87226 where
 --      p ks'@ (k:ks) m | m < k     = 0
 --                     | otherwise = p ks' (m - k) + p ks m
 
-instance OEIS 87960 where
-  oeisIx n = (-1) ^ (n * (n + 1) `div` 2)
-  oeis = cycle [1,-1,-1,1]
-
 -- instance OEIS 87980 where
 --   oeis = 1 : filter f [2..] where
 --      f x = isPrefixOf ps (oeis @40) && all (< 0) (zipWith (-) (tail es) es)
@@ -13852,8 +12068,8 @@ instance OEIS 87960 where
 -- instance OEIS 88208 where
 --   oeis = tablList @88208
 -- instance Table 88208 where
---   rowCol n k = (tabf @88208) !! (n - 1) !! (k-1)
---   rowT n = (tabf @88208) !! (n - 1)
+--   rowCol = rowCol_off @88208 @1 @1
+--   rowT   = rowT_off @88208 @1
 --   tabf = iterate f [1] where
 --      f vs = (map (subtract 1) ws) ++ reverse ws where ws = map (* 2) vs
 
@@ -13863,12 +12079,6 @@ instance OEIS 87960 where
 -- instance OEIS 88226 where
 --   oeis = 0 : 0 : 1 : zipWith3 (\u v w -> abs (w - v - u))
 --                  (oeis @88226) (tail (oeis @88226)) (drop 2 (oeis @88226))
-
-instance OEIS 88230 where
-  oeis = 0 : f [1..] [0] where
-     f (x:xs) ys@ (y:_)
-      | x <= y && (length $ filter (== z) ys) <= 1 = z : f xs (z : ys)
-      | otherwise = (x + y) : f xs ((x + y) : ys)  where z = y - x
 
 -- instance OEIS 88314 where
 --   oeisIx = sum . concat . ps 1 where
@@ -13901,10 +12111,6 @@ instance OEIS 88230 where
 
 
 
-instance OEIS 88567 where
-  oeis = 1 : tail xs where
-     xs = 0 : 1 : zipWith (+) xs (tail $ concat $ transpose [xs, tail xs])
-
 -- instance OEIS 88580 where
 --   oeisIx = (+ 1) . (oeisIx @203)
 
@@ -13924,10 +12130,6 @@ instance OEIS 88567 where
 --   oeisIx = p $ tail (oeis @10785) where
 --      p _      0 = 1
 --      p (k:ks) m = if m < k then 0 else p ks (m - k) + p ks m
-
-instance OEIS 88696 where
-  oeis = f [1] where
-     f (x:xs) = x : f (xs ++ [x + 1 - x `mod` 2, x + x `mod` 2])
 
 -- instance OEIS 88707 where
 --   oeisIx = (+ 1) . (oeisIx @1358)
@@ -13966,23 +12168,10 @@ instance OEIS 88696 where
 -- instance OEIS 88957 where
 --   oeisIx = sum . (rowT @88956)
 
-instance OEIS 88961 where
-  oeis = concat $ concat $ map f [1..] where
-     f x = take x $ g (take x (1 : [0,0..])) where
-       g us = (take x $ g' us) : g (0 : init us)
-       g' vs = last $ take (2 * x + 1) $
-                      map snd $ iterate h (0, vs ++ reverse vs)
-     h (p,ws) = (1 - p, drop p $ zipWith (+) ([0] ++ ws) (ws ++ [0]))
-
 -- instance OEIS 89072 where
 --   oeisIx = flip (^)
 --   oeisIx_row n = map (oeisIx n) [1..n]
 --   oeisIx_tabl = map (rowT @89072) [1..]
-
-instance OEIS 89088 where
-  oeis = 1 : 2 : f [3..] [1,2] where
-    f xs ys = y : f (delete y xs) (y : ys) where
-      y = head $ filter (\z -> any (> 1) $ map (gcd z) ys) xs
 
 -- instance OEIS 89189 where
 --   oeisIx n = (oeis @97375) !! (n - 1)
@@ -13993,10 +12182,6 @@ instance OEIS 89088 where
 
 -- instance OEIS 89224 where
 --   oeisIx = (oeisIx @23416) . (oeisIx @23416)
-
-instance OEIS 89229 where
-  oeis = f (oeis @18252) $ tail (oeis @290) where
-     f (u:us) vs'@ (v:vs) = if u < v then u : f us vs' else f us vs
 
 -- instance OEIS 89233 where
 --   oeisIx n = sum $ [oeisIx $ gcd u v | let ds = tail $ (rowT @27750) n,
@@ -14042,12 +12227,6 @@ instance OEIS 89229 where
 
 -- instance OEIS 89648 where
 --   oeis = filter ((<= 1) . abs . (oeisIx @37861)) [0..]
-
-instance OEIS 89781 where
-  oeis = 1 : f [1..] 1 where
-     f xs y = g xs where
-       g (z:zs) = if gcd y z == 1 then y' : f (delete z xs) y' else g zs
-                  where y' = y + z
 
 -- instance OEIS 89898 where
 --   oeisIx n = if n < 10 then n + 1 else (d + 1) * (oeisIx @89898) n'
@@ -14130,11 +12309,6 @@ instance OEIS 89781 where
 --                        | qy < x    = h 1 ppys
 --                        | otherwise = x : f xs
 
-instance OEIS 90529 where
-  oeis = f 1 1 0 where
-    f w v u = if u <= w then v : f w v (u+1) else v' : f (w*v') v' (u+1)
-              where v' = v + 1
-
 -- instance OEIS 90582 where
 --   oeis = tablList @90582
 -- instance Table 90582 where
@@ -14148,27 +12322,6 @@ instance OEIS 90529 where
 --      (zipWith (+) (drop 2 $ map (* 2) zs) (map (* 8) zs))
 --      where zs = zipWith (+) (oeis @90597) $ tail (oeis @90597)
 
-instance OEIS 90633 where
-  oeisIx (succ->n) = numerator z where
-     [z] = (until ((== 1) . length) avg) $ map (1 %) [1..n]
-     avg xs = zipWith (\x x' -> (x + x') / 2) (tail xs) xs
-
-instance OEIS 90634 where
-  oeisIx (succ->n) = denominator z where
-     [z] = (until ((== 1) . length) avg) $ map (1 %) [1..n]
-     avg xs = zipWith (\x x' -> (x + x') / 2) (tail xs) xs
-
-instance OEIS 90636 where
-  oeis = iterate (oeisIx @3415) 15
-
-instance OEIS 90771 where
-  oeis = 1 : 9 : map (+ 10) (oeis @90771)
-
-instance OEIS 90794 where
-  oeisIx = genericLength . filter odd . map (length . group) . ps 1 . succ where
-     ps x 0 = [[]]
-     ps x y = [t:ts | t <- [x..y], ts <- ps t (y - t)]
-
 -- instance OEIS 90824 where
 --   oeis = tablList @90824
 -- instance Table 90824 where
@@ -14181,11 +12334,6 @@ instance OEIS 90794 where
 -- instance OEIS 90826 where
 --   oeis = map (sum . zipWith (*) (oeis @45) . reverse) $
 --                      tail $ inits (oeis @108)
-
-instance OEIS 90895 where
-  oeis = 1 : f 2 1 where
-     f x y = z : f (x + 1) z where
-          z = if m == 0 then y' else x + y; (y',m) = divMod y 2
 
 -- instance OEIS 91050 where
 --   oeisIx = sum . map (oeisIx @75802) . (rowT @27750)
@@ -14222,43 +12370,16 @@ instance OEIS 90895 where
 -- instance OEIS 91633 where
 --   oeis = filter ((== 1) . (oeisIx @10051)') (oeis @136333)
 
-instance OEIS 91856 where
-  oeis = 1 : f 1 1 [2..] where
-     f s z xs = g xs where
-       g (u:us) = if gcd u z - s /= 1 then u : f (1 - s) u us else g us
-
-instance OEIS 91857 where
-  oeis = 1 : f 1 1 [2..] where
-     f 1 z xs = g xs where
-       g (u:us) = if gcd u z == 1 then u : f 0 u (delete u xs) else g us
-     f 0 z xs = h xs where
-       h (v:vs) = if gcd v z /= 1 then v : f 1 v (delete v xs) else h vs
-
 -- instance OEIS 91871 where
 --   oeis = f [1..] (oeis @40) where
 --      f (i:is) (p:ps) = if (null $ show p `intersect` "024568")
 --                           then i : f is ps else f is ps
-
-instance OEIS 91998 where
-  oeis = 1 : 11 : map (+ 12) (oeis @91998)
-
-instance OEIS 91999 where
-  oeis = 2 : 10 : map (+ 12) (oeis @91999)
-
-instance OEIS 92038 where
-  oeis = 1 : zipWith (\u v -> v + (v `mod` 2) ^ (u `mod` v))
-                             [2..] (oeis @92038)
 
 -- instance OEIS 92206 where
 --   oeis = filter ((== 0) . (oeisIx @214295)) [1..]
 
 -- instance OEIS 92246 where
 --   oeis = filter odd (oeis @69)
-
-instance OEIS 92306 where
-  oeisIx = genericLength . filter even . map (length . group) . ps 1 where
-     ps x 0 = [[]]
-     ps x y = [t:ts | t <- [x..y], ts <- ps t (y - t)]
 
 -- instance OEIS 92392 where
 --   oeis = tablList @92392
@@ -14267,17 +12388,8 @@ instance OEIS 92306 where
 --   rowT   = rowT_off   @92392 @1
 --   tabl = map reverse (tabl @46899)
 
-instance OEIS 92401 where
-  oeis = f [1..] where
-     f (x:xs) = x : x' : f (delete x' xs) where x' = 3*x
-
 -- instance OEIS 92495 where
 --   oeisIx n = fromJust $ find ((== 0) . (`mod` n)) $ (oeis @142)
-
-instance OEIS 92525 where
-  oeisIx (succ->n) = f n n where
-     f x y = if m == 0 then f x' (2 * y + 1) else y
-             where (x', m) = divMod x 2
 
 -- instance OEIS 92539 where
 --   oeis = scanl1 (\v d -> 2 * v + d) $ oeis @51023
@@ -14314,16 +12426,6 @@ instance OEIS 92525 where
 
 -- instance OEIS 92954 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @92953))
-
--- instance OEIS 93017 where
---   oeisIx n = if n == 0 then 0 else (oeisIx @93017) n' + (oeisIx @7953) (2 * t) + d
---               where (n', td) = divMod n 100; (t, d) = divMod td 10
-
--- instance OEIS 93018 where
---   oeis = filter ((== 1) . (oeisIx @249832)) [0..]
-
--- instance OEIS 93019 where
---   oeisIx = flip mod 10 . (oeisIx @93018)
 
 -- instance OEIS 93020 where
 --   oeis = filter ((== 0) . (oeisIx @93019)) [0..]
@@ -14393,13 +12495,6 @@ instance OEIS 92525 where
 --   oeis = f ([2..7] ++ [8,14..]) [] where
 --      f (x:xs) ys = if all (== 1) $ map (oeisIx . (+ x)) ys
 --                       then x : f xs ((x+1):ys) else f xs ys
-
-instance OEIS 93506 where
-  oeis = 1 : 2 : f 1 [1] [3,5..] [4,6..]
-     where f 0 (z:zs) odds evens = orun ++ f 1 (zs ++ orun) odds' evens
-             where (orun, odds') = splitAt z odds
-           f 1 (z:zs) odds evens = erun ++ f 0 (zs ++ erun) odds evens'
-             where (erun, evens') = splitAt z evens
 
 -- instance OEIS 93560 where
 --   oeis = tablList @93560
@@ -14492,10 +12587,6 @@ instance OEIS 93506 where
 --      where r 0 = Nothing
 --            r x = Just ([0,1,5,10,50,100,500,1000] !! fromInteger d, x')
 --                  where (x', d) = divMod x 10
-
-instance OEIS 93820 where
-  oeis = 1 : f [2..] [1] where
-     f (x:xs) ys = y : f xs (y:ys) where y = sum $ map (gcd x) ys
 
 -- instance OEIS 93873 where
 --   {-# LANGUAGE ViewPatterns #-}
@@ -14600,13 +12691,6 @@ instance OEIS 93820 where
 -- instance OEIS 94784 where
 --   oeis = [x | x <- [0..], (oeisIx @10052) x == 0, (oeisIx @10057) x == 0]
 
-instance OEIS 94912 where
-  oeisIx n = a 2 n where
-     a s 0 = 0 ^ s
-     a s x = a (t s b) x' where (x',b) = divMod x 2
-     t 2 0 = 2; t 2 1 = 1; t 1 0 = 0; t 1 1 = 2; t 0 0 = 2; t 0 1 = 0
-
-
 -- instance OEIS 95048 where
 --   oeisIx = genericLength . group . sort . concatMap show . (rowT @27750)
 
@@ -14637,19 +12721,6 @@ instance OEIS 94912 where
 --   rowT   = rowT_off   @95195 @1
 --   tabl = f (oeis @40) [] where
 --      f (p:ps) xs = ys : f ps ys where ys = scanl (-) p xs
-
-instance OEIS 95258 where
-  oeis = 1 : f [2..] 1 where
-     f xs z = g xs where
-       g (y:ys) = if mod z' y > 0 then g ys else y : f (delete y xs) (z + y)
-       z' = z + 2
-
-instance OEIS 95259 where
-  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @95258)) . succ
-
-instance OEIS 95344 where
-  oeis = tail xs where
-     xs = 1 : 1 : 1 : zipWith (-) (map (* 5) $ zipWith (+) (tail xs) xs) xs
 
 -- instance OEIS 95381 where
 --   oeis = map (+ 1) $ elemIndices 1 $ map (oeisIx @209229) (oeis @25586)
@@ -14709,8 +12780,8 @@ instance OEIS 95344 where
 -- instance OEIS 96008 where
 --   oeis = tablList @96008
 -- instance Table 96008 where
---   rowCol n k = (tabf @96008) !! (n - 1) !! (k-1)
---   rowT n = (tabf @96008) !! (n - 1)
+--   rowCol = rowCol_off @96008 @1 @1
+--   rowT   = rowT_off @96008 @1
 --   tabf = [0] : map (0 :) (tabf @46071)
 
 -- instance OEIS 96095 where
@@ -14737,11 +12808,6 @@ instance OEIS 95344 where
 -- instance OEIS 96165 where
 --   oeis = filter ((== 1) . (oeisIx @10055) . (oeisIx @1222)) $ tail (oeis @961)
 
-instance OEIS 96258 where
-  oeisIx = p (oeis @18252) where
-     p _      0 = 1
-     p (k:ks) m = if m < k then 0 else p ks (m - k) + p ks m
-
 -- instance OEIS 96268 where
 --   oeisIx = (subtract 1) . (oeisIx @56832) . (+ 1)
 
@@ -14764,10 +12830,6 @@ instance OEIS 96258 where
 
 -- instance OEIS 96494 where
 --   oeisIx = (* 2) . (oeisIx @6)
-
-instance OEIS 96535 where
-  oeis = 1 : 1 : f 2 1 1 where
-     f n x x' = y : f (n+1) y x where y = mod (x + x') n
 
 -- instance OEIS 96777 where
 --   oeis = 1 : zipWith (+) (oeis @96777)
@@ -14808,13 +12870,6 @@ instance OEIS 96535 where
 --       | otherwise = f (zz + 2 * bz + 1) (bz + 1, 2) m
 --       where (xx, (bx, be)) = findMin m
 
-instance OEIS 97062 where
-  oeis = concat $ transpose [oeis @5408, (-1) : (oeis @5408)]
-
-instance OEIS 97065 where
-  oeisIx n = n' - 2 * m where (n', m) = divMod (n + 2) 2
-  oeis = concat $ transpose [[1 ..], [-1 ..]]
-
 -- instance OEIS 97133 where
 --   oeis = 1 : 2 : 4 : zipWith (+)
 --                  (map (* 2) $ tail (oeis @97133)) (oeis @97133)
@@ -14833,8 +12888,8 @@ instance OEIS 97065 where
 -- instance OEIS 97343 where
 --   oeis = tablList @97343
 -- instance Table 97343 where
---   rowCol n k = (tabf @97343) !! (n - 2) !! (k-1)
---   rowT n = (tabf @97343) !! (n - 2)
+--   rowCol = rowCol_off @97343 @2 @1
+--   rowT   = rowT_off @97343 @2
 --   tabf =
 --      map (\p -> map (flip legendreSymbol p) [1..p]) $ tail (oeis @40)
 --   legendreSymbol a p = if a' == 0 then 0 else twoSymbol * oddSymbol where
@@ -14940,12 +12995,6 @@ instance OEIS 97065 where
 --   oeisIx 0  = 0
 --   oeisIx n  = fromJust (oeisIx n `elemIndex` (rowT @227048) n) + 1
 
-instance OEIS 98311 where
-  oeis = 1 : ys where
-     ys = 2 : f ys [3..] where
-          f (v:vs) ws = us ++ f vs (ws \\ us) where
-            us = take 2 $ filter ((== 1) . (gcd v)) ws
-
 -- instance OEIS 98312 where
 --   oeisIx = (oeisIx @98311) . (oeisIx @98311)
 
@@ -14962,35 +13011,14 @@ instance OEIS 98311 where
 -- instance OEIS 98430 where
 --   oeisIx n = (oeisIx @302) n * (oeisIx @984) n
 
-instance OEIS 98548 where
-  oeis = 1 : 2 : 3 : f 2 3 [4..] where
-     f u v (w:ws) = if gcd u w > 1 && gcd v w == 1
-                       then w : f v w ws else f u v ws
-
 -- instance OEIS 98549 where
 --   oeisIx = (oeisIx @98548) . (oeisIx @98548)
-
-instance OEIS 98550 where
-  oeis = 1 : 2 : 3 : f 2 3 [4..] where
-     f u v ws = g ws where
-       g (x:xs) = if gcd x u > 1 && gcd x v == 1
-                     then x : f v x (delete x ws) else g xs
-
-instance OEIS 98551 where
-  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @98550)) . succ
-
-instance OEIS 98552 where
-  oeisIx = (oeisIx @98550) . pred . (oeisIx @98550)
 
 -- instance OEIS 98553 where
 --   oeisIx = (oeisIx @98551) . (oeisIx @98551)
 
 -- instance OEIS 98565 where
 --   oeis = map (+ 2 ) $ elemIndices 3 (oeis @59233)
-
-instance OEIS 98700 where
-  oeis = filter
-     (\z -> all (/= z) $ map (oeisIx @3415) [1 .. (oeisIx @2620) z]) [2..]
 
 -- instance OEIS 98743 where
 --   oeisIx n = p [nd | nd <- [1..n], mod n nd /= 0] n where
@@ -15013,15 +13041,6 @@ instance OEIS 98700 where
 
 -- instance OEIS 98842 where
 --   oeis = map length $ group (oeis @60384)
-
-instance OEIS 98859 where
-  oeisIx = p 0 [] 1 where
-     p m ms _      0 = if m `elem` ms then 0 else 1
-     p m ms k x
-       | x < k       = 0
-       | m == 0      = p 1 ms k (x - k) + p 0 ms (k + 1) x
-       | m `elem` ms = p (m + 1) ms k (x - k)
-       | otherwise   = p (m + 1) ms k (x - k) + p 0 (m : ms) (k + 1) x
 
 -- instance OEIS 98884 where
 --   oeisIx = p (oeis @7310) where
@@ -15053,15 +13072,6 @@ instance OEIS 98859 where
 --   oeis = [m | m <- [1..],
 --                       (oeisIx @10051)' (m - 1) == 0 && (oeisIx @10051)' (m + 1) == 0]
 
-instance OEIS 99054 where
-  oeis = 1 : concatMap fromJust (zipWith stripPrefix ass $ tail ass)
-     where ass = iterate f [1]
-           f xs = concat $ concat $ transpose [map g $ e xs, map h $ o xs]
-           g 1 = [1,2,3]; g 2 = [2,3,1]; g 3 = [3,1,2]
-           h 1 = [3,2,1]; h 2 = [1,3,2]; h 3 = [2,1,3]
-           e [] = []; e [x] = [x]; e (x:_:xs) = x : e xs
-           o [] = []; o [x] = []; o (_:x:xs) = x : o xs
-
 -- instance OEIS 99188 where
 --   oeisIx = (* 2) . (oeisIx @49474)
 
@@ -15082,14 +13092,6 @@ instance OEIS 99054 where
 
 -- instance OEIS 99249 where
 --   oeis = scanl1 (+) $ map ((0 ^) . (subtract 1)) (oeis @99244)
-
-instance OEIS 99267 where
-  oeis = f 1 [1..] 0 where
-     f k xs y = ys' ++ f (k+1) (ys ++ xs') g where
-       ys' = dropWhile (< y) ys
-       (ys,_:xs') = span (< g) xs
-       g = xs !! (h - 1)
-       h = xs !! (k - 1)
 
 -- instance OEIS 99302 where
 --   oeisIx n = genericLength $ filter (== n) $ map (oeisIx @3415) [1 .. (oeisIx @2620) n]
@@ -15116,9 +13118,6 @@ instance OEIS 99267 where
 
 -- instance OEIS 99425 where
 --   oeisIx = sum . (rowT @102413)
-
-instance OEIS 99427 where
-  oeis = 1 : map (+ 1) (zipWith gcd [2..] (oeis @99427))
 
 -- instance OEIS 99542 where
 --   oeis = filter (rhonda 10) [1..]
@@ -15150,14 +13149,6 @@ instance OEIS 99427 where
 --   oeisIx n = product $ zipWith f (oeisIx_row n) (oeisIx_row n)
 --      where f 2 e = e - 1; f 3 e = 1; f _ e = e + 1
 
-instance OEIS 99773 where
-  oeisIx = p (oeis @65091) where
-     p _      0 = 1
-     p ks'@ (k:ks) m = if m < k then 0 else p ks' (m - k) + p ks m
-
-instance OEIS 99774 where
-  oeisIx = (oeisIx @5) . pred . (oeisIx @5408)
-
 -- instance OEIS 99848 where
 --   oeis = concat $ zipWith replicate (oeis @8480) [1..]
 
@@ -15168,9 +13159,6 @@ instance OEIS 99774 where
 --   oeis = map (flip div 2) $ tail $ zipWith (+)
 --      (zipWith (*) (oeis @40) $ map (subtract 1) $ tail (oeis @40))
 --      (zipWith (*) (map (subtract 1) (oeis @40)) $ tail (oeis @40))
-
-instance OEIS 99920 where
-  oeis = zipWith (*) [1..] (oeis @45)
 
 -- instance OEIS 99959 where
 --   oeis = tablList @99959
@@ -15251,30 +13239,6 @@ instance OEIS 99920 where
 -- instance OEIS 100440 where
 --   oeisIx = genericLength . (rowT @200741)
 
-instance OEIS 100471 where
-  oeisIx 0 = 1
-  oeisIx n = p 0 (n + 1) 1 n where
-     p m m' k x | x == 0    = if m < m' || m == 0 then 1 else 0
-                | x < k     = 0
-                | m == 0    = p 1 m' k (x - k) + p 0 m' (k + 1) x
-                | otherwise = p (m + 1) m' k (x - k) +
-                              if m < m' then p 0 m (k + 1) x else 0
-
-instance OEIS 100484 where
-  oeis = map (* 2) (oeis @40)
-
-instance OEIS 100587 where
-  oeisIx = (subtract 1) . (2 ^) . (oeisIx @5)
-
-instance OEIS 100617 where
-  oeisIx = f 2 . succ where
-     f k x = if x' == 0 then x else f (k + 1) (x - x') where x' = div x k
-
-instance OEIS 100618 where
-  oeisIx (succ->n) = f 2 n where
-     f k n | n' == 0   = n
-           | otherwise = f (k+1) (n-n') where n' = div n (k^2)
-
 -- instance OEIS 100678 where
 --   oeisIx = genericLength . (rowT @247765)
 
@@ -15317,14 +13281,6 @@ instance OEIS 100618 where
 -- instance Table 100861 where
 --   tabf = zipWith take (oeis @8619) (tabl @144299)
 
-instance OEIS 100881 where
-  oeisIx = p 0 0 1 where
-     p m m' k x | x == 0    = if m > m' || m == 0 then 1 else 0
-                | x < k     = 0
-                | m == 0    = p 1 m' k (x - k) + p 0 m' (k + 1) x
-                | otherwise = p (m + 1) m' k (x - k) +
-                              if m > m' then p 0 m (k + 1) x else 0
-
 -- instance OEIS 100892 where
 --   oeisIx n = (2 * n - 1) `xor` (2 * n + 1)
 --   oeis = zipWith xor (tail (oeis @5408)) (oeis @5408)
@@ -15363,13 +13319,6 @@ instance OEIS 100881 where
 --   oeis = filter (rhonda 16) $ iterate z 1 where
 --      z x = 1 + if r < 15 then x else 16 * z x' where (x', r) = divMod x 16
 
--- instance OEIS 100995 where
---   oeisIx n = f 0 n where
---      f e 1 = e
---      f e x = if r > 0 then 0 else f (e + 1) x'
---              where (x', r) = divMod x p
---      p = (oeisIx @20639) n
-
 -- instance OEIS 101035 where
 --   oeisIx n = product $ zipWith f (oeisIx_row n) (oeisIx_row n) where
 --      f p 1 = 1 - 2 * p
@@ -15394,8 +13343,8 @@ instance OEIS 100881 where
 -- instance OEIS 101211 where
 --   oeis = tablList @101211
 -- instance Table 101211 where
---   rowCol n k = (tabf @101211) !! (n - 1) !! (k-1)
---   rowT n = (tabf @101211) !! (n - 1)
+--   rowCol = rowCol_off @101211 @1 @1
+--   rowT   = rowT_off @101211 @1
 --   tabf = map (reverse . map length . group) $ tail (tabf @30308)
 
 -- instance OEIS 101265 where
@@ -15419,10 +13368,6 @@ instance OEIS 100881 where
 --                       + century `div` 4 - 2 * century) `mod` 7
 --          where (century, y) = divMod year 100
 
-instance OEIS 101369 where
-  oeis = f [1..] where
-     f (x:xs) = x : y : f (delete y xs) where y = xs !! (x - 1)
-
 -- instance OEIS 101402 where
 --   oeisIx = genericIndex (oeis @101402)
 --   oeis = 0 : 1 : zipWith ((+) `on` (oeisIx @101402))
@@ -15445,9 +13390,6 @@ instance OEIS 101369 where
 
 -- instance OEIS 101624 where
 --   oeisIx = sum . zipWith (*) (oeis @79) . map (flip mod 2) . (rowT @11973)
-
-instance OEIS 101881 where
-  oeis = scanl1 (+) $ intersperse 1 [1..]
 
 -- instance OEIS 102251 where
 --   oeis = 1 : (map (* 2) $
@@ -15499,41 +13441,6 @@ instance OEIS 101881 where
 -- instance OEIS 102478 where
 --   oeisIx = flip div 2 . (oeisIx @68700)
 
-instance OEIS 102487 where
-  oeis = filter (all (< 10) . unfoldr (\x ->
-     if x == 0 then Nothing else Just $ swap $ divMod x 12)) [0..]
-
-instance OEIS 102488 where
-  oeis = filter (any (> 9) . unfoldr (\x ->
-     if x == 0 then Nothing else Just $ swap $ divMod x 12)) [1..]
-
-instance OEIS 102489 where
-  oeis = mapMaybe dhex [0..] where
-     dhex 0                         = Just 0
-     dhex x | d > 9 || y == Nothing = Nothing
-            | otherwise             = Just $ 16 * fromJust y + d
-            where (x', d) = divMod x 16; y = dhex x'
-
-instance OEIS 102490 where
-  oeis = filter (any (> 9) . unfoldr
-     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 16)) [0..]
-
-instance OEIS 102491 where
-  oeis = filter (all (<= 9) . unfoldr
-     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 20)) [0..]
-
-instance OEIS 102492 where
-  oeis = filter (any (> 9) . unfoldr
-     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 20)) [0..]
-
-instance OEIS 102493 where
-  oeis = filter (all (<= 9) . unfoldr
-     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 60)) [0..]
-
-instance OEIS 102494 where
-  oeis = filter (any (> 9) . unfoldr
-     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 60)) [0..]
-
 -- instance OEIS 102661 where
 --   oeis = tablList @102661
 -- instance Table 102661 where
@@ -15549,10 +13456,6 @@ instance OEIS 102494 where
 --        zs = zipWith (+) ([0] ++ xs ++ [0]) $
 --                         zipWith (+) ([0] ++ ys) (ys ++ [0])
 
-instance OEIS 102696 where
-  oeisIx (succ->n) = genericLength $ nub
-     [p + q | p <- genericTake n (oeis @65091), q <- takeWhile (<= p) (oeis @65091)]
-
 -- instance OEIS 102820 where
 --   oeis =  map (sum . (map (oeisIx @10051))) $
 --      zipWith enumFromTo (oeis @100484) (tail (oeis @100484))
@@ -15561,22 +13464,11 @@ instance OEIS 102696 where
 --   oeis = 1 : 1 : zipWith (+)
 --                  (map (* 4) (oeis @102900)) (map (* 3) $ tail (oeis @102900))
 
-instance OEIS 103128 where
-  oeisIx = (oeisIx @196) . (subtract 1) . (* 2) . succ
-
 -- instance OEIS 103147 where
 --   oeisIx = (+ 2) . fromJust . (`elemIndex` (oeis @47160))
 
-instance OEIS 103181 where
-  oeisIx n = foldl f 0 $ reverse $ unfoldr g n where
-     f v d = 10 * v + mod d 2
-     g x = if x == 0 then Nothing else Just $ swap $ divMod x 10
-
 -- instance OEIS 103192 where
 --   oeis = iterate (fromInteger . (oeisIx @102370)) 1
-
-instance OEIS 103215 where
-  oeis = [1,2,5,10,13,17] ++ map (+ 24) (oeis @103215)
 
 -- instance OEIS 103284 where
 --   oeis = tablList @103284
@@ -15592,17 +13484,10 @@ instance OEIS 103215 where
 -- instance OEIS 103340 where
 --   oeisIx = denominator . uhm where uhm n = (n * (oeisIx @34444) n) % (oeisIx n)
 
-instance OEIS 103369 where
-  oeisIx = until (`elem` (oeis @39943)) (oeisIx @3132) . succ
-
 -- instance OEIS 103371 where
 --   oeis = tablList @103371
 -- instance Table 103371 where
 --   tabl = map reverse (tabl @132813)
-
-instance OEIS 103391 where
-  oeis = 1 : ks where
-     ks = concat $ transpose [[2..], ks]
 
 -- instance OEIS 103631 where
 --   oeis = tablList @103631
@@ -15689,10 +13574,6 @@ instance OEIS 103391 where
 --   rowCol = rowCol_off @104887 @1 @1
 --   rowT   = rowT_off   @104887 @1
 --   tabl = map reverse $ tail $ inits (oeis @40)
-
-instance OEIS 104895 where
-  oeis = 0 : concat (transpose [map (negate . (+ 1)) zs, tail zs])
-                 where zs = map (* 2) (oeis @104895)
 
 -- instance OEIS 105025 where
 --   oeisIx n = foldl (.|.) 0 $ zipWith (.&.)
@@ -15790,10 +13671,6 @@ instance OEIS 104895 where
 --   tabl = iterate (\row -> zipWith (+) ([0] ++ tail row ++ [1]) $
 --                                   zipWith (+) ([0] ++ row) (row ++ [0])) [1]
 
-instance OEIS 105801 where
-  oeis = 1 : 2 : fc 2 1 where
-     fc x x' = y : fc y x where y = (oeisIx @6370) (x + x')
-
 -- instance OEIS 105809 where
 --   oeis = tablList @105809
 -- instance Table 105809 where
@@ -15829,35 +13706,8 @@ instance OEIS 105801 where
 --   oeisIx = foldr (\b v -> 2 * v + b) 0 . concatMap
 --      (\bs'@ (b:bs) -> if b == 0 then bs else bs') . group . (rowT @30308)
 
-instance OEIS 106195 where
-  oeis = tablList @106195
-instance Table 106195 where
-  tabl = [1] : [2, 1] : f [1] [2, 1] where
-     f us vs = ws : f vs ws where
-       ws = zipWith (-) (zipWith (+) ([0] ++ vs) (map (* 2) vs ++ [0]))
-                        ([0] ++ us ++ [0])
-
--- instance OEIS 106244 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @106244) !! n
---   oeis = map (p' 1) [0..] where
---      p' = memo2 integral integral p
---      p _ 0 = 1
---      p k m = if m < pp then 0 else p' (k + 1) (m - pp) + p' (k + 1) m
---              where pp = (oeisIx @961) k
-
 -- instance OEIS 106315 where
 --   oeisIx n = n * (oeisIx @5) n `mod` (oeisIx @203) n
-
-instance OEIS 106328 where
-  oeis = 0 : 3 : zipWith (-) (map (* 6) (tail (oeis @106328))) (oeis @106328)
-
-instance OEIS 106370 where
-  oeisIx (succ->n) = f 2 n where
-     f b x = g x where
-       g 0 = b
-       g z = if r == 0 then f (b + 1) n else g z'
-             where (z', r) = divMod z b
 
 -- instance OEIS 106371 where
 --   oeis = map fromJust $ takeWhile (/= Nothing) $ map f [1..] where
@@ -15943,7 +13793,6 @@ instance OEIS 106370 where
 --   oeis = tablList @106831
 -- instance Table 106831 where
 --   rowCol n k = (tabf @106831) !! n !! n
---   rowT n = (tabf @106831) !! n
 --   tabf = map (map (\ (_, _, left, right) -> left * right)) $
 --      iterate (concatMap (\ (x, f, left, right) -> let f' = f * x in
 --      [ (x + 1, f', f', right), (3, 2, 2, left * right)])) [ (3, 2, 2, 1)]
@@ -15975,12 +13824,6 @@ instance OEIS 106370 where
 
 -- instance OEIS 107345 where
 --   oeisIx n = (oeisIx @7318)' (oeisIx n) (oeisIx n)
-
-instance OEIS 107354 where
-  oeisIx n = head $ snd $ until ((== 1) . fst)
-                                 f (2^n, replicate (2^n) 1) where
-     f (len, xs) = (len', scanl1 (+) $ drop len' xs) where
-        len' = len `div` 2
 
 -- instance OEIS 107430 where
 --   oeis = tablList @107430
@@ -16108,11 +13951,6 @@ instance OEIS 107354 where
 --   tabl = zipWith (\v ws -> map (flip div 2 . (* v) . (+ 1)) ws)
 --                          [0..] (tabl @79901)
 
-instance OEIS 108397 where
-  oeisIx 0 = 0
-  oeisIx 1 = 2
-  oeisIx n = n * (n^ (n+1) + n^2 - 2) `div` (2 * (n - 1))
-
 -- instance OEIS 108546 where
 --   oeis =  2 : concat
 --      (transpose [oeis, (oeis @2144)])
@@ -16143,11 +13981,6 @@ instance OEIS 108397 where
 --      f s = y : f (insert (9 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
 --            where ((y, i, j), s') = deleteFindMin s
 
-instance OEIS 108696 where
-  oeis = 1 : sieve' 2 [2..] where
-     sieve' n (x:xs) = x : (sieve' (n+1) $ sieving xs) where
-        sieving xs = (take (n - 1) xs) ++ (sieving $ drop n xs)
-
 -- instance OEIS 108698 where
 --   import Data.Set (singleton, deleteFindMin, insert)
 --   oeisIx n = (oeis @108698) !! (n - 1)
@@ -16158,7 +13991,7 @@ instance OEIS 108696 where
 -- instance OEIS 108730 where
 --   oeis = tablList @108730
 -- instance Table 108730 where
---   rowCol n k = (tabf @108730) !! (n - 1) !! (k-1)
+--   rowCol = rowCol_off @108730 @1 @1
 --   rowT = f . group . reverse . unfoldr
 --      (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 2) where
 --      f [] = []
@@ -16216,10 +14049,6 @@ instance OEIS 108696 where
 
 -- instance OEIS 108906 where
 --   oeis = zipWith (-) (tail (oeis @6899)) (oeis @6899)
-
-instance OEIS 109008 where
-  oeisIx = gcd 4
-  oeis = cycle [4,1,2,1]
 
 -- instance OEIS 109043 where
 --   oeisIx = (lcm 2)
@@ -16358,13 +14187,6 @@ instance OEIS 109008 where
 --      findIndex ((== 0) . (`mod` t)) $ dropWhile (<= t) (oeis @217)
 --      where t = (oeisIx @217) n
 
-instance OEIS 110380 where
-  oeis = drop 1 fn
-      where fn    = 0 : 1 : concat (fn' 2)
-            fn' n = (map (+ones) (drop nv $ take (n + nv) fn)) : (fn' (n+1))
-                    where ones = div (10^n - 1) 9
-                          nv   = div ((n - 1)* (n - 2)) 2
-
 -- instance OEIS 110440 where
 --   oeis = tablList @110440
 -- instance Table 110440 where
@@ -16377,15 +14199,6 @@ instance OEIS 110380 where
 --   oeisIx 1 = 0
 --   oeisIx n = genericLength us - 1 + 2 * length vs where
 --               (us, vs) = span (== 1) $ (rowT @118914) n
-
-instance OEIS 110591 where
-  oeisIx 0 = 1
-  oeisIx n = genericLength $
-     unfoldr (\x -> if x == 0 then Nothing else Just (x, x `div` 4)) n
-
-instance OEIS 110654 where
-  oeisIx = (`div` 2) . (+ 1)
-  oeis = tail (oeis @4526)
 
 -- instance OEIS 110745 where
 --   oeisIx n = read (concat $ transpose [ns, reverse ns]) :: Integer
@@ -16426,9 +14239,6 @@ instance OEIS 110654 where
 -- instance OEIS 111060 where
 --   oeisIx 1 = 0
 --   oeisIx n = sum $ (rowT @265668) n
-
-instance OEIS 111063 where
-  oeis = 1 : zipWith (+) [1..] (zipWith (*) [0..] (oeis @111063))
 
 -- instance OEIS 111133 where
 --   oeisIx = subtract 1 . (oeisIx @9)
@@ -16473,24 +14283,11 @@ instance OEIS 111063 where
 --   tabl = iterate (\xs@ (x:_) -> map (+ 2) (x:xs)) [2]
 --   oeis = concat (tabl @111650)
 
-instance OEIS 111708 where
-  oeisIx 0 = 9
-  oeisIx n = f [] n where
-     f ys 0 = foldl (\v d -> 10 * v + d) 0 $ ys ++ map (9 -) ys
-     f ys x = f (d : ys) x' where (x', d) = divMod x 10
-
 -- instance OEIS 111711 where
 --   oeis = 1 : zipWith (+) (oeis @111711) (oeis @80512)
 
 -- instance OEIS 111712 where
 --   oeis = scanl (+) 1 (oeis @195013)
-
-instance OEIS 111721 where
-  oeis = 1 : 1 : map (+ 5) (zipWith (+) (oeis @111721) (tail (oeis @111721)))
-
-instance OEIS 112310 where
-  oeis = concat fss where
-     fss = [0] : [1] : (map (map (+ 1))) (zipWith (++) fss $ tail fss)
 
 -- instance OEIS 112373 where
 --   oeis = 1 : 1 : zipWith (\u v -> (u^3 + u^2) `div` v)
@@ -16510,16 +14307,11 @@ instance OEIS 112310 where
 -- instance OEIS 112632 where
 --   oeis = scanl1 (+) $ map negate (oeis @134323)
 
-instance OEIS 112765 where
-  oeisIx (succ->n) = fives n 0 where
-     fives n e | r > 0     = e
-               | otherwise = fives n' (e + 1) where (n',r) = divMod n 5
-
 -- instance OEIS 112798 where
 --   oeis = tablList @112798
 -- instance Table 112798 where
---   rowCol n k = (tabf @112798) !! (n - 2) !! (n-1)
---   rowT n = (tabf @112798) !! (n - 2)
+--   rowCol = rowCol_off @112798 @2 @1
+--   rowT   = rowT_off @112798 @2
 --   tabf = map (map (oeisIx @49084)) $ tail (tabf @27746)
 
 -- instance OEIS 112988 where
@@ -16543,20 +14335,6 @@ instance OEIS 112765 where
 
 -- instance OEIS 113646 where
 --   oeisIx n = if n < 3 then 4 else (oeisIx @14683) n
-
-instance OEIS 113801 where
-  oeis = 1 : 13 : map (+ 14) (oeis @113801)
-
-instance OEIS 113963 where
-  oeis = 1 : f 1 [2..] where
-     f z xs = g xs where
-       g (y:ys) = if (y + z) `mod` abs (y - z) > 0
-                     then y : f y (delete y xs) else g ys
-
-instance OEIS 113966 where
-  oeis = 1 : f [2..] [1] where
-     f xs ys'@ (y:ys) = y' : f (delete y' xs) (y':ys') where
-       y' = head [z | z <- xs, y `mod` abs (z - y) > 0]
 
 -- instance OEIS 114102 where
 --   oeisIx n = genericLength $ filter (== 1) $
@@ -16640,11 +14418,6 @@ instance OEIS 113966 where
 --      p _          0 = 1
 --      p ks'@ (k:ks) m = if m < k then 0 else p ks' (m - k) + p ks m
 
-instance OEIS 114851 where
-  oeisIx = open where
-    open n = if n<2 then 0 else
-             1 + open (n - 2) + sum [open i * open (n - 2 - i) | i <- [0..n - 2]]
-
 -- instance OEIS 114897 where
 --   oeis = 1 : f 1 [1] where
 --      f x zs = z : f (x + 1) (z : zs) where
@@ -16683,7 +14456,7 @@ instance OEIS 114851 where
 -- instance OEIS 115627 where
 --   oeis = tablList @115627
 -- instance Table 115627 where
---   rowCol n k = (tabf @115627) !! (n - 2) !! (k-1)
+--   rowCol = rowCol_off @115627 @2 @1
 --   rowT = map (oeisIx @100995) . (rowT @141809) . (oeisIx @142)
 --   tabf = map (rowT @115627) [2..]
 
@@ -16795,17 +14568,6 @@ instance OEIS 114851 where
 -- instance OEIS 117047 where
 --   oeis = [x | k <- [0..], let x = 60 * k + 11, (oeisIx @10051)' x == 1]
 
-instance OEIS 117070 where
-  oeis = tSegments !! 0
-
-instance OEIS 117071 where
-  oeis = tSegments !! 1
-
-instance OEIS 117072 where
-  oeis = tSegments !! 2
-
-tSegments = transpose $ unfoldr (Just . splitAt 3) $ tail (oeis @78783)
-
 -- instance OEIS 117128 where
 --   import Data.Set (singleton, notMember, insert)
 --   oeisIx n = (oeis @117128) !! n
@@ -16883,13 +14645,6 @@ tSegments = transpose $ unfoldr (Just . splitAt 3) $ tail (oeis @78783)
 -- instance OEIS 118139 where
 --   oeis = filter ((> 1) . (oeisIx @52343)) [0..]
 
-instance OEIS 118372 where
-  oeis = sPerfect 1 [] where
-     sPerfect x ss | v > x = sPerfect (x + 1) ss
-                   | v < x = sPerfect (x + 1) (x : ss)
-                   | otherwise = x : sPerfect (x + 1) (x : ss)
-                   where v = sum (filter ((== 0) . mod x) ss)
-
 -- instance OEIS 118416 where
 --   oeis = tablList @118416
 -- instance Table 118416 where
@@ -16924,8 +14679,8 @@ instance OEIS 118372 where
 -- instance OEIS 118914 where
 --   oeis = tablList @118914
 -- instance Table 118914 where
---   rowCol n k = (tabf @118914) !! (n - 2) !! (k-1)
---   rowT n = (tabf @118914) !! (n - 2)
+--   rowCol = rowCol_off @118914 @2 @1
+--   rowT   = rowT_off @118914 @2
 --   tabf = map sort $ tail (tabf @124010)
 
 -- instance OEIS 118954 where
@@ -16962,13 +14717,6 @@ instance OEIS 118372 where
 
 -- instance OEIS 119347 where
 --   oeisIx = genericLength . nub . map sum . tail . subsequences . (rowT @27750)'
-
-instance OEIS 119352 where
-  oeisIx n = f 2 n where
-     f b x = g x where
-       g 0 = b
-       g z = if r == b - 1 then f (b + 1) n else g z'
-             where (z', r) = divMod z b
 
 -- instance OEIS 119354 where
 --   oeisIx = fromJust . (`elemIndex` (oeis @119352))
@@ -17062,26 +14810,6 @@ instance OEIS 119352 where
 -- instance OEIS 121065 where
 --   oeisIx = fromJust . (`elemIndex` (oeis @85513))
 
-instance OEIS 121173 where
-  oeis = f 1 [] where
-     f x ys = y : f (x + 1) (y : ys) where
-       y = if x `elem` ys then sum ys else x + 1
-
-instance OEIS 121216 where
-  oeis = 1 : 2 : f 1 2 [3..] where
-    f x y zs = g zs where
-      g (u:us) = if gcd x u == 1 then h $ delete u zs else g us where
-        h (v:vs) = if gcd y v == 1 then u : v : f u v (zs \\ [u,v]) else h vs
-
-instance OEIS 121217 where
-  oeis = 1 : 2 : 3 : f 2 3 [4..] where
-     f u v xs = g xs where
-       g (w:ws) = if gcd w u > 1 then w : f v w (delete w xs) else g ws
-
-instance OEIS 121262 where
-  oeisIx = (0 ^) . flip mod 4
-  oeis = cycle [1,0,0,0]
-
 -- instance OEIS 121281 where
 --   oeis = tablList @121281
 -- instance Table 121281 where
@@ -17104,19 +14832,6 @@ instance OEIS 121262 where
 --   tabl = iterate
 --      (\xs -> zipWith (+) (xs ++ [0]) (zipWith (*) [1..] ([0] ++ xs))) [1]
 
-instance OEIS 121758 where
-  oeisIx = foldl (\v d -> 10 * v + d) 0 . reverse . unfoldr f . succ where
-     f 0 = Nothing
-     f x | odd d     = Just (- d, x')
-         | otherwise = Just (d, x') where (x', d) = divMod x 10
-
-instance OEIS 121759 where
-  oeisIx = foldl f 0 . reverse . unfoldr d . succ where
-     d 0 = Nothing
-     d x = Just $ swap $ divMod x 10
-     f v d | even d = 10 * v - d
-           | odd  d = 10 * v + d
-
 -- instance OEIS 121924 where
 --   oeisIx (fi->n) = fi $ (oeisIx @7318) b 3 + (n - (oeisIx @7318) b 2) * (b* (b+3) - 2* (n+1)) `div` 4
 --               where b = round $ sqrt $ 2 * fi n + 1/4
@@ -17126,14 +14841,6 @@ instance OEIS 121759 where
 
 -- instance OEIS 122132 where
 --   oeis = filter ((== 1) . (oeisIx @8966) . (oeisIx @265)) [1..]
-
--- instance OEIS 122197 where
---   oeis = tablList @122197
--- instance Table 122197 where
---   rowCol n k = genericIndex (oeisIx_row n) (k - 1)
---   rowT n = genericIndex (tabf @122197) (n - 1)
---   tabf = concat $ transpose [oeisIx_tabl, (tabl @2260)]
---   oeis = concat (tabf @122197)
 
 -- instance OEIS 122366 where
 --   oeis = tablList @122366
@@ -17193,11 +14900,6 @@ instance OEIS 121759 where
 -- instance OEIS 122840 where
 --   oeisIx n = if n < 10 then 0 ^ n else 0 ^ d * (oeisIx n' + 1)
 --               where (n', d) = divMod n 10
-
-instance OEIS 122841 where
-  oeisIx = f 0 . succ where
-     f y x = if r > 0 then y else f (y + 1) x'
-             where (x', r) = divMod x 6
 
 -- instance OEIS 122953 where
 --   oeisIx = genericLength . (rowT @165416)
@@ -17310,11 +15012,6 @@ instance OEIS 122841 where
 --   oeis =
 --      1 : 4 : map (* 3) (zipWith (+) (oeis @125145) (tail (oeis @125145)))
 
-instance OEIS 125203 where
-  oeisIx (succ->n) = genericLength [ () | x <- [1 .. (n + 1) `div` 3],
-                           let (y,m) = divMod (x + n) (4 * x - 1),
-                           x <= y, m == 0]
-
 -- instance OEIS 125217 where
 --   oeis = map (+ 1) $ elemIndices 1 (oeis @125203)
 
@@ -17372,15 +15069,6 @@ instance OEIS 125203 where
 --   oeisIx = genericLength . filter ((== 1) . (oeisIx @10052) . sum) .
 --                             subsequences . enumFromTo 1
 
-instance OEIS 126025 where
-  oeisIx n = h n1s 0 where
-     h us c = if us == nns then c + 1 else h (succ us) (c + g) where
-       g = if and [f x `gcd` f y == f (x `gcd` y) |
-                   x <- [1 .. n - 1], y <- [x + 1 .. n]] then 1 else 0
-       f = (us !!) . subtract 1
-     succ (z:zs) = if z < n then (z + 1) : zs else 1 : succ zs
-     n1s = take n [1, 1 ..]; nns = take n [n, n ..]
-
 -- instance OEIS 126027 where
 --   oeisIx = genericLength . (rowT @30717)
 
@@ -17404,23 +15092,8 @@ instance OEIS 126025 where
 --      f zs (xs:xss) = (length ys) : f (ys `union` zs) xss
 --                      where ys = xs `minus` zs
 
-instance OEIS 126428 where
-  oeis =  magics 1 [] [] where
-     -- magics :: Integer -> [Integer] -> [Integer] -> [Integer]
-     magics n ms tests
-        | tests `intersect` nMinus == [] && tests `intersect` nPlus == []
-        = n : magics (n+1) (n:ms) (nMinus ++ nPlus ++ tests)
-        | otherwise
-        = magics (n+1) ms tests
-        where nMinus = map (n -) ms
-              nPlus  = map (n +) ms
-
 -- instance OEIS 126596 where
 --   oeisIx n = (oeisIx @5810) n * (oeisIx @5408) n `div` (oeisIx @16777) n
-
-instance OEIS 126646 where
-  oeisIx = (subtract 1) . (2 ^) . (+ 1)
-  oeis = iterate ((+ 1) . (* 2)) 1
 
 -- instance OEIS 126684 where
 --   oeis = tail $ m (oeis @695) $ map (* 2) (oeis @695) where
@@ -17436,16 +15109,6 @@ instance OEIS 126646 where
 
 -- instance OEIS 126768 where
 --   oeis = map length $ group (oeis @117872)
-
--- instance OEIS 126796 where
---   import Data.MemoCombinators (memo3, integral, Memo)
---   oeisIx n = (oeis @126796) !! n
---   oeis = map (pMemo 1 1) [0..] where
---      pMemo = memo3 integral integral integral p
---      p _ _ 0 = 1
---      p s k m
---        | k > min m s = 0
---        | otherwise   = pMemo (s + k) k (m - k) + pMemo s (k + 1) m
 
 -- instance OEIS 126869 where
 --   oeisIx n = (rowT @204293) (2*n) !! n
@@ -17489,13 +15152,6 @@ instance OEIS 126646 where
 --   rowCol n k = (rowT @127093) n !! (k-1)
 --   rowT n = zipWith (*) [1..n] $ map ((0 ^) . (mod n)) [1..n]
 --   tabl = map (rowT @127093) [1..]
-
-instance OEIS 127118 where
-  oeisIx n = (oeisIx @40) n * (oeisIx @18252) n
-
-instance OEIS 127324 where
-  oeis = concatMap (concatMap concat .
-                 inits . inits . enumFromTo 0) $ enumFrom 0
 
 -- instance OEIS 127330 where
 --   oeis = tablList @127330
@@ -17604,10 +15260,6 @@ instance OEIS 127324 where
 
 -- instance OEIS 128543 where
 --   oeisIx = sum . (rowT @134239) . subtract 1
-
-instance OEIS 128588 where
-  oeis = 1 : cows where
-                     cows = 2 : 4 : zipWith (+) cows (tail cows)
 
 -- instance OEIS 128630 where
 --   oeis = map (minimum . map (sum . map (gpfs !!))) $ tail pss where
@@ -17727,10 +15379,6 @@ instance OEIS 128588 where
 --   oeis = 1 : zipWith div (tail fs) fs where
 --      fs = map (oeisIx @142) (oeis @124)
 
-instance OEIS 130130 where
-  oeisIx = min 2
-  oeis = 0 : 1 : repeat 2
-
 -- instance OEIS 130321 where
 --   oeis = tablList @130321
 -- instance Table 130321 where
@@ -17768,13 +15416,6 @@ instance OEIS 130130 where
 --      ps + qs         = ps ++ qs
 --      (p:ps) * qs'@ (q:qs) = p * q : ps * qs' + [p] * qs
 --      _ * _               = []
-
-instance OEIS 130658 where
-  oeisIx = (+ 1) . (`div` 2) . (`mod` 4)
-  oeis = cycle [1,1,2,2]
-
-instance OEIS 130665 where
-  oeisIx = sum . map (3 ^) . (`take` (oeis @120)) . (+ 1)
 
 -- instance OEIS 130667 where
 --   oeis = 1 : (concat $ transpose
@@ -17817,9 +15458,6 @@ instance OEIS 130665 where
 --      f v ws = ys : f (v + 1) ys where
 --        ys = take v $ dropWhile (<= last ws) $ nub $ sort $ concatMap h ws
 --      h z = [2 * z, 4 * z + 1, 4 * z' + b] where (z', b) = divMod z 2
-
-instance OEIS 131134 where
-  oeis = 1 : zipWith (\v w -> (v+w) `div` gcd v w) [2..] (oeis @131134)
 
 -- instance OEIS 131205 where
 --   oeis = scanl1 (+) (oeis @123)
@@ -17867,25 +15505,11 @@ instance OEIS 131134 where
 --   oeis = map fst $ iterate f (0, 2) where
 --      f (v, w) = (powerMod 2 v w, w + 1)
 
-instance OEIS 131813 where
-  oeis = 0 : f [[0]] where
-     f xss = y : f (bin y : xss) where
-       y = sum $ map (fi . fromEnum . (flip isInfixOf $ head xss)) xss
-     bin n = if n == 0 then [] else b : bin n' where (n',b) = divMod n 2
-
 -- instance OEIS 131816 where
 --   oeis = tablList @131816
 -- instance Table 131816 where
 --   tabl = map (map (subtract 1)) $
 --      zipWith (zipWith (+)) (tabl @130321) (tabl @59268)
-
-instance OEIS 131835 where
-  oeis = concat $ iterate (concatMap (\x -> map (+ 10 * x) [0..9])) [1]
-
-instance OEIS 132011 where
-  oeisIx = p [1..] . succ where
-     p _  0 = 1
-     p (k:ks) m = if m < k then 0 else p [3 * k ..] (m - k) + p ks m
 
 -- instance OEIS 132080 where
 --   oeis = [x | x <- [2..], all null $
@@ -17893,10 +15517,6 @@ instance OEIS 132011 where
 
 -- instance OEIS 132090 where
 --   oeisIx = (oeisIx @720) . (oeisIx @720)
-
-instance OEIS 132140 where
-  oeis = filter f [1..] where
-     f x = x < 3 && x == 1 || t > 0 && f x' where (x', t) = divMod x 3
 
 -- instance OEIS 132157 where
 --   oeis = (map length) (group (oeis @63882))
@@ -17915,10 +15535,6 @@ instance OEIS 132140 where
 --        g (x:xs) | (oeisIx @10051) (x + u) == 1 = x : f x (delete x vs)
 --                 | otherwise            = g xs
 
-instance OEIS 132171 where
-  oeis = 1 : zs where
-     zs = 3 : 3 : 3 : (map (* 3) $ concat $ transpose [zs, zs, zs])
-
 -- instance OEIS 132188 where
 --   oeisIx 0 = 0
 --   oeisIx n = (oeisIx @132345) n + (oeisIx $ fromInteger n)
@@ -17930,20 +15546,11 @@ instance OEIS 132171 where
 --   oeisIx n = sum $ map (oeisIx @10051)' $
 --               nub $ genericTake n $ map (`mod` n) $ tail (oeis @290)
 
-instance OEIS 132223 where
-  oeis = f 1 [1] where
-     f k xs = ys ++ f (2 * k) ys where
-              ys = concat $ transpose [xs, reverse $ take k [k+1 ..]]
-
 -- instance OEIS 132231 where
 --   oeis = [x | k <- [0..], let x = 30 * k + 7, (oeisIx @10051)' x == 1]
 
 -- instance OEIS 132240 where
 --   oeis = [x | x <- (oeis @175887), (oeisIx @10051) x == 1]
-
-instance OEIS 132273 where
-  oeisIx (succ->n) = sum $ zipWith (!!) coprimess (reverse [0..n - 1]) where
-     coprimess = map (\x -> filter ((== 1) . (gcd x)) [1..]) [1..]
 
 -- instance OEIS 132345 where
 --   oeisIx n = sum $ zipWith (*)
@@ -17958,25 +15565,8 @@ instance OEIS 132273 where
 -- instance Table 132393 where
 --   tabl = map (map abs) (tabl @48994)
 
-instance OEIS 132429 where
-  oeisIx = (3 -) . (* 2) . (`mod` 4)
-  oeis = cycle [3, 1, -1, -3]
-
 -- instance OEIS 132431 where
 --   oeisIx n = (oeisIx @60226) n - (oeisIx @62119) n + (oeisIx @2378) (n - 1)
-
-instance OEIS 132442 where
-  oeis = tablList @132442
-instance Table 132442 where
-  rowCol = rowCol_off @132442 @1 @1
-  rowT   = rowT_off   @132442 @1
-  tabl   = map (map (oeisIx @203 . pred)) (tabl @50873)
-
-instance OEIS 132666 where
-  oeis = 1 : f 1 [2..] where
-     f z xs  = y : f y (delete y xs) where
-       y | head xs > z = 2 * z
-         | otherwise   = z - 1
 
 -- instance OEIS 132678 where
 --   oeis = elemIndices 1 (oeis @96535)
@@ -17991,12 +15581,6 @@ instance OEIS 132666 where
 -- instance OEIS 132739 where
 --   oeisIx n | r > 0     = n
 --             | otherwise = (oeisIx @132739) n' where (n',r) = divMod n 5
-
-instance OEIS 132741 where
-  oeisIx = f 2 1 . succ where
-     f p y x | r == 0    = f p (y * p) x'
-             | otherwise = if p == 2 then f 5 y x else y
-             where (x', r) = divMod x p
 
 -- instance OEIS 132813 where
 --   oeis = tablList @132813
@@ -18033,7 +15617,7 @@ instance OEIS 132741 where
 --   oeis = tablList @133457
 -- instance Table 133457 where
 --   rowCol n k = (tabf @133457) !! (n - 1) !! n
---   rowT n = (tabf @133457) !! (n - 1)
+--   rowT   = rowT_off @133457 @1
 --   tabf = map (fst . unzip . filter ((> 0) . snd) . zip [0..]) $
 --                      tail (tabf @30308)
 
@@ -18048,10 +15632,6 @@ instance OEIS 132741 where
 
 -- instance OEIS 133610 where
 --   oeis = scanl1 (+) (oeis @53616)
-
-instance OEIS 133622 where
-  -- oeisIx n = (1 - m) * n' + 1 where (n', m) = divMod n 2
-  oeis = concat $ transpose [[1, 1 ..], [2 ..]]
 
 -- instance OEIS 133808 where
 --   import Data.Set (singleton, deleteFindMin, insert)
@@ -18144,7 +15724,7 @@ instance OEIS 133622 where
 -- instance OEIS 134640 where
 --   oeis = tablList @134640
 -- instance Table 134640 where
---   rowCol n k = (tabf @134640) !! (n - 1) !! (k-1)
+--   rowCol = rowCol_off @134640 @1 @1
 --   rowT n = sort $
 --      map (foldr (\dig val -> val * n + dig) 0) $ permutations [0 .. n - 1]
 --   tabf = map (rowT @134640) [1..]
@@ -18172,11 +15752,6 @@ instance OEIS 133622 where
 
 -- instance OEIS 135282 where
 --   oeisIx = (oeisIx @7814) . head . filter ((== 1) . (oeisIx @209229)) . (rowT @70165)
-
-instance OEIS 135287 where
-  oeis = 1 : f 1 1 where
-     f x y = z : f (x + 1) z where
-          z = if m == 0 then y' else x + y; (y',m) = divMod y 2
 
 -- instance OEIS 135414 where
 --   oeis = 1 : 1 : zipWith (-) [3..] (map (oeisIx @135414) (oeis @135414))
@@ -18225,18 +15800,12 @@ instance OEIS 135287 where
 --        ys' = zipWith3 (\u v w -> 2 * u - v + 2 * w)
 --                       (ys ++ [0]) (xs ++ [0, 0]) ([0, 0] ++ xs)
 
-instance OEIS 135851 where
-  oeis = -1 : 0 : 1 : zipWith (+) (oeis @135851) (drop 2 (oeis @135851))
-
 -- instance OEIS 136119 where
 --   oeis = f [1..] where
 --      f zs@ (y:xs) = y : f (delete (zs !! y) xs)
 
 -- instance OEIS 136183 where
 --   oeisIx n = sum $ zipWith lcm ps $ tail ps where ps = (rowT @27750) n
-
-instance OEIS 136333 where
-  oeis = filter (null . intersect "024568" . show . fi) [1..]
 
 -- instance OEIS 136400 where
 --   oeisIx 0 = 0
@@ -18264,9 +15833,6 @@ instance OEIS 136333 where
 -- instance OEIS 136495 where
 --   oeisIx n = (fromJust $ n `elemIndex` tail (oeis @5374)) + 1
 
--- instance OEIS 136522 where
---   oeisIx n = fromEnum $ n == (oeisIx @4086) n
-
 -- instance OEIS 136572 where
 --   oeis = tablList @136572
 -- instance Table 136572 where
@@ -18291,12 +15857,6 @@ instance OEIS 136333 where
 --      m xs'@ (x:xs) ys'@ (y:ys) | x < y = x : m xs ys'
 --                              | otherwise = y : m xs' ys
 
-instance OEIS 137564 where
-  oeisIx = f (-1) where
-     f _ 0 = 0
-     f r x = if d == r then f r x' else 10 * f d x' + d
-             where (x', d) = divMod x 10
-
 -- instance OEIS 137580 where
 --   oeisIx = genericLength . nub . show . (oeisIx @142)
 
@@ -18306,10 +15866,6 @@ instance OEIS 137564 where
 -- instance OEIS 137613 where
 --   oeis =  filter (> 1) (oeis @132199)
 
-instance OEIS 137921 where
-  oeisIx (succ->n) = genericLength $ filter (> 0) $
-     map ((mod n) . (+ 1)) [d | d <- [1..n], mod n d == 0]
-
 -- instance OEIS 137948 where
 --   oeis = tablList @137948
 -- instance Table 137948 where
@@ -18318,9 +15874,6 @@ instance OEIS 137921 where
 -- instance OEIS 138109 where
 --   oeis = filter f [1..] where
 --      f x = p ^ 2 < x && x < p ^ 3 where p = (oeisIx @20639) x
-
-instance OEIS 138166 where
-  oeis = filter (\x -> show (fi $ oeisIx @55642 x) `isInfixOf` show (fi x)) [0..]
 
 -- instance OEIS 138290 where
 --   oeis = map (+ 1) $ tail $ elemIndices 0 (oeis @208083)
@@ -18355,12 +15908,6 @@ instance OEIS 138166 where
 --   oeis = map (head . tail) $
 --      filter (all (== 0) . map (oeisIx @10051) . tail) $ drop 2 (tabl @87401)
 
-instance OEIS 139080 where
-  oeis = 1 : f 1 [2..] where
-    f x zs = g zs where
-      g (y:ys) = if x < y && y `div` x == 2 || x `div` y == 2
-        then y : f y (delete y zs) else g ys
-
 -- instance OEIS 139127 where
 --   oeisIx 1 = 1
 --   oeisIx n = head [y | let z = (oeisIx @5244) n + 1,
@@ -18372,14 +15919,6 @@ instance OEIS 139080 where
 --      where ls = zip (map head zss) (map length zss)
 --            zss = group $ sort ds
 --            ds = map (read . return) $ show n :: [Int]
-
-instance OEIS 139351 where
-  oeisIx = sum . map (`mod` 2) .
-     unfoldr (\x -> if x == 0 then Nothing else Just (x, x `div` 4))
-
-instance OEIS 139352 where
-  oeisIx = sum . map ((`div` 2) . (`mod` 4)) .
-     unfoldr (\x -> if x == 0 then Nothing else Just (x, x `div` 4))
 
 -- instance OEIS 139366 where
 --   oeisIx 1 1               = 0
@@ -18404,10 +15943,6 @@ instance OEIS 139352 where
 -- instance OEIS 139764 where
 --   oeisIx = head . (rowT @35517)
 
-instance OEIS 140081 where
-  oeisIx n = div (mod n 4 + mod n 2) 2
-  oeis = cycle [0, 1, 1, 2]
-
 -- instance OEIS 140119 where
 --   oeisIx = sum . (rowT @95195)
 
@@ -18417,12 +15952,6 @@ instance OEIS 140081 where
 
 -- instance OEIS 140434 where
 --   oeis = 1 : zipWith (-) (tail (oeis @18805)) (oeis @18805)
-
-instance OEIS 140436 where
-  oeis = map (maximum . map length . group . sort . map product) $
-                     tail pss where
-     pss = [] : map p [1..]
-     p u = [u] : [v : ps | v <- [1..u], ps <- pss !! (u - v), v <= head ps]
 
 -- instance OEIS 140470 where
 --   oeis = filter
@@ -18455,8 +15984,8 @@ instance OEIS 140436 where
 -- instance OEIS 140750 where
 --   oeis = tablList @140750
 -- instance Table 140750 where
---   rowCol n k = (tabf @140750) !! (n - 1) !! (k-1)
---   rowT n = (tabf @140750) !! (n - 1)
+--   rowCol = rowCol_off @140750 @1 @1
+--   rowT   = rowT_off @140750 @1
 --   tabf = [1] : [1,1,1] : f [1] [1,1,1] where
 --      f ws vs = vs' : f vs vs' where
 --        vs' = zipWith3 (\r s x -> r + s + x)
@@ -18508,9 +16037,6 @@ instance OEIS 140436 where
 --   rowT   = rowT_off   @141419 @1
 --   tabl = map (scanl1 (+)) (tabl @4736)
 
-instance OEIS 141468 where
-  oeis = 0 : (oeis @18252)
-
 -- instance OEIS 141686 where
 --   oeis = tablList @141686
 -- instance Table 141686 where
@@ -18542,21 +16068,9 @@ instance OEIS 141468 where
 --            map (mod x) $ zipWith (*) (map pred ps) (map succ ps)
 --            where ps = (rowT @27748) x
 
--- instance OEIS 141809 where
---   oeis = tablList @141809
--- instance Table 141809 where
---   rowCol n k = (rowT @141809) n !! (k-1)
---   rowT 1 = [1]
---   rowT n = zipWith (^) (oeisIx_row n) (oeisIx_row n)
---   tabf = map (rowT @141809) [1..]
-
 -- instance OEIS 142149 where
 --   oeisIx :: Integer -> Integer
 --   oeisIx = foldl xor 0 . zipWith (.|.) [0..] . reverse . enumFromTo 1
-
-instance OEIS 142150 where
-  oeisIx = uncurry (*) . (`divMod` 2) . (+ 1)
-  oeis = scanl (+) 0 (oeis @1057)
 
 -- instance OEIS 142151 where
 --   oeisIx :: Integer -> Integer
@@ -18732,10 +16246,6 @@ instance OEIS 142150 where
 --   rowT = rowT_off @144394 @4
 --   tabl = map (drop 2 . reverse . drop 2) $ drop 4 (tabl @7318)
 
-instance OEIS 144396 where
-  oeisIx = (+ 1) . (* 2) . succ
-  oeis = [3, 5 ..]
-
 -- instance OEIS 144582 where
 --   oeis = [x | x <- [0..], (oeisIx @30) x == (oeisIx @30) (x ^ 3)]
 
@@ -18790,15 +16300,6 @@ instance OEIS 144396 where
 --   oeis = f (oeis @40) $ drop 2 (oeis @290) where
 --      f ps'@ (p:ps) xs'@ (x:xs) = if p < x then x : f ps xs' else f ps' xs
 
--- instance OEIS 145513 where
---   import Data.MemoCombinators (memo2, list, integral)
---   oeisIx n = (oeis @145513) !! n
---   oeis = f [1] where
---      f xs = (p' xs $ last xs) : f (1 : map (* 10) xs)
---      p' = memo2 (list integral) integral p
---      p _ 0 = 1; p [] _ = 0
---      p ks'@ (k:ks) m = if m < k then 0 else p' ks' (m - k) + p' ks m
-
 -- instance OEIS 145654 where
 --   oeis = scanl1 (+) $ tail (oeis @918)
 
@@ -18817,10 +16318,6 @@ instance OEIS 144396 where
 --         sub [] = []; sub (v:vs) = [v] : [v : ws | ws <- sub vs ]
 --      bin 0 = []; bin n = b : bin n' where (n', b) = divMod n 2
 
-instance OEIS 145812 where
-  oeis = filter f [1, 3 ..] where
-     f v = v == 0 || even w && f w where w = v `div` 4
-
 -- instance OEIS 145829 where
 --   oeis = map (oeisIx @196) $ filter ((== 1) . (oeisIx @10052)) $ tail (oeis @145768)
 
@@ -18830,11 +16327,6 @@ instance OEIS 145812 where
 -- instance OEIS 146562 where
 --   oeis = map (+ 1) $
 --      findIndices (/= 0) $ zipWith (-) (oeis @64353) $ cycle [1, 3]
-
-instance OEIS 147583 where
-  oeisIx = p [1..] . succ where
-     p _      0 = 1
-     p (k:ks) m = if m < k then 0 else p [5 * k ..] (m - k) + p ks m
 
 -- instance OEIS 147812 where
 --   oeis = map (oeisIx . (+ 1)) $ findIndices (< 0) (oeis @36263)
@@ -18914,9 +16406,6 @@ instance OEIS 147583 where
 -- instance Table 152842 where
 --   tabl = map fst $ iterate f ([1], 3) where
 --      f (xs, z) = (zipWith (+) ([0] ++ map (* z) xs) (xs ++ [0]), 4 - z)
-
-instance OEIS 153727 where
-  oeis = iterate (oeisIx @6370) 1
 
 -- instance OEIS 153733 where
 --   oeisIx n = if b == 0 then n else (oeisIx @153733) n'  where (n', b) = divMod n 2
@@ -19053,26 +16542,12 @@ instance OEIS 153727 where
 -- instance OEIS 157931 where
 --   oeis = filter ((== 1) . (oeisIx @64911)) (oeis @14091)
 
-instance OEIS 157962 where
-  oeis = concat $ map (t 1 {- January -}) [0..] where
-     t 13 _                       = []
-     t m n | h (n+2000) m 13 == 6 = m : n : t (succ m) n
-           | otherwise            = t (succ m) n
-     h year month day
-          | month <= 2 = h  (year - 1)  (month + 12)  day
-          | otherwise  = (day + 26 * (month + 1) `div` 10 + y + y `div` 4
-                         + century `div` 4 - 2 * century) `mod` 7
-            where (century, y) = divMod year 100
-
 -- instance OEIS 157996 where
 --   oeis = map (+ 1) $ filter f (oeis @6093) where
 --      f x = g $ takeWhile (< x) (oeis @65091) where
 --        g []  = False
 --        g [_] = False
 --        g (p:ps@ (_:qs)) = (x - p) `elem` qs || g ps
-
-instance OEIS 158034 where
-  oeis = [x | x <- [1..], (4^x - 2^x + 8*x^2 - 2) `mod` (2*x* (2*x + 1)) == 0]
 
 -- instance OEIS 158036 where
 --   oeisIx = (\x -> (4^x - 2^x + 8*x^2 - 2) `div` (2*x* (2*x + 1))) . (oeisIx @158034)
@@ -19087,31 +16562,11 @@ instance OEIS 158034 where
 --   rowT   = rowT_off   @158405 @1
 --   tabl = map reverse (tabl @99375)
 
-instance OEIS 158459 where
-  oeisIx = (`mod` 4) . negate
-  oeis = cycle [0,3,2,1]
-
-instance OEIS 158478 where
-  oeisIx n = if n < 4 then n else 2 + mod n 2
-  oeis = [0..3] ++ cycle [2,3]
-
-instance OEIS 158582 where
-  oeis = [x | x <- [0..], (oeisIx @23416) x > 1]
-
 -- instance OEIS 159051 where
 --   oeis = map (+ 2) $ elemIndices 0 $ zipWith mod (oeis @45) [2..]
 
-instance OEIS 159477 where
-  oeis = 1 : concat
-     (zipWith (\p q -> genericReplicate (q - p) q)
-              (oeis @8578) $ tail (oeis @8578))
-
 -- instance OEIS 159611 where
 --   oeis = map (+ 2) $ elemIndices 0 (oeis @98006)
-
-instance OEIS 159684 where
-  oeis = 0 : concat (iterate (concatMap s) [1])
-     where s 0 = [0,1]; s 1 = [0,1,0]
 
 -- instance OEIS 159693 where
 --   oeis = scanl1 (+) (oeis @463)
@@ -19134,46 +16589,11 @@ instance OEIS 159684 where
 -- instance OEIS 159918 where
 --   oeisIx = (oeisIx @120) . (oeisIx @290)
 
-instance OEIS 159999 where
-  oeisIx (succ->n) = genericLength $ takeWhile (<= n) $ sort $ (rowT @70165) n
-
-instance OEIS 160000 where
-  oeisIx (succ->n) = p (takeWhile (<= n) $ sort $ (rowT @70165) n) n where
-     p _          0 = 1
-     p []         _ = 0
-     p ks'@ (k:ks) m = if m < k then 0 else p ks' (m - k) + p ks m
-
-instance OEIS 160001 where
-  oeisIx (succ->n) = p (takeWhile (<= n) $ sort $ (rowT @70165) n) n where
-     p _      0 = 1
-     p []     _ = 0
-     p (k:ks) m = if m < k then 0 else p ks (m - k) + p ks m
-
 -- instance OEIS 160113 where
 --   oeisIx = (oeisIx @60431) . (2 ^)
 
 -- instance OEIS 160180 where
 --   oeisIx = (oeisIx @32742) . (oeisIx @2808)
-
-instance OEIS 160239 where
-  oeis = 1 : (concat $
-     transpose [a8, hs, zipWith (+) (map (* 2) hs) a8, tail (oeis @160239)])
-        where a8 = map (* 8) (oeis @160239);
-              hs = h (oeis @160239); h (_:x:xs) = x : h xs
-
-instance OEIS 160256 where
-  oeis = 1 : 2 : f 1 2 [3..] where
-     f u v ws = g ws where
-       g (x:xs) | mod (x * v) u == 0 = x : f v x (delete x ws)
-                | otherwise          = g xs
-
-instance OEIS 160380 where
-  oeisIx = sum . map ((0 ^ ) . (`mod` 4)) .
-     unfoldr (\x -> if x == 0 then Nothing else Just (x, x `div` 4))
-
-instance OEIS 160385 where
-  oeisIx = sum . map (signum . (`mod` 4)) .
-    unfoldr (\x -> if x == 0 then Nothing else Just (x, x `div` 4))
 
 -- instance OEIS 160516 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @75075))
@@ -19243,22 +16663,19 @@ instance OEIS 160385 where
 -- instance OEIS 161764 where
 --   oeisIx n = n - (oeisIx @199238) n
 
-instance OEIS 161896 where
-  oeis = [x | x <- [1..], (9^x - 3*3^x - 4*x) `mod` (2*x* (2*x + 1)) == 0]
-
 -- instance OEIS 161906 where
 --   oeis = tablList @161906
 -- instance Table 161906 where
---   rowCol n k = (tabf @161906) !! (n - 1) !! (k-1)
---   rowT n = (tabf @161906) !! (n - 1)
+--   rowCol = rowCol_off @161906 @1 @1
+--   rowT   = rowT_off @161906 @1
 --   tabf = zipWith (\m ds -> takeWhile ((<= m) . (^ 2)) ds)
 --                          [1..] (oeisIx @27750)_tabf'
 
 -- instance OEIS 161908 where
 --   oeis = tablList @161908
 -- instance Table 161908 where
---   rowCol n k = (tabf @161908) !! (n - 1) !! (k-1)
---   rowT n = (tabf @161908) !! (n - 1)
+--   rowCol = rowCol_off @161908 @1 @1
+--   rowT   = rowT_off @161908 @1
 --   tabf = zipWith
 --                  (\x ds -> reverse $ map (div x) ds) [1..] (tabf @161906)
 
@@ -19302,8 +16719,8 @@ instance OEIS 161896 where
 -- instance OEIS 162741 where
 --   oeis = tablList @162741
 -- instance Table 162741 where
---   rowCol n k = (tabf @162741) !! (n - 1) !! (k-1)
---   rowT n = (tabf @162741) !! (n - 1)
+--   rowCol = rowCol_off @162741 @1 @1
+--   rowT   = rowT_off @162741 @1
 --   tabf = iterate
 --      (\row -> zipWith (+) ([0] ++ row ++ [0]) (row ++ [0,1])) [1]
 
@@ -19330,26 +16747,20 @@ instance OEIS 161896 where
 -- instance OEIS 163271 where
 --   oeisIx = sum . (rowT @128966) . (subtract 1)
 
-instance OEIS 163575 where
-  oeisIx (succ->n) = f n' where
-     f 0 = 0
-     f x = if b == parity then f x' else x  where (x', b) = divMod x 2
-     (n', parity) = divMod n 2
-
 -- instance OEIS 163753 where
 --   oeis = filter ((> 0) . (oeisIx @39997)) [0..]
 
 -- instance OEIS 163870 where
 --   oeis = tablList @163870
 -- instance Table 163870 where
---   rowCol n k = (tabf @163870) !! (n - 1) !! (k-1)
---   rowT n = (tabf @163870) !! (n - 1)
+--   rowCol = rowCol_off @163870 @1 @1
+--   rowT   = rowT_off @163870 @1
 --   tabf = filter (not . null) $ map tail (tabf @27751)
 
 -- instance OEIS 163925 where
 --   oeis = tablList @163925
 -- instance Table 163925 where
---   rowCol n k = (tabf @163925) !! (n - 1) !! (k-1)
+--   rowCol = rowCol_off @163925 @1 @1
 --   tabf = map (rowT @163925) [1..]
 --   rowT n = [k | k <- takeWhile (<= n ^ 2) (oeis @18252),
 --                        let k' = k * n, let divs = (rowT @27750) k',
@@ -19436,8 +16847,8 @@ instance OEIS 163575 where
 -- instance OEIS 165416 where
 --   oeis = tablList @165416
 -- instance Table 165416 where
---   rowCol n k = (tabf @165416) !! (n - 1) !! (k-1)
---   rowT n = (tabf @165416) !! (n - 1)
+--   rowCol = rowCol_off @165416 @1 @1
+--   rowT   = rowT_off @165416 @1
 --   tabf = map (dropWhile (== 0)) $ tail (tabf @119709)
 
 -- instance OEIS 165430 where
@@ -19449,9 +16860,6 @@ instance OEIS 163575 where
 
 -- instance OEIS 165476 where
 --   oeisIx = flip legendreSymbol 131071
-
-instance OEIS 165560 where
-  oeisIx = flip mod 2 . (oeisIx @3415)
 
 -- instance OEIS 165634 where
 --   oeis = concatMap (\x ->
@@ -19473,7 +16881,7 @@ instance OEIS 165560 where
 -- instance OEIS 166133 where
 --   oeis = 1 : 2 : 4 : f (3:[5..]) 4 where
 --      f zs x = y : f (delete y zs) y where
---               y = head $ isect (oeisIx_row' (x ^ 2 - 1)) zs
+--               y = head $ O.isect (rowT @27750 (x ^ 2 - 1)) zs
 
 -- instance OEIS 166234 where
 --   oeisIx = product . map (oeisIx . fi) . (rowT @124010)
@@ -19506,9 +16914,6 @@ instance OEIS 165560 where
 
 -- instance OEIS 166573 where
 --   oeis = filter (("13" `isInfixOf`) . show) (oeis @40)
-
-instance OEIS 166863 where
-  oeis = 1 : zipWith (+) (oeis @166863) (drop 3 $ map (* 2) (oeis @45))
 
 -- instance OEIS 166920 where
 --   oeis = scanl (+) 0 (oeis @14551)
@@ -19582,13 +16987,6 @@ instance OEIS 166863 where
 -- instance OEIS 168036 where
 --   oeisIx n = (oeisIx @3415) n - n
 
-instance OEIS 168183 where
-  oeis = [1..8] ++ map (+ 9) (oeis @168183)
-
-instance OEIS 168184 where
-  oeisIx = (1 -) . (0 ^) . (`mod` 10)
-  oeis = cycle [0,1,1,1,1,1,1,1,1,1]
-
 -- instance OEIS 168223 where
 --   oeisIx n = (oeisIx @6369) n - (oeisIx @6368) n
 
@@ -19632,16 +17030,6 @@ instance OEIS 168184 where
 --        | otherwise = f ts us' vs
 --        where p (q, r) = r == 0 && (oeisIx @10054) q == 1
 
-instance OEIS 169837 where
-  oeis = 3 : ekg 3 (2 : [4..]) where
-     ekg x zs = f zs where
-         f (y:ys) = if gcd x y > 1 then y : ekg y (delete y zs) else f ys
-
-instance OEIS 169849 where
-  oeis = 9 : ekg 9 (delete 9 [2..]) where
-     ekg x zs = f zs where
-         f (y:ys) = if gcd x y > 1 then y : ekg y (delete y zs) else f ys
-
 -- instance OEIS 169936 where
 --   import Data.Map (empty, insertWith, elems)
 --   import Data.Text (unpack); import Data.Maybe (fromJust)
@@ -19681,8 +17069,8 @@ instance OEIS 169849 where
 -- instance OEIS 170949 where
 --   oeis = tablList @170949
 -- instance Table 170949 where
---   rowCol n k = (tabf @170949) !! (n - 1) !! (k-1)
---   rowT n = (tabf @170949) !! (n - 1)
+--   rowCol = rowCol_off @170949 @1 @1
+--   rowT   = rowT_off @170949 @1
 --   tabf = [1] : (map fst $ iterate f ([3,2,4], 3)) where
 --     f (xs@ (x:_), i) = ([x + i + 2] ++ (map (+ i) xs) ++ [x + i + 3], i + 2)
 --   oeis = concat (tabf @170949)
@@ -19706,7 +17094,7 @@ instance OEIS 169849 where
 -- instance OEIS 171637 where
 --   oeis = tablList @171637
 -- instance Table 171637 where
---   rowCol n k = (tabf @171637) !! (n - 2) !! (k-1)
+--   rowCol = rowCol_off @171637 @2 @1
 --   tabf = map (rowT @171637) [2..]
 --   rowT n = reverse $ filter ((== 1) . (oeisIx @10051)) $
 --      map (2 * n -) $ takeWhile (<= 2 * n) (oeis @40)
@@ -19751,14 +17139,6 @@ instance OEIS 169849 where
 --   oeisIx 1 = 0
 --   oeisIx n = head [m | m <- [1..], (oeisIx @120) (m + n - 1) == (oeisIx @120) (n - 1)]
 
-instance OEIS 171946 where
-  oeis = 0 : f [2..] where
-     f (w:ws) = w : f (delete (2 * w - 1) ws)
-
-instance OEIS 171947 where
-  oeis = 1 : f [2..] where
-     f (w:ws) = y : f (delete y ws) where y = 2 * w - 1
-
 -- instance OEIS 171971 where
 --   oeisIx = floor . (/ 4) . (* sqrt 3) . fromInteger . (oeisIx @290)
 
@@ -19788,9 +17168,6 @@ instance OEIS 171947 where
 -- instance Table 173018 where
 --   tabl = map reverse (tabl @123125)
 
-instance OEIS 173019 where
-  oeisIx = foldr (\t v -> 3 * v + t) 0 . (rowT @83093)
-
 -- instance OEIS 173333 where
 --   oeis = tablList @173333
 -- instance Table 173333 where
@@ -19809,7 +17186,7 @@ instance OEIS 173019 where
 --   oeis = tablList @173540
 -- instance Table 173540 where
 --   rowCol n k = (rowT @173540) n !! (k-1)
---   rowT n = (tabf @173540) !! (n - 1)
+--   rowT   = rowT_off @173540 @1
 --   tabf = [0] : [0] : map
 --                  (\v -> [w | w <- [2 .. v - 1], mod v w > 0]) [3..]
 
@@ -19833,12 +17210,6 @@ instance OEIS 173019 where
 
 -- instance OEIS 173927 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` map (+ 1) (oeis @185816))
-
-instance OEIS 173964 where
-  oeis = concat $ [1] : f [[1]] where
-     f xss = yss ++ f yss where
-       yss = [y] : map (++ [y]) xss
-       y = head (head xss) + 1
 
 -- instance OEIS 173990 where
 --   :m Math.Operad
@@ -19870,8 +17241,8 @@ instance OEIS 173964 where
 -- instance OEIS 174382 where
 --   oeis = tablList @174382
 -- instance Table 174382 where
---   rowCol n k = (tabf @174382) !! (n - 1) !! k
---   rowT n = (tabf @174382) !! (n - 1)
+--   rowCol = rowCol_off @174382 @1 @0
+--   rowT   = rowT_off @174382 @1
 --   tabf = iterate f [0] where
 --      f xs = g (xs ++ [0, 0 ..]) [0..] (map head zs) (map length zs)
 --        where g _ _ _ [] = []
@@ -19887,11 +17258,6 @@ instance OEIS 173964 where
 --   oeisIx n = sum $ zipWith3 (((*) .) . (*))
 --                     divs (map (oeisIx @203) $ reverse divs) (map (oeisIx @5) divs)
 --                     where divs = (rowT @27750) n
-
-instance OEIS 174813 where
-  oeis = f [1] where
-     f ds = foldr (\d v -> 10 * v + d) 0 ds : f (s ds)
-     s [] = [1]; s (9:ds) = 1 : s ds; s (d:ds) = 3*d : ds
 
 -- instance OEIS 174863 where
 --   oeis = scanl1 (+) (oeis @76479)
@@ -19947,13 +17313,6 @@ instance OEIS 174813 where
 --     f s = x : f (if even x then insert z s' else insert z $ insert (z+1) s')
 --           where z = 2*x; (x, s') = deleteFindMin s
 
-instance OEIS 175498 where
-  oeis = 1 : f 1 [2..] [] where
-     f x zs ds = g zs where
-       g (y:ys) | diff `elem` ds = g ys
-                | otherwise      = y : f y (delete y zs) (diff:ds)
-                where diff = y - x
-
 -- instance OEIS 175499 where
 --   oeis = zipWith (-) (tail (oeis @175498)) (oeis @175498)
 
@@ -20000,15 +17359,6 @@ instance OEIS 175498 where
 --                      | otherwise = 0 : (f xs (y:ys))
 --   for_bFile = take 10000 (oeis @175880)
 
-instance OEIS 175885 where
-  oeis = 1 : 10 : map (+ 11) (oeis @175885)
-
-instance OEIS 175886 where
-  oeis = 1 : 12 : map (+ 13) (oeis @175886)
-
-instance OEIS 175887 where
-  oeis = 1 : 14 : map (+ 15) (oeis @175887)
-
 -- instance OEIS 175899 where
 --   oeis = 0 : 2 : 3 : 10 : zipWith (+) (map (* 2) (oeis @175899))
 --      (zipWith (+) (tail (oeis @175899)) (drop 2 (oeis @175899)))
@@ -20023,12 +17373,6 @@ instance OEIS 175887 where
 
 -- instance OEIS 175944 where
 --   oeis = concat $ zipWith ($) (map replicate (oeis @18252)) (oeis @18252)
-
-instance OEIS 175965 where
-  oeis = scanl (+) 1 (oeis @8578)
-
-instance OEIS 175967 where
-  oeis = scanl (+) 1 (oeis @18252)
 
 -- instance OEIS 176271 where
 --   oeis = tablList @176271
@@ -20102,9 +17446,6 @@ instance OEIS 175967 where
 -- instance OEIS 178063 where
 --   oeis = scanl1 (+) (oeis @7464)
 
-instance OEIS 178138 where
-  oeis = (iterate (scanl1 (+)) (oeis @40)) !! 4
-
 -- instance OEIS 178156 where
 --   oeis = insert 9 $ insert 8 (oeis @1751)
 
@@ -20115,9 +17456,6 @@ instance OEIS 178138 where
 -- instance OEIS 178212 where
 --   oeis = filter f [1..] where
 --      f x = length (oeisIx_row x) == 3 && any (> 1) (oeisIx_row x)
-
-instance OEIS 178225 where
-  oeisIx n = fi . fromEnum $ n == (oeisIx @30101) n
 
 -- instance OEIS 178318 where
 --   oeis = 2 : 5 : filter f (oeis @62332) where
@@ -20158,13 +17496,6 @@ instance OEIS 178225 where
 -- instance OEIS 178804 where
 --   oeis = concat $ transpose [oeis, (oeis @27)]
 
-instance OEIS 178830 where
-  oeisIx 0 = 0
-  oeisIx (succ->n) = z [1..n] (n * (n + 1) `div` 2) 1 where
-     z []     s p             = fi $ fromEnum (s == p)
-     z (x:xs) s p | s > p     = z xs (s - x) (p * x) + z xs s p
-                  | otherwise = fi $ fromEnum (s == p)
-
 -- instance OEIS 178910 where
 --   oeisIx = foldl1 xor . (rowT @27750) :: Integer -> Integer
 
@@ -20175,30 +17506,10 @@ instance OEIS 178830 where
 -- instance OEIS 178953 where
 --   oeis = filter ((== 0) . (oeisIx @178609)) [1..]
 
-instance OEIS 179051 where
-  oeisIx = p 1 where
-     p _ 0 = 1
-     p k m = if m < k then 0 else p k (m - k) + p (k * 10) m
-
 -- instance OEIS 179242 where
 --   oeis = concatMap h $ drop 3 $ inits $ drop 2 (oeis @45) where
 --      h is = reverse $ map (+ f) fs where
 --             (f:_:fs) = reverse is
-
-instance OEIS 179243 where
-  oeis = filter ((== 3) . (oeisIx @7895)) [1..]
-
-instance OEIS 179244 where
-  oeis = filter ((== 4) . (oeisIx @7895)) [1..]
-
-instance OEIS 179245 where
-  oeis = filter ((== 5) . (oeisIx @7895)) [1..]
-
-instance OEIS 179246 where
-  oeis = filter ((== 6) . (oeisIx @7895)) [1..]
-
-instance OEIS 179247 where
-  oeis = filter ((== 7) . (oeisIx @7895)) [1..]
 
 -- instance OEIS 179248 where
 --   oeis = filter ((== 9) . (oeisIx @7895)) [1..]
@@ -20220,10 +17531,6 @@ instance OEIS 179247 where
 
 -- instance OEIS 179627 where
 --   oeisIx = (+ 1) . (oeisIx @6666) . (oeisIx @40)
-
-instance OEIS 179888 where
-  oeis = 2 : f (oeis @179888) where
-    f (x:xs) = x' : x'' : f (xs ++ [x',x'']) where x' = 4*x+1; x'' = x' + 1
 
 -- instance OEIS 179909 where
 --   oeis = map (oeisIx . (+ 1)) $ elemIndices 1 (oeis @79066)
@@ -20333,11 +17640,6 @@ instance OEIS 179888 where
 -- instance OEIS 181363 where
 --   oeis = concat $ transpose [oeis, (oeis @181363)]
 
-instance OEIS 181391 where
-  oeis = 0 : (unfoldr g [0]) where
-     g xs = Just (m, m : xs) where
-          m = 1 + fromMaybe (-1) (findIndex (== head xs) $ tail xs)
-
 -- instance OEIS 181424 where
 --   oeisIx = (oeisIx @40) . (+ 2) . (oeisIx @64113)
 
@@ -20352,16 +17654,8 @@ instance OEIS 181391 where
 --   oeisIx = genericLength . filter ((== 1) . (oeisIx @64911) . sum) .
 --                             subsequences . enumFromTo 1
 
-instance OEIS 181717 where
-  oeis = 0 : 1 : fc 1 0 where
-     fc x x' = y : fc y x where y = (oeisIx @6370) (x + x')
-
 -- instance OEIS 181741 where
 --   oeis = filter ((== 1) . (oeisIx @10051)) (oeis @81118)
-
-instance OEIS 181753 where
-  oeis = concat $ iterate
-                 (map ((+ 1) . flip mod 8 . (+ 4))) [1,3,5,6,7,2,5]
 
 -- instance OEIS 181819 where
 --   oeisIx = product . map (oeisIx @40) . (rowT @124010) . succ
@@ -20375,16 +17669,6 @@ instance OEIS 181753 where
 
 -- instance OEIS 181921 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @78350))
-
-instance OEIS 181935 where
-  oeisIx 0 = 1
-  oeisIx n = curling $ unfoldr
-     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 2) n where
-     curling zs = maximum $ zipWith (\xs ys -> strip 1 xs ys)
-                            (tail $ inits zs) (tail $ tails zs) where
-        strip i us vs | vs' == Nothing = i
-                      | otherwise      = strip (i + 1) us $ fromJust vs'
-                      where vs' = stripPrefix us vs
 
 -- instance OEIS 181971 where
 --   oeis = tablList @181971
@@ -20518,9 +17802,6 @@ instance OEIS 181935 where
 --           | otherwise    = take (length xs) $ repeat 1
 --      ips = map (oeisIx @49084) (oeis @166251)
 
-instance OEIS 182455 where
-  oeis = 1 : zipWith (*) (zipWith mod (oeis @182455) [3..]) [3..]
-
 -- instance OEIS 182458 where
 --   oeis = 1 : 2 : zipWith mod
 --      (map (+ 1) $ zipWith (*) (oeis @182458) (tail (oeis @182458))) [2..]
@@ -20551,16 +17832,6 @@ instance OEIS 182455 where
 --   oeisIx n = product $ zipWith (oeisIx @7318)'
 --      (oeisIx_row n) (map toInteger $ (rowT @124010) n)
 
-instance OEIS 182972 where
-  oeis = map fst $ concatMap q [3..] where
-     q x = [ (num, den) | num <- [1 .. div x 2],
-                         let den = x - num, gcd num den == 1]
-
-instance OEIS 182973 where
-  oeis = map snd $ concatMap q [3..] where
-     q x = [ (num, den) | num <- [1 .. div x 2],
-                         let den = x - num, gcd num den == 1]
-
 -- instance OEIS 182991 where
 --   oeis = filter f [1..] where
 --      f x = all (== 1) $ zipWith (+) dps $ tail dps where
@@ -20572,8 +17843,7 @@ instance OEIS 182973 where
 -- instance OEIS 183079 where
 --   oeis = tablList @183079
 -- instance Table 183079 where
---   rowCol n k = (tabf @183079) !! (n - 1) !! (k-1)
---   rowT n = (tabf @183079) !! n
+--   rowCol = rowCol_off @183079 @1 @1
 --   tabf = [1] : iterate (\row -> concatMap f row) [2]
 --      where f x = [oeisIx x, (oeisIx @14132) x]
 --   oeis = concat (tabf @183079)
@@ -20589,8 +17859,8 @@ instance OEIS 182973 where
 -- instance OEIS 183209 where
 --   oeis = tablList @183209
 -- instance Table 183209 where
---   rowCol n k = (tabf @183209) !! (n - 1) !! (k-1)
---   rowT n = (tabf @183209) !! (n - 1)
+--   rowCol = rowCol_off @183209 @1 @1
+--   rowT   = rowT_off @183209 @1
 --   tabf = [1] : iterate (\xs -> concat $
 --      transpose [map (oeisIx @32766) xs, map (oeisIx . subtract 1) xs]) [2]
 --   oeis = concat (tabf @183209)
@@ -20688,10 +17958,6 @@ instance OEIS 182973 where
 --                               then e
 --                               else pref101pow (e + 1) (101 * pow101)
 
-instance OEIS 185869 where
-  oeis = scanl (+) 2 $ a' 1
-    where  a' n = 2 * n + 3 : replicate n 2 ++ a' (n + 1)
-
 -- instance OEIS 185934 where
 --   oeis = map (oeisIx . (+ 1)) $
 --      elemIndices 1 $ zipWith (*) (oeis @39701) $ tail (oeis @39701)
@@ -20711,23 +17977,6 @@ instance OEIS 185869 where
 --      g spSum (sp:sps) | spSum < n  = g (sp + spSum) sps
 --                       | spSum == n = 1
 --                       | otherwise  = 0
-
-instance OEIS 186421 where
-  oeis = interleave [0,2..] $ rep [1,3..] where
-     interleave (x:xs) ys = x : interleave ys xs
-     rep (x:xs) = x : x : rep xs
-
-instance OEIS 186422 where
-  oeis = zipWith (-) (tail (oeis @186421)) (oeis @186421)
-
-instance OEIS 186423 where
-  oeis = scanl1 (+) (oeis @186421)
-
-instance OEIS 186424 where
-  oeis = filter odd (oeis @186423)
-
-instance OEIS 186711 where
-  oeis = zipWith gcd (oeis @3586) $ tail (oeis @3586)
 
 -- instance OEIS 186712 where
 --   oeisIx n = (+ 1) $ fromJust $ findIndex (== (oeisIx @3586) n) (oeis @186711)
@@ -20766,16 +18015,6 @@ instance OEIS 186711 where
 -- instance OEIS 187099 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` oeis) . fi
 
-instance OEIS 187202 where
-  oeisIx = head . head . dropWhile ((> 1) . length) . iterate diff . divs . succ
-     where divs n = filter ((== 0) . mod n) [1..n]
-           diff xs = zipWith (-) (tail xs) xs
-
-instance OEIS 187203 where
-  oeisIx = head . head . dropWhile ((> 1) . length) . iterate diff . divs . succ
-     where divs n = filter ((== 0) . mod n) [1..n]
-           diff xs = map abs $ zipWith (-) (tail xs) xs
-
 -- instance OEIS 187204 where
 --   oeis = map (+ 1) $ elemIndices 0 $ map (oeisIx @187202) [1..]
 
@@ -20790,10 +18029,6 @@ instance OEIS 187203 where
 
 -- instance OEIS 187744 where
 --   oeis = filter ((== 1) . (oeisIx @10054) . (oeisIx @7953)) [0..]
-
-instance OEIS 187763 where
-  oeis = map genericLength $
-                 zipWith intersect (tabf @70165) $ tail (tabf @70165)
 
 -- instance OEIS 187769 where
 --   import List (elemIndices)
@@ -20820,11 +18055,6 @@ instance OEIS 187763 where
 -- instance OEIS 187811 where
 --   oeis = map (+ 1) $ findIndices (> 0) (oeis @5091)
 
-instance OEIS 187831 where
-  oeisIx 0 = 1
-  oeisIx n = head $ fromJust $
-          find (n `elem`) $ genericDrop n (tabf @70165)
-
 -- instance OEIS 187845 where
 --   oeis = scanl1 (+) $ map (oeisIx @187844) [0..]
 
@@ -20846,9 +18076,6 @@ instance OEIS 187831 where
 --              | (x-n) `member` s = n : r (insert (x+n) s) (n+1) (x+n)
 --              | otherwise        = r (insert (x-n) s) (n+1) (x-n)
 
-instance OEIS 188068 where
-  oeisIx = (subtract 2) . (oeisIx @7538)
-
 -- instance OEIS 188069 where
 --   oeis = filter ((== 2) . (oeisIx @7538)) [1..]
 --
@@ -20869,31 +18096,6 @@ instance OEIS 188068 where
 -- instance OEIS 188264 where
 --   oeis =
 --      map (+ 1) $ elemIndices 0 $ zipWith mod [1..] $ map (oeisIx @66459) [1..]
-
-instance OEIS 188386 where
-  oeis = map numerator $ zipWith (-) (drop 3 hs) hs
-     where hs = 0 : scanl1 (+) (map (1 %) [1..])
-
--- instance OEIS 188429 where
---   oeis = [1, 0, 2, 0, 0, 3, 4, 0, 0, 4, 5, 5, 6, 7] ++
---                  f [15 ..] (drop 15 (oeis @10054)) 0 4
---      where f (x:xs) (t:ts) r k | t == 1    = (k + 1) : f xs ts 1 (k + 1)
---                                | r < k - 1 = (k + 1) : f xs ts (r + 1) k
---                                | otherwise = (k + 2) : f xs ts (r + 1) k
-
--- instance OEIS 188430 where
---   oeis = [1, 0, 2, 0, 0, 3, 4, 0, 0, 4, 5, 6, 7, 7, 8, 6, 7, 8, 9] ++
---                  (drop 19 (oeis @8619))
-
--- instance OEIS 188431 where
---   import Data.MemoCombinators (memo2, integral, Memo)
---   oeisIx n = (oeis @188431) !! (n - 1)
---   oeis = map
---      (\x -> sum [fMemo x i | i <- [oeisIx x .. (oeisIx @188430) x]]) [1..] where
---      fMemo = memo2 integral integral f
---      f _ 1 = 1
---      f m i = sum [fMemo (m - i) j |
---                   j <- [oeisIx (m - i) .. min (oeisIx (m - i)) (i - 1)]]
 
 -- instance OEIS 188528 where
 --   oeisIx n = succ $ fromJust $
@@ -21073,9 +18275,6 @@ instance OEIS 188386 where
 --     g _ []                 = 0
 --     g m (x:xs) | x > m     = g m xs
 --                | otherwise = signum m' + g r xs where (m',r) = divMod m x
-
-instance OEIS 190600 where
-  oeisIx = fi . digitToInt . maximum . flip (showIntAtBase 12 intToDigit) "" . fi
 
 -- instance OEIS 190619 where
 --   oeis = map read $ f 2 1 :: [Integer] where
@@ -21493,12 +18692,6 @@ instance OEIS 190600 where
 --      f xs = y : f (y : xs) where
 --        y = sum $ zipWith xor xs $ reverse xs :: Integer
 
-instance OEIS 192489 where
-  oeis = f 2 1 where
-     f n x | x' == 2   = n : f (n+1) x'
-           | otherwise = f (n+1) x'
-           where x' = 1 + gcd n x
-
 -- instance OEIS 192503 where
 --   oeis = filter ((== 1) . (oeisIx @10051)) (oeis @3309)
 
@@ -21520,16 +18713,11 @@ instance OEIS 192489 where
 -- instance OEIS 192607 where
 --   oeis = filter ((== 0) . (oeisIx @192490)) [1..]
 
-instance OEIS 192687 where
-  oeis = zipWith (-) females males where
-     females = 1 : zipWith (-) [1..] (map (males !!) females)
-     males = 0 : zipWith (-) [1..] (map (females !!) males)
-
 -- instance OEIS 192719 where
 --   oeis = tablList @192719
 -- instance Table 192719 where
---   rowCol n k = (tabf @192719) !! (n - 1) !! (k-1)
---   rowT n = (tabf @192719) !! (n - 1)
+--   rowCol = rowCol_off @192719 @1 @1
+--   rowT   = rowT_off @192719 @1
 --   tabf = f [1..] where
 --      f (x:xs) = (oeisIx_row x) : f (del xs $ (rowT @220237) x)
 --      del us [] = us
@@ -21649,10 +18837,6 @@ instance OEIS 192687 where
 -- instance Table 193596 where
 --   tabl = map (map ((flip div 2) . (+ 1))) (tabl @7318)
 
-instance OEIS 193641 where
-  oeis = drop 2 xs where
-     xs = 1 : 1 : 1 : zipWith (+) xs (map (* 2) $ drop 2 xs)
-
 -- instance OEIS 193671 where
 --   oeis = map (+ 1) $ findIndices (> 0) $ map (oeisIx @187202) [1..]
 
@@ -21696,11 +18880,6 @@ instance OEIS 193641 where
 --        | m < k     = 0
 --        | otherwise = p ks (m - k) + p ks m
 
-instance OEIS 193773 where
-  oeisIx n = genericLength [ () | x <- [1 .. n + 1],
-                           let (y,m) = divMod (x + n) (2 * x - 1),
-                           x <= y, m == 0]
-
 -- instance OEIS 193829 where
 --   oeis = tablList @193829
 -- instance Table 193829 where
@@ -21712,8 +18891,8 @@ instance OEIS 193773 where
 -- instance OEIS 193832 where
 --   oeis = tablList @193832
 -- instance Table 193832 where
---   rowCol n k = (tabf @193832) !! (n - 1) !! (k-1)
---   rowT n = (tabf @193832) !! (n - 1)
+--   rowCol = rowCol_off @193832 @1 @1
+--   rowT   = rowT_off @193832 @1
 --   tabf = zipWith (++) (tabf @1650) (tabl @111650)
 --   oeisIx' n = (oeis @193832) !! (n - 1)
 --   oeis = concat (tabf @193832)
@@ -21794,9 +18973,6 @@ instance OEIS 193773 where
 --               map (snd . properFraction . (* tau) . fromInteger) [1..n]
 --      where (_, nTau) = properFraction (tau * fromInteger n)
 --            tau = (1 + sqrt 5) / 2
-
-instance OEIS 195013 where
-  oeis = concat $ transpose [[2, 4 ..], [3, 6 ..]]
 
 -- instance OEIS 195041 where
 --   oeis = scanl (+) 0 (oeis @47336)
@@ -21896,13 +19072,6 @@ instance OEIS 195013 where
 --   oeis = catMaybes $ map k [1..] where
 --      k x = elemIndex 0 $ map (`mod` x) $ take (fromInteger x) (oeis @51)
 
-instance OEIS 195691 where
-  oeisIx = normal True 0 where
-    normal qLam k n = if n<2 then 0 else
-      (if n - 2<k then 1 else 0) +
-      (if qLam then normal True (k+1) (n - 2) else 0) +
-      sum [normal False k i * normal True k (n - 2 - i) | i <- [0..n - 2]]
-
 -- instance OEIS 195758 where
 --   oeisIx = (oeisIx @20639) . (oeisIx @16105)
 
@@ -21914,10 +19083,6 @@ instance OEIS 195691 where
 
 -- instance OEIS 195943 where
 --   oeis = filter ((== 1) . (oeisIx @10055)) (oeis @52382)
-
-instance OEIS 196032 where
-  oeis = filter f [1..] where
-     f 0 = False; f x = m == 0 || f x' where (x',m) = divMod x 4
 
 -- instance OEIS 196046 where
 --   oeis = 0 : g 2 where
@@ -22007,20 +19172,9 @@ instance OEIS 196032 where
 --      f n = all (<= 0) $ zipWith (-) (tail divs) (map (* 3) divs)
 --                         where divs = (rowT @27750)' n
 
-instance OEIS 196168 where
-  oeisIx 0 = 1
-  oeisIx n = foldl (\v b -> (2 * v + 1)* (b + 1)) 0 $ reverse $ unfoldr
-     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 2) n
-     where r v b = (2 * v + 1)* (b+1)
-
 -- instance OEIS 196175 where
 --   oeis = map (+ 2) $ elemIndices True $
 --      zipWith (\x y -> x < 0 && y > 0) (oeis @36263) $ tail (oeis @36263)
-
-instance OEIS 196189 where
-  oeis = f 1 [] where
-     f n xs = x : f (n+1) (x:xs) where
-       x = head [z | z <- [n+2..], z `notElem` xs, gcd z n == 1]
 
 -- instance OEIS 196199 where
 --   oeis = tablList @196199
@@ -22049,8 +19203,8 @@ instance OEIS 196189 where
 -- instance OEIS 196486 where
 --   oeis = tablList @196486
 -- instance Table 196486 where
---   rowCol n k = (tabf @196486) !! (n - 1) !! (k-1)
---   rowT n = (tabf @196486) !! (n - 1)
+--   rowCol = rowCol_off @196486 @1 @1
+--   rowT   = rowT_off @196486 @1
 --   tabf = map (tail . reverse) $ tail (tabf @227048)
 
 -- instance OEIS 196526 where
@@ -22062,18 +19216,6 @@ instance OEIS 196189 where
 -- instance OEIS 196871 where
 --   oeis = filter
 --      (all (== 0) . map (oeisIx @10051) . takeWhile (> 2) . iterate (oeisIx @6370)) [1..]
-
-instance OEIS 197081 where
-  oeisIx = p (drop 2 (oeis @2620)) where
-     p _      0             = 1
-     p (k:ks) m | m < k     = 0
-                | otherwise = p ks (m - k) + p ks m
-
-instance OEIS 197122 where
-  oeisIx = p (drop 2 (oeis @2620)) where
-     p _          0             = 1
-     p ks'@ (k:ks) m | m < k     = 0
-                    | otherwise = p ks' (m - k) + p ks m
 
 -- instance OEIS 197181 where
 --   oeis = map (+ 1) $ elemIndices 0 $
@@ -22150,21 +19292,6 @@ instance OEIS 197122 where
 -- instance OEIS 198387 where
 --   oeis = zipWith (-) (oeis @198385) (oeis @198384)
 
-instance OEIS 198388 where
-  oeis = map (\ (x,_,_) -> x) ts where
-     ts = [ (u,v,w) | w <- [1..], v <- [1..w - 1], u <- [1..v - 1],
-                     w^2 - v^2 == v^2 - u^2]
-
-instance OEIS 198389 where
-  oeis = map (\ (_,x,_) -> x) ts where
-     ts = [ (u,v,w) | w <- [1..], v <- [1..w - 1], u <- [1..v - 1],
-                     w^2 - v^2 == v^2 - u^2]
-
-instance OEIS 198390 where
-  oeis = map (\ (_,_,x) -> x) ts where
-     ts = [ (u,v,w) | w <- [1..], v <- [1..w - 1], u <- [1..v - 1],
-                     w^2 - v^2 == v^2 - u^2]
-
 -- instance OEIS 198409 where
 --   oeis = map (+ 1) $ elemIndices 1 $ map (oeisIx @8966) $
 --      zipWith gcd (oeis @198384) $ zipWith gcd (oeis @198385) (oeis @198386)
@@ -22189,28 +19316,6 @@ instance OEIS 198390 where
 
 -- instance OEIS 198441 where
 --   oeis = map (oeisIx @198390) (oeis @198409)
-
--- instance OEIS 198726 where
---   import Data.MemoCombinators (memo2, list, integral)
---   oeisIx n = (oeis @198726) !! n
---   oeis = f 0 [] $ tail (oeis @3136) where
---      f u vs ws'@ (w:ws) | u < w = (p' vs u) : f (u + 1) vs ws'
---                        | otherwise = f u (vs ++ [w]) ws
---      p' = memo2 (list integral) integral p
---      p _  0 = 1
---      p [] _ = 0
---      p ks'@ (k:ks) m = if m < k then 0 else p' ks' (m - k) + p' ks m
-
--- instance OEIS 198727 where
---   import Data.MemoCombinators (memo2, list, integral)
---   oeisIx n = (oeis @198727) !! n
---   oeis = f 0 [] $ tail (oeis @3136) where
---      f u vs ws'@ (w:ws) | u < w = (p' vs u) : f (u + 1) vs ws'
---                        | otherwise = f u (vs ++ [w]) ws
---      p' = memo2 (list integral) integral p
---      p _  0 = 1
---      p [] _ = 0
---      p (k:ks) m = if m < k then 0 else p' ks (m - k) + p' ks m
 
 -- instance OEIS 198772 where
 --   oeis = filter ((== 1) . (oeisIx @88534)) (oeis @3136)
@@ -22396,12 +19501,6 @@ instance OEIS 198390 where
 --      f (rs:rss'@ (rs':rss)) =
 --        (length $ takeWhile (== EQ) $ zipWith compare rs rs') : f rss'
 
-instance OEIS 200745 where
-  oeisIx n = p [nd | nd <- [1..n], mod n nd /= 0] n where
-     p _  0 = 1
-     p [] _ = 0
-     p (k:ks) m | m < k = 0 | otherwise = p ks (m - k) + p ks m
-
 -- instance OEIS 200996 where
 --   oeisIx n = max (oeisIx n) (oeisIx n)
 
@@ -22413,9 +19512,6 @@ instance OEIS 200745 where
 -- instance OEIS 201053 where
 --   oeis = 0 : concatMap (\x -> genericReplicate (oeisIx @56107 x) (x ^ 3)) [1..]
 
-instance OEIS 201208 where
-  oeis = concat $ zipWith ($) (map replicate [1..]) (oeis @34)
-
 -- instance OEIS 201217 where
 --   oeis = elemIndices 0 (oeis @61023)
 
@@ -22424,9 +19520,6 @@ instance OEIS 201208 where
 
 -- instance OEIS 201462 where
 --   oeis = [x | x <- [1..], gcd x (oeisIx @61601 x) > 1]
-
-instance OEIS 201629 where
-  oeisIx = (* 2) . (oeisIx @4524) . (+ 1)
 
 -- instance OEIS 201634 where
 --   oeis = tablList @201634
@@ -22637,9 +19730,6 @@ instance OEIS 201629 where
 --              h p e = sum $ take (fromInteger e + 1) $
 --                            iterate ((* p) . negate) (1 - 2 * (e `mod` 2))
 
-instance OEIS 206424 where
-  oeisIx = genericLength . filter (== 1) . (rowT @83093)
-
 -- instance OEIS 206462 where
 --   oeis = map (oeisIx . (+ 1)) $
 --                      elemIndices 1 $ map (oeisIx @8966) (oeis @1043)
@@ -22822,13 +19912,6 @@ instance OEIS 206424 where
 -- instance OEIS 208280 where
 --   oeisIx = genericLength . nub . (rowT @8975)
 
-instance OEIS 208341 where
-  oeis = tablList @208341
-instance Table 208341 where
-  rowCol = rowCol_off @208341 @1 @1
-  rowT   = rowT_off   @208341 @1
-  tabl = map reverse (tabl @106195)
-
 -- instance OEIS 208355 where
 --   oeisIx n = (rowCol @208101) n n
 --   oeis = map last (tabl @208101)
@@ -22867,21 +19950,6 @@ instance Table 208341 where
 -- instance OEIS 208983 where
 --   oeisIx n = (oeisIx @208101) (2 * n) n
 
-instance OEIS 209037 where
-  oeisIx n = p (max 1 (n `div` 3)) n where
-     p _ 0 = 1
-     p k m = if m < k then 0 else p k (m - k) + p (k + 1) m
-
-instance OEIS 209038 where
-  oeisIx n = p (max 1 (n `div` 4)) n where
-     p _ 0 = 1
-     p k m = if m < k then 0 else p k (m - k) + p (k + 1) m
-
-instance OEIS 209039 where
-  oeisIx n = p (max 1 (n `div` 5)) n where
-     p _ 0 = 1
-     p k m = if m < k then 0 else p k (m - k) + p (k + 1) m
-
 -- instance OEIS 209061 where
 --   oeis = filter
 --      (all (== 1) . map (oeisIx . fi) . (rowT @124010)) [1..]
@@ -22889,21 +19957,12 @@ instance OEIS 209039 where
 -- instance OEIS 209211 where
 --   oeis = filter (\x -> (x - 1) `gcd` (oeisIx @10) x == 1) [1..]
 
-instance OEIS 209229 where
-  oeisIx n | n < 2 = n
-           | n > 1 = if m > 0 then 0 else (oeisIx @209229) n'
-           where (n',m) = divMod n 2
-
 -- instance OEIS 209297 where
 --   oeis = tablList @209297
 -- instance Table 209297 where
 --   rowCol n k = k * n + k - n
 --   rowT n = map (oeisIx n) [1..n]
 --   tabl = map (rowT @209297) [1..]
-
-instance OEIS 209403 where
-  oeisIx (succ->n) = sum $
-     zipWith (*) (reverse $ genericTake n (oeis @40)) (oeis @65091)
 
 -- instance OEIS 209561 where
 --   oeis = tablList @209561
@@ -22960,8 +20019,8 @@ instance OEIS 209403 where
 -- instance OEIS 210208 where
 --   oeis = tablList @210208
 -- instance Table 210208 where
---   rowCol n k = (tabf @210208) !! (n - 1) !! (n-1)
---   rowT n = (tabf @210208) !! (n - 1)
+--   rowCol = rowCol_off @210208 @1 @1
+--   rowT   = rowT_off @210208 @1
 --   tabf = map (filter ((== 1) . (oeisIx @10055))) (tabf @27750)
 
 -- instance OEIS 210241 where
@@ -22980,9 +20039,6 @@ instance OEIS 209403 where
 --   oeisIx n = fromEnum $ p (oeisIx_row n) n where
 --      p ks m = m == 0 || not (null ks) && head ks <= m &&
 --               (p (tail ks) (m - head ks) || p (tail ks) m)
-
-instance OEIS 210461 where
-  oeisIx = (`div` 8) . (subtract 1) . (9 ^) . (oeisIx @65091)
 
 -- instance OEIS 210481 where
 --   oeisIx n = sum [oeisIx' $ p * q - 2 |
@@ -23025,10 +20081,6 @@ instance OEIS 210461 where
 --   oeisIx n = (oeis @210761) !! (n - 1)
 --   oeis = sortBy (compare `on` show) $
 --                         takeWhile (<= 10^6) (oeis @40)
-
-instance OEIS 210770 where
-  oeis = 1 : 2 : f 1 2 [3..] where
-     f u v (w:ws) = u' : w : f u' w (delete u' ws) where u' = v + w
 
 -- instance OEIS 210771 where
 --   oeisIx n = fromJust (elemIndex n (oeis @210770)) + 1
@@ -23194,11 +20246,6 @@ instance OEIS 210770 where
 -- instance OEIS 212192 where
 --   oeis = filter ((== 1) . (oeisIx @10054)) (oeis @14311)
 
-instance OEIS 212193 where
-  oeisIx n = f n [0..3] where
-     f x ys | x <= 2    = head $ delete x ys
-            | otherwise = f x' $ delete d ys where (x',d) = divMod x 3
-
 -- instance OEIS 212210 where
 --   oeis = tablList @212210
 -- instance Table 212210 where
@@ -23222,11 +20269,6 @@ instance OEIS 212193 where
 --      f x ps'@ (_ : ps@ (_ : p : _)) gpfs (q : qs) =
 --        y : f (x + 1) (if y == p then ps else ps') (q : gpfs) qs where
 --        y = head [z | z <- ps', length (filter (> z) gpfs) <= div x 2]
-
-instance OEIS 212306 where
-  oeis = f [1..] where
-     f (x:xs) = x : f ((map (subtract x) us) ++ vs)
-                where (us, vs) = splitAt x xs
 
 -- instance OEIS 212412 where
 --   oeisIx = (`mod` 2) . (oeisIx @181935)
@@ -23257,14 +20299,6 @@ instance OEIS 212306 where
 
 -- instance OEIS 212760 where
 --   oeisIx = (oeisIx @260706) . fromInteger . (oeisIx @1318) . (+ 1)
-
--- instance OEIS 212793 where
---   oeisIx = cubeFree (oeis @40) 0 0 where
---      cubeFree ps'@ (p:ps) q e x
---         | e > 2     = 0
---         | x == 1    = 1
---         | r > 0     = cubeFree ps  p 0 x
---         | otherwise = cubeFree ps' p (e + 1) x' where (x', r) = divMod x p
 
 -- instance OEIS 212813 where
 --   oeisIx n | n < 7     = -1
@@ -23340,22 +20374,6 @@ instance OEIS 212306 where
 -- instance OEIS 213913 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @213912))
 
--- instance OEIS 213925 where
---   oeis = tablList @213925
--- instance Table 213925 where
---   rowCol n k = (rowT @213925) n !! (k-1)
---   rowT 1 = [1]
---   rowT n = reverse $ fd n (reverse $ takeWhile (<= n) (oeis @50376))
---      where fd 1 _      = []
---            fd x (q:qs) = if m == 0 then q : fd x' qs else fd x qs
---                          where (x',m) = divMod x q
---   tabf = map (rowT @213925) [1..]
-
-instance OEIS 213967 where
-  oeis = 0 : xs where
-                 xs = 1 : 2 : 3 : map (+ 1)
-                      (zipWith3 (((+) .) . (+)) xs (tail xs) (drop 2 xs))
-
 -- instance OEIS 213998 where
 --   oeis = tablList @213998
 -- instance Table 213998 where
@@ -23379,9 +20397,6 @@ instance OEIS 213967 where
 --   oeis = tablList @214084
 -- instance Table 214084 where
 --   tabf = zipWith enumFromTo (oeis @290) (oeis @578)
-
-instance OEIS 214090 where
-  oeisIx = (`mod` 2) . (oeisIx @9947)
 
 -- instance OEIS 214178 where
 --   oeis = tablList @214178
@@ -23480,7 +20495,7 @@ instance OEIS 214090 where
 --   oeis = tablList @214614
 -- instance Table 214614 where
 --   rowCol n k = (tabf @214614) !! (n - 1) (k-1)
---   rowT n = (tabf @214614) !! (n - 1)
+--   rowT   = rowT_off @214614 @1
 --   tabf = zipWith f [1..] (tabf @70165) where
 --                          f v ws = sort $ filter (<= v) ws
 
@@ -23526,29 +20541,11 @@ instance OEIS 214090 where
 -- instance OEIS 214879 where
 --   oeis = elemIndices 0 (oeis @45698)
 
-instance OEIS 214949 where
-  oeisIx = f 0 where
-     f y 0 = numerator y
-     f y x = f (y + if d == 0 then 0 else 1 % d) x'
-             where (x',d) = divMod x 10
-
-instance OEIS 214950 where
-  oeisIx = f 0 where
-     f y 0 = denominator y
-     f y x = f (y + if d == 0 then 0 else 1 % d) x'
-             where (x',d) = divMod x 10
-
 -- instance OEIS 214957 where
 --   oeis = [x | x <- [0..], (oeisIx @214950) x == 1]
 
 -- instance OEIS 214958 where
 --   oeis = [x | x <- [0..], (oeisIx @214949) x == 1]
-
-instance OEIS 214959 where
-  oeis = [x | x <- [0..], f x 0] where
-     f 0 v = numerator v == 1 && denominator v == 1
-     f u v | d > 0     = f u' (v + 1 % d)
-           | otherwise = f u' v  where (u',d) = divMod u 10
 
 -- instance OEIS 215217 where
 --   twinLow [] = []
@@ -23606,23 +20603,6 @@ instance OEIS 214959 where
 -- instance OEIS 215879 where
 --   oeisIx n = if t == 0 then 0 else (oeisIx @215879) n' + 1
 --               where (n',t) = divMod n 3
-
-instance OEIS 215973 where
-  oeis = 1 : f [1] where
-     f xs = y : f (y:xs) where
-       y = sum $ zipWith (*) xs $ map (+ 1) $ reverse xs
-
-instance OEIS 216022 where
-  oeisIx = genericLength .
-     takeWhile (== 0) . zipWith (-) [1..] . sort . (rowT @70165) . succ
-
-instance OEIS 216059 where
-  oeisIx  (succ->n) = head $ enumFromTo 1 (maximum ts + 1) \\ ts
-     where ts = (rowT @70165) n
-
-instance OEIS 216151 where
-  oeis = 1 : 2 : f 2 3 where
-     f u v = w : f (u * w) (v + w) where w = u * v
 
 -- instance OEIS 216155 where
 --   oeis = filter
@@ -23719,8 +20699,8 @@ instance OEIS 216151 where
 -- instance OEIS 217793 where
 --   oeis = tablList @217793
 -- instance Table 217793 where
---   rowCol n k = (tabf @217793) !! (n - 1) !! k
---   rowT n = (tabf @217793) !! (n - 1)
+--   rowCol = rowCol_off @217793 @1 @0
+--   rowT   = rowT_off @217793 @1
 --   tabf =
 --      map (\p -> [2*p*k + k^2 `mod` p | k <- [0..p-1]]) (oeis @65091)
 
@@ -23840,10 +20820,6 @@ instance OEIS 216151 where
 -- instance OEIS 219609 where
 --   oeis = map (`div` 2) $ zipWith (-) (tail (oeis @219608)) (oeis @219608)
 
-instance OEIS 219696 where
-  oeis = filter (\x -> collatz'' x == x) [1..] where
-     collatz'' x = until (`elem` [1, x]) (oeisIx @6370) (3 * x + 1)
-
 -- instance OEIS 219762 where
 --   oeisIx = subtract 1 . (oeisIx @99054) . subtract 1
 
@@ -23896,18 +20872,8 @@ instance OEIS 219696 where
 -- instance OEIS 220101 where
 --   oeisIx n = (oeisIx @51666 (2 * (n - 1)) (n - 1)) `div` 2
 
-instance OEIS 220104 where
-  oeis = concatMap (\x -> genericTake (oeisIx @2378 x) $ repeat x) [1..]
-
 -- instance OEIS 220218 where
 --   oeis = 1 : filter (all (== 1) . map (oeisIx' . (+ 1)) . (rowT @124010)) [1..]
-
-instance OEIS 220237 where
-  oeis = tablList @220237
-instance Table 220237 where
-  rowCol = rowCol_off @220237 @1 @1
-  rowT   = rowT_off @220237 @1
-  tabf   = map sort (tabf @70165)
 
 -- instance OEIS 220263 where
 --   oeisIx = genericLength . (rowT @192719)
@@ -23920,14 +20886,6 @@ instance Table 220237 where
 
 -- instance OEIS 220348 where
 --   oeisIx n = fromJust (findIndex (elem n) (tabf @183079)) + 1
-
-instance OEIS 220376 where
-  oeis = at 1 where
-     at z | (reverse (show (z - 1)) `isPrefixOf` fst bird) = at (z + 1)
-          | otherwise                = (length $ fst bird) : at (z + 1)
-          where bird = fromJust $ find ((show z `isPrefixOf`) . snd) xys
-     xys = iterate (\ (us, v : vs) -> (v : us, vs))
-                   ([], concatMap show [0 ..])
 
 -- instance OEIS 220423 where
 --   import Data.Set (deleteFindMin, empty, fromList, union)
@@ -23943,8 +20901,8 @@ instance OEIS 220376 where
 -- instance OEIS 220424 where
 --   oeis = tablList @220424
 -- instance Table 220424 where
---   rowCol n k = (tabf @220424) !! (n - 1) !! (k-1)
---   rowT n = (tabf @220424) !! (n - 1)
+--   rowCol = rowCol_off @220424 @1 @1
+--   rowT   = rowT_off @220424 @1
 --   tabf = iterate
 --                  (concatMap (\xs -> [head xs, length xs]) . group) [1]
 
@@ -23954,10 +20912,6 @@ instance OEIS 220376 where
 
 -- instance OEIS 220654 where
 --   oeisIx = fromJust . (`elemIndex` (oeis @215244))
-
-instance OEIS 220811 where
-  oeis = map numerator vs where
-     vs = iterate (\x -> x * (4 - 3 * x)) (1 % 10)
 
 -- instance OEIS 220812 where
 --   oeisIx = (oeisIx @11557) . (oeisIx @79)
@@ -24084,8 +21038,8 @@ instance OEIS 220811 where
 -- instance OEIS 224075 where
 --   oeis = tablList @224075
 -- instance Table 224075 where
---   rowCol n k = (tabf @224075) !! (n - 1) !! (k-1)
---   rowT n = (tabf @224075) !! (n - 1)
+--   rowCol = rowCol_off @224075 @1 @1
+--   rowT   = rowT_off @224075 @1
 --   tabf = f 3 where
 --      f x = g [] 3 1 where
 --        g ps i k2 | x <= k2        = ps : f (x + 1)
@@ -24235,8 +21189,8 @@ instance OEIS 220811 where
 -- instance OEIS 225243 where
 --   oeis = tablList @225243
 -- instance Table 225243 where
---   rowCol n k = (tabf @225243) !! (n - 1) !! (k-1)
---   rowT n = (tabf @225243) !! (n - 1)
+--   rowCol = rowCol_off @225243 @1 @1
+--   rowT   = rowT_off @225243 @1
 --   tabf = [1] : map (filter ((== 1) . (oeisIx @10051)')) (tail (tabf @165416))
 
 -- instance OEIS 225244 where
@@ -24317,39 +21271,18 @@ instance OEIS 220811 where
 -- instance OEIS 225621 where
 --   oeisIx n = (oeisIx @74911) (2 * n - 1) n
 
-instance OEIS 225693 where
-  oeisIx = f 1 0 where
-     f _ a 0 = a
-     f s a x = f (negate s) (s * a + d) x' where (x', d) = divMod x 10
-
-instance OEIS 225761 where
-  oeisIx = numerator . sum . map (recip . fi) . (rowT @70165) . succ
-
-instance OEIS 225784 where
-  oeisIx = denominator . sum . map (recip . fi) . (rowT @70165) . succ
-
-instance OEIS 225790 where
-  oeisIx 0 = 1
-  oeisIx (succ->n) = 12 ^ (n1 * n1) * 2 ^ (2 * n1 - 1) * k
-    where
-      n1 = div n 2
-      k = if odd n then 4 else 1
-
 -- instance OEIS 225793 where
 --   oeis = filter ((== 1) . (oeisIx @230093)) [1..]
 
 -- instance OEIS 225817 where
 --   oeis = tablList @225817
 -- instance Table 225817 where
---   rowCol n k = (tabf @225817) !! (n - 1) !! (k-1)
---   rowT n = (tabf @225817) !! (n - 1)
+--   rowCol = rowCol_off @225817 @1 @1
+--   rowT   = rowT_off @225817 @1
 --   tabf = map (map (oeisIx @8683)) (tabf @27750)
 
 -- instance OEIS 225840 where
 --   oeisIx (succ->n) = maximum $ filter (< n) $ (rowT @70165) n
-
-instance OEIS 225843 where
-  oeisIx = floor . sum . map (recip . fi) . (rowT @70165) . succ
 
 -- instance OEIS 225850 where
 --   oeisIx = fromJust . (`elemIndex` (oeis @167151))
@@ -24399,15 +21332,9 @@ instance OEIS 225843 where
 --   oeisIx (succ->n) = maximum $ map abs $ zipWith (-) (tail ts) ts
 --      where ts = (rowT @70165) n
 
-instance OEIS 226123 where
-  oeisIx = sum . map (oeisIx @209229) . (rowT @70165) . succ
-
 -- instance OEIS 226134 where
 --   oeisIx = foldl (\v d -> 10*v+d) 0 . scanl1 (\d x -> (x+d) `mod` 10) .
 --             map (read . return) . show :: Int -> Int
-
-instance OEIS 226203 where
-  oeis = concat $ transpose [[1, 3 ..], [-3, -1 ..], [-1, 1 ..], [1, 3 ..], [1, 3 ..]]
 
 -- instance OEIS 226219 where
 --   oeisIx n = head [k | k <- [2..],
@@ -24468,16 +21395,6 @@ instance OEIS 226203 where
 -- instance OEIS 226387 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @85612))
 
-instance OEIS 226390 where
-  oeis = zipWith (-) (tail (oeis @14011)) (oeis @14011)
-
-instance OEIS 226452 where
-  oeis = 1 : 2 : f [[0,0],[0,1],[1,0],[1,1]] where
-     f bss = sum (map h bss) : f ((map (0 :) bss) ++ (map (1 :) bss)) where
-     h bs = fi . fromEnum $ or $ zipWith
-             (\xs ys -> xs == ys && not (xs `isInfixOf` (init $ tail bs)))
-             (init $ inits bs) (reverse $ tails $ tail bs)
-
 -- instance OEIS 226463 where
 --   oeis = tablList @226463
 -- instance Table 226463 where
@@ -24505,15 +21422,15 @@ instance OEIS 226452 where
 -- instance OEIS 226518 where
 --   oeis = tablList @226518
 -- instance Table 226518 where
---   rowCol n k = (tabf @226518) !! (n - 1) !! k
---   rowT n = (tabf @226518) !! (n - 1)
+--   rowCol = rowCol_off @226518 @1 @0
+--   rowT   = rowT_off @226518 @1
 --   tabf = map (scanl1 (+)) (tabf @226520)
 
 -- instance OEIS 226520 where
 --   oeis = tablList @226520
 -- instance Table 226520 where
---   rowCol n k = (tabf @226520) !! (n - 1) !! k
---   rowT n = (tabf @226520) !! (n - 1)
+--   rowCol = rowCol_off @226520 @1 @0
+--   rowT   = rowT_off @226520 @1
 --   tabf =
 --      map (\p -> map (flip legendreSymbol p) [0..p-1]) (oeis @40)
 
@@ -24578,30 +21495,18 @@ instance OEIS 226452 where
 -- instance OEIS 227048 where
 --   oeis = tablList @227048
 -- instance Table 227048 where
---   rowCol n k = (tabf @227048) !! n !! (k-1)
---   rowT n = (tabf @227048) !! n
+--   rowCol = rowCol_off @227048 @0 @1
 --   tabf = map f (oeis @244)  where
 --      f x = reverse $ map (x -) $ takeWhile (<= x) (oeis @79)
 
 -- instance OEIS 227068 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @56924))
 
-instance OEIS 227113 where
-  oeis = 1 : f [2..] where
-     f (x:xs) = x : y : f (delete y xs)
-       where y : _ = filter ((> 1) . (gcd x)) xs
-
 -- instance OEIS 227114 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @227113))
 
 -- instance OEIS 227118 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @184992))
-
-instance OEIS 227144 where
-  oeis = [1,2,7,17,23] ++ map (+ 24) (oeis @227144)
-
-instance OEIS 227146 where
-  oeis = [5,11,13,14,19] ++ map (+ 24) (oeis @227146)
 
 -- instance OEIS 227190 where
 --   oeisIx n = n - (oeisIx @167489) n
@@ -24642,14 +21547,6 @@ instance OEIS 227146 where
 -- instance OEIS 227413 where
 --   oeis = 1 : concat (transpose [map (oeisIx @40) (oeis @227413),
 --                                         map (oeisIx @2808) (oeis @227413)])
-
-instance OEIS 227426 where
-  oeisIx = p 1 1 where
-    p _ _ 0 = 1
-    p k i m = if m < k then 0 else p (k + i) (3 - i) (m - k) + p (k + 1) 1 m
-
-instance OEIS 227428 where
-  oeisIx = sum . map (flip div 2) . (rowT @83093)
 
 -- instance OEIS 227431 where
 --   oeis = tablList @227431
@@ -24695,8 +21592,8 @@ instance OEIS 227428 where
 -- instance OEIS 227736 where
 --   oeis = tablList @227736
 -- instance Table 227736 where
---   rowCol n k = (tabf @227736) !! (n - 1) !! (k-1)
---   rowT n = (tabf @227736) !! (n - 1)
+--   rowCol = rowCol_off @227736 @1 @1
+--   rowT   = rowT_off @227736 @1
 --   tabf = map (map length . group) $ tail (tabf @30308)
 
 -- instance OEIS 227791 where
@@ -24830,20 +21727,6 @@ instance OEIS 227428 where
 --   tabl = map fst $ iterate
 --      (\ (row, x) -> (scanl (+) (x * (x - 1) + 1) row, x + 1)) ([1], 2)
 
-instance OEIS 228709 where
-  oeis = filter ((== 0) . (oeisIx @228710)) [0..]
-
-instance OEIS 228710 where
-  -- oeisIx n = signum n == (oeisIx @30101) n
-  oeisIx n = fi . fromEnum $ f (n `div` 10) (n `mod` 2) where
-     f x p = x == 0 || (x `mod` 2) /= p && f (x `div` 10) (1 - p)
-
-instance OEIS 228722 where
-  oeisIx n = head [x | x <- [n, n - 1 ..], (oeisIx @228710) x == 1]
-
-instance OEIS 228723 where
-  oeisIx n = head [x | x <- [n..], (oeisIx @228710) x == 1]
-
 -- instance OEIS 229037 where
 --   import Data.IntMap (empty, (!), insert)
 --   oeisIx n = (oeis @229037) !! (n - 1)
@@ -24861,13 +21744,6 @@ instance OEIS 228723 where
 --   oeisIx n = head $
 --      dropWhile (== 0) $ map (oeisIx . (t -) . (^ 2)) [s, s - 1 ..]
 --      where t = (oeisIx @45) (2 * n - 1); s = (oeisIx @196) t
-
-instance OEIS 229362 where
-  oeis = 1 : 2 : 3 : f 4 [1,2,3] where
-     f x ys = y : f (x + 1) (ys ++ [y]) where y = p ys x
-     p _          0 = 1
-     p []         _ = 0
-     p ks'@(k:ks) m = if m < k then 0 else p ks' (m - k) + p ks m
 
 -- instance OEIS 229363 where
 --   oeis = f "" [0, 2 ..] where
@@ -25017,29 +21893,6 @@ instance OEIS 229362 where
 -- instance OEIS 231335 where
 --   oeisIx = genericLength . filter ((== 1) . (oeisIx @10056)) . (rowT @231330)
 
-instance OEIS 231429 where
-  oeisIx n = p [1..n - 1] (2*n) where
-     p _  0 = 1
-     p [] _ = 0
-     p (k:ks) m = if m < k then 0 else p ks (m - k) + p ks m
-
-instance OEIS 231600 where
-  oeisIx n = a 3 n where
-     a s 0 = 0 ^ s
-     a s x = a (t s b) x' where (x',b) = divMod x 2
-     t 3 0 = 1; t 3 1 = 2; t 2 0 = 0; t 2 1 = 3; t 1 _ = 1; t 0 _ = 0
-
-
-instance OEIS 231692 where
-  oeis = map numerator $ 0 : wilson 1 0 where
-     wilson x y = y' : wilson (x + 1) y'
-                  where y' = y + (if y < 1 % x then 1 else -1) % x
-
-instance OEIS 231693 where
-  oeis = map denominator $ 0 : wilson 1 0 where
-     wilson x y = y' : wilson (x + 1) y'
-                  where y' = y + (if y < 1 % x then 1 else -1) % x
-
 -- instance OEIS 231897 where
 --   oeisIx n = head [x | x <- [1..], (oeisIx @159918) x == n]
 
@@ -25183,16 +22036,6 @@ instance OEIS 231693 where
 --      f b = if isPandigital b n then b else f (b - 1) where
 --            isPandigital b = (== b) . length . nub . unfoldr
 --              (\x -> if x == 0 then Nothing else Just $ swap $ divMod x b)
-
-instance OEIS 235711 where
-  oeisIx = (oeisIx @3415) . (oeisIx @2620)
-
-instance OEIS 235715 where
-  oeisIx 0 = 1
-  oeisIx (succ->n) = f 1 ps 0 where
-     f 0 (1 : xs) z = z
-     f _ (x : xs) z = f x xs (z + 0 ^ (n - 1 - x))
-     ps = 1 : 1 : zipWith (\u v -> (u + v) `mod` n) (tail ps) ps
 
 -- instance OEIS 235726 where
 --   a 1 = 1
@@ -25498,9 +22341,6 @@ instance OEIS 235715 where
 -- instance OEIS 239943 where
 --   oeis = [x | x <- [1..], (oeisIx @239965) x == x]
 
-instance OEIS 239965 where
-  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @240024)) . (oeisIx @18252)
-
 -- instance OEIS 239968 where
 --   oeis = unfoldr c (1, 1, (oeis @18252)) where
 --      c (i, z, xs'@ (x:xs)) | i == x = Just (z, (i + 1, z + 1, xs))
@@ -25513,11 +22353,6 @@ instance OEIS 239965 where
 -- instance OEIS 239970 where
 --   oeisIx n = head [k | k <- [1..],
 --                         (oeisIx @10054) (oeisIx k + (oeisIx @217) (n + k)) == 1]
-
-instance OEIS 240024 where
-  oeis = 1 : ekg 4 (oeis @2808) where
-     ekg x zs = f zs where
-         f (y:ys) = if gcd x y > 1 then y : ekg y (delete y zs) else f ys
 
 -- instance OEIS 240025 where
 --   oeisIx n = max (oeisIx n) (oeisIx n)
@@ -25550,8 +22385,8 @@ instance OEIS 240024 where
 -- instance OEIS 240595 where
 --   oeis = tablList @240595
 -- instance Table 240595 where
---   rowCol n k = (tabf @240595) !! (n - 1) !! (k-1)
---   rowT n = (tabf @240595) !! (n - 1)
+--   rowCol = rowCol_off @240595 @1 @1
+--   rowT   = rowT_off @240595 @1
 --   tabf = iterate f [1] where
 --      f xs = concat [map length zss, map head zss]
 --             where zss = group $ sort xs
@@ -25559,15 +22394,15 @@ instance OEIS 240024 where
 -- instance OEIS 240694 where
 --   oeis = tablList @240694
 -- instance Table 240694 where
---   rowCol n k = (tabf @240694) !! (n - 1) !! (k-1)
---   rowT n = (tabf @240694) !! (n - 1)
+--   rowCol = rowCol_off @240694 @1 @1
+--   rowT   = rowT_off @240694 @1
 --   tabf = map (scanl1 (*)) (tabf @27750)
 
 -- instance OEIS 240698 where
 --   oeis = tablList @240698
 -- instance Table 240698 where
---   rowCol n k = (tabf @240698) !! (n - 1) !! (k-1)
---   rowT n = (tabf @240698) !! (n - 1)
+--   rowCol = rowCol_off @240698 @1 @1
+--   rowT   = rowT_off @240698 @1
 --   tabf = map (scanl1 (+)) (tabf @27750)
 
 -- instance OEIS 240752 where
@@ -25752,11 +22587,6 @@ instance OEIS 240024 where
 -- instance OEIS 242342 where
 --   oeisIx n = if n <= 2 then 0 else (oeisIx @7318)' n (oeisIx n)
 
-instance OEIS 242357 where
-  oeis = concatMap f $ tail $ inits [1..] where
-     f us = (init us) ++ (take v [v, v ..]) ++ vs
-            where (v:vs) = reverse us
-
 -- instance OEIS 242399 where
 --   oeisIx n = foldr (\t v -> 3 * v + t) 0 $
 --                     map (flip mod 3) $ zipWith (+) ([0] ++ ts) (ts ++ [0])
@@ -25837,8 +22667,8 @@ instance OEIS 242357 where
 -- instance OEIS 244365 where
 --   oeis = tablList @244365
 -- instance Table 244365 where
---   rowCol n k = (tabf @244365) !! (n - 1) !! (k-1)
---   rowT n = (tabf @244365) !! (n - 1)
+--   rowCol = rowCol_off @244365 @1 @1
+--   rowT   = rowT_off @244365 @1
 --   tabf = zipWith farideh (map (+ 1) (oeis @40)) (oeis @249669)
 --                  where farideh u v = filter ((== 1) .  (oeisIx @10051)') [u..v]
 
@@ -25889,18 +22719,8 @@ instance OEIS 242357 where
 -- instance OEIS 245066 where
 --   oeisIx n = (oeisIx @1497) (2 * n) n
 
-instance OEIS 245093 where
-  oeis = tablList @245093
-instance Table 245093 where
-  rowCol = rowCol_off @245093 @1 @1
-  rowT   = rowT_off   @245093 @1
-  tabl = tail $ inits $ (oeis @203)
-
 -- instance OEIS 245097 where
 --   oeisIx n = sum $ map (oeisIx @10051)' [n + 1 .. (oeisIx @7535) n]
-
-instance OEIS 245180 where
-  oeisIx = flip div 8 . (oeisIx @160239) . succ
 
 -- instance OEIS 245193 where
 --   oeisIx n = head [p | p <- (oeis @40),
@@ -25964,9 +22784,6 @@ instance OEIS 245180 where
 
 -- instance OEIS 245530 where
 --   oeisIx = product . (rowT @245499)
-
-instance OEIS 245542 where
-  oeis = scanl1 (+) (oeis @160239)
 
 -- instance OEIS 245543 where
   -- oeisIx n = (oeis @245542) !! n
@@ -26260,30 +23077,6 @@ instance OEIS 245542 where
 --   oeisIx n = sum $ map ((1 -) . (oeisIx @10052) . (n -)) $
 --                     takeWhile (<= n) (oeis @290)
 
-instance OEIS 247368 where
-  oeis = 0 : xs where
-     xs = [1, 1, 1, 1] ++ zipWith (flip div) xs (zipWith (+)
-                (zipWith (*) (tail xs) (drop 3 xs))
-                (zipWith (*) (cycle [1, -1]) (map (^ 2) $ drop 2 xs)))
-
-instance OEIS 247369 where
-  oeis = [0, -1, 1, 1, 1, 0] ++ xs where
-     xs = [1, 1, 1, 3] ++ zipWith (flip div) xs (zipWith (+)
-                (zipWith (*) (tail xs) (drop 3 xs))
-                (zipWith (*) (cycle [1, -1]) (map (^ 2) $ drop 2 xs)))
-
-instance OEIS 247370 where
-  oeis = [1, 1, 0] ++ xs where
-     xs = [1, 1, 1, 2] ++ zipWith (flip div) xs (zipWith (+)
-                (zipWith (*) (tail xs) (drop 3 xs))
-                (zipWith (*) (cycle [1, -1]) (map (^ 2) $ drop 2 xs)))
-
-instance OEIS 247378 where
-  oeis = [1, -2, 1, 1] ++ zipWith (flip div) (oeis @247378)
-     (zipWith (+)
-          (zipWith (*) (tail (oeis @247378)) (drop 3 (oeis @247378)))
-          (zipWith (*) (cycle [1, -1]) (map (^ 2) $ drop 2 (oeis @247378))))
-
 -- instance OEIS 247379 where
 --   oeisIx n = gcd n $ (oeisIx @64413) n
 
@@ -26525,7 +23318,7 @@ instance OEIS 247378 where
 -- instance OEIS 247765 where
 --   oeis = tablList @247765
 -- instance Table 247765 where
---   rowCol n k = (tabf @247765) !! (n - 1) !! (k-1)
+--   rowCol = rowCol_off @247765 @1 @1
 --   tabf = map (rowT @247765) [1..]
 --   rowT n = f (map recip [2..]) (n % (n + 1)) where
 --      f es x | numerator x == 1 = [denominator x]
@@ -26541,8 +23334,8 @@ instance OEIS 247378 where
 -- instance OEIS 247795 where
 --   oeis = tablList @247795
 -- instance Table 247795 where
---   rowCol n k = (tabf @247795) !! (n - 1) !! (k-1)
---   rowT n = (tabf @247795) !! (n - 1)
+--   rowCol = rowCol_off @247795 @1 @1
+--   rowT   = rowT_off @247795 @1
 --   tabf = map (map (flip mod 2)) (tabf @27750)
 
 -- instance OEIS 247797 where
@@ -26739,10 +23532,6 @@ instance OEIS 247378 where
 -- instance OEIS 247869 where
 --   oeisIx n = (oeisIx (oeisIx n) + (oeisIx @40) n) `div` (oeisIx n + n)
 
-instance OEIS 247875 where
-  oeis = filter (\x -> even x || f x) [0..] where
-     f x = x > 0 && (x `mod` 4 == 0 || f (x `div` 2))
-
 -- instance OEIS 247879 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @248025))
 
@@ -26794,8 +23583,8 @@ instance OEIS 247875 where
 -- instance OEIS 248110 where
 --   oeis = tablList @248110
 -- instance Table 248110 where
---   rowCol n k = (tabf @248110) !! (n - 1) !! (k-1)
---   rowT n = (tabf @248110) !! (n - 1)
+--   rowCol = rowCol_off @248110 @1 @1
+--   rowT   = rowT_off @248110 @1
 --   tabf = map (\x -> [x + 1 .. x + (oeisIx @7953) x]) [1 ..]
 
 -- instance OEIS 248122 where
@@ -26809,8 +23598,8 @@ instance OEIS 247875 where
 -- instance OEIS 248141 where
 --   oeis = tablList @248141
 -- instance Table 248141 where
---   rowCol n k = (tabf @248141) !! (n - 1) !! (k-1)
---   rowT n = (tabf @248141) !! (n - 1)
+--   rowCol = rowCol_off @248141 @1 @1
+--   rowT   = rowT_off @248141 @1
 --   tabf = map concat usss where
 --      usss = iterate f [[1]] where
 --        f vss = group [1 .. last (last vss) + 1] ++
@@ -26819,8 +23608,8 @@ instance OEIS 247875 where
 -- instance OEIS 248147 where
 --   oeis = tablList @248147
 -- instance Table 248147 where
---   rowCol n k = (tabf @248147) !! (n - 1) !! (k-1)
---   rowT n = (tabf @248147) !! (n - 1)
+--   rowCol = rowCol_off @248147 @1 @1
+--   rowT   = rowT_off @248147 @1
 --   tabf = map concat psss where
 --      psss = iterate f [[2]] where
 --         f pss = group (h $ last pss) ++ map h pss
@@ -26829,8 +23618,8 @@ instance OEIS 247875 where
 -- instance OEIS 248164 where
 --   oeis = tablList @248164
 -- instance Table 248164 where
---   rowCol n k = (tabf @248164) !! (n - 1) !! (k-1)
---   rowT n = (tabf @248164) !! (n - 1)
+--   rowCol = rowCol_off @248164 @1 @1
+--   rowT   = rowT_off @248164 @1
 --   tabf = map (map product) psss where
 --      psss = iterate f [[2]] where
 --         f pss = group (h $ last pss) ++ map h pss
@@ -26879,11 +23668,6 @@ instance OEIS 247875 where
 -- instance OEIS 248663 where
 --   oeisIx = foldr (xor) 0 . map (\i -> 2^ (i - 1)) . (rowT @112798)
 
-instance OEIS 248737 where
-  oeis = 0 : f 1 [0] where
-     f x ys = y : f (x + 1) (y : ys) where
-       y = (+ 1) $ fromMaybe (x - 1) $ findIndex (\z -> gcd z x /= 1) ys
-
 -- instance OEIS 248756 where
 --   oeis = f 1 [] where
 --      f x yvs = fst yw : f (x + 1) (yw:yvs) where
@@ -26897,10 +23681,6 @@ instance OEIS 248737 where
 
 -- instance OEIS 248907 where
 --   oeisIx = (oeisIx @32810) . (oeisIx @185969)
-
-instance OEIS 248910 where
-  oeis = iterate f 1 where
-     f x = 1 + if r < 5 then x else 6 * f x'  where (x', r) = divMod x 6
 
 -- instance OEIS 248918 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @247665)) . (oeisIx @961) . (+ 1)
@@ -27069,11 +23849,6 @@ instance OEIS 248910 where
 -- instance OEIS 249411 where
 --   oeis = filter ((== 1) . (oeisIx @5369)) (oeis @249407)
 
-instance OEIS 249484 where
-  oeis = 1 : concat (zipWith (++) ([2] : f [5,2,7]) (f [4,3])) where
-     f = iterate (\row -> [g $ head row] ++ row ++ [g $ last row])
-     g x = x + ((5 -) . (* 2) . flip mod 2) x
-
 -- instance OEIS 249566 where
 --   oeis = filter ((== 4) . (oeisIx @182134)) [1..]
 
@@ -27158,9 +23933,6 @@ instance OEIS 249484 where
 -- instance OEIS 249830 where
 --   oeis = filter ((== 0) . (oeisIx @249832)) [0..]
 
--- instance OEIS 249832 where
---   oeisIx = (0 ^) . flip mod 10 . (oeisIx @93017)
-
 -- instance OEIS 249854 where
 --   oeis = sortBy (compare `on` show) $
 --                         takeWhile (<= 10^6) (oeis @93018)
@@ -27191,18 +23963,8 @@ instance OEIS 249484 where
 -- instance OEIS 249920 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @55266))
 
-instance OEIS 249943 where
-  oeis = scanl1 max $ map (oeisIx @98551) [0..]
-
 -- instance OEIS 249951 where
 --   oeis = filter ((== 1) . (oeisIx @10051)'' . (oeisIx @113630)) [1..]
-
-instance OEIS 249990 where
-  oeis = f 2 [1..] where
-     f k xs = reverse ys ++ f (k + 1) (g zs) where
-              g us = reverse vs ++ g ws where
-                     (vs, ws) = splitAt k us
-              (ys, zs) = splitAt k xs
 
 -- instance OEIS 250007 where
 --   oeis = map length $ group $ map (oeisIx @100618) [1..]
@@ -27210,9 +23972,6 @@ instance OEIS 249990 where
 -- instance OEIS 250030 where
 --   oeisIx n = snd $ until ((== 5) . fst)
 --                     (\ (x, s) -> (oeisIx x, s + 1)) (oeisIx n, 1)
-
-instance OEIS 250299 where
-  oeisIx = flip mod 2 . (oeisIx @98550)
 
 -- instance OEIS 250402 where
 --   oeis = filter ((== 0) . (oeisIx @247149)) [0..]
@@ -27262,12 +24021,6 @@ instance OEIS 250299 where
 -- instance OEIS 251141 where
 --   oeisIx = (oeisIx @1222) . (oeisIx @98548)
 
-instance OEIS 251237 where
-  oeis = filter (even . (oeisIx @98550) . pred) [1..]
-
-instance OEIS 251238 where
-  oeis = filter (odd . (oeisIx @98550) . pred) [1..]
-
 -- instance OEIS 251239 where
 --   oeis = filter ((== 1) . (oeisIx @10051)' . (oeisIx @98550)) [1..]
 
@@ -27291,21 +24044,6 @@ instance OEIS 251238 where
 
 -- instance OEIS 251412 where
 --   oeis = iterate (oeisIx @98550) 11
-
-instance OEIS 251413 where
-  oeis = 1 : 3 : 5 : f 3 5 [7, 9 ..] where
-     f u v ws = g ws where
-       g (x:xs) = if gcd x u > 1 && gcd x v == 1
-                     then x : f v x (delete x ws) else g xs
-
-instance OEIS 251416 where
-  oeis = 2 : 3 : f 2 3 [4..] where
-     f u v ws = h ws where
-       h (x:xs) = if gcd x u > 1 && gcd x v == 1
-                     then (head ws) : f v x (delete x ws) else h xs
-
-instance OEIS 251417 where
-  oeis = map length $ group (oeis @251416)
 
 -- instance OEIS 251535 where
 --   oeis = fst (oeisIx @98548)_bisect
@@ -27357,18 +24095,6 @@ instance OEIS 251417 where
 -- instance OEIS 251553 where
 --   oeis = filter ((== 0) . flip mod 3 . (oeisIx @98550)) [1..]
 
-instance OEIS 251554 where
-  oeis = 1 : 2 : 5 : f 2 5 (3 : 4 : [6..]) where
-     f u v ws = g ws where
-       g (x:xs) = if gcd x u > 1 && gcd x v == 1
-                     then x : f v x (delete x ws) else g xs
-
-instance OEIS 251555 where
-  oeis = 1 : 3 : 2 : f 3 2 [4..] where
-     f u v ws = g ws where
-       g (x:xs) = if gcd x u > 1 && gcd x v == 1
-                     then x : f v x (delete x ws) else g xs
-
 -- instance OEIS 251557 where
 --   oeis = map (+ 2) $ tail $ scanl maxEven 0 (oeis @98550)
 --                  where maxEven u v = if even v then max u v else u
@@ -27390,18 +24116,6 @@ instance OEIS 251555 where
 -- instance OEIS 251595 where
 --   oeis = map head $ group (oeis @251416)
 
-instance OEIS 251599 where
-  oeis = f 0 $ g 1 [1..] where
-     f i (us:vs:wss) = [head $ drop i us] ++ (take 2 $ drop i vs) ++
-                       f (i + 1) wss
-     g k zs = ys : g (k + 1) xs where (ys,xs) = splitAt k zs
-
-instance OEIS 251604 where
-  oeis = 1 : 2 : 3 : f 2 3 [4..] where
-     f u v ws = g ws where
-       g (x:xs) = if gcd x (u + v) > 1 && gcd x v == 1
-                     then x : f v x (delete x ws) else g xs
-
 -- instance OEIS 251608 where
 --   oeis = 2 : 3 : f 2 3 (drop 5 (oeis @45)) where
 --      f u v (w:ws) = if gcd u w > 1 && gcd v w == 1
@@ -27419,12 +24133,6 @@ instance OEIS 251604 where
 
 -- instance OEIS 251621 where
 --   oeis = map length $ group (oeis @249943)
-
-instance OEIS 251622 where
-  oeis = 1 : 2 : f 1 2 [3..] where
-     f u v xs = g xs where
-       g (w:ws) = if gcd w u > 1 || gcd w v > 1
-                     then w : f v w (delete w xs) else g ws
 
 -- instance OEIS 251635 where
 --   oeis = tablList @251635
@@ -27759,8 +24467,8 @@ instance OEIS 251622 where
 -- instance OEIS 254679 where
 --   oeis = tablList @254679
 -- instance Table 254679 where
---   rowCol n k = (tabf @254679) !! (n - 1) !! (k-1)
---   rowT n = (tabf @254679) !! (n - 1)
+--   rowCol = rowCol_off @254679 @1 @1
+--   rowT   = rowT_off @254679 @1
 --   tabf = map (sortBy (comparing show)) (tabf @27750)
 
 -- instance OEIS 254730 where
@@ -27781,15 +24489,12 @@ instance OEIS 251622 where
 -- instance OEIS 255316 where
 --   oeis = tablList @255316
 -- instance Table 255316 where
---   rowCol n k = (tabf @255316) !! (n - 1) !! (k-1)
---   rowT n = (tabf @255316) !! (n - 1)
+--   rowCol = rowCol_off @255316 @1 @1
+--   rowT   = rowT_off @255316 @1
 --   tabf = map (sort . nub) (tabl @255313)
 
 -- instance OEIS 255395 where
 --   oeisIx = genericLength . nub . (rowT @255313)
-
-instance OEIS 255420 where
-  oeis = iterate (oeisIx @3309 . (+ 1)) 1
 
 -- instance OEIS 255427 where
 --   oeisIx = product . nub . (rowT @255313)
@@ -27843,14 +24548,6 @@ instance OEIS 255420 where
 --   oeis = filter (rhonda 30) $ iterate z 1 where
 --      z x = 1 + if r < 29 then x else 30 * z x' where (x', r) = divMod x 30
 
-instance OEIS 255805 where
-  oeis = iterate f 1 where
-     f x = 1 + if r < 7 then x else 8 * f x'  where (x', r) = divMod x 8
-
-instance OEIS 255808 where
-  oeis = iterate f 1 where
-     f x = 1 + if r < 8 then x else 9 * f x'  where (x', r) = divMod x 9
-
 -- instance OEIS 255833 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @166133))
 
@@ -27888,16 +24585,16 @@ instance OEIS 255808 where
 -- instance OEIS 256015 where
 --   oeis = tablList @256015
 -- instance Table 256015 where
---   rowCol n k = (tabf @256015) !! (n - 1) !! (k-1)
---   rowT n = (tabf @256015) !! (n - 1)
+--   rowCol = rowCol_off @256015 @1 @1
+--   rowT   = rowT_off @256015 @1
 --   tabf = map (sort . filter ((== 1) . (oeisIx @10051)') . nub .
 --                   map sum . tail . subsequences) (tail $ inits (oeis @40))
 
 -- instance OEIS 256113 where
 --   oeis = tablList @256113
 -- instance Table 256113 where
---   rowCol n k = (tabf @256113) !! (n - 1) !! (n-1)
---   rowT n = (tabf @256113) !! (n - 1)
+--   rowCol = rowCol_off @256113 @1 @1
+--   rowT   = rowT_off @256113 @1
 --   tabf = map (rowT @27748) $ tail (oeis @1142)
 
 -- instance OEIS 256152 where
@@ -27981,8 +24678,8 @@ instance OEIS 255808 where
 -- instance OEIS 256507 where
 --   oeis = tablList @256507
 -- instance Table 256507 where
---   rowCol n k = (tabf @256507) !! (n - 1) !! (k-1)
---   rowT n = (tabf @256507) !! (n - 1)
+--   rowCol = rowCol_off @256507 @1 @1
+--   rowT   = rowT_off @256507 @1
 --   tabf = zipWith (\us vs ->
 --                          map ((+ 1) . fromJust . (`elemIndex` vs)) us)
 --                          (tabf @256946) $ tail (tabf @256946)
@@ -28111,8 +24808,8 @@ instance OEIS 255808 where
 -- instance OEIS 256946 where
 --   oeis = tablList @256946
 -- instance Table 256946 where
---   rowCol n k = (tabf @256946) !! (n - 1) !! (k-1)
---   rowT n = (tabf @256946) !! (n - 1)
+--   rowCol = rowCol_off @256946 @1 @1
+--   rowT   = rowT_off @256946 @1
 --   tabf = f 0 [] [] where
 --      f k us vs = (xs ++ ys) : f (k+1) xs ys where
 --        xs = us ++ qs
@@ -28139,8 +24836,8 @@ instance OEIS 255808 where
 -- instance OEIS 257053 where
 --   oeis = tablList @257053
 -- instance Table 257053 where
---   rowCol n k = (tabf @257053) !! (n - 1) !! k
---   rowT n = (tabf @257053) !! (n - 1)
+--   rowCol = rowCol_off @257053 @1 @0
+--   rowT   = rowT_off @257053 @1
 --   tabf = map (oeisIx_row . fi) (oeis @40)
 
 -- instance OEIS 257070 where
@@ -28195,8 +24892,8 @@ instance OEIS 255808 where
 -- instance OEIS 257241 where
 --   oeis = tablList @257241
 -- instance Table 257241 where
---   rowCol n k = (tabf @257241) !! (n - 1) !! (k-1)
---   rowT n = (tabf @257241) !! (n - 1)
+--   rowCol = rowCol_off @257241 @1 @1
+--   rowT   = rowT_off @257241 @1
 --   tabf = iterate stifel [1] where
 --      stifel xs@ (x:_) = if odd x then xs' else xs' ++ [last xs']
 --                        where xs' = zipWith (+) xs (1 : xs)
@@ -28239,9 +24936,6 @@ instance OEIS 255808 where
 
 -- instance OEIS 257478 where
 --   oeisIx n = (oeisIx @257475) n - (oeisIx @257120) n
-
-instance OEIS 257502 where
-  oeisIx = fromJust . (`elemIndex` (oeis @78783))
 
 -- instance OEIS 257508 where
 --   oeis = filter ((== 1) . (oeisIx @257265)) [0..]
@@ -28452,11 +25146,11 @@ instance OEIS 257502 where
 -- instance OEIS 258138 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @99305))
 
--- instance OEIS 258143 where
---   oeisIx = sum . (rowT @257241)
-
 -- instance OEIS 258144 where
 --   oeisIx = sum . zipWith (*) (cycle [1, -1]) . (rowT @257241)
+
+-- instance OEIS 258143 where
+--   oeisIx = sum . (rowT @257241)
 
 -- instance OEIS 258188 where
 --   oeis = f 1 $ tail $ zip
@@ -28839,7 +25533,7 @@ instance OEIS 257502 where
 -- instance OEIS 260689 where
 --   oeis = tablList @260689
 -- instance Table 260689 where
---   rowCol n k = (tabf @260689) !! (n - 2) !! (k-1)
+--   rowCol = rowCol_off @260689 @2 @1
 --   rowT n = [m | m <- [1, 3 .. 2 * n - 3],
 --                        (oeisIx @10051)' (2*n + m) == 1, (oeisIx @10051)' (2*n - m) == 1]
 --   tabf = map (rowT @260689) [2..]
@@ -28849,15 +25543,6 @@ instance OEIS 257502 where
 
 -- instance OEIS 260797 where
 --   oeisIx = (oeisIx @98743) . (oeisIx @142)
-
--- instance OEIS 260798 where
---   import Data.MemoCombinators (memo2, integral)
---   oeisIx n = (oeis @260798) !! (n - 1)
---   oeis = map (subtract 1 . pMemo 2) (oeis @40) where
---      pMemo = memo2 integral integral p
---      p _ 0 = 1
---      p k m | m < k     = 0
---            | otherwise = pMemo k (m - k) + pMemo (k + 1) m
 
 -- instance OEIS 260822 where
 --   oeis = f 1 [1..] where
@@ -28909,8 +25594,8 @@ instance OEIS 257502 where
 -- instance OEIS 261019 where
 --   oeis = tablList @261019
 -- instance Table 261019 where
---   rowCol n k = (tabf @261019) !! (n - 1) !! k
---   rowT n = (tabf @261019) !! (n - 1)
+--   rowCol = rowCol_off @261019 @1 @0
+--   rowT   = rowT_off @261019 @1
 --   tabf = map (i 0 . group . sort . map f) (tabf @76478)
 --      where f bs = g (tabf @30308) where
 --              g (cs:css) | isInfixOf cs bs = g css
@@ -28918,19 +25603,6 @@ instance OEIS 257502 where
 --            i _ [] = []
 --            i r gss'@ (gs:gss) | head gs == r = (length gs) : i (r + 1) gss
 --                              | otherwise    = 0 : i (r + 1) gss'
-
--- instance OEIS 261036 where
---   import Data.MemoCombinators (memo2, integral, Memo)
---   oeisIx n k = (tabf @261036) !! (n - 1) !! (k-1)
---   oeisIx_row n = (tabf @261036) !! (n - 1)
---   oeisIx_tabf = zipWith (map . flip dMemo) [1..] (tabf @122197) where
---      dMemo = memo2 integral integral d
---      d 0 _ = 0
---      d _ 0 = 0
---      d 1 _ = 1
---      d k n | n <= 2 * k - 2 = 0
---            | n <= 3 * k - 2 = dMemo (k - 1) (n - 1)
---            | otherwise      = dMemo (k - 1) (n - 1) + dMemo k (n - k)
 
 -- instance OEIS 261089 where
 --   oeisIx = fromJust . (`elemIndex` (oeis @155043))
@@ -29066,8 +25738,8 @@ instance OEIS 257502 where
 -- instance OEIS 261712 where
 --   oeis = tablList @261712
 -- instance Table 261712 where
---   rowCol n k = (tabf @261712) !! (n - 1) !! (k-1)
---   rowT n = (tabf @261712) !! (n - 1)
+--   rowCol = rowCol_off @261712 @1 @1
+--   rowT   = rowT_off @261712 @1
 --   tabf = map reverse (tabf @261644)
 
 -- instance OEIS 261723 where
@@ -29117,8 +25789,7 @@ instance OEIS 257502 where
 -- instance OEIS 261897 where
 --   oeis = tablList @261897
 -- instance Table 261897 where
---   rowCol n k = (tabl @261897) !! n !! (k-1)
---   rowT n = (tabl @261897) !! n
+--   rowCol = rowCol_off @261897 @0 @1
 --   tabl = [1] : f 1 0 [1] where
 --      f t h xs | t <= (h + 1) ^ 2  = ys : f (t + 1) h ys
 --               | otherwise         = ys' : f (t + 1) (h + 1) ys'
@@ -29204,12 +25875,6 @@ instance OEIS 257502 where
 --      levenshtein us vs = last $ foldl transform [0..length us] vs where
 --        transform xs@ (x:xs') c = scanl compute (x+1) (zip3 us xs xs') where
 --          compute z (c', x, y) = minimum [y+1, z+1, x + fromEnum (c' /= c)]
-
-instance OEIS 262277 where
-  oeis = filter f [1..] where
-     f x = sort ds' == sort (map (9 -) ds') where
-       ds' = nub $ ds x
-       ds 0 = []; ds z = d : ds z' where (z', d) = divMod z 10
 
 -- instance OEIS 262279 where
 --   oeisIx = fromJust . (`elemIndex` (oeis @261923))
@@ -29393,8 +26058,8 @@ instance OEIS 262277 where
 -- instance OEIS 263355 where
 --   oeis = tablList @263355
 -- instance Table 263355 where
---   rowCol n k = (tabf @263355) !! (n - 1) !! (k-1)
---   rowT n = (tabf @263355) !! (n - 1)
+--   rowCol = rowCol_off @263355 @1 @1
+--   rowT   = rowT_off @263355 @1
 --   tabf = sort $ cc (oeis @263327) where
 --      cc [] = []
 --      cc (x:xs) = (reverse $ sort ys) : cc (xs \\ ys)
@@ -29404,9 +26069,6 @@ instance OEIS 262277 where
 
 -- instance OEIS 263383 where
 --   oeisIx = genericLength . (rowT @263355)
-
-instance OEIS 263451 where
-  oeis = iterate (oeisIx @4186 . (* 2)) 1
 
 -- instance OEIS 263766 where
 --   oeis = scanl (*) 1 (oeis @8865)
@@ -29535,28 +26197,6 @@ instance OEIS 263451 where
 -- instance OEIS 264959 where
 --   oeisIx n = (oeisIx @257851) n n
 
--- instance OEIS 264997 where
---   import Data.MemoCombinators (memo2, list, integral)
---   oeisIx n = (oeis @264997) !! (n - 1)
---   oeis = f 0 [] (oeis @3593) where
---      f u vs ws'@ (w:ws) | u < w = (p' vs u) : f (u + 1) vs ws'
---                        | otherwise = f u (vs ++ [w]) ws
---      p' = memo2 (list integral) integral p
---      p _  0 = 1
---      p [] _ = 0
---      p (k:ks) m = if m < k then 0 else p' ks (m - k) + p' ks m
-
--- instance OEIS 264998 where
---   import Data.MemoCombinators (memo2, list, integral)
---   oeisIx n = (oeis @264998) !! (n - 1)
---   oeis = f 0 [] (1 : 2 : tail (oeis @3593)) where
---      f u vs ws'@ (w:ws) | u < w = (p' vs u) : f (u + 1) vs ws'
---                        | otherwise = f u (vs ++ [w]) ws
---      p' = memo2 (list integral) integral p
---      p _  0 = 1
---      p [] _ = 0
---      p (k:ks) m = if m < k then 0 else p' ks (m - k) + p' ks m
-
 -- instance OEIS 265008 where
 --   oeisIx n = genericLength [ () | let cs = (rowT @165416) n, c <- cs,
 --               let as = takeWhile (<= c) cs, a <- as, b <- as, a * b == c]
@@ -29568,8 +26208,8 @@ instance OEIS 263451 where
 -- instance OEIS 265110 where
 --   oeis = tablList @265110
 -- instance Table 265110 where
---   rowCol n k = (tabf @265110) !! (n - 1) !! (k-1)
---   rowT n = (tabf @265110) !! (n - 1)
+--   rowCol = rowCol_off @265110 @1 @1
+--   rowT   = rowT_off @265110 @1
 --   tabf = map (scanl1 (*)) (tabf @27746)
 
 -- instance OEIS 265111 where
@@ -29626,14 +26266,6 @@ instance OEIS 263451 where
 --        y = foldr (\d v -> 10 * v + d) 0 ys
 --        (ys:_) = dropWhile (\ps -> not $ and $ zipWith (<=) ps ds) pss'
 --        pss' = if ds /= reverse ds then pss else ds : pss
-
-instance OEIS 265652 where
-  oeis = tablList @265652
-instance Table 265652 where
-  rowCol = rowCol_off @265652 @1 @1
-  rowT   = rowT_off   @265652 @1
-  tabl = zipWith (zipWith (-))
-     (zipWith (map . (+)) (oeis @203) (tabl @245093)) (tabl @132442)
 
 -- instance OEIS 265668 where
 --   import Math.NumberTheory.Primes.Factorisation (factorise)
@@ -29736,12 +26368,6 @@ instance Table 265652 where
 --   minimaxScore2 as = (sum as - minimaxDifference as) `div` 2
 --   oeisIx = minimaxScore2 . (rowT @66099)
 
-instance OEIS 276374 where
-  oeis = filter (\i -> (oeisIx @240024) i == (oeisIx @2808) i) [1..]
-
-instance OEIS 276375 where
-  oeis = filter (\i -> (oeisIx @240024) (i + 1) == (oeisIx @2808) i) [1..]
-
 -- instance OEIS 277278 where
 --   oeisIx n
 --     | isSquare n = n
@@ -29819,10 +26445,6 @@ instance OEIS 276375 where
 --   oeis = minIdx (oeis @27748) (oeis @40)
 --   oeisIx n = (oeis @308495) !! (n - 1)
 
-instance OEIS 308576 where
-  oeisIx 0 = 1
-  oeisIx n = (oeisIx @308576 (n - 1)) + (oeisIx @308576 (oeisIx @308576 (n - 1) `mod` n)) + 1
-
 -- instance OEIS 309096 where
 --   wheelSeeds = [2, 3, 5, 7, 11, 13]
 --   wheelOffsets = filter (\c -> all (\s -> mod c s /= 0) wheelSeeds) [1..product wheelSeeds]
@@ -29877,5 +26499,4 @@ instance OEIS 308576 where
 --           | length p == 0 = True
 --           | length p == 1 = False
 --           | otherwise = p!!0 == p!!1
-
 

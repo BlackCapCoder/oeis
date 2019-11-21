@@ -1,6 +1,5 @@
-module OEIS.Part1 where
+module OEIS.Part1 () where
 
-import OEIS.OEIS
 import OEIS.Common
 
 import Data.Bits
@@ -19,7 +18,6 @@ import qualified Math.NumberTheory.ArithmeticFunctions as A
 import Math.NumberTheory.Recurrences
 import Data.Maybe (fromJust)
 import Data.Ord (Down (..))
-import Data.Proxy
 import Data.Tuple
 import qualified Data.List.Ordered as O
 import qualified Data.Map as M
@@ -2395,7 +2393,8 @@ instance OEIS 7310 where
 
 
 instance Table 7318 where
-  tabl = iterate (\row -> zipWith (+) ([0] ++ row) (row ++ [0])) [1]
+  -- tabl = iterate (\row -> zipWith (+) (0 : row) (row ++ [0])) [1]
+  tabl = binomial
 
 instance OEIS 7318 where
   oeis = tablList @7318
@@ -2516,6 +2515,7 @@ instance OEIS 7916 where
   oeis = filter ((== 1) . foldl1 gcd . (rowT @124010)) [2..]
 
 instance OEIS 7953 where
+  oeis = concat $ iterate (map succ) [0..9]
   oeisIx n | n < 10 = n | otherwise = (oeisIx @7953) n' + r where (n',r) = divMod n 10
 
 instance OEIS 7954 where
@@ -3056,7 +3056,7 @@ instance OEIS 25302 where
   oeis = [x | x <- [1..], (oeisIx @25441) x == 1]
 
 instance OEIS 25414 where
-  oeisIx = fi . fromJust . (`elemIndex` (oeis @25427))
+  oeisIx = fi . fromJust . (`elemIndex` (oeis @25427)) . succ
 
 instance OEIS 25426 where
   oeisIx n = sum $ map (oeisIx @10052 . (n -)) $
@@ -3150,7 +3150,7 @@ instance Table 27748 where
   rowT n = unfoldr fact n where
      fact 1 = Nothing
      fact x = Just (p, until ((> 0) . (`mod` p)) (`div` p) x)
-              where p = (oeisIx @20639) x
+              where p = (oeisIx @20639) $ pred x
 
 instance OEIS 27750 where
   oeis = tablList @27750
@@ -3503,8 +3503,15 @@ instance OEIS 39943 where
   oeis = [0,1,4,16,20,37,42,58,89,145]
 
 instance OEIS 39995 where
-  oeisIx n = fi . sum $
-     map (oeisIx @10051) $ nub $ map (read :: String -> Integer) (tail $ subsequences $ show $ fi n)
+  oeisIx n
+     = fi . sum
+     . map (oeisIx @10051 . pred)
+     . filter (>0)
+     . nub
+     . map (read :: String -> Integer)
+     . tail
+     . subsequences
+     . show . fi . succ $ n
 
 instance OEIS 40000 where
   oeisIx 0 = 1
@@ -4801,7 +4808,7 @@ instance OEIS 249783 where
       bi x y = if (x<y) then (x+y) else (bi y (x-y))
 
 instance OEIS 249856 where
-  oeisIx = sum . map (flip mod 2) . (uss `genericIndex`)
+  oeisIx = sum . map (flip mod 2) . (uss `genericIndex`) . succ
 
 instance OEIS 249857 where
   oeisIx = sum . map ((1 -) . flip mod 2) . (uss `genericIndex`) . succ
@@ -4896,7 +4903,7 @@ instance OEIS 255582 where
                 y = head [z | z <- ws, let d = gcd u z, d > 1, gcd v z <= d]
 
 instance OEIS 256100 where
-  oeis = tail $ f (oeis @7376) $ take 10 $ repeat 1 where
+  oeis = f (tail $ oeis @7376) $ replicate 10 1 where
      f (d:ds) counts = y : f ds (xs ++ (y + 1) : ys) where
                              (xs, y:ys) = splitAt d counts
 

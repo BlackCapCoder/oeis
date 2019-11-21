@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4b69fb3f97515b29e91b45e0bd2a5deb4841d6a3b4fa890fd423b4b551731109
+-- hash: 659160f6e43f82ab59dcf7b633abc687d3c507c3f015d6c73ec8ac97dd93825e
 
 name:           oeis
 version:        0.1.0.0
@@ -29,6 +29,7 @@ library
       OEIS.Common
       OEIS.OEIS
       OEIS.Part1
+      OEIS.Part2
       OEIS.Prime
   other-modules:
       Paths_oeis
@@ -39,6 +40,7 @@ library
       arithmoi >=0.8.0.0
     , base >=4.7 && <5
     , containers
+    , data-memocombinators
     , data-ordlist
     , primes >=0.2.1.0
   default-language: Haskell2010
@@ -55,6 +57,7 @@ executable oeis-exe
       arithmoi >=0.8.0.0
     , base >=4.7 && <5
     , containers
+    , data-memocombinators
     , data-ordlist
     , oeis
     , primes >=0.2.1.0
@@ -64,6 +67,7 @@ test-suite oeis-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Test
       Paths_oeis
   hs-source-dirs:
       test
@@ -74,6 +78,7 @@ test-suite oeis-test
     , base >=4.7 && <5
     , bytestring
     , containers
+    , data-memocombinators
     , data-ordlist
     , mtl
     , oeis

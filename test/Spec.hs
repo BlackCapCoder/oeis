@@ -54,6 +54,9 @@ tests = sortOn testNum $(do
     | T.InstanceD _ _ (T.AppT _ n) _ <- is
     ])
 
+implemented :: [Int]
+implemented = map testNum tests
+
 data Component
   = List | Ix
 
@@ -137,11 +140,16 @@ main = do
 
 ----
 
-
 findSrcLine :: Int -> IO (Maybe Int)
 findSrcLine n = do
+  a <- findSrcLine' n "src/OEIS/Part1.hs"
+  case a of
+    Just _  -> pure a
+    Nothing -> findSrcLine' n "src/OEIS/Prime.hs"
+
+findSrcLine' n pth = do
   let needle = B.pack $ "instance OEIS " ++ show n ++ " where"
-  fmap succ . findIndex (B.isPrefixOf needle) . B.lines <$> B.readFile "src/OEIS/Prime.hs"
+  fmap succ . findIndex (B.isPrefixOf needle) . B.lines <$> B.readFile pth
 
 
 sample :: forall n i. OEIS n => Integral i => [i]

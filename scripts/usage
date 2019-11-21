@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cat src/OEIS/Prime.hs src/OEIS/Part1.hs | grep -Po '@\K\d+' | sort -n | uniq -c | sort -nr | head -n100

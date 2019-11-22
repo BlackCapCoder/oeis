@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 659160f6e43f82ab59dcf7b633abc687d3c507c3f015d6c73ec8ac97dd93825e
+-- hash: c8a6a139551e267b603673683ec17b7633bf9ff2295c259095807610beeefda7
 
 name:           oeis
 version:        0.1.0.0
@@ -63,16 +63,16 @@ executable oeis-exe
     , primes >=0.2.1.0
   default-language: Haskell2010
 
-test-suite oeis-test
+test-suite full
   type: exitcode-stdio-1.0
-  main-is: Spec.hs
+  main-is: all/All.hs
   other-modules:
+      Answers
       Test
       Paths_oeis
   hs-source-dirs:
       test
   default-extensions: AllowAmbiguousTypes BangPatterns BinaryLiterals BlockArguments ConstraintKinds DataKinds DefaultSignatures DeriveDataTypeable DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingVia GeneralizedNewtypeDeriving DisambiguateRecordFields DuplicateRecordFields EmptyCase EmptyDataDecls ExplicitForAll ExplicitNamespaces ExtendedDefaultRules FlexibleContexts FlexibleInstances ForeignFunctionInterface FunctionalDependencies GADTs HexFloatLiterals ImplicitParams ImpredicativeTypes InstanceSigs LambdaCase LiberalTypeSynonyms MonadComprehensions MonadFailDesugaring NoMonomorphismRestriction MultiParamTypeClasses MultiWayIf NamedFieldPuns NamedWildCards NegativeLiterals NumDecimals NumericUnderscores OverloadedLabels OverloadedStrings PackageImports ParallelListComp PartialTypeSignatures PatternSynonyms PolyKinds PostfixOperators QuantifiedConstraints QuasiQuotes RankNTypes RecordWildCards RecursiveDo RoleAnnotations ScopedTypeVariables StandaloneDeriving TemplateHaskell TemplateHaskellQuotes TransformListComp TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators TypeSynonymInstances UnboxedSums UnboxedTuples MagicHash UndecidableSuperClasses ViewPatterns
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       arithmoi >=0.8.0.0
     , base >=4.7 && <5
@@ -80,7 +80,28 @@ test-suite oeis-test
     , containers
     , data-memocombinators
     , data-ordlist
-    , mtl
+    , oeis
+    , primes >=0.2.1.0
+    , template-haskell
+  default-language: Haskell2010
+
+test-suite prime
+  type: exitcode-stdio-1.0
+  main-is: prime/PrimeOnly.hs
+  other-modules:
+      Answers
+      Test
+      Paths_oeis
+  hs-source-dirs:
+      test
+  default-extensions: AllowAmbiguousTypes BangPatterns BinaryLiterals BlockArguments ConstraintKinds DataKinds DefaultSignatures DeriveDataTypeable DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingVia GeneralizedNewtypeDeriving DisambiguateRecordFields DuplicateRecordFields EmptyCase EmptyDataDecls ExplicitForAll ExplicitNamespaces ExtendedDefaultRules FlexibleContexts FlexibleInstances ForeignFunctionInterface FunctionalDependencies GADTs HexFloatLiterals ImplicitParams ImpredicativeTypes InstanceSigs LambdaCase LiberalTypeSynonyms MonadComprehensions MonadFailDesugaring NoMonomorphismRestriction MultiParamTypeClasses MultiWayIf NamedFieldPuns NamedWildCards NegativeLiterals NumDecimals NumericUnderscores OverloadedLabels OverloadedStrings PackageImports ParallelListComp PartialTypeSignatures PatternSynonyms PolyKinds PostfixOperators QuantifiedConstraints QuasiQuotes RankNTypes RecordWildCards RecursiveDo RoleAnnotations ScopedTypeVariables StandaloneDeriving TemplateHaskell TemplateHaskellQuotes TransformListComp TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators TypeSynonymInstances UnboxedSums UnboxedTuples MagicHash UndecidableSuperClasses ViewPatterns
+  build-depends:
+      arithmoi >=0.8.0.0
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , data-memocombinators
+    , data-ordlist
     , oeis
     , primes >=0.2.1.0
     , template-haskell

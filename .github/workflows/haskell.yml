@@ -50,4 +50,4 @@ jobs:
         # gunzip data/all.gz
         # scripts/mkSpec
         # cabal --ignore-expiry new-test -v --offline --only
-        cabal --ignore-expiry new-test --offline --only
+        cabal --ignore-expiry new-test full --offline --only

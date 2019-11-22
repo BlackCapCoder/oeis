@@ -39,17 +39,19 @@ executables:
     - oeis
 
 tests:
-  oeis-test:
-    main:                Spec.hs
+  full:
+    main:                all/All.hs
     source-dirs:         test
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
     dependencies:
     - oeis
     - bytestring
-    - mtl
+    - template-haskell
+  prime:
+    main:                prime/PrimeOnly.hs
+    source-dirs:         test
+    dependencies:
+    - oeis
+    - bytestring
     - template-haskell
 
 default-extensions:

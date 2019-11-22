@@ -3156,7 +3156,7 @@ instance OEIS 27750 where
   oeis = tablList @27750
 instance Table 27750 where
   rowCol n k = (rowT @27750) n `genericIndex` (k - 1)
-  rowT = divisors
+  rowT = sort . divisors
   tabf = map (rowT @27750) [1..]
 
 instance OEIS 28310 where

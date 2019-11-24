@@ -26,7 +26,6 @@ parse' :: B.ByteString -> [Integer]
   $ B.readInteger
   . B.dropWhile \x -> x /= '-' && not (isDigit x)
 
-
 -------------------
 
 parseInstances :: B.ByteString -> [Integer]
@@ -37,3 +36,11 @@ parseInstances
 
 primeInstances = parseInstances <$> B.readFile "src/OEIS/Prime.hs"
 
+
+parseInstances' :: B.ByteString -> [Integer]
+parseInstances'
+  = mapMaybe (fmap fst . B.readInteger . B.dropWhile (not . isDigit))
+  . filter (B.isPrefixOf "-- instance OEIS ")
+  . B.lines
+
+primeInstances' = parseInstances' <$> B.readFile "src/OEIS/Prime.hs"

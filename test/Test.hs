@@ -9,13 +9,19 @@ import Data.Proxy
 import qualified Data.Map.Strict as M
 import qualified Data.ByteString.Lazy.Char8 as B
 import Control.Monad
+import Control.Concurrent.Chan
+import Control.Concurrent
 
+import Data.Maybe
+import Data.Either
+import Data.Monoid hiding (getAll)
+
+import Data.Foldable
 import Data.List
-import Data.IORef
 import System.IO
-import System.IO.Unsafe
 import System.Timeout
 import System.Exit
+
 
 
 
@@ -43,77 +49,93 @@ data Test where
 mkTest :: forall n i. Testable n i => Test
 mkTest = Test (reify @n) (mkA @n)
 
-
-------------
-
-
-data Component
-  = List | Ix
-
-data TestResult
-  = SpecMismatch
-  | Timeout
-  | Slow Int
-
-data Labeled
-  = Labeled Int Component TestResult
-
-
-report n = pure (n <> "\t") <> \case
-  SpecMismatch -> "WRONG"
-  Timeout      -> "TIMEOUT"
-  Slow s       -> "slow: " ++ show s
-
-report' (Labeled _ c r)
-  = flip report r case c of
-      List -> "     "
-      Ix   -> " (ix)"
-
-
-labelRes (Labeled _ _ x) = x
-
-isOk (labelRes->Slow _) = True
-isOk                 _  = False
-
-isWrong (labelRes->SpecMismatch) = True
-isWrong                 _  = False
-
-
 ix :: forall n i. OEIS n => Integral i => A n -> [i]
 ix _ = oeisIx @n <$> [0..]
 
 
-runTest timeLimit numSamples (Test i a) !(M.lookup i->Just (take numSamples->bs)) =
-  forM_ [(List, oeis' a), (Ix, ix a)] \(t, ~as) -> do
-    (res, as') <- pure $ unsafePerformIO do
-      cache <- newIORef []
-      res <- timeout timeLimit $ and <$> zipWithM
-          (\ !x y -> (x == y) <$ modifyIORef' cache (x :)) as bs
-      liftM2 (,) (pure res) (readIORef cache)
+------------
 
-    case res of
-      Just True    -> Right ()
-      Just False   -> Left $ Labeled i t SpecMismatch
-      _ | null as' -> Left $ Labeled i t Timeout
-        | let      -> Left $ Labeled i t $ Slow $ length as'
 
-runTest' timeLimit numSamples m t@(Test i a) = case runTest timeLimit numSamples t m of
-  Right _ -> pure True
-  Left x  -> do
-    Just ln <- findSrcLine $ testNum t
-    putStrLn do (':' : show ln) <> ('\t' : show a) <> report' x
-    when (isWrong x) do
-      let Just s = M.lookup i m
-      print $ take numSamples s
-      print $ take numSamples $ oeis' a
-      putStrLn ""
-    pure $ isOk x
+data Meta
+   = Meta Test Component [Integer] [Integer] Mistake
+
+data Component
+  = List
+  | Ix
+
+data Mistake
+  = WRONG
+  | SLOW
+  | TIMEOUT
+
+instance Show Mistake where
+  show WRONG   = "\10060"
+  show SLOW    = "\128012"
+  show TIMEOUT = "\129482"
+
+instance Show Component where
+  show List = "    "
+  show Ix   = "(ix)"
+
+instance Show Meta where
+  show (Meta (Test _ a) tag xs ys m)
+      = show m <> " " <> show a <> " " <> show tag <> "\n"
+     <> if | [x, y] <- align (map show xs) (map show ys)
+           -> unlines ["~  " <> x, "=  " <> y]
+           | let
+           -> ""
+
+underline x = "\ESC[4m"  <> x <> "\ESC[24m"
+red       x = "\ESC[31m" <> x <> "\ESC[39m"
+
+
+align a b
+  | (a', b') <- unzip $ zipWith f a b
+  = map unwords $ hilight [a', b']
+  where
+    f [] xs = (' ' <$ xs, xs)
+    f xs [] = (xs, ' ' <$ xs)
+    f (x:xs) (y:ys) = ([x], [y]) <> f xs ys
+
+hilight = transpose . map f . transpose
+  where
+    f xs@[a,b]
+      | a /= b = map red xs
+      | let    = xs
+
+----------
+
+
+data TestEnv = TestEnv
+  { timeLimit'  :: Int
+  , sampleSize' :: Int
+  , spec        :: Answers
+  }
+
+
+runTest :: Test -> TestEnv -> IO (Maybe Meta)
+runTest test@(Test i a) (TestEnv lim ss sp@(M.lookup i -> Just (take ss -> bs))) = do
+  fmap getAlt $
+    flip foldMap [(List, oeis' a), (Ix, ix a)] \(tag, xs) -> do
+      (xs', e) <- takeTimed lim ss xs
+      pure $ Meta test tag xs' bs <$> fold
+        [ WRONG   <$ guard do or $ zipWith (/=) xs' bs
+        , TIMEOUT <$ guard do null xs'
+        , SLOW    <$ guard do not e
+        ]
+
+runTests :: TestEnv -> [Test] -> IO [Meta]
+runTests env = fmap catMaybes . mapM do flip runTest env
 
 
 testMain tests timeout numSamples = do
-  m   <- getAll
-  res <- fmap and . forM tests $ (runTest' timeout numSamples) m
-  unless res $ exitFailure
+  env <- TestEnv timeout numSamples <$> getAll
+  putStrLn =<< unlines . fmap show  <$> runTests env tests
+
+  -- unless res $ exitFailure
+
+
+----
 
 
 findSrcLine :: Int -> IO (Maybe Int)
@@ -133,6 +155,20 @@ findSrcLine' n pth = do
 
 ----
 
+
+takeTimed :: Int -> Int -> [a] -> IO ([a], Bool)
+takeTimed lim ss (take ss -> ~as) = do
+  ch <- newChan
+
+  forkIO $
+    writeChan ch . maybe (Left False) (const $ Left True)
+      =<< timeout lim do forM_ as \ !x -> writeChan ch $ Right x
+
+  (xs, ~(Left b:_)) <- span isRight <$> getChanContents ch
+
+  pure (fromRight undefined <$> xs, b)
+
+
 exam :: forall n. (Testable n Int) => IO ()
 exam = do
   let Test ix (A ~as) = mkTest @n @Int
@@ -144,3 +180,20 @@ exam = do
     else do
       putStrLn $ "\nErr: " ++ show b ++ "\t" ++ show a
   putStrLn ""
+
+
+-- runTest' timeLimit numSamples m t@(Test i a)
+--   = case runTest timeLimit numSamples t m of
+--   -- = case runTestM (runTest'' t) $ TestEnv timeLimit numSamples m of
+--       Right _ -> pure True
+--       Left x  -> do
+--         Just ln <- findSrcLine $ testNum t
+--         putStrLn do (':' : show ln) <> ('\t' : show a) <> report' x
+--         when (isWrong x) do
+--           let Just s = M.lookup i m
+--           print $ take numSamples s
+--           print $ take numSamples $ oeis' a
+--           putStrLn ""
+--         pure $ isOk x
+
+

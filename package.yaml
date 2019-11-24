@@ -29,30 +29,44 @@ library:
 
 executables:
   oeis-exe:
-    main:                Main.hs
-    source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+    # main:                Main.hs
+    # source-dirs:         app
+    # ghc-options:
+    # - -threaded
+    # - -rtsopts
+    # - -with-rtsopts=-N
+    # dependencies:
+    # - oeis
+    main:           Main.hs
+    source-dirs:    test
     dependencies:
     - oeis
+    - bytestring
+    - template-haskell
+    dependencies:
+    - oeis
+    - bytestring
+    - template-haskell
+    cpp-options: -DTEST_PRIME
+
+
+
+_template-test: &test
+  main:           Main.hs
+  source-dirs:    test
+  dependencies:
+  - oeis
+  - bytestring
+  - template-haskell
 
 tests:
   full:
-    main:                all/All.hs
-    source-dirs:         test
-    dependencies:
-    - oeis
-    - bytestring
-    - template-haskell
+    <<: *test
+    cpp-options: -DTEST_FULL
   prime:
-    main:                prime/PrimeOnly.hs
-    source-dirs:         test
-    dependencies:
-    - oeis
-    - bytestring
-    - template-haskell
+    <<: *test
+    cpp-options: -DTEST_PRIME
+
 
 default-extensions:
 - AllowAmbiguousTypes

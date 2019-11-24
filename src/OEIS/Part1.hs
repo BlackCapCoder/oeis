@@ -5056,3 +5056,4 @@ instance OEIS 325902 where
       sumPartitionable ns
         | p <- \ms -> sum ms == sum (ns \\ ms)
         = any p $ subsequences ns
+

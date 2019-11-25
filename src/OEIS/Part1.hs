@@ -1286,7 +1286,8 @@ instance OEIS 2173 where
   oeisIx n = (oeisIx @50450) n - (oeisIx @50453 n)
 
 instance OEIS 2183 where
-  oeis = 1 : unfoldr f (1, map (oeisIx @5) (oeis @61799))
+  -- oeis = nub $ map (oeisIx @5 . pred . oeisIx @61799) [1..]
+  oeis = 1 : unfoldr f (1, map (oeisIx @5 . pred) (oeis @61799))
     where
       f (m, (dropWhile (m>=)->(x:xs)))
         = Just (x, (x, xs))
@@ -2371,7 +2372,7 @@ instance OEIS 7095 where
      f v = 10 * f w + r   where (w, r) = divMod v 9
 
 instance OEIS 7097 where
-  oeis = iterate (oeisIx @40) 1
+  oeis = iterate (oeisIx @40.pred) 1
 
 instance OEIS 7283 where
   oeisIx = (* 3) . (2 ^)
@@ -4489,7 +4490,7 @@ instance OEIS 181482 where
   oeis = scanl1 (+) $ zipWith (*) [1..] $ cycle [1, 1, -1]
 
 instance OEIS 181765 where
-  oeisIx (succ->n) = genericLength [xs | xs <- subsequences [-n..n], sum xs > 0]
+  oeisIx n = genericLength [xs | xs <- subsequences [-n..n], sum xs > 0]
 
 instance OEIS 182323 where
   oeis = filter ((== 43) . (`mod` 97) . (^ 2)) [0..]
@@ -5012,10 +5013,10 @@ instance OEIS 275673 where
   oeis = scanl (+) 1 $ concatMap (replicate 6) [1..]
 
 instance OEIS 276163 where
-  oeisIx n = maximum $ map minimax $ permutations [1..n]
+  oeisIx (succ->n) = maximum $ map minimax $ permutations [1..n]
 
 instance OEIS 276168 where
-  oeisIx n = minimum $ map minimax $ permutations [1..n]
+  oeisIx (succ->n) = minimum $ map minimax $ permutations [1..n]
 
 instance OEIS 287355 where
   oeisIx = go 0 2 . succ

@@ -4419,7 +4419,7 @@ instance OEIS 125203 where
                            x <= y, m == 0]
 
 instance OEIS 126025 where
-  oeisIx n = h n1s 0 where
+  oeisIx (succ->n) = h n1s 0 where
      h us c = if us == nns then c + 1 else h (succ us) (c + g) where
        g = if and [f x `gcd` f y == f (x `gcd` y) |
                    x <- [1 .. n - 1], y <- [x + 1 .. n]] then 1 else 0
@@ -5971,7 +5971,7 @@ instance OEIS 251622 where
                      then w : f v w (delete w xs) else g ws
 
 instance OEIS 255420 where
-  oeis = iterate (oeisIx @3309 . (+ 1)) 1
+  oeis = iterate (oeisIx @3309) 1
 
 instance OEIS 255805 where
   oeis = iterate f 1 where

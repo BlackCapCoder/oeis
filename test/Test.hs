@@ -117,7 +117,7 @@ runTest :: Test -> TestEnv -> IO (Maybe Meta)
 runTest test@(Test i a) (TestEnv lim ss sp@(M.lookup i -> Just (take ss -> bs))) = do
   fmap getAlt $
     flip foldMap [(List, oeis' a), (Ix, ix a)] \(tag, xs) -> do
-      (xs', e) <- takeTimed lim ss xs
+      (xs', e) <- takeTimed lim (min ss $ length bs) xs
       pure $ Meta test tag xs' bs <$> fold
         [ WRONG   <$ guard do or $ zipWith (/=) xs' bs
         , TIMEOUT <$ guard do null xs'
@@ -130,7 +130,13 @@ runTests env = fmap catMaybes . mapM do flip runTest env
 
 testMain tests timeout numSamples = do
   env <- TestEnv timeout numSamples <$> getAll
-  putStrLn =<< unlines . fmap show  <$> runTests env tests
+  forM_ tests $ \t -> do
+    res <- runTest t env
+    -- print (testNum t)
+    case res of
+      Just x -> print x
+      _      -> pure ()
+  -- putStrLn =<< unlines . fmap show  <$> runTests env tests
 
   -- unless res $ exitFailure
 

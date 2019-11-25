@@ -74,12 +74,12 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx 0 = 1
 --   oeisIx n = 8 * (oeisIx @46897) n
 
--- instance OEIS 139 where
---   oeis   0 = 2
---   oeisIx n = ((3 * n) `a007318` (2 * n + 1)) `div` (oeisIx @217) n
+instance OEIS 139 where
+  oeisIx 0 = 2
+  oeisIx n = (rowCol @7318 (3 * n) (2 * n + 1)) `div` (oeisIx @217) n
 
--- instance OEIS 419 where
---   oeis = filter ((== 3) . oeisIx @2828) [1..]
+instance OEIS 419 where
+  oeis = filter ((== 3) . oeisIx @2828) [1..]
 
 -- instance OEIS 658 where
 --   oeisIx (succ->n) = sum $ map c3 [0..n]
@@ -88,9 +88,9 @@ elemIndex x   = fmap fi . L.elemIndex x
 --            * (rowCol @7318 (2*k)    k)^2
 --            * (rowCol @7318 (2*k) (n-k))
 
--- instance OEIS 667 where
---   oeisIx n = if x == 1 then last xs else x
---               where xs@ (x:_) = rowT @227862 n
+instance OEIS 667 where
+  oeisIx n = if x == 1 then last xs else x
+              where xs@ (x:_) = rowT @227862 n
 
 -- instance OEIS 790 where
 --   oeisIx n = head [c | c <- oeis @2808, powMod n c c == mod n c]
@@ -359,11 +359,13 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx 0 = 0
 --   oeisIx n = oeisIx @46992 n + n
 
--- instance OEIS 2828 where
---   oeisIx 0 = 0
---   oeisIx n
---      | (oeisIx @10052) n == 1 = 1
---      | (oeisIx @25426) n > 0 = 2 | (oeisIx @25427) n > 0 = 3 | otherwise = 4
+instance OEIS 2828 where
+  oeisIx 0 = 0
+  oeisIx n
+     | (oeisIx @10052) n == 1 = 1
+     | (oeisIx @25426) n > 0 = 2
+     | (oeisIx @25427) n > 0 = 3
+     | otherwise = 4
 
 -- instance OEIS 2858 where
 --  oeis = 1 : 2 : ulam 2 2 (oeis @2858)
@@ -3612,8 +3614,8 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx = f 1 where
 --      f y x = if m == 0 then f (y * 3) x' else y  where (x', m) = divMod x 3
 
--- instance OEIS 38502 where
---   oeisIx (succ->n) = if m > 0 then n else (oeisIx @38502) n'  where (n', m) = divMod n 3
+instance OEIS 38502 where
+  oeisIx (succ->n) = if m > 0 then n else (oeisIx @38502 . pred) n'  where (n', m) = divMod n 3
 
 -- instance OEIS 38507 where
 --   oeisIx = (+ 1) . (oeisIx @142)
@@ -17922,12 +17924,12 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 227839 where
 --   oeisIx = (oeisIx @7949) . (oeisIx @5132)
 
--- instance OEIS 227862 where
---   oeis = tablList @227862
--- instance Table 227862 where
---   tabl = map snd $ iterate ox (False, [1]) where
---      ox (turn, xs) = (not turn, if turn then reverse ys else ys)
---         where ys = scanl (+) 1 (if turn then reverse xs else xs)
+instance OEIS 227862 where
+  oeis = tablList @227862
+instance Table 227862 where
+  tabl = map snd $ iterate ox (False, [1]) where
+     ox (turn, xs) = (not turn, if turn then reverse ys else ys)
+        where ys = scanl (+) 1 (if turn then reverse xs else xs)
 
 -- instance OEIS 227876 where
 --   oeisIx n = fst $ until (null . snd) h (0, (rowT @31298) n) where

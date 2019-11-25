@@ -28,7 +28,7 @@ tests = sortOn testNum $(do
 #ifdef TEST_FULL
 
 #define TIME_LIMIT  10
-#define NUM_SAMPLES 20
+#define NUM_SAMPLES 15
 
 tests = sortOn testNum $(do
   T.ClassI _ is <- T.reify ''OEIS

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2b90af2a4ab7b426404c674daf3013aba3933726cecc301c353486a131f88e38
+-- hash: a673af65db64a908a381ee7daa2d0987388b49e3dcf0ee668fda60e023b3a280
 
 name:           oeis
 version:        0.1.0.0
@@ -53,7 +53,7 @@ executable oeis-exe
   hs-source-dirs:
       test
   default-extensions: AllowAmbiguousTypes BangPatterns BinaryLiterals BlockArguments ConstraintKinds DataKinds DefaultSignatures DeriveDataTypeable DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingVia GeneralizedNewtypeDeriving DisambiguateRecordFields DuplicateRecordFields EmptyCase EmptyDataDecls ExplicitForAll ExplicitNamespaces ExtendedDefaultRules FlexibleContexts FlexibleInstances ForeignFunctionInterface FunctionalDependencies GADTs HexFloatLiterals ImplicitParams ImpredicativeTypes InstanceSigs LambdaCase LiberalTypeSynonyms MonadComprehensions MonadFailDesugaring NoMonomorphismRestriction MultiParamTypeClasses MultiWayIf NamedFieldPuns NamedWildCards NegativeLiterals NumDecimals NumericUnderscores OverloadedLabels OverloadedStrings PackageImports ParallelListComp PartialTypeSignatures PatternSynonyms PolyKinds PostfixOperators QuantifiedConstraints QuasiQuotes RankNTypes RecordWildCards RecursiveDo RoleAnnotations ScopedTypeVariables StandaloneDeriving TemplateHaskell TemplateHaskellQuotes TransformListComp TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators TypeSynonymInstances UnboxedSums UnboxedTuples MagicHash UndecidableSuperClasses ViewPatterns
-  cpp-options: -DTEST_PRIME
+  cpp-options: -DTEST_FULL
   build-depends:
       arithmoi >=0.8.0.0
     , base >=4.7 && <5

@@ -2622,6 +2622,7 @@ instance OEIS 10051 where
   oeis = unfoldr ch (1, (oeis @40)) where
      ch (i, ps'@ (p:ps))
        = Just (fi $ fromEnum (i == p), (i + 1, if i == p then ps else ps'))
+  oeisIx = fi . fromEnum . isPrime . fi . succ
 
 instance OEIS 10052 where
   oeis     = concat (iterate (\xs -> xs ++ [0,0]) [1])

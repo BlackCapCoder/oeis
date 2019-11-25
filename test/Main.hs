@@ -14,7 +14,7 @@ tests :: [Test]
 
 #ifdef TEST_PRIME
 
-#define TIME_LIMIT  5
+#define TIME_LIMIT  10
 #define NUM_SAMPLES 10
 
 tests = sortOn testNum $(do

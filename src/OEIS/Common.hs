@@ -50,7 +50,7 @@ facts = tail factorial
 divisors n = map fi $ A.divisorsList (fi n :: Int)
 -- divisors 1 = [1]
 -- divisors n = (1:filter ((==0) . rem n) [2..n `div` 2]) ++ [n]
---
+
 totient 0 = 0
 totient n = fi . A.totient $ (fi n :: Int)
 -- totient n = genericLength $ filter (==1) $ map (gcd n) [1..n]
@@ -77,6 +77,9 @@ fib = fibonacci
 --             where ss = f*f+g*g
 --         foldl_ = foldl'
 
+sumdiv n f = sum $ f <$> divisors n
+
+----------
 
 minimax [] = 0
 minimax as = max (head as - minimax (tail as)) (last as - minimax (init as))
@@ -89,4 +92,12 @@ uss = [] : [] : [] : f 2 1 [3..] where
   f x y zs = g zs [] where
       g (v:vs) ws | gcd v y > 1 || gcd v x > 1 = g vs (v : ws)
                   | otherwise = ws : f v x (delete v zs)
+
+ulam n u us = u' : ulam (n + 1) u' us where
+    u' = f 0 (u+1) us'
+    f 2 z _                         = f 0 (z + 1) us'
+    f e z (v:vs) | z - v <= v       = if e == 1 then z else f 0 (z + 1) us'
+                 | z - v `elem` us' = f (e + 1) z vs
+                 | otherwise        = f e z vs
+    us' = take n us
 

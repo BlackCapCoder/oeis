@@ -3,4 +3,4 @@
 
 printf 'r=read::String->Int;main = interact $ show . map r . lines' > /tmp/tmp.hs
 
-cat src/OEIS/Prime.hs | grep -Po '^instance OEIS \K\d*' | sort -n | runhaskell /tmp/tmp.hs
+cat src/OEIS/Part1.hs src/OEIS/Part2.hs src/OEIS/Prime.hs | grep -Po '^instance OEIS \K\d*' | sort -n | runhaskell /tmp/tmp.hs

@@ -17,7 +17,7 @@ import Math.NumberTheory.Primes (factorise, unPrime)
 import qualified Math.NumberTheory.ArithmeticFunctions as A
 import Math.NumberTheory.Recurrences
 import Data.Maybe
-import Data.Ord (Down (..))
+import Data.Ord (Down (..), comparing)
 import Data.Proxy
 import Data.Tuple
 import qualified Data.List.Ordered as O
@@ -58,7 +58,6 @@ findIndices f = fmap fi . L.findIndices f
 elemIndices x = fmap fi . L.elemIndices x
 findIndex f   = fmap fi . L.findIndex f
 elemIndex x   = fmap fi . L.elemIndex x
-
 
 
 
@@ -340,19 +339,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 5279 where
 --   oeis = filter ((> 0) . (oeisIx @174903)) [1..]
-
--- instance OEIS 5282 where
---   import Data.Set (Set, empty, insert, member)
---   oeis = sMianChowla [] 1 empty where
---      sMianChowla :: [Integer] -> Integer -> Set Integer -> [Integer]
---      sMianChowla sums z s | s' == empty = sMianChowla sums (z+1) s
---                           | otherwise   = z : sMianChowla (z:sums) (z+1) s
---         where s' = try (z:sums) s
---               try :: [Integer] -> Set Integer -> Set Integer
---               try []     s                      = s
---               try (x:sums) s | (z+x) `member` s = empty
---                              | otherwise        = try sums $ insert (z+x) s
-
 -- instance OEIS 5341 where
 --   oeisIx = genericLength . (rowT @34002)
 
@@ -446,9 +432,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --               | (oeisIx @10055) (p + 1) == 1 = p : f ps
 --               | otherwise            = f ps
 
--- instance OEIS 6562 where
---   oeis = filter ((== 1) . (oeisIx @10051)) (oeis @75540)
-
 -- instance OEIS 6577 where
 --   oeisIx n = fromJust $ findIndex (n `elem`) (tabf @127824)
 
@@ -481,16 +464,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 6889 where
 --   oeisIx = fromJust . (`elemIndex` (oeis @224782))
-
--- instance OEIS 6933 where
---   import Data.Text (Text); import qualified Data.Text as T (unpack)
---   import Text.Numeral.Grammar.Reified (defaultInflection)
---   import qualified Text.Numeral.Language.EN as EN
---   oeisIx n = (oeis @6933) !! (n - 1)
---   oeis = filter (T.all (/= 'e') . numeral) [0..] where
---      numeral :: Integer -> Text
---      numeral = fromJust . EN.gb_cardinal defaultInflection
-
 -- instance OEIS 6942 where
 --   oeis = [6,2,5,5,4,5,6,3,7,6] ++ f 10 where
 --      f x = (oeisIx x' + (oeisIx @6942) d) : f (x + 1)
@@ -553,12 +526,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --        | x > m = f xs' (S.insert p s) p ps
 --        | S.null (s `S.intersection` S.map (x -) s) = x : f xs s m ps'
 --        | otherwise = f xs s m ps'
-
--- instance OEIS 7535 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = head [m | m <- dropWhile (<= n) (oeis @2808),
---                         powerMod n (m - 1) m == 1]
-
 -- instance OEIS 7542 where
 --   oeis = iterate (oeisIx @203907) 2
 
@@ -576,15 +543,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx n = (oeisIx @7608) n' * 10 + m where
 --      (n', m) = if r < 0 then (q + 1, r + 4) else (q, r)
 --                where (q, r) = quotRem n (negate 4)
-
--- instance OEIS 7614 where
---   import Data.List.Ordered (insertBag)
---   oeisIx n = (oeis @7614) !! (n - 1)
---   oeis = f [1..] (oeis @2110) [] where
---      f xs'@ (x:xs) ps'@ (p:ps) us
---        | x < p = f xs ps' $ insertBag (oeisIx' x) us
---        | otherwise = vs ++ f xs' ps ws
---        where (vs, ws) = span (<= (oeisIx @10)' x) us
 
 -- instance OEIS 7620 where
 --   oeis = 1 : filter (\x -> all (p $ (rowT @27751) x) [1..x]) [2..]
@@ -660,41 +618,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 8474 where
 --   oeisIx n = sum $ zipWith (+) (oeisIx_row n) (oeisIx_row n)
-
--- instance OEIS 8475 where
---   oeisIx 1 = 0
---   oeisIx n = sum $ (rowT @141809) n
-
--- instance OEIS 8477 where
---   oeisIx n = product $ zipWith (^) (oeisIx_row n) (oeisIx_row n)
-
--- instance OEIS 8520 where
---   import Data.Text (Text); import qualified Data.Text as T (any)
---   import Text.Numeral.Grammar.Reified (defaultInflection)
---   import qualified Text.Numeral.Language.EN as EN
---   oeisIx n = (oeis @8520) !! (n - 1)
---   oeis = filter (T.any (== 'e') . numeral) [0..] where
---      numeral :: Integer -> Text
---      numeral = fromJust . EN.gb_cardinal defaultInflection
-
--- instance OEIS 8521 where
---   import Data.Text (Text); import qualified Data.Text as T (all)
---   import Text.Numeral.Grammar.Reified (defaultInflection)
---   import qualified Text.Numeral.Language.EN as EN
---   oeisIx n = (oeis @8521) !! (n - 1)
---   oeis = filter (T.all (/= 'o') . numeral) [0..] where
---      numeral :: Integer -> Text
---      numeral = fromJust . EN.gb_cardinal defaultInflection
-
--- instance OEIS 8523 where
---   import Data.Text (Text); import qualified Data.Text as T (all)
---   import Text.Numeral.Grammar.Reified (defaultInflection)
---   import qualified Text.Numeral.Language.EN as EN
---   oeisIx n = (oeis @8523) !! (n - 1)
---   oeis = filter (T.all (/= 't') . numeral) [0..] where
---      numeral :: Integer -> Text
---      numeral = fromJust . EN.gb_cardinal defaultInflection
-
 -- instance OEIS 8784 where
 --   oeis = 1 : 2 : O.union (oeis @4613) (map (* 2) (oeis @4613))
 
@@ -712,98 +635,11 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 8847 where
 --   oeis = filter ((== 1) . (oeisIx @10052) . (oeisIx @203) . (oeisIx @290)) [1..]
 
--- instance OEIS 8905 where
---   oeisIx = (oeisIx @30) . (oeisIx @142)
-
--- instance OEIS 9003 where
---   oeis = map (+ 1) $ findIndices (> 0) (oeis @5089)
-
 -- instance OEIS 9023 where
 --   oeis = filter ((> 1) . (oeisIx @227481)) [1..]
 
 -- instance OEIS 9087 where
 --   oeis = filter ((== 1) . (oeisIx @10051) . (+ 1) . (oeisIx @100995)) (oeis @961)
-
--- instance OEIS 9191 where
---   oeisIx n = gcd n $ (oeisIx @5) n
-
--- instance OEIS 9194 where
---   oeisIx n = gcd (oeisIx n) n
-
--- instance OEIS 9195 where
---   oeisIx n = n `gcd` (oeisIx @10) n
-
--- instance OEIS 9223 where
---   oeisIx n = gcd (oeisIx n) (oeisIx n)
-
--- instance OEIS 9293 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @9293) !! (n - 1)
---   oeis = f [2] (singleton 2) where
---      f xs s = m : f xs' (foldl (flip insert) s' (map ((+ 1) . (* m)) xs'))
---        where xs' = m : xs
---              (m,s') = deleteFindMin s
-
--- instance OEIS 9299 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @9299) !! (n - 1)
---   oeis = f [2] (singleton 2) where
---      f xs s = m : f xs' (foldl (flip insert) s' (map ((+ 2) . (* m)) xs'))
---        where xs' = m : xs
---              (m,s') = deleteFindMin s
-
--- instance OEIS 9388 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @9388) !! (n - 1)
---   oeis = f [2] (singleton 2) where
---      f xs s = m : f xs' (foldl (flip insert) s' (map (pred . (* m)) xs'))
---        where xs' = m : xs
---              (m,s') = deleteFindMin s
-
--- instance OEIS 9445 where
---   oeisIx n = product [1..2*n+1]
---   T = taylor (sin (x^2), x, 0, 70)
-
--- instance OEIS 9994 where
---   import Data.Set (fromList, deleteFindMin, insert)
---   oeisIx n = (oeis @9994) !! n
---   oeis = 0 : f (fromList [1..9]) where
---      f s = m : f (foldl (flip insert) s' $ map (10*m +) [m `mod` 10 ..9])
---            where (m,s') = deleteFindMin s
-
--- instance OEIS 9995 where
---   import Data.Set (fromList, minView, insert)
---   oeisIx n = (oeis @9995) !! n
---   oeis = 0 : f (fromList [1..9]) where
---      f s = case minView s of
---            Nothing     -> []
---            Just (m,s') -> m : f (foldl (flip insert) s' $
---                                 map (10*m +) [0..m `mod` 10 - 1])
-
--- instance OEIS 9998 where
---   oeis = tablList @9998
---   rowCol n k = (k + 1) ^ (n - k)
---   rowT n = (tabl @9998) !! n
---   tabl = map reverse (tabl @9999)
-
--- instance OEIS 9999 where
---   oeis = tablList @9999
---   rowCol n k = (n + 1 - k) ^ k
---   rowT n = (tabl @9999) !! n
---   tabl = [1] : map snd (iterate f ([1,1], [1,1])) where
---      f (us@ (u:_), vs) = (us', 1 : zipWith (*) us' vs)
---                         where us' = (u + 1) : us
-
--- instance OEIS 10049 where
---   oeis = uncurry c $ splitAt 1 (oeis @45) where
---      c us (v:vs) = (sum $ zipWith (*) us (1 : reverse us)) : c (v:us) vs
-
-
--- instance OEIS 10061 where
---   oeis = map succ $ elemIndices 0 $ tail $ oeis @228085
-
--- instance OEIS 10062 where
---   oeis = iterate (oeisIx @92391) 1
 
 -- instance OEIS 10078 where
 --   oeisIx = x . subtract 1 where
@@ -935,27 +771,12 @@ elemIndex x   = fmap fi . L.elemIndex x
 --            | otherwise = 1
 --            where spf = (oeisIx @20639) n
 
--- instance OEIS 15910 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = powerMod 2 n n
-
 -- instance OEIS 15976 where
 --   oeis = filter ((== 1) . (oeisIx @136522) . (oeisIx @56964)) [1..]
 
 -- instance OEIS 16035 where
 --   oeisIx 1 = 0
 --   oeisIx n = sum $ map (oeisIx @10) $ init $ tail $ (rowT @27750) n
-
--- instance OEIS 16105 where
---   import Data.Set (singleton, fromList, deleteFindMin, union)
---   oeisIx n = (oeis @16105) !! (n - 1)
---   oeis = f [3,7] (drop 2 (oeis @2145)) 21 (singleton 21) where
---      f qs (p:p':ps) t s
---        | m < t     = m : f qs (p:p':ps) t s'
---        | otherwise = m : f (p:qs) (p':ps) t' (s' `union` (fromList pqs))
---        where (m,s') = deleteFindMin s
---              t' = head $ dropWhile (> 3*p') pqs
---              pqs = map (p *) qs
 
 -- instance OEIS 16726 where
 --   oeis = [1,2,6,9] ++ (f 5 $ drop 4 (oeis @1751)) where
@@ -1136,13 +957,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeis = f [1] $ drop 3 (oeis @45) where
 --      f us (v:vs) = (sum $ zipWith (*) us $ tail (oeis @45)) : f (v:us) vs
 
--- instance OEIS 23758 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @23758) !! (n - 1)
---   oeis = 0 : f (singleton 1) where
---   f s = x : f (if even x then insert z s' else insert z $ insert (z+1) s')
---   where z = 2*x; (x, s') = deleteFindMin s
-
 -- instance OEIS 23888 where
 --   oeisIx = sum . (rowT @210208)
 
@@ -1229,16 +1043,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      transpose [xs, [length xs .. 2 * length xs - 1]]) [0]
 --   oeis = concat $ (tabf @25480)
 
--- instance OEIS 25487 where
---   import Data.Set (singleton, fromList, deleteFindMin, union)
---   oeisIx n = (oeis @25487) !! (n - 1)
---   oeis = 1 : h [b] (singleton b) bs where
---      (_ : b : bs) = (oeis @2110)
---      h cs s xs'@ (x:xs)
---        | m <= x    = m : h (m:cs) (s' `union` fromList (map (* m) cs)) xs'
---        | otherwise = x : h (x:cs) (s  `union` fromList (map (* x) (x:cs))) xs
---        where (m, s') = deleteFindMin s
-
 -- instance OEIS 25492 where
 --   oeisIx n = fst $ until (uncurry (==)) (\ (x,x') -> (oeisIx x, x)) (n,0)
 
@@ -1254,34 +1058,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 25583 where
 --   oeis = filter f (oeis @2808) where
 --      f x = all (== 0) $ map (oeisIx . (x -)) $ takeWhile (< x) (oeis @40)
-
--- instance OEIS 25616 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @25616) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (3 * y, i + 1, j) $ insert (10 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
-
--- instance OEIS 25620 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @25620) !! (n - 1)
---   oeis = f $ singleton 1 where
---      f s = y : f (insert (4 * y) $ insert (9 * y) s')
---                  where (y, s') = deleteFindMin s
-
--- instance OEIS 25632 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @25632) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (7 * y, i + 1, j) $ insert (10 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
-
--- instance OEIS 25635 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @25635) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (9 * y, i + 1, j) $ insert (10 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
 
 -- instance OEIS 26150 where
 --   oeis = 1 : 1 : map (* 2) (zipWith (+) (oeis @26150) (tail oeis))
@@ -1384,10 +1160,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      p []     _ = 0
 --      p (k:ks) x = if x < k then 0 else p ks (x - k) + p ks x
 
--- instance OEIS 30078 where
---   oeisIx = (oeisIx @578) . (oeisIx @40)
---   oeis = map (oeisIx @578) (oeis @40)
-
 -- instance OEIS 30079 where
 --   oeis = filter f (oeis @40) where
 --      f p = pd == pd `intersect` (nub $ show (p^2)) where
@@ -1461,13 +1233,11 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx = genericLength . takeWhile (/= 2) . (iterate (oeisIx @10))
 
 -- instance OEIS 32447 where
---   import Data.List.Ordered (insertBag)
---   oeisIx n = (oeis @32447) !! (n - 1)
 --   oeis = f [1..] (oeis @2110) [] where
 --      f xs'@ (x:xs) ps'@ (p:ps) us
---        | x < p = f xs ps' $ insertBag (oeisIx' x, x) us
+--        | x < p = f xs ps' $ O.insertBag (oeisIx @10 x, x) us
 --        | otherwise = map snd vs ++ f xs' ps ws
---        where (vs, ws) = span ((<= (oeisIx @10)' x) . fst) us
+--        where (vs, ws) = span ((<= (oeisIx @10) x) . fst) us
 
 -- instance OEIS 32448 where
 --   oeisIx n = head [q | q <- (oeis @40), let p = (oeisIx @40) n,
@@ -1507,16 +1277,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      neighbours = "09" : "90" : zipWith ((. return) . (:))
 --         (digs ++ tail digs ++ init digs) (digs ++ init digs ++ tail digs)
 --      digs = "0123456789"
-
--- instance OEIS 33075 where
---   -- import Data.Set (fromList, deleteFindMin, insert)
---   oeisIx n = (oeis @33075) !! (n - 1)
---   oeis = f (fromList [1..9]) where
---      f s | d == 0    = m : f (insert (10*m+1) s')
---          | d == 9    = m : f (insert (10*m+8) s')
---          | otherwise = m : f (insert (10*m+d-1) (insert (10*m+d+1) s'))
---          where (m,s') = deleteFindMin s
---                d = mod m 10
 
 -- instance OEIS 33180 where
 --   oeis = filter ((> 0) . (oeisIx @67109)) [1..]
@@ -1566,14 +1326,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeis = iterate (\x -> 2*x - (oeisIx @151799 x)) 3
 
 
--- instance OEIS 33619 where
---   import Data.Set (fromList, deleteFindMin, insert)
---   oeisIx n = (oeis @33619) !! (n - 1)
---   oeis = [0..9] ++ (f $ fromList [10..99]) where
---      f s = m : f (insert (m * 10 + h) s') where
---        h = div (mod m 100) 10
---        (m,s') = deleteFindMin s
-
 -- instance OEIS 33620 where
 --   oeis = filter chi [1..] where
 --      chi n = (oeisIx @136522) spf == 1 && (n' == 1 || chi n') where
@@ -1603,55 +1355,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 33815 where
 --   oeisIx n = (oeisIx @116854) (2 * n + 1) (n + 1)
-
--- instance OEIS 33845 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @33845) !! (n - 1)
---   oeis = f (singleton (2*3)) where
---      f s = m : f (insert (2*m) $ insert (3*m) s') where
---        (m,s') = deleteFindMin s
-
--- instance OEIS 33846 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @33846) !! (n - 1)
---   oeis = f (singleton (2*5)) where
---      f s = m : f (insert (2*m) $ insert (5*m) s') where
---        (m,s') = deleteFindMin s
-
--- instance OEIS 33847 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @33847) !! (n - 1)
---   oeis = f (singleton (2*7)) where
---      f s = m : f (insert (2*m) $ insert (7*m) s') where
---        (m,s') = deleteFindMin s
-
--- instance OEIS 33848 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @33848) !! (n - 1)
---   oeis = f (singleton (2*11)) where
---      f s = m : f (insert (2*m) $ insert (11*m) s') where
---        (m,s') = deleteFindMin s
-
--- instance OEIS 33849 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @33849) !! (n - 1)
---   oeis = f (singleton (3*5)) where
---      f s = m : f (insert (3*m) $ insert (5*m) s') where
---        (m,s') = deleteFindMin s
-
--- instance OEIS 33850 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @33850) !! (n - 1)
---   oeis = f (singleton (3*7)) where
---      f s = m : f (insert (3*m) $ insert (7*m) s') where
---        (m,s') = deleteFindMin s
-
--- instance OEIS 33851 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @33851) !! (n - 1)
---   oeis = f (singleton (5*7)) where
---      f s = m : f (insert (5*m) $ insert (7*m) s') where
---        (m,s') = deleteFindMin s
 
 -- instance OEIS 33876 where
 --   oeisIx n = sum $ zipWith (!!) zss [0..n] where
@@ -1734,26 +1437,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 34699 where
 --   oeisIx = last . (rowT @210208)
 
--- instance OEIS 34705 where
---   import Data.Set (deleteFindMin, union, fromList); import Data.List (inits)
---   oeisIx n = (oeis @34705) !! (n - 1)
---   oeis = f 0 (tail $ inits $ (oeis @290)) (fromList [0]) where
---      f x vss'@ (vs:vss) s
---        | y < x = y : f x vss' s'
---        | otherwise = f w vss (union s $ fromList $ scanl1 (+) ws)
---        where ws@ (w:_) = reverse vs
---              (y, s') = deleteFindMin s
-
--- instance OEIS 34706 where
---   -- import Data.Set (deleteFindMin, union, fromList); import Data.List (inits)
---   oeisIx n = (oeis @34706) !! (n - 1)
---   oeis = f 0 (tail $ inits $ (oeis @217)) (fromList [0]) where
---      f x vss'@ (vs:vss) s
---        | y < x = y : f x vss' s'
---        | otherwise = f w vss (union s $ fromList $ scanl1 (+) ws)
---        where ws@ (w:_) = reverse vs
---              (y, s') = deleteFindMin s
-
 -- instance OEIS 34708 where
 --   oeis = filter ((== 1) . (oeisIx @168046)) (oeis @214957)
 
@@ -1809,11 +1492,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 35103 where
 --   oeisIx = (oeisIx @23416) . (oeisIx @40)
-
--- instance OEIS 35106 where
---   import Data.List.Ordered (union)
---   oeisIx n = (oeis @35106) !! (n - 1)
---   oeis = 1 : tail (union (oeis @2378) (oeis @5563))
 
 -- instance OEIS 35116 where
 --   oeisIx = (^ 2) . (oeisIx @5)'
@@ -1886,20 +1564,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --                  (zipWith ((++) `on` show) (oeis @36106) $ tail (oeis @36106))
 --                  where say ws = (show $ length ws) ++ [head ws]
 
--- instance OEIS 36241 where
---   import qualified Data.Set as Set (null, map)
---   import Data.Set (empty, fromList, toList, intersect, union)
---   oeisIx n = (oeis @36241) !! (n - 1)
---   oeis = f [1..] [] empty empty where
---      f (x:xs) ys s2 s3
---       | null (s2' `intersect` y2s) && null (s3' `intersect` y3s)
---         = x : f xs (x:ys) (fromList s2' `union` s2) (fromList s3' `union` s3)
---       | otherwise = f xs ys s2 s3
---       where s2' = sort $ map (x +) ys
---             s3' = sort $ map (x +) y2s
---             y2s = toList s2
---             y3s = toList s3
-
 -- instance OEIS 36262 where
 --   oeis = tablList @36262
 -- instance Table 36262 where
@@ -1934,13 +1598,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 36454 where
 --   oeis = filter ((== 1) . (oeisIx @10051) . (+ 1) . (oeisIx @100995)) (oeis @961)
-
--- instance OEIS 36490 where
---   import Data.Set (Set, fromList, insert, deleteFindMin)
---   oeisIx n = (oeis @36490) !! (n - 1)
---   oeis = f $ fromList [5,7,11] where
---      f s = m : (f $ insert (5 * m) $ insert (7 * m) $ insert (11 * m) s')
---            where (m, s') = deleteFindMin s
 
 -- instance OEIS 36491 where
 --   oeisIx n = f z z where
@@ -1991,28 +1648,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 36917 where
 --   oeisIx n = sum $ map
 --      (\k -> (oeisIx (2*n - 2*k) (n - k))^2 * (oeisIx @7318 (2*k) k)^2) [0..n]
-
--- instance OEIS 36966 where
---   import Data.Set (singleton, deleteFindMin, fromList, union)
---   oeisIx n = (oeis @36966) !! (n - 1)
---   oeis = 1 : f (singleton z) [1, z] zs where
---      f s q3s p3s'@ (p3:p3s)
---        | m < p3 = m : f (union (fromList $ map (* m) ps) s') q3s p3s'
---        | otherwise = f (union (fromList $ map (* p3) q3s) s) (p3:q3s) p3s
---        where ps = (rowT @27748) m
---              (m, s') = deleteFindMin s
---      (z:zs) = (oeis @30078)
-
--- instance OEIS 36967 where
---   import Data.Set (singleton, deleteFindMin, fromList, union)
---   oeisIx n = (oeis @36967) !! (n - 1)
---   oeis = 1 : f (singleton z) [1, z] zs where
---      f s q4s p4s'@ (p4:p4s)
---        | m < p4 = m : f (union (fromList $ map (* m) ps) s') q4s p4s'
---        | otherwise = f (union (fromList $ map (* p4) q4s) s) (p4:q4s) p4s
---        where ps = (rowT @27748) m
---              (m, s') = deleteFindMin s
---      (z:zs) = (oeis @30514)
 
 -- instance OEIS 36998 where
 --   oeisIx n = p (rowT @38566 n) n where
@@ -2149,11 +1784,9 @@ elemIndex x   = fmap fi . L.elemIndex x
 --                     ys = (x + z) : map (* 10) xs
 
 -- instance OEIS 38447 where
---   import Data.Set (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @38447) !! (n - 1)
---   oeis = f $ fromList [11111] where
---      f s = m : f (union s' $ fromList $ g [] $ show m) where
---           (m, s') = deleteFindMin s
+--   oeis = f $ S.fromList [11111] where
+--      f s = m : f (S.union s' $ S.fromList $ g [] $ show $ fi m) where
+--           (m, s') = S.deleteFindMin s
 --      g _  []       = []
 --      g us ('0':vs) = g (us ++ ['0']) vs
 --      g us ('1':vs) = (read (us ++ "10" ++ vs)) : g (us ++ ['1']) vs
@@ -2405,12 +2038,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 45572 where
 --   oeis = filter ((/= 0) . (`mod` 5)) (oeis @5408)
 
--- instance OEIS 45616 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = (oeis @45616) !! (n - 1)
---   oeis = filter
---                  (\p -> powerMod 10 (p - 1) (p ^ 2) == 1) (oeis @40)'
-
 -- instance OEIS 45797 where
 --   oeis = filter (even . (`mod` 10) . (`div` 10)) (oeis @45572)
 
@@ -2473,14 +2100,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --          | otherwise = (fst $ head zs) : f (x + 1)
 --          where zs = reverse $ filter ((> 1) . snd) $
 --                     zip (oeisIx_row x) (oeisIx_row x)
-
--- instance OEIS 46075 where
---   import Data.Set (fromList, deleteFindMin, insert)
---   oeisIx n = (oeis @46075) !! (n - 1)
---   oeis = f $ fromList
---                  [100 * a + 10 * b + a | a <- [1..9], b <- [0..9], b /= a]
---      where f s = m : f (insert (10 * m + div (mod m 100) 10) s')
---                  where (m, s') = deleteFindMin s
 
 -- instance OEIS 46090 where
 --   oeis = 1 : 4 : map (subtract 2)
@@ -2598,12 +2217,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      where ips = [p | p <- reverse $ takeWhile (<= n) (oeis @40),
 --                       show p `isInfixOf` show n]
 
--- instance OEIS 47836 where
---   import Data.List.Ordered (union)
---   oeisIx n = (oeis @47836) !! (n - 1)
---   oeis = f [2] where
---      f (x:xs) = x : f (xs `union` map (x *) [2..x])
-
 -- instance OEIS 47842 where
 --   oeisIx :: Integer -> Integer
 --   oeisIx n = read $ concat $
@@ -2649,18 +2262,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 48098 where
 --   oeis = [x | x <- [1..], (oeisIx @6530) x ^ 2 <= x]
-
--- instance OEIS 48102 where
---   import Data.Set (empty, fromList, deleteFindMin, union)
---   import qualified Data.Set as Set (null, map)
---   oeisIx n = (oeis @48102) !! (n - 1)
---   oeis = 1 : f empty [1] (oeis @51674) where
---     f s ys pps'@ (pp:pps)
---       | Set.null s = f (fromList (map (* pp) ys)) (pp:ys) pps
---       | pp < m     = f (s `union` Set.map (* pp) s `union`
---                         fromList (map (* pp) ys)) ys pps
---       | otherwise  = m : f s' (m:ys) pps'
---       where (m,s') = deleteFindMin s
 
 -- instance OEIS 48103 where
 --   oeis = filter (\x -> and $
@@ -2750,16 +2351,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 48691 where
 --   oeisIx = product . map (oeisIx @5408 . fi) . (rowT @124010)
 
--- instance OEIS 48700 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @48700) !! (n - 1)
---   oeis = f 1 $ singleton 1 where
---      f z s = m : f (z+1) (insert (c 0) (insert (c 1) s')) where
---        c d = foldl (\v d -> 2 * v + d) 0 $ (reverse b) ++ [d] ++ b
---        b = unfoldr
---            (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 2) z
---        (m,s') = deleteFindMin s
-
 -- instance OEIS 48701 where
 --   oeisIx n = foldr (\d v -> 2 * v + d) 0 (reverse bs ++ bs) where
 --      bs = (rowT @30308) (n - 1)
@@ -2795,18 +2386,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 48883 where
 --   oeisIx = (oeisIx @244) . (oeisIx @120)
 
--- instance OEIS 48889 where
---   import Numeric (readInt)
---   oeisIx n = (oeis @48889) !! (n - 1)
---   oeis = filter f (oeis @2808) where
---      f n = n `mod` 10 > 0 &&
---            null ("23547" `intersect` show n)  &&
---            (oeisIx (fst $ head $ readInt 10 (const True) ud $ ns) == 1)
---          where ns = reverse $ show n
---                ud '6' = 9
---                ud '9' = 6
---                ud z = digitToInt z
-
 -- instance OEIS 48890 where
 --   oeis = filter f (oeis @40) where
 --      f x = all (`elem` [0,1,6,8,9]) ds && x' /= x && (oeisIx @10051) x' == 1
@@ -2814,11 +2393,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --              c v 6 = 10*v + 9; c v 9 = 10*v + 6; c v d = 10*v + d
 --              ds = unfoldr d x
 --              d z = if z == 0 then Nothing else Just $ swap $ divMod z 10
-
--- instance OEIS 48973 where
---   import Data.List.Ordered (minus)
---   oeisIx n = (oeis @48973) !! (n - 1)
---   oeis = [1..] `minus` (oeis @5243)
 
 -- instance OEIS 48985 where
 --   oeisIx = foldr (\d v -> 2 * v + d) 0 . concatMap
@@ -2939,16 +2513,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 50382 where
 --   oeisIx = (oeisIx @8480) . (oeisIx @25487)
 
--- instance OEIS 50430 where
---   import Numeric (showIntAtBase)
---   oeisIx n = (oeis @50430) !! (n - 1)
---   oeis = f 1 where
---      f n = g (showIntAtBase 2 intToDigit n "") : f (n+1)
---      g zs | zs == reverse zs = length zs
---           | otherwise        = max (h $ init zs) (h $ tail zs)
---      h zs@ ('0':_) = g zs
---      h zs@ ('1':_) = (oeisIx @50430) $ foldl (\v d -> digitToInt d + 2*v) 0 zs
-
 -- instance OEIS 50435 where
 --   oeisIx = (oeisIx @2808) . (oeisIx @2808)
 --   oeis = map (oeisIx @2808) (oeis @2808)
@@ -2986,26 +2550,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeis = 1 : map (denominator . sum) (zipWith (zipWith (%))
 --      (zipWith (map . (*)) (drop 2 (oeis @142)) (tabf @242179)) (oeisIx @106831)_tabf)
 
--- instance OEIS 50936 where
---   import Data.Set (empty, findMin, deleteMin, insert)
---   import qualified Data.Set as Set (null)
---   oeisIx n = (oeis @50936) !! (n - 1)
---   oeis = f empty [2] 2 $ tail (oeis @40) where
---      f s bs c (p:ps)
---        | Set.null s || head bs <= m = f (foldl (flip insert) s bs') bs' p ps
---        | otherwise                  = m : f (deleteMin s) bs c (p:ps)
---        where m = findMin s
---              bs' = map (+ p) (c : bs)
-
--- instance OEIS 50941 where
---   import Data.List.Ordered (minus)
---   oeisIx n = (oeis @50941) !! (n - 1)
---   oeis = minus [0..] (oeis @34706)
-
--- instance OEIS 50997 where
---   oeisIx = (^ 5) . (oeisIx @40)
---   oeis = map (^ 5) (oeis @40)
-
 -- instance OEIS 50999 where
 --   oeisIx = sum . map (^ 2) . (rowT @182469)
 
@@ -3036,13 +2580,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 51035 where
 --   oeis = filter ((== 0) . (oeisIx @10051.pred)) (oeis @14091)
-
--- instance OEIS 51037 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @51037) !! (n - 1)
---   oeis = f $ singleton 1 where
---      f s = y : f (insert (5 * y) $ insert (3 * y) $ insert (2 * y) s')
---                  where (y, s') = deleteFindMin s
 
 -- instance OEIS 51135 where
 --   oeis = map length $ group (oeis @4001)
@@ -3139,14 +2676,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 51611 where
 --   oeis = map succ $ elemIndices 0 $ tail $ oeis @53603
 
--- instance OEIS 51634 where
---   oeis = f (oeis @40) where
---      f (p:qs@ (q:r:ps)) = if 2 * q > (p + r) then q : f qs else f qs
-
--- instance OEIS 51635 where
---   oeis = g (oeis @40) where
---      g (p:qs@ (q:r:ps)) = if 2 * q < (p + r) then q : g qs else g qs
-
 -- instance OEIS 51656 where
 --   oeisIx = sum . zipWith (*) (oeis @1906) . (rowT @47999)
 
@@ -3205,23 +2734,12 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 52203 where
 --   oeisIx n = (oeisIx @122366) (2 * n) n
 
--- instance OEIS 52216 where
---   oeis = 2 : f [2] 9 where
---      f xs@ (x:_) z = ys ++ f ys (10 * z) where
---                     ys = (x + z) : map (* 10) xs
-
 -- instance OEIS 52227 where
 --   oeisIx n = (oeisIx n) * (oeisIx n) `div` (oeisIx n)
 
 -- instance OEIS 52248 where
 --   oeis = f (oeis @65091) where
 --      f (p:ps'@ (p':ps)) = (maximum $ map (oeisIx @6530) [p+1..p'-1]) : f ps'
-
--- instance OEIS 52287 where
---   import Data.List.Ordered (union)
---   oeisIx n = (oeis @52287) !! (n - 1)
---   oeis = f [3] where
---      f (x:xs) = x : f (xs `union` map (x *) [2..x])
 
 -- instance OEIS 52383 where
 --   oeisIx = f . subtract 1 where
@@ -3247,11 +2765,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx n = product $ zipWith (^)
 --                         (oeisIx_row n) (map (`div` (foldl1 gcd es)) es)
 --               where es = (rowT @124010) n
-
--- instance OEIS 52413 where
---   oeisIx = f . subtract 1 where
---   f 0 = 0
---   f v = 10 * f w + if r > 4 then r + 1 else r where (w, r) = divMod v 9
 
 -- instance OEIS 52414 where
 --   oeisIx = f . subtract 1 where
@@ -3281,13 +2794,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 52485 where
 --   oeis = map succ $ elemIndices 0 $ tail $ oeis @112526
 
--- instance OEIS 52499 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @52499) !! n
---   oeis = f $ singleton 1 where
---      f s = m : f (insert (2*m) $ insert (4*m-1) s') where
---         (m, s') = deleteFindMin s
-
 -- instance OEIS 52548 where
 --   oeisIx = (+ 2) . (oeisIx @79)
 --   oeis = iterate ((subtract 2) . (* 2)) 3
@@ -3315,26 +2821,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx n = head [a | a <- [1..], n `kara` a == Nothing] where
 --      kara a b = if null ks then Nothing else Just $ head ks
 --                 where ks = [c | c <- [1..a], a <= c * b, a > c * (b - 1)]
-
--- instance OEIS 53432 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @53432) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [8, 5, 4, 9, 1, 7, 6, 3, 2, 0]
-
--- instance OEIS 53433 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @53433) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [8, 5, 4, 9, 1, 7, 6, 3, 2, 0]
 
 -- instance OEIS 53636 where
 --   oeisIx 0 = 0
@@ -3521,9 +3007,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 56526 where
 --   oeis = zipWith (-) (tail (oeis @960)) (oeis @960)
 
--- instance OEIS 56561 where
---   oeis = filter ((== 1) . (oeisIx @10051)' . (oeisIx @202018)) [0..]
-
 -- instance OEIS 56576 where
 --   oeisIx = subtract 1 . (oeisIx @20914)
 
@@ -3594,15 +3077,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 57153 where
 --   oeisIx n = (tabl @56230) !! (n - 1) !! (n-1)
-
--- instance OEIS 57165 where
---   import Data.Set (Set, singleton, notMember, insert)
---   oeisIx n = (oeis @57165) !! n
---   oeis = r (singleton 0) 1 0 where
---      r :: Set Integer -> Integer -> Integer -> [Integer]
---      r s n x = if x > n && (x - n) `notMember` s
---                   then r (insert (x-n) s) (n+1) (x-n)
---                   else n : r (insert (x+n) s) (n+1) (x+n)
 
 -- instance OEIS 57211 where
 --   oeis = concat $ zipWith ($) (map replicate [1..]) (oeis @59841)
@@ -3846,13 +3320,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx = t . (oeisIx @60109) where
 --      t 0 = 0
 --      t n = if n == 0 then 0 else 3 * t n' + d  where (n', d) = divMod n 10
-
--- instance OEIS 60142 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @60142) !! n
---   oeis = 0 : f (singleton 1) where
---      f s = x : f (insert (4 * x) $ insert (2 * x + 1) s') where
---          (x, s') = deleteFindMin s
 
 -- instance OEIS 60226 where
 --   oeisIx 0 = 1
@@ -4101,10 +3568,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 62162 where
 --   oeisIx = abs . sum . (rowT @247453)
 
--- instance OEIS 62173 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = powerMod 2 (n - 1) n
-
 -- instance OEIS 62251 where
 --   oeisIx n = (oeisIx n + 1) * n - 1
 
@@ -4189,16 +3652,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeis = filter
 --      (and . map ((elem '1') . show) . (rowT @27750)) (oeis @11531)
 
--- instance OEIS 62682 where
---   import Data.Set (singleton, deleteFindMin, insert, Set)
---   oeisIx n = (oeis @62682) !! (n - 1)
---   oeis = f (singleton (1 + 2^3, (1, 2))) 0 0 where
---      f s z z' = if y == z && z' /= z then y : f s'' y z else f s'' y z
---                 where s'' = (insert (y', (i, j')) $
---                              insert (y' - i ^ 3 , (i + 1, j')) s')
---                       y' = y + j' ^ 3; j' = j + 1
---                       ((y, (i, j)), s') = deleteFindMin s
-
 -- instance OEIS 62715 where
 --   oeis = tablList @62715
 -- instance Table 62715 where
@@ -4248,21 +3701,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 63114 where
 --   oeisIx n = n + (oeisIx @51801) n
-
--- instance OEIS 63171 where
---   import Data.Set (singleton, deleteFindMin, union, fromList)
---   newtype Word = Word String deriving (Eq, Show, Read)
---   instance Ord Word where
---      Word us <= Word vs | length us == length vs = us <= vs
---                         | otherwise              = length us <= length vs
---   oeisIx n = (oeis @63171) !! (n - 1)
---   oeis = dyck $ singleton (Word "S") where
---      dyck s | null ws   = (read w :: Integer) : dyck s'
---             | otherwise = dyck $ union s' (fromList $ concatMap gen ws)
---             where ws = filter ((== 'S') . head . snd) $
---                               map (`splitAt` w) [0..length w - 1]
---                   (Word w, s') = deleteFindMin s
---      gen (us,vs) = map (Word . (us ++) . (++ tail vs)) ["10", "1S0", "SS"]
 
 -- instance OEIS 63232 where
 --   oeis = 5 : 16 : 24 : 36 : zipWith3 (((-) .) . (+))
@@ -4847,11 +4285,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 68690 where
 --   oeis = filter (all (`elem` "02468") . init . show) (oeis @40)
 
--- instance OEIS 68700 where
---   import Data.List.Ordered (isect)
---   oeisIx n = (oeis @68700) !! (n - 1)
---   oeis = isect (oeis @30457) (oeis @54211)
-
 -- instance OEIS 68720 where
 --   oeisIx = (oeisIx @3415) . (oeisIx @290)
 
@@ -4929,41 +4362,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 69488 where
 --   oeis = filter f $ dropWhile (<= 100) (oeis @38618) where
 --      f x = x < 10 || (oeisIx @10051) (x `mod` 100) == 1 && f (x `div` 10)
-
--- instance OEIS 69490 where
---   import Data.Set (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @69490) !! (n - 1)
---   oeis = f $ fromList [1..9] where
---      f s | m < 1000               = f s''
---          | h m && (oeisIx @10051)' m == 1 = m : f s''
---          | otherwise              = f s''
---          where s'' = union s' $ fromList $ map (+ (m * 10)) [1, 3, 7, 9]
---                (m, s') = deleteFindMin s
---      h x = x < 100 && (oeisIx @10051)' x == 1 ||
---            (oeisIx @10051)' (x `mod` 1000) == 1 &&
---            (oeisIx @10051)' (x `mod` 100) == 1 && h (x `div` 10)
-
--- instance OEIS 69492 where
---   import Data.Set (singleton, deleteFindMin, fromList, union)
---   oeisIx n = (oeis @69492) !! (n - 1)
---   oeis = 1 : f (singleton z) [1, z] zs where
---      f s q5s p5s'@ (p5:p5s)
---        | m < p5 = m : f (union (fromList $ map (* m) ps) s') q5s p5s'
---        | otherwise = f (union (fromList $ map (* p5) q5s) s) (p5:q5s) p5s
---        where ps = (rowT @27748) m
---              (m, s') = deleteFindMin s
---      (z:zs) = (oeis @50997)
-
--- instance OEIS 69493 where
---   import Data.Set (singleton, deleteFindMin, fromList, union)
---   oeisIx n = (oeis @69493) !! (n - 1)
---   oeis = 1 : f (singleton z) [1, z] zs where
---      f s q6s p6s'@ (p6:p6s)
---        | m < p6 = m : f (union (fromList $ map (* m) ps) s') q6s p6s'
---        | otherwise = f (union (fromList $ map (* p6) q6s) s) (p6:q6s) p6s
---        where ps = (rowT @27748) m
---              (m, s') = deleteFindMin s
---      (z:zs) = (oeis @30516)
 
 -- instance OEIS 69513 where
 --   oeisIx 1 = 0
@@ -5209,15 +4607,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx 1 = 1
 --   oeisIx n = product $ map (oeisIx @61712) $ (rowT @27746) n
 
--- instance OEIS 72103 where
---   import Data.Set (singleton, findMin, deleteMin, insert)
---   oeisIx n = (oeis @72103) !! (n - 1)
---   oeis = f 9 3 $ Set.singleton (4,2) where
---      f zz z s
---        | xx < zz   = xx : f zz z (Set.insert (x*xx, x) $ Set.deleteMin s)
---        | otherwise = zz : f (zz+2*z+1) (z+1) (Set.insert (z*zz, z) s)
---        where (xx, x) = Set.findMin s
-
 -- instance OEIS 72137 where
 --   oeisIx :: Int -> Int
 --   oeisIx = genericLength . fst . spanCycle (abs . (oeisIx @56965)) where
@@ -5308,45 +4697,12 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 72603 where
 --   oeis = filter ((> 0) . (oeisIx @37861)) [1..]
 
--- instance OEIS 72774 where
---   import Data.Map (empty, findMin, deleteMin, insert)
---   import qualified Data.Map.Lazy as Map (null)
---   oeisIx n = (oeis @72774) !! (n - 1)
---   (oeis, (oeis @72775), (oeis @72776)) = unzip3 $
---      (1, 1, 1) : f (tail (oeis @5117)) empty where
---      f vs'@ (v:vs) m
---       | Map.null m || xx > v = (v, v, 1) :
---                                f vs (insert (v^2) (v, 2) m)
---       | otherwise = (xx, bx, ex) :
---                     f vs' (insert (bx*xx) (bx, ex+1) $ deleteMin m)
---       where (xx, (bx, ex)) = findMin m
-
 -- instance OEIS 72775 where
 
 -- instance OEIS 72776 where
 
--- instance OEIS 72777 where
---   import Data.Map (singleton, findMin, deleteMin, insert)
---   oeisIx n = (oeis @72777) !! (n - 1)
---   oeis = f 9 (drop 2 (oeis @5117)) (singleton 4 (2, 2)) where
---      f vv vs'@ (v:ws@ (w:_)) m
---       | xx < vv = xx : f vv vs' (insert (bx*xx) (bx, ex+1) $ deleteMin m)
---       | xx > vv = vv : f (w*w) ws (insert (v^3) (v, 3) m)
---       where (xx, (bx, ex)) = findMin m
-
 -- instance OEIS 72779 where
 --   oeisIx n = (oeisIx @1157) n + (oeisIx n) * (oeisIx n)
-
--- instance OEIS 72873 where
---   import Data.Set (empty, fromList, deleteFindMin, union)
---   import qualified Data.Set as Set (null)
---   oeisIx n = (oeis @72873) !! (n - 1)
---   oeis = 1 : h empty [1] (oeis @51674) where
---      h s mcs xs'@ (x:xs)
---       | Set.null s || x < m = h (s `union` fromList (map (* x) mcs)) mcs xs
---       | otherwise = m : h (s' `union` fromList (map (* m) $ init (m:mcs)))
---                           (m:mcs) xs'
---       where (m, s') = deleteFindMin s
 
 -- instance OEIS 72905 where
 --   oeisIx n = head [k | k <- [n + 1 ..], (oeisIx @10052) (k * n) == 1]
@@ -5531,32 +4887,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeis = 1 : 2 : 3 : zipWith (-)
 --      (tail $ zipWith (*) (tail (oeis @74394)) (oeis @74394)) (oeis @74394)
 
--- instance OEIS 74480 where
---   import Data.Set (Set, singleton, delete, findMin, deleteFindMin, insert)
---   oeisIx n = (oeis @74480) !! (n - 1)
---   oeis = multClosure (oeis @37074) where
---     multClosure []     = [1]
---     multClosure (b:bs) = 1:h [b] (singleton b) bs where
---      h cs s []    = m:h (m:cs) (foldl (flip insert) s' $ map (*m) cs) []
---       where (m, s') = deleteFindMin s
---      h cs s xs'@ (x:xs)
---       | m < x     = m:h (m:cs) (foldl (flip insert) s' $ map (*m) cs) xs'
---       | otherwise = x:h (x:cs) (foldl (flip insert) s  $ map (*x) (x:cs)) xs
---       where (m, s') = deleteFindMin s
-
--- instance OEIS 74583 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @74583) !! (n - 1)
---   oeis = 1 : f (singleton 2) (oeis @40) where
---     f s ps'@ (p:p':ps)
---       | m == p      = p : f (insert (p*p) $ insert p' s') (p':ps)
---       | m < spf^spf = m : f (insert (m*spf) s') ps'
---       | otherwise   = m : f s' ps'
---         where spf = (oeisIx @20639) m
---               (m, s') = deleteFindMin s
---   -- Simpler version:
---   oeis = map (oeisIx @961) (oeis @192188)
-
 -- instance OEIS 74677 where
 --   oeis = 0 : 1 : 1 : 1 : zipWith (+) (oeis @74677)
 --      (zipWith (+) (tail (oeis @74677)) (drop 3 (oeis @74677)))
@@ -5688,16 +5018,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 76446 where
 --   oeis = zipWith (-) (tail (oeis @1694)) (oeis @1694)
-
--- instance OEIS 76468 where
---   import qualified Data.Set as Set (null)
---   import Data.Set (empty, insert, deleteFindMin)
---   oeisIx n = (oeis @76468) !! (n - 1)
---   oeis = 1 : f [2..] empty where
---      f xs'@ (x:xs) s | Set.null s || m > x ^ 4 = f xs $ insert (x ^ 4, x) s
---                     | m == x ^ 4  = f xs s
---                     | otherwise = m : f xs' (insert (m * b, b) s')
---                     where ((m, b), s') = deleteFindMin s
 
 -- instance OEIS 76490 where
 --   oeis = map (length . nub) $
@@ -5951,10 +5271,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --                              | x == y    = x : m xs ys
 --                              | otherwise = y : m xs' ys
 
--- instance OEIS 78822 where
---   oeisIx = genericLength . (rowT @119709)
---   import Numeric (showIntAtBase)
-
 -- instance OEIS 78823 where
 --   oeisIx = sum . (rowT @119709)
 
@@ -5971,40 +5287,13 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 78833 where
 --   oeisIx = last . (rowT @225243)
 
--- instance OEIS 78834 where
---   import Numeric (showIntAtBase)
---   oeisIx n = fromMaybe 1 $ find (\p -> showIntAtBase 2 ("01" !!) p ""
---                             `isInfixOf` showIntAtBase 2 ("01" !!) n "") $
---                    reverse $ (rowT @27748) n
-
 -- instance OEIS 78894 where
 --   oeis = sieve (oeis @40) where
 --      sieve (p:ps) = p : sieve [q | (i,q) <- zip [2..] ps, mod i p > 0]
 
--- instance OEIS 78898 where
---   import Data.IntMap (empty, findWithDefault, insert)
---   oeisIx n = (oeis @78898) !! n
---   oeis = 0 : 1 : f empty 2 where
---      f m x = y : f (insert p y m) (x + 1) where
---              y = findWithDefault 0 p m + 1
---              p = (oeisIx @20639) x
-
 -- instance OEIS 78972 where
 --   oeis = filter brilliant (oeis @1358) where
 --      brilliant x = (on (==) (oeisIx @55642)) p (x `div` p) where p = (oeisIx @20639) x
-
--- instance OEIS 79053 where
---   import Data.Set (Set, fromList, notMember, insert)
---   oeisIx n = (oeis @79053) !! (n - 1)
---   oeis = 1 : 2 : r (fromList [1,2]) 1 1 1 2 where
---     r :: Set Integer -> Integer -> Integer -> Integer -> Integer -> [Integer]
---     r s i j x y = if v > 0 && v `notMember` s
---                      then v : r (insert v s) j fib y v
---                      else w : r (insert w s) j fib y w where
---       fib = i + j
---       v = x + y - fib
---       w = x + y + fib
---   for_bFile = take 1000 (oeis @79053)
 
 -- instance OEIS 79062 where
 --   oeis = 2 : f 2 (tail (oeis @40)) where
@@ -6361,16 +5650,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      z u v []     = u == v
 --      z u v (p:ps) = z (u + p) v ps || z u (v + p) ps
 
--- instance OEIS 83278 where
---   import Data.Set (empty, findMin, deleteMin, deleteMin, insert)
---   import qualified Data.Set as Set (null)
---   oeisIx n = (oeis @83278) !! (n - 1)
---   oeis = 1 : f empty (drop 2 (oeis @2275)) where
---      f rups rus'@ (ru:rus)
---        | Set.null rups || m > ru = f (insert (ru,ru) rups) rus
---        | otherwise = m : f (insert (m*m',m') (deleteMin rups)) rus'
---        where (m,m') = findMin rups
-
 -- instance OEIS 83337 where
 --   oeis =
 --      0 : 3 : map (* 2) (zipWith (+) (oeis @83337) (tail (oeis @83337)))
@@ -6485,14 +5764,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 85423 where
 --   oeisIx = (oeisIx @523) . (oeisIx @8585)
 
--- instance OEIS 85513 where
---   import Data.Text (Text); import qualified Data.Text as T (unpack))
---   import Text.Numeral.Grammar.Reified (defaultInflection)
---   import qualified Text.Numeral.Language.EN as EN
---   oeisIx = genericLength . filter (== 'e') . T.unpack . numeral where
---      numeral :: Integer -> Text
---      numeral = fromJust . EN.gb_cardinal defaultInflection
-
 -- instance OEIS 85604 where
 --   oeis = tablList @85604
 -- instance Table 85604 where
@@ -6500,21 +5771,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   rowT 1 = [0]
 --   rowT n = (rowT @115627) n ++ (take $ (oeisIx @62298) $ fi n) [0,0..]
 --   tabl = map (rowT @85604) [1..]
-
--- instance OEIS 85713 where
---   import Data.List.Ordered (insertBag)
---   oeisIx n = (oeis @85713) !! (n - 1)
---   oeis = 1 : r yx3ss where
---      r (ps:pss) | (oeisIx @10051)' cd == 1 &&
---                   map (flip div cd) ps == [3, 4, 6] = cd : r pss
---                 | otherwise = r pss  where cd = foldl1 gcd ps
---      yx3ss = filter ((== 3) . length) $
---          map (map snd) $ groupBy ((==) `on` fst) $
---          f [1..] (oeis @2110) []
---          where f is'@ (i:is) ps'@ (p:ps) yxs
---                 | i < p = f is ps' $ insertBag (oeisIx' i, i) yxs
---                 | otherwise = yxs' ++ f is' ps yxs''
---                 where (yxs', yxs'') = span ((<= (oeisIx @10)' i) . fst) yxs
 
 -- instance OEIS 85721 where
 --   oeis = [p*q | (p,q) <- zip (oeis @84126) (oeis @84127),
@@ -6801,24 +6057,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 89341 where
 --   oeis = filter (\x -> (oeisIx @6530) x < 2 * (oeisIx @20639) x) (oeis @24619)
-
--- instance OEIS 89589 where
---   import Data.Text (Text); import qualified Data.Text as T (all)
---   import Text.Numeral.Grammar.Reified (defaultInflection)
---   import qualified Text.Numeral.Language.EN as EN
---   oeisIx n = (oeis @89589) !! (n - 1)
---   oeis = filter (T.all (/= 'i') . numeral) [0..] where
---      numeral :: Integer -> Text
---      numeral = fromJust . EN.gb_cardinal defaultInflection
-
--- instance OEIS 89590 where
---   import Data.Text (Text); import qualified Data.Text as T (all)
---   import Text.Numeral.Grammar.Reified (defaultInflection)
---   import qualified Text.Numeral.Language.EN as EN
---   oeisIx n = (oeis @89590) !! (n - 1)
---   oeis = filter (T.all (/= 'u') . numeral) [0..] where
---      numeral :: Integer -> Text
---      numeral = fromJust . EN.gb_cardinal defaultInflection
 
 -- instance OEIS 89625 where
 --   oeisIx n = f n 0 (oeis @40) where
@@ -7196,19 +6434,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      p _  0         = 1
 --      p ks'@ (k:ks) m = if k > m then 0 else p ks' (m - k) + p ks m
 
--- instance OEIS 97054 where
---   import Data.Map (singleton, findMin, deleteMin, insert)
---   oeisIx n = (oeis @97054) !! (n - 1)
---   oeis = f 9 (3, 2) (singleton 4 (2, 2)) where
---      f zz (bz, be) m
---       | xx < zz && even be =
---                   f zz (bz, be+1) (insert (bx*xx) (bx, be+1) $ deleteMin m)
---       | xx < zz = xx :
---                   f zz (bz, be+1) (insert (bx*xx) (bx, be+1) $ deleteMin m)
---       | xx > zz = f (zz+2*bz+1) (bz+1, 2) (insert (bz*zz) (bz, 3) m)
---       | otherwise = f (zz + 2 * bz + 1) (bz + 1, 2) m
---       where (xx, (bx, be)) = findMin m
-
 -- instance OEIS 97133 where
 --   oeis = 1 : 2 : 4 : zipWith (+)
 --                  (map (* 2) $ tail (oeis @97133)) (oeis @97133)
@@ -7275,14 +6500,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      p _ 0 = 1
 --      p ks'@ (k:ks) m = if m < k then 0 else p ks' (m - k) + p ks m
 
--- instance OEIS 97889 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @97889) !! (n - 1)
---   oeis = f $ singleton (6, 2, 3) where
---      f s = y : f (insert (w, p, q') $ insert (w `div` p, (oeisIx @151800) p, q') s')
---            where w = y * q'; q' = (oeisIx @151800) q
---                  ((y, p, q), s') = deleteFindMin s
-
 -- instance OEIS 97944 where
 --   oeisIx = (oeisIx @55642) . (oeisIx @40)
 
@@ -7331,20 +6548,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 98565 where
 --   oeis = map (+ 2 ) $ elemIndices 3 (oeis @59233)
-
--- instance OEIS 98743 where
---   oeisIx n = p [nd | nd <- [1..n], mod n nd /= 0] n where
---      p _  0 = 1
---      p [] _ = 0
---      p ks'@ (k:ks) m | m < k = 0 | otherwise = p ks' (m - k) + p ks m
---   import Data.MemoCombinators (memo3, integral)
---   oeisIx n = (oeis @98743) !! n
---   oeis = map (\x -> pMemo x 1 x) [0..] where
---      pMemo = memo3 integral integral integral p
---      p _ _ 0 = 1
---      p x k m | m < k        = 0
---              | mod x k == 0 = pMemo x (k + 1) m
---              | otherwise    = pMemo x k (m - k) + pMemo x (k + 1) m
 
 -- instance OEIS 98842 where
 --   oeis = map length $ group (oeis @60384)
@@ -7452,14 +6655,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 100320 where
 --   oeisIx n = (oeisIx @124927) (2 * n) n
 
--- instance OEIS 100368 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @100368) !! (n - 1)
---   oeis = f (singleton 6) (tail (oeis @65091)) where
---   f s ps'@ (p:ps) | mod m 4 > 0 = m : f (insert (2*p) $ insert (2*m) s') ps
---   | otherwise = m : f (insert (2*m) s') ps'
---   where (m,s') = deleteFindMin s
-
 -- instance OEIS 100428 where
 --   oeis = f (oeis @2) where f (u:_:us) = u : f us
 
@@ -7474,20 +6669,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 100695 where
 --   oeisIx = last . (rowT @247765)
-
--- instance OEIS 100707 where
---   import qualified Data.Set as Set (insert)
---   import Data.Set (singleton, member)
---   oeisIx n = (oeis @100707) !! (n - 1)
---   oeis = 1 : f 1 (singleton 1) [1..] where
---      f y st ds = g ds where
---        g (k:ks) | v <= 0      = h ds
---                 | member v st = g ks
---                 | otherwise   = v : f v (Set.insert v st) (delete k ds)
---                 where v = y - k
---        h (k:ks) | member w st = h ks
---                 | otherwise   = w : f w (Set.insert w st) (delete k ds)
---                 where w = y + k
 
 -- instance OEIS 100708 where
 --   oeis = map abs $ zipWith (-) (tail (oeis @100707)) (oeis @100707)
@@ -7905,39 +7086,11 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 107782 where
 --   oeisIx n = (oeisIx @23416) n - (oeisIx @87116) n
 
--- instance OEIS 107788 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @107788) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (8 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
-
 -- instance OEIS 107801 where
 --   oeis = 2 : f 2 (tail (oeis @40)) where
 --      f x ps = g ps where
 --        g (q:qs) | null (show x `intersect` show q) = g qs
 --                 | otherwise                        = q : f q (delete q ps)
-
--- instance OEIS 107988 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @107988) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (4 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
-
--- instance OEIS 108090 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @108090) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (11 * y, i + 1, j) $ insert (13 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
-
--- instance OEIS 108218 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @108218) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (11 * y, i + 1, j) $ insert (12 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
 
 -- instance OEIS 108309 where
 --   oeisIx = sum . (map (oeisIx @10051 . pred)) . (rowT @176271)
@@ -7963,20 +7116,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      f p = any (> 0) $ map (oeisIx . (oeisIx @37213) . (p -)) $
 --                            takeWhile (< p) (oeis @74985)
 
--- instance OEIS 108687 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @108687) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (9 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
-
--- instance OEIS 108698 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @108698) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (6 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
-
 -- instance OEIS 108730 where
 --   oeis = tablList @108730
 -- instance Table 108730 where
@@ -7988,22 +7127,8 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      f (os:zs:dss) = replicate (length os - 1) 0 ++ [length zs] ++ f dss
 --   tabf = map (rowT @108730) [1..]
 
--- instance OEIS 108761 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @108761) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (10 * y, i + 1, j) $ insert (13 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
-
 -- instance OEIS 108775 where
 --   oeisIx n = div (oeisIx n) n
-
--- instance OEIS 108779 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @108779) !! (n - 1)
---   oeis = f $ singleton (1,0,0) where
---      f s = y : f (insert (10 * y, i + 1, j) $ insert (11 * y, i, j + 1) s')
---            where ((y, i, j), s') = deleteFindMin s
 
 -- instance OEIS 108804 where
 --   oeis = f [head (oeis @10060)] $ tail (oeis @10060) where
@@ -8097,18 +7222,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 109984 where
 --   oeisIx = sum . zipWith (*) [0..] . (rowT @109983)
 
--- instance OEIS 110080 where
---   import Data.Set (singleton, member, insert)
---   oeisIx n = (oeis @110080) !! (n - 1)
---   oeis = 1 : f 1 (oeis @40) (singleton 1) where
---      f x (p:ps) m = y : f y ps (insert y m) where
---        y = g x p
---        g 0 _ = h x p
---        g u 0 = u
---        g u v = g (u - 1) (if member (u - 1) m then v else v - 1)
---        h u 0 = u
---        h u v = h (u + 1) (if member (u + 1) m then v else v - 1)
-
 -- instance OEIS 110085 where
 --   oeis = filter (\x -> (oeisIx @51612) x < (oeisIx @110088) x) [1..]
 
@@ -8147,22 +7260,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 110766 where
 --   oeis = concat $ transpose [oeis, (oeis @110766)]
-
--- instance OEIS 110910 where
---   {- program for verification of periodic cases. The non-periodic cases listed here evolve into a periodic kernel plus gliders whose paths ahead do not intersect each other or the kernel (gliders marching in single file are not counted as intersecting). Replace leading dots with spaces before running! -}
---   import Data.Set
---   main = print [if n `elem` known then 0 else a n | n<-[0..105]]
---   known = [56,71,72,75,78,82,85,86,87,88,91,92,93,94,96,98,100,102,103,105]
---   a n = count empty (iterate evolve (fromList [ (x,0) | x<-[1..n]]))
---   neighbors (x,y) = fromList
---   ................. [ (x+u,y+v) | u<-[ -1,0,1], v<-[ -1,0,1], (u,v)/= (0,0)]
---   evolve life =
---   . let fil f = Data.Set.filter
---   ............. (\x-> f (size (life `intersection` neighbors x)))
---   . in (life `difference` fil (\k-> k<2 || k>3) life) `union` fil (== 3)
---   .... (unions (Prelude.map neighbors (elems life)) `difference` life)
---   count o (x:xs) | x `member` o = 0
---   .............. | otherwise = 1 + count (o `union` singleton x) xs
 
 -- instance OEIS 111006 where
 --   oeis = tablList @111006
@@ -8418,14 +7515,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 116966 where
 --   oeis = zipWith (+) [0..] $ drop 2 (oeis @140081)
 
--- instance OEIS 117128 where
---   import Data.Set (singleton, notMember, insert)
---   oeisIx n = (oeis @117128) !! n
---   oeis = 1 : f 1 (oeis @40) (singleton 1) where
---      f x (p:ps) s | x' > 0 && x' `notMember` s = x' : f x' ps (insert x' s)
---                   | otherwise                  = xp : f xp ps (insert xp s)
---                   where x' = x - p; xp = x + p
-
 -- instance OEIS 117214 where
 --   oeisIx n = product $
 --      filter ((> 0) . (mod m)) $ takeWhile (< (oeisIx @6530) m) (oeis @40)
@@ -8612,10 +7701,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 121993 where
 --   oeis = filter (\x -> (oeisIx @45918) x < x) [0..]
 
--- instance OEIS 122425 where
---   import import Data.List (maximumBy); Data.Ord (comparing)
---   oeisIx = maximumBy (comparing show) . (rowT @27750)
-
 -- instance OEIS 122426 where
 --   oeis = [x | x <- [1..], (oeisIx @122425) x < x]
 
@@ -8625,16 +7710,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 122428 where
 --   oeis = [x | x <- [1..], (oeisIx @122425) x == (oeisIx @6530) x]
-
--- instance OEIS 122494 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @122494) !! (n - 1)
---   oeis = f (singleton (4, 2)) 27 [3..] where
---      f s uu us@ (u:us'@ (u':_))
---        | vv > uu = uu : f (insert (uu * u, u) s) (u' ^ u') us'
---        | vv < uu = vv : f (insert (vv * v, v) s') uu us
---        | otherwise = vv : f (insert (vv * v, v) s') (u' ^ u') us'
---        where ((vv, v), s') = deleteFindMin s
 
 -- instance OEIS 122535 where
 --   oeisIx = (oeisIx @40) . (oeisIx @64113)
@@ -8746,13 +7821,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      f (x:xs) ys = if null (oeisIx_row' x `intersect` ys)
 --                       then x : f xs (x : ys) else f xs ys
 
--- instance OEIS 125717 where
---   import Data.IntMap (singleton, member, (!), insert)
---   oeisIx n = (oeis @125717) !! n
---   oeis =  0 : f [1..] 0 (singleton 0 0) where
---      f (v:vs) w m = g (reverse[w-v,w-2*v..1] ++ [w+v,w+2*v..]) where
---        g (x:xs) = if x `member` m then g xs else x : f vs x (insert x v m)
-
 -- instance OEIS 125886 where
 --   oeis = 1 : f 1 [10..] where
 --      f u vs = g vs where
@@ -8770,21 +7838,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 126027 where
 --   oeisIx = genericLength . (rowT @30717)
-
--- instance OEIS 126256 where
---   -- import Data.List.Ordered (insertSet)
---   oeisIx n = (oeis @126256) !! n
---   oeis = f (tabl @7318) [] where
---      f (xs:xss) zs = g xs zs where
---        g []     ys = length ys : f xss ys
---        g (x:xs) ys = g xs (insertSet x ys)
-
--- instance OEIS 126257 where
---   import Data.List.Ordered (minus, union)
---   oeisIx n = (oeis @126257) !! n
---   oeis = f [] (tabf @34868) where
---      f zs (xs:xss) = (length ys) : f (ys `union` zs) xss
---                      where ys = xs `minus` zs
 
 -- instance OEIS 126596 where
 --   oeisIx n = (oeisIx @5810) n * (oeisIx @5408) n `div` (oeisIx @16777) n
@@ -8903,19 +7956,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 129505 where
 --   oeisIx n = abs $ (oeisIx @8275) (2 * n - 1) n
 
--- instance OEIS 129511 where
---   import Data.List.Ordered (isect, union)
---   oeisIx n = (oeis @129511) !! (n - 1)
---   oeis = filter (f [] . (rowT @27750)') [1..] where
---      f _ [_] = True
---      f zs (d:ds) = null (dds `isect` zs) && f (dds `union` zs) ds
---                    where dds = map (subtract d) ds
-
--- instance OEIS 129512 where
---   import Data.List.Ordered (minus)
---   oeisIx n = (oeis @129512) !! (n - 1)
---   oeis = minus [1..] (oeis @129511)
-
 -- instance OEIS 129800 where
 --   oeis = filter ((== 1) . length . f) (oeis @40) where
 --     f x = filter (\ (us, vs) ->
@@ -8981,12 +8021,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeisIx = (`div` 2) . (oeisIx @79)
 --   oeis = 0 : (oeis @79)
 
--- instance OEIS 131644 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = (oeis @131644) !! (n - 1)
---   oeis = map fst $ iterate f (0, 2) where
---      f (v, w) = (powerMod 2 v w, w + 1)
-
 -- instance OEIS 132080 where
 --   oeis = [x | x <- [2..], all null $
 --                       map (show x `intersect`) $ map show $ (rowT @27751) x]
@@ -9024,13 +8058,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 132431 where
 --   oeisIx n = (oeisIx @60226) n - (oeisIx @62119) n + (oeisIx @2378) (n - 1)
 
--- instance OEIS 132679 where
---   import Data.Set (fromList, insert, deleteFindMin)
---   oeisIx n = (oeis @132679) !! (n - 1)
---   oeis = f $ fromList [1,2] where
---      f s = m : f (insert (4*m) $ insert (4*m+3) s') where
---          (m,s') = deleteFindMin s
-
 -- instance OEIS 132739 where
 --   oeisIx n | r > 0     = n
 --             | otherwise = (oeisIx @132739) n' where (n',r) = divMod n 5
@@ -9052,22 +8079,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 133610 where
 --   oeis = scanl1 (+) (oeis @53616)
-
--- instance OEIS 133808 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @133808) !! (n - 1)
---   oeis = 1 : f (singleton (2, 2, 1)) where
---      f s = y : f (insert (y * p, p, e + 1) $ insert (y * q^e, q, e) s')
---                where q = (oeisIx @151800) p
---                      ((y, p, e), s') = deleteFindMin s
-
--- instance OEIS 133809 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @133809) !! (n - 1)
---   oeis = 1 : f (singleton (2, 2, 1)) where
---      f s = y : f (insert (y*p, p, e+1) $ insert (y*q^ (e+1), q, e+1) s')
---                where q = (oeisIx @151800) p
---                      ((y, p, e), s') = deleteFindMin s
 
 -- instance OEIS 133810 where
 --   oeis = 1 : filter f [2..] where
@@ -9274,15 +8285,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   tabl = iterate (\xs@ (x:_) -> map (* 2) (x:xs)) [2]
 --   oeis = concat (tabl @140513)
 
--- instance OEIS 140690 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @140690) !! (n - 1)
---   oeis = f $ singleton (1, 1, 2) where
---      f s | k == 1 = m : f (insert (2*b-1, 1, 2*b) $ insert (b*m, k+1, b) s')
---          | even k    = m : f (insert (b*m+b-1, k+1, b) s')
---          | otherwise = m : f (insert (b*m, k+1, b) s')
---          where ((m, k, b), s') = deleteFindMin s
-
 -- instance OEIS 141036 where
 --   oeis = 2 : 1 : 1 : zipWith3 (((+) .) . (+))
 --      (oeis @141036) (tail (oeis @141036)) (drop 2 (oeis @141036))
@@ -9390,13 +8392,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --      f (p:ps@ (p':_)) | p'-p == 4 = (p*p') : f ps
 --                      | otherwise = f ps
 
--- instance OEIS 143207 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @143207) !! (n - 1)
---   oeis = f (singleton (2*3*5)) where
---      f s = m : f (insert (2*m) $ insert (3*m) $ insert (5*m) s') where
---        (m,s') = deleteFindMin s
-
 -- instance OEIS 143215 where
 --   oeisIx n = (oeisIx @40) n * (oeisIx @7504) n
 
@@ -9485,13 +8480,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 147813 where
 --   oeis = map (oeisIx . (+ 1)) $ findIndices (>= 0) (oeis @36263)
-
--- instance OEIS 147991 where
---   import Data.Set (singleton, insert, deleteFindMin)
---   oeisIx n = (oeis @147991) !! (n - 1)
---   oeis = f $ singleton 1 where
---      f s = m : (f $ insert (3*m - 1) $ insert (3*m + 1) s')
---            where (m, s') = deleteFindMin s
 
 -- instance OEIS 151666 where
 --   oeisIx n = fromEnum (n < 2 || m < 2 && (oeisIx @151666) n' == 1)
@@ -9659,13 +8647,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 160588 where
 --   oeis = concat $ transpose [oeis @53645, oeis @27]
 
--- instance OEIS 160638 where
---   import Data.Word (Word8)
---   oeisIx :: Word8 -> Word8
---   oeisIx n = rev 0 0 where
---      rev 8 y = y
---      rev i y = rev (i + 1) (if testBit n i then setBit y (7 - i) else y)
-
 -- instance OEIS 160676 where
 --   oeis = filter (\x -> (oeisIx @6968) x == (oeisIx @6968) (2 * x)) [1..]
 
@@ -9688,15 +8669,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --                              | x == y    = x : m xs ys
 --                              | otherwise = y : m xs' ys
 
--- instance OEIS 161390 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @161390) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [0, 5, 4, 2, 9, 8, 6, 7, 3, 1]
-
 -- instance OEIS 161466 where
 --   oeis = (rowT @27750) $ (oeisIx @142) 10
 
@@ -9711,15 +8683,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 161764 where
 --   oeisIx n = n - (oeisIx @199238) n
-
--- instance OEIS 162247 where
---   import Data.Ord (comparing)
---   oeisIx n k = (tabl @162247) !! (n - 1) !! (k-1)
---   oeisIx_row n = (tabl @162247) !! (n - 1)
---   oeisIx_tabl = map (concat . sortBy (comparing length)) $ tail fss where
---      fss = [] : map fact [1..] where
---            fact x = [x] : [d : fs | d <- [2..x], let (x',r) = divMod x d,
---                                     r == 0, fs <- fss !! x', d <= head fs]
 
 -- instance OEIS 162551 where
 --   oeisIx n = (oeisIx @51601) (2 * n) n
@@ -9741,18 +8704,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   rowT   = rowT_off   @162711 @1
 --   tabl = map (map (read . concatMap show) . tail . inits) $
 --                  zipWith take [1..] $ tails (oeis @7376)
-
--- instance OEIS 162909 where
---   import Ratio
---   bird :: [Rational]
---   bird = branch (recip . succ) (succ . recip) 1
---   branch f g a = a : branch f g (f a) \/ branch f g (g a)
---   (a : as) \/ bs = a : (bs \/ as)
---   oeisIx = map numerator bird
---   oeisIx = map denominator bird
-
--- instance OEIS 162910 where
---   import Ratio; bird :: [Rational]; bird = branch (recip . succ) (succ . recip) 1; branch f g a = a : branch f g (f a) \/ branch f g (g a); (a : as) \/ bs = a : (bs \/ as); (oeisIx @162909) = map numerator bird; (oeisIx @162910) = map denominator bird
 
 -- instance OEIS 163271 where
 --   oeisIx = sum . (rowT @128966) . (subtract 1)
@@ -9880,24 +8831,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 167151 where
 --   oeis = 0 : concat (transpose [oeis, (oeis @30124)])
 
--- instance OEIS 167376 where
---   import Data.List.Ordered (minus)
---   oeisIx n = (oeis @167376) !! n
---   oeis = minus [0..] (oeis @41)
-
--- instance OEIS 167377 where
---   import Data.List.Ordered (minus)
---   oeisIx n = (oeis @167377) !! n
---   oeis = minus [0..] (oeis @9)
-
--- instance OEIS 167392 where
---   import Data.List.Ordered (member)
---   oeisIx = fromEnum . flip member (oeis @41)
-
--- instance OEIS 167393 where
---   import Data.List.Ordered (member)
---   oeisIx = fromEnum . flip member (oeis @9)
-
 -- instance OEIS 167489 where
 --   oeisIx = product . map length . group . (rowT @30308)
 
@@ -9976,19 +8909,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --        | any p $ map (divMod v) ts = v : f ts us' vs
 --        | otherwise = f ts us' vs
 --        where p (q, r) = r == 0 && (oeisIx @10054) q == 1
-
--- instance OEIS 169936 where
---   import Data.Map (empty, insertWith, elems)
---   import Data.Text (unpack); import Data.Maybe (fromJust)
---   import Text.Numeral.Grammar.Reified (defaultInflection)
---   import qualified Text.Numeral.Language.EN as EN
---   oeisIx n = (oeis @169936) !! (n - 1)
---   oeis = sort $ concat $ filter ((> 1) . length) $
---      elems $ fill [1..999] empty where
---         fill [] m = m
---         fill (z:zs) m = fill zs $ insertWith (++) (sort $ engl z) [z] m
---         engl :: Integer -> String
---         engl = unpack . fromJust . EN.us_cardinal defaultInflection
 
 -- instance OEIS 170942 where
 --   oeis = tablList @170942
@@ -10179,13 +9099,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 175119 where
 --   oeis = map (+ 1) $ zipWith (-) (tail (oeis @175118)) (oeis @175118)
 
--- instance OEIS 175332 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @175332) !! (n - 1)
---   oeis = f $ singleton 3 where
---     f s = x : f (if even x then insert z s' else insert z $ insert (z+1) s')
---           where z = 2*x; (x, s') = deleteFindMin s
-
 -- instance OEIS 175499 where
 --   oeis = zipWith (-) (tail (oeis @175498)) (oeis @175498)
 
@@ -10305,10 +9218,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 178910 where
 --   oeisIx = foldl1 xor . (rowT @27750) :: Integer -> Integer
-
--- instance OEIS 178943 where
---   oeis = 2 : h (oeis @40) where
---      h (p:qs@ (q:r:ps)) = if 2 * q /= (p + r) then q : h qs else h qs
 
 -- instance OEIS 178953 where
 --   oeis = map succ $ elemIndices 0 $ tail $ oeis @178609
@@ -10685,11 +9594,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   oeis = [x | x <- [1..], or $ zipWith (<)
 --                       (oeisIx_row x) (map toInteger $ (rowT @124010) x)]
 
--- instance OEIS 185550 where
---   import Data.List.Ordered (minus)
---   oeisIx n = (oeis @185550) !! (n - 1)
---   oeis = [0..] `minus` (oeis @185549)
-
 -- instance OEIS 185589 where
 --   oeis = iterate (oeisIx @6369) 144
 
@@ -10743,16 +9647,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 187059 where
 --   oeisIx = (oeisIx @7814) . (oeisIx @1142)
 
--- instance OEIS 187072 where
---   import Data.Set (Set, empty, member, insert)
---   oeisIx n = (oeis @187072) !! (n - 1)
---   oeis = goldbach 0 (oeis @65091) empty where
---     goldbach :: Integer -> [Integer] -> Set Integer -> [Integer]
---     goldbach q (p:ps) gbEven
---         | qp `member` gbEven = goldbach q ps gbEven
---         | otherwise          = p : goldbach p (oeis @65091) (insert qp gbEven)
---         where qp = q + p
-
 -- instance OEIS 187085 where
 --   oeisIx  n = (oeis @187085) !! (n - 1)
 --   oeis = zipWith (+) (oeis @187072) $ tail (oeis @187072)
@@ -10780,40 +9674,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 
 -- instance OEIS 187744 where
 --   oeis = filter ((== 1) . (oeisIx @10054) . (oeisIx @7953)) [0..]
-
--- instance OEIS 187769 where
---   import List (elemIndices)
---   oeisIx n k = (tabf @187769) !! n !! k
---   oeisIx_row n = (tabf @187769) !! n
---   oeisIx_tabf = [0] : [elemIndices (b, len - b) $
---      takeWhile ((<= len) . uncurry (+)) $ zip (oeis @120) (oeis @23416) |
---      len <- [1 ..], b <- [1 .. len]]
---   oeis = concat (tabf @187769)
-
--- instance OEIS 187786 where
---   import List (find)
---   import Maybe (fromJust)
---   oeisIx n k = (tabf @187786) !! n !! k
---   oeisIx_row n = fromJust $ find (elem n) (tabf @187769)
---   oeisIx_tabf = map (rowT @187786) [0..]
-
--- instance OEIS 187921 where
---   import Data.Set (Set, singleton, member, insert)
---   oeisIx n = (oeis @187921) !! (n - 1)
---   oeis = r (singleton 0) 1 0 where
---      r :: Set Integer -> Integer -> Integer -> [Integer]
---      r s n x | x <= n           = n : r (insert (x+n) s) (n+1) (x+n)
---              | (x-n) `member` s = r (insert (x+n) s) (n+1) (x+n)
---              | otherwise        = r (insert (x-n) s) (n+1) (x-n)
-
--- instance OEIS 187922 where
---   import Data.Set (Set, singleton, member, insert)
---   oeisIx n = (oeis @187922) !! (n - 1)
---   oeis = r (singleton 0) 1 0 where
---      r :: Set Integer -> Integer -> Integer -> [Integer]
---      r s n x | x <= n           = r (insert (x+n) s) (n+1) (x+n)
---              | (x-n) `member` s = n : r (insert (x+n) s) (n+1) (x+n)
---              | otherwise        = r (insert (x-n) s) (n+1) (x-n)
 
 -- instance OEIS 188069 where
 --   oeis = (map succ $ elemIndices 2 $ tail $ oeis @7538)
@@ -10864,11 +9724,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 --   let ext (c,l) = [ (tails.filter (\b->a* (a-1)`mod` (b-a)==0)$r,a:l) | (a:r)<-c] in map (last.snd.head) . tail . iterate (>>= ext) $ [ (map reverse (inits[2..]),[])]
 --   -- [m:[m-d|d<-divisors (m* (m-1)),d<m-1]|m<-[2..]], defining divisors appropriately.
 
--- instance OEIS 188915 where
---   import Data.List.Ordered (union)
---   oeisIx n = (oeis @188915) !! n
---   oeis = union (oeis @290) (oeis @79)
-
 -- instance OEIS 188916 where
 --   oeis = filter ((== 1) . (oeisIx @10052). (oeisIx @188915)) [0..]
 
@@ -10907,11 +9762,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 189835 where
 --   oeisIx n = (oeisIx @1157) n - (oeisIx @38040) n
 
--- instance OEIS 190016 where
---   import Data.Ord (comparing)
---   oeisIx n = (oeis @190016) !! (n - 1)
---   oeis = sortBy (comparing show) [1..10000]
-
 -- instance OEIS 190017 where
 --   oeis =
 --      map (succ . fromJust . (`elemIndex` (oeis @190016))) [1..10000]
@@ -10925,49 +9775,21 @@ elemIndex x   = fmap fi . L.elemIndex x
 --                | x == y    = x : merge xs ys
 --                | otherwise = y : merge xs' ys
 
--- instance OEIS 190126 where
---   import Data.Ord (comparing)
---   oeisIx n = (oeis @190126) !! (n - 1)
---   oeis = sortBy (comparing (show . (oeisIx @7088))) [1..10000]
-
 -- instance OEIS 190127 where
 --   oeis =
 --      map (succ . fromJust . (`elemIndex` (oeis @190126))) [1..10000]
-
--- instance OEIS 190128 where
---   import Data.Ord (comparing)
---   oeisIx n = (oeis @190128) !! (n - 1)
---   oeis = sortBy (comparing (show . (oeisIx @7089))) [1..10000]
 
 -- instance OEIS 190129 where
 --   oeis =
 --      map (succ . fromJust . (`elemIndex` (oeis @190128))) [1..10000]
 
--- instance OEIS 190130 where
---   import Data.Ord (comparing)
---   oeisIx n = (oeis @190130) !! (n - 1)
---   oeis = sortBy (comparing (show . (oeisIx @7094))) [1..10000]
-
 -- instance OEIS 190131 where
 --   oeis =
 --      map (succ . fromJust . (`elemIndex` (oeis @190130))) [1..10000]
 
--- instance OEIS 190132 where
---   import Data.Ord (comparing)
---   import Numeric (showIntAtBase)
---   oeisIx n = (oeis @190132) !! (n - 1)
---   oeis =
---      sortBy (comparing (flip (showIntAtBase 12 intToDigit) "")) [1..10000]
-
 -- instance OEIS 190133 where
 --   oeis =
 --      map (succ . fromJust . (`elemIndex` (oeis @190132))) [1..10000]
-
--- instance OEIS 190134 where
---   import Data.Ord (comparing)
---   import Numeric (showHex)
---   oeisIx n = (oeis @190134) !! (n - 1)
---   oeis = sortBy (comparing (flip showHex "")) [1..10000]
 
 -- instance OEIS 190135 where
 --   oeis =
@@ -11017,316 +9839,8 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 190653 where
 --   oeis = filter ((== 3) . (oeisIx @101312)) [1901..]
 
--- instance OEIS 190803 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @190803) !! (n - 1)
---   oeis = 1 : f (singleton 2)
---      where f s = m : (f $ insert (2*m-1) $ insert (3*m-1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 190805 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @190805) !! (n - 1)
---   oeis = 1 : f (singleton 4)
---      where f s = m : (f $ insert (2*m-1) $ insert (3*m+1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 190806 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @190806) !! (n - 1)
---   oeis = 1 : f (singleton 5)
---      where f s = m : (f $ insert (2*m-1) $ insert (3*m+2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 190807 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @190807) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (2*m) $ insert (3*m-1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 190808 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @190808) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (2*m) $ insert (3*m+1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 190809 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @190809) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (2*m) $ insert (3*m+2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 190810 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @190810) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (2*m+1) $ insert (3*m-1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 190811 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @190811) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (2*m+1) $ insert (3*m) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 190812 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @190812) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (2*m+1) $ insert (3*m+2) s')
---                where (m, s') = deleteFindMin s
-
 -- instance OEIS 190944 where
 --   oeisIx = (oeisIx @7088) . (* 3)
-
--- instance OEIS 191113 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191113) !! (n - 1)
---   oeis = 1 : f (singleton 2)
---      where f s = m : (f $ insert (3*m-2) $ insert (4*m-2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191114 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191114) !! (n - 1)
---   oeis = 1 : f (singleton 3)
---      where f s = m : (f $ insert (3*m-2) $ insert (4*m-1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191115 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191115) !! (n - 1)
---   oeis = 1 : f (singleton 4)
---      where f s = m : (f $ insert (3*m-2) $ insert (4*m) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191116 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191116) !! (n - 1)
---   oeis = 1 : f (singleton 5)
---      where f s = m : (f $ insert (3*m-2) $ insert (4*m+1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191117 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191117) !! (n - 1)
---   oeis = 1 : f (singleton 6)
---      where f s = m : (f $ insert (3*m-2) $ insert (4*m+2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191118 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191118) !! (n - 1)
---   oeis = 1 : f (singleton 7)
---      where f s = m : (f $ insert (3*m-2) $ insert (4*m+3) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191119 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191119) !! (n - 1)
---   oeis = 1 : f (singleton 2)
---      where f s = m : (f $ insert (3*m-1) $ insert (4*m-3) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191120 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191120) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m-1) $ insert (4*m-2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191121 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191121) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m-1) $ insert (4*m-1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191122 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191122) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m-1) $ insert (4*m) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191123 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191123) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m-1) $ insert (4*m+1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191124 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191124) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m-1) $ insert (4*m+2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191125 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191125) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m-1) $ insert (4*m+3) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191126 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191126) !! (n - 1)
---   oeis = 1 : f (singleton 3)
---      where f s = m : (f $ insert (3*m) $ insert (4*m-3) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191127 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191127) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m) $ insert (4*m-2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191128 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191128) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m) $ insert (4*m-1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191129 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191129) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m) $ insert (4*m+1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191130 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191130) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m) $ insert (4*m+2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191131 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191131) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m) $ insert (4*m+3) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191132 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191132) !! (n - 1)
---   oeis = 1 : f (singleton 4)
---      where f s = m : (f $ insert (3*m+1) $ insert (4*m-3) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191133 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191133) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+1) $ insert (4*m-2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191134 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191134) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+1) $ insert (4*m-1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191135 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191135) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+1) $ insert (4*m) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191136 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191136) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+1) $ insert (4*m+1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191137 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191137) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+1) $ insert (4*m+2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191138 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191138) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+1) $ insert (4*m+3) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191139 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191139) !! (n - 1)
---   oeis = 1 : f (singleton 5)
---      where f s = m : (f $ insert (3*m+2) $ insert (4*m-3) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191140 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191140) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+2) $ insert (4*m-2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191141 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191141) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+2) $ insert (4*m-1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191142 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191142) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+2) $ insert (4*m) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191143 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191143) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+2) $ insert (4*m+1) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191144 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191144) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+2) $ insert (4*m+2) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191145 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191145) !! (n - 1)
---   oeis = f $ singleton 1
---      where f s = m : (f $ insert (3*m+2) $ insert (4*m+3) s')
---                where (m, s') = deleteFindMin s
-
--- instance OEIS 191203 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191203) !! (n - 1)
---   oeis = f $ singleton 1 where
---      f s = m : f (insert (2 * m) $ insert (m ^ 2 + 1) s')
---            where (m, s') = deleteFindMin s
-
--- instance OEIS 191211 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @191211) !! (n - 1)
---   oeis = f $ singleton 1 where
---      f s = m : f (insert (2 * m + 1) $ insert (m ^ 2 + 1) s')
---            where (m, s') = deleteFindMin s
 
 -- instance OEIS 191292 where
 --   oeis = f (oeis @31443) where
@@ -11336,9 +9850,6 @@ elemIndex x   = fmap fi . L.elemIndex x
 -- instance OEIS 191610 where
 --   oeisIx 1 = 0
 --   oeisIx n = sum $ takeWhile (> 0) $ map ((n - 1) `div`) (oeis @351)
-
-instance OEIS 191857 where
-  oeisIx = (oeisIx @7967) . (oeisIx @7970)
 
 -- instance OEIS 191933 where
 --   oeis = findIndices (> 0) $ map (oeisIx @193095) [0..]
@@ -11368,15 +9879,6 @@ instance OEIS 191857 where
 
 -- instance OEIS 192362 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @131644))
-
--- instance OEIS 192476 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @192476) !! (n - 1)
---   oeis = f [1] (singleton 1) where
---      f xs s =
---        m : f xs' (foldl (flip insert) s' (map (+ m^2) (map (^ 2) xs')))
---        where xs' = m : xs
---              (m,s') = deleteFindMin s
 
 -- instance OEIS 192484 where
 --   oeis = 1 : 2 : f [2,1] where
@@ -11814,10 +10316,6 @@ instance OEIS 191857 where
 -- instance OEIS 196175 where
 --   oeis = map (+ 2) $ elemIndices True $
 --      zipWith (\x y -> x < 0 && y > 0) (oeis @36263) $ tail (oeis @36263)
-
--- instance OEIS 196202 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = powerMod 2 (p - 1) (p ^ 2) where p = (oeisIx @40) n
 
 -- instance OEIS 196276 where
 --   oeis = map (+ 1) $ elemIndices 1 (oeis @196274)
@@ -12278,35 +10776,8 @@ instance OEIS 191857 where
 --   oeisIx n = head [p | p <- drop 2 (oeis @40),
 --                         (oeisIx @10051 . pred) (2^n + p*2^ (div (n+1) 2) - 1) == 1]
 
--- instance OEIS 206702 where
---   import Control.Monad
---   --this creates the powerset of a set
---   ps n = filterM (\x->[True,False]) n
---   --given a set z, this creates the set X of (a+b) for all a, b, in Z
---   addset z = do x<-z
---                 y<-z
---                 [x+y]
---   --this check if two sets are disjoint
---   disjoint a [] = True
---   disjoint a (c:d) = (disjoint a d) && ((filter (\x->x==c) a) ==[])
---   --this checks if a set z is disjoint from its "adsset" in a certain Zn, n being the second argument.
---   good z n = disjoint z (map (\x->rem x n) (addset z))
---   --this generates all off Zn's subsets with the required property.
---   sets n = filter (\x ->good x n) (ps [0.. (n - 1)])
---   --this generates the first n terms of the sequence
---   sequence n = map (\x->length (sets x) ) [1..n]
-
 -- instance OEIS 206787 where
 --   oeisIx = sum . filter odd . (rowT @206778)
-
--- instance OEIS 206925 where
---   import Data.Map (fromList, (!), insert)
---   oeisIx n = (oeis @206925) !! (n - 1)
---   oeis = 1 : f [0, 1] (fromList [ (Bin [0], 1), (Bin [1], 1)]) where
---      f bs'@ (b:bs) m = y : f (succ bs') (insert (Bin bs') y m) where
---        y = m ! (Bin bs) +
---            length (filter (\ds -> ds == reverse ds) $ tail $ inits bs')
---        succ [] = [1]; succ (0:ds) = 1 : ds; succ (1:ds) = 0 : succ ds
 
 -- instance OEIS 206941 where
 --   oeisIx = (oeisIx @10) . (oeisIx @2322)
@@ -12747,11 +11218,6 @@ instance OEIS 191857 where
 --   oeis = 1 : 1 : 1 : (map (oeisIx @6530) $
 --      zipWith (+) (oeis @214320) (drop 2 $ (oeis @214320)))
 
--- instance OEIS 214321 where
---   import Data.Set (fromList, toList, Set)
---   oeis_conjectured  = toList $ fromList $ take 100000 (oeis @214551)
---   b214321 = bFile' "A214321" (take 10000 (oeis @214321)_conjectured) 1
-
 -- instance OEIS 214360 where
 --   oeis = [x | k <- [0..], let x = 3120613860*k+23, (oeisIx @10051 . pred) x == 1]
 
@@ -12824,22 +11290,6 @@ instance OEIS 191857 where
 --      f i v (q:qs) | q > v = (q, i) : f (i + 1) q qs
 --                   | otherwise = f (i + 1) v qs
 
--- instance OEIS 215244 where
---   import Data.Map (Map, singleton, (!), insert)
---   newtype Bin = Bin [Int] deriving (Eq, Show, Read)
---   instance Ord Bin where
---      Bin us <= Bin vs | length us == length vs = us <= vs
---                       | otherwise              = length us <= length vs
---   oeisIx n = (oeis @215244) !! n
---   oeis = 1 : f [1] (singleton (Bin [0]) 1) where
---      f bs m | last bs == 1 = y : f (succ bs) (insert (Bin bs) y m)
---             | otherwise    = f (succ bs) (insert (Bin bs) y m) where
---        y = fromEnum (pal bs) +
---            sum (zipWith (\us vs -> if pal us then m ! Bin vs else 0)
---                         (init $ drop 1 $ inits bs) (drop 1 $ tails bs))
---        pal ds = reverse ds == ds
---        succ [] = [0]; succ (0:ds) = 1 : ds; succ (1:ds) = 0 : succ ds
-
 -- instance OEIS 215879 where
 --   oeisIx n = if t == 0 then 0 else (oeisIx @215879) n' + 1
 --               where (n',t) = divMod n 3
@@ -12894,28 +11344,11 @@ instance OEIS 191857 where
 -- instance OEIS 217218 where
 --   oeis = iterate (oeisIx @6368) 44
 
--- instance OEIS 217261 where
---   import Data.Set (singleton, insert, deleteFindMin)
---   oeisIx n = (oeis @217261) !! (n - 1)
---   oeis = f [3..] $ singleton (16, (2, 2)) where
---      f xs'@ (x:xs) s
---        | m > x ^ 4  = f xs $ insert (x ^ 4, (x, 2)) s
---        | m == x ^ 4 = f xs s
---        | otherwise  = m : f xs' (insert (i ^ (j + 1) ^ 2, (i, j + 1)) s')
---        where ((m, (i,j)), s') = deleteFindMin s
-
 -- instance OEIS 217398 where
 --   oeis = map succ $ elemIndices 5 $ tail $ oeis @30
 
 -- instance OEIS 217575 where
 --   oeisIx = subtract 1 . (oeisIx @63657)
-
--- instance OEIS 217589 where
---   import Data.Word (Word16)
---   oeisIx :: Word16 -> Word16
---   oeisIx n = rev 0 0 where
---      rev 16 y = y
---      rev i y = rev (i + 1) (if testBit n i then setBit y (15 - i) else y)
 
 -- instance OEIS 217657 where
 --   oeisIx n | n <= 9    = 0
@@ -12923,28 +11356,6 @@ instance OEIS 191857 where
 
 -- instance OEIS 217659 where
 --   oeisIx = (oeisIx @151800) . fromInteger . (oeisIx @185934)
-
--- instance OEIS 217712 where
---   import Data.Set (Set, empty, fromList, toList, union, size)
---   import Data.Set (member, delete, insert)
---   oeisIx n = (oeis @217712) !! (n - 1)
---   oeis = f 1 empty empty where
---      f x s s1 = size s1' : f (x + 1) (s `union` fromList hs) s1' where
---        s1' = g s1 $ filter ((== 1) . (oeisIx @10051 . pred)) $ map numerator hs
---        g v []                    = v
---        g v (w:ws) | w `member` v = g (delete w v) ws
---                   | otherwise    = g (insert w v) ws
---        hs = map (+ 1 % x) $ 0 : toList s
-
--- instance OEIS 217843 where
---   import Data.Set (singleton, deleteFindMin, insert, Set)
---   oeisIx n = (oeis @217843) !! (n - 1)
---   oeis = f (singleton (0, (0,0))) (-1) where
---      f s z = if y /= z then y : f s'' y else f s'' y
---                 where s'' = (insert (y', (i, j')) $
---                              insert (y' - i ^ 3 , (i + 1, j')) s')
---                       y' = y + j' ^ 3; j' = j + 1
---                       ((y, (i, j)), s') = deleteFindMin s
 
 -- instance OEIS 217863 where
 --   oeisIx = (oeisIx @10) . (oeisIx @3418)
@@ -13034,18 +11445,6 @@ instance OEIS 191857 where
 -- instance OEIS 219843 where
 --   oeisIx = foldr (\u v-> 2*v + u) 0 . map toInteger . (rowT @219463)
 
--- instance OEIS 219907 where
---   import Data.Set (deleteFindMin, empty, fromList, union)
---   import qualified Data.Set as Set (null)
---   oeisIx n = (oeis @219907) !! (n - 1)
---   oeis = f 0 empty where
---      f z s | Set.null s || z' <= m = f (z + 1) (s `union` (fromList ws))
---            | otherwise             = m : f z s'
---            where (m,s') = deleteFindMin s
---                  ws = map (h z) [0..z] ++ map (flip h z) [0..z-1]
---                  h i j = 4 * i ^ 2 + 2 * i * j + 7 * j ^ 2
---                  z' = h z 0
-
 -- instance OEIS 219908 where
 --   oeisIx n = (oeis @219907) !! (n - 1)
 --   oeis = filter ((== 1) . (oeisIx @10051 . pred)) (oeis @219907)
@@ -13074,17 +11473,6 @@ instance OEIS 191857 where
 -- instance OEIS 220348 where
 --   oeisIx n = fromJust (findIndex (elem n) (tabf @183079)) + 1
 
--- instance OEIS 220423 where
---   import Data.Set (deleteFindMin, empty, fromList, union)
---   import qualified Data.Set as Set (null)
---   oeisIx n = (oeis @220423) !! (n - 1)
---   oeis = f (splitAt 1 (oeis @2110)) empty where
---      f (us'@ (u:_), vs'@ (v:vs)) s
---        | Set.null s || m > u
---                    = f (v:us', vs) (s `union` (fromList $ map (* u) us'))
---        | otherwise = m : f (us', vs') s'
---        where (m,s') = deleteFindMin s
-
 -- instance OEIS 220432 where
 --   oeis = filter (\x -> null $
 --      intersect (oeisIx_row x) (takeWhile (<= x) (oeis @219908))) (oeis @7310)
@@ -13103,14 +11491,6 @@ instance OEIS 191857 where
 
 -- instance OEIS 221264 where
 --   oeis = filter ((< 0) . (oeisIx @5094)) [1..] is
-
--- instance OEIS 221869 where
---   import Data.Set (singleton, member, insert)
---   oeisIx n = (oeis @221869) !! (n - 1)
---   oeis = f 2 7 (singleton 1) where
---      f u v s | d `member` s = f (u + 1) (v + d) s
---              | otherwise    = d : f (u + 1) (v + d) (d `insert` s)
---              where d = gcd u v
 
 -- instance OEIS 222208 where
 --   oeis = 1 : 3 : f 3 (2 : [4 ..]) where
@@ -13281,46 +11661,6 @@ instance OEIS 191857 where
 --   oeisIx n = product [p | p <- takeWhile (<= n + 1) (oeis @40),
 --                            mod n (p - 1) == 0 || mod (n + 1) p == 0]
 
--- instance OEIS 225493 where
---   import Data.Set (singleton, fromList, union, deleteFindMin)
---   oeisIx n = (oeis @225493) !! (n - 1)
---   oeis = 1 : h (singleton p) ps [p] where
---      (p:ps) = (oeis @51634)
---      h s xs'@ (x:xs) ys
---        | m > x     = h (s `union` (fromList $ map (* x) (1 : ys))) xs ys
---        | otherwise = m : h (s' `union` (fromList $ map (* m) ys')) xs' ys'
---        where ys' = m : ys; (m, s') = deleteFindMin s
-
--- instance OEIS 225494 where
---   import Data.Set (singleton, fromList, union, deleteFindMin)
---   oeisIx n = (oeis @225494) !! (n - 1)
---   oeis = 1 : h (singleton p) ps [p] where
---      (p:ps) = (oeis @6562)
---      h s xs'@ (x:xs) ys
---        | m > x     = h (s `union` (fromList $ map (* x) (1 : ys))) xs ys
---        | otherwise = m : h (s' `union` (fromList $ map (* m) ys')) xs' ys'
---        where ys' = m : ys; (m, s') = deleteFindMin s
-
--- instance OEIS 225495 where
---   import Data.Set (singleton, fromList, union, deleteFindMin)
---   oeisIx n = (oeis @225495) !! (n - 1)
---   oeis = 1 : h (singleton p) ps [p] where
---      (p:ps) = (oeis @51635)
---      h s xs'@ (x:xs) ys
---        | m > x     = h (s `union` (fromList $ map (* x) (1 : ys))) xs ys
---        | otherwise = m : h (s' `union` (fromList $ map (* m) ys')) xs' ys'
---        where ys' = m : ys; (m, s') = deleteFindMin s
-
--- instance OEIS 225496 where
---   import Data.Set (singleton, fromList, union, deleteFindMin)
---   oeisIx n = (oeis @225496) !! (n - 1)
---   oeis = 1 : h (singleton p) ps [p] where
---      (p:ps) = (oeis @178943)
---      h s xs'@ (x:xs) ys
---        | m > x     = h (s `union` (fromList $ map (* x) (1 : ys))) xs ys
---        | otherwise = m : h (s' `union` (fromList $ map (* m) ys')) xs' ys'
---        where ys' = m : ys; (m, s') = deleteFindMin s
-
 -- instance OEIS 225589 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @217122))
 
@@ -13449,16 +11789,6 @@ instance OEIS 191857 where
 --      p _      0 = 1
 --      p (k:ks) m = if m < k then 0 else p ks (m - k) + p ks m
 
--- instance OEIS 226777 where
---   import qualified Data.Set as Set (null, split, filter)
---   import Data.Set (Set, empty, insert, member)
---   oeisIx n = (oeis @226777) !! (n - 1)
---   oeis = f (oeis @76467) empty where
---      f (x:xs) s | Set.null $ Set.filter ((`member` s) . (x -)) s'
---                             = f xs (x `insert` s)
---                 | otherwise = x : f xs (x `insert` s)
---                 where (s', _) = Set.split (x `div` 2) s
-
 -- instance OEIS 226778 where
 --   oeis = map succ $ elemIndices 1 $ tail $ oeis @55483
 
@@ -13469,16 +11799,6 @@ instance OEIS 191857 where
 
 -- instance OEIS 226946 where
 --   oeis = map succ $ elemIndices 0 $ tail $ oeis @86
-
--- instance OEIS 226950 where
---   import qualified Data.Set as Set (split, filter)
---   import Data.Set (Set, empty, size, insert, member)
---   oeisIx n = (oeis @226950) !! (n - 1)
---   oeis = f (oeis @76467) empty where
---      f (x:xs) s | size s'' <= 1 = f xs (x `insert` s)
---                 | otherwise     = x : f xs (x `insert` s)
---                 where s'' = Set.filter ((`member` s) . (x -)) s'
---                       (s', _) = Set.split (x `div` 2) s
 
 -- instance OEIS 227068 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @56924))
@@ -13537,17 +11857,6 @@ instance OEIS 191857 where
 -- instance OEIS 227481 where
 --   oeisIx = sum . map (oeisIx @10052) . (rowT @69011)
 
--- instance OEIS 227617 where
---   import qualified Data.Map as Map (null, insert)
---   import Data.Map (empty, deleteFindMin)
---   oeisIx n = (oeis @227617) !! (n - 1)
---   oeis = f 1 empty $ zip (oeis @100707) [1..] where
---      f i mp (uv:uvs)
---        | Map.null mp = f i (uncurry Map.insert uv mp) uvs
---        | y == i      = x : f (i + 1) (uncurry Map.insert uv mp') uvs
---        | otherwise   = f i (uncurry Map.insert uv mp) uvs
---        where ((y,x), mp') = deleteFindMin mp
-
 -- instance OEIS 227632 where
 --   (oeis, (oeis @227633)) = unzip $ (1,1) : f 1 1 (oeis @227617) where
 --      f i v (q:qs) | q > v = (q,i) : f (i + 1) q qs
@@ -13577,9 +11886,6 @@ instance OEIS 191857 where
 -- instance OEIS 227878 where
 --   oeis = f (oeis @51701) where
 --      f (p:ps@ (_:p':_)) = if p == p' then p : f ps else f ps
-
--- instance OEIS 227915 where
---   oeis = map succ $ elemIndices 4 $ tail $ oeis @228085
 
 -- instance OEIS 227928 where
 --   oeis = 1 : f 0 0 (tail (oeis @79)) (tail (oeis @244)) where
@@ -13614,43 +11920,17 @@ instance OEIS 191857 where
 -- instance OEIS 228078 where
 --   oeisIx = subtract 1 . (oeisIx @99036)
 
--- instance OEIS 228082 where
---   oeis = 0 : filter ((> 0) . (oeisIx @228085)) [1..]
-
--- instance OEIS 228085 where
---   oeisIx n = genericLength $ filter ((== n) . (oeisIx @92391)) [n - (oeisIx @70939) n .. n]
-
--- instance OEIS 228088 where
---   oeis = 0 : (map succ $ elemIndices 1 $ tail $ oeis @228085)
-
 -- instance OEIS 228276 where
 --   oeis = 1 : f 1 [2..] where
 --      f x zs = g zs where
 --        g (y:ys) = if null $ show (x + y) \\ (show x ++ show y)
 --                      then y : f y (delete y zs) else g ys
 
--- instance OEIS 228369 where
---   oeis = concatMap (rowT @228369) [1..]
---   oeisIx_row 0 = []
---   oeisIx_row n
---     | 2^k == 2 * n + 2 = [k - 1]
---     | otherwise        = (rowT @228369) (n `div` 2^k) ++ [k] where
---       k = (oeisIx @7814) (n + 1) + 1
-
 -- instance OEIS 228446 where
---   oeisIx n = head
+--   oeisIx (succ->n) = head
 --      [q | let m = 2 * n + 1,
 --           q <- map (m -) $ reverse $ takeWhile (< m) $ tail (oeis @2378),
---           oeisIx q == 1]
-
--- instance OEIS 229037 where
---   import Data.IntMap (empty, (!), insert)
---   oeisIx n = (oeis @229037) !! (n - 1)
---   oeis = f 0 empty  where
---      f i m = y : f (i + 1) (insert (i + 1) y m) where
---        y = head [z | z <- [1..],
---                      all (\k -> z + m ! (i - k) /= 2 * m ! (i - k `div` 2))
---                          [1, 3 .. i - 1]]
+--           oeisIx @10051 q == 1]
 
 -- instance OEIS 229139 where
 --   oeisIx 1 = 0
@@ -13667,12 +11947,6 @@ instance OEIS 191857 where
 --   oeis = f "" [1, 3 ..] where
 --      f xs (o:os) = if null $ intersect xs ys then o : f ys os else f xs os
 --                    where ys = show o
-
--- instance OEIS 230091 where
---   oeis = map succ $ elemIndices 2 $ tail $ oeis @228085
-
--- instance OEIS 230092 where
---   oeis = map succ $ elemIndices 3 $ tail $ oeis @228085
 
 -- instance OEIS 230097 where
 --   oeis = 0 : f 0 0 where
@@ -13800,15 +12074,6 @@ instance OEIS 191857 where
 --      f x = all ((== 1) . (oeisIx @10054)) $ init $ sort $
 --            map (abs . (x -) . (^ 2) . (+ (oeisIx x))) [-1..2]
 
--- instance OEIS 232642 where
---   import Data.List.Ordered (member); import Data.List (sort)
---   oeisIx n k = (tabf @232642) !! (n - 1) !! (k-1)
---   oeisIx_row n = (tabf @232642) !! (n - 1)
---   oeisIx_tabf = f (tabf @82560) [] where
---      f (xs:xss) zs = ys : f xss (sort (ys ++ zs)) where
---        ys = [v | v <- xs, not $ member v zs]
---   oeis = concat (tabf @232642)
-
 -- instance OEIS 232643 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @232642))
 
@@ -13904,9 +12169,6 @@ instance OEIS 191857 where
 
 -- instance OEIS 237347 where
 --   oeis = zipWith (-) (tail (oeis @78633)) (oeis @78633)
-
--- instance OEIS 237424 where
---   oeisIx = flip div 3 . (+ 1) . (oeisIx @52216)
 
 -- instance OEIS 237427 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @237126))
@@ -14017,23 +12279,11 @@ instance OEIS 191857 where
 --                     where ys = xs ++ show w
 --        xs = show u
 
--- instance OEIS 238985 where
---   import Data.Set (singleton, deleteFindMin, fromList, union)
---   oeisIx n = (oeis @238985) !! (n - 1)
---   oeis = filter ((== 1) . (oeisIx @168046)) $ f $ singleton 1 where
---      f s = x : f (s' `union` fromList
---                  (filter ((> 0) . (`mod` 10)) $ map (* x) [2,3,5,7]))
---                  where (x, s') = deleteFindMin s
-
 -- instance OEIS 239070 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @132995)) . (oeisIx @5117)
 
 -- instance OEIS 239122 where
 --   oeis = drop 2 $ scanl1 (+) (oeis @61019)
-
--- instance OEIS 239293 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = head [c | c <- (oeis @2808), powerMod n c c == n]
 
 -- instance OEIS 239324 where
 --   oeis = scanl (+) 0 (oeis @90431)
@@ -14041,10 +12291,6 @@ instance OEIS 191857 where
 -- instance OEIS 239433 where
 --   oeis = filter
 --      (\z -> any (== z) $ map (oeisIx @3415) $ takeWhile (<= (oeisIx @2620) z) (oeis @13929)) [2..]
-
--- instance OEIS 239452 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = head [m | m <- [2..], powerMod m n n == mod m n]
 
 -- instance OEIS 239508 where
 --   oeisIx = p (oeis @469) where
@@ -14090,19 +12336,6 @@ instance OEIS 191857 where
 --      f i v (q:qs) | q > v = (q, i) : f (i + 1) q qs
 --                   | otherwise = f (i + 1) v qs
 
--- instance OEIS 239728 where
---   import Data.Map (singleton, findMin, deleteMin, insert)
---   oeisIx n = (oeis @239728) !! (n - 1)
---   oeis = f 9 (3, 2) (singleton 4 (2, 2)) where
---      f zz (bz, be) m
---       | xx < zz && gcd 6 be > 1 =
---                   f zz (bz, be+1) (insert (bx*xx) (bx, be+1) $ deleteMin m)
---       | xx < zz = xx :
---                   f zz (bz, be+1) (insert (bx*xx) (bx, be+1) $ deleteMin m)
---       | xx > zz = f (zz+2*bz+1) (bz+1, 2) (insert (bz*zz) (bz, 3) m)
---       | otherwise = f (zz + 2 * bz + 1) (bz + 1, 2) m
---       where (xx, (bx, be)) = findMin m
-
 -- instance OEIS 239740 where
 --   oeisIx n = gcd (sum fs) (product fs)
 --               where fs = take n $ tail (oeis @45)
@@ -14110,20 +12343,6 @@ instance OEIS 191857 where
 -- instance OEIS 239826 where
 --   oeisIx n = sum $
 --               filter ((flip isPrefixOf `on` (rowT @30308)) n) $ (rowT @27750) n
-
--- instance OEIS 239870 where
---   import Data.Map (singleton, findMin, deleteMin, insert)
---   oeisIx n = (oeis @239870) !! (n - 1)
---   oeis = f 9 (3, 2) (singleton 4 (2, 2)) where
---      f zz (bz, ez) m
---       | xx < zz = if ex `mod` 3 > 0
---         then xx : f zz (bz, ez+1) (insert (bx*xx) (bx, ex+1) $ deleteMin m)
---         else      f zz (bz, ez+1) (insert (bx*xx) (bx, ex+1) $ deleteMin m)
---       | xx > zz = if ez `mod` 3 > 0
---         then zz : f (zz+2*bz+1) (bz+1, 2) (insert (bz*zz) (bz, 3) m)
---         else      f (zz+2*bz+1) (bz+1, 2) (insert (bz*zz) (bz, 3) m)
---       | otherwise = f (zz+2*bz+1) (bz+1, 2) m
---       where (xx, (bx, ex)) = findMin m
 
 -- instance OEIS 239930 where
 --   oeisIx = sum . map (oeisIx @240025) . (rowT @27750)
@@ -14146,10 +12365,6 @@ instance OEIS 191857 where
 
 -- instance OEIS 240052 where
 --   oeisIx = (oeisIx @68346) . (oeisIx @6094)
-
--- instance OEIS 240162 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = powerMod 3 (oeisIx $ (oeisIx @10) n) n
 
 -- instance OEIS 240277 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @7456))
@@ -14203,13 +12418,6 @@ instance OEIS 191857 where
 
 -- instance OEIS 241235 where
 --   oeis = map length $ group (oeis @6949)
-
--- instance OEIS 241241 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @241241) !! (n - 1)
---   oeis = 0 : 1 : f (singleton 2) where
---      f s = m : f (insert (oeisIx m) $ insert (oeisIx m) s')
---            where (m, s') = deleteFindMin s
 
 -- instance OEIS 241418 where
 --   oeis = zipWith (-) (tail (oeis @99054)) (oeis @99054)
@@ -14415,15 +12623,6 @@ instance OEIS 191857 where
 --      filter (all (== 1) . map (oeisIx @10051 . pred)) $
 --             iterate (zipWith (+) [4, 4, 6]) [1, 3, 5]
 
--- instance OEIS 245340 where
---   import Data.IntMap (singleton, member, (!), insert)
---   oeisIx n = (oeis @245340) !! n
---   oeis = 0 : f [1..] [1..] 0 (singleton 0 0) where
---      f us'@ (u:us) vs'@ (v:vs) w m
---        | u `member` m = (m ! u) : f us vs' w m
---        | otherwise    = g (reverse[w-v,w-2*v..1] ++ [w+v,w+2*v..]) where
---        g (x:xs) = if x `member` m then g xs else f us' vs x $ insert x v m
-
 -- instance OEIS 245394 where
 --   (oeis, (oeis @245395)) =  unzip $ f [0..] (oeis @125717) (-1) where
 --      f (x:xs) (y:ys) r = if y > r then (y,x) : f xs ys y else f xs ys r
@@ -14473,16 +12672,6 @@ instance OEIS 191857 where
 
 -- instance OEIS 245836 where
 --   oeisIx = sum . (rowT @53398)
-
--- instance OEIS 245970 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = powerMod 2 (phi + (oeisIx @245970) phi) n
---               where phi = (oeisIx @10) n
-
--- instance OEIS 245971 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = powerMod 4 (phi + (oeisIx @245971) phi) n
---               where phi = (oeisIx @10) n
 
 -- instance OEIS 246398 where
 --   oeis = f 0 $ map show (oeis @40) where
@@ -14623,18 +12812,6 @@ instance OEIS 191857 where
 -- instance OEIS 247363 where
 --   oeisIx n = (oeisIx @247358) (2 * n - 1) n
 
--- instance OEIS 247366 where
---   import Data.Set (Set, singleton, insert, deleteFindMin)
---   oeisIx n = (oeis @247366) !! (n - 1)
---   oeis = h $ singleton (1, 0, 0) where
---      h :: Set (Double, Int, Int) -> [Integer]
---      h s = (floor x) : h (insert (f i (j + 1)) $ insert (f (i + 1) j) s')
---            where ((x, i, j), s') = deleteFindMin s
---      f :: Int -> Int -> (Double, Int, Int)
---      f u v = (2 ^^ uh * 3 ^^ vh * g ur vr, u, v) where
---        g 0 0 = 1; g 0 1 = sqrt 3; g 1 0 = sqrt 2; g 1 1 = sqrt 6
---        (uh, ur) = divMod u 2; (vh, vr) = divMod v 2
-
 -- instance OEIS 247367 where
 --   oeisIx n = sum $ map ((1 -) . (oeisIx @10052) . (n -)) $
 --                     takeWhile (<= n) (oeis @290)
@@ -14644,15 +12821,6 @@ instance OEIS 191857 where
 --      (zipWith (+)
 --           (zipWith (*) (tail (oeis @247382)) (drop 3 (oeis @247382)))
 --           (zipWith (*) (cycle [-1, 1]) (map (^ 2) $ drop 2 (oeis @247382))))
-
--- instance OEIS 247383 where
---   import Data.IntMap (empty, member, (!), insert)
---   oeisIx n = (oeis @247383) !! (n - 1)
---   oeis = f 1 1 empty where
---      f x z m | member x m = m ! x : f (x + 1) (x + 1) m
---              | member y m = f x (z + 1) m
---              | otherwise  = f x (z + 1) (insert y z m)
---              where y = (oeisIx @247379) z
 
 -- instance OEIS 247414 where
 --   oeis = zipWith (-) (tail (oeis @24431)) (oeis @24431)
@@ -14703,13 +12871,6 @@ instance OEIS 191857 where
 -- instance OEIS 247647 where
 --   oeisIx = (oeisIx @7088) . (oeisIx @247648)
 
--- instance OEIS 247648 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @247648) !! (n - 1)
---   oeis = f $ singleton 1 where
---      f s = x : f (insert (4 * x + 1) $ insert (2 * x + 1) s')
---            where (x, s') = deleteFindMin s
-
 -- instance OEIS 247657 where
 --   oeis = f 0 $ drop 2 (oeis @40) where
 --      f z (p:ps) | (oeisIx @10051 . pred) z' == 1 = z' : f z' (delete z' ps)
@@ -14719,132 +12880,6 @@ instance OEIS 191857 where
 -- instance OEIS 247714 where
 --   oeisIx = (+ 1) . fromJust .
 --                     (`elemIndex` (oeis @3586)) . (oeis !!)
-
--- instance OEIS 247750 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247750) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [4, 9, 2, 1, 0, 8, 5, 7, 6, 3]
-
--- instance OEIS 247751 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247751) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [1, 5, 4, 9, 0, 8, 6, 7, 2, 3]
-
--- instance OEIS 247752 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247752) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [8, 1, 3, 9, 0, 2, 4, 5, 6, 7]
-
--- instance OEIS 247753 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247753) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [8, 2, 3, 6, 4, 0, 7, 5, 9, 1]
-
--- instance OEIS 247754 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247754) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [5, 2, 8, 9, 4, 7, 6, 3, 1, 0]
-
--- instance OEIS 247755 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247755) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [8, 3, 1, 5, 9, 0, 6, 7, 4, 2]
-
--- instance OEIS 247756 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247756) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [1, 3, 6, 7, 2, 9, 4, 0, 8, 5]
-
--- instance OEIS 247757 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247757) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [5, 2, 9, 8, 4, 6, 7, 3, 1, 0]
-
--- instance OEIS 247758 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247758) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [2, 9, 8, 4, 5, 6, 7, 3, 1, 0]
-
--- instance OEIS 247759 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247759) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [8, 1, 5, 4, 0, 6, 7, 9, 2, 3]
-
--- instance OEIS 247760 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247760) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [4, 2, 9, 1, 8, 5, 6, 7, 3, 0]
-
--- instance OEIS 247761 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247761) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [8, 2, 9, 0, 1, 5, 7, 3, 4, 6]
-
--- instance OEIS 247762 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247762) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---                   fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---            where (x, s') = deleteFindMin s
---      digs = [9, 2, 1, 0, 8, 5, 7, 6, 4, 3]
-
--- instance OEIS 247764 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   oeisIx n = (oeis @247764) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s = x : f (s' `union`
---            fromList (map (+ 10 * x) $ dropWhile (/= mod x 10) digs))
---        where (x, s') = deleteFindMin s
---      digs = [6, 5, 1, 9, 4, 2, 8, 0, 3, 7]
 
 -- instance OEIS 247793 where
 --   oeis = 2 : f (zip [2..] $ tail (oeis @40)) where
@@ -14864,171 +12899,6 @@ instance OEIS 191857 where
 --   oeis = 0 : f 1 [0] where
 --      f x zs@ (z:_) = y : f (x + 1) (y : zs) where
 --                     y = z + maybe x id (elemIndex x $ reverse zs)
-
--- instance OEIS 247800 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247800) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [4, 9, 2, 1, 0, 8, 5, 7, 6, 3]
-
--- instance OEIS 247801 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247801) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [1, 5, 4, 9, 0, 8, 6, 7, 2, 3]
-
--- instance OEIS 247802 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247802) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [8, 1, 3, 9, 0, 2, 4, 5, 6, 7]
-
--- instance OEIS 247803 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247803) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [8, 2, 3, 6, 4, 0, 7, 5, 9, 1]
-
--- instance OEIS 247804 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247804) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [5, 2, 8, 9, 4, 7, 6, 3, 1, 0]
-
--- instance OEIS 247805 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247805) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [8, 3, 1, 5, 9, 0, 6, 7, 4, 2]
-
--- instance OEIS 247806 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247806) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [1, 3, 6, 7, 2, 9, 4, 0, 8, 5]
-
--- instance OEIS 247807 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247807) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [5, 2, 9, 8, 4, 6, 7, 3, 1, 0]
-
--- instance OEIS 247808 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247808) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [2, 9, 8, 4, 5, 6, 7, 3, 1, 0]
-
--- instance OEIS 247809 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247809) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [8, 1, 5, 4, 0, 6, 7, 9, 2, 3]
-
--- instance OEIS 247810 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247810) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [4, 2, 9, 1, 8, 5, 6, 7, 3, 0]
-
--- instance OEIS 247811 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247811) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [8, 2, 9, 0, 1, 5, 7, 3, 4, 6]
-
--- instance OEIS 247812 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247812) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [9, 2, 1, 0, 8, 5, 7, 6, 4, 3]
-
--- instance OEIS 247813 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247813) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [0, 5, 4, 2, 9, 8, 6, 7, 3, 1]
-
--- instance OEIS 247814 where
---   import Data.IntSet (fromList, deleteFindMin, union)
---   import qualified Data.IntSet as Set (null)
---   oeisIx n = (oeis @247814) !! (n - 1)
---   oeis = 0 : f (fromList [1..9]) where
---      f s | Set.null s = []
---          | otherwise  = x : f (s' `union`
---            fromList (map (+ 10 * x) $ tail $ dropWhile (/= mod x 10) digs))
---          where (x, s') = deleteFindMin s
---      digs = [6, 5, 1, 9, 4, 2, 8, 0, 3, 7]
 
 -- instance OEIS 247815 where
 --   oeisIx = sum . map (oeisIx @10051 . pred) . (rowT @77581)
@@ -15345,9 +13215,6 @@ instance OEIS 191857 where
 
 -- instance OEIS 251104 where
 --   oeisIx = (oeisIx @6530) . (oeisIx @98548)
-
-instance OEIS 251139 where
-  oeisIx = (oeisIx @1221 . pred) . (oeisIx @98548)
 
 -- instance OEIS 251140 where
 --   oeisIx = (oeisIx @1222) . (oeisIx @98550)
@@ -15710,17 +13577,6 @@ instance OEIS 251139 where
 --   oeis = map read $
 --      zipWith ((++) `on` show) (oeis @18252) (oeis @40) :: [Integer]
 
--- instance OEIS 254143 where
---   import Data.Set (empty, fromList, deleteFindMin, union)
---   import qualified Data.Set as Set (null)
---   oeisIx n = (oeis @254143) !! (n - 1)
---   oeis = f (oeis @237424) [] empty where
---      f xs'@ (x:xs) zs s
---        | Set.null s || x < y = f xs zs' (union s $ fromList $ map (* x) zs')
---        | otherwise           = y : f xs' zs s'
---        where zs' = x : zs
---              (y, s') = deleteFindMin s
-
 -- instance OEIS 254308 where
 --   oeis = 0 : 1 : 1 : zipWith3 (\u v w -> u + if odd u then v else w)
 --                  (drop 2 (oeis @254308)) (tail (oeis @254308)) (oeis @254308)
@@ -15739,13 +13595,6 @@ instance OEIS 251139 where
 
 -- instance OEIS 254398 where
 --   oeisIx = flip mod 10 . (oeisIx @237424)
-
--- instance OEIS 254524 where
---   import Data.IntMap (empty, findWithDefault, insert)
---   oeisIx n = (oeis @254524) !! (n - 1)
---   oeis = f 1 empty where
---      f x m = y : f (x + 1) (insert q (y + 1) m) where
---              y = findWithDefault 1 q m; q = (oeisIx @7953) x
 
 -- instance OEIS 254531 where
 --   oeisIx = (+ 49) . round . (* 12) . logBase 2 . (/ 440) . fi
@@ -15895,7 +13744,7 @@ instance OEIS 251139 where
 -- instance OEIS 256405 where
 --   oeis = 2 : 3 : f (3:[5..]) 4 where
 --      f zs@ (z:_) x = z : f (delete y zs) y where
---                     y = head $ isect (oeisIx_row' (x ^ 2 - 1)) zs
+--                     y = head $ O.isect (oeisIx_row' (x ^ 2 - 1)) zs
 
 -- instance OEIS 256406 where
 --   oeis = f (oeis @166133) where
@@ -15952,16 +13801,6 @@ instance OEIS 251139 where
 
 -- instance OEIS 256607 where
 --   oeisIx = (oeisIx @7733) . (oeisIx @7733)
-
--- instance OEIS 256617 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @256617) !! (n - 1)
---   oeis = f (singleton (6, 2, 3)) $ tail (oeis @40) where
---      f s ps@ (p : ps'@ (p':_))
---        | m < p * p' = m : f (insert (m * q, q, q')
---                             (insert (m * q', q, q') s')) ps
---        | otherwise  = f (insert (p * p', p, p') s) ps'
---        where ((m, q, q'), s') = deleteFindMin s
 
 -- instance OEIS 256618 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @121217))
@@ -16105,15 +13944,6 @@ instance OEIS 251139 where
 --                 | otherwise       = g ys
 --                 where cd = gcd x y
 
--- instance OEIS 257278 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @257278) !! (n - 1)
---   oeis = f (singleton (4, 2)) 27 (tail (oeis @40)) where
---      f s pp ps@ (p:ps'@ (p':_))
---        | qq > pp   = pp : f (insert (pp * p, p) s) (p' ^ p') ps'
---        | otherwise = qq : f (insert (qq * q, q) s') pp ps
---        where ((qq, q), s') = deleteFindMin s
-
 -- instance OEIS 257279 where
 --   oeis = filter ((== 1) . (oeisIx @168046)) (oeis @257278)
 
@@ -16153,14 +13983,6 @@ instance OEIS 251139 where
 -- instance OEIS 257646 where
 --   oeisIx n = fromJust $ findIndex (elem n) (tabl @103284)
 
--- instance OEIS 257719 where
---   oeis = filter f [1..] where
---      f x = sx >= x && (oeisIx @1065) sx < sx where sx = (oeisIx @1065) x
-
--- instance OEIS 257720 where
---   oeis = filter f [1..] where
---      f x = sx > 0 && sx < x && (oeisIx @1065) sx >= sx where sx = (oeisIx @1065) x
-
 -- instance OEIS 257762 where
 --   oeis = map (oeisIx @258432) $ (map succ $ elemIndices 2 $ tail $ oeis @258383)
 
@@ -16195,27 +14017,11 @@ instance OEIS 251139 where
 --              concat . mapMaybe (flip lookup bin) . (rowT @31298)
 --               where bin = zip [0..9] (tabf @30308)
 
--- instance OEIS 257836 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @257836) !! (n - 1)
---   oeis = f $ singleton (15, 3, 5) where
---      f s = y : f (insert (w, u, v') $ insert (w `div` u, u + 2, v') s')
---            where w = y * v'; v' = v + 2
---                  ((y, u, v), s') = deleteFindMin s
-
 -- instance OEIS 257860 where
 --   oeis = 1 : filter f [1..] where
 --      f x = any (\d -> member (x - q + d) $ ps d) $ filter (> 1) $ nub ds
 --            where q = sum ds; ds = (map (read . return) . show . fi) x
 --      ps x = iterate (* x) (x ^ 2)
-
--- instance OEIS 257891 where
---   import Data.Set (singleton, deleteFindMin, insert)
---   oeisIx n = (oeis @257891) !! (n - 1)
---   oeis = f $ singleton (30, 2, 5) where
---      f s = y : f (insert (w, p, q') $ insert (w `div` p, (oeisIx @151800) p, q') s')
---            where w = y * q'; q' = (oeisIx @151800) q
---                  ((y, p, q), s') = deleteFindMin s
 
 -- instance OEIS 257892 where
 --   oeis = map (oeisIx @258432) $ (map succ $ elemIndices 4 $ tail $ oeis @258383)
@@ -16258,18 +14064,8 @@ instance OEIS 251139 where
 -- instance OEIS 257971 where
 --   oeis = zipWith (-) (tail (oeis @6921)) (oeis @6921)
 
--- instance OEIS 257997 where
---   import Data.List.Ordered (unionAll)
---   oeisIx n = (oeis @257997) !! (n - 1)
---   oeis = unionAll [oeis, (oeis @3592), (oeis @3593)]
-
 -- instance OEIS 257999 where
 --   oeis = filter (odd . flip mod 2 . (oeisIx @1222)) (oeis @3586)
-
--- instance OEIS 258023 where
---   import Data.List.Ordered (union)
---   oeisIx n = (oeis @258023) !! (n - 1)
---   oeis = union (oeis @3586) (oeis @3593)
 
 -- instance OEIS 258032 where
 --   oeis = filter ((== 1) . (oeisIx @10051 . pred) . flip div 10. (^ 3)) (oeis @40)
@@ -16373,14 +14169,6 @@ instance OEIS 251139 where
 
 -- instance OEIS 258317 where
 --   oeisIx = sum . (rowT @258197)
-
--- instance OEIS 258318 where
---   import Data.Set (singleton, insert, size)
---   oeisIx n = (oeis @258318) !! n
---   oeis = f 2 (tabl @258197) $ singleton 0 where
---      f k (xs:xss) zs = g (take (div k 2) xs) zs where
---        g []     ys = size ys : f (k + 1) xss ys
---        g (x:xs) ys = g xs (insert x ys)
 
 -- instance OEIS 258324 where
 --   oeisIx n = foldl lcm 1 $ map (n -) $ (rowT @27751) n
@@ -16502,19 +14290,6 @@ instance OEIS 251139 where
 -- instance OEIS 258827 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @258767))
 
--- instance OEIS 258865 where
---   import Data.Set (singleton, deleteFindMin, fromList)
---   import qualified Data.Set as Set (union)
---   import qualified Data.List.Ordered as List (union)
---   oeisIx n = (oeis @258865) !! (n - 1)
---   oeis = tail $ f (singleton 1) 1 [] [] (oeis @30078) where
---      f s z vs qcs pcs'@ (pc:pcs)
---        | m < z = m : f s' z vs qcs pcs'
---        | otherwise = f (Set.union s $ fromList $ map (+ pc) ws)
---                        pc ws (pc:qcs) pcs
---        where ws = List.union vs $ map (+ pc) (pc : qcs)
---              (m, s') = deleteFindMin s
-
 -- instance OEIS 259043 where
 --   oeisIx x = if x < 10 then x else (oeisIx @259043) (x' + d) + d
 --               where (x', d) = divMod x 10
@@ -16536,11 +14311,6 @@ instance OEIS 251139 where
 
 -- instance OEIS 259366 where
 --   oeis = filter (\x -> (oeisIx @60682) x < (oeisIx @5)' x - 1) [2..]
-
--- instance OEIS 259645 where
---   import Data.List.Ordered (isect)
---   oeisIx n = (oeis @259645) !! (n - 1)
---   oeis = (oeis @5574) `isect` (oeis @87370) `isect` (oeis @56561)
 
 -- instance OEIS 259966 where
 --   oeis = 0 : 0 : 2 : 7 : zipWith (+)
@@ -16569,25 +14339,11 @@ instance OEIS 251139 where
 -- instance OEIS 260022 where
 --   oeisIx = (oeisIx @6921) . (* 2)
 
--- instance OEIS 260031 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = if x > 0 then x else f $ div (n ^ n) 12
---             where x = powerMod n n 12
---                   f z = if m == 0 then f z' else m
---                         where (z', m) = divMod z 12
-
 -- instance OEIS 260273 where
 --   oeis = iterate (\x -> x + (oeisIx @261461) x) 1
 
 -- instance OEIS 260485 where
 --   oeisIx = head . (rowT @260580)
-
--- instance OEIS 260580 where
---   import Data.List.Ordered (union); import Data.List ((\\))
---   oeisIx n k = (tabf @260580) !! (n - 1) !! (k-1)
---   oeisIx_row n = (tabf @260580) !! (n - 1)
---   oeisIx_tabf = zipWith (\\) (tail zss) zss where
---                               zss = scanl union [] (tabl @65305)
 
 -- instance OEIS 260664 where
 --   oeisIx = sum . zipWith (*) (oeis @87960) . map (oeisIx @133042) . (rowT @260672)
@@ -16657,11 +14413,6 @@ instance OEIS 251139 where
 
 -- instance OEIS 261121 where
 --   oeisIx = (oeisIx @98743) . (oeisIx @2110)
-
--- instance OEIS 261189 where
---   import Data.List.Ordered (isect)
---   oeisIx n = (oeis @261189) !! (n - 1)
---   oeis = (oeis @52382) `isect` (oeis @52413)
 
 -- instance OEIS 261255 where
 --   oeisIx n = fromJust (findIndex (== (oeisIx @7335) n) (oeis @3586)) + 1
@@ -16842,22 +14593,6 @@ instance OEIS 251139 where
 --   oeis = f 0 (oeis @2113) where
 --      f n ps'@ (p:ps) = p : f (n + 1) (if p > n then ps' else ps)
 
--- instance OEIS 262065 where
---   import Data.List.Ordered (union)
---   oeisIx n = (oeis @262065) !! (n - 1)
---   oeis = union us vs where
---      us = [val60 $ bs ++ reverse bs | bs <- bss]
---      vs = [0..59] ++ [val60 $ bs ++ cs ++ reverse bs |
---             bs <- tail bss, cs <- take 60 bss]
---      bss = iterate s [0] where
---            s [] = [1]; s (59:ds) = 0 : s ds; s (d:ds) = (d + 1) : ds
---      val60 = foldr (\b v -> 60 * v + b) 0
-
--- instance OEIS 262069 where
---   -- import Data.List.Ordered (isect)
---   oeisIx n = (oeis @262069) !! (n - 1)
---   oeis = isect (oeis @2113) (oeis @262065)
-
 -- instance OEIS 262079 where
 --   oeis = zipWith (-) (tail (oeis @262065)) (oeis @262065)
 
@@ -16911,15 +14646,6 @@ instance OEIS 251139 where
 --                     null (intersect tis $ init $ tails ys) = g yss
 --                   | otherwise = (read ys :: Int) : f ys (delete ys zss)
 --        its = init $ tails xs; tis = tail $ inits xs
-
--- instance OEIS 262356 where
---   import Data.Set (singleton, notMember, insert)
---   oeisIx n = (oeis @262356) !! (n - 1)
---   oeis = 1 : f "" (singleton "1") where
---      f xs s = (read ys :: Int) : f (dropWhile (== '0') ys') (insert ys s)
---        where ys@ (_:ys') = head
---                [vs | vs <- zss, isPrefixOf xs vs, notMember vs s]
---      zss = map show [2..]
 
 -- instance OEIS 262358 where
 --   oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @262356))
@@ -17022,28 +14748,6 @@ instance OEIS 251139 where
 -- instance OEIS 262703 where
 --   oeis = zipWith (-) (tail (oeis @252001)) (oeis @252001)
 
--- instance OEIS 263017 where
---   import Data.IntMap (empty, findWithDefault, insert)
---   oeisIx n = (oeis @263017) !! (n - 1)
---   oeis = f 1 empty where
---      f x m = y : f (x + 1) (insert h (y + 1) m) where
---              y = findWithDefault 1 h m
---              h = (oeisIx @120) x
-
--- instance OEIS 263109 where
---   import Data.IntMap (empty, findWithDefault, insert)
---   oeisIx n = (oeis @263109) !! (n - 1)
---   oeis = f 1 empty where
---      f x m = y : f (x + 1) (insert q (y + 1) m) where
---              y = findWithDefault 1 q m; q = (oeisIx @53832) x
-
--- instance OEIS 263110 where
---   import Data.IntMap (empty, findWithDefault, insert)
---   oeisIx n = (oeis @263110) !! (n - 1)
---   oeis = f 1 empty where
---      f x m = y : f (x + 1) (insert q (y + 1) m) where
---              y = findWithDefault 1 q m; q = (oeisIx @53836) x
-
 -- instance OEIS 263231 where
 --   oeisIx n = n * (25 * n - 39) `div` 2
 --   oeis = 0 : -7 : 11 : zipWith (+) (oeis @263231)
@@ -17092,11 +14796,6 @@ instance OEIS 251139 where
 -- instance OEIS 263837 where
 --   oeis = filter (\x -> (oeisIx @1065) x <= x) [1..]
 
--- instance OEIS 263838 where
---   import Data.List.Ordered (union)
---   oeisIx n = (oeis @263838) !! (n - 1)
---   oeis = union (oeis @257719) (oeis @257720)
-
 -- instance OEIS 263845 where
 --   oeis = filter (> 0) (oeis @258059)
 
@@ -17117,14 +14816,6 @@ instance OEIS 251139 where
 
 -- instance OEIS 263922 where
 --   oeisIx = (oeisIx @51903) . (oeisIx @984)
-
--- instance OEIS 263924 where
---   import Math.NumberTheory.Primes.Factorisation (factorise)
---   oeisIx n = (oeis @263924) !! (n - 1)
---   oeis = filter f [2..] where
---      f x = not (null pe23s) && any ((> e23) . snd) pes' where
---            e23 = maximum (map snd pe23s)
---            (pe23s, pes') = span ((<= 3) . fst) $ factorise $ (oeisIx @984) x
 
 -- instance OEIS 264164 where
 --   oeis = filter ((== 0) . (oeisIx @65333) . (oeisIx @5)') (oeis @3586)
@@ -17164,10 +14855,6 @@ instance OEIS 251139 where
 
 -- instance OEIS 264856 where
 --   oeisIx n = fromJust $ findIndex (elem n) (tabl @125605)
-
--- instance OEIS 265012 where
---   import Math.NumberTheory.Moduli (powerMod)
---   oeisIx n = powerMod 10 (p - 1) (p ^ 2) where p = (oeisIx @40) n
 
 -- instance OEIS 265885 where
 --   oeisIx n = n `bimpl` (oeisIx @40) n where
@@ -17279,17 +14966,6 @@ instance OEIS 251139 where
 --   records :: [Int]
 --   records = filter isRecord [2..100]
 
--- instance OEIS 308267 where
---   import Data.Numbers.Primes
---   bintodec :: [Int] -> Int
---   bintodec = sum . zipWith (*) (iterate (*2) 1) . reverse
---   decomp :: (Integer, [Integer]) -> (Integer, [Integer])
---   decomp (x, ys) = if even x then (x `div` 2, 0:ys) else (x - 1, 1:ys)
---   zeck :: Integer -> String
---   zeck n = bintodec (1 : snd (last $ takeWhile (\ (x, ys) -> x > 0) $ iterate decomp (n, [])))
---   output :: [Integer]
---   output = filter (\x -> 0 == zeck x `mod` x) [1..100]
-
 -- instance OEIS 308339 where
 --   twinLowX [] = []
 --   twinLowX [_] = []
@@ -17363,4 +15039,410 @@ instance OEIS 251139 where
 --           | length p == 0 = True
 --           | length p == 1 = False
 --           | otherwise = p!!0 == p!!1
+
+
+
+-- instance OEIS 110910 where
+--   {- program for verification of periodic cases. The non-periodic cases listed here evolve into a periodic kernel plus gliders whose paths ahead do not intersect each other or the kernel (gliders marching in single file are not counted as intersecting). Replace leading dots with spaces before running! -}
+--   import Data.Set
+--   main = print [if n `elem` known then 0 else a n | n<-[0..105]]
+--   known = [56,71,72,75,78,82,85,86,87,88,91,92,93,94,96,98,100,102,103,105]
+--   a n = count empty (iterate evolve (fromList [ (x,0) | x<-[1..n]]))
+--   neighbors (x,y) = fromList
+--   ................. [ (x+u,y+v) | u<-[ -1,0,1], v<-[ -1,0,1], (u,v)/= (0,0)]
+--   evolve life =
+--   . let fil f = Data.Set.filter
+--   ............. (\x-> f (size (life `intersection` neighbors x)))
+--   . in (life `difference` fil (\k-> k<2 || k>3) life) `union` fil (== 3)
+--   .... (unions (Prelude.map neighbors (elems life)) `difference` life)
+--   count o (x:xs) | x `member` o = 0
+--   .............. | otherwise = 1 + count (o `union` singleton x) xs
+
+-- instance OEIS 131644 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = (oeis @131644) !! (n - 1)
+--   oeis = map fst $ iterate f (0, 2) where
+--      f (v, w) = (powerMod 2 v w, w + 1)
+
+-- instance OEIS 160638 where
+--   import Data.Word (Word8)
+--   oeisIx :: Word8 -> Word8
+--   oeisIx n = rev 0 0 where
+--      rev 8 y = y
+--      rev i y = rev (i + 1) (if testBit n i then setBit y (7 - i) else y)
+
+-- instance OEIS 162247 where
+--   oeisIx n k = (tabl @162247) !! (n - 1) !! (k-1)
+--   oeisIx_row n = (tabl @162247) !! (n - 1)
+--   oeisIx_tabl = map (concat . sortBy (comparing length)) $ tail fss where
+--      fss = [] : map fact [1..] where
+--            fact x = [x] : [d : fs | d <- [2..x], let (x',r) = divMod x d,
+--                                     r == 0, fs <- fss !! x', d <= head fs]
+
+-- instance OEIS 162910 where
+--   import Ratio
+--   bird :: [Rational]
+--   bird = branch (recip . succ) (succ . recip) 1
+--   branch f g a = a : branch f g (f a) \/ branch f g (g a)
+--   (a : as) \/ bs = a : (bs \/ as)
+--   (oeisIx @162909) = map numerator bird
+--   (oeisIx @162910) = map denominator bird
+
+-- instance OEIS 187769 where
+--   oeisIx n k = (tabf @187769) !! n !! k
+--   oeisIx_row n = (tabf @187769) !! n
+--   oeisIx_tabf = [0] : [elemIndices (b, len - b) $
+--      takeWhile ((<= len) . uncurry (+)) $ zip (oeis @120) (oeis @23416) |
+--      len <- [1 ..], b <- [1 .. len]]
+--   oeis = concat (tabf @187769)
+
+-- instance OEIS 187786 where
+--   oeisIx n k = (tabf @187786) !! n !! k
+--   oeisIx_row n = fromJust $ find (elem n) (tabf @187769)
+--   oeisIx_tabf = map (rowT @187786) [0..]
+
+-- instance OEIS 190016 where
+--   oeisIx n = (oeis @190016) !! (n - 1)
+--   oeis = sortBy (comparing show) [1..10000]
+
+-- instance OEIS 190126 where
+--   oeisIx n = (oeis @190126) !! (n - 1)
+--   oeis = sortBy (comparing (show . (oeisIx @7088))) [1..10000]
+
+-- instance OEIS 190128 where
+--   oeisIx n = (oeis @190128) !! (n - 1)
+--   oeis = sortBy (comparing (show . (oeisIx @7089))) [1..10000]
+
+-- instance OEIS 190130 where
+--   oeisIx n = (oeis @190130) !! (n - 1)
+--   oeis = sortBy (comparing (show . (oeisIx @7094))) [1..10000]
+
+-- instance OEIS 190132 where
+--   import Numeric (showIntAtBase)
+--   oeisIx n = (oeis @190132) !! (n - 1)
+--   oeis =
+--      sortBy (comparing (flip (showIntAtBase 12 intToDigit) "")) [1..10000]
+
+-- instance OEIS 190134 where
+--   import Numeric (showHex)
+--   oeisIx n = (oeis @190134) !! (n - 1)
+--   oeis = sortBy (comparing (flip showHex "")) [1..10000]
+
+-- instance OEIS 196202 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = powerMod 2 (p - 1) (p ^ 2) where p = (oeisIx @40) n
+
+-- instance OEIS 206702 where
+--   --this creates the powerset of a set
+--   ps n = filterM (\x->[True,False]) n
+--   --given a set z, this creates the set X of (a+b) for all a, b, in Z
+--   addset z = do x<-z
+--                 y<-z
+--                 [x+y]
+--   --this check if two sets are disjoint
+--   disjoint a [] = True
+--   disjoint a (c:d) = (disjoint a d) && ((filter (\x->x==c) a) ==[])
+--   --this checks if a set z is disjoint from its "adsset" in a certain Zn, n being the second argument.
+--   good z n = disjoint z (map (\x->rem x n) (addset z))
+--   --this generates all off Zn's subsets with the required property.
+--   sets n = filter (\x ->good x n) (ps [0.. (n - 1)])
+--   --this generates the first n terms of the sequence
+--   sequence n = map (\x->length (sets x) ) [1..n]
+
+-- instance OEIS 217589 where
+--   import Data.Word (Word16)
+--   oeisIx :: Word16 -> Word16
+--   oeisIx n = rev 0 0 where
+--      rev 16 y = y
+--      rev i y = rev (i + 1) (if testBit n i then setBit y (15 - i) else y)
+
+-- instance OEIS 232642 where
+--   import Data.List.Ordered (member)
+--   oeisIx n k = (tabf @232642) !! (n - 1) !! (k-1)
+--   oeisIx_row n = (tabf @232642) !! (n - 1)
+--   oeisIx_tabf = f (tabf @82560) [] where
+--      f (xs:xss) zs = ys : f xss (sort (ys ++ zs)) where
+--        ys = [v | v <- xs, not $ O.member v zs]
+--   oeis = concat (tabf @232642)
+
+-- instance OEIS 239293 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = head [c | c <- (oeis @2808), powerMod n c c == n]
+
+-- instance OEIS 239452 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = head [m | m <- [2..], powerMod m n n == mod m n]
+
+-- instance OEIS 240162 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = powerMod 3 (oeisIx $ (oeisIx @10) n) n
+
+-- instance OEIS 245970 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = powerMod 2 (phi + (oeisIx @245970) phi) n
+--               where phi = (oeisIx @10) n
+
+-- instance OEIS 245971 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = powerMod 4 (phi + (oeisIx @245971) phi) n
+--               where phi = (oeisIx @10) n
+
+-- instance OEIS 260031 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = if x > 0 then x else f $ div (n ^ n) 12
+--             where x = powerMod n n 12
+--                   f z = if m == 0 then f z' else m
+--                         where (z', m) = divMod z 12
+
+-- instance OEIS 260580 where
+--   import Data.List.Ordered (union)
+--   oeisIx n k = (tabf @260580) !! (n - 1) !! (k-1)
+--   oeisIx_row n = (tabf @260580) !! (n - 1)
+--   oeisIx_tabf = zipWith (\\) (tail zss) zss where
+--                               zss = scanl O.union [] (tabl @65305)
+
+-- instance OEIS 263924 where
+--   import Math.NumberTheory.Primes.Factorisation (factorise)
+--   oeisIx n = (oeis @263924) !! (n - 1)
+--   oeis = filter f [2..] where
+--      f x = not (null pe23s) && any ((> e23) . snd) pes' where
+--            e23 = maximum (map snd pe23s)
+--            (pe23s, pes') = span ((<= 3) . fst) $ factorise $ (oeisIx @984) x
+
+-- instance OEIS 265012 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = powerMod 10 (p - 1) (p ^ 2) where p = (oeisIx @40) n
+
+-- instance OEIS 308267 where
+--   bintodec :: [Int] -> Int
+--   bintodec = sum . zipWith (*) (iterate (*2) 1) . reverse
+--   decomp :: (Integer, [Integer]) -> (Integer, [Integer])
+--   decomp (x, ys) = if even x then (x `div` 2, 0:ys) else (x - 1, 1:ys)
+--   zeck :: Integer -> String
+--   zeck n = bintodec (1 : snd (last $ takeWhile (\ (x, ys) -> x > 0) $ iterate decomp (n, [])))
+--   output :: [Integer]
+--   output = filter (\x -> 0 == zeck x `mod` x) [1..100]
+
+-- instance OEIS 6933 where
+--   import Data.Text (Text); import qualified Data.Text as T (unpack)
+--   import Text.Numeral.Grammar.Reified (defaultInflection)
+--   import qualified Text.Numeral.Language.EN as EN
+--   oeisIx n = (oeis @6933) !! (n - 1)
+--   oeis = filter (T.all (/= 'e') . numeral) [0..] where
+--      numeral :: Integer -> Text
+--      numeral = fromJust . EN.gb_cardinal defaultInflection
+
+
+-- instance OEIS 7535 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = head [m | m <- dropWhile (<= n) (oeis @2808),
+--                         powerMod n (m - 1) m == 1]
+
+
+-- instance OEIS 8520 where
+--   import Data.Text (Text); import qualified Data.Text as T (any)
+--   import Text.Numeral.Grammar.Reified (defaultInflection)
+--   import qualified Text.Numeral.Language.EN as EN
+--   oeisIx n = (oeis @8520) !! (n - 1)
+--   oeis = filter (T.any (== 'e') . numeral) [0..] where
+--      numeral :: Integer -> Text
+--      numeral = fromJust . EN.gb_cardinal defaultInflection
+
+
+-- instance OEIS 8477 where
+--   oeisIx n = product $ zipWith (^) (oeisIx_row n) (oeisIx_row n)
+
+-- instance OEIS 8521 where
+--   import Data.Text (Text); import qualified Data.Text as T (all)
+--   import Text.Numeral.Grammar.Reified (defaultInflection)
+--   import qualified Text.Numeral.Language.EN as EN
+--   oeisIx n = (oeis @8521) !! (n - 1)
+--   oeis = filter (T.all (/= 'o') . numeral) [0..] where
+--      numeral :: Integer -> Text
+--      numeral = fromJust . EN.gb_cardinal defaultInflection
+
+
+-- instance OEIS 8523 where
+--   import Data.Text (Text); import qualified Data.Text as T (all)
+--   import Text.Numeral.Grammar.Reified (defaultInflection)
+--   import qualified Text.Numeral.Language.EN as EN
+--   oeisIx n = (oeis @8523) !! (n - 1)
+--   oeis = filter (T.all (/= 't') . numeral) [0..] where
+--      numeral :: Integer -> Text
+--      numeral = fromJust . EN.gb_cardinal defaultInflection
+
+
+-- instance OEIS 15910 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = powerMod 2 n n
+
+-- instance OEIS 45616 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = (oeis @45616) !! (n - 1)
+--   oeis = filter
+--                  (\p -> powerMod 10 (p - 1) (p ^ 2) == 1) (oeis @40)'
+
+-- instance OEIS 48889 where
+--   import Numeric (readInt)
+--   oeisIx n = (oeis @48889) !! (n - 1)
+--   oeis = filter f (oeis @2808) where
+--      f n = n `mod` 10 > 0 &&
+--            null ("23547" `intersect` show n)  &&
+--            (oeisIx (fst $ head $ readInt 10 (const True) ud $ ns) == 1)
+--          where ns = reverse $ show n
+--                ud '6' = 9
+--                ud '9' = 6
+--                ud z = digitToInt z
+
+-- instance OEIS 50430 where
+--   import Numeric (showIntAtBase)
+--   oeisIx n = (oeis @50430) !! (n - 1)
+--   oeis = f 1 where
+--      f n = g (showIntAtBase 2 intToDigit n "") : f (n+1)
+--      g zs | zs == reverse zs = length zs
+--           | otherwise        = max (h $ init zs) (h $ tail zs)
+--      h zs@ ('0':_) = g zs
+--      h zs@ ('1':_) = (oeisIx @50430) $ foldl (\v d -> digitToInt d + 2*v) 0 zs
+
+-- instance OEIS 62173 where
+--   import Math.NumberTheory.Moduli (powerMod)
+--   oeisIx n = powerMod 2 (n - 1) n
+
+-- instance OEIS 78822 where
+--   import Numeric (showIntAtBase)
+--   oeisIx = genericLength . (rowT @119709)
+
+-- instance OEIS 78834 where
+--   import Numeric (showIntAtBase)
+--   oeisIx n = fromMaybe 1 $ find (\p -> showIntAtBase 2 ("01" !!) p ""
+--                             `isInfixOf` showIntAtBase 2 ("01" !!) n "") $
+--                    reverse $ (rowT @27748) n
+
+-- instance OEIS 85513 where
+--   import Data.Text (Text); import qualified Data.Text as T (unpack))
+--   import Text.Numeral.Grammar.Reified (defaultInflection)
+--   import qualified Text.Numeral.Language.EN as EN
+--   oeisIx = genericLength . filter (== 'e') . T.unpack . numeral where
+--      numeral :: Integer -> Text
+--      numeral = fromJust . EN.gb_cardinal defaultInflection
+
+-- instance OEIS 89589 where
+--   import Data.Text (Text); import qualified Data.Text as T (all)
+--   import Text.Numeral.Grammar.Reified (defaultInflection)
+--   import qualified Text.Numeral.Language.EN as EN
+--   oeisIx n = (oeis @89589) !! (n - 1)
+--   oeis = filter (T.all (/= 'i') . numeral) [0..] where
+--      numeral :: Integer -> Text
+--      numeral = fromJust . EN.gb_cardinal defaultInflection
+
+-- instance OEIS 89590 where
+--   import Data.Text (Text); import qualified Data.Text as T (all)
+--   import Text.Numeral.Grammar.Reified (defaultInflection)
+--   import qualified Text.Numeral.Language.EN as EN
+--   oeisIx n = (oeis @89590) !! (n - 1)
+--   oeis = filter (T.all (/= 'u') . numeral) [0..] where
+--      numeral :: Integer -> Text
+--      numeral = fromJust . EN.gb_cardinal defaultInflection
+
+-- instance OEIS 262356 where
+--   oeis = 1 : f "" (S.singleton "1") where
+--      f xs s = (read ys :: Int) : f (dropWhile (== '0') ys') (S.insert ys s)
+--        where ys@ (_:ys') = head
+--                [vs | vs <- zss, isPrefixOf xs vs, S.notMember vs s]
+--      zss = map show [2..]
+
+-- instance OEIS 5282 where
+--   oeis = sMianChowla [] 1 S.empty where
+--      sMianChowla :: [Integer] -> Integer -> Set Integer -> [Integer]
+--      sMianChowla sums z s | s' == S.empty = sMianChowla sums (z+1) s
+--                           | otherwise   = z : sMianChowla (z:sums) (z+1) s
+--         where s' = try (z:sums) s
+--               try :: [Integer] -> Set Integer -> Set Integer
+--               try []     s                      = s
+--               try (x:sums) s | (z+x) `member` s = S.empty
+--                              | otherwise        = try sums $ S.insert (z+x) s
+
+
+-- instance OEIS 63171 where
+--   newtype Word = Word String deriving (Eq, Show, Read)
+--   instance Ord Word where
+--      Word us <= Word vs | length us == length vs = us <= vs
+--                         | otherwise              = length us <= length vs
+--   oeisIx n = (oeis @63171) !! (n - 1)
+--   oeis = dyck $ S.singleton (Word "S") where
+--      dyck s | null ws   = (read w :: Integer) : dyck s'
+--             | otherwise = dyck $ S.union s' (S.fromList $ concatMap gen ws)
+--             where ws = filter ((== 'S') . head . snd) $
+--                               map (`splitAt` w) [0..length w - 1]
+--                   (Word w, s') = S.deleteFindMin s
+--      gen (us,vs) = map (Word . (us ++) . (++ tail vs)) ["10", "1S0", "SS"]
+
+-- instance OEIS 214321 where
+--   oeis_conjectured  = toList $ S.fromList $ take 100000 (oeis @214551)
+--   b214321 = bFile' "A214321" (take 10000 (oeis @214321)_conjectured) 1
+
+-- instance OEIS 226950 where
+--   oeis = f (oeis @76467) S.empty where
+--      f (x:xs) s | S.size s'' <= 1 = f xs (x `S.insert` s)
+--                 | otherwise     = x : f xs (x `S.insert` s)
+--                 where s'' = S.filter ((`S.member` s) . (x -)) s'
+--                       (s', _) = S.split (x `div` 2) s
+
+-- instance OEIS 72774 where
+--   import Data.Map (M.empty, M.findMin, M.deleteMin, M.insert)
+--   import qualified Data.Map.Lazy as Map (M.null)
+--   oeisIx n = (oeis @72774) !! (n - 1)
+--   (oeis, (oeis @72775), (oeis @72776)) = unzip3 $
+--      (1, 1, 1) : f (tail (oeis @5117)) M.empty where
+--      f vs'@ (v:vs) m
+--       | Map.M.null m || xx > v = (v, v, 1) :
+--                                f vs (M.insert (v^2) (v, 2) m)
+--       | otherwise = (xx, bx, ex) :
+--                     f vs' (M.insert (bx*xx) (bx, ex+1) $ M.deleteMin m)
+--       where (xx, (bx, ex)) = M.findMin m
+
+-- instance OEIS 169936 where
+--   import Data.Map (M.empty, M.insertWith, M.elems)
+--   import Data.Text (unpack); import Data.Maybe (fromJust)
+--   import Text.Numeral.Grammar.Reified (defaultInflection)
+--   import qualified Text.Numeral.Language.EN as EN
+--   oeisIx n = (oeis @169936) !! (n - 1)
+--   oeis = sort $ concat $ filter ((> 1) . length) $
+--      M.elems $ fill [1..999] M.empty where
+--         fill [] m = m
+--         fill (z:zs) m = fill zs $ M.insertWith (++) (sort $ engl z) [z] m
+--         engl :: Integer -> String
+--         engl = unpack . fromJust . EN.us_cardinal defaultInflection
+
+-- instance OEIS 206925 where
+--   oeis = 1 : f [0, 1] (M.fromList [ (Bin [0], 1), (Bin [1], 1)]) where
+--      f bs'@ (b:bs) m = y : f (succ bs') (M.insert (Bin bs') y m) where
+--        y = m M.! (Bin bs) +
+--            length (filter (\ds -> ds == reverse ds) $ tail $ inits bs')
+--        succ [] = [1]; succ (0:ds) = 1 : ds; succ (1:ds) = 0 : succ ds
+
+-- instance OEIS 215244 where
+--   import Data.Map (Map, M.singleton, (!), M.insert)
+--   newtype Bin = Bin [Int] deriving (Eq, Show, Read)
+--   instance Ord Bin where
+--      Bin us <= Bin vs | length us == length vs = us <= vs
+--                       | otherwise              = length us <= length vs
+--   oeisIx n = (oeis @215244) !! n
+--   oeis = 1 : f [1] (M.singleton (Bin [0]) 1) where
+--      f bs m | last bs == 1 = y : f (succ bs) (M.insert (Bin bs) y m)
+--             | otherwise    = f (succ bs) (M.insert (Bin bs) y m) where
+--        y = fromEnum (pal bs) +
+--            sum (zipWith (\us vs -> if pal us then m M.! Bin vs else 0)
+--                         (init $ drop 1 $ inits bs) (drop 1 $ tails bs))
+--        pal ds = reverse ds == ds
+--        succ [] = [0]; succ (0:ds) = 1 : ds; succ (1:ds) = 0 : succ ds
+
+-- instance OEIS 245340 where
+--   import Data.IntMap (M.singleton, M.member, (!), M.insert)
+--   oeisIx n = (oeis @245340) !! n
+--   oeis = 0 : f [1..] [1..] 0 (M.singleton 0 0) where
+--      f us'@ (u:us) vs'@ (v:vs) w m
+--        | u `M.member` m = (m M.! u) : f us vs' w m
+--        | otherwise    = g (reverse[w-v,w-2*v..1] ++ [w+v,w+2*v..]) where
+--        g (x:xs) = if x `M.member` m then g xs else f us' vs x $ M.insert x v m
 

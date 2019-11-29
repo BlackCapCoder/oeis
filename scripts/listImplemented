@@ -2,6 +2,8 @@
 
 
 printf 'r=read::String->Int;main = interact $ show . length . map r . lines' > /tmp/tmp.hs
+# printf 'r=read::String->Int;main = interact $ length . map r . lines' > /tmp/tmp.hs
+# printf 'r=read::String->Int;main = interact $ unwords . lines ' > /tmp/tmp.hs
 
 cat src/OEIS/Part1.hs \
     src/OEIS/Part2.hs \

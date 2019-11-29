@@ -85,6 +85,12 @@ say = read . concatMap saygroup . group . show
 look_and_say :: [Integer]
 look_and_say = 1 : map say look_and_say
 
+interleave (hdx : tlx) y = hdx : interleave y tlx
+-- interleave' xs ys = concat . transpose $ [xs,ys]
+
+oeis003602 = interleave [1..] oeis003602
+oeis181988 = interleave [1..] (zipWith (+) oeis003602 oeis181988)
+
 
 
 instance OEIS 2 where
@@ -8856,9 +8862,216 @@ instance OEIS 84473 where
   oeisIx (succ->x) = 2 * (if b == 1 then 1 else 8) * (oeisIx @84473.pred) x' + b
               where (x', b) = divMod x 2
 
-
 instance OEIS 135414 where
   oeis = 1 : 1 : zipWith (-) [3..] (map (oeisIx @135414.pred) (oeis @135414))
 
 instance OEIS 254531 where
   oeisIx = (+ 49) . round . (* 12) . logBase 2 . (/ 440) . (+27) . fi
+
+
+instance OEIS 25480 where
+  oeis = concat $ (tabf @25480)
+  -- oeis = interleave [0..] (oeis @25480)
+instance Table 25480 where
+  tabf = iterate (\xs -> concat $
+     transpose [xs, [length xs .. 2 * length xs - 1]]) [0]
+
+instance OEIS 162247 where
+  oeis = tablList @162247
+instance Table 162247 where
+  rowCol = rowCol_off @162247 @1 @1
+  rowT   = rowT_off   @162247 @1
+  tabl = map (concat . sortBy (comparing length)) $ tail fss where
+     fss = [] : map fact [1..] where
+           fact x = [x] : [d : fs | d <- [2..x], let (x',r) = divMod x d,
+                                    r == 0, fs <- fss !! x', d <= head fs]
+instance OEIS 50000 where
+  oeis = 1 : f [1,0] where
+     f xs'@ (x:xs) | x `div` 2 `elem` xs = 3 * x : f (3 * x : xs')
+                   | otherwise = x `div` 2 : f (x `div` 2 : xs')
+
+instance OEIS 257905 where
+  oeis = 0 : f [0] [0] where
+     f xs@ (x:_) ds = g [2 - x .. -1] where
+       g [] = y : f (y:xs) (h:ds) where
+                    y = x + h
+                    (h:_) = [z | z <- [1..] \\ ds, x - z `notElem` xs]
+       g (h:hs) | h `notElem` ds && y `notElem` xs = y : f (y:xs) (h:ds)
+                | otherwise = g hs
+                where y = x + h
+
+instance OEIS 257906 where
+  oeis = 0 : f [0] [1] where
+     f xs@ (x:_) ds = g [2 - x .. -1] where
+       g [] = y : f (y:xs) (h:ds) where
+                    y = x + h
+                    (h:_) = [z | z <- [1..] \\ ds, x - z `notElem` xs]
+       g (h:hs) | h `notElem` ds && y `notElem` xs = y : f (y:xs) (h:ds)
+                | otherwise = g hs
+                where y = x + h
+
+instance OEIS 257907 where
+  oeis = 1 : f [0] [1] where
+     f xs@ (x:_) ds = g [2 - x .. -1] where
+       g [] = h : f ((x + h) : xs) (h : ds) where
+                    (h:_) = [z | z <- [1..] \\ ds, x - z `notElem` xs]
+       g (h:hs) | h `notElem` ds && y `notElem` xs = h : f (y:xs) (h:ds)
+                | otherwise = g hs
+                where y = x + h
+
+instance OEIS 132739 where
+  oeisIx = f . succ where
+    f n
+      | r > 0     = n
+      | otherwise = f n'
+      where (n',r) = divMod n 5
+
+instance OEIS 181971 where
+  oeis = tablList @181971
+instance Table 181971 where
+  tabl = map snd $ iterate f (1, [1]) where
+     f (i, row) = (1 - i, zipWith (+) ([0] ++ row) (row ++ [i]))
+
+instance OEIS 3602 where
+  oeis = oeis003602
+  -- oeisIx = (`div` 2) . (+ 1) . (oeisIx @265)
+
+instance OEIS 181988 where
+  oeis = oeis181988
+
+instance OEIS 170942 where
+  oeis = tablList @170942
+instance Table 170942 where
+  rowCol = rowCol_off @170942 @1 @1
+  rowT n = map fps $ sort $ permutations [1..n] where
+     fps perm = sum $ map (fi.fromEnum) $ zipWith (==) perm [1..n]
+  tabf = map (rowT @170942) [1..]
+
+instance OEIS 2658 where
+  oeis = 1 : 1 : f [1,1] where
+     f (x:xs) = y : f (y:x:xs) where y = x * sum xs + x * (x + 1) `div` 2
+
+instance OEIS 63733 where
+  oeis = 1 : f 0 [1] where
+     f x ys@ (y:_) | u > 0 && u `notElem` ys = u : f (x + 1) (u : ys)
+                  | otherwise               = v : f (x + 1) (v : ys)
+                  where u = y - x; v = x + y
+
+instance OEIS 62980 where
+  oeis = 1 : 5 : f 2 [5,1] where
+     f u vs'@ (v:vs) = w : f (u + 1) (w : vs') where
+       w = 6 * u * v + sum (zipWith (*) vs_ $ reverse vs_)
+       vs_ = init vs
+
+instance OEIS 37444 where
+  oeisIx n = p (map (^ 2) [1..]) (n^2) where
+     p _      0 = 1
+     p ks'@ (k:ks) m | m < k     = 0
+                    | otherwise = p ks' (m - k) + p ks m
+
+instance OEIS 111650 where
+  oeis = tablList @111650
+instance Table 111650 where
+  rowCol = rowCol_off @111650 @1 @1
+  rowT   = rowT_off   @111650 @1
+  tabl = iterate (\xs@ (x:_) -> map (+ 2) (x:xs)) [2]
+
+instance OEIS 140513 where
+  oeis = tablList @140513
+instance Table 140513 where
+  rowCol = rowCol_off @140513 @1 @1
+  rowT   = rowT_off   @140513 @1
+  tabl = iterate (\xs@ (x:_) -> map (* 2) (x:xs)) [2]
+
+instance OEIS 151945 where
+  oeis = 1 : 1 : f [2..] where
+     f (x:xs) = p (take x (oeis @151945)) x : f xs
+     p _ 0 = 1; p [] _ = 0
+     p ds'@ (d:ds) m = if m < d then 0 else p ds' (m - d) + p ds m
+
+instance OEIS 170949 where
+  oeis = tablList @170949
+instance Table 170949 where
+  rowCol = rowCol_off @170949 @1 @1
+  rowT   = rowT_off @170949 @1
+  tabf = [1] : (map fst $ iterate f ([3,2,4], 3)) where
+    f (xs@ (x:_), i) = ([x + i + 2] ++ (map (+ i) xs) ++ [x + i + 3], i + 2)
+
+instance OEIS 199332 where
+  oeis = tablList @199332
+instance Table 199332 where
+  rowCol = rowCol_off @199332 @1 @1
+  rowT   = rowT_off   @199332 @1
+  tabl = f [1..] [1..] where
+     f (x:xs) ys'@ (y:ys) | odd x  = (replicate x y) : f xs ys
+                         | even x = us : f xs vs
+                         where (us,vs) = splitAt x ys'
+
+instance OEIS 253415 where
+  oeis = f [2..] 1 where
+     f xs z = g xs where
+       g (y:ys) = if mod z' y > 0 then g ys else x : f xs' (z + y)
+                  where xs'@ (x:_) = delete y xs
+       z' = z + 2
+
+instance OEIS 245340 where
+  oeis = 0 : f [1..] [1..] 0 (M.singleton 0 0) where
+     f us'@ (u:us) vs'@ (v:vs) w m
+       | u `M.member` m = (m M.! u) : f us vs' w m
+       | otherwise    = g (reverse[w-v,w- 2*v..1] ++ [w+v,w+2*v..]) where
+       g (x:xs) = if x `M.member` m then g xs else f us' vs x $ M.insert x v m
+
+instance OEIS 105870 where
+  oeis = 0 : xs where
+    xs = 1 : 1 : zipWith (\u v -> (u + v) `mod` 7) (tail xs) xs
+
+
+instance OEIS 1650 where
+  oeis = tablList @1650
+instance Table 1650 where
+  rowCol = rowCol_off @1650 @1 @1
+  rowT   = rowT_off   @1650 @1
+  tabf   = iterate (\xs@ (x:_) -> map (+ 2) (x:x:xs)) [1]
+
+instance OEIS 39723 where
+  oeisIx 0 = 0
+  oeisIx n = (oeisIx @39723) n' * 10 + m where
+     (n',m) = if r < 0 then (q + 1, r + 10) else qr where
+              qr@ (q, r) = quotRem n (negate 10)
+
+instance OEIS 48645 where
+  oeis = tablList @48645
+instance Table 48645 where
+  rowCol = rowCol_off @48645 @1 @1
+  rowT   = rowT_off   @48645 @1
+  tabl   = iterate (\xs -> insert (2 * head xs + 1) $ map ((* 2)) xs) [1]
+
+instance OEIS 70861 where
+  oeis = tablList @70861
+instance Table 70861 where
+  tabf = [1] : f 2 [1] where
+     f n ps = ps' : f (n+1) ps' where ps' = m ps $ map (n*) ps
+     m []         ys = ys
+     m xs'@ (x:xs) ys'@ (y:ys)
+         | x < y     = x : m xs ys'
+         | x == y    = x : m xs ys
+         | otherwise = y : m xs' ys
+
+instance OEIS 81118 where
+  oeis = tablList @81118
+instance Table 81118 where
+  rowCol = rowCol_off @81118 @1 @1
+  rowT   = rowT_off   @81118 @1
+  tabl  = iterate
+     (\row -> (map ((+ 1) . (* 2)) row) ++ [4 * (head row) + 1]) [1]
+
+instance OEIS 108730 where
+  oeis = tablList @108730
+instance Table 108730 where
+  rowCol = rowCol_off @108730 @1 @1
+  rowT = f . group . reverse . unfoldr
+     (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 2) where
+     f [] = []
+     f [os] = replicate (length os) 0
+     f (os:zs:dss) = replicate (length os - 1) 0 ++ [length zs] ++ f dss
+  tabf = map (rowT @108730) [1..]

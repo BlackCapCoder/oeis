@@ -804,9 +804,6 @@ instance Table 3506 where
 instance OEIS 3506 where
   oeis = tablList @3506
 
-instance OEIS 3602 where
-  oeisIx = (`div` 2) . (+ 1) . (oeisIx @265)
-
 instance OEIS 3622 where
   oeis = filter ((elem 1) . (rowT @35516)) [1..]
 

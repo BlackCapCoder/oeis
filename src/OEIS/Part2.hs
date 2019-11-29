@@ -9024,3 +9024,351 @@ instance OEIS 100968 where
 instance OEIS 100969 where
   oeis = filter (rhonda 6) (oeis @248910)
 
+instance OEIS 264618 where
+  oeisIx n = foldr (\b v -> 2 * v + b) 0 $ (reverse bs ++ (0 : bs))
+              where bs = map fi $ (rowT @30308) n
+
+instance OEIS 263847 where
+  oeis = 0 : zipWith (-)
+     (zipWith (-) (tail qs) qs) (drop 2 (oeis @41))
+     where qs = es $ tail (oeis @41)
+           es [] = []; es [x] = []; es (_:x:xs) = x : es xs
+
+instance OEIS 258059 where
+  oeisIx = f 0 . (rowT @30386) . succ where
+     f i [] = i
+     f i (t:ts) = if t == 1 then f (i + 1) ts else i
+
+instance OEIS 258144 where
+  oeisIx = sum . zipWith (*) (cycle [1, -1]) . (rowT @257241) . succ
+
+instance OEIS 260022 where
+  oeisIx = (oeisIx @6921) . (* 2)
+
+instance OEIS 51431 where
+  oeisIx = (flip div 3628800) . (oeisIx @142) . (+ 10)
+
+instance OEIS 52485 where
+  oeis = map (+2) $ elemIndices 0 $ tail $ oeis @112526
+
+instance OEIS 52548 where
+  oeisIx = (+ 2) . (oeisIx @79)
+  oeis = iterate ((subtract 2) . (* 2)) 3
+
+instance OEIS 56868 where
+  oeis = filter (any (== 1) . pks) [1..] where
+     pks x = [p ^ k `mod` q | let fs = (rowT @27748) x, q <- fs,
+                              (p,e) <- zip fs $ (rowT @124010) x, k <- [1..e]]
+
+instance OEIS 57945 where
+  oeisIx n = g n $ reverse $ takeWhile (<= n) $ tail (oeis @217) where
+     g 0 _      = 0
+     g x (t:ts) = g r ts + a where (a,r) = divMod x t
+
+instance OEIS 58071 where
+  oeis = tablList @58071
+instance Table 58071 where
+  tabl = map (\fs -> zipWith (*) fs $ reverse fs) (tabl @104763)
+
+instance OEIS 59941 where
+  oeis = map (foldr (\d v -> v * 10 + d) 0) $ f (tabf @30341) where
+     f (xs:xss)
+       | 0 `elem` xs = f xss
+       | otherwise = map (fi.fromEnum) (zipWith (==)
+                     (tail $ inits xs) (reverse $ init $ tails xs)) : f xss
+
+instance OEIS 60054 where
+  oeis = -1 : map (numerator . sum) (tail $ zipWith (zipWith (%))
+     (zipWith (map . (*)) (oeis @142) (tabf @242179)) (tabf @106831))
+
+instance OEIS 64986 where
+  oeisIx = p (tail (oeis @142)) where
+     p _          0             = 1
+     p fs'@ (f:fs) m | m < f     = 0
+                    | otherwise = p fs' (m - f) + p fs m
+
+instance OEIS 67078 where
+  oeis = scanl (+) 1 (oeis @142)
+
+instance OEIS 70960 where
+  oeisIx (succ->n) = if n == 1 then 1 else 3 * (oeisIx @142) n `div` 2
+  oeis = map (flip div 2) fs where fs = 3 : zipWith (*) [2..] fs
+
+instance OEIS 75180 where
+  oeis = map (denominator . sum) $ zipWith (zipWith (%))
+     (zipWith (map . (*)) (oeis @142) (tabf @242179)) (tabf @106831)
+
+instance OEIS 92246 where
+  oeis = filter odd (oeis @69)
+
+instance OEIS 92495 where
+  oeisIx (succ->n) = fromJust $ find ((== 0) . (`mod` n)) $ (oeis @142)
+
+instance OEIS 100732 where
+  oeisIx = (oeisIx @142) . (oeisIx @8585)
+
+instance OEIS 109681 where
+  oeis = map (foldr (\d v -> 3 * v + d) 0) $ f (tabf @30341) where
+     f vss = (g 0 vss) : f (tail vss)
+     g k (ws:wss) = if k < length ws then ws !! k : g (k + 1) wss else []
+
+instance OEIS 109682 where
+  oeis = compl (oeis @109681) [0..] where
+     compl us'@ (u:us) vs'@ (v:vs)
+         | u == v    = compl us vs
+         | u > 3 * v = v : compl us (delete u vs)
+         | otherwise = compl us (delete u vs')
+
+instance OEIS 109683 where
+  oeisIx = (oeisIx @7089) . (oeisIx @109681)
+
+instance OEIS 109735 where
+  oeis = scanl1 (+) (oeis @109890)
+
+instance OEIS 109736 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @109890)) . succ
+
+instance OEIS 109890 where
+  oeis = 1 : 2 : 3 : f (4, []) 6 where
+     f (m,ys) z = g $ dropWhile (< m) $ (rowT @27750) z where
+       g (d:ds) | elem d ys = g ds
+                | otherwise = d : f (ins [m, m + 1 ..] (insert d ys)) (z + d)
+       ins (u:us) vs'@ (v:vs) = if u < v then (u, vs') else ins us vs
+
+instance OEIS 109906 where
+  oeis = tablList @109906
+instance Table 109906 where
+  tabl = zipWith (zipWith (*)) (tabl @58071) (tabl @7318)
+
+instance OEIS 115944 where
+  oeisIx = p (tail (oeis @142)) where
+     p _      0             = 1
+     p (f:fs) m | m < f     = 0
+                | otherwise = p fs (m - f) + p fs m
+
+instance OEIS 117930 where
+  oeisIx n = p (tail (oeis @142)) $ 2*n where
+     p _          0             = 1
+     p ks'@ (k:ks) m | m < k     = 0
+                    | otherwise = p ks' (m - k) + p ks m
+
+instance OEIS 129893 where
+  oeis = 1 : zipWith div (tail fs) fs where
+     fs = map (oeisIx @142) (oeis @124)
+
+instance OEIS 161466 where
+  oeis = (rowT @27750) $ (oeisIx @142) 10
+
+instance OEIS 262411 where
+  oeis = 1 : f [1] (drop 2 (tabf @30341)) where
+     f xs tss = g tss where
+       g (ys:yss) | null (intersect its $ tail $ inits ys) &&
+                    null (intersect tis $ init $ tails ys) = g yss
+                  | otherwise = (foldr (\t v -> 3 * v + t) 0 ys) :
+                                f ys (delete ys tss)
+       its = init $ tails xs; tis = tail $ inits xs
+
+instance OEIS 262412 where
+  oeis = 1 : f [1] (drop 2 (tabf @30341)) where
+     f xs tss = g tss where
+       g (ys:yss) | null (intersect its $ tail $ inits ys) &&
+                    null (intersect tis $ init $ tails ys) = g yss
+                  | otherwise = (foldr (\t v -> 10 * v + t) 0 ys) :
+                                f ys (delete ys tss)
+       its = init $ tails xs; tis = tail $ inits xs
+
+instance OEIS 265885 where
+  oeisIx (succ->n) = n `bimpl` (oeisIx @40.pred) n where
+     bimpl 0 0 = 0
+     bimpl p q = 2 * bimpl p' q' + if u <= v then 1 else 0
+                 where (p', u) = divMod p 2; (q', v) = divMod q 2
+
+instance OEIS 187769 where
+  oeis = tablList @187769
+instance Table 187769 where
+  tabf = [0] : [elemIndices (b, len - b) $
+     takeWhile ((<= len) . uncurry (+)) $ zip (oeis @120) (oeis @23416) |
+     len <- [1 ..], b <- [1 .. len]]
+
+instance OEIS 187786 where
+  oeis = tablList @187786
+instance Table 187786 where
+  rowT n = fromJust $ find (elem n) (tabf @187769)
+  tabf   = map (rowT @187786) [0..]
+
+instance OEIS 232642 where
+  oeis = tablList @232642
+instance Table 232642 where
+  rowCol = rowCol_off @232642 @1 @1
+  rowT   = rowT_off   @232642 @1
+  tabf = f (tabf @82560) [] where
+     f (xs:xss) zs = ys : f xss (sort (ys ++ zs)) where
+       ys = [v | v <- xs, not $ O.member v zs]
+
+
+instance OEIS 1694 where
+  oeis = map succ $ elemIndices 1 $ oeis @112526
+
+instance OEIS 38555 where
+  oeisIx n = foldr (\d v -> v * 3 + d) 0 $
+     zipWith (\x y -> (x + y) `mod` 3) ts $ tail ts
+     where ts = (rowT @30341) n
+
+instance OEIS 49388 where
+  oeisIx = (flip div 5040) . (oeisIx @142) . (+ 7)
+
+instance OEIS 49389 where
+  oeisIx = (flip div 40320) . (oeisIx @142) . (+ 8)
+
+instance OEIS 1178 where
+  oeisIx = f 0 . succ where
+     f j x = if x == y then j else f (j + 1) y  where y = oeisIx @1175 $ pred x
+
+
+instance OEIS 6549 where
+  oeis = [1,2,3,4,7,8] ++ f (drop 4 (oeis @40)) where
+     f (p:ps) | (oeisIx @10055.pred) (p - 1) == 1 = (p - 1) : f ps
+              | (oeisIx @10055.pred) (p + 1) == 1 = p : f ps
+              | otherwise            = f ps
+
+instance OEIS 32810 where
+  oeisIx = f 0 . (+ 1) . succ where
+     f y 1 = (oeisIx @4086) y
+     f y x = f (10 * y + m + 2) x' where (x', m) = divMod x 2
+
+instance OEIS 33294 where
+  oeis = filter chi (oeis @290) where
+    chi m = m `mod` 10 > 0 && head ds `elem` [1,4,5,6,9] &&
+            (oeisIx @10052) (foldl (\v d -> 10 * v + d) 0 ds) == 1 where
+      ds = unfoldr
+           (\x -> if x == 0 then Nothing else Just $ swap $ divMod x 10) m
+
+instance OEIS 34020 where
+  oeis = f [0..] (oeis @3136) where
+     f (x:xs) ys'@ (y:ys) | x < y = x : f xs ys'
+                         | otherwise = f xs ys
+
+instance OEIS 36491 where
+  oeisIx n = f z z where
+     f x y | x `mod` 2401 == 0 = f (x `div` 49) (y `div` 7)
+           | x `mod` 343 == 0  = y `div` 7
+           | otherwise         = y
+     z = (oeisIx @36490) n
+
+instance OEIS 37800 where
+  oeisIx = f 0 . (rowT @30308) where
+     f c [_]          = c
+     f c (1 : 0 : bs) = f (c + 1) bs
+     f c (_ : bs)     = f c bs
+
+instance OEIS 38528 where
+  oeis = gen ([1], 1) where
+     gen (_, 10) = []
+     gen (ds, len)
+        | len `elem` ds && chi ds
+          = foldr (\u v -> u + 10*v) 0 ds : gen (succ (ds, len))
+        | otherwise = gen (succ (ds, len))
+     chi xs = null ys || ys /= xs && chi ys where
+              ys = tr $ filter (/= length xs) xs
+              tr zs = if null zs || last zs > 0 then zs else tr $ init zs
+     succ ([], len)   = ([1], len + 1)
+     succ (d : ds, len)
+         | d < len = (head (dropWhile (<= d) (oeis @2024) \\ ds) : ds, len)
+         | otherwise = (0 : ds', len') where (ds', len') = succ (ds, len)
+
+instance OEIS 50264 where
+  oeis = filter chi [2..] where
+     chi n = f (oeis @40) where
+        f (p:ps) | p*p > n   = True
+                 | otherwise = 2 * abs (2 * (n `mod` p) - p) <= p && f ps
+
+instance OEIS 55975 where
+  oeisIx (succ->n) = (oeisIx @3188) n - (oeisIx @3188) (n - 1)
+  oeis = zipWith (-) (tail (oeis @3188)) (oeis @3188)
+
+instance OEIS 56970 where
+  oeisIx n = p (oeis @47261) n where
+     p _  0     = 1
+     p (k:ks) m = if m < k then 0 else p ks (m - k) + p ks m
+
+instance OEIS 59481 where
+  oeis = tablList @59481
+instance Table 59481 where
+  tabl = map reverse (tabl @100100)
+
+instance OEIS 62010 where
+  oeis = filter f [1..] where
+     f x = any (== 0) $ map (mod x) lower where
+         lower = map bas [1 + (oeisIx @54055) x .. 9]
+         bas b = foldl (\v d -> b*v + d) 0 bas10
+         bas10 = reverse $ unfoldr dig x where
+            dig n = if n== 0 then Nothing else Just $ swap $ divMod n 10
+
+instance OEIS 62320 where
+  oeisIx = (^ 2) . (oeisIx @13929)
+
+instance OEIS 63054 where
+  oeis = iterate (oeisIx @56964) 1997
+
+instance OEIS 63057 where
+  oeis = iterate (oeisIx @56964) 7059
+
+instance OEIS 63060 where
+  oeis = iterate (oeisIx @56964) 10553
+
+instance OEIS 63063 where
+  oeis = iterate (oeisIx @56964) 10563
+
+instance OEIS 68636 where
+  oeisIx (succ->n) = min n $ (oeisIx @4086) n
+
+instance OEIS 68637 where
+  oeisIx (succ->n) = max n $ (oeisIx @4086) n
+
+instance OEIS 69104 where
+  oeis = map (+ 1) $ elemIndices 0 $ zipWith mod (drop 2 (oeis @45)) [1..]
+
+instance OEIS 69905 where
+  oeis = scanl (+) 0 (oeis @8615)
+
+instance OEIS 72504 where
+  oeisIx = foldl1 lcm . (rowT @161906) . succ
+
+instance OEIS 73729 where
+  oeisIx (succ->n) = 10 * (oeisIx @30) n + (oeisIx @10879) n
+
+instance OEIS 73730 where
+  oeisIx (succ->n) = 10 * (oeisIx @54055) n + (oeisIx @54054) n
+
+instance OEIS 100100 where
+  oeis = tablList @100100
+instance Table 100100 where
+  tabl = [1] : f (tabl @92392) where
+     f (us : wss'@ (vs : wss)) = (vs !! 1 : us) : f wss'
+
+instance OEIS 49398 where
+  oeisIx = (flip div 362880) . (oeisIx @142) . (+ 9)
+
+instance OEIS 50925 where
+  oeis = 1 : -1 : (tail $ map (numerator . sum) $
+     zipWith (zipWith (%))
+     (zipWith (map . (*)) (drop 2 (oeis @142)) (tabf @242179)) (tabf @106831))
+
+instance OEIS 50932 where
+  oeis = 1 : map (denominator . sum) (zipWith (zipWith (%))
+     (zipWith (map . (*)) (drop 2 (oeis @142)) (tabf @242179)) (tabf @106831))
+
+instance OEIS 51035 where
+  oeis = filter ((== 0) . (oeisIx @10051.pred)) (oeis @14091)
+
+instance OEIS 51135 where
+  oeis = map length $ group (oeis @4001)
+
+instance OEIS 51139 where
+  oeisIx n = (oeisIx @994) (n + 2) - (oeisIx @995) (n + 2)
+
+instance OEIS 100428 where
+  oeis = f (oeis @2) where f (u:_:us) = u : f us
+
+instance OEIS 100429 where
+  oeis = g (oeis @2) where g (_:v:vs) = v : g vs

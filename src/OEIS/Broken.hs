@@ -1569,3 +1569,11 @@ instance OEIS 234586 where
   oeis = concat (transpose [oeis, [2, 4 ..]])
   oeis = 1 : 1 : (drop 2 $
                  map abs $ zipWith (-) (oeis @234586) $ tail (oeis @234586))
+
+instance OEIS 192734 where
+  oeisIx n = head [x | x <- [2^u + 2^v + 1 | u <- [2..], v <- [1..u-1]],
+                        oeisIx x == n]
+
+instance OEIS 63759 where
+  oeis = concat $ transpose [oeis, (oeis @7283)]
+

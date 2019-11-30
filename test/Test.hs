@@ -137,10 +137,10 @@ testMain tests timeout numSamples = do
     case res' of
       Right res -> case res of
           -- Just x -> metaShow x -- print x
-          -- Just x -> print x
-          Just x -> pure ()
-          -- _      -> pure ()
-          _      -> print =<< findSrcLine (testNum t)
+          Just x -> print x
+          -- Just x -> pure ()
+          _      -> pure ()
+          -- _      -> print =<< findSrcLine (testNum t)
       _ -> do
         -- Just line <- findSrcLine (testNum t)
         -- print line

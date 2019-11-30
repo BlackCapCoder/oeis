@@ -14212,3 +14212,1240 @@ instance OEIS 187205 where
 
 instance OEIS 182834 where
   oeisIx (succ->n) = (oeisIx @196) (2 * n - 2) + n
+
+instance OEIS 230720 where
+  oeisIx = (oeisIx @3071) . pred . (oeisIx @92246)
+  oeis = filter even (oeis @3071)
+
+instance OEIS 230721 where
+  oeisIx = (oeisIx @3071) . pred . (oeisIx @230709) . succ
+  oeis = filter odd (oeis @3071)
+
+instance OEIS 232643 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @232642)). succ
+
+instance OEIS 233281 where
+  oeis = filter ((== 1) . (oeisIx @10051 . pred) . (oeisIx @1177).pred) [1..]
+
+instance OEIS 234098 where
+  oeis = filter ((== 1) . (oeisIx @10051 . pred)) $
+                        map ((flip div 2) . (+ 1)) (oeis @46388)
+
+instance OEIS 235540 where
+  oeis = filter ((== 0) . (oeisIx @10051 . pred)) (oeis @158034)
+
+instance OEIS 236246 where
+  oeis = map succ $ elemIndices 1 $ oeis @229037
+
+instance OEIS 236341 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @160855)) . succ
+
+instance OEIS 237739 where
+  oeisIx = fi . (+ 1) . fromJust . (`elemIndex` (oeis @71574))
+
+instance OEIS 238718 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @238704)) . succ
+
+instance OEIS 238862 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @239965)) . succ
+
+instance OEIS 239122 where
+  oeis = scanl1 (+) (oeis @61019)
+
+instance OEIS 239324 where
+  oeis = scanl (+) 0 (oeis @90431)
+
+instance OEIS 240952 where
+  oeisIx = fromJust . (`elemIndex` (oeis @245575))
+
+instance OEIS 240960 where
+  oeis = map succ $ filter (\x -> (oeisIx @51612) x == (oeisIx @110088) x) [1..]
+
+instance OEIS 241012 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @109465)) . succ
+
+instance OEIS 241218 where
+  oeisIx = fromJust . (`elemIndex` (oeis @240808))
+
+instance OEIS 241235 where
+  oeis = map length $ group (oeis @6949)
+
+instance OEIS 241752 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @229037)) . succ
+
+instance OEIS 242622 where
+  oeisIx = genericLength . (rowT @242614)
+
+instance OEIS 242901 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @242885)) . succ
+
+instance OEIS 244080 where
+  oeisIx = (oeisIx @6530) . pred . (oeisIx @166133)
+
+instance OEIS 244731 where
+  oeis = [x | x <- [1..], (oeisIx @244724.pred) x == x]
+
+instance OEIS 244732 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @244724)) . succ
+
+instance OEIS 245304 where
+  oeis = map (pred . head) $ filter (all (== 1) . map (oeisIx @10051 . pred)) $
+     iterate (zipWith (+) [1, 1, 1, 1, 1]) [1, 3, 7, 9, 13]
+
+instance OEIS 246431 where
+  oeisIx = fromJust . (`elemIndex` (oeis @101403)) . succ
+
+instance OEIS 246433 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @113963)) . succ
+
+instance OEIS 247468 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @247462)) . succ
+
+instance OEIS 247879 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @248025)) . succ
+
+instance OEIS 249918 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @203069)) . succ
+
+instance OEIS 249920 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @55266)) . succ
+
+instance OEIS 250007 where
+  oeis = map length $ group $ map (oeisIx @100618.pred) [1..]
+
+instance OEIS 250552 where
+  oeisIx = (oeisIx @49084) . pred . (oeisIx @247797)
+
+instance OEIS 250553 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @250552)) . succ
+
+instance OEIS 251045 where
+  oeisIx = (oeisIx @7913) . pred . (oeisIx @98550)
+
+instance OEIS 251046 where
+  oeisIx = (oeisIx @7913) . pred . (oeisIx @98548)
+
+instance OEIS 251089 where
+  oeisIx = (oeisIx @7947) . pred . (oeisIx @98550)
+
+instance OEIS 251090 where
+  oeisIx = (oeisIx @7947) . pred . (oeisIx @98548)
+
+instance OEIS 251101 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @98550)
+
+instance OEIS 251103 where
+  oeisIx = (oeisIx @6530) . pred . (oeisIx @98550)
+
+instance OEIS 251104 where
+  oeisIx = (oeisIx @6530) . pred . (oeisIx @98548)
+
+instance OEIS 251140 where
+  oeisIx = (oeisIx @1222) . pred . (oeisIx @98550)
+
+instance OEIS 251141 where
+  oeisIx = (oeisIx @1222) . pred . (oeisIx @98548)
+
+instance OEIS 251240 where
+  oeis = filter ((== 2) . (oeisIx @62799) . pred . (oeisIx @98550).pred) [1..]
+
+instance OEIS 251241 where
+  oeis = filter ((== 1) . (oeisIx @10055).pred . (oeisIx @98550).pred) [1..]
+
+instance OEIS 251391 where
+  oeis = filter ((== 1) . (oeisIx @8966).pred . (oeisIx @98550).pred) [1..]
+
+instance OEIS 251392 where
+  oeis = filter ((== 0) . (oeisIx @10051 . pred) . (oeisIx @98550).pred) [1..]
+
+instance OEIS 251393 where
+  oeis = filter ((== 1) . (oeisIx @209229) . (oeisIx @98550).pred) [1..]
+
+instance OEIS 251394 where
+  oeis = filter ((== 1) . gcd 6 . (oeisIx @98550).pred) [1..]
+
+instance OEIS 251412 where
+  oeis = iterate (oeisIx @98550.pred) 11
+
+instance OEIS 251539 where
+  oeis = zipWith (-) (tail (oeis @251538)) (oeis @251538)
+
+instance OEIS 251540 where
+  oeis = filter ((> 0) . flip mod 3 . (oeisIx @98548).pred) [1, 3 ..]
+
+instance OEIS 32741 where
+  oeisIx n = if n < 2 then 0 else (oeisIx @5.pred) n - 1
+
+instance OEIS 33549 where
+  oeis = map succ $ elemIndices 0 $ oeis @90431
+
+instance OEIS 46388 where
+  oeis = filter ((== 2) . (oeisIx @1221 . pred)) (oeis @56911)
+
+instance OEIS 56911 where
+  oeis = filter ((== 1) . (oeisIx @8966).pred) [1,3..]
+
+instance OEIS 60968 where
+  oeisIx 0 = 1
+  oeisIx (succ->n) = (if p == 2 then (if e == 1 then 2 else 2^ (e+1)) else 1) *
+     (product $ zipWith (*) (map (\q -> q - 2 + mod q 4) ps'')
+                            (zipWith (^) ps'' (map (subtract 1) es'')))
+     where (ps'', es'') = if p == 2 then (ps, es) else (ps', es')
+           ps'@ (p:ps) = (rowT @27748) n; es'@ (e:es) = (rowT @124010) n
+
+instance OEIS 71249 where
+  oeis = filter ((> 1) . (oeisIx @55483).pred) [1..]
+
+instance OEIS 71574 where
+  oeisIx = f . succ where
+    f 1 = 0
+    f n = 2 * f (if j > 0 then j + 1 else (oeisIx @49084.pred) n) + 1 - signum j
+                where j = (oeisIx @66246.pred) n
+
+instance OEIS 90431 where
+  oeisIx n = (oeisIx @7953.succ) n - (oeisIx @7605) n
+
+instance OEIS 223456 where
+  oeis = filter ((== 1 ) . (oeisIx @10051 . pred) . (oeisIx @32741) . (oeisIx @32741)) (oeis @2808)
+
+instance OEIS 182140 where
+  oeis = [x | x <- [1..], (oeisIx @60968.pred) x == (oeisIx @201629) x]
+
+instance OEIS 81407 where
+  oeis = 1 : 1 : 1 : 1 : zipWith (*) [5..] (oeis @81407)
+
+instance OEIS 81408 where
+  oeis = 1 : 1 : 1 : 1 : 1 : zipWith (*) [6..] (oeis @81408)
+
+instance OEIS 258614 where
+  oeis = filter ((> 1) . (oeisIx @74695) . pred) [1..]
+
+instance OEIS 33548 where
+  oeis = filter ((== 0) . (oeisIx @90431.pred) . (oeisIx @49084.pred)) (oeis @40)
+instance OEIS 225589 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @217122)) . succ
+
+instance OEIS 226030 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @226029)) . succ
+
+instance OEIS 226387 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @85612)) . succ
+
+instance OEIS 226483 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @224909))
+
+instance OEIS 226778 where
+  oeis = map succ $ elemIndices 1 $ oeis @55483
+
+instance OEIS 227114 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @227113)) . succ
+
+instance OEIS 227289 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @227288)) . succ
+
+instance OEIS 227388 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @226390)) . succ
+
+instance OEIS 227836 where
+  oeisIx = (oeisIx @7814) . pred . (oeisIx @214551)
+
+instance OEIS 227837 where
+  oeisIx = (oeisIx @7949) . pred . (oeisIx @214551)
+
+instance OEIS 227838 where
+  oeisIx = (oeisIx @7814) . pred . (oeisIx @5132) . succ
+
+instance OEIS 227839 where
+  oeisIx = (oeisIx @7949) . pred . (oeisIx @5132) . succ
+
+instance OEIS 227944 where
+  oeisIx (succ->n) = fst $ until ((== 1) . snd) (\ (i, x) -> (i + 1, (oeisIx @53575.pred) x)) (0, n)
+
+instance OEIS 227946 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @227944))
+
+instance OEIS 171462 where
+  oeisIx (succ->n) = div n p * (p - 1)
+    where p = (oeisIx @6530.pred) n
+
+
+instance OEIS 178609 where
+  oeisIx 0 = 0
+  oeisIx n = head [k | k <- [n - 1, n - 2 .. 0], let p2 = 2 * (oeisIx @40) n,
+                        (oeisIx @40) (n - k) + (oeisIx @40) (n + k) == p2]
+
+instance OEIS 178953 where
+  oeis = map succ $ elemIndices 0 $ oeis @178609
+
+instance OEIS 179248 where
+  oeis = elemIndices 8 $ oeis @7895
+
+instance OEIS 179249 where
+  oeis = elemIndices 9 $ oeis @7895
+
+instance OEIS 179250 where
+  oeis = elemIndices 10 $ oeis @7895
+
+instance OEIS 179251 where
+  oeis = elemIndices 11 $ oeis @7895
+
+instance OEIS 179253 where
+  oeis = elemIndices 13 $ oeis @7895
+
+instance OEIS 179627 where
+  oeisIx = (+ 1) . (oeisIx @6666).pred . (oeisIx @40)
+
+instance OEIS 181424 where
+  oeisIx = (oeisIx @40) . pred . (+ 2) . (oeisIx @64113)
+
+instance OEIS 181819 where
+  oeisIx 0 = 1
+  oeisIx n = product . map (oeisIx @40.pred) . (rowT @124010) $ succ n
+
+instance OEIS 194626 where
+  oeis = map (+ 1) $ elemIndices 1 (oeis @81827)
+
+instance OEIS 195069 where
+  oeis = map succ $ elemIndices 10 $ oeis @46660
+
+instance OEIS 195086 where
+  oeis = map succ $ elemIndices 2 $ oeis @46660
+
+instance OEIS 195087 where
+  oeis = map succ $ elemIndices 3 $ oeis @46660
+
+instance OEIS 195088 where
+  oeis = map succ $ elemIndices 4 $ oeis @46660
+
+instance OEIS 195089 where
+  oeis = map succ $ elemIndices 5 $ oeis @46660
+
+instance OEIS 195090 where
+  oeis = map succ $ elemIndices 6 $ oeis @46660
+
+instance OEIS 195091 where
+  oeis = map succ $ elemIndices 7 $ oeis @46660
+
+instance OEIS 195092 where
+  oeis = map succ $ elemIndices 8 $ oeis @46660
+
+instance OEIS 195093 where
+  oeis = map succ $ elemIndices 9 $ oeis @46660
+
+instance OEIS 207193 where
+  oeisIx 0 = 1
+  oeisIx n | p == 2 && e > 2 = 2 ^ (e - 2)
+           | otherwise       = (p - 1) * p ^ (e - 1)
+           where p = (oeisIx @25473) n
+                 e = (oeisIx @25474) n
+
+instance OEIS 2322 where
+  oeisIx (succ->n)
+    = foldl lcm 1
+    . map (oeisIx @207193 . pred . oeisIx @95874 . pred)
+    $ zipWith (^) (rowT @27748 n) (rowT @124010 n)
+
+instance OEIS 2616 where
+  oeisIx = flip div 2 . oeisIx @2322 . succ . succ
+
+instance OEIS 34380 where
+  oeisIx n = (oeisIx @10) n `div` (oeisIx @2322) n
+
+instance OEIS 60687 where
+  oeis = map succ $ elemIndices 1 $ oeis @46660
+
+instance OEIS 61258 where
+  oeisIx = sum
+         . (zipWith (*) =<< map do oeisIx @2322 . pred)
+         . rowT @27750 . succ
+
+instance OEIS 61338 where
+  oeisIx 0 = 0
+  oeisIx n = (oeisIx @6519.pred) n + (oeisIx @120) n - 1
+
+instance OEIS 61373 where
+  oeis = 1 : f 2 where
+     f x | x == spf  = 1 + ix (spf - 1) : f (x + 1)
+         | otherwise = ix spf + ix (x `div` spf) : f (x + 1)
+         where spf = (oeisIx @20639.pred) x
+               ix 1 = 1
+               ix n = oeis @61373 !! (n - 1)
+
+instance OEIS 61389 where
+  oeisIx = product . map ((+ 1) . (oeisIx @10) . pred) . (rowT @124010) . succ
+
+instance OEIS 61395 where
+  oeisIx = (oeisIx @49084.pred) . (oeisIx @6530)
+
+instance OEIS 62115 where
+  oeis = filter ((== 0) . (oeisIx @39997).pred) (oeis @84984)
+
+instance OEIS 62373 where
+  oeis = map succ $ elemIndices 2 $ oeis @34380
+
+instance OEIS 62401 where
+  oeisIx = (oeisIx @10.pred) . (oeisIx @203)
+
+instance OEIS 173525 where
+  oeisIx = (+ 1) . (oeisIx @53824) . (subtract 1) . succ
+
+instance OEIS 187059 where
+  oeisIx = (oeisIx @7814) . pred . (oeisIx @1142)
+
+instance OEIS 193169 where
+  oeisIx = genericLength . filter odd . (rowT @27750) . (oeisIx @2322)
+
+instance OEIS 195106 where
+  oeis = filter (\x -> (oeisIx @6530.pred) x - (oeisIx @20639.pred) x == 4) [1,3..]
+
+instance OEIS 195758 where
+  oeisIx = (oeisIx @20639.pred) . (oeisIx @16105)
+
+instance OEIS 195759 where
+  oeisIx = (oeisIx @6530) . pred . (oeisIx @16105)
+
+instance OEIS 206941 where
+  oeisIx = (oeisIx @10) . pred . (oeisIx @2322)
+
+instance OEIS 217863 where
+  oeisIx = (oeisIx @10) . pred . (oeisIx @3418) . succ
+
+instance OEIS 224363 where
+  oeisIx = (oeisIx @40) . pred . (oeisIx @221056)
+
+instance OEIS 239585 where
+  oeisIx = (oeisIx @20639.pred) . (oeisIx @78972)
+
+instance OEIS 247451 where
+  oeis = map (oeisIx @7947.pred) (oeis @25487)
+
+instance OEIS 249343 where
+  oeisIx = (oeisIx @7949) . pred . (oeisIx @1142)
+
+instance OEIS 249346 where
+  oeisIx = (oeisIx @122841) . pred . (oeisIx @1142)
+
+instance OEIS 251619 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @251618)
+
+instance OEIS 256417 where
+  oeisIx = (oeisIx @256415) . pred . (oeisIx @64413)
+
+instance OEIS 256419 where
+  oeisIx = (oeisIx @256415) . pred . (oeisIx @121217)
+
+instance OEIS 256542 where
+  oeisIx = (oeisIx @5) . pred . (oeisIx @166133)
+
+instance OEIS 256564 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @166133)
+
+instance OEIS 256578 where
+  oeisIx = (oeisIx @32742) . pred . (oeisIx @166133)
+
+instance OEIS 256607 where
+  oeisIx = (oeisIx @7733) . pred . (oeisIx @7733)
+
+instance OEIS 257572 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @257278)
+
+instance OEIS 257573 where
+  oeisIx = (oeisIx @1222.pred) . (oeisIx @257278)
+
+instance OEIS 257999 where
+  oeis = filter (odd . flip mod 2 . (oeisIx @1222.pred)) (oeis @3586)
+
+instance OEIS 258091 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @258073)
+
+instance OEIS 258567 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @1694)
+
+instance OEIS 258568 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @36966)
+
+instance OEIS 258569 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @36967)
+
+instance OEIS 258570 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @69492)
+
+instance OEIS 258571 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @69493)
+
+
+instance OEIS 263922 where
+  oeisIx = (oeisIx @51903) . pred . (oeisIx @984) . succ
+
+instance OEIS 10120 where
+  oeisIx = (oeisIx @70167) . pred . (oeisIx @79)
+
+instance OEIS 10554 where
+  oeisIx = (oeisIx @10) . pred . (oeisIx @10)
+
+instance OEIS 34404 where
+  oeisIx = (oeisIx @292) . (oeisIx @2311)
+
+instance OEIS 34684 where
+  oeisIx = minimum . (rowT @141809) . succ
+
+instance OEIS 36667 where
+  oeis = filter (even . flip mod 2 . (oeisIx @1222.pred)) (oeis @3586)
+
+instance OEIS 36763 where
+  oeis = map succ $ elemIndices 0 $ oeis @51521
+
+instance OEIS 38575 where
+  oeisIx n = if n == 0 then 0 else (oeisIx @1222.pred) $ (oeisIx @45) n
+
+instance OEIS 46316 where
+  oeis = filter ((== 3) . (oeisIx @1222.pred)) [1, 3 ..]
+
+instance OEIS 51278 where
+  oeis = map succ $ elemIndices 1 $ oeis @51521
+
+instance OEIS 51279 where
+  oeis = map succ $ elemIndices 2 $ oeis @51521
+
+instance OEIS 51521 where
+  oeisIx (succ->n) = genericLength [k | k <- [1..4*n^2],
+                          let d = (oeisIx @5.pred) k, divMod k d == (n,0)]
+
+instance OEIS 56606 where
+  oeisIx = (oeisIx @7947.pred) . (oeisIx @1142) . succ
+
+instance OEIS 63639 where
+  oeis = [p | p <- (oeis @40), (oeisIx @1222.pred) (p+1) == 3]
+
+instance OEIS 64549 where
+  oeisIx (succ->n) = (oeisIx @7947.pred) n * n
+
+instance OEIS 64800 where
+  oeisIx (succ->n) = (oeisIx @1222.pred) n + n
+
+instance OEIS 65642 where
+  oeisIx 0 = 1
+  oeisIx (succ->n) = head [x | let rad = (oeisIx @7947.pred) n, x <- [n+1..], (oeisIx @7947.pred) x == rad]
+
+instance OEIS 66197 where
+  oeisIx n = (oeisIx @7947.pred) $ (oeisIx @33286) n * (oeisIx @14688) n
+
+instance OEIS 68936 where
+  oeis = [x | x <- [1..], (oeisIx @8472.pred) x <= (oeisIx @1222.pred) x]
+
+instance OEIS 69352 where
+  oeisIx = (oeisIx @1222.pred) . (oeisIx @3586)
+
+instance OEIS 73353 where
+  oeisIx (succ->n) = n + (oeisIx @7947.pred) n
+
+instance OEIS 76403 where
+  oeisIx = (oeisIx @7947.pred) . (oeisIx @25478)
+
+instance OEIS 77066 where
+  oeisIx = (oeisIx @7947.pred) . (oeisIx @8864)
+
+instance OEIS 78175 where
+  oeis = filter (\x -> (oeisIx @1414 $ pred x) `mod` (oeisIx @1222 $ pred x) == 0) [2..]
+
+instance OEIS 78311 where
+  oeisIx = (oeisIx @20639.pred) . (oeisIx @78310)
+
+instance OEIS 78312 where
+  oeisIx = (oeisIx @6530.pred) . (oeisIx @78310)
+
+instance OEIS 78314 where
+  oeisIx = (oeisIx @1222.pred) . (oeisIx @78310)
+
+instance OEIS 78315 where
+  oeisIx = (oeisIx @51904.pred) . (oeisIx @78310)
+
+instance OEIS 78316 where
+  oeisIx = (oeisIx @51903.pred) . (oeisIx @78310)
+
+instance OEIS 78317 where
+  oeisIx = (oeisIx @5.pred) . (oeisIx @78310)
+
+instance OEIS 78318 where
+  oeisIx = (oeisIx @203.pred) . (oeisIx @78310)
+
+instance OEIS 78319 where
+  oeisIx = (oeisIx @8472.pred) . (oeisIx @78310)
+
+instance OEIS 78320 where
+  oeisIx = (oeisIx @1414.pred) . (oeisIx @78310)
+
+instance OEIS 78321 where
+  oeisIx = (oeisIx @10.pred) . (oeisIx @78310)
+
+instance OEIS 78322 where
+  oeisIx = (oeisIx @7947.pred) . (oeisIx @78310)
+
+instance OEIS 78613 where
+  oeis = map succ $ elemIndices 0 $ oeis @5094
+
+instance OEIS 78637 where
+  oeisIx (succ->n) = (oeisIx @7947.pred) $ product [n..n+2]
+
+instance OEIS 78715 where
+  oeis = filter ((== 1) . (oeisIx @136522) . (oeisIx @61493.pred)) [1..3999]
+
+instance OEIS 78972 where
+  oeis = filter brilliant (oeis @1358) where
+     brilliant x = (on (==) (oeisIx @55642)) p (x `div` p)
+       where p = (oeisIx @20639.pred) x
+
+instance OEIS 79083 where
+  oeisIx = (oeisIx @78701.pred) . (oeisIx @79079)
+
+instance OEIS 79084 where
+  oeisIx = (oeisIx @6530.pred) . (oeisIx @79079)
+
+instance OEIS 79086 where
+  oeisIx = (oeisIx @1222.pred) . (oeisIx @79079)
+
+instance OEIS 79087 where
+  oeisIx = (oeisIx @51903.pred) . (oeisIx @79079)
+
+instance OEIS 79088 where
+  oeisIx = (oeisIx @5.pred) . (oeisIx @79079)
+
+instance OEIS 79089 where
+  oeisIx = (oeisIx @203.pred) . (oeisIx @79079)
+
+instance OEIS 79090 where
+  oeisIx = (oeisIx @8472.pred) . (oeisIx @79079)
+
+instance OEIS 79091 where
+  oeisIx = (oeisIx @1414.pred) . (oeisIx @79079)
+
+instance OEIS 79092 where
+  oeisIx = (oeisIx @10.pred) . (oeisIx @79079)
+
+instance OEIS 79093 where
+  oeisIx = (oeisIx @7947.pred) . (oeisIx @79079)
+
+instance OEIS 79095 where
+  oeis = filter ((== 1) . (oeisIx @8966.pred)) (oeis @79079)
+
+instance OEIS 79124 where
+  oeisIx n = p [1 .. (oeisIx @10.pred) n] n where
+     p _      0 = 1
+     p []     _ = 0
+     p (k:ks) m = if m < k then 0 else p ks (m - k) + p ks m
+
+instance OEIS 79228 where
+  oeisIx (succ->n) = head [k | k <- [n+1..], (oeisIx @7947.pred) k > (oeisIx @7947.pred) n]
+
+instance OEIS 79890 where
+  oeisIx (succ->n) = head [x | x <- [n + 1 ..], (oeisIx @1222.pred) x == 1 + (oeisIx @1222.pred) n]
+
+instance OEIS 80672 where
+  oeis = filter ((<= 7) . (oeisIx @20639).pred) [2..]
+
+instance OEIS 80736 where
+  oeisIx (succ->n) = if n `mod` 4 == 2 then 0 else (oeisIx @10.pred) n
+
+instance OEIS 80941 where
+  oeisIx 0 = 0
+  oeisIx (succ->n) = if null ds then 0 else head ds  where
+              ds = filter ((flip isPrefixOf `on` (rowT @30308)) n) $
+                          reverse $ (rowT @27751) n
+
+instance OEIS 80943 where
+  oeis = map succ $ elemIndices 2 $ oeis @80942
+
+instance OEIS 80945 where
+  oeis = filter ((> 2) . (oeisIx @80942).pred) [1..]
+
+instance OEIS 80946 where
+  oeis = map succ $ elemIndices 3 $ oeis @80942
+
+instance OEIS 80947 where
+  oeis = filter ((> 3) . (oeisIx @80942).pred) [1..]
+
+instance OEIS 81146 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @81145)).succ
+
+instance OEIS 81828 where
+  oeis = map (+ 1) $ elemIndices 0 (oeis @81827)
+
+instance OEIS 81829 where
+  oeis = map (+ 1) $ findIndices (< 0) (oeis @81827)
+
+instance OEIS 81830 where
+  oeis = map (+ 1) $ findIndices (> 0) (oeis @81827)
+
+instance OEIS 84115 where
+  oeisIx n = (oeisIx @84113) n - (oeisIx @84114) n
+
+instance OEIS 95960 where
+  oeisIx (succ->n) = genericLength [x | x <- (rowT @27750) n, x < (oeisIx @7947.pred) n]
+
+instance OEIS 121369 where
+  oeis = 1 : 1 : zipWith ((+) `on` (oeisIx @7947.pred))
+                         (oeis @121369) (tail (oeis @121369))
+
+instance OEIS 146288 where
+  oeisIx = (oeisIx @5) . pred . (oeisIx @25487)
+
+instance OEIS 151764 where
+  oeisIx = (oeisIx @71786) . pred . (oeisIx @71786)
+
+instance OEIS 151765 where
+  oeisIx = (oeisIx @71786) . pred . (oeisIx @4086) . succ
+
+instance OEIS 157728 where
+  oeisIx = subtract 4 . (oeisIx @45) . (+5)
+
+instance OEIS 160180 where
+  oeisIx = (oeisIx @32742) . pred . (oeisIx @2808)
+
+instance OEIS 163753 where
+  oeis = filter ((> 0) . (oeisIx @39997.pred)) [0..]
+
+instance OEIS 164283 where
+  oeisIx (succ->n) = f [1..] 1 nn 0 where
+     f (k:ks) l nl xx
+       | yy > nl  = 0
+       | yy < nl  = f ks (l + 1) (nl + nn) yy + f ks l nl xx
+       | otherwise = if w == n then 1 else 0
+       where w = if r == 0 then (oeisIx @196) m else 0
+             (m, r) = divMod yy l
+             yy = xx + k * k
+     nn = n ^ 2
+
+instance OEIS 169611 where
+  oeisIx = (oeisIx @1222.pred) . (oeisIx @65331)
+
+instance OEIS 198384 where
+  oeis = map (^ 2) (oeis @198388)
+
+instance OEIS 198387 where
+  oeis = zipWith (-) (oeis @198385) (oeis @198384)
+
+instance OEIS 198409 where
+  oeis = map (+ 1) $ elemIndices 1 $ map (oeisIx @8966.pred) $
+     zipWith gcd (oeis @198384) $ zipWith gcd (oeis @198385) (oeis @198386)
+
+instance OEIS 198435 where
+  oeis = map (oeisIx @198384.pred) (oeis @198409)
+
+instance OEIS 198436 where
+  oeis = map (oeisIx @198385.pred) (oeis @198409)
+
+instance OEIS 198437 where
+  oeis = map (oeisIx @198386.pred) (oeis @198409)
+
+instance OEIS 198438 where
+  oeis = map (oeisIx @198387.pred) (oeis @198409)
+
+instance OEIS 198439 where
+  oeis = map (oeisIx @198388.pred) (oeis @198409)
+
+instance OEIS 198440 where
+  oeis = map (oeisIx @198389.pred) (oeis @198409)
+
+instance OEIS 198441 where
+  oeis = map (oeisIx @198390.pred) (oeis @198409)
+
+instance OEIS 199581 where
+  oeisIx n = (rowCol @199333) (2*n) n
+
+instance OEIS 199694 where
+  oeisIx = sum . rowT @199333
+
+instance OEIS 199695 where
+  oeisIx = product . (rowT @199333)
+
+instance OEIS 200087 where
+  oeisIx (succ->n) = (fromJust $ elemIndex n (oeis @79878)) + 1
+
+instance OEIS 202014 where
+  oeisIx (succ->n) = succ (fromJust $ elemIndex n (oeis @63882))
+
+instance OEIS 202016 where
+  oeis = map (+ 1) $ elemIndices 1 (oeis @132157)
+
+instance OEIS 205666 where
+  oeis = [x | x <- [1..], (oeisIx @65306.pred) x == x]
+
+instance OEIS 207852 where
+  oeisIx n = (fromJust $ elemIndex n (oeis @178830)) + 1
+
+instance OEIS 208083 where
+  oeisIx 0 = 0
+  oeisIx n = sum . map (oeisIx @10051 . pred) . (rowT @81118) $ n
+
+instance OEIS 208091 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @208083))
+
+instance OEIS 208570 where
+  oeisIx (succ->n) = lcm n $ (oeisIx @7978.pred) n
+
+instance OEIS 208852 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @90895)) . succ
+
+instance OEIS 210771 where
+  oeisIx (succ->n) = fromJust (elemIndex n (oeis @210770)) + 1
+
+instance OEIS 213913 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @213912)) . succ
+
+instance OEIS 214320 where
+  oeis = 1 : 1 : 1 : (map (oeisIx @6530.pred) $
+     zipWith (+) (oeis @214320) (drop 2 $ (oeis @214320)))
+
+instance OEIS 214511 where
+  oeisIx = fromJust . (`elemIndex` (oeis @45698)) . succ
+
+instance OEIS 218454 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @176352)) . succ
+
+instance OEIS 222208 where
+  oeis = 1 : 3 : f 3 (2 : [4 ..]) where
+     f u vs = g vs where
+       g (w:ws) = if all (== 0) $ map ((mod w) . (oeisIx @222208.pred)) $ (rowT @27751) u
+                     then w : f (u + 1) (delete w vs) else g ws
+
+instance OEIS 222209 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @222208)) . succ
+
+instance OEIS 222622 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @113966)) . succ
+
+instance OEIS 94379 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @66955))
+
+instance OEIS 96268 where
+  oeisIx = (subtract 1) . (oeisIx @56832)
+
+instance OEIS 96363 where
+  oeisIx = (oeisIx @1175) . pred . (10 ^) . succ
+
+instance OEIS 96460 where
+  oeis = 1 : iterate (\x -> x + (oeisIx @8472.pred) x) 2
+
+instance OEIS 96461 where
+  oeis = 1 : iterate (oeisIx @75254.pred) 2
+
+instance OEIS 96780 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @75383)) . succ
+
+instance OEIS 96916 where
+  oeisIx = (oeisIx @20639) . pred . (oeisIx @6881)
+
+instance OEIS 97974 where
+  oeisIx 0 = 0
+  oeisIx (succ->n) = sum [p | p <- (rowT @27748) n, p ^ 2 <= n]
+
+instance OEIS 98312 where
+  oeisIx = (oeisIx @98311) . pred . (oeisIx @98311)
+
+instance OEIS 98313 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @98311)) . succ
+
+instance OEIS 98314 where
+  oeisIx = (oeisIx @98313.pred) . (oeisIx @98313)
+
+instance OEIS 98549 where
+  oeisIx = (oeisIx @98548.pred) . (oeisIx @98548)
+
+instance OEIS 98553 where
+  oeisIx = (oeisIx @98551.pred) . (oeisIx @98551)
+
+instance OEIS 100678 where
+  oeisIx = genericLength . (rowT @247765) . succ
+
+instance OEIS 100695 where
+  oeisIx = last . (rowT @247765) . succ
+
+instance OEIS 101438 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @101369)) . succ
+
+
+instance OEIS 177904 where
+  oeis = 1 : 1 : 1 : (map (oeisIx @6530.pred) $ zipWith (+)
+     (oeis @177904) (tail $ zipWith (+) (oeis @177904) $ tail (oeis @177904)))
+
+instance OEIS 182061 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @61373)) . succ
+
+instance OEIS 182850 where
+  oeisIx
+    = genericLength
+    . takeWhile (`notElem` [1,2])
+    . iterate (oeisIx @181819.pred)
+    . succ
+
+instance OEIS 185038 where
+  oeis = map (+ 1) $ elemIndices 1 (oeis @90895)
+
+instance OEIS 186253 where
+  oeis = map succ $ elemIndices 0 $ oeis @261301
+
+instance OEIS 189419 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @114183)).succ
+
+instance OEIS 208981 where
+  oeisIx = genericLength . takeWhile ((== 0) . (oeisIx @209229)) . (rowT @70165).succ
+
+instance OEIS 213911 where
+  oeisIx 0 = 0
+  oeisIx n = genericLength . filter ((== 0) . head) . group $ (rowT @213676) n
+
+instance OEIS 224401 where
+  oeisIx = (+ 1) . fromJust . (`findIndex` (tabf @85612)) . elem.succ
+
+instance OEIS 225047 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @121216)).succ
+
+instance OEIS 225124 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @25586)) . (oeisIx @79)
+
+instance OEIS 247503 where
+  oeisIx = product . filter (odd . (oeisIx @49084.pred)) . (rowT @27746) . succ
+
+instance OEIS 248101 where
+  oeisIx = product . filter (even . (oeisIx @49084.pred)) . (rowT @27746) . succ
+
+instance OEIS 249680 where
+  oeisIx = (oeisIx @84937) . pred . (+ 1) . (* 3)
+
+instance OEIS 249681 where
+  oeisIx = (oeisIx @84937) . pred . (+ 2) . (* 3)
+
+instance OEIS 249682 where
+  oeisIx = (oeisIx @84937) . pred . (* 3) . succ
+
+instance OEIS 249683 where
+  oeisIx = flip div 2 . (oeisIx @249681)
+
+instance OEIS 251547 where
+  oeisIx = flip div 2 . (oeisIx @251546)
+
+instance OEIS 251550 where
+  oeisIx = flip div 2 . subtract 1 . (oeisIx @251549)
+
+instance OEIS 251551 where
+  oeisIx n = (oeisIx @251546) n - (oeisIx @251549) n
+
+instance OEIS 251552 where
+  oeisIx = flip div 2 . subtract 1 . (oeisIx @251551)
+
+instance OEIS 252002 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @252001)).succ
+
+instance OEIS 252023 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @252022)).succ
+
+instance OEIS 252448 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @249990)).succ
+
+instance OEIS 253169 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @256188)).succ
+
+instance OEIS 254650 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @254649)).succ
+
+instance OEIS 255479 where
+  oeisIx = (+ 1) . fromJust. (`elemIndex` (oeis @255582)).succ
+
+instance OEIS 255646 where
+  oeisIx = flip mod 10 . (oeisIx @46316)
+
+instance OEIS 255833 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @166133)).succ
+
+instance OEIS 255940 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @249167)).succ
+
+instance OEIS 255972 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @251604)).succ
+
+instance OEIS 256618 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @121217)).succ
+
+instance OEIS 256628 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @251622)).succ
+
+instance OEIS 256757 where
+  oeisIx (succ->n) = fst $ until ((== 1) . snd)
+              (\ (i, x) -> (i + 1, fi $ (oeisIx @7733.pred) x)) (0, n)
+
+instance OEIS 256758 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex`  (oeis @256757))
+
+instance OEIS 257465 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @175498)).succ
+
+instance OEIS 257815 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @64364)).succ
+
+instance OEIS 258063 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @258062)).succ
+
+instance OEIS 258354 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @212306)).succ
+
+instance OEIS 258599 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @258567)) . (oeisIx @40)
+
+instance OEIS 258600 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @258568)) . (oeisIx @40)
+
+instance OEIS 258601 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @258569)) . (oeisIx @40)
+
+instance OEIS 258602 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @258570)) . (oeisIx @40)
+
+instance OEIS 258603 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @258571)) . (oeisIx @40)
+
+instance OEIS 258767 where
+  oeis = 1 : f 1 [2..] where
+     f x zs = g zs where
+       g (y:ys) | (oeisIx @8966.pred) (x^2 + y^2) == 1 = g ys
+                | otherwise = y : f y (delete y zs)
+
+instance OEIS 258827 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @258767)).succ
+
+
+instance OEIS 261333 where
+  oeis = zipWith (+) (map ((* 10) . subtract 1) (oeis @256100)) $ tail (oeis @7376)
+
+instance OEIS 261334 where
+  oeisIx = fromJust . (`elemIndex` (oeis @261333))
+
+
+
+instance OEIS 262095 where
+  oeisIx = sum . map ((1 -) . (oeisIx @64911).pred) . (rowT @27750) . succ
+
+instance OEIS 262429 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @262411)).succ
+
+
+
+instance OEIS 262461 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @262460)).succ
+
+
+instance OEIS 262663 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @75348)).succ
+
+instance OEIS 2964 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (map (oeisIx @2963 . pred) [1..3888])).succ
+
+instance OEIS 31359 where
+  oeisIx 0 = 1
+  oeisIx n = (oeisIx @1615) $ (* 2) n
+
+instance OEIS 32358 where
+  oeisIx = genericLength . takeWhile (/= 2) . (iterate (oeisIx @10.pred)) . (+2)
+
+instance OEIS 32447 where
+  oeis = f [1..] (oeis @2110) [] where
+     f xs'@ (x:xs) ps'@ (p:ps) us
+       | x < p = f xs ps' $ O.insertBag (oeisIx @10 $ pred x, x) us
+       | otherwise = map snd vs ++ f xs' ps ws
+       where (vs, ws) = span ((<= (oeisIx @10.pred) x) . fst) us
+
+instance OEIS 48691 where
+  oeisIx = product . map (oeisIx @5408 . fi) . (rowT @124010).succ
+
+instance OEIS 49076 where
+  oeisIx = (+ 1) . (oeisIx @78442)
+
+instance OEIS 49599 where
+  oeisIx 0 = 1
+  oeisIx n = product . map ((+ 1) . (oeisIx @5) . pred) . (rowT @124010) $ succ n
+
+instance OEIS 50360 where
+  oeisIx = (oeisIx @688.pred) . (oeisIx @25487)
+
+instance OEIS 50361 where
+  oeisIx = product . map (oeisIx @9) . (rowT @124010).succ
+
+instance OEIS 50382 where
+  oeisIx n = (oeisIx @8480.pred) . (oeisIx @25487) $ n
+
+instance OEIS 51282 where
+  oeisIx = (oeisIx @7814.pred) . (oeisIx @25487)
+
+instance OEIS 55396 where
+  oeisIx = (oeisIx @49084.pred) . (oeisIx @20639)
+
+instance OEIS 55768 where
+  oeisIx = (oeisIx @1221.pred) . (oeisIx @5867).succ
+
+instance OEIS 55769 where
+  oeisIx = (oeisIx @6530.pred) . (oeisIx @5867).succ
+
+instance OEIS 56240 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @1414)) . succ.succ
+
+instance OEIS 56608 where
+  oeisIx = (oeisIx @20639.pred) . (oeisIx @2808)
+
+instance OEIS 57226 where
+  oeisIx = (oeisIx @43537.pred) . (oeisIx @61493)
+
+instance OEIS 58197 where
+  oeisIx (succ->n) = (+ 1) $ fromJust $ findIndex (n <=) (oeis @51950)
+
+instance OEIS 58198 where
+  oeisIx = (+ 1) . (oeisIx @58197)
+
+instance OEIS 61394 where
+  oeisIx = fromJust . (`elemIndex` (oeis @2110)) . (oeisIx @247451)
+
+instance OEIS 62402 where
+  oeisIx = (oeisIx @203).pred . (oeisIx @10)
+
+instance OEIS 63453 where
+  oeisIx 0 = 1
+  oeisIx n = product . map ((1 -) . (^ 3)) . (rowT @27748) $ succ n
+
+instance OEIS 64275 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @32447)).succ
+
+instance OEIS 65037 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @36552)).succ
+
+instance OEIS 65330 where
+  oeisIx = (oeisIx @38502).pred . (oeisIx @265)
+
+instance OEIS 68101 where
+  oeisIx = sum . map (oeisIx @8683.pred) . (rowT @161906) . succ
+
+instance OEIS 70647 where
+  oeisIx = (oeisIx @6530).pred . (oeisIx @6881)
+
+instance OEIS 71188 where
+  oeisIx = (oeisIx @6530).pred . (oeisIx @5)
+
+instance OEIS 71681 where
+  oeisIx (succ->n) = sum $ map (oeisIx @10051.pred) $
+     takeWhile (> 0) $ map (2 * (oeisIx @40.pred) n -) $ drop n (oeis @40)
+
+instance OEIS 71889 where
+  oeisIx n = gcd (succ n) $ (oeisIx @71888) n
+
+instance OEIS 71890 where
+  oeisIx (succ->n) = (oeisIx @71888.pred) n - n
+
+instance OEIS 71891 where
+  oeisIx n = (oeisIx @71890) n `div` (oeisIx @71889) n
+
+instance OEIS 71893 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @71891)).succ
+
+instance OEIS 72085 where
+  oeisIx = (oeisIx @72084).pred . (oeisIx @72084)
+
+instance OEIS 73311 where
+  oeisIx = sum . map (oeisIx @8966.pred) . (rowT @38566) . succ
+
+instance OEIS 73481 where
+  oeisIx = (oeisIx @20639.pred) . (oeisIx @5117)
+
+instance OEIS 73482 where
+  oeisIx = (oeisIx @6530.pred) . (oeisIx @5117)
+
+instance OEIS 76396 where
+  oeisIx = (oeisIx @20639.pred) . (oeisIx @25478)
+
+instance OEIS 76397 where
+  oeisIx = (oeisIx @6530.pred) . (oeisIx @25478)
+
+instance OEIS 76566 where
+  oeisIx = (oeisIx @6530.pred) . (* 3) . (+ 1) . succ
+
+instance OEIS 78442 where
+  oeisIx n = fst $ until ((== 0) . snd)
+                (\ (i, p) -> (i + 1, (oeisIx @49084.pred) p)) (-2, (oeisIx @40) n)
+
+instance OEIS 84126 where
+  oeisIx = (oeisIx @20639).pred . (oeisIx @1358)
+
+instance OEIS 84127 where
+  oeisIx = (oeisIx @6530).pred . (oeisIx @1358)
+
+instance OEIS 85392 where
+  oeisIx = (oeisIx @6530.pred) . (oeisIx @32742)
+
+instance OEIS 85423 where
+  oeisIx = (oeisIx @523.pred) . (oeisIx @8585) . succ
+
+instance OEIS 86005 where
+  oeis = filter
+     (\x -> (oeisIx @64911.pred) (x - 1) == 1 && (oeisIx @64911.pred) (x + 1) == 1) (oeis @100484)
+
+instance OEIS 86006 where
+  oeisIx = flip div 2 . (oeisIx @86005)
+
+instance OEIS 86971 where
+  oeisIx = sum . map (oeisIx @64911 . pred) . (rowT @27750) . succ
+
+instance OEIS 87713 where
+  oeisIx = (oeisIx @6530) . pred . (oeisIx @84920)
+
+instance OEIS 91050 where
+  oeisIx = sum . map (oeisIx @75802.pred) . (rowT @27750) . succ
+
+instance OEIS 99543 where
+  oeisIx = (oeisIx @1414).pred . (oeisIx @99542)
+
+instance OEIS 102478 where
+  oeisIx = flip div 2 . (oeisIx @68700)
+
+instance OEIS 104324 where
+  oeisIx 0 = 0
+  oeisIx n = genericLength . map length . group $ (rowT @213676) n
+
+instance OEIS 106799 where
+  oeisIx = (oeisIx @1222.pred) . (oeisIx @65330)
+
+instance OEIS 112990 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @89088)).succ
+
+instance OEIS 116619 where
+  oeisIx = (+ 1) . (oeisIx @71681)
+
+instance OEIS 117922 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @55265)).succ
+
+instance OEIS 119354 where
+  oeisIx = fromJust . (`elemIndex` (oeis @119352)) . (+2)
+
+instance OEIS 120005 where
+  oeisIx = fromJust . (`elemIndex` (oeis @120004)).succ
+
+instance OEIS 120511 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (tail (oeis @6949))).succ
+
+instance OEIS 122535 where
+  oeisIx = (oeisIx @40).pred . (oeisIx @64113)
+
+instance OEIS 132090 where
+  oeisIx 0 = 0
+  oeisIx n = (oeisIx @720).pred $ (oeisIx @720) n
+
+instance OEIS 139555 where
+  oeisIx = sum . map (oeisIx @10055.pred) . (rowT @38566) . succ
+
+instance OEIS 141258 where
+  oeisIx = sum . map (oeisIx @2322.pred) . (rowT @27750) . succ
+
+instance OEIS 143691 where
+  oeis = f 1 [1..] where
+     f m xs = g xs where
+       g (z:zs) = if m + m' /= 1 then g zs else z : f m' (delete z xs)
+                  where m' = (oeisIx @1222.pred) z `mod` 2
+
+instance OEIS 143692 where
+  oeisIx = (+ 1) . fromJust . (`elemIndex` (oeis @143691)).succ
+

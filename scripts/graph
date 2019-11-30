@@ -1,10 +1,8 @@
 #!/bin/bash
 
 
-cat src/OEIS/Part1.hs  \
-    src/OEIS/Part2.hs  \
-    src/OEIS/Prime.hs  \
-    src/OEIS/Simple.hs \
+cat \
+  src/OEIS/Prime.hs  \
   | sed '
       s/^.*instance.* \([0-9]\+\) .*$/"\1:/
       /^"/!{
@@ -40,7 +38,6 @@ cat src/OEIS/Part1.hs  \
       | map_values (length)
       | to_entries
       | sort_by (-.value)
-      | .[:10]
       | from_entries
     '
 

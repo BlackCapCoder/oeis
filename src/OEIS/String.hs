@@ -11,26 +11,26 @@ module OEIS.String where
 --                             `isInfixOf` showIntAtBase 2 ("01" !!) n "") $
 --                    reverse $ (rowT @27748) n
 
-instance OEIS 249591 where
-  oeis = 1 : f 1 [2..] where
-     f x zs = g zs where
-       g (y:ys) = if null $ show y `intersect` show (x - 1)
-                     then g ys else y : f y (delete y zs)
+-- instance OEIS 249591 where
+--   oeis = 1 : f 1 [2..] where
+--      f x zs = g zs where
+--        g (y:ys) = if null $ show y `intersect` show (x - 1)
+--                      then g ys else y : f y (delete y zs)
 
-instance OEIS 262530 where
-  oeis = filter f [1..] where
-     f = g d10' . show where
-       g _ [] = True
-       g ts (d:ds) = elem d ts && g (delete d ts) ds
-     d10' = d10 ++ d10; d10 = "0123456789"
+-- instance OEIS 262530 where
+--   oeis = filter f [1..] where
+--      f = g d10' . show where
+--        g _ [] = True
+--        g ts (d:ds) = elem d ts && g (delete d ts) ds
+--      d10' = d10 ++ d10; d10 = "0123456789"
 
-instance OEIS 309415 where
-  oeisIx n = genericLength $ nub $ permutations $ show $ fact n
-    map (oeisIx @309415) [0..]
+-- instance OEIS 309415 where
+--   oeisIx n = genericLength $ nub $ permutations $ show $ fact n
+--     map (oeisIx @309415) [0..]
 
-instance OEIS 190016 where
-  oeisIx n = (oeis @190016) !! (n - 1)
-  oeis = sortBy (comparing show) [1..10000]
+-- instance OEIS 190016 where
+--   oeisIx n = (oeis @190016) !! (n - 1)
+--   oeis = sortBy (comparing show) [1..10000]
 
 -- instance OEIS 190132 where
 --   import Numeric (showIntAtBase)
@@ -43,87 +43,87 @@ instance OEIS 190016 where
 --   oeisIx n = (oeis @190134) !! (n - 1)
 --   oeis = sortBy (comparing (flip showHex "")) [1..10000]
 
-instance OEIS 796 where
-  oeisIx len = map (fi . digitToInt) $ show . fi $ machin' `div` (10 ^ 10) where
-     machin' = 4 * (4 * arccot 5 unity - arccot 239 unity)
-     unity = 10 ^ (len + 10)
-     arccot x unity = arccot' x unity 0 (unity `div` x) 1 1 where
-       arccot' x unity summa xpow n sign
-        | term == 0 = summa
-        | otherwise = arccot'
-          x unity (summa + sign * term) (xpow `div` x ^ 2) (n + 2) (- sign)
-        where term = xpow `div` n
+-- instance OEIS 796 where
+--   oeisIx len = map (fi . digitToInt) $ show . fi $ machin' `div` (10 ^ 10) where
+--      machin' = 4 * (4 * arccot 5 unity - arccot 239 unity)
+--      unity = 10 ^ (len + 10)
+--      arccot x unity = arccot' x unity 0 (unity `div` x) 1 1 where
+--        arccot' x unity summa xpow n sign
+--         | term == 0 = summa
+--         | otherwise = arccot'
+--           x unity (summa + sign * term) (xpow `div` x ^ 2) (n + 2) (- sign)
+--         where term = xpow `div` n
 
-instance OEIS 7629 where
-  oeis = filter isKeith [10..] where
-     isKeith n = repfigit $ reverse $ map digitToInt $ show n where
-        repfigit ns = s == n || s < n && (repfigit $ s : init ns) where
-           s = sum ns
+-- instance OEIS 7629 where
+--   oeis = filter isKeith [10..] where
+--      isKeith n = repfigit $ reverse $ map digitToInt $ show n where
+--         repfigit ns = s == n || s < n && (repfigit $ s : init ns) where
+--            s = sum ns
 
-instance OEIS 38769 where
-  oeisIx n = genericLength $ filter (== 0)
-              $ map ((mod n) . digitToInt) $ filter (> '0') $ show n
+-- instance OEIS 38769 where
+--   oeisIx n = genericLength $ filter (== 0)
+--               $ map ((mod n) . digitToInt) $ filter (> '0') $ show n
 
-instance OEIS 38772 where
-  oeis = filter p [1..] where
-     p n = all (> 0) $ map ((mod n) . digitToInt) $ filter (> '0') $ show n
+-- instance OEIS 38772 where
+--   oeis = filter p [1..] where
+--      p n = all (> 0) $ map ((mod n) . digitToInt) $ filter (> '0') $ show n
 
-instance OEIS 45537 where
-  oeisIx n = 2 + length
-     (takeWhile (not . ((show n) `isInfixOf`) . show) $ iterate (* n) (n^2))
+-- instance OEIS 45537 where
+--   oeisIx n = 2 + length
+--      (takeWhile (not . ((show n) `isInfixOf`) . show) $ iterate (* n) (n^2))
 
-instance OEIS 51248 where
-  oeisIx n = 2 + length
-     (takeWhile (not . (show n `isPrefixOf`) . show) $ iterate (* n) (n^2))
+-- instance OEIS 51248 where
+--   oeisIx n = 2 + length
+--      (takeWhile (not . (show n `isPrefixOf`) . show) $ iterate (* n) (n^2))
 
-instance OEIS 52191 where
-  oeisIx n = head $
-     filter ((> 1) . minimum . map length . group . show) $ [0,n..]
+-- instance OEIS 52191 where
+--   oeisIx n = head $
+--      filter ((> 1) . minimum . map length . group . show) $ [0,n..]
 
-instance OEIS 52192 where
-  oeisIx n = fromJust $
-     findIndex ((> 1) . minimum . map length . group . show) $ [0,n..]
+-- instance OEIS 52192 where
+--   oeisIx n = fromJust $
+--      findIndex ((> 1) . minimum . map length . group . show) $ [0,n..]
 
 -- instance OEIS 59708 where
 --   oeis = filter sameParity [0..] where
 --      sameParity n = all (`elem` "02468") ns
 --                  || all (`elem` "13579") ns where ns = show n
 
-instance OEIS 67581 where
-  oeis = 1 : f 1 [2..] where
-     f u vs = v : f v (delete v vs)
-       where v : _ = filter (null . (intersect `on` show) u) vs
+-- instance OEIS 67581 where
+--   oeis = 1 : f 1 [2..] where
+--      f u vs = v : f v (delete v vs)
+--        where v : _ = filter (null . (intersect `on` show) u) vs
 
-instance OEIS 116700 where
-  oeis = filter early [1 ..] where
-     early z = not (reverse (show (z - 1)) `isPrefixOf` fst bird) where
-        bird = fromJust $ find ((show z `isPrefixOf`) . snd) xys
-     xys = iterate (\ (us, v : vs) -> (v : us, vs))
-                   ([], concatMap show [0 ..])
+-- instance OEIS 116700 where
+--   oeis = filter early [1 ..] where
+--      early z = not (reverse (show (z - 1)) `isPrefixOf` fst bird) where
+--         bird = fromJust $ find ((show z `isPrefixOf`) . snd) xys
+--      xys = iterate (\ (us, v : vs) -> (v : us, vs))
+--                    ([], concatMap show [0 ..])
 
-instance OEIS 121041 where
-  oeisIx n = genericLength $ filter (\d -> n `mod` d == 0
-                                     && show d `isInfixOf` show n) [1..n]
+-- instance OEIS 121041 where
+--   oeisIx n = genericLength $ filter (\d -> n `mod` d == 0
+--                                      && show d `isInfixOf` show n) [1..n]
 
 -- instance OEIS 125887 where
 --   oeis = 1 : f '1' (filter ((> 0) . (`mod` 10)) [11..]) where
 --      f d zs = y : f (last $ show y) (xs ++ ys) where
 --          (xs, y:ys) = span ((/= d) . head . show) zs
 
-instance OEIS 129845 where
-  oeis =
-     filter (\x -> not $ null (show (2*x) `intersect` show x)) [1..]
+-- instance OEIS 129845 where
+--   oeis =
+--      filter (\x -> not $ null (show (2*x) `intersect` show x)) [1..]
 
-instance OEIS 184992 where
-  oeis = 1 : f 1 [2..] where
-     f u vs = v : f v (delete v vs)
-       where v : _ = filter (not . null . (intersect `on` show) u) vs
+-- instance OEIS 184992 where
+--   oeis = 1 : f 1 [2..] where
+--      f u vs = v : f v (delete v vs)
+--        where v : _ = filter (not . null . (intersect `on` show) u) vs
 
-instance OEIS 185817 where
-  oeisIx n = pref101pow 0 1 where
-     pref101pow e pow101 = if isPrefixOf (show n) (show pow101)
-                              then e
-                              else pref101pow (e + 1) (101 * pow101)
+-- instance OEIS 185817 where
+--   oeisIx n = pref101pow 0 1 where
+--      pref101pow e pow101 = if isPrefixOf (show n) (show pow101)
+--                               then e
+--                               else pref101pow (e + 1) (101 * pow101)
 
 -- instance OEIS 190137 where
 --   oeisIx n = head [k | k <- [1..9],
@@ -150,11 +150,11 @@ instance OEIS 185817 where
 --   oeis = sort [w | u <- [0..9], v <- [0..9], let w = u ^ v,
 --      "0123456789" !! u `elem` show w, "0123456789" !! v `elem` show w]
 
-instance OEIS 228276 where
-  oeis = 1 : f 1 [2..] where
-     f x zs = g zs where
-       g (y:ys) = if null $ show (x + y) \\ (show x ++ show y)
-                     then y : f y (delete y zs) else g ys
+-- instance OEIS 228276 where
+--   oeis = 1 : f 1 [2..] where
+--      f x zs = g zs where
+--        g (y:ys) = if null $ show (x + y) \\ (show x ++ show y)
+--                      then y : f y (delete y zs) else g ys
 
 -- instance OEIS 229363 where
 --   oeis = f "" [0, 2 ..] where
@@ -166,11 +166,11 @@ instance OEIS 228276 where
 --      f xs (o:os) = if null $ intersect xs ys then o : f ys os else f xs os
 --                    where ys = show o
 
-instance OEIS 234932 where
-  oeis = 1 : f 1 [2..] where
-     f x zs = g zs where
-       g (y:ys) = if null $ show (x * y) \\ (show x ++ show y)
-                     then y : f y (delete y zs) else g ys
+-- instance OEIS 234932 where
+--   oeis = 1 : f 1 [2..] where
+--      f x zs = g zs where
+--        g (y:ys) = if null $ show (x * y) \\ (show x ++ show y)
+--                      then y : f y (delete y zs) else g ys
 
 -- instance OEIS 238880 where
 --   oeis = f [0..] where
@@ -868,54 +868,54 @@ instance OEIS 234932 where
 --                [vs | vs <- zss, isPrefixOf xs vs, S.notMember vs s]
 --      zss = map show [2..]
 
-instance OEIS 248131 where
-  oeis = 1 : (map (* 3) $
-                 concatMap (map (read . return) . show) (oeis @248131))
+-- instance OEIS 248131 where
+--   oeis = 1 : (map (* 3) $
+--                  concatMap (map (read . return) . show) (oeis @248131))
 
-instance OEIS 257770 where
-  oeis = tablList @257770
-instance Table 257770 where
-  rowT n = filter belge [0..9] where
-     belge k = n == (head $ dropWhile (< n) $
-                    scanl (+) k $ cycle $ (map (read . return) . show) n)
-  tabf = map (rowT @257770) [0..]
+-- instance OEIS 257770 where
+--   oeis = tablList @257770
+-- instance Table 257770 where
+--   rowT n = filter belge [0..9] where
+--      belge k = n == (head $ dropWhile (< n) $
+--                     scanl (+) k $ cycle $ (map (read . return) . show) n)
+--   tabf = map (rowT @257770) [0..]
 
-instance OEIS 257860 where
-  oeis = 1 : filter f [1..] where
-     f x = any (\d -> member (x - q + d) $ ps d) $ filter (> 1) $ nub ds
-           where q = sum ds; ds = (map (read . return) . show . fi) x
-     ps x = iterate (* x) (x ^ 2)
+-- instance OEIS 257860 where
+--   oeis = 1 : filter f [1..] where
+--      f x = any (\d -> member (x - q + d) $ ps d) $ filter (> 1) $ nub ds
+--            where q = sum ds; ds = (map (read . return) . show . fi) x
+--      ps x = iterate (* x) (x ^ 2)
 
-instance OEIS 258682 where
-  oeisIx n = read ('0' : minus (show (n ^ 2)) (show n)) :: Int  where
-     minus [] _  = []
-     minus us [] = us
-     minus (u:us) vs | elem u vs = minus us $ delete u vs
-                     | otherwise = u : minus us vs
+-- instance OEIS 258682 where
+--   oeisIx n = read ('0' : minus (show (n ^ 2)) (show n)) :: Int  where
+--      minus [] _  = []
+--      minus us [] = us
+--      minus (u:us) vs | elem u vs = minus us $ delete u vs
+--                      | otherwise = u : minus us vs
 
-instance OEIS 262323 where
-  oeis = 1 : f "1" (map show [2..]) where
-     f xs zss = g zss where
-       g (ys:yss) | null (intersect its $ tail $ inits ys) &&
-                    null (intersect tis $ init $ tails ys) = g yss
-                  | otherwise = (read ys :: Int) : f ys (delete ys zss)
-       its = init $ tails xs; tis = tail $ inits xs
+-- instance OEIS 262323 where
+--   oeis = 1 : f "1" (map show [2..]) where
+--      f xs zss = g zss where
+--        g (ys:yss) | null (intersect its $ tail $ inits ys) &&
+--                     null (intersect tis $ init $ tails ys) = g yss
+--                   | otherwise = (read ys :: Int) : f ys (delete ys zss)
+--        its = init $ tails xs; tis = tail $ inits xs
 
-instance OEIS 262557 where
-  oeis = 0 : f [[0]] where
-     f xss = if x < 9 then (map (read . concatMap show) zss) ++ f zss else []
-             where zss = (map (z :) $ map tail xss) ++ (map (z :) xss)
-                   z = x + 1; x = head $ head xss
+-- instance OEIS 262557 where
+--   oeis = 0 : f [[0]] where
+--      f xss = if x < 9 then (map (read . concatMap show) zss) ++ f zss else []
+--              where zss = (map (z :) $ map tail xss) ++ (map (z :) xss)
+--                    z = x + 1; x = head $ head xss
 
-instance OEIS 263808 where
-  oeis = filter essicran [1..] where
-     essicran x = last (takeWhile (>= -x) es) == -x where
-       es = scanl (-) x (cycle $ map (read . return) $ show x)
+-- instance OEIS 263808 where
+--   oeis = filter essicran [1..] where
+--      essicran x = last (takeWhile (>= -x) es) == -x where
+--        es = scanl (-) x (cycle $ map (read . return) $ show x)
 
-instance OEIS 264646 where
-  oeis = 11 : f 2 [0, 1, 1] where
-     f x digs = (foldl (\v d -> 10 * v + d) 0 ys) : f (x + 1) (digs ++ ys)
-       where ys = map (read . return) (show x) ++ [genericIndex digs x]
+-- instance OEIS 264646 where
+--   oeis = 11 : f 2 [0, 1, 1] where
+--      f x digs = (foldl (\v d -> 10 * v + d) 0 ys) : f (x + 1) (digs ++ ys)
+--        where ys = map (read . return) (show x) ++ [genericIndex digs x]
 
 -- instance OEIS 309979 where
 --   hash :: Double -> Inthash = read . sort . take 6 . filter (/='0') . drop 1 . dropWhile (/='.') . show . (** 0.03125)
@@ -951,60 +951,60 @@ instance OEIS 264646 where
 --        pal ds = reverse ds == ds
 --        succ [] = [0]; succ (0:ds) = 1 : ds; succ (1:ds) = 0 : succ ds
 
-instance OEIS 7627 where
-  oeis = filter modest' [1..] where
-     modest' x = or $ zipWith m
-                 (map read $ (init $ tail $ inits $ show x) :: [Integer])
-                 (map read $ (tail $ init $ tails $ show x) :: [Integer])
-        where m u v = u < v && (x - u) `mod` v == 0 && gcd u v == 1
+-- instance OEIS 7627 where
+--   oeis = filter modest' [1..] where
+--      modest' x = or $ zipWith m
+--                  (map read $ (init $ tail $ inits $ show x) :: [Integer])
+--                  (map read $ (tail $ init $ tails $ show x) :: [Integer])
+--         where m u v = u < v && (x - u) `mod` v == 0 && gcd u v == 1
 
-instance OEIS 22488 where
-  oeis = 2 : f [2] :: [Integer] where
-     f xs = (read $ concatMap show ys) : f ys where
-            ys = concat $ transpose [map head zss, map length zss]
-            zss = reverse $ group xs
+-- instance OEIS 22488 where
+--   oeis = 2 : f [2] :: [Integer] where
+--      f xs = (read $ concatMap show ys) : f ys where
+--             ys = concat $ transpose [map head zss, map length zss]
+--             zss = reverse $ group xs
 
-instance OEIS 22514 where
-  oeis = 3 : f [3] :: [Integer] where
-     f xs = (read $ concatMap show ys) : f ys where
-            ys = concat $ transpose [map head zss, map length zss]
-            zss = reverse $ group xs
+-- instance OEIS 22514 where
+--   oeis = 3 : f [3] :: [Integer] where
+--      f xs = (read $ concatMap show ys) : f ys where
+--             ys = concat $ transpose [map head zss, map length zss]
+--             zss = reverse $ group xs
 
-instance OEIS 22515 where
-  oeis = 4 : f [4] :: [Integer] where
-     f xs = (read $ concatMap show ys) : f ys where
-            ys = concat $ transpose [map head zss, map length zss]
-            zss = reverse $ group xs
+-- instance OEIS 22515 where
+--   oeis = 4 : f [4] :: [Integer] where
+--      f xs = (read $ concatMap show ys) : f ys where
+--             ys = concat $ transpose [map head zss, map length zss]
+--             zss = reverse $ group xs
 
-instance OEIS 22516 where
-  oeis = 5 : f [5] :: [Integer] where
-     f xs = (read $ concatMap show ys) : f ys where
-            ys = concat $ transpose [map head zss, map length zss]
-            zss = reverse $ group xs
+-- instance OEIS 22516 where
+--   oeis = 5 : f [5] :: [Integer] where
+--      f xs = (read $ concatMap show ys) : f ys where
+--             ys = concat $ transpose [map head zss, map length zss]
+--             zss = reverse $ group xs
 
-instance OEIS 22517 where
-  oeis = 6 : f [6] :: [Integer] where
-     f xs = (read $ concatMap show ys) : f ys where
-            ys = concat $ transpose [map head zss, map length zss]
-            zss = reverse $ group xs
+-- instance OEIS 22517 where
+--   oeis = 6 : f [6] :: [Integer] where
+--      f xs = (read $ concatMap show ys) : f ys where
+--             ys = concat $ transpose [map head zss, map length zss]
+--             zss = reverse $ group xs
 
-instance OEIS 22518 where
-  oeis = 7 : f [7] :: [Integer] where
-     f xs = (read $ concatMap show ys) : f ys where
-            ys = concat $ transpose [map head zss, map length zss]
-            zss = reverse $ group xs
+-- instance OEIS 22518 where
+--   oeis = 7 : f [7] :: [Integer] where
+--      f xs = (read $ concatMap show ys) : f ys where
+--             ys = concat $ transpose [map head zss, map length zss]
+--             zss = reverse $ group xs
 
-instance OEIS 22519 where
-  oeis = 8 : f [8] :: [Integer] where
-     f xs = (read $ concatMap show ys) : f ys where
-            ys = concat $ transpose [map head zss, map length zss]
-            zss = reverse $ group xs
+-- instance OEIS 22519 where
+--   oeis = 8 : f [8] :: [Integer] where
+--      f xs = (read $ concatMap show ys) : f ys where
+--             ys = concat $ transpose [map head zss, map length zss]
+--             zss = reverse $ group xs
 
-instance OEIS 22520 where
-  oeis = 9 : f [9] :: [Integer] where
-     f xs = (read $ concatMap show ys) : f ys where
-            ys = concat $ transpose [map head zss, map length zss]
-            zss = reverse $ group xs
+-- instance OEIS 22520 where
+--   oeis = 9 : f [9] :: [Integer] where
+--      f xs = (read $ concatMap show ys) : f ys where
+--             ys = concat $ transpose [map head zss, map length zss]
+--             zss = reverse $ group xs
 
 -- instance OEIS 23989 where
 --   oeis = 2 : f [2] :: [Integer] where
@@ -1031,11 +1031,11 @@ instance OEIS 22520 where
 --         (digs ++ tail digs ++ init digs) (digs ++ init digs ++ tail digs)
 --      digs = "0123456789"
 
-instance OEIS 35930 where
-  oeisIx n | n < 10    = 0
-           | otherwise = maximum $ zipWith (*)
-              (map read $ init $ tail $ inits $ show $ fi n)
-              (map read $ tail $ init $ tails $ show $ fi n)
+-- instance OEIS 35930 where
+--   oeisIx n | n < 10    = 0
+--            | otherwise = maximum $ zipWith (*)
+--               (map read $ init $ tail $ inits $ show $ fi n)
+--               (map read $ tail $ init $ tails $ show $ fi n)
 
 -- instance OEIS 36059 where
 --   oeis = map (read . concatMap show) fss :: [Integer] where
@@ -1043,15 +1043,15 @@ instance OEIS 35930 where
 --            h vs ws = concatMap (\us -> [length us, head us]) $
 --                      group $ reverse $ sort $ vs ++ ws
 
-instance OEIS 36103 where
-  oeis = 0 : 1 : map (read . concatMap say . group . reverse . sort)
-                 (zipWith ((++) `on` show) (oeis @36103) $ tail (oeis @36103))
-                 where say w = (show $ length w) ++ [head w]
+-- instance OEIS 36103 where
+--   oeis = 0 : 1 : map (read . concatMap say . group . reverse . sort)
+--                  (zipWith ((++) `on` show) (oeis @36103) $ tail (oeis @36103))
+--                  where say w = (show $ length w) ++ [head w]
 
-instance OEIS 36106 where
-  oeis = 1 : 2 : map (read . concatMap say . reverse . group . sort)
-                 (zipWith ((++) `on` show) (oeis @36106) $ tail (oeis @36106))
-                 where say ws = (show $ length ws) ++ [head ws]
+-- instance OEIS 36106 where
+--   oeis = 1 : 2 : map (read . concatMap say . reverse . group . sort)
+--                  (zipWith ((++) `on` show) (oeis @36106) $ tail (oeis @36106))
+--                  where say ws = (show $ length ws) ++ [head ws]
 
 -- instance OEIS 38447 where
 --   oeis = f $ S.fromList [11111] where
@@ -1061,10 +1061,10 @@ instance OEIS 36106 where
 --      g us ('0':vs) = g (us ++ ['0']) vs
 --      g us ('1':vs) = (read (us ++ "10" ++ vs)) : g (us ++ ['1']) vs
 
-instance OEIS 45541 where
-  oeis = 2 : f 2 where
-     f x = x' : f x'
-         where x' = read $ filter (`notElem` show x) $ show (x^2)
+-- instance OEIS 45541 where
+--   oeis = 2 : f 2 where
+--      f x = x' : f x'
+--          where x' = read $ filter (`notElem` show x) $ show (x^2)
 
 -- instance OEIS 47842 where
 --   oeisIx :: Integer -> Integer
@@ -1099,10 +1099,10 @@ instance OEIS 45541 where
 --   oeis = [1..9] ++ [read (ns ++ [z] ++ reverse ns) |
 --                   n <- [1..], let ns = show n, z <- "0123456789"]
 
-instance OEIS 59632 where
-  oeisIx n = foldl (\v d -> 10 * v + d) 0 $
-                    map (flip mod 10) $ zipWith (+) ([0] ++ ds) (ds ++ [0])
-              where ds = map (read . return) $ show n
+-- instance OEIS 59632 where
+--   oeisIx n = foldl (\v d -> 10 * v + d) 0 $
+--                     map (flip mod 10) $ zipWith (+) ([0] ++ ds) (ds ++ [0])
+--               where ds = map (read . return) $ show n
 
 -- instance OEIS 60857 where
 --   oeis = 1 : f [1] :: [Integer] where
@@ -1110,11 +1110,11 @@ instance OEIS 59632 where
 --             ys = concat $ transpose [map length zss, map head zss]
 --             zss = group $ sort xs
 
-instance OEIS 60979 where
-  oeis = filter (\x -> let digs = map (read . return) $ show x in
-                               evens digs /= odds digs) [11, 22 ..]
-     where evens [] = 0; evens [x] = x; evens (x:_:xs) = x + evens xs
-           odds [] = 0; odds [x] = 0; odds (_:x:xs) = x + odds xs
+-- instance OEIS 60979 where
+--   oeis = filter (\x -> let digs = map (read . return) $ show x in
+--                                evens digs /= odds digs) [11, 22 ..]
+--      where evens [] = 0; evens [x] = x; evens (x:_:xs) = x + evens xs
+--            odds [] = 0; odds [x] = 0; odds (_:x:xs) = x + odds xs
 
 -- instance OEIS 64770 where
 --   oeisIx :: Integer -> Integer
@@ -1127,59 +1127,59 @@ instance OEIS 60979 where
 --          | and $ zipWith (/=) u v = (read v :: Int) : f v (delete v us)
 --          | otherwise = g vs
 
-instance OEIS 102251 where
-  oeis = 1 : (map (* 2) $
-                 concatMap (map (read . return) . show) (oeis @102251))
+-- instance OEIS 102251 where
+--   oeis = 1 : (map (* 2) $
+--                  concatMap (map (read . return) . show) (oeis @102251))
 
-instance OEIS 106039 where
-  oeis = filter belge0 [0..] where
-     belge0 n = n == (head $ dropWhile (< n) $
-                      scanl (+) 0 $ cycle ((map (read . return) . show) n))
+-- instance OEIS 106039 where
+--   oeis = filter belge0 [0..] where
+--      belge0 n = n == (head $ dropWhile (< n) $
+--                       scanl (+) 0 $ cycle ((map (read . return) . show) n))
 
-instance OEIS 106439 where
-  oeis = filter belge1 [1..] where
-     belge1 x = x == (head $ dropWhile (< x) $
-                      scanl (+) 1 $ cycle (map (read . return) $ show x))
+-- instance OEIS 106439 where
+--   oeis = filter belge1 [1..] where
+--      belge1 x = x == (head $ dropWhile (< x) $
+--                       scanl (+) 1 $ cycle (map (read . return) $ show x))
 
-instance OEIS 106518 where
-  oeis = filter belge2 [2..] where
-     belge2 x = x == (head $ dropWhile (< x) $
-                      scanl (+) 2 $ cycle (map (read . return) $ show x))
+-- instance OEIS 106518 where
+--   oeis = filter belge2 [2..] where
+--      belge2 x = x == (head $ dropWhile (< x) $
+--                       scanl (+) 2 $ cycle (map (read . return) $ show x))
 
-instance OEIS 106596 where
-  oeis = filter belge3 [3..] where
-     belge3 x = x == (head $ dropWhile (< x) $
-                      scanl (+) 3 $ cycle (map (read . return) $ show x))
+-- instance OEIS 106596 where
+--   oeis = filter belge3 [3..] where
+--      belge3 x = x == (head $ dropWhile (< x) $
+--                       scanl (+) 3 $ cycle (map (read . return) $ show x))
 
-instance OEIS 106631 where
-  oeis = filter belge4 [4..] where
-     belge4 x = x == (head $ dropWhile (< x) $
-                      scanl (+) 4 $ cycle (map (read . return) $ show x))
+-- instance OEIS 106631 where
+--   oeis = filter belge4 [4..] where
+--      belge4 x = x == (head $ dropWhile (< x) $
+--                       scanl (+) 4 $ cycle (map (read . return) $ show x))
 
-instance OEIS 106792 where
-  oeis = filter belge5 [5..] where
-     belge5 x = x == (head $ dropWhile (< x) $
-                      scanl (+) 5 $ cycle ((map (read . return) . show) x))
+-- instance OEIS 106792 where
+--   oeis = filter belge5 [5..] where
+--      belge5 x = x == (head $ dropWhile (< x) $
+--                       scanl (+) 5 $ cycle ((map (read . return) . show) x))
 
-instance OEIS 107014 where
-  oeis = filter belge6 [6..] where
-     belge6 x = x == (head $ dropWhile (< x) $
-                      scanl (+) 6 $ cycle (map (read . return) $ show x))
+-- instance OEIS 107014 where
+--   oeis = filter belge6 [6..] where
+--      belge6 x = x == (head $ dropWhile (< x) $
+--                       scanl (+) 6 $ cycle (map (read . return) $ show x))
 
-instance OEIS 107018 where
-  oeis = filter belge7 [7..] where
-     belge7 x = x == (head $ dropWhile (< x) $
-                       scanl (+) 7 $ cycle (map (read . return) $ show x))
+-- instance OEIS 107018 where
+--   oeis = filter belge7 [7..] where
+--      belge7 x = x == (head $ dropWhile (< x) $
+--                        scanl (+) 7 $ cycle (map (read . return) $ show x))
 
-instance OEIS 107032 where
-  oeis = filter belge8 [8..] where
-     belge8 x = x == (head $ dropWhile (< x) $
-                      scanl (+) 8 $ cycle (map (read . return) $ show x))
+-- instance OEIS 107032 where
+--   oeis = filter belge8 [8..] where
+--      belge8 x = x == (head $ dropWhile (< x) $
+--                       scanl (+) 8 $ cycle (map (read . return) $ show x))
 
-instance OEIS 107043 where
-  oeis = filter belge9 [9..] where
-     belge9 x = x == (head $ dropWhile (< x) $
-                      scanl (+) 9 $ cycle (map (read . return) $ show x))
+-- instance OEIS 107043 where
+--   oeis = filter belge9 [9..] where
+--      belge9 x = x == (head $ dropWhile (< x) $
+--                       scanl (+) 9 $ cycle (map (read . return) $ show x))
 
 -- instance OEIS 110745 where
 --   oeisIx n = read (concat $ transpose [ns, reverse ns]) :: Integer
@@ -1191,16 +1191,16 @@ instance OEIS 107043 where
 --             ys = concat $ transpose [map length zss, map head zss]
 --             zss = group $ sort xs
 
-instance OEIS 131293 where
-  oeis = 0 : 1 : map read
-                 (zipWith ((++) `on` show) (oeis @131293) $ tail (oeis @131293))
+-- instance OEIS 131293 where
+--   oeis = 0 : 1 : map read
+--                  (zipWith ((++) `on` show) (oeis @131293) $ tail (oeis @131293))
 
-instance OEIS 135643 where
-  oeis = filter f [100..] where
-     f x = all (== 0) ws where
-           ws = zipWith (-) (tail vs) vs
-           vs = zipWith (-) (tail us) us
-           us = map (read . return) $ show x
+-- instance OEIS 135643 where
+--   oeis = filter f [100..] where
+--      f x = all (== 0) ws where
+--            ws = zipWith (-) (tail vs) vs
+--            vs = zipWith (-) (tail us) us
+--            us = map (read . return) $ show x
 
 -- instance OEIS 139337 where
 --   oeisIx n = read $ concatMap show $ mapMaybe (flip lookup ls) ds :: Int
@@ -1208,9 +1208,9 @@ instance OEIS 135643 where
 --            zss = group $ sort ds
 --            ds = map (read . return) $ show n :: [Int]
 
-instance OEIS 143473 where
-  oeisIx n = foldl (\v d -> 10 * v + d) 0 $ (10 - z) : zs where
-     (z:zs) = map (read . return) $ show n
+-- instance OEIS 143473 where
+--   oeisIx n = foldl (\v d -> 10 * v + d) 0 $ (10 - z) : zs where
+--      (z:zs) = map (read . return) $ show n
 
 -- instance OEIS 184989 where
 --   oeisIx n = read $ interleave (show n) (show (n - 1)) :: Integer where
@@ -1221,20 +1221,20 @@ instance OEIS 143473 where
 --   oeisIx = foldl f 0 . map (read . return) . show :: Integer -> Integer
 --             where f v d = 10 * v + if d == 1 || d == 5 then 6 - d else d
 
-instance OEIS 226272 where
-  oeis = tablList @226272
-instance Table 226272 where
-  rowT n = sort $ nub [u ^ v | u <- digs, v <- digs]
-                  where digs = nub $ map (read . return) $ show n
-  tabf = map (rowT @226272) [0..]
+-- instance OEIS 226272 where
+--   oeis = tablList @226272
+-- instance Table 226272 where
+--   rowT n = sort $ nub [u ^ v | u <- digs, v <- digs]
+--                   where digs = nub $ map (read . return) $ show n
+--   tabf = map (rowT @226272) [0..]
 
-instance OEIS 237851 where
-  oeis = 1 : f 1 [2..] where
-     f x zs = g zs where
-       g (u:us) | all ((== 0) . (mod u)) ds = u : f u (delete u zs)
-                | otherwise = g us
-                where ds = dropWhile (<= 1) $
-                           sort $ nub $ map (read . return) $ show x
+-- instance OEIS 237851 where
+--   oeis = 1 : f 1 [2..] where
+--      f x zs = g zs where
+--        g (u:us) | all ((== 0) . (mod u)) ds = u : f u (delete u zs)
+--                 | otherwise = g us
+--                 where ds = dropWhile (<= 1) $
+--                            sort $ nub $ map (read . return) $ show x
 
 -- instance OEIS 244112 where
 --   oeisIx :: Integer -> Integer

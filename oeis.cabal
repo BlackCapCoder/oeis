@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2b90af2a4ab7b426404c674daf3013aba3933726cecc301c353486a131f88e38
+-- hash: ab0e9a02ab53d00dfa7922c7ffaed49a8d5b85c8c1f7802b8408febecb03d775
 
 name:           oeis
 version:        0.1.0.0
@@ -25,11 +25,15 @@ source-repository head
 library
   exposed-modules:
       OEIS
+      OEIS.Annotated
+      OEIS.Broken
       OEIS.Common
       OEIS.OEIS
       OEIS.Part1
       OEIS.Part2
       OEIS.Prime
+      OEIS.Simple
+      OEIS.String
   other-modules:
       Paths_oeis
   hs-source-dirs:

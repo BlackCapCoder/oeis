@@ -21,6 +21,7 @@ import Data.List
 import System.IO
 import System.Timeout
 import System.Exit
+import Control.Exception
 
 
 
@@ -131,29 +132,47 @@ runTests env = fmap catMaybes . mapM do flip runTest env
 testMain tests timeout numSamples = do
   env <- TestEnv timeout numSamples <$> getAll
   forM_ tests $ \t -> do
-    res <- runTest t env
     -- print (testNum t)
-    case res of
-      Just x -> print x
-      _      -> pure ()
-  -- putStrLn =<< unlines . fmap show  <$> runTests env tests
+    ~res' <- try $ runTest t env :: IO (Either SomeException (Maybe Meta))
+    case res' of
+      Right res -> case res of
+          -- Just x -> metaShow x -- print x
+          -- Just x -> print x
+          Just x -> pure ()
+          -- _      -> pure ()
+          _      -> print =<< findSrcLine (testNum t)
+      _ -> do
+        -- Just line <- findSrcLine (testNum t)
+        -- print line
+        pure ()
 
   -- unless res $ exitFailure
 
 
 ----
 
+-- = Meta Test Component [Integer] [Integer] Mistake
+
+metaShow (Meta x _ a b WRONG) = do
+  Just line <- findSrcLine $ testNum x
+  if (tail a `isPrefixOf` b) then
+    print line
+  else
+    pure ()
+metaShow _ = pure ()
+
 
 findSrcLine :: Int -> IO (Maybe Int)
 findSrcLine n = do
-  a <- findSrcLine' n "src/OEIS/Part1.hs"
-  case a of
-    Just _  -> pure a
-    Nothing -> do
-      a <- findSrcLine' n "src/OEIS/Part2.hs"
-      case a of
-        Just _  -> pure a
-        Nothing -> findSrcLine' n "src/OEIS/Prime.hs"
+  -- a <- findSrcLine' n "src/OEIS/Part1.hs"
+  -- case a of
+  --   Just _  -> pure a
+  --   Nothing -> do
+  --     a <- findSrcLine' n "src/OEIS/Part2.hs"
+  --     case a of
+  --       Just _  -> pure a
+  --       Nothing ->
+          findSrcLine' n "src/OEIS/Prime.hs"
 
 findSrcLine' n pth = do
   let needle = B.pack $ "instance OEIS " ++ show n ++ " where"
